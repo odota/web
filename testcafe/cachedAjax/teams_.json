@@ -7,7 +7,7 @@
 		"last_match_time": 1535249730,
 		"name": "PSG.LGD",
 		"tag": "PSG.LGD",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/15.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/15.png"
 	},
 	{
 		"team_id": 2163,
@@ -17,7 +17,7 @@
 		"last_match_time": 1535163554,
 		"name": "Team Liquid",
 		"tag": "Liquid",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2163.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2163.png"
 	},
 	{
 		"team_id": 2586976,
@@ -27,7 +27,7 @@
 		"last_match_time": 1535249730,
 		"name": "OG",
 		"tag": "OG",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2586976.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2586976.png"
 	},
 	{
 		"team_id": 39,
@@ -37,7 +37,7 @@
 		"last_match_time": 1535223496,
 		"name": "Evil Geniuses",
 		"tag": "EG",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/39.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/39.png"
 	},
 	{
 		"team_id": 1883502,
@@ -47,7 +47,7 @@
 		"last_match_time": 1535075729,
 		"name": "Virtus.pro",
 		"tag": "VP",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/1883502.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/1883502.png"
 	},
 	{
 		"team_id": 5228654,
@@ -57,7 +57,7 @@
 		"last_match_time": 1535061995,
 		"name": "VGJ Storm",
 		"tag": "VGJ.Storm",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/5228654.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/5228654.png"
 	},
 	{
 		"team_id": 1838315,
@@ -67,7 +67,7 @@
 		"last_match_time": 1535137622,
 		"name": "Team Secret",
 		"tag": "Secret",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/1838315.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/1838315.png"
 	},
 	{
 		"team_id": 5026801,
@@ -77,7 +77,7 @@
 		"last_match_time": 1535053843,
 		"name": "OpTic Gaming",
 		"tag": "OpTic",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/5026801.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/5026801.png"
 	},
 	{
 		"team_id": 3214108,
@@ -87,7 +87,7 @@
 		"last_match_time": 1498631388,
 		"name": "Team NP",
 		"tag": "NP",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/3214108.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/3214108.png"
 	},
 	{
 		"team_id": 2519319,
@@ -107,7 +107,7 @@
 		"last_match_time": 1534977517,
 		"name": "Vici Gaming",
 		"tag": "VG",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/726228.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/726228.png"
 	},
 	{
 		"team_id": 2101260,
@@ -127,7 +127,7 @@
 		"last_match_time": 1534815802,
 		"name": "Newbee",
 		"tag": "Newbee",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/1375614.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/1375614.png"
 	},
 	{
 		"team_id": 1848158,
@@ -157,7 +157,7 @@
 		"last_match_time": 1534810174,
 		"name": "TNC Predator",
 		"tag": "TNC",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2108395.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2108395.png"
 	},
 	{
 		"team_id": 350190,
@@ -167,7 +167,7 @@
 		"last_match_time": 1534804707,
 		"name": "Fnatic",
 		"tag": "Fnatic",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/350190.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/350190.png"
 	},
 	{
 		"team_id": 543897,
@@ -177,7 +177,7 @@
 		"last_match_time": 1534907661,
 		"name": " mski亿电竞",
 		"tag": " mski亿电竞",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/543897.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/543897.png"
 	},
 	{
 		"team_id": 5229127,
@@ -187,7 +187,7 @@
 		"last_match_time": 1534963179,
 		"name": "Winstrike",
 		"tag": "Winstrike",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/5229127.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/5229127.png"
 	},
 	{
 		"team_id": 4251435,
@@ -197,7 +197,7 @@
 		"last_match_time": 1506108006,
 		"name": "w33ha earthspirit",
 		"tag": "",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/4251435.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/4251435.png"
 	},
 	{
 		"team_id": 1910985,
@@ -287,7 +287,7 @@
 		"last_match_time": 1534821698,
 		"name": "VGJ Thunder",
 		"tag": "VGJ.T",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/5027210.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/5027210.png"
 	},
 	{
 		"team_id": 3326875,
@@ -297,7 +297,7 @@
 		"last_match_time": 1498579717,
 		"name": "Faceless",
 		"tag": "fL",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/3326875.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/3326875.png"
 	},
 	{
 		"team_id": 67,
@@ -307,7 +307,7 @@
 		"last_match_time": 1534627216,
 		"name": "paiN Gaming",
 		"tag": "paiN",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/67.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/67.png"
 	},
 	{
 		"team_id": 3326126,
@@ -317,7 +317,7 @@
 		"last_match_time": 1483257669,
 		"name": "Team VG.J",
 		"tag": "VG.J",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/3326126.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/3326126.png"
 	},
 	{
 		"team_id": 3722973,
@@ -327,7 +327,7 @@
 		"last_match_time": 1489787368,
 		"name": "Team Onyx",
 		"tag": "Onyx",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/3722973.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/3722973.png"
 	},
 	{
 		"team_id": 2626685,
@@ -337,7 +337,7 @@
 		"last_match_time": 1529406392,
 		"name": "KEEN GAMING",
 		"tag": "KG",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2626685.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2626685.png"
 	},
 	{
 		"team_id": 416900,
@@ -357,7 +357,7 @@
 		"last_match_time": 1534898196,
 		"name": "Team Serenity",
 		"tag": "Serenity",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/5066616.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/5066616.png"
 	},
 	{
 		"team_id": 2635099,
@@ -377,7 +377,7 @@
 		"last_match_time": 1470701768,
 		"name": "",
 		"tag": "",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2777247.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2777247.png"
 	},
 	{
 		"team_id": 2790766,
@@ -387,7 +387,7 @@
 		"last_match_time": 1515791892,
 		"name": "",
 		"tag": "",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2790766.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2790766.png"
 	},
 	{
 		"team_id": 41,
@@ -417,7 +417,7 @@
 		"last_match_time": 1529958425,
 		"name": "compLexity Gaming",
 		"tag": "coL",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/3.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/3.png"
 	},
 	{
 		"team_id": 1025734,
@@ -527,7 +527,7 @@
 		"last_match_time": 1528197952,
 		"name": "Natus Vincere",
 		"tag": "Na`Vi",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/36.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/36.png"
 	},
 	{
 		"team_id": 1836806,
@@ -537,7 +537,7 @@
 		"last_match_time": 1492085926,
 		"name": "the wings gaming",
 		"tag": "Wings",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/1836806.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/1836806.png"
 	},
 	{
 		"team_id": 1277104,
@@ -577,7 +577,7 @@
 		"last_match_time": 1494724644,
 		"name": "SG e-sports",
 		"tag": "SG",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/3580606.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/3580606.png"
 	},
 	{
 		"team_id": 3326680,
@@ -597,7 +597,7 @@
 		"last_match_time": 1487011560,
 		"name": "Team AD FINEM",
 		"tag": "AF",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2642171.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2642171.png"
 	},
 	{
 		"team_id": 1333179,
@@ -607,7 +607,7 @@
 		"last_match_time": 1502155223,
 		"name": "",
 		"tag": "",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/1333179.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/1333179.png"
 	},
 	{
 		"team_id": 1773539,
@@ -757,7 +757,7 @@
 		"last_match_time": 1534639865,
 		"name": "Invictus Gaming",
 		"tag": "iG",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/5.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/5.png"
 	},
 	{
 		"team_id": 4010914,
@@ -827,7 +827,7 @@
 		"last_match_time": 1529567163,
 		"name": "LGD.Forever Young",
 		"tag": "LFY",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/3331948.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/3331948.png"
 	},
 	{
 		"team_id": 990533,
@@ -877,7 +877,7 @@
 		"last_match_time": 1479719778,
 		"name": "FTD club a",
 		"tag": "FTD.a",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2552118.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2552118.png"
 	},
 	{
 		"team_id": 3317512,
@@ -897,7 +897,7 @@
 		"last_match_time": 1529389413,
 		"name": "iG.Vitality",
 		"tag": "iG.V",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2640025.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2640025.png"
 	},
 	{
 		"team_id": 2585896,
@@ -977,7 +977,7 @@
 		"last_match_time": 1512618696,
 		"name": "WarriorsGaming.Unity",
 		"tag": "",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2659468.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2659468.png"
 	},
 	{
 		"team_id": 111474,
@@ -987,7 +987,7 @@
 		"last_match_time": 1534005891,
 		"name": "Alliance",
 		"tag": "Alliance",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/111474.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/111474.png"
 	},
 	{
 		"team_id": 1286339,
@@ -1027,7 +1027,7 @@
 		"last_match_time": 1480181442,
 		"name": "Escape Gaming",
 		"tag": "ESC",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2783913.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2783913.png"
 	},
 	{
 		"team_id": 2552670,
@@ -1037,7 +1037,7 @@
 		"last_match_time": 1497370190,
 		"name": "Prodota Gaming",
 		"tag": "PD",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2552670.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2552670.png"
 	},
 	{
 		"team_id": 468458,
@@ -1067,7 +1067,7 @@
 		"last_match_time": 1458604298,
 		"name": "Team Archon",
 		"tag": "Archon",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2244697.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2244697.png"
 	},
 	{
 		"team_id": 5000254,
@@ -1097,7 +1097,7 @@
 		"last_match_time": 1498656255,
 		"name": "Team VGJ",
 		"tag": "VGJ",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/3547682.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/3547682.png"
 	},
 	{
 		"team_id": 5407259,
@@ -1117,7 +1117,7 @@
 		"last_match_time": 1510864553,
 		"name": "123",
 		"tag": "",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2512249.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2512249.png"
 	},
 	{
 		"team_id": 1848465,
@@ -1167,7 +1167,7 @@
 		"last_match_time": 1529966930,
 		"name": "Immortals",
 		"tag": "IMT",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/5051649.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/5051649.png"
 	},
 	{
 		"team_id": 2787008,
@@ -1217,7 +1217,7 @@
 		"last_match_time": 1528706439,
 		"name": "EHOME",
 		"tag": "EHOME",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/4.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/4.png"
 	},
 	{
 		"team_id": 1236083,
@@ -1277,7 +1277,7 @@
 		"last_match_time": 1486004907,
 		"name": "",
 		"tag": "",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/3333433.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/3333433.png"
 	},
 	{
 		"team_id": 1642908,
@@ -1307,7 +1307,7 @@
 		"last_match_time": 1511815094,
 		"name": "HellRaisers",
 		"tag": "HR",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/1846548.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/1846548.png"
 	},
 	{
 		"team_id": 2101368,
@@ -1357,7 +1357,7 @@
 		"last_match_time": 1478884383,
 		"name": "_PowerRangers",
 		"tag": "PR",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/55.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/55.png"
 	},
 	{
 		"team_id": 2621843,
@@ -1367,7 +1367,7 @@
 		"last_match_time": 1533658151,
 		"name": "Team. Spirit",
 		"tag": "TSpirit",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2621843.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2621843.png"
 	},
 	{
 		"team_id": 1951061,
@@ -1627,7 +1627,7 @@
 		"last_match_time": 1507071287,
 		"name": "Infamous Gaming",
 		"tag": "Infamous",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2672298.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2672298.png"
 	},
 	{
 		"team_id": 484909,
@@ -1867,7 +1867,7 @@
 		"last_match_time": 1481161727,
 		"name": "MVP Phoenix",
 		"tag": "MVP",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/1148284.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/1148284.png"
 	},
 	{
 		"team_id": 4542817,
@@ -2007,7 +2007,7 @@
 		"last_match_time": 1516842117,
 		"name": "VGJ Storm",
 		"tag": "VGJ",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/5028104.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/5028104.png"
 	},
 	{
 		"team_id": 672504,
@@ -2177,7 +2177,7 @@
 		"last_match_time": 1530103450,
 		"name": "CDEC ",
 		"tag": "CDEC",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/1520578.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/1520578.png"
 	},
 	{
 		"team_id": 2679744,
@@ -2207,7 +2207,7 @@
 		"last_match_time": 1529866667,
 		"name": "Team Kinguin",
 		"tag": "KGN",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/5039050.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/5039050.png"
 	},
 	{
 		"team_id": 2127330,
@@ -2287,7 +2287,7 @@
 		"last_match_time": 1533628689,
 		"name": "Execration.安博电竞",
 		"tag": "XctN",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2581813.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2581813.png"
 	},
 	{
 		"team_id": 1218336,
@@ -2817,7 +2817,7 @@
 		"last_match_time": 1499366003,
 		"name": "Cloud 9",
 		"tag": "DB",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2533075.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2533075.png"
 	},
 	{
 		"team_id": 2447566,
@@ -2967,7 +2967,7 @@
 		"last_match_time": 1482535585,
 		"name": "",
 		"tag": "",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2677025.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2677025.png"
 	},
 	{
 		"team_id": 813776,
@@ -3017,7 +3017,7 @@
 		"last_match_time": 1533666740,
 		"name": "Vega Squadron",
 		"tag": "Vega",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2006913.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2006913.png"
 	},
 	{
 		"team_id": 2783809,
@@ -3117,7 +3117,7 @@
 		"last_match_time": 1473877841,
 		"name": "friends",
 		"tag": "friends",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2970103.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2970103.png"
 	},
 	{
 		"team_id": 1248512,
@@ -3537,7 +3537,7 @@
 		"last_match_time": 1529524041,
 		"name": "Infamous",
 		"tag": "Infamous",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/5065748.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/5065748.png"
 	},
 	{
 		"team_id": 1387750,
@@ -3577,7 +3577,7 @@
 		"last_match_time": 1484296195,
 		"name": "Fantastic Five",
 		"tag": "F5",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2538753.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2538753.png"
 	},
 	{
 		"team_id": 2085407,
@@ -3957,7 +3957,7 @@
 		"last_match_time": 1530634763,
 		"name": "Kaipi",
 		"tag": "KP",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/59.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/59.png"
 	},
 	{
 		"team_id": 3260216,
@@ -4367,7 +4367,7 @@
 		"last_match_time": 1511806266,
 		"name": "mousesports",
 		"tag": "mouz",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/26.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/26.png"
 	},
 	{
 		"team_id": 1385412,
@@ -5127,7 +5127,7 @@
 		"last_match_time": 1533832433,
 		"name": "Team Empire",
 		"tag": "Empire",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/46.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/46.png"
 	},
 	{
 		"team_id": 5125078,
@@ -5377,7 +5377,7 @@
 		"last_match_time": 1499358573,
 		"name": "Trust",
 		"tag": "Trust",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/24.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/24.png"
 	},
 	{
 		"team_id": 1961734,
@@ -5687,7 +5687,7 @@
 		"last_match_time": 1530905625,
 		"name": "The Final Tribe",
 		"tag": "TFT",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/5059375.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/5059375.png"
 	},
 	{
 		"team_id": 1513141,

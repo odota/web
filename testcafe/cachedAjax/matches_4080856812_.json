@@ -3088,13 +3088,13 @@
 		"team_id": 15,
 		"name": "PSG.LGD",
 		"tag": "PSG.LGD",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/15.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/15.png"
 	},
 	"dire_team": {
 		"team_id": 2586976,
 		"name": "OG",
 		"tag": "OG",
-		"logo_url": "https://steamcdn-a.akamaihd.net/apps/dota2/images/dota_react/team_logos/2586976.png"
+		"logo_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/2586976.png"
 	},
 	"players": [
 		{
