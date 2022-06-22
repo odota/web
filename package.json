@@ -98,6 +98,7 @@
     "@types/seamless-immutable": "^7.1.11",
     "@types/styled-components": "4.0.3",
     "@types/wordcloud": "^1.1.1",
+    "@typescript-eslint/parser": "^5.29.0",
     "babel-preset-es2015": "^6.24.1",
     "cross-env": "^6.0.3",
     "eslint": "^7.32.0",
@@ -110,7 +111,7 @@
     "simple-vdf": "^1.1.1",
     "testcafe": "^1.7.1",
     "testcafe-react-selectors": "^3.3.0",
-    "typescript": "^3.7.4"
+    "typescript": "^3.9.10"
   },
   "browserslist": [
     ">0.2%",
