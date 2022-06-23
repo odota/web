@@ -37,7 +37,7 @@ const GoldSpan = (amount) => {
         width="25px"
         height="17px"
         alt={` ${strings.story_gold}`}
-        src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`}
+        src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/tooltips/gold.png`}
         style={{ marginLeft: '3px' }}
       />
     </StyledStorySpan>

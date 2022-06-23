@@ -196,14 +196,14 @@ class InflictorWithValue extends React.Component {
         } else if (neutralAbility) {
           image = neutralAbility.img;
         } else {
-          image = `${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/abilities/${resolvedInflictor}_sm.png`;
+          image = `${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/abilities/${resolvedInflictor}.png`;
         }
         tooltip = <AbilityTooltip ability={ability} inflictor={resolvedInflictor} />;
       } else if (item) {
         if (customImageIcon.includes(resolvedInflictor)) {
           image = `/assets/images/dota2/${resolvedInflictor}.png`;
         } else {
-          image = `${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/${getInflictorImage(resolvedInflictor)}_lg.png`;
+          image = `${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/${getInflictorImage(resolvedInflictor)}.png`;
         }
         tooltip = <ItemTooltip item={item} inflictor={resolvedInflictor} />;
       } else {
