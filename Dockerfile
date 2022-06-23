@@ -1,7 +1,7 @@
-FROM node:8.9.0
+FROM node:16
 
 ENV NPM_CONFIG_LOGLEVEL warn
 
 WORKDIR /usr/src
 
-CMD ["npm", "start:install"]
+CMD ["npm", "run", "start:install"]

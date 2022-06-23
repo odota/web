@@ -6,9 +6,9 @@
 		"name": "fy",
 		"cheese": 0,
 		"steamid": "76561198061960890",
-		"avatar": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/71/7137bb86c5fdbd79bd37222438a7b903f87fbbc3.jpg",
-		"avatarmedium": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/71/7137bb86c5fdbd79bd37222438a7b903f87fbbc3_medium.jpg",
-		"avatarfull": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/71/7137bb86c5fdbd79bd37222438a7b903f87fbbc3_full.jpg",
+		"avatar": "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/71/7137bb86c5fdbd79bd37222438a7b903f87fbbc3.jpg",
+		"avatarmedium": "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/71/7137bb86c5fdbd79bd37222438a7b903f87fbbc3_medium.jpg",
+		"avatarfull": "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/71/7137bb86c5fdbd79bd37222438a7b903f87fbbc3_full.jpg",
 		"profileurl": "https://steamcommunity.com/profiles/76561198061960890/",
 		"last_login": null,
 		"loccountrycode": null

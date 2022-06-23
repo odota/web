@@ -170,7 +170,7 @@ export const IMAGESIZE_ENUM = {
   },
 
   // if you ever wanna see what the above look like (change the suffix):
-  // https://api.opendota.com/apps/dota2/images/heroes/abaddon_full.png
+  // https://api.opendota.com/apps/dota2/images/dota_react/heroes/abaddon_full.png
 };
 
 const getTitle = (row, col, heroName) => {

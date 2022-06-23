@@ -10,234 +10,243 @@ import NotificationSync from 'material-ui/svg-icons/notification/sync';
 import styled from 'styled-components';
 import { subTextStyle, IMAGESIZE_ENUM } from '../../../utility';
 import { TableLink } from '../../Table';
-import { IconDice, IconCrystalBall, IconCheckCircle, IconContributor } from '../../Icons';
+import {
+  IconDice,
+  IconCrystalBall,
+  IconCheckCircle,
+  IconContributor,
+} from '../../Icons';
 import constants from '../../constants';
 import AttrStrength from '../../Icons/AttrStrength';
 import AttrIntelligent from '../../Icons/AttrIntelligent';
 import AttrAgility from '../../Icons/AttrAgility';
 import HeroImage from '../HeroImage';
 
+// hero to use as background image in tooltip
+const backgroundMapping = {
+  str: 2,
+  agi: 47,
+  int: 10,
+};
 
 const Styled = styled.div`
-
-.hero-tooltip .__react_component_tooltip {
-  opacity: 1 !important;
-  padding: 0px !important;
-}
-
-.subTextContainer {
-  position: relative;
-
-  & svg {
-    color: currentcolor !important;
-    height: 13px !important;
-    width: 13px !important;
-    vertical-align: top;
-    padding: 1px 0;
+  .hero-tooltip .__react_component_tooltip {
+    opacity: 1 !important;
+    padding: 0px !important;
   }
 
-  & section {
-    margin-left: -2px;
-    margin-right: 4px;
-    display: inline-block;
-  }
-}
-
-.textContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  line-height: 1.2;
-  width: 105px;
-  text-align: left;
-
-  & > span {
+  .subTextContainer {
     position: relative;
-    white-space: nowrap;
 
-    & a {
+    & svg {
+      color: currentcolor !important;
+      height: 13px !important;
+      width: 13px !important;
+      vertical-align: top;
+      padding: 1px 0;
+    }
+
+    & section {
+      margin-left: -2px;
+      margin-right: 4px;
       display: inline-block;
-      width: 88%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      vertical-align: sub;
     }
   }
-}
 
-.image {
-  margin-right: 7px;
-  position: relative;
-  height: 29px;
-  box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
-}
+  .textContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.2;
+    width: 105px;
+    text-align: left;
 
-.abandoned {
-  position: absolute;
-  right: 7px;
-  bottom: 8px;
-  height: 15px;
+    & > span {
+      position: relative;
+      white-space: nowrap;
 
-  &[data-hint] {
-    &::before,
-    &::after {
-      left: 40%;
+      & a {
+        display: inline-block;
+        width: 88%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: sub;
+      }
     }
   }
-}
 
-.abandoned img {
-  width: 51px;
-}
-
-.parsed {
-  position: relative;
-  left: -14px;
-  width: 2px;
-  height: 29px;
-  background-color: ${constants.primaryLinkColor};
-
-  /* Material-ui icon */
-  & svg {
-    position: relative !important;
-    left: -10px !important;
-    fill: ${constants.primaryLinkColor} !important;
+  .image {
+    margin-right: 7px;
+    position: relative;
+    height: 29px;
+    box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
   }
-}
 
-.unparsed {
-  position: relative;
-  left: -24px;
-  width: 2px;
-  height: 29px;
-  background-color: ${constants.colorMuted};
+  .abandoned {
+    position: absolute;
+    right: 7px;
+    bottom: 8px;
+    height: 15px;
 
-  /* Material-ui icon */
-  & svg {
-    position: relative !important;
-    left: -10px !important;
-    fill: transparent !important;
+    &[data-hint] {
+      &::before,
+      &::after {
+        left: 40%;
+      }
+    }
   }
-}
 
-.badge {
-  display: inline-block;
+  .abandoned img {
+    width: 51px;
+  }
 
-  & svg {
-    width: 10px !important;
-    height: 10px !important;
+  .parsed {
+    position: relative;
+    left: -14px;
+    width: 2px;
+    height: 29px;
+    background-color: ${constants.primaryLinkColor};
+
+    /* Material-ui icon */
+    & svg {
+      position: relative !important;
+      left: -10px !important;
+      fill: ${constants.primaryLinkColor} !important;
+    }
+  }
+
+  .unparsed {
+    position: relative;
+    left: -24px;
+    width: 2px;
+    height: 29px;
+    background-color: ${constants.colorMuted};
+
+    /* Material-ui icon */
+    & svg {
+      position: relative !important;
+      left: -10px !important;
+      fill: transparent !important;
+    }
+  }
+
+  .badge {
+    display: inline-block;
+
+    & svg {
+      width: 10px !important;
+      height: 10px !important;
+      margin-right: 5px;
+    }
+  }
+
+  .contributor {
+    display: inline-block;
+
+    & svg {
+      width: 14px !important;
+      height: 14px !important;
+      margin-right: 5px;
+      -webkit-filter: drop-shadow(0 0 4px rgba(102, 187, 255, 1));
+      filter: drop-shadow(0 0 4px rgba(102, 187, 255, 1));
+      fill: ${constants.colorBlue};
+    }
+    width: 14px;
+    height: 14px;
+    margin-right: 2px;
+    position: relative;
+    top: 3px;
+    right: 2px;
+  }
+
+  .registered {
+    display: inline-block;
+
+    & svg {
+      width: 10px !important;
+      height: 10px !important;
+      margin-right: 5px;
+    }
+    width: 10px;
+    height: 10px;
     margin-right: 5px;
+    background-color: ${constants.colorSuccess};
+    border-radius: 50%;
+    margin-top: 1px;
   }
-}
 
-.contributor {
-  display: inline-block;
-
-  & svg {
-    width: 14px !important;
-    height: 14px !important;
-    margin-right: 5px;
-    -webkit-filter: drop-shadow(0 0 4px rgba(102,187,255, 1));
-    filter: drop-shadow(0 0 4px rgba(102,187,255, 1));
-    fill: ${constants.colorBlue}
-  }
-  width: 14px;
-  height: 14px;
-  margin-right: 2px;
-  position: relative;
-  top: 3px;
-  right: 2px;
-}
-
-.registered {
-  display: inline-block;
-
-  & svg {
-    width: 10px !important;
-    height: 10px !important;
-    margin-right: 5px;
-  }
-  width: 10px;
-  height: 10px;
-  margin-right: 5px;
-  background-color: ${constants.colorSuccess};
-  border-radius: 50%;
-  margin-top: 1px;
-}
-
-.imageContainer {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  z-index: 1;
-}
-
-.playerSlot {
-  width: 2px;
-  height: 29px;
-  position: absolute;
-  right: 7px;
-}
-
-.golden {
-  fill: ${constants.colorGolden} !important;
-}
-
-.party {
-  position: absolute;
-  overflow: hidden;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  width: 13px;
-  height: 29px;
-  left: -13px;
-
-
-  & .group {
+  .imageContainer {
+    position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
+    z-index: 1;
+  }
 
-    &.group0 {
-      background: #a73411;
-    }
-    &.group1 {
-      background: #107e79;
-    }
-    &.group2 {
-      background: #a71164;
-    }
-    &.group3 {
-      background: #a76411;
-    }
+  .playerSlot {
+    width: 2px;
+    height: 29px;
+    position: absolute;
+    right: 7px;
+  }
 
-    & .numerals {
-      color: rgba(255, 255, 255, 0.9);
-      white-space: nowrap;
-      font-weight: bold;
-      transform: rotate(-90deg);
+  .golden {
+    fill: ${constants.colorGolden} !important;
+  }
+
+  .party {
+    position: absolute;
+    overflow: hidden;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    width: 13px;
+    height: 29px;
+    left: -13px;
+
+    & .group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+
+      &.group0 {
+        background: #a73411;
+      }
+      &.group1 {
+        background: #107e79;
+      }
+      &.group2 {
+        background: #a71164;
+      }
+      &.group3 {
+        background: #a76411;
+      }
+
+      & .numerals {
+        color: rgba(255, 255, 255, 0.9);
+        white-space: nowrap;
+        font-weight: bold;
+        transform: rotate(-90deg);
+      }
     }
   }
-}
 
-.hoverIcon {
-  margin-left: 4px;
-}
+  .hoverIcon {
+    margin-left: 4px;
+  }
 
-.hoverIcon:first-child {
-  margin-left: 8px;
-}
+  .hoverIcon:first-child {
+    margin-left: 8px;
+  }
 
-.guideContainer {
-  margin: auto;
-}
+  .guideContainer {
+    margin: auto;
+  }
 
-.guideIcon {
-  max-width: 24px;
-  max-height: 24px;
-}
+  .guideIcon {
+    max-width: 24px;
+    max-height: 24px;
+  }
 `;
 
 const HeroImageContainer = styled.div`
@@ -251,20 +260,7 @@ const HeroToolTip = styled.div`
   width: 290px;
   overflow: hidden;
   background-color: #131519;
-  background: ${(props) => {
-    switch (props.heroAttr) {
-      case 'str':
-        return 'linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(89,48,48,1) 12%, rgba(19,21,25,1) 70%);';
-      case 'agi':
-        return 'linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(50,89,48,1) 12%, rgba(19,21,25,1) 70%);';
-      case 'int':
-        return 'linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(48,62,90,1) 12%, rgba(19,21,25,1) 70%);';
-      default:
-        return 'linear-gradient(135deg, rgba(19,21,25,1) 0%, rgba(48,62,90,1) 12%, rgba(19,21,25,1) 70%);';
-    }
-  }}
   overflow: hidden;
-  border: 2px solid #27292b;
 
   .header {
     height: 120px;
@@ -274,22 +270,13 @@ const HeroToolTip = styled.div`
   .heroImg {
     position: relative;
     float: left;
-
-    &::after {
-      content: "";
-      position:absolute;
-      height: 100px;
-      width: 86px;
-      left: 10px;
-      top: 10px;
-      background: linear-gradient(to bottom, transparent 70%, rgba(0,0,0,1) 100%);
-      }
+    top: 12px;
 
     & .health-mana {
-      position: absolute;
+      position: relative;
       left: 10px;
-      top: 98px;
-      line-height: 12px;
+      bottom: 6px;
+      line-height: 30px;
       width: 86px;
       text-align: center;
       z-index: 2;
@@ -326,16 +313,12 @@ const HeroToolTip = styled.div`
       left: 4px;
       top: 5px;
       background: rgba(0, 0, 0, 0.65);
-      border-radius: 50%;
     }
 
     & img {
       width: 86px;
       margin-left: 10px;
       margin-top: 10px;
-      border-radius: 3px;
-      border-bottom: 2px solid rgba(0, 0, 0, 0.35);
-      border-right: 2px solid rgba(0, 0, 0, 0.35);
       display: inline-block;
     }
   }
@@ -454,7 +437,7 @@ class TableHeroImage extends React.Component {
 
   setTooltipVisibility = (value) => {
     this.setState({ tooltipVisible: value });
-  }
+  };
 
   render() {
     const {
@@ -495,213 +478,284 @@ class TableHeroImage extends React.Component {
     return (
       <Styled style={expand}>
         <HeroImageContainer>
-          {parsed !== undefined &&
-          <div
-            className={parsed ? 'parsed' : 'unparsed'}
-            data-hint={parsed && strings.tooltip_parsed}
-          >
-            <ActionDoneAll />
-          </div>
-          }
-          {party &&
-          <div className="party">
-            {party}
-          </div>
-          }
-          {(heroID || image) &&
-          <div className="imageContainer">
-            {image ?
-              <img
-                src={image}
-                alt=""
-                className="image"
-                data-tip={hero.id === undefined && null}
-                data-for={heroName}
-                {...heroImageEventProps}
-              /> :
-              <HeroImage id={heroID} className="image" data-tip={hero.id === undefined && null} data-for={heroName !== undefined && heroName} heroImageEventProps={heroImageEventProps} />
-            }
-            {leaverStatus !== undefined && leaverStatus > 1 &&
-            <span
-              className="abandoned"
-              data-hint={strings[`leaver_status_${leaverStatus}`]}
-              data-hint-position="top"
+          {parsed !== undefined && (
+            <div
+              className={parsed ? 'parsed' : 'unparsed'}
+              data-hint={parsed && strings.tooltip_parsed}
             >
-              <img
-                src="/assets/images/dota2/disconnect_icon.png"
-                alt=""
-              />
-            </span>
-            }
-            {playerSlot !== undefined &&
-              <div
-                className="playerSlot"
-                style={{ backgroundColor: playerColors[playerSlot] }}
-              />
-            }
-          </div>
-          }
-          {!hideText &&
-          <div className="textContainer">
-            <span>
-              {registered && !contributor &&
-                <div
-                  className="registered"
-                  data-hint={strings.tooltip_registered_user}
-                  data-hint-position="top"
+              <ActionDoneAll />
+            </div>
+          )}
+          {party && <div className="party">{party}</div>}
+          {(heroID || image) && (
+            <div className="imageContainer">
+              {image ? (
+                <img
+                  src={image}
+                  alt=""
+                  className="image"
+                  data-tip={hero.id === undefined && null}
+                  data-for={heroName}
+                  {...heroImageEventProps}
                 />
-              }
-              {contributor &&
-                <div
-                  className="contributor"
-                  data-hint={strings.app_contributor}
+              ) : (
+                <HeroImage
+                  id={heroID}
+                  className="image"
+                  data-tip={hero.id === undefined && null}
+                  data-for={heroName !== undefined && heroName}
+                  heroImageEventProps={heroImageEventProps}
+                />
+              )}
+              {leaverStatus !== undefined && leaverStatus > 1 && (
+                <span
+                  className="abandoned"
+                  data-hint={strings[`leaver_status_${leaverStatus}`]}
                   data-hint-position="top"
                 >
-                  <IconContributor className="icon" dColor="#21be93" oColor="#212121" />
-                </div>
-              }
-              {confirmed &&
-                <div
-                  className="badge"
-                  data-hint={`${strings.app_confirmed_as} ${title}`}
-                  data-hint-position="top"
-                >
-                  <IconCheckCircle className="golden" />
-                </div>
-              }
-              {accountId ?
-                <TableLink to={`/players/${accountId}`}>
-                  {title}
-                </TableLink>
-                : title}
-            </span>
-            {subtitle &&
-              <span style={subTextStyle} className="subTextContainer">
-                {subtitle}
-                <span>
-                  {randomed &&
-                    <span
-                      className="hoverIcon"
-                      data-hint={strings.general_randomed}
-                      data-hint-position="top"
-                    >
-                      <IconDice fill="currentcolor" />
-                    </span>
-                  }
-                  {repicked &&
-                    <span
-                      className="hoverIcon"
-                      data-hint={strings.general_repicked}
-                      data-hint-position="top"
-                    >
-                      <NotificationSync />
-                    </span>
-                  }
-                  {predictedVictory &&
-                    <Tooltip title={strings.general_predicted_victory}>
-                      <span style={{ marginLeft: '4px' }}>
-                        <IconCrystalBall fill="currentcolor" />
-                      </span>
-                    </Tooltip>
-                  }
+                  <img src="/assets/images/dota2/disconnect_icon.png" alt="" />
                 </span>
+              )}
+              {playerSlot !== undefined && (
+                <div
+                  className="playerSlot"
+                  style={{ backgroundColor: playerColors[playerSlot] }}
+                />
+              )}
+            </div>
+          )}
+          {!hideText && (
+            <div className="textContainer">
+              <span>
+                {registered && !contributor && (
+                  <div
+                    className="registered"
+                    data-hint={strings.tooltip_registered_user}
+                    data-hint-position="top"
+                  />
+                )}
+                {contributor && (
+                  <div
+                    className="contributor"
+                    data-hint={strings.app_contributor}
+                    data-hint-position="top"
+                  >
+                    <IconContributor
+                      className="icon"
+                      dColor="#21be93"
+                      oColor="#212121"
+                    />
+                  </div>
+                )}
+                {confirmed && (
+                  <div
+                    className="badge"
+                    data-hint={`${strings.app_confirmed_as} ${title}`}
+                    data-hint-position="top"
+                  >
+                    <IconCheckCircle className="golden" />
+                  </div>
+                )}
+                {accountId ? (
+                  <TableLink to={`/players/${accountId}`}>{title}</TableLink>
+                ) : (
+                  title
+                )}
               </span>
-            }
-          </div>
-          }
-          { Boolean(showGuide) && guideType && guideUrl && heroName &&
-          <div className="guideContainer" data-tip data-for={heroName}>
-            <a href={guideUrl}>
-              { guideType === 'PVGNA' ? <img className="guideIcon" src="/assets/images/pvgna-guide-icon.png" alt={`Learn ${heroName} on Pvgna`} /> : <div /> }
-              { guideType === 'MOREMMR' ? <img className="moremmr-icon" style={{ maxWidth: '60px' }} src="/assets/images/moremmr-icon2.svg" alt={`Learn ${heroName} on MoreMMR`} /> : <div /> }
-            </a>
-            <ReactTooltip id={heroName} place="top" type="light" effect="solid" offset="{'top': 1, 'right': 3}">
-              { guideType === 'PVGNA' ? `Learn ${heroName} on Pvgna` : '' }
-              { guideType === 'MOREMMR' ? `Learn ${heroName} on MoreMMR` : '' }
-            </ReactTooltip>
-          </div>
-          }
-          { tooltipVisible &&
-          <div className="hero-tooltip">
-            <ReactTooltip id={heroName} effect="solid" place="right">
-              <HeroToolTip heroAttr={hero.primary_attr}>
-                <div className="header">
-                  <div className="heroImg">
-                    <HeroImage id={heroID} imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix} />
-                    {hero.primary_attr === 'str' && <AttrStrength id="heroImg-attribute" />}
-                    {hero.primary_attr === 'agi' && <AttrAgility id="heroImg-attribute" />}
-                    {hero.primary_attr === 'int' && <AttrIntelligent id="heroImg-attribute" />}
-                    <div className="health-mana">
-                      <span id="health">{Math.floor(hero.base_health)}</span><span id="mana">{Math.floor(hero.base_mana)}</span>
+              {subtitle && (
+                <span style={subTextStyle} className="subTextContainer">
+                  {subtitle}
+                  <span>
+                    {randomed && (
+                      <span
+                        className="hoverIcon"
+                        data-hint={strings.general_randomed}
+                        data-hint-position="top"
+                      >
+                        <IconDice fill="currentcolor" />
+                      </span>
+                    )}
+                    {repicked && (
+                      <span
+                        className="hoverIcon"
+                        data-hint={strings.general_repicked}
+                        data-hint-position="top"
+                      >
+                        <NotificationSync />
+                      </span>
+                    )}
+                    {predictedVictory && (
+                      <Tooltip title={strings.general_predicted_victory}>
+                        <span style={{ marginLeft: '4px' }}>
+                          <IconCrystalBall fill="currentcolor" />
+                        </span>
+                      </Tooltip>
+                    )}
+                  </span>
+                </span>
+              )}
+            </div>
+          )}
+          {Boolean(showGuide) && guideType && guideUrl && heroName && (
+            <div className="guideContainer" data-tip data-for={heroName}>
+              <a href={guideUrl}>
+                {guideType === 'PVGNA' ? (
+                  <img
+                    className="guideIcon"
+                    src="/assets/images/pvgna-guide-icon.png"
+                    alt={`Learn ${heroName} on Pvgna`}
+                  />
+                ) : (
+                  <div />
+                )}
+                {guideType === 'MOREMMR' ? (
+                  <img
+                    className="moremmr-icon"
+                    style={{ maxWidth: '60px' }}
+                    src="/assets/images/moremmr-icon2.svg"
+                    alt={`Learn ${heroName} on MoreMMR`}
+                  />
+                ) : (
+                  <div />
+                )}
+              </a>
+              <ReactTooltip
+                id={heroName}
+                place="top"
+                type="light"
+                effect="solid"
+                offset="{'top': 1, 'right': 3}"
+              >
+                {guideType === 'PVGNA' ? `Learn ${heroName} on Pvgna` : ''}
+                {guideType === 'MOREMMR' ? `Learn ${heroName} on MoreMMR` : ''}
+              </ReactTooltip>
+            </div>
+          )}
+          {tooltipVisible && (
+            <div className="hero-tooltip">
+              <ReactTooltip id={heroName} effect="solid" place="right">
+                <HeroToolTip>
+                  <div
+                    style={{
+                      overflow: 'hidden',
+                      position: 'absolute',
+                      height: '100%',
+                      width: '100%',
+                    }}
+                  >
+                    <HeroImage
+                      id={backgroundMapping[hero.primary_attr]}
+                      imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
+                      style={{
+                        position: 'absolute',
+                        top: 40,
+                        left: -60,
+                        opacity: 0.3,
+                        filter: 'blur(10px)',
+                        transform: 'scale(1.5)',
+                      }}
+                    />
+                  </div>
+                  <div className="header">
+                    <div className="heroImg">
+                      <HeroImage
+                        id={heroID}
+                        imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix}
+                      />
+                      {hero.primary_attr === 'str' && (
+                        <AttrStrength id="heroImg-attribute" />
+                      )}
+                      {hero.primary_attr === 'agi' && (
+                        <AttrAgility id="heroImg-attribute" />
+                      )}
+                      {hero.primary_attr === 'int' && (
+                        <AttrIntelligent id="heroImg-attribute" />
+                      )}
+                      <div className="health-mana">
+                        <span id="health">{Math.floor(hero.base_health)}</span>
+                        <span id="mana">{Math.floor(hero.base_mana)}</span>
+                      </div>
+                    </div>
+                    <div className="header-stats">
+                      <div id="hero-name">{hero.localized_name}</div>
+                      <div id="hero-roles">
+                        {hero.attack_type} -{' '}
+                        {hero.roles && hero.roles.join(', ')}
+                      </div>
+                      <div className="attributes-container">
+                        <div className="attributes">
+                          <AttrStrength
+                            id="str"
+                            className="attribute-img"
+                            main={`${hero.primary_attr === 'str'}`}
+                          />
+                          <div className="attribute-text">
+                            {hero.base_str} +{hero.str_gain}
+                          </div>
+                        </div>
+                        <div className="attributes">
+                          <AttrAgility
+                            id="agi"
+                            className="attribute-img"
+                            main={`${hero.primary_attr === 'agi'}`}
+                          />
+                          <div className="attribute-text">
+                            {hero.base_agi} +{hero.agi_gain}
+                          </div>
+                        </div>
+                        <div className="attributes">
+                          <AttrIntelligent
+                            id="int"
+                            className="attribute-img"
+                            main={`${hero.primary_attr === 'int'}`}
+                          />
+                          <div className="attribute-text">
+                            {hero.base_int} +{hero.int_gain}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="header-stats">
-                    <div id="hero-name">{hero.localized_name}</div>
-                    <div id="hero-roles">{hero.attack_type} - {hero.roles && hero.roles.join(', ')}</div>
-                    <div className="attributes-container">
-                      <div className="attributes">
-                        <AttrStrength id="str" className="attribute-img" main={`${hero.primary_attr === 'str'}`} />
-                        <div className="attribute-text">{hero.base_str} +{hero.str_gain}</div>
-                      </div>
-                      <div className="attributes">
-                        <AttrAgility id="agi" className="attribute-img" main={`${hero.primary_attr === 'agi'}`} />
-                        <div className="attribute-text">{hero.base_agi} +{hero.agi_gain}</div>
-                      </div>
-                      <div className="attributes">
-                        <AttrIntelligent id="int" className="attribute-img" main={`${hero.primary_attr === 'int'}`} />
-                        <div className="attribute-text">{hero.base_int} +{hero.int_gain}</div>
-                      </div>
+                  <Trim />
+                  <div className="stats">
+                    <div className="stat">
+                      <span>{`${strings.heading_move_speed}:`}</span>
+                      <span className="dots" />
+                      <span>{hero.move_speed}</span>
+                    </div>
+                    <div className="stat">
+                      <span>{`${strings.heading_attack}:`}</span>
+                      <span className="dots" />
+                      <span>{`${hero.base_attack_min}-${hero.base_attack_max}`}</span>
+                    </div>
+                    <div className="stat">
+                      <span>{`${strings.heading_base_armor}:`}</span>
+                      <span className="dots" />
+                      <span>{hero.base_armor}</span>
+                    </div>
+                    <div className="stat">
+                      <span>{`${strings.heading_attack_range}:`}</span>
+                      <span className="dots" />
+                      <span>{hero.attack_range}</span>
                     </div>
                   </div>
-                </div>
-                <Trim />
-                <div className="stats">
-                  <div className="stat">
-                    <span>{`${strings.heading_move_speed}:`}</span>
-                    <span className="dots" />
-                    <span>{hero.move_speed}</span>
-                  </div>
-                  <div className="stat">
-                    <span>{`${strings.heading_attack}:`}</span>
-                    <span className="dots" />
-                    <span>{`${hero.base_attack_min}-${hero.base_attack_max}`}</span>
-                  </div>
-                  <div className="stat">
-                    <span>{`${strings.heading_base_armor}:`}</span>
-                    <span className="dots" />
-                    <span>{hero.base_armor}</span>
-                  </div>
-                  <div className="stat">
-                    <span>{`${strings.heading_attack_range}:`}</span>
-                    <span className="dots" />
-                    <span>{hero.attack_range}</span>
-                  </div>
-                </div>
-              </HeroToolTip>
-            </ReactTooltip>
-          </div>
-          }
+                </HeroToolTip>
+              </ReactTooltip>
+            </div>
+          )}
         </HeroImageContainer>
       </Styled>
     );
   }
 }
 
-const {
-  string, oneOfType, bool, node, object, number, shape,
-} = PropTypes;
+const { string, oneOfType, bool, node, object, number, shape } = PropTypes;
 
 TableHeroImage.propTypes = {
   parsed: number,
   image: string,
-  title: oneOfType([
-    string,
-    object,
-  ]),
-  subtitle: oneOfType([
-    string,
-    node,
-  ]),
+  title: oneOfType([string, object]),
+  subtitle: oneOfType([string, node]),
   registered: string,
   contributor: bool,
   accountId: number,
@@ -710,10 +764,7 @@ TableHeroImage.propTypes = {
   party: node,
   confirmed: bool,
   heroName: string,
-  showGuide: oneOfType([
-    bool,
-    number,
-  ]),
+  showGuide: oneOfType([bool, number]),
   guideUrl: string,
   guideType: string,
   randomed: bool,
@@ -728,10 +779,7 @@ TableHeroImage.propTypes = {
 // If need party or estimated, just add new prop with default val = solo and change icons depending what needs
 export const Mmr = ({ number, strings }) => (
   <span>
-    <section
-      data-hint={strings.th_solo_mmr}
-      data-hint-position="bottom"
-    >
+    <section data-hint={strings.th_solo_mmr} data-hint-position="bottom">
       <SocialPerson />
     </section>
     {number || strings.general_unknown}
@@ -745,10 +793,7 @@ Mmr.propTypes = {
 
 export const CompetitiveRank = ({ rankTier, strings }) => (
   <span className="rank">
-    <section
-      data-hint={strings.th_rank}
-      data-hint-position="bottom"
-    >
+    <section data-hint={strings.th_rank} data-hint-position="bottom">
       <SocialPerson />
     </section>
     {rankTier}
@@ -760,7 +805,7 @@ CompetitiveRank.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

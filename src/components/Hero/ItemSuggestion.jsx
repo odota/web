@@ -8,9 +8,7 @@ import { getHeroItemSuggestions } from '../../actions';
 import TableSkeleton from '../Skeletons/TableSkeleton';
 
 function ItemsSuggestion(props) {
-  const displayFn = (row, col, i) => {
-    return Object.keys(i).map(itemId => inflictorWithValue(itemIds[itemId]));
-  };
+  const displayFn = (row, col, i) => Object.keys(i).map(itemId => inflictorWithValue(itemIds[itemId]));
 
   const { onGetHeroItemSuggestions, match } = props;
   useEffect(() => {
