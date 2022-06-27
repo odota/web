@@ -7,8 +7,6 @@ import {
   IconCheese,
   IconSteam,
   IconContributor,
-  IconEye,
-  IconEyeInactive,
   IconCheckCircle,
 } from '../../Icons';
 import constants from '../../constants';
@@ -184,23 +182,6 @@ export const PlayerBadgesIcons = ({
               <IconSteam className="icon" />
             </a>
           </div>
-          {Math.round(new Date().getTime() / 1000.0) >= Number(tracked) ? (
-            <div
-              className="iconButton iconEye"
-              data-hint={strings.app_untracked}
-              data-hint-position="top"
-            >
-              <IconEyeInactive className="icon" />
-            </div>
-          ) : (
-            <div
-              className="iconButton iconEye"
-              data-hint={strings.app_tracked}
-              data-hint-position="top"
-            >
-              <IconEye className="iconEyeTracked" />
-            </div>
-          )}
           {cheese > 0 && (
             <div
               className="iconButton"
@@ -249,6 +230,7 @@ const mapStateToProps = (state) => ({
   error: state.app.player.error,
   cheese: (state.app.player.data.profile || {}).cheese,
   isContributor: (state.app.player.data.profile || {}).is_contributor,
+  isSubscriber: (state.app.player.data.profile || {}).is_subscriber,
   tracked: state.app.player.data.tracked_until,
   steamLink: (state.app.player.data.profile || {}).profileurl,
   officialPlayerName: (state.app.player.data.profile || {}).name,

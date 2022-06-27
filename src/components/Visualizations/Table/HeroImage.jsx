@@ -770,6 +770,7 @@ TableHeroImage.propTypes = {
   title: oneOfType([string, object]),
   subtitle: oneOfType([string, node]),
   registered: string,
+  subscriber: bool,
   contributor: bool,
   accountId: number,
   playerSlot: number,
