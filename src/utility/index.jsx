@@ -822,7 +822,7 @@ export const transformations = {
       registered={row.last_login}
       confirmed={row.account_id && row.name}
       contributor={row.is_contributor}
-      subscriber={row.is_subsciber}
+      subscriber={row.is_subscriber}
       accountId={row.account_id}
     />
   ),
