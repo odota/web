@@ -91,25 +91,6 @@ const Styled = styled.div`
       }
     }
 
-    & .iconEye {
-      & svg {
-        height: 24px !important;
-        margin-top: 4px;
-      }
-
-      &[data-hint-position='top'] {
-        &::before {
-          margin-left: 11px;
-          top: -1px;
-        }
-
-        &::after {
-          margin-left: -32px;
-          margin-bottom: 1px;
-        }
-      }
-    }
-
     & .iconContributor {
       & svg {
         height: 24px !important;
@@ -130,10 +111,6 @@ const Styled = styled.div`
           margin-bottom: 1px;
         }
       }
-    }
-
-    & .iconEyeTracked {
-      fill: ${constants.colorSuccess};
     }
   }
 
