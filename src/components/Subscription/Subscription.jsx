@@ -1,12 +1,9 @@
 import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import RaisedButton from 'material-ui/RaisedButton';
-import constants from '../constants';
 import { IconSteam } from '../Icons';
 
 import { useStrings } from '../../hooks/useStrings.hook';
@@ -100,6 +97,10 @@ const Subscription = ({ user, isSubscriber }) => {
 
   return (
     <PageContainer>
+      <Helmet>
+        <title>{strings.subscriptions_h1}</title>
+        <meta name="description" content={strings.api_meta_description} />
+      </Helmet>
       <h1>{strings.subscriptions_h1}</h1>
       <h2>{strings.subscriptions_h2}</h2>
       <p>{strings.subscriptions_body1}</p>
@@ -115,7 +116,7 @@ const Subscription = ({ user, isSubscriber }) => {
           </ul>
         </SubLeft>
         <SubRight>
-          {user && isSubscribed ? (
+          {user && isSubscriber && (
             <>
               <h4>{strings.subscriptions_h4}</h4>
               <RaisedButton
@@ -124,13 +125,15 @@ const Subscription = ({ user, isSubscriber }) => {
                 label={strings.subscriptions_button_manage}
               />
             </>
-          ) : user ? (
+          )}
+          {user && !isSubscriber && (
             <RaisedButton
               primary
               onClick={() => handleSubscribe(user)}
               label={strings.subscriptions_button_subscribe}
             />
-          ) : (
+          )}
+          {!user && (
             <RaisedButton
               primary
               href={`${process.env.REACT_APP_API_HOST}/login`}

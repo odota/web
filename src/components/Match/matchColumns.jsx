@@ -648,15 +648,16 @@ export default (strings) => {
                     data-tip
                     data-for={`benchmarks_${row.player_slot}_${key}`}
                   >
-                    <span
-                      style={{ color: constants[bucket.color] }}
-                    >{`${percent}%`}</span>
+                    <span style={{ color: constants[bucket.color] }}>
+                      {`${percent}%`}
+                    </span>
                     <small style={{ margin: '3px' }}>{value}</small>
                     <ReactTooltip
                       id={`benchmarks_${row.player_slot}_${key}`}
                       place="top"
                       effect="solid"
                     >
+                      1
                       {formatTemplateToString(
                         strings.benchmarks_description,
                         value,
@@ -707,7 +708,7 @@ export default (strings) => {
       displayName: strings.th_deaths,
       field: 'deaths',
       tooltip: strings.tooltip_deaths,
-      fantasyFn: (v) => 3 - 0.3 * v,
+      fantasyFn: (v) => 3 - (0.3 * v),
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -889,7 +890,7 @@ export default (strings) => {
         sortFn: (row) => row.lh_t && row.lh_t[minutes],
         displayFn: (row) =>
           `${row.lh_t[minutes]} (+${
-            row.lh_t[minutes] - row.lh_t[minutes - bucket / 60]
+            row.lh_t[minutes] - row.lh_t[minutes - (bucket / 60)]
           })`,
         relativeBars: true,
         sumFn: (acc, row) =>
