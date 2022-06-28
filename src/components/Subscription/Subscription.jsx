@@ -70,7 +70,7 @@ const handleSubscribe = async (user) => {
       },
     ],
     mode: 'subscription',
-    successUrl: `${process.env.REACT_APP_API_HOST}/api/subscribeSuccess`,
+    successUrl: `${process.env.REACT_APP_API_HOST}/subscribeSuccess`,
     cancelUrl: window.location.href,
     clientReferenceId: user.account_id,
   });
@@ -82,29 +82,27 @@ const handleSubscribe = async (user) => {
   }
 };
 
-const Subsciption = ({ user, isSubscribed }) => {
-  user = true;
+const Subscription = ({ user, isSubscriber }) => {
   const strings = useStrings();
   const handleManage = useCallback(async () => {
-    const res = await fetch(`${process.env.REACT_APP_API_HOST}/api/manageSub`, {
+    const res = await fetch(`${process.env.REACT_APP_API_HOST}/manageSub`, {
       credentials: 'include',
       method: 'POST',
+      body: {
+        return_url: window.location.href,
+      },
     });
 
     const session = await res.json();
 
     window.location.assign(session.url);
-  }, [isSubscribed]);
+  }, [isSubscriber]);
 
   return (
     <PageContainer>
       <h1>{strings.subscriptions_h1}</h1>
       <h2>{strings.subscriptions_h2}</h2>
       <p>{strings.subscriptions_body1}</p>
-      <p>
-        {strings.subscriptions_body2}{' '}
-        <Link to="/request">{strings.subscriptions_request}</Link>.
-      </p>
       <SubContainer>
         <SubLeft>
           <h3>{strings.subscriptions_h3}</h3>
@@ -150,8 +148,8 @@ const mapStateToProps = (state) => ({
   loading: state.app.match.loading,
   error: state.app.match.error,
   user: state.app.metadata.data.user,
-  isSubscribed: state.app.metadata.data.isSubscribed,
+  isSubscriber: state.app.metadata.data.isSubscriber,
   strings: state.app.strings,
 });
 
-export default connect(mapStateToProps)(Subsciption);
+export default connect(mapStateToProps)(Subscription);
