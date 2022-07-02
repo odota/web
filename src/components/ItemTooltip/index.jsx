@@ -190,7 +190,7 @@ const ItemTooltip = ({ item, inflictor }) => (
         <img id="item-img" src={`${process.env.REACT_APP_IMAGE_CDN}${item.img}`} alt="" />
         <HeaderText>
           <div>{item.dname}</div>
-          <div id="gold">{<img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="" />}{item.cost}</div>
+          <div id="gold">{<img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/tooltips/gold.png`} alt="" />}{item.cost}</div>
         </HeaderText>
       </div>
     </Header>
@@ -215,13 +215,13 @@ const ItemTooltip = ({ item, inflictor }) => (
                 <div className="resources">
                   {type === 'active' && item.mc &&
                   <span>
-                    <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/mana.png`} alt="" />
+                    <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/tooltips/mana.png`} alt="" />
                     <span className="values">{item.mc}</span>
                   </span>
                 }
                   {type === 'active' && item.cd &&
                   <span>
-                    <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
+                    <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/tooltips/cooldown.png`} alt="" />
                     <span className="values">{item.cd}</span>
                   </span>
                 }

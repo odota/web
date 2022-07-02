@@ -1308,7 +1308,7 @@ export default (strings) => {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`} alt="" />
         &nbsp;{strings.th_duration_shorthand}
       </div>
     ),
@@ -1323,7 +1323,7 @@ export default (strings) => {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`} alt="" />
         &nbsp;{strings.th_duration_shorthand}
       </div>
     ),
@@ -1338,7 +1338,7 @@ export default (strings) => {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`} alt="" />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
@@ -1353,7 +1353,7 @@ export default (strings) => {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`} alt="" />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
@@ -1368,7 +1368,7 @@ export default (strings) => {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/dust_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/dust.png`} alt="" />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
@@ -1383,7 +1383,7 @@ export default (strings) => {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/smoke_of_deceit.png`} alt="" />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
@@ -1398,7 +1398,7 @@ export default (strings) => {
     center: true,
     displayName: (
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/gem_lg.png`} alt="" />
+        <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/gem.png`} alt="" />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
     ),
@@ -1416,7 +1416,7 @@ export default (strings) => {
       center: true,
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-          <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/ward_observer_lg.png`} alt="" />
+          <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`} alt="" />
           &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
@@ -1432,7 +1432,7 @@ export default (strings) => {
       center: true,
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-          <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/ward_sentry_lg.png`} alt="" />
+          <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`} alt="" />
           &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
@@ -1448,7 +1448,7 @@ export default (strings) => {
       center: true,
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-          <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/dust_lg.png`} alt="" />
+          <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/dust.png`} alt="" />
           &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),
@@ -1463,7 +1463,7 @@ export default (strings) => {
       center: true,
       displayName: (
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
-          <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/items/smoke_of_deceit_lg.png`} alt="" />
+          <img height="15" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/smoke_of_deceit.png`} alt="" />
           &nbsp;{visionStrings.th_use_shorthand}
         </div>
       ),

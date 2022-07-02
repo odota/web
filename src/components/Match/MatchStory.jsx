@@ -37,7 +37,7 @@ const GoldSpan = (amount) => {
         width="25px"
         height="17px"
         alt={` ${strings.story_gold}`}
-        src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`}
+        src='/assets/images/dota2/gold.png'
         style={{ marginLeft: '3px' }}
       />
     </StyledStorySpan>
@@ -69,7 +69,7 @@ const PlayerSpan = (player) => {
           key={`player_${player.player_slot}`}
           style={{ color: (player.isRadiant ? constants.colorGreen : constants.colorRed) }}
         >
-          <HeroImage id={player.hero_id} isIcon/>
+          <HeroImage id={player.hero_id} isIcon />
           {heroName}
         </StyledStorySpan>
       </Tooltip>
@@ -304,8 +304,8 @@ class AegisEvent extends StoryEvent {
     const { strings } = store.getState().app;
 
     return ((this.action === 'CHAT_MESSAGE_AEGIS' && strings.timeline_aegis_picked_up) ||
-            (this.action === 'CHAT_MESSAGE_AEGIS_STOLEN' && strings.timeline_aegis_snatched) ||
-            (this.action === 'CHAT_MESSAGE_DENIED_AEGIS' && strings.timeline_aegis_denied));
+      (this.action === 'CHAT_MESSAGE_AEGIS_STOLEN' && strings.timeline_aegis_snatched) ||
+      (this.action === 'CHAT_MESSAGE_DENIED_AEGIS' && strings.timeline_aegis_denied));
   }
   format() {
     const { strings } = store.getState().app;
@@ -819,8 +819,8 @@ const generateStory = (match) => {
   // Aegis pickups
   const aegisEvents = match.objectives
     .filter(obj => obj.type === 'CHAT_MESSAGE_AEGIS' ||
-                   obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' ||
-                   obj.type === 'CHAT_MESSAGE_DENIED_AEGIS')
+      obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' ||
+      obj.type === 'CHAT_MESSAGE_DENIED_AEGIS')
     .map((obj, index) => new AegisEvent(match, obj, index));
 
   // Roshan kills, team 2 = radiant, 3 = dire
