@@ -68,6 +68,7 @@ const HeaderText = styled.div`
   & #gold {
     color: ${constants.colorGolden};
     font-weight: normal;
+    font-size: ${constants.fontSizeSmall};
 
     & img {
       height: 13px;
