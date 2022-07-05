@@ -1173,5 +1173,10 @@
   "combos_title": "Kombo Hero",
   "combos_description": "Cari kombinasi hero dalam perlawanan umun dan profesional",
   "public_matches": "Perlawanan Umum",
-  "pro_matches": "Perlawanan Profesional"
+  "pro_matches": "Perlawanan Profesional",
+  "destroyed": "destroyed",
+  "killed": "killed",
+  "team_courier": "{team}'s courier",
+  "slain_roshan": "Have slain Roshan",
+  "drew_first_blood": "Drew First Blood"
 }
