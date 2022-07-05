@@ -1173,5 +1173,10 @@
   "combos_title": "Hero Combos",
   "combos_description": "Search for hero combinations in public and professional matches",
   "public_matches": "Közösségi mérkőzések",
-  "pro_matches": "Profi mérkőzések"
+  "pro_matches": "Profi mérkőzések",
+  "destroyed": "destroyed",
+  "killed": "killed",
+  "team_courier": "{team}'s courier",
+  "slain_roshan": "Have slain Roshan",
+  "drew_first_blood": "Drew First Blood"
 }
