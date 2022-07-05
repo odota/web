@@ -325,7 +325,7 @@ export const StyledLogFilterForm = styled.div`
   flex-wrap: wrap;
   border-radius: 4px;
   border: 1px solid rgb(255, 255, 255, 0.06);
-  background: ${constants.colorBackgroundLightBlue}
+  background: ${constants.colorBoxBlue};
 
   
   & > div {
