@@ -1173,5 +1173,10 @@
   "combos_title": "Комбинации героев",
   "combos_description": "Поиск комбинаций героев в публичных и профессиональных матчах",
   "public_matches": "Публичные матчи",
-  "pro_matches": "Профессиональные матчи"
+  "pro_matches": "Профессиональные матчи",
+  "destroyed": "destroyed",
+  "killed": "killed",
+  "team_courier": "{team}'s courier",
+  "slain_roshan": "Have slain Roshan",
+  "drew_first_blood": "Drew First Blood"
 }
