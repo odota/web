@@ -1173,5 +1173,10 @@
   "combos_title": "คอมโบฮีโร่",
   "combos_description": "ค้นหาพันธมิตรฮีโร่ในแมตช์สาธารณะและแมตช์ระดับมืออาชีพ",
   "public_matches": "แมตช์สาธารณะ",
-  "pro_matches": "แมตช์ระดับมืออาชีพ"
+  "pro_matches": "แมตช์ระดับมืออาชีพ",
+  "destroyed": "destroyed",
+  "killed": "killed",
+  "team_courier": "{team}'s courier",
+  "slain_roshan": "Have slain Roshan",
+  "drew_first_blood": "Drew First Blood"
 }
