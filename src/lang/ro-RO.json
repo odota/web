@@ -1173,5 +1173,10 @@
   "combos_title": "Combinații de eroi",
   "combos_description": "Caută combinații de eroi în meciuri publice și profesionale",
   "public_matches": "Meciuri publice",
-  "pro_matches": "Meciuri profesionale"
+  "pro_matches": "Meciuri profesionale",
+  "destroyed": "destroyed",
+  "killed": "killed",
+  "team_courier": "{team}'s courier",
+  "slain_roshan": "Have slain Roshan",
+  "drew_first_blood": "Drew First Blood"
 }
