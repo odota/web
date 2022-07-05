@@ -1173,5 +1173,10 @@
   "combos_title": "Combos de Heróis",
   "combos_description": "Busca por combinações de heróis em partidas públicas e profissionais",
   "public_matches": "Partidas públicas",
-  "pro_matches": "Partidas profissionais"
+  "pro_matches": "Partidas profissionais",
+  "destroyed": "destroyed",
+  "killed": "killed",
+  "team_courier": "{team}'s courier",
+  "slain_roshan": "Have slain Roshan",
+  "drew_first_blood": "Drew First Blood"
 }
