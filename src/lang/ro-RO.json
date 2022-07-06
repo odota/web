@@ -1174,9 +1174,9 @@
   "combos_description": "Caută combinații de eroi în meciuri publice și profesionale",
   "public_matches": "Meciuri publice",
   "pro_matches": "Meciuri profesionale",
-  "destroyed": "destroyed",
-  "killed": "killed",
-  "team_courier": "{team}'s courier",
-  "slain_roshan": "Have slain Roshan",
-  "drew_first_blood": "Drew First Blood"
+  "destroyed": "distruse",
+  "killed": "omorâți",
+  "team_courier": "curierul echipei",
+  "slain_roshan": "A ucis Roshan",
+  "drew_first_blood": "A realizat prima vărsare de sânge"
 }
