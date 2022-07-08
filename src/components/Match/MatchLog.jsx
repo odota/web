@@ -524,7 +524,10 @@ function EntryMessage({ entry, strings }) {
             <span className="smallMutedText">{strings.destroyed}&nbsp;</span>
             <span className="smallBoldText">
               {translateBuildings(entry.key.indexOf('goodguys') !== -1, entry.key)}{' '}
-              {isRadiant(entry) ? `(${strings.building_denied})` : ''}
+              {(isRadiant(entry) && entry.key.indexOf('goodguys') !== -1) ||
+              (!isRadiant(entry) && entry.key.indexOf('badguys') !== -1)
+                ? `(${strings.building_denied})`
+                : ''}
             </span>
           </>
         );
