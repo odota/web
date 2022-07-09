@@ -771,7 +771,7 @@ export const transformations = {
       ...subTextStyle,
       display: 'inline',
       float: 'left',
-      opacity: `${!row.skill ? 0.6 : 1}`,
+      opacity: `${!row.average_rank ? 0.6 : 1}`,
     };
 
     return (
@@ -779,7 +779,7 @@ export const transformations = {
         {strings[`game_mode_${field}`] && (`${strings[`game_mode_${field}`]}`)}
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span style={skillStyle}>
-            {strings[`skill_${row.skill || 0}`]}
+            {rankTierToString(row.average_rank)}
           </span>
         </div>
         <ReactTooltip place="top" effect="solid" />

@@ -44,6 +44,7 @@ const Styled = styled.header`
     margin-right: 30px;
     margin-left: 30px;
     justify-self: flex-end;
+    font-weight: 700;
 
     @media only screen and (max-width: 1023px) {
       flex-basis: 100%;
