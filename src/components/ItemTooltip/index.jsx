@@ -35,8 +35,9 @@ const Header = styled.div`
   
   .header-content {
     height: 50px;
-    padding: 13px 13px 13px 13px;
+    padding: 13px;
     white-space: nowrap;
+    display: flex;
   }
 
   #item-img {
@@ -67,6 +68,7 @@ const HeaderText = styled.div`
   & #gold {
     color: ${constants.colorGolden};
     font-weight: normal;
+    font-size: ${constants.fontSizeSmall};
 
     & img {
       height: 13px;
@@ -190,7 +192,7 @@ const ItemTooltip = ({ item, inflictor }) => (
         <img id="item-img" src={`${process.env.REACT_APP_IMAGE_CDN}${item.img}`} alt="" />
         <HeaderText>
           <div>{item.dname}</div>
-          <div id="gold">{<img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/tooltips/gold.png`} alt="" />}{item.cost}</div>
+          <div id="gold">{item.tier ? "Neutral item" : <><img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/tooltips/gold.png`} alt="" />{item.cost}</>}</div>
         </HeaderText>
       </div>
     </Header>

@@ -59,7 +59,7 @@ export const getPlayerMatches = (accountId, params) => action('playerMatches', p
   significant: 0,
   project: [
     'duration', 'game_mode', 'lobby_type', // needed since significant = 0 excludes these fields when used with project field
-    'start_time', 'hero_id', 'start_time', 'version', 'kills', 'deaths', 'assists', 'skill', 'leaver_status', 'party_size', // default fields when querying without project field
+    'start_time', 'hero_id', 'start_time', 'version', 'kills', 'deaths', 'assists', 'skill', 'leaver_status', 'party_size', 'average_rank', // default fields when querying without project field
     'item_0', 'item_1', 'item_2', 'item_3', 'item_4', 'item_5', 'backpack_0', // additional fields required for items
   ] }, transformPlayerMatches({ ...querystring.parse(params.substring(1)) }));
 export const getPlayerPeers = (accountId, params) => action('playerPeers', process.env.REACT_APP_API_HOST, `api/players/${accountId}/peers`, paramsWithTurbo(params));
