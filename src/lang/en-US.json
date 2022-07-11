@@ -1191,5 +1191,10 @@
   "combos_title": "Hero Combos",
   "combos_description": "Search for hero combinations in public and professional matches",
   "public_matches": "Public Matches",
-  "pro_matches": "Pro Matches"
+  "pro_matches": "Pro Matches",
+  "destroyed": "destroyed",
+  "killed": "killed",
+  "team_courier": "{team}'s courier",
+  "slain_roshan": "Have slain Roshan",
+  "drew_first_blood": "Drew First Blood"
 }
