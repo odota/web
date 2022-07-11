@@ -3,8 +3,6 @@ export { default as IconSteam } from './Steam';
 export { default as IconGithub } from './Github';
 export { default as IconTwitter } from './Twitter';
 export { default as IconDiscord } from './Discord';
-export { default as IconEye } from './Eye';
-export { default as IconEyeInactive } from './EyeInactive';
 export { default as IconTrophy } from './Trophy';
 export { default as IconLogout } from './Logout';
 export { default as IconOpenSource } from './OpenSource';

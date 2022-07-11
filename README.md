@@ -23,11 +23,6 @@ $ docker-compose up
 - `npm start`
 - Visit port 3000 on your development machine.
 
-### Component view and development
-
-- `npm run storybook`
-- Visit port 6006 on your development machine.
-
 ## Contributing
 
 - Make some changes.
