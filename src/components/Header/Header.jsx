@@ -271,11 +271,12 @@ const Header = ({ location, disableSearch }) => {
       to: '/api-keys',
       label: strings.header_api,
     },
-    {
-      key: 'header_subscribe',
-      to: '/subscribe',
-      label: strings.header_subscribe,
-    },
+    // hide this for now until tested
+    // {
+    //   key: 'header_subscribe',
+    //   to: '/subscribe',
+    //   label: strings.header_subscribe,
+    // },
   ];
 
   const drawerPages = [

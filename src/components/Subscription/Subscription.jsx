@@ -67,7 +67,7 @@ const handleSubscribe = async (user) => {
       },
     ],
     mode: 'subscription',
-    successUrl: `${process.env.REACT_APP_API_HOST}/subscribeSuccess`,
+    successUrl: `${process.env.REACT_APP_API_HOST}/subscribeSuccess?session_id={CHECKOUT_SESSION_ID}`,
     cancelUrl: window.location.href,
     clientReferenceId: user.account_id,
   });
