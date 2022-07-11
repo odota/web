@@ -69,7 +69,7 @@ const handleSubscribe = async (user) => {
     mode: 'subscription',
     successUrl: `${process.env.REACT_APP_API_HOST}/subscribeSuccess?session_id={CHECKOUT_SESSION_ID}`,
     cancelUrl: window.location.href,
-    clientReferenceId: user.account_id,
+    clientReferenceId: `${user.account_id}`,
   });
   // If `redirectToCheckout` fails due to a browser or network
   // error, display the localized error message to your customer
