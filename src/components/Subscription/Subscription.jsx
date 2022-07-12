@@ -31,7 +31,25 @@ const PageContainer = styled.div`
 
   & h2 {
     font-size: 1.17em;
+    margin: 0 5px;
   }
+`;
+
+const SubHeader = styled.div`
+  width: 100%;
+  background-image: url('/assets/images/carry-header.jpg');
+  background-position: 50% 0px;
+  margin: 20px 0;
+  text-shadow: 1px 1px 1px #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Attribution = styled.p`
+  font-size: 14px;
+  margin-right: 10px;
+  align-self: flex-end;
 `;
 
 const SubContainer = styled.div`
@@ -83,7 +101,10 @@ const Subscription = ({ user, isSubscriber }) => {
   const strings = useStrings();
   const handleManage = useCallback(async () => {
     const res = await fetch(`${process.env.REACT_APP_API_HOST}/manageSub`, {
-      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
       credentials: 'include',
       method: 'POST',
       body: JSON.stringify({
@@ -102,8 +123,14 @@ const Subscription = ({ user, isSubscriber }) => {
         <title>{strings.subscriptions_h1}</title>
         <meta name="description" content={strings.api_meta_description} />
       </Helmet>
-      <h1>{strings.subscriptions_h1}</h1>
-      <h2>{strings.subscriptions_h2}</h2>
+      <SubHeader>
+        <h1>{strings.subscriptions_h1}</h1>
+        <h2>{strings.subscriptions_h2}</h2>
+        <Attribution>
+          Picture by {" "}
+          <a href="http://entroz.deviantart.com/" target="_blank" rel="noreferrer">Eric Geusz</a>
+        </Attribution>
+      </SubHeader>
       <p>{strings.subscriptions_body1}</p>
       <SubContainer>
         <SubLeft>
