@@ -83,11 +83,12 @@ const Subscription = ({ user, isSubscriber }) => {
   const strings = useStrings();
   const handleManage = useCallback(async () => {
     const res = await fetch(`${process.env.REACT_APP_API_HOST}/manageSub`, {
+      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
       credentials: 'include',
       method: 'POST',
-      body: {
+      body: JSON.stringify({
         return_url: window.location.href,
-      },
+      }),
     });
 
     const session = await res.json();
