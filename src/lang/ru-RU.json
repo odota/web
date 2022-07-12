@@ -688,11 +688,11 @@
   "subscriptions_li2": "Subscriber only profile icon",
   "subscriptions_li3": "Fund continual development and maintenance of OpenDota",
   "subscriptions_li4": "Keep OpenDota available for the Dota 2 community",
-  "subscriptions_li5": "Cancel anytime",
-  "subscriptions_h4": "Thank you for supporting OpenDota!",
-  "subscriptions_button_manage": "Manage Subscription",
-  "subscriptions_button_subscribe": "Subscribe",
-  "subscriptions_button_login": "Login to Subscribe",
+  "subscriptions_li5": "Отменить в любое время",
+  "subscriptions_h4": "Спасибо за поддержку OpenDota!",
+  "subscriptions_button_manage": "Управление подписками",
+  "subscriptions_button_subscribe": "Оформить подписку",
+  "subscriptions_button_login": "Войдите, чтобы оформить подписку",
   "tab_overview": "Обзор",
   "tab_matches": "Матчи",
   "tab_heroes": "Герои",
@@ -1195,5 +1195,5 @@
   "killed": "killed",
   "team_courier": "{team}'s courier",
   "slain_roshan": "Have slain Roshan",
-  "drew_first_blood": "Drew First Blood"
+  "drew_first_blood": "Пролил Первую Кровь"
 }
