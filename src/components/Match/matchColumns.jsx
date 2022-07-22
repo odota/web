@@ -657,7 +657,6 @@ export default (strings) => {
                       place="top"
                       effect="solid"
                     >
-                      1
                       {formatTemplateToString(
                         strings.benchmarks_description,
                         value,
