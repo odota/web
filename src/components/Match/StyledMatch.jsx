@@ -316,10 +316,30 @@ export const StyledStoryGoldAmount = styled.span`
   color: ${constants.colorGolden};
 `;
 export const StyledLogFilterForm = styled.div`
-  max-width: 600px;
+  max-width: 800px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  flex-wrap: wrap;
+  border-radius: 4px;
+  border: 1px solid rgb(255, 255, 255, 0.06);
+  background: ${constants.colorBoxBlue};
+
+  
+  & > div {
+    padding: 10px;
+  }
+
+  & .title {
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.6);
+    border-bottom: 1px solid rgb(255, 255, 255, 0.06);
+  }
 `;
 
 export const StyledDmgTargetInflictor = styled.div`

@@ -10,61 +10,179 @@ import {
   getHeroesById,
   formatTemplateToString,
 } from '../../utility';
-import Table from '../Table';
 import FormField from '../Form/FormField';
-import { IconRadiant, IconDire } from '../Icons';
-import mcs from './matchColumns';
 import { StyledLogFilterForm } from './StyledMatch';
 import HeroImage from '../Visualizations/HeroImage';
+import { ReactComponent as Sword } from '../Icons/Sword.svg';
+import { IconBloodDrop, IconRoshan } from '../Icons';
+import { ReactComponent as Lightning } from '../Icons/Lightning.svg';
 
-const St = styled.div`
-table {
-  width: 650px !important;
+const StyledLogContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  margin-top: 20px;
+  letter-spacing: 0.044em;
+
+  & .timeDivider {
+    display: flex;
+    max-width: 800px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    color: rgba(255, 255, 255, 0.8);
+
+    & div {
+      height: 1px;
+      width: 100%;
+      background rgba(255, 255, 255, 0.08);
+      flex-shrink: 0;
+
+      &:nth-of-type(1) {
+        background: linear-gradient(to left,rgba(255,255,255,0.08), transparent);
+      }
+      &:nth-of-type(2) {
+        background: linear-gradient(to right,rgba(255,255,255,0.08), transparent);
+      }
+    }
+
+    & span {
+      font-size: 14px;
+      margin-left: 16px;
+      margin-right: 16px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  .entry:hover {
+    & .time {
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+
+  .entry {
+    display: flex;
+    max-width: 800px;
+    width: 100%
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+    & .smallMutedText {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    & .smallBoldText {
+      font-size: 12px;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    & .time {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    & .entryMessagesContainer {
+      display: flex;
+      flex-direction: column;
+      border-radius: 4px;
+
+      &.radiant {
+        background: linear-gradient(to right, #21812c26, transparent);
+      }
+      &.dire {
+        background: linear-gradient(to left, #9d361f26, transparent);
+        padding-right: 7px;
+      }
+    }
+
+    & .heroImage {
+      width: 72px;
+      height: 40px;
+      border-radius: 4px;
+    }
+
+    & .detailIcon {
+      height: 16px;
+      width: 16px;
+      margin-right: 6px;
+      margin-left: 6px;
+    }
+
+    & .entryMessage {
+      display: flex;
+      margin-top: 12px;
+      margin-bottom: 12px;
+
+      & .icon {
+        height: 16px;
+        width: 16px;
+        margin-left: 6px;
+        margin-right: 6px;
+      }
+
+      & .swordIcon {
+        fill: #ff2424;
+      }
+
+      & .dropIcon {
+        fill: #ff5555;
+      }
+
+      & .lightningIcon {
+        fill: #e5cf11;
+        vertical-align: bottom;
+      }
+
+      & .roshanIcon {
+        fill: #9dddcc;
+      }
+    }
+  }
 `;
 
-const killIcon = (isRadiant) => {
-  const icon = isRadiant ? 'radiant_kill.png' : 'dire_kill.png';
+const  DIVIDER_SECONDS = 30; // insert a divider if two consecutive entries are X seconds apart
+
+const isRadiant = (entry) => {
+  if (entry.isRadiant) {
+    return true;
+  }
+  if (entry.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
+    return entry.team !== 2;
+  }
   return (
-    <img
-      src={`/assets/images/dota2/${icon}`}
-      alt=""
-      style={{ paddingRight: '6px', paddingBottom: '2px', float: 'left' }}
-    />
+    (entry.unit && entry.unit.indexOf('goodguys') !== -1) || entry.team === 2
   );
 };
 
-const isRadiant = (field, row) => {
-  if (row.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
-    return row.team !== 2;
-  }
-  return field === true || (row.unit && row.unit.indexOf('goodguys') !== -1) || row.team === 2;
-};
-const isDire = (field, row) => {
-  if (row.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
-    return row.team === 2;
-  }
-  return field === false || (row.unit && row.unit.indexOf('badguys') !== -1) || row.team === 3;
-};
-
-const logDetailIconStyle = {
-  height: '30px', float: 'left', paddingTop: '7px', paddingRight: '5px',
-};
-const logDetailIconStyleTower = {
-  height: '31px', paddingTop: '6px', float: 'left', position: 'relative', right: '6px',
-};
 const heroNames = getHeroesById();
 const typeConfig = {
   kills: 0,
   objectives: 1,
   runes: 2,
 };
-const getObjectiveDesc = (objective, strings) => (objective.key && objective.type === 'CHAT_MESSAGE_BARRACKS_KILL' ? strings[`barracks_value_${objective.key}`] : '');
+const getObjectiveDesc = (objective, strings) =>
+  objective.key && objective.type === 'CHAT_MESSAGE_BARRACKS_KILL'
+    ? strings[`barracks_value_${objective.key}`]
+    : '';
 const getObjectiveBase = (objective, strings) => {
   if (objective.type === 'building_kill') {
-    const desc = objective.key.indexOf('npc_dota_badguys') === 0 ? strings.general_dire : strings.general_radiant;
+    const desc =
+      objective.key.indexOf('npc_dota_badguys') === 0
+        ? strings.general_dire
+        : strings.general_radiant;
     return `${desc} ${(objective.key.split('guys_') || [])[1]}`;
   }
-  return strings[objective.subtype || objective.type] || objective.subtype || objective.type;
+  return (
+    strings[objective.subtype || objective.type] ||
+    objective.subtype ||
+    objective.type
+  );
 };
 const generateLog = (match, { types, players }, strings) => {
   let log = [];
@@ -90,7 +208,10 @@ const generateLog = (match, { types, players }, strings) => {
           ...matchPlayers[objective.slot],
           type: 'objectives',
           alt_key: objective.type,
-          detail: `${getObjectiveDesc(objective, strings)} ${getObjectiveBase(objective, strings)}`,
+          detail: `${getObjectiveDesc(objective, strings)} ${getObjectiveBase(
+            objective,
+            strings
+          )}`,
         });
       }
       return objectivesLog;
@@ -99,21 +220,25 @@ const generateLog = (match, { types, players }, strings) => {
 
   matchPlayers.forEach((player) => {
     if (types.includes(typeConfig.kills)) {
-      log = log.concat((player.kills_log || []).map(entry => ({
-        ...entry,
-        ...player,
-        type: 'kills',
-        detail: `${entry.key}`,
-      })));
+      log = log.concat(
+        (player.kills_log || []).map((entry) => ({
+          ...entry,
+          ...player,
+          type: 'kills',
+          detail: `${entry.key}`,
+        }))
+      );
     }
 
     if (types.includes(typeConfig.runes)) {
-      log = log.concat((player.runes_log || []).map(entry => ({
-        ...entry,
-        ...player,
-        type: 'runes',
-        detail: `${entry.key}`,
-      })));
+      log = log.concat(
+        (player.runes_log || []).map((entry) => ({
+          ...entry,
+          ...player,
+          type: 'runes',
+          detail: `${entry.key}`,
+        }))
+      );
     }
     /*
     log = log.concat((player.obs_log || []).map(entry => ({
@@ -128,178 +253,13 @@ const generateLog = (match, { types, players }, strings) => {
   return log;
 };
 
-const logColumns = (strings) => {
-  const { heroTdColumn } = mcs(strings);
-  return [
-    {
-      displayName: strings.th_time,
-      field: 'time',
-      displayFn: (row, col, field) => formatSeconds(field),
-    },
-    {
-      displayName: strings.heading_is_radiant,
-      tooltip: strings.heading_is_radiant,
-      field: 'isRadiant',
-      sortFn: true,
-      displayFn: (row, col, field) =>
-        (
-          <span>
-            {isRadiant(field, row) && <IconRadiant height="30" />}
-            {isDire(field, row) && <IconDire height="30" />}
-          </span>
-        ),
-    }, heroTdColumn,
-    {
-      displayName: strings.log_detail,
-      field: 'detail',
-      displayFn: (row) => {
-        const translateBuildings = (isRad, key) => {
-          const team = isRad ? strings.general_radiant : strings.general_dire;
-          const k = key.split('_').slice(3).join('_');
-          const dict = {
-            fort: ` ${strings.building_ancient}`,
-            healers: ` ${strings.heading_shrine}`,
-            tower1_top: ` ${strings.top_tower} ${strings.tier1}`,
-            tower2_top: ` ${strings.top_tower} ${strings.tier2}`,
-            tower3_top: ` ${strings.top_tower} ${strings.tier3}`,
-            tower1_mid: ` ${strings.mid_tower} ${strings.tier1}`,
-            tower2_mid: ` ${strings.mid_tower} ${strings.tier2}`,
-            tower3_mid: ` ${strings.mid_tower} ${strings.tier3}`,
-            tower1_bot: ` ${strings.bot_tower} ${strings.tier1}`,
-            tower2_bot: ` ${strings.bot_tower} ${strings.tier2}`,
-            tower3_bot: ` ${strings.bot_tower} ${strings.tier3}`,
-            tower4: ` ${strings.heading_tower} ${strings.tier4}`,
-            melee_rax_top: ` ${'Top'} ${strings.building_melee_rax}`,
-            melee_rax_mid: ` ${'Mid'} ${strings.building_melee_rax}`,
-            melee_rax_bot: ` ${'Bot'} ${strings.building_melee_rax}`,
-            range_rax_top: ` ${'Top'} ${strings.building_range_rax}`,
-            range_rax_mid: ` ${'Mid'} ${strings.building_range_rax}`,
-            range_rax_bot: ` ${'Bot'} ${strings.building_range_rax}`,
-          };
-          return team + dict[k];
-        };
-
-        switch (row.type) {
-          case 'kills': {
-            const hero = heroNames[row.detail] || {};
-            return (
-              <span>
-                {killIcon(row.isRadiant)}
-                <HeroImage id={hero.id} style={{ height: '30px', float: 'left', paddingTop: '6px' }} />
-              </span>
-            );
-          }
-          case 'runes': {
-            const runeType = row.detail;
-            const runeString = strings[`rune_${runeType}`];
-            return (
-              <span>
-                <p style={{ float: 'left' }}>{strings.activated}</p>
-                <Tooltip title={runeString}>
-                  <img
-                    src={`/assets/images/dota2/runes/${runeType}.png`}
-                    alt=""
-                    style={{ height: '30px', float: 'left' }}
-                  />
-                </Tooltip>
-                <p style={{ float: 'left' }}> {runeString} {strings.rune}</p>
-              </span>
-            );
-          }
-          case 'objectives': {
-            if (row.alt_key === 'CHAT_MESSAGE_FIRSTBLOOD') {
-              return (
-                <span>
-                  <img
-                    src="/assets/images/dota2/bloodsplattersmall2.png" // https://pixabay.com/en/ink-red-splatter-abstract-paint-303244/
-                    alt=""
-                    style={logDetailIconStyle}
-                  />
-                  <p>{strings.th_firstblood_claimed}</p>
-                </span>
-              );
-            }
-            if (row.alt_key === 'building_kill') {
-              if (row.key.indexOf('goodguys') !== -1) {
-                return (
-                  <span>
-                    {killIcon(row.isRadiant)}
-                    <IconRadiant
-                      style={logDetailIconStyleTower}
-                    />
-                    <p style={{ float: 'left' }}>
-                      {translateBuildings(true, row.key)} {row.isRadiant === true ? `(${strings.building_denied})` : ''}
-                    </p>
-                  </span>
-                );
-              }
-
-              return (
-                <span>
-                  {killIcon(row.isRadiant)}
-                  <IconDire
-                    style={logDetailIconStyleTower}
-                  />
-                  <p style={{ float: 'left' }}>
-                    {translateBuildings(false, row.key)} {row.isRadiant === false ? `(${strings.building_denied})` : ''}
-                  </p>
-                </span>
-              );
-            }
-            if (row.alt_key === 'CHAT_MESSAGE_AEGIS') {
-              return (
-                <span>
-                  <img
-                    src="/assets/images/dota2/aegis_icon.png"
-                    alt=""
-                    style={logDetailIconStyle}
-                  />
-                  <p>{strings.CHAT_MESSAGE_AEGIS}</p>
-                </span>
-              );
-            }
-            if (row.alt_key === 'CHAT_MESSAGE_ROSHAN_KILL') {
-              return (
-                <span>
-                  <img
-                    src="/assets/images/dota2/roshan.png"
-                    alt=""
-                    style={logDetailIconStyle}
-                  />
-                  <p>{strings.th_roshan}</p>
-                </span>
-              );
-            }
-            if (row.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
-              const team = row.team === 2 ? strings.general_radiant : strings.general_dire;
-              const courierIcon = row.team === 2 ? 'radiantcourier.png' : 'direcourier.png';
-              return (
-                <span>
-                  <img
-                    src={`/assets/images/dota2/${courierIcon}`}
-                    alt=""
-                    style={logDetailIconStyle}
-                  />
-                  <p>{formatTemplateToString(strings.story_courier_kill, { team })}</p>
-                </span>
-              );
-            }
-            return row.detail;
-          }
-          default:
-            return row.detail;
-        }
-      },
-    }];
-};
-
 class MatchLog extends React.Component {
   static propTypes = {
     match: PropTypes.shape({
       players: PropTypes.arrayOf({}),
     }),
     strings: PropTypes.shape({}),
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -315,7 +275,9 @@ class MatchLog extends React.Component {
       { text: strings.heading_runes, value: 2 },
     ];
     this.playersSource = this.props.match.players.map((player, index) => ({
-      text: heroes[player.hero_id] ? heroes[player.hero_id].localized_name : strings.general_no_hero,
+      text: heroes[player.hero_id]
+        ? heroes[player.hero_id].localized_name
+        : strings.general_no_hero,
       value: index,
     }));
   }
@@ -338,7 +300,7 @@ class MatchLog extends React.Component {
   render() {
     const { strings } = this.props;
     const runeTooltips = Object.keys(strings)
-      .filter(str => str.indexOf('rune_') === 0)
+      .filter((str) => str.indexOf('rune_') === 0)
       .map((runeKey) => {
         const runeString = strings[runeKey];
         return (
@@ -348,11 +310,14 @@ class MatchLog extends React.Component {
         );
       });
     const logData = generateLog(this.props.match, this.state, strings);
+    const groupedEntries = [];
+    let lastEntryTime = Number.MIN_SAFE_INTEGER;
 
     return (
       <div>
         {runeTooltips}
-        <StyledLogFilterForm >
+        <StyledLogFilterForm>
+          <div className="title">{strings.filter_button_text_open}</div>
           <FormField
             name="types"
             label={strings.ward_log_type}
@@ -372,15 +337,250 @@ class MatchLog extends React.Component {
             strict
           />
         </StyledLogFilterForm>
-        <St>
-          <Table data={logData} columns={logColumns(strings)} />
-        </St>
+        <StyledLogContainer>
+          {logData.map((entry, index) => {
+            groupedEntries.push(entry);
+            const nextEntry = logData[index + 1];
+
+            if (
+              index === logData.length - 1 ||
+              nextEntry.player_slot !== entry.player_slot ||  //  group consecutive log entries by the same player together
+              nextEntry.time - entry.time > DIVIDER_SECONDS // unless they're more than DIVIDER_SECONDS seconds apart
+            ) {
+              const renderEntries = [...groupedEntries];
+              groupedEntries.length = 0;
+
+              let renderFirst;
+              if (entry.hero_id === undefined) {
+                renderFirst = (
+                  <img
+                    src={`/assets/images/${
+                      isRadiant(renderEntries[0]) ? 'radiant' : 'dire'
+                    }.png`}
+                    alt=""
+                    className="heroImage"
+                  />
+                );
+              } else {
+                renderFirst = (
+                  <HeroImage id={entry.hero_id} className="heroImage"/>
+                );
+              }
+
+              let timeDivider = null;
+              if (renderEntries[0].time - lastEntryTime >= DIVIDER_SECONDS) {
+                timeDivider = (
+                  <div className="timeDivider">
+                    <div />
+                    <span>{formatSeconds(renderEntries[0].time)}</span>
+                    <div />
+                  </div>
+                );
+              }
+
+              let renderSecond = (
+                <div
+                  className={`entryMessagesContainer ${
+                    isRadiant(renderEntries[0]) ? 'radiant' : 'dire'
+                  }`}
+                >
+                  {renderEntries.map((e) => {
+                    lastEntryTime = e.time;
+                    if (isRadiant(renderEntries[0])) {
+                      return (
+                        <div className="entryMessage">
+                          <EntryMessage entry={e} strings={strings} />
+                          <span className="time" style={{ marginLeft: 15 }}>
+                            {formatSeconds(e.time)}
+                          </span>
+                        </div>
+                      );
+                    }
+                    return (
+                      <div className="entryMessage">
+                        <span className="time" style={{ marginRight: 15 }}>
+                          {formatSeconds(e.time)}
+                        </span>
+                        <EntryMessage entry={e} strings={strings} />
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+
+              if (!isRadiant(renderEntries[0])) {
+                const temp = renderFirst;
+                renderFirst = renderSecond;
+                renderSecond = temp;
+              }
+
+              return (
+                <>
+                  {timeDivider}
+                  <div
+                    className="entry"
+                    style={{
+                      justifyContent: isRadiant(renderEntries[0])
+                        ? 'flex-start'
+                        : 'flex-end',
+                    }}
+                  >
+                    {renderFirst}
+                    <div style={{ width: 16 }} />
+                    {renderSecond}
+                  </div>
+                </>
+              );
+            }
+            return null;
+          })}
+        </StyledLogContainer>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
+function EntryMessage({ entry, strings }) {
+  const translateBuildings = (isRad, key) => {
+    const team = isRad ? strings.general_radiant : strings.general_dire;
+    const k = key.split('_').slice(3).join('_');
+    const dict = {
+      fort: ` ${strings.building_ancient}`,
+      healers: ` ${strings.heading_shrine}`,
+      tower1_top: ` ${strings.top_tower} ${strings.tier1}`,
+      tower2_top: ` ${strings.top_tower} ${strings.tier2}`,
+      tower3_top: ` ${strings.top_tower} ${strings.tier3}`,
+      towerenderSecond_top: ` ${strings.top_tower} ${strings.tierenderSecond}`,
+      tower1_mid: ` ${strings.mid_tower} ${strings.tier1}`,
+      tower2_mid: ` ${strings.mid_tower} ${strings.tier2}`,
+      tower3_mid: ` ${strings.mid_tower} ${strings.tier3}`,
+      towerenderSecond_mid: ` ${strings.mid_tower} ${strings.tierenderSecond}`,
+      tower1_bot: ` ${strings.bot_tower} ${strings.tier1}`,
+      tower2_bot: ` ${strings.bot_tower} ${strings.tier2}`,
+      tower3_bot: ` ${strings.bot_tower} ${strings.tier3}`,
+      towerenderSecond_bot: ` ${strings.bot_tower} ${strings.tierenderSecond}`,
+      tower4: ` ${strings.heading_tower} ${strings.tier4}`,
+      melee_rax_top: ` ${'Top'} ${strings.building_melee_rax}`,
+      melee_rax_mid: ` ${'Mid'} ${strings.building_melee_rax}`,
+      melee_rax_bot: ` ${'Bot'} ${strings.building_melee_rax}`,
+      range_rax_top: ` ${'Top'} ${strings.building_range_rax}`,
+      range_rax_mid: ` ${'Mid'} ${strings.building_range_rax}`,
+      range_rax_bot: ` ${'Bot'} ${strings.building_range_rax}`,
+    };
+    return team + dict[k];
+  };
+
+  switch (entry.type) {
+    case 'kills': {
+      const hero = heroNames[entry.detail] || {};
+      return (
+        <>
+          <Sword className="swordIcon icon" />
+          <span className="smallMutedText">{strings.killed}</span>
+          <HeroImage id={hero.id} className="detailIcon" isIcon />
+          <span className="smallBoldText">{hero.localized_name}</span>
+        </>
+      );
+    }
+    case 'runes': {
+      const runeType = entry.detail;
+      const runeString = strings[`rune_${runeType}`];
+      return (
+        <>
+          <Tooltip title={runeString}>
+            <img
+              src={`/assets/images/dota2/runes/${runeType}.png`}
+              alt=""
+              className="detailIcon"
+            />
+          </Tooltip>
+          <span
+            className="smallMutedText"
+            style={{ textTransform: 'lowercase' }}
+          >
+            {strings.activated}&nbsp;
+          </span>
+          <span className="smallBoldText">
+            {runeString} {strings.rune}
+          </span>
+        </>
+      );
+    }
+    case 'objectives':
+      if (entry.alt_key === 'CHAT_MESSAGE_FIRSTBLOOD') {
+        return (
+          <>
+            <IconBloodDrop className="dropIcon icon" />
+            <span className="smallBoldText">
+              {strings.drew_first_blood}
+            </span>
+          </>
+        );
+      }
+      if (entry.alt_key === 'building_kill') {
+        return (
+          <>
+            <Lightning className="lightningIcon icon" />
+            <span className="smallMutedText">{strings.destroyed}&nbsp;</span>
+            <span className="smallBoldText">
+              {translateBuildings(entry.key.indexOf('goodguys') !== -1, entry.key)}{' '}
+              {(isRadiant(entry) && entry.key.indexOf('goodguys') !== -1) ||
+              (!isRadiant(entry) && entry.key.indexOf('badguys') !== -1)
+                ? `(${strings.building_denied})`
+                : ''}
+            </span>
+          </>
+        );
+      }
+      if (entry.alt_key === 'CHAT_MESSAGE_AEGIS') {
+        return (
+          <>
+            <img
+              src="/assets/images/dota2/aegis_icon.png"
+              alt=""
+              className="detailIcon"
+            />
+            <span className="smallBoldText">{strings.CHAT_MESSAGE_AEGIS}</span>
+          </>
+        );
+      }
+      if (entry.alt_key === 'CHAT_MESSAGE_ROSHAN_KILL') {
+        return (
+          <>
+            <IconRoshan className="roshanIcon icon" />
+            <span className="smallBoldText">{strings.slain_roshan}</span>
+          </>
+        );
+      }
+      if (entry.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
+        const team =
+          entry.team === 2 ? strings.general_radiant : strings.general_dire;
+        return (
+          <>
+            <Sword className="swordIcon icon"/>
+            <span className="smallMutedText">{strings.killed}</span>
+            <img
+              src={`/assets/images/dota2/${
+                entry.team === 2 ? 'radiant' : 'dire'
+              }courier.png`}
+              alt=""
+              className="detailIcon"
+            />
+            <span className="smallBoldText">
+              {formatTemplateToString(strings.team_courier, {
+                team,
+              })}
+            </span>
+          </>
+        );
+      }
+      return null;
+    default:
+      return null;
+  }
+}
+
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

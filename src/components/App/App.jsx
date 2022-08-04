@@ -9,6 +9,7 @@ import styled from 'styled-components';
 
 import Combos from './../Combos/Combos';
 import Api from '../Api';
+import Subscription from '../Subscription';
 import constants from '../constants';
 import Distributions from '../Distributions';
 import Explorer from '../Explorer';
@@ -186,6 +187,7 @@ const App = (props) => {
             <Route exact path="/scenarios/:info?" component={Scenarios} />
             <Route exact path="/predictions" component={Predictions} />
             <Route exact path="/api-keys" component={Api} />
+            <Route exact path="/subscribe" component={Subscription} />
             <Route component={FourOhFour} />
           </Switch>
         </StyledBodyDiv>

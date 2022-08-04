@@ -55,6 +55,7 @@ export default {
   colorAttributeAgi: '#39d402',
   colorAttributeInt: '#01a9f4',
   colorMana: '#578dca',
+  colorBoxBlue: 'rgba(71, 114, 179, 0.05)',
   sliderTicksColor: '#757575',
   sliderTicksColorActive: '#337AB7',
   dividerColor: 'rgb(52, 50, 50)',

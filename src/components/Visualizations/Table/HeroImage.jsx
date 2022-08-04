@@ -140,7 +140,7 @@ const Styled = styled.div`
     }
   }
 
-  .contributor {
+  .logo {
     display: inline-block;
 
     & svg {
@@ -149,7 +149,6 @@ const Styled = styled.div`
       margin-right: 5px;
       -webkit-filter: drop-shadow(0 0 4px rgba(102, 187, 255, 1));
       filter: drop-shadow(0 0 4px rgba(102, 187, 255, 1));
-      fill: ${constants.colorBlue};
     }
     width: 14px;
     height: 14px;
@@ -445,6 +444,7 @@ class TableHeroImage extends React.Component {
       image,
       registered,
       contributor,
+      subscriber,
       title,
       subtitle,
       accountId,
@@ -527,16 +527,29 @@ class TableHeroImage extends React.Component {
           {!hideText && (
             <div className="textContainer">
               <span>
-                {registered && !contributor && (
+                {registered && !contributor && !subscriber && (
                   <div
                     className="registered"
                     data-hint={strings.tooltip_registered_user}
                     data-hint-position="top"
                   />
                 )}
+                {subscriber && (
+                  <div
+                    className="logo"
+                    data-hint={strings.app_subscriber}
+                    data-hint-position="top"
+                  >
+                    <IconContributor
+                      className="icon"
+                      dColor="#FFD700"
+                      oColor="#212121"
+                    />
+                  </div>
+                )}
                 {contributor && (
                   <div
-                    className="contributor"
+                    className="logo"
                     data-hint={strings.app_contributor}
                     data-hint-position="top"
                   >
@@ -757,6 +770,7 @@ TableHeroImage.propTypes = {
   title: oneOfType([string, object]),
   subtitle: oneOfType([string, node]),
   registered: string,
+  subscriber: bool,
   contributor: bool,
   accountId: number,
   playerSlot: number,
