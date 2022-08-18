@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import propTypes from 'prop-types';
 import Ability from './Ability';
 import Talents from './Talents';
+import AghanimUpgrades from './AghanimUpgrades';
 
 const Wrapper = styled.div`
   align-items: center;
@@ -59,15 +60,18 @@ const Abilities = ({ hero, abilities, heroAbilities }) => {
 
     const heroNpcName = toMapHeroAbsTals.name;
     const heroAbs = heroAbilities[heroNpcName];
+    console.log('heroAbs', heroAbs.abilities)
 
     // Filter out generic_hidden skills from skill list
     heroAbs.abilities = filterAbilities(heroAbs.abilities);
     talsMap.skills = mapAbilities(heroAbs.abilities);
 
+    console.log('talsmap', talsMap.skills)
+
     // Map Talents and assign them to correct level in Object
     const heroTalents = mapTalents(heroAbs.talents);
     talsMap.talents = mapTalentsToLevel(heroTalents);
-
+    
     return talsMap;
   };
 
@@ -75,9 +79,12 @@ const Abilities = ({ hero, abilities, heroAbilities }) => {
 
   return (
     <Wrapper>
-      {renderAbilities(heroAbs.skills)}
       <AbilityItem>
         <Talents talents={heroAbs.talents} />
+      </AbilityItem>
+      {renderAbilities(heroAbs.skills)}
+      <AbilityItem>
+        <AghanimUpgrades heroName={hero.name} skills={heroAbs.skills} />
       </AbilityItem>
     </Wrapper>
   );
