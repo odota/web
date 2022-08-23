@@ -196,13 +196,13 @@ const AbilityTooltip = ({ ability, inflictor }) => (
     <Resources>
         {ability.mc &&
         <span>
-          <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/tooltips/mana.png`} alt="" />
+          <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/mana.png`} alt="" />
           <span className="values">{formatValues(ability.mc)}</span>
         </span>
         }
         {ability.cd &&
         <span>
-          <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/tooltips/cooldown.png`} alt="" />
+          <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
           <span className="values">{formatValues(ability.cd)}</span>
         </span>
         }
