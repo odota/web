@@ -385,7 +385,7 @@ const BuildingMap = ({ match, strings }) => {
                             </span>
                             :
                             <span>
-                              {type !== 'fort' && <img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/tooltips/gold.png`} alt="" />}
+                              {type !== 'fort' && <img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="" />}
                               {strings.building_lasthit}
                             </span>
                         }
