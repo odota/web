@@ -96,7 +96,7 @@
     "cross-env": "^6.0.3",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^7.2.0",
+    "eslint-config-prettier": "^8.5.0",
     "hoist-non-react-statics": "^3.3.1",
     "husky": "^3.1.0",
     "isomorphic-fetch": "^2.2.1",
