@@ -29,7 +29,7 @@
     "@stripe/stripe-js": "^1.32.0",
     "abcolor": "^0.5.5",
     "ace-builds": "^1.4.7",
-    "core-js": "^3.6.4",
+    "core-js": "^3.24.1",
     "dota2-emoticons": "^1.0.3",
     "dotaconstants": "^7.13.0",
     "fuzzy": "^0.1.3",
