@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   border-radius: 4px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, .3);
   position: relative;
+  width: 106%;
 `;
 
 export const StyledAghanimsBuffs = styled.div`
@@ -27,7 +28,6 @@ align-items: center;
 
 export const Icon = styled.img`
   width: 60%;
-
   &:hover {
     opacity: 1;
     transform: scale(1.1);

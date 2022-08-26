@@ -135,6 +135,7 @@ const AbilityIcon = styled.img`
   flex-basis: 15%;
   opacity: .7;
   overflow: hidden;
+  border: 1px black solid;
   height: 35px;
   transition: opacity .2s, box-shadow .4s, transform .2s;
 
@@ -327,7 +328,7 @@ align-items: center;
 const AghsTooltip = ({ upgrades, skills }) => (
   <TtWrapper>
     <StyledAghanimsBuffs>
-      <ReactTooltip id="aghanim" effect="solid" place="bottom">
+      <ReactTooltip id="aghanim" effect="solid" place="bottom" >
         <ItemTooltip type="scepter" upgrades={upgrades} skills={skills} />
       </ReactTooltip>
     </StyledAghanimsBuffs>
