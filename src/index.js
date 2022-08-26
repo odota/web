@@ -5,7 +5,7 @@ import { render, hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import store from './store';
-import { getMetadata, getStrings, getAbilities, getHeroAbilities, getNeutralAbilities, getAbilityIds } from './actions';
+import { getMetadata, getStrings, getAbilities, getHeroAbilities, getHeroAghs, getNeutralAbilities, getAbilityIds } from './actions';
 import App from './components/App';
 // import { unregister } from './common/serviceWorker';
 
@@ -15,6 +15,7 @@ store.dispatch(getMetadata());
 store.dispatch(getStrings());
 store.dispatch(getAbilities());
 store.dispatch(getHeroAbilities());
+store.dispatch(getHeroAghs());
 store.dispatch(getNeutralAbilities());
 store.dispatch(getAbilityIds());
 

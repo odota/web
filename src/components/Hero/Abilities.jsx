@@ -2,8 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
+
 import Ability from './Ability';
 import Talents from './Talents';
+import Aghs from './Aghs';
 
 const Wrapper = styled.div`
   align-items: center;
@@ -75,9 +77,12 @@ const Abilities = ({ hero, abilities, heroAbilities }) => {
 
   return (
     <Wrapper>
-      {renderAbilities(heroAbs.skills)}
       <AbilityItem>
         <Talents talents={heroAbs.talents} />
+      </AbilityItem>
+      {renderAbilities(heroAbs.skills)}
+      <AbilityItem>
+        <Aghs hero_npc_name={hero.name} skills={heroAbs.skills}/>
       </AbilityItem>
     </Wrapper>
   );
