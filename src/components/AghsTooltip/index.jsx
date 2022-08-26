@@ -24,23 +24,20 @@ const Header = styled.div`
   }
 
   #scepter-img {
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 15%; 
     display: inline-block;
-    height: 100%;
+    height: 32px;
+    width: 35px;
+    padding: 4px;
+    margin-top: -8px;
     vertical-align: middle;
-    width: auto;
   } 
 
   #shard-img {
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 15%; 
     display: inline-block;
-    height: 100%;
+    height: 25px;
+    width: 35px;
+    padding: 0 4px;
     vertical-align: middle;
-    width: auto;
   } 
 `;
 
@@ -180,11 +177,13 @@ const ItemTooltip = ({ upgrades, skills }) => {
   let newScepterAbility = null;
   let newShardAbility = null;
 
+  console.log("talal", skills);
+
   function getAbilityImage(skillName) {
     const ability = skills.find(skill =>
       skill.data.dname === skillName
     )
-    return ability.data.img
+    return ability.data.img // TODO: Null or not found check maybe
   }
 
   if (upgrades.has_shard) {
