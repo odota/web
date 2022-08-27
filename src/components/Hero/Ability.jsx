@@ -52,7 +52,7 @@ const Ability = (props) => {
   const ttId = nanoid();
   const showMana = (props.mc && parseInt(props.mc, 0) > 0);
   let manaString = false;
-  
+
   if (showMana) {
     manaString = ((typeof props.mc === 'object') ? props.mc[0] : props.mc);
   }
