@@ -60,13 +60,10 @@ const Abilities = ({ hero, abilities, heroAbilities }) => {
 
     const heroNpcName = toMapHeroAbsTals.name;
     const heroAbs = heroAbilities[heroNpcName];
-    console.log('heroAbs', heroAbs.abilities)
 
     // Filter out generic_hidden skills from skill list
     heroAbs.abilities = filterAbilities(heroAbs.abilities);
     talsMap.skills = mapAbilities(heroAbs.abilities);
-
-    console.log('talsmap', talsMap.skills)
 
     // Map Talents and assign them to correct level in Object
     const heroTalents = mapTalents(heroAbs.talents);

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import aghsDesc from 'dotaconstants/build/aghs_desc.json';
 import propTypes from 'prop-types';
-
 import AghsTooltip from '../AghsTooltip';
 import constants from '../constants';
 
@@ -56,7 +55,8 @@ const AghanimUpgrades = ({ heroName, skills }) => (
 );
 
 AghanimUpgrades.propTypes = {
-  heroName: propTypes.string.isRequired,
+  heroName: propTypes.string,
+  skills: propTypes.shape({}),
 };
 
 export default AghanimUpgrades;

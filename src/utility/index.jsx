@@ -69,6 +69,13 @@ export function formatSeconds(input) {
   return null;
 }
 
+export function formatSkillOrAttributeValues(values) {
+  if (Array.isArray(values)) {
+    return values.filter(value => value).join(' / ');
+  }
+  return values;
+}
+
 export function getLevelFromXp(xp) {
   for (let i = 0; i < xpLevel.length; i += 1) {
     if (xpLevel[i] > xp) {
