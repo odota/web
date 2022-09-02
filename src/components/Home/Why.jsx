@@ -9,7 +9,7 @@ const StyledDiv = styled.div`
   margin: 50px auto 0;
   text-align: center;
   max-width: 1920px;
-  padding-bottom: 30px;
+  padding: 50px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
   & .whyList {
