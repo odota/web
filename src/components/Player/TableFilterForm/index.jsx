@@ -276,6 +276,45 @@ class TableFilterForm extends React.Component {
       value: 5,
     }];
 
+    const roleList = [
+      {
+        text: 'Carry',
+        value: 1,
+      },
+      {
+        text: 'Nuker',
+        value: 2,
+      },
+      {
+        text: 'Initiator',
+        value: 3,
+      },
+      {
+        text: 'Disabler',
+        value: 4,
+      },
+      {
+        text: 'Durable',
+        value: 5,
+      },
+      {
+        text: 'Escape',
+        value: 6,
+      },
+      {
+        text: 'Support',
+        value: 7,
+      },
+      {
+        text: 'Pusher',
+        value: 8,
+      },
+      {
+        text: 'Jungler',
+        value: 9,
+      },
+    ];
+    
     const CustomFormField = props =>
       (<FormField
         formSelectionState={formSelectionState}
@@ -314,6 +353,13 @@ class TableFilterForm extends React.Component {
               name="win"
               label={strings.filter_win}
               dataSource={resultList}
+              strict
+              limit={1}
+            />
+            <CustomFormField
+              name="role_id"
+              label={strings.heading_lane_role}
+              dataSource={roleList}
               strict
               limit={1}
             />
