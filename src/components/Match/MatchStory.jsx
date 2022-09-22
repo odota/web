@@ -335,12 +335,20 @@ class CourierKillEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
     this.team = obj.team === 2;
+    this.owner = match.players.find(player => player.player_slot === obj.owner);
+    this.killer = match.players.find(player => player.player_slot === obj.killer);
   }
   format() {
     const { strings } = store.getState().app;
-
-    return formatTemplate(strings.story_courier_kill, {
-      team: TeamSpan(this.team),
+    // Legacy team couriers
+    if (this.owner === null) {
+      return formatTemplate(strings.story_courier_kill, {
+        team: TeamSpan(this.team),
+      });
+    }
+    return formatTemplate(strings.story_courier_kill2, {
+      owner: PlayerSpan(this.owner),
+      killer: PlayerSpan(this.killer),
     });
   }
 }
