@@ -665,6 +665,8 @@
   "story_building_deny_player": "{player} denied {building}",
   "story_building_list_destroy": "{buildings} були знищені",
   "story_courier_kill": "{team}– кур'єр був убитий",
+  "story_courier_kill_killer": "{team}'s courier was killed by {killer}",
+  "story_courier_kill_gold": "{team}'s courier was killed by {killer} for {gold}",
   "story_tower": "{team}'s Tier {tier} {lane} tower",
   "story_tower_simple": "одна з веж {team}",
   "story_towers_n": "{n} of {team}'s Towers",
