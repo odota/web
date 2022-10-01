@@ -665,6 +665,8 @@
   "story_building_deny_player": "{player} reddetti {building}",
   "story_building_list_destroy": "{buildings} were destroyed",
   "story_courier_kill": "{team}'ın kuryesi öldürüldü",
+  "story_courier_kill_killer": "{team}'s courier was killed by {killer}",
+  "story_courier_kill_gold": "{team}'s courier was killed by {killer} for {gold}",
   "story_tower": "{team}'ın Rütbesi {tier} {lane} kule",
   "story_tower_simple": "{team}'ın kulelerinden biri",
   "story_towers_n": "{n}'ın {team} Kuleleri",
