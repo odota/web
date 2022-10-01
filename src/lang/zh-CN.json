@@ -665,6 +665,8 @@
   "story_building_deny_player": "{player} 反补了 {building}",
   "story_building_list_destroy": "{buildings} 被摧毁",
   "story_courier_kill": "{team} 信使被击杀",
+  "story_courier_kill_killer": "{team}'s courier was killed by {killer}",
+  "story_courier_kill_gold": "{team}'s courier was killed by {killer} for {gold}",
   "story_tower": "{team} {lane} 路的 {tier} 层防御塔",
   "story_tower_simple": "{team} 的一座防御塔",
   "story_towers_n": "{team} 队伍的 {n} 座防御塔",
