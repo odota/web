@@ -665,6 +665,8 @@
   "story_building_deny_player": "{player} a făcut deny la {building}",
   "story_building_list_destroy": "{buildings} au fost distruse",
   "story_courier_kill": "Curierul {team} a fost ucis",
+  "story_courier_kill_killer": "{team}'s courier was killed by {killer}",
+  "story_courier_kill_gold": "{team}'s courier was killed by {killer} for {gold}",
   "story_tower": "Turnul de nivel {tier} de pe linia de {lane} al echipei {team}",
   "story_tower_simple": "unul dintre turnurile echipei {team}",
   "story_towers_n": "{n} dintre turnurile echipei {team}",
