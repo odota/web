@@ -665,6 +665,8 @@
   "story_building_deny_player": "{player} a(ont) deny {building}",
   "story_building_list_destroy": "{buildings} ont été détruits",
   "story_courier_kill": "Le coursier du {team} a été tué",
+  "story_courier_kill_killer": "{team}'s courier was killed by {killer}",
+  "story_courier_kill_gold": "{team}'s courier was killed by {killer} for {gold}",
   "story_tower": "La tour du {lane} niveau {tier} du {team}",
   "story_tower_simple": "une des tours du {team}",
   "story_towers_n": "{n} des tours du {team}",
