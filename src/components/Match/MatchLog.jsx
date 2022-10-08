@@ -203,6 +203,19 @@ const generateLog = (match, { types, players }, strings) => {
           }
         }
         */
+        if (objective.type === 'CHAT_MESSAGE_COURIER_LOST') {
+          // Adjust for incorrect data from post 7.23 core bug
+          // Here the team value is killer id
+          if (objective.killer === undefined) {
+            const team = objective.team > 4 ? 2 : 3;
+            objective.killer = (team === 2 ? 123 : 0) + objective.team;
+            objective.team = team;
+          }
+          const killer = match.players.find(player => player.player_slot === objective.killer)?.hero_id || -1;
+          if (killer !== -1) {
+            objective.hero_id = killer;
+          }
+        }
         objectivesLog.push({
           ...objective,
           ...matchPlayers[objective.slot],
