@@ -22,6 +22,9 @@ function validateArray(p) {
   return Array.isArray(p) && p.length > 0;
 }
 
+const tiTeams = [7119388, 2586976, 6209166, 8254400, 7391077, 7732977, 8260983, 8291895, 8599101, 350190, 39, 
+  7390454, 8131728, 8605863, 8721219, 6209804, 8597976, 2163, 1838315, 15];
+
 const queryTemplate = (props) => {
   const {
     select,
@@ -46,7 +49,7 @@ const queryTemplate = (props) => {
     tier,
     having,
     limit,
-    isTi9Team,
+    isTiTeam,
     megaWin,
     minGoldAdvantage,
     maxGoldAdvantage,
@@ -129,7 +132,7 @@ ${conjoin`matches.cluster IN (${region})`}
 ${minDate ? conjoin`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
 ${maxDate ? conjoin`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${conjoin`leagues.tier = '${tier}'`}
-${isTi9Team ? 'AND teams.team_id IN (15, 36, 39, 2163, 111474, 350190, 543897, 726228, 1838315, 1883502, 2108395, 2586976, 2626685, 2672298, 6209804, 6214538, 6214973, 7203342)' : ''}
+${isTiTeam ? `AND teams.team_id IN (${tiTeams.join(',')})` : ''}
 ${megaWin ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))' : ''}
 ${maxGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage.value}` : ''}
 ${minGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage.value}` : ''}
@@ -205,7 +208,7 @@ ${conjoin`matches.cluster IN (${region})`}
 ${minDate ? conjoin`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
 ${maxDate ? conjoin`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
 ${conjoin`leagues.tier = '${tier}'`}
-${isTi9Team ? 'AND teams.team_id IN (15, 36, 39, 2163, 111474, 350190, 543897, 726228, 1838315, 1883502, 2108395, 2586976, 2626685, 2672298, 6209804, 6214538, 6214973, 7203342)' : ''}
+${isTiTeam ? `AND teams.team_id IN (${tiTeams.join(',')})` : ''}
 ${megaWin ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))' : ''}
 ${maxGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage.value}` : ''}
 ${minGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage.value}` : ''}

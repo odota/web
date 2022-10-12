@@ -335,12 +335,36 @@ class CourierKillEvent extends StoryEvent {
   constructor(match, obj) {
     super(obj.time);
     this.team = obj.team === 2;
+    // Adjust for incorrect data from post 7.23 core bug
+    // Here the team value is killer id
+    if (obj.killer === undefined) {
+        this.team = obj.team > 4
+        obj.killer = (this.team ? 123 : 0) + obj.team
+    }
+    this.killer = match.players.find(player => player.player_slot === obj.killer) || -1;
+    this.amount = obj.value || 0;
   }
   format() {
     const { strings } = store.getState().app;
+    const team = TeamSpan(this.team)
+    const killer = this.killer === -1 ? TeamSpan(!this.team) : PlayerSpan(this.killer);
 
-    return formatTemplate(strings.story_courier_kill, {
-      team: TeamSpan(this.team),
+    // Legacy team couriers
+    if (this.killer === null) {
+      return formatTemplate(strings.story_courier_kill, {
+        team,
+      });
+    }
+    if (this.amount === 0) {
+      return formatTemplate(strings.story_courier_kill_killer, {
+        team,
+        killer,
+      });
+    }
+    return formatTemplate(strings.story_courier_kill_gold, {
+      team,
+      killer,
+      gold: GoldSpan(this.amount),
     });
   }
 }

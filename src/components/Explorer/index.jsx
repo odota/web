@@ -254,7 +254,7 @@ class Explorer extends React.Component {
           <ExplorerFormField label={strings.explorer_order} fields={expandedFields} builderField="order" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_having} fields={expandedFields} builderField="having" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_limit} fields={expandedFields} builderField="limit" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label={formatTemplateToString(strings.explorer_is_ti_team, { number: 9 })} fields={expandedFields} builderField="isTi9Team" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.explorer_is_ti_team} fields={expandedFields} builderField="isTiTeam" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_mega_comeback} fields={expandedFields} builderField="megaWin" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_max_gold_adv} fields={expandedFields} builderField="maxGoldAdvantage" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_min_gold_adv} fields={expandedFields} builderField="minGoldAdvantage" handleFieldUpdate={handleFieldUpdate} builder={builder} />

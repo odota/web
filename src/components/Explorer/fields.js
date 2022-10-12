@@ -499,7 +499,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
       const laneRoleId = Number(str.substring('lane_role_'.length));
       return { text: strings[str], value: laneRoleId, key: String(laneRoleId) };
     }),
-    isTi9Team: [{ text: 'Yes', value: true, key: 'true' }],
+    isTiTeam: [{ text: 'Yes', value: true, key: 'true' }],
     megaWin: [{ text: 'Yes', value: true, key: 'true' }],
     minGoldAdvantage: goldAdvantage,
     maxGoldAdvantage: goldAdvantage,
