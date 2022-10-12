@@ -276,6 +276,11 @@ const Header = ({ location, disableSearch }) => {
       to: '/subscribe',
       label: strings.header_subscribe,
     },
+    {
+      key: 'header_predictions',
+      to: '/predictions',
+      label: 'TI Predictions',
+    },
   ];
 
   const drawerPages = [

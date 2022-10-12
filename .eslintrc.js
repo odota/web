@@ -1,10 +1,6 @@
 const path = require('path');
 
 const commonRules = {
-  'max-len': [
-    'error',
-    { code: 180, ignoreTemplateLiterals: true, ignoreStrings: true },
-  ],
   'no-mixed-operators': [
     'error',
     {
@@ -54,6 +50,7 @@ const commonRules = {
   'no-unused-vars': 'warn',
   'no-unused-expressions': 'warn',
   'no-param-reassign': 'warn',
+  'prefer-template': 'warn',
 };
 
 module.exports = {
