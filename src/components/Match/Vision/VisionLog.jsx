@@ -83,7 +83,7 @@ function logWard(log) {
       <div className="minimap"><img
         src="/assets/images/dota2/map/minimap2.jpg"
         style={{ height: '30px' }}
-        alt=""
+        alt="Minimap"
       /><div className="placement">{LogHover(log)}</div>
       </div>
 
