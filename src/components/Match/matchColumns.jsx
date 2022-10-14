@@ -499,7 +499,7 @@ export default (strings) => {
                   ? '1'
                   : '0'
               }.png`}
-              alt=""
+              alt="Aghanim's Scepter"
               data-tip={scepterTooltip}
               data-for="scepter"
             />
@@ -512,7 +512,7 @@ export default (strings) => {
                   ? '1'
                   : '0'
               }.png`}
-              alt=""
+              alt="Aghanim's Shard"
               data-tip={shardTooltip}
               data-for="shard"
             />
@@ -1243,7 +1243,7 @@ export default (strings) => {
         displayName: (
           <StyledRunes data-tip data-for={`rune_${runeType}`}>
             <Tooltip title={strings[`rune_${runeType}`]}>
-              <img src={`/assets/images/dota2/runes/${runeType}.png`} alt="" />
+              <img src={`/assets/images/dota2/runes/${runeType}.png`} alt={strings[`rune_${runeType}`]} />
             </Tooltip>
           </StyledRunes>
         ),
@@ -1283,7 +1283,7 @@ export default (strings) => {
             >
               <img
                 src={`${process.env.REACT_APP_IMAGE_CDN}/apps/570/${cosmetic.image_path}`}
-                alt=""
+                alt={cosmetic.name}
                 style={{
                   borderBottom: `2px solid ${
                     cosmetic.item_rarity
@@ -1515,7 +1515,7 @@ export default (strings) => {
   const playerDeaths = (row, col, field) => {
     const deaths = [];
     for (let i = 0; i < field; i += 1) {
-      deaths.push(<img src="/assets/images/player_death.png" alt="" />);
+      deaths.push(<img src="/assets/images/player_death.png" alt="Player death icon, a skull with a glowing red outline" />);
     }
     return field > 0 && <StyledPlayersDeath>{deaths}</StyledPlayersDeath>;
   };
@@ -1609,7 +1609,7 @@ export default (strings) => {
         <img
           height="15"
           src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`}
-          alt=""
+          alt="Observer ward"
         />
         &nbsp;{strings.th_duration_shorthand}
       </div>
@@ -1628,7 +1628,7 @@ export default (strings) => {
         <img
           height="15"
           src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`}
-          alt=""
+          alt="Sentry ward"
         />
         &nbsp;{strings.th_duration_shorthand}
       </div>
@@ -1647,7 +1647,7 @@ export default (strings) => {
         <img
           height="15"
           src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`}
-          alt=""
+          alt="Observer ward"
         />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
@@ -1666,7 +1666,7 @@ export default (strings) => {
         <img
           height="15"
           src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`}
-          alt=""
+          alt="Sentry ward"
         />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
@@ -1685,7 +1685,7 @@ export default (strings) => {
         <img
           height="15"
           src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/dust.png`}
-          alt=""
+          alt="Dust of Appearance"
         />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
@@ -1704,7 +1704,7 @@ export default (strings) => {
         <img
           height="15"
           src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/smoke_of_deceit.png`}
-          alt=""
+          alt="Smoke of Deceit"
         />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
@@ -1723,7 +1723,7 @@ export default (strings) => {
         <img
           height="15"
           src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/gem.png`}
-          alt=""
+          alt="Gem of Truesight"
         />
         &nbsp;{strings.th_purchase_shorthand}
       </div>
@@ -1745,7 +1745,7 @@ export default (strings) => {
           <img
             height="15"
             src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`}
-            alt=""
+            alt="Observer ward"
           />
           &nbsp;{visionStrings.th_use_shorthand}
         </div>
@@ -1765,7 +1765,7 @@ export default (strings) => {
           <img
             height="15"
             src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`}
-            alt=""
+            alt="Sentry ward"
           />
           &nbsp;{visionStrings.th_use_shorthand}
         </div>
@@ -1785,7 +1785,7 @@ export default (strings) => {
           <img
             height="15"
             src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/dust.png`}
-            alt=""
+            alt="Dust of Appearance"
           />
           &nbsp;{visionStrings.th_use_shorthand}
         </div>
@@ -1804,7 +1804,7 @@ export default (strings) => {
           <img
             height="15"
             src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/smoke_of_deceit.png`}
-            alt=""
+            alt="Smoke of Deceit"
           />
           &nbsp;{visionStrings.th_use_shorthand}
         </div>

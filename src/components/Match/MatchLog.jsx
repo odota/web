@@ -503,7 +503,7 @@ function EntryMessage({ entry, strings }) {
           <Tooltip title={runeString}>
             <img
               src={`/assets/images/dota2/runes/${runeType}.png`}
-              alt=""
+              alt={`${runeString} rune`}
               className="detailIcon"
             />
           </Tooltip>
@@ -550,7 +550,7 @@ function EntryMessage({ entry, strings }) {
           <>
             <img
               src="/assets/images/dota2/aegis_icon.png"
-              alt=""
+              alt="Aegis of Immortality"
               className="detailIcon"
             />
             <span className="smallBoldText">{strings.CHAT_MESSAGE_AEGIS}</span>
@@ -576,7 +576,7 @@ function EntryMessage({ entry, strings }) {
               src={`/assets/images/dota2/${
                 entry.team === 2 ? 'radiant' : 'dire'
               }courier.png`}
-              alt=""
+              alt="Courier"
               className="detailIcon"
             />
             <span className="smallBoldText">
