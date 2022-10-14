@@ -84,7 +84,7 @@ class RequestLayer extends React.Component {
           <CountryDiv>
             <img
               src={image}
-              alt=""
+              alt={`Flag for ${name}`}
             />
             <span>
               {name}
