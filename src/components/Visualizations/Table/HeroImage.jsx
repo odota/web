@@ -492,7 +492,7 @@ class TableHeroImage extends React.Component {
               {image ? (
                 <img
                   src={image}
-                  alt=""
+                  alt={heroName}
                   className="image"
                   data-tip={hero.id === undefined && null}
                   data-for={heroName}
