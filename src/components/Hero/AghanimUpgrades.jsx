@@ -44,11 +44,11 @@ const AghanimUpgrades = ({ heroName, skills }) => (
     <StyledAghanimsBuffs data-for="aghanim" data-tip="aghanim">
       <Icon
         src="/assets/images/dota2/scepter_0.png"
-        alt=""
+        alt="Aghanim's scepter"
       />
       <Icon
         src="/assets/images/dota2/shard_0.png"
-        alt=""
+        alt="Aghanim's shard"
       />
     </StyledAghanimsBuffs>
   </Wrapper>
