@@ -481,7 +481,7 @@ const Timeline = ({
                                 </span>
                                 <img
                                   src="/assets/images/dota2/aegis_icon.png"
-                                  alt=""
+                                  alt="Aegis of Immortality"
                                 />
                               </section>
                             ))
@@ -497,13 +497,13 @@ const Timeline = ({
                             {obj.deaths.map(death => (
                               <section key={death.key}>
                                 <PlayerThumb {...match.players[death.key]} />
-                                {death.deaths > 0 ? <img src="/assets/images/player_death.png" alt="died" /> : ''}
+                                {death.deaths > 0 ? <img src="/assets/images/player_death.png" alt="Death icon" /> : ''}
                                 <span className="goldDelta">
                                   {death.gold_delta > 0 ? <span className="goldChange goldGot" /> : <span className="goldChange goldLost" />}
                                   {/* nothing if === 0 */}
                                   <font style={{ color: constants.colorGolden }}>{Math.abs(death.gold_delta)} </font>
                                   <img
-                                    alt=""
+                                    alt="Gold"
                                     src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`}
                                   />
                                 </span>
