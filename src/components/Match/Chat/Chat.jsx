@@ -419,7 +419,7 @@ class Chat extends React.Component {
                 message.unshift(<img
                   key={messageInfo.id}
                   src="/assets/images/dota2/chat_wheel_icon.png"
-                  alt="chatwheel"
+                  alt="Chat Wheel"
                   className="chatwheel"
                 />);
               }

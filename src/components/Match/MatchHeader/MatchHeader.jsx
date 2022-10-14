@@ -360,7 +360,7 @@ const MatchHeader = ({ match, strings }) => {
             icon={
               <img
                 src="/assets/images/dota-coach-icon.png"
-                alt=""
+                alt="Sponsor icon dota-coach.com"
                 height="24px"
               />
             }
@@ -373,7 +373,7 @@ const MatchHeader = ({ match, strings }) => {
           <FlatButton
             label={strings.app_rivalry}
             icon={
-              <img src="/assets/images/rivalry-icon.png" alt="" height="24px" />
+              <img src="/assets/images/rivalry-icon.png" alt="Sponsor icon rivalry.com" height="24px" />
             }
             href="https://www.rivalry.com/opendota"
             target="_blank"

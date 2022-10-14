@@ -43,7 +43,7 @@ const Sponsors = ({ strings }) => (
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src="/assets/images/dotaCoachLogo.svg" alt="" />
+          <img src="/assets/images/dotaCoachLogo.svg" alt="Logo for sponsor, Dota-Coach.com" />
         </a>
       )}
       <a
@@ -59,7 +59,7 @@ const Sponsors = ({ strings }) => (
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src="/assets/images/rivalry-logo.png" alt="" />
+          <img src="/assets/images/rivalry-logo.png" alt="Logo for sponsor, Rivalry.com" />
         </a>
       )}
       {process.env.REACT_APP_ENABLE_GOSUAI && (
@@ -68,7 +68,7 @@ const Sponsors = ({ strings }) => (
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src="/assets/images/gosu-logo.png" alt="" />
+          <img src="/assets/images/gosu-logo.png" alt="Logo for sponsor, Gosu.ai" />
         </a>
       )}
     </div>

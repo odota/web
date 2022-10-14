@@ -195,7 +195,7 @@ const App = (props) => {
           {includeAds && process.env.REACT_APP_ENABLE_RIVALRY && (
             <div style={{ fontSize: '12px' }}>
               <a href="https://www.rivalry.com/opendota">
-                <img src="/assets/images/rivalry-banner.gif" alt="" />
+                <img src="/assets/images/rivalry-banner.gif" alt="Logo for Rivalry.com" />
               </a>
               <div>
                 {strings.home_sponsored_by}{' '}

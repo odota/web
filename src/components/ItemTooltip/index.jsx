@@ -189,10 +189,10 @@ const ItemTooltip = ({ item, inflictor }) => (
   <Wrapper>
     <Header>
       <div className="header-content">
-        <img id="item-img" src={`${process.env.REACT_APP_IMAGE_CDN}${item.img}`} alt="" />
+        <img id="item-img" src={`${process.env.REACT_APP_IMAGE_CDN}${item}`} alt={item.dname} />
         <HeaderText>
           <div>{item.dname}</div>
-          <div id="gold">{item.tier ? "Neutral item" : <><img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="" />{item.cost}</>}</div>
+          <div id="gold">{item.tier ? "Neutral item" : <><img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="Gold" />{item.cost}</>}</div>
         </HeaderText>
       </div>
     </Header>
@@ -217,13 +217,13 @@ const ItemTooltip = ({ item, inflictor }) => (
                 <div className="resources">
                   {type === 'active' && item.mc &&
                   <span>
-                    <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/mana.png`} alt="" />
+                    <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/mana.png`} alt="Mana icon" />
                     <span className="values">{item.mc}</span>
                   </span>
                 }
                   {type === 'active' && item.cd &&
                   <span>
-                    <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
+                    <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/cooldown.png`} alt="Cooldown icon" />
                     <span className="values">{item.cd}</span>
                   </span>
                 }
