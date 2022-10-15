@@ -259,10 +259,10 @@ const buildingsHealth = {
 const BuildingMap = ({ match, strings }) => {
   if (match && match.tower_status_radiant !== undefined) {
     // see https://wiki.teamfortress.com/wiki/WebAPI/GetMatchDetails
-    let bits = pad(match.tower_status_radiant.toString(2), 11);
-    bits += pad(match.barracks_status_radiant.toString(2), 6);
-    bits += pad(match.tower_status_dire.toString(2), 11);
-    bits += pad(match.barracks_status_dire.toString(2), 6);
+    let bits = pad(match.tower_status_radiant.toString(2), 16).slice(5);
+    bits += pad(match.barracks_status_radiant.toString(2), 8).slice(2);
+    bits += pad(match.tower_status_dire.toString(2), 16).slice(5);
+    bits += pad(match.barracks_status_dire.toString(2), 8).slice(2);
     bits += match.radiant_win ? '10' : '01';
     const icons = [];
     // concat, iterate through bits of all four status values
