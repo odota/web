@@ -424,7 +424,7 @@ class Chat extends React.Component {
                 />);
               }
             } else if (msg.type === 'chat') {
-              message = msg.key
+              const messageRaw = msg.key
                 .split('')
                 .map((char) => {
                   const emote = emotes[emoteKeys[emoteKeys.indexOf(char)]];
@@ -436,8 +436,19 @@ class Chat extends React.Component {
                     });
                   }
                   return char;
-                })
-                .join('');
+                });
+              // Join sequences of characters
+              let buffer = [];
+              message = [];
+              messageRaw.forEach((char) => {
+                if (typeof char === 'object') {
+                  message.push(buffer.join(''), char)
+                  buffer = [];
+                } else {
+                  buffer.push(char);
+                }
+              })
+              message.push(buffer.join(''));
             }
 
             let target = strings.chat_filter_all;
