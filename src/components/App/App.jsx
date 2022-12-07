@@ -158,7 +158,7 @@ const App = (props) => {
         {includeAds && process.env.REACT_APP_ENABLE_ADSENSE && (
         <ins 
           className="adsbygoogle"
-          style={{display: 'block', width: 728, height: 90}}
+          style={{display: 'block', width: 728, height: 90, margin: 'auto'}}
           data-ad-client="ca-pub-5591574346816667"
           data-ad-slot="9789745633"
         />)}
@@ -207,7 +207,7 @@ const App = (props) => {
           {includeAds && process.env.REACT_APP_ENABLE_ADSENSE && (
             <ins
               className="adsbygoogle"
-              style={{display: 'block', width: 728, height: 90}}
+              style={{display: 'block', width: 728, height: 90, margin: 'auto'}}
               data-ad-client="ca-pub-5591574346816667"
               data-ad-slot="7739169508"
             />
