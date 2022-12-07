@@ -37,7 +37,7 @@ const columns = strings => [{
     <TeamImageContainer>
       <Logo
         src={getTeamLogoUrl(row.logo_url)}
-        alt=""
+        alt={`Official logo for ${field}`}
       />
       <div>
         <TableLink to={`/teams/${row.team_id}`}>{field}</TableLink>

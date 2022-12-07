@@ -208,7 +208,7 @@ const getDotaPlusBadge = (plus, strings) => plus && (
   >
     <img
       src="/assets/images/dota2/dota_plus_icon.png"
-      alt="icon"
+      alt="Dota Plus icon"
     />
   </div>
 );
@@ -230,7 +230,7 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
       medalElement = (
         <div className="rankTierContainer">
           <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
-            <img className="rankMedal-icon" src={iconPath} alt="icon" />
+            <img className="rankMedal-icon" src={iconPath} alt="Immortal medal icon" />
             {leaderboardRank && <span className="rankMedal-board">{leaderboardRank}</span>}
           </div>
         </div>
@@ -250,8 +250,8 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
       medalElement = (
         <div className="rankTierContainer">
           <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
-            <img className="rankMedal-icon" src={iconPath} alt="icon" />
-            {(star !== 0) ? <img className="rankMedal-star" src={starPath} alt="star" /> : ''}
+            <img className="rankMedal-icon" src={iconPath} alt="Ranked medal icon" />
+            {(star !== 0) ? <img className="rankMedal-star" src={starPath} alt="Ranked medal stars " /> : ''}
             {leaderboardRank && <span className="rankMedal-board">{leaderboardRank}</span>}
           </div>
         </div>
@@ -262,7 +262,7 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
     medalElement = (
       <div className="rankTierContainer">
         <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
-          <img className="rankMedal-icon" src={iconPath} alt="icon" />
+          <img className="rankMedal-icon" src={iconPath} alt="Uncalibrated medal" />
         </div>
       </div>
     );

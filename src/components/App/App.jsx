@@ -151,17 +151,20 @@ const App = (props) => {
         <Helmet
           defaultTitle={strings.title_default}
           titleTemplate={strings.title_template}
-        >
-          {process.env.REACT_APP_ENABLE_ADSENSE && (
-            <script
-              data-ad-client="ca-pub-5591574346816667"
-              async
-              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-            />
-          )}
-        </Helmet>
+        />
         <Header location={location} />
         <StyledBodyDiv {...props}>
+        <AdBannerDiv>
+        {includeAds && process.env.REACT_APP_ENABLE_ADSENSE && (
+        <ins 
+          className="adsbygoogle"
+          style={{display: 'block', width: 728, height: 90}}
+          data-ad-client="ca-pub-5591574346816667"
+          data-ad-slot="9789745633"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        />)}
+        </AdBannerDiv>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/matches/:matchId?/:info?" component={Matches} />
@@ -195,7 +198,7 @@ const App = (props) => {
           {includeAds && process.env.REACT_APP_ENABLE_RIVALRY && (
             <div style={{ fontSize: '12px' }}>
               <a href="https://www.rivalry.com/opendota">
-                <img src="/assets/images/rivalry-banner.gif" alt="" />
+                <img src="/assets/images/rivalry-banner.gif" alt="Logo for Rivalry.com" />
               </a>
               <div>
                 {strings.home_sponsored_by}{' '}
@@ -203,20 +206,15 @@ const App = (props) => {
               </div>
             </div>
           )}
-          {includeAds && process.env.REACT_APP_ENABLE_BOTTOM_BANNER && (
-            <>
-              <ins
-                className="adsbygoogle"
-                style={{ display: 'block' }}
-                data-ad-client="ca-pub-5591574346816667"
-                data-ad-slot="5235463836"
-                data-ad-format="auto"
-                data-full-width-responsive="true"
-              />
-              <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-              </script>
-            </>
+          {includeAds && process.env.REACT_APP_ENABLE_ADSENSE && (
+            <ins
+              className="adsbygoogle"
+              style={{display: 'block', width: 728, height: 90}}
+              data-ad-client="ca-pub-5591574346816667"
+              data-ad-slot="7739169508"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            />
           )}
         </AdBannerDiv>
         <Footer />

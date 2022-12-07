@@ -223,7 +223,7 @@ class InflictorWithValue extends React.Component {
           >
             {(!type || type === 'purchase' || type === 'backpack' || type === 'neutral') &&
             <object data={image} height="27px" type="image/png">
-              <img src="/assets/images/Dota2Logo.svg" alt="" style={{ filter: 'grayscale(60%)', height: '27px' }} />
+              <img src="/assets/images/Dota2Logo.svg" alt="Dota 2 Logo" style={{ filter: 'grayscale(60%)', height: '27px' }} />
             </object>}
             {type === 'buff' &&
             <div

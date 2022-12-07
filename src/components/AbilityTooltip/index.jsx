@@ -155,8 +155,8 @@ const AbilityTooltip = ({ ability, inflictor }) => (
       <HeaderBgImg img={ability.img} />
       <HeaderContent>
         {inflictor && inflictor.startsWith('special_') ?
-          <img id="ability-img" src="/assets/images/dota2/talent_tree.svg" alt="" /> :
-          <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${ability.img}`} alt="" />
+          <img id="ability-img" src="/assets/images/dota2/talent_tree.svg" alt="Talent Tree" /> :
+          <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${ability.img}`} alt="Talent Tree" />
             }
         <div className="name">{ability.dname}</div>
       </HeaderContent>
@@ -196,13 +196,13 @@ const AbilityTooltip = ({ ability, inflictor }) => (
     <Resources>
         {ability.mc &&
         <span>
-          <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/mana.png`} alt="" />
+          <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/mana.png`} alt="Mana" />
           <span className="values">{formatValues(ability.mc)}</span>
         </span>
         }
         {ability.cd &&
         <span>
-          <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/cooldown.png`} alt="" />
+          <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/cooldown.png`} alt="Cooldown" />
           <span className="values">{formatValues(ability.cd)}</span>
         </span>
         }
