@@ -161,8 +161,6 @@ const App = (props) => {
           style={{display: 'block', width: 728, height: 90}}
           data-ad-client="ca-pub-5591574346816667"
           data-ad-slot="9789745633"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
         />)}
         </AdBannerDiv>
           <Switch>
@@ -212,8 +210,6 @@ const App = (props) => {
               style={{display: 'block', width: 728, height: 90}}
               data-ad-client="ca-pub-5591574346816667"
               data-ad-slot="7739169508"
-              data-ad-format="auto"
-              data-full-width-responsive="true"
             />
           )}
         </AdBannerDiv>
