@@ -110,6 +110,8 @@ const App = (props) => {
 
   const back2Top = React.useRef();
 
+
+
   React.useEffect(() => {
     const handleScroll = () => {
       let wait = false;
@@ -141,6 +143,11 @@ const App = (props) => {
   React.useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+  React.useEffect(() => {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  }, [])
 
   const includeAds = !['/', '/api-keys'].includes(location.pathname);
 
