@@ -162,7 +162,7 @@ class Hero extends React.Component {
               {this.state.detailsOpen ? strings.hide_details : strings.show_details}
             </HeroDetailsButton>
           </HeroFooter>
-          {this.state.detailsOpen && <AttributesBlock hero={hero} />}
+          {false && this.state.detailsOpen && <AttributesBlock hero={hero} />}
         </HeroBlock>
         <TabsBlock>
           <TabBar info={route} tabs={tabs(heroId)} />
