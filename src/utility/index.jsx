@@ -474,6 +474,17 @@ export function compileLevelOneStats(hero) {
       move_speed: 0.063,
       attack_speed: 1.25,
     },
+    all: {
+      attackDamage: 1,
+      armor: 0.2,
+      health: 18,
+      health_regen: 0.55,
+      mana: 12,
+      mana_regen: 1.8,
+      mr: 0.08,
+      move_speed: 0.063,
+      attack_speed: 1.25,
+    },
   };
 
   const round = value => Math.round(value * 100) / 100;
