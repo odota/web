@@ -61,14 +61,16 @@ const wardStyle = (width, log) => {
 
   let fill;
   let strokeWidth;
+
+  const originMapSize = 11000;
   let wardSize;
 
   if (log.type === 'observer') {
-    wardSize = (width / 12) * (1600 / 850);
+    wardSize = (width * 1600) / originMapSize;
     fill = constants.colorYelorMuted;
     strokeWidth = 2.5;
   } else {
-    wardSize = (width / 12);
+    wardSize = (width * 900) / originMapSize;
     fill = constants.colorBlueMuted;
     strokeWidth = 2;
   }

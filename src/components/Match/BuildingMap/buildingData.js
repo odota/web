@@ -18,15 +18,15 @@ export default [
   },
   {
     id: 't1br',
-    style: { top: '83%', left: '78%' },
+    style: { top: '82%', left: '75%' },
   },
   {
     id: 't3mr',
-    style: { top: '71%', left: '18%' },
+    style: { top: '71.5%', left: '18.5%' },
   },
   {
     id: 't2mr',
-    style: { top: '63%', left: '27%' },
+    style: { top: '63%', left: '27.5%' },
   },
   {
     id: 't1mr',
@@ -34,15 +34,15 @@ export default [
   },
   {
     id: 't3tr',
-    style: { top: '68%', left: '7%' },
+    style: { top: '68%', left: '8%' },
   },
   {
     id: 't2tr',
-    style: { top: '51%', left: '8%' },
+    style: { top: '53%', left: '9%' },
   },
   {
     id: 't1tr',
-    style: { top: '35%', left: '8%' },
+    style: { top: '36%', left: '9.5%' },
   },
   // Barracks
   {
@@ -55,19 +55,19 @@ export default [
   },
   {
     id: 'brmr',
-    style: { top: '70.5%', left: '15%' },
+    style: { top: '72%', left: '15%' },
   },
   {
     id: 'bmmr',
-    style: { top: '73%', left: '18%' },
+    style: { top: '74.5%', left: '18%' },
   },
   {
     id: 'brtr',
-    style: { top: '70.5%', left: '5.5%' },
+    style: { top: '70.5%', left: '6.5%' },
   },
   {
     id: 'bmtr',
-    style: { top: '70.5%', left: '9.5%' },
+    style: { top: '70.5%', left: '10.5%' },
   },
   // Dire
   {
@@ -80,15 +80,15 @@ export default [
   },
   {
     id: 't3bd',
-    style: { top: '28%', left: '86%' },
+    style: { top: '28%', left: '85.5%' },
   },
   {
     id: 't2bd',
-    style: { top: '45%', left: '86%' },
+    style: { top: '45%', left: '85%' },
   },
   {
     id: 't1bd',
-    style: { top: '60%', left: '86%' },
+    style: { top: '60%', left: '84%' },
   },
   {
     id: 't3md',
@@ -96,32 +96,32 @@ export default [
   },
   {
     id: 't2md',
-    style: { top: '34%', left: '63%' },
+    style: { top: '33%', left: '64%' },
   },
   {
     id: 't1md',
-    style: { top: '44%', left: '53%' },
+    style: { top: '43.5%', left: '51%' },
   },
   {
     id: 't3td',
-    style: { top: '11%', left: '70%' },
+    style: { top: '12.5%', left: '70%' },
   },
   {
     id: 't2td',
-    style: { top: '10%', left: '44%' },
+    style: { top: '11%', left: '49%' },
   },
   {
     id: 't1td',
-    style: { top: '10%', left: '15%' },
+    style: { top: '12%', left: '18%' },
   },
   // Barracks
   {
     id: 'brbd',
-    style: { top: '24%', left: '84.5%' },
+    style: { top: '24%', left: '84%' },
   },
   {
     id: 'bmbd',
-    style: { top: '24%', left: '88.5%' },
+    style: { top: '24%', left: '88%' },
   },
   {
     id: 'brmd',
@@ -133,11 +133,11 @@ export default [
   },
   {
     id: 'brtd',
-    style: { top: '8%', left: '74%' },
+    style: { top: '10%', left: '74%' },
   },
   {
     id: 'bmtd',
-    style: { top: '12%', left: '74%' },
+    style: { top: '14%', left: '74%' },
   },
   // Ancients
   {
