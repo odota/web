@@ -5,7 +5,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
+    "start": "react-scripts start",
+    "start:node17": "react-scripts --openssl-legacy-provider start",
     "start:install": "npm install && npm run lint && npm run start",
     "build": "react-scripts build",
     "build:install": "npm install && npm run lint && npm run build",

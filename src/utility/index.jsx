@@ -954,3 +954,18 @@ export function paramsWithTurbo(params) {
   }
   return { ...objParams, significant: 0, game_mode: 23 };
 }
+
+export const patchDate = {};
+patch.forEach((patchElement) => {
+  patchDate[patchElement.name] = new Date(patchElement.date).getTime() / 1000;
+});
+
+export function getWardSize(type, mapSize) {
+  const originMapSize = 12000;
+
+  if (type === 'observer') {
+    return (mapSize * 1600) / originMapSize;
+  } else {
+    return (mapSize * 1000) / originMapSize;
+  }
+};
