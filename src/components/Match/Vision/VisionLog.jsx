@@ -77,14 +77,14 @@ const columns = (strings) => {
 };
 
 
-function logWard(log) {
+function logWard(log, startTime) {
   return (
     <Styled>
       <div className="minimap"><img
         src="/assets/images/dota2/map/minimap2.jpg"
         style={{ height: '30px' }}
         alt="Minimap"
-      /><div className="placement">{LogHover(log)}</div>
+      /><div className="placement">{LogHover(log, startTime)}</div>
       </div>
 
     </Styled>
@@ -111,7 +111,7 @@ const generateData = (match, strings) => (log) => {
     left_time: formatSeconds(((log.left && log.left.time) || (match && match.duration)) - discrepancy) || '-',
     duration: <span style={{ color: durationColor }}>{formatSeconds(duration - discrepancy)}</span>,
     killer: wardKiller && heroTd(wardKiller),
-    placement: logWard(log),
+    placement: logWard(log, match.start_time),
   };
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { gameCoordToUV } from '../../../utility';
+import { gameCoordToUV, getWardSize } from '../../../utility';
 import DotaMap from '../../DotaMap';
 import constants from '../../constants';
 
@@ -62,15 +62,12 @@ const wardStyle = (width, log) => {
   let fill;
   let strokeWidth;
 
-  const originMapSize = 11000;
-  let wardSize;
+  const wardSize = getWardSize(log.type, width);
 
   if (log.type === 'observer') {
-    wardSize = (width * 1600) / originMapSize;
     fill = constants.colorYelorMuted;
     strokeWidth = 2.5;
   } else {
-    wardSize = (width * 900) / originMapSize;
     fill = constants.colorBlueMuted;
     strokeWidth = 2;
   }
@@ -115,14 +112,15 @@ export const WardPin = ({ width, log }) => {
 
 WardPin.propTypes = {
   width: PropTypes.number,
-  log: PropTypes.shape({}),
+  log: PropTypes.shape({})
 };
 
-const LogHover = ward => (
+const LogHover = (ward, startTime) => (
   <div style={hoverMapStyle}>
     <DotaMap
       maxWidth={300}
       width={300}
+      startTime={startTime}
     >
       <WardPin key={ward.key} width={300} log={ward} />
     </DotaMap>

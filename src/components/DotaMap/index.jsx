@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import patch from 'dotaconstants/build/patch.json';
+import { patchDate } from '../../utility';
 
 const setMapSizeStyle = (width, maxWidth) => ({
   width,
@@ -22,10 +22,6 @@ const dotaMaps = [
   { patch: '6.70', images: { jpg: '/assets/images/dota2/map/detailed_pre682.jpg', webp: '/assets/images/dota2/map/detailed_pre682.webp' } },
 ];
 
-const patchDate = {};
-patch.forEach((patchElement) => {
-  patchDate[patchElement.name] = new Date(patchElement.date).getTime() / 1000;
-});
 
 const getPatchMap = (startTime) => {
   if (!startTime) return dotaMaps[0];

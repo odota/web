@@ -50,7 +50,7 @@ class Laning extends React.Component {
             buttonTo={`${sponsorURL}Laning`}
             buttonIcon={sponsorIcon}
           />
-          <Heatmap width={400} points={unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
+          <Heatmap width={400} startTime={match.start_time} points={unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
         </StyledFlexElement>
         <StyledFlexElement>
           <Graph match={match} strings={strings} selectedPlayer={this.state.selectedPlayer} />
