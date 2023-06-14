@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import ActionFingerprint from 'material-ui/svg-icons/action/fingerprint';
 import FileFileDownload from 'material-ui/svg-icons/file/file-download';
+import ContentCopy from 'material-ui/svg-icons/content/content-copy';
 import { transformations, isRadiant, sum } from '../../../utility';
 import { IconRadiant, IconDire } from '../../Icons';
 import Warning from '../../Alerts';
@@ -246,6 +247,22 @@ const Styled = styled.header`
     text-align: center;
     margin-top: 12px;
   }
+
+  .copy-match-id {
+    span {
+      line-height: 17px;
+      padding: 0px !important;
+      padding-right: 4px !important;
+    }
+    
+    svg {
+      margin: 0px  !important;
+      margin-left: 4px  !important;
+    }
+
+    line-height: 0px !important;
+    height: 20px !important;
+  },
 `;
 
 const getWinnerStyle = (radiantWin) => {
@@ -259,6 +276,9 @@ const MatchHeader = ({ match, strings }) => {
   if (!match) {
     return null;
   }
+
+  const copyMatchId = () => navigator.clipboard.writeText(match.match_id);
+
   const mapPlayers = (key, radiant) => (player) =>
     radiant === undefined || radiant === isRadiant(player.player_slot)
       ? Number(player[key])
@@ -323,7 +343,12 @@ const MatchHeader = ({ match, strings }) => {
             )}
             <li>
               <span>{strings.match_id}</span>
-              {match.match_id}
+              <FlatButton
+                label={match.match_id}
+                className='copy-match-id'
+                onClick={copyMatchId}
+                icon={<ContentCopy viewBox='0 -3 30 30' style={{ height: 18, width: 18 }} />}
+              />
             </li>
             <li>
               <span>{strings.match_region}</span>
