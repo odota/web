@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import patch from 'dotaconstants/build/patch.json';
+import { patchDate } from '../../utility';
 
 const setMapSizeStyle = (width, maxWidth) => ({
   width,
@@ -11,6 +11,7 @@ const setMapSizeStyle = (width, maxWidth) => ({
 });
 
 const dotaMaps = [
+  { patch: '7.33', images: { jpg: '/assets/images/dota2/map/detailed_733.jpg', webp: '/assets/images/dota2/map/detailed_733.webp' } },
   { patch: '7.32', images: { jpg: '/assets/images/dota2/map/detailed_732.jpg', webp: '/assets/images/dota2/map/detailed_732.webp' } },
   { patch: '7.23', images: { jpg: '/assets/images/dota2/map/detailed_723.jpg', webp: '/assets/images/dota2/map/detailed_723.webp' } },
   { patch: '7.20', images: { jpg: '/assets/images/dota2/map/detailed_720.jpg', webp: '/assets/images/dota2/map/detailed_720.webp' } },
@@ -21,10 +22,6 @@ const dotaMaps = [
   { patch: '6.70', images: { jpg: '/assets/images/dota2/map/detailed_pre682.jpg', webp: '/assets/images/dota2/map/detailed_pre682.webp' } },
 ];
 
-const patchDate = {};
-patch.forEach((patchElement) => {
-  patchDate[patchElement.name] = new Date(patchElement.date).getTime() / 1000;
-});
 
 const getPatchMap = (startTime) => {
   if (!startTime) return dotaMaps[0];
