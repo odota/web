@@ -9,7 +9,7 @@ const shouldShow = props => props.loggedInId && props.loggedInId !== props.playe
 
 const getData = (props, context) => {
   if (shouldShow(props)) {
-    fetch(`${process.env.REACT_APP_API_HOST}/api/players/${props.loggedInId}/wl?included_account_id=${props.playerId}`)
+    fetch(`${import.meta.env.VITE_API_HOST}/api/players/${props.loggedInId}/wl?included_account_id=${props.playerId}`)
       .then(resp => resp.json())
       .then(json => context.setState({ ...context.state, ...json }));
   }

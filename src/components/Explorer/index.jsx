@@ -94,7 +94,7 @@ class Explorer extends React.Component {
   componentDidUpdate(nextProps) {
     if (this.editor && !this.completersSet && nextProps.proPlayers.length && nextProps.teams.length && nextProps.leagues.length) {
       this.completersSet = true;
-      fetch(`${process.env.REACT_APP_API_HOST}/api/schema`).then(jsonResponse).then((schema) => {
+      fetch(`${import.meta.env.VITE_API_HOST}/api/schema`).then(jsonResponse).then((schema) => {
         this.editor.completers = [autocomplete(schema, nextProps.proPlayers, nextProps.teams, nextProps.leagues)];
       });
     }
@@ -129,7 +129,7 @@ class Explorer extends React.Component {
   sendRequest = () => {
     this.syncWindowHistory();
     const sqlString = this.getSqlString();
-    return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
+    return fetch(`${import.meta.env.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
   }
 
   handleQuery = () => {
@@ -299,7 +299,7 @@ class Explorer extends React.Component {
             />
             <ExplorerOutputButton
               label={strings.explorer_api_button}
-              onClick={() => window.open(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(getSqlString())}`, '_blank')}
+              onClick={() => window.open(`${import.meta.env.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(getSqlString())}`, '_blank')}
               context={explorer}
             />
           </span>

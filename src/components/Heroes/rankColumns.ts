@@ -1,8 +1,8 @@
 import heroes from 'dotaconstants/build/heroes.json';
-import constants from 'src/components/constants';
+import constants from '../constants';
 import { abbreviateNumber, displayHeroId } from '../../utility';
-import { GlobalString } from 'src/types/common/GlobalString';
-import { Heroes } from 'src/types/Hero/Heroes';
+import { GlobalString } from '../../types/common/GlobalString';
+import { Heroes } from '../../types/Hero/Heroes';
 import React from 'react';
 
 type Props = {
@@ -154,7 +154,7 @@ const decimalToCount = (decimal: number, matchTotal: number) => {
 const generatePublicTabColumns = (strings: GlobalString) => {
   const columns = [
     {
-      displayName: `${strings.rank_tier_overall  } ${  strings.abbr_pick  }%`,
+      displayName: `${strings.rank_tier_overall} ${strings.abbr_pick}%`,
       field: 'pickRatePub',
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
@@ -162,7 +162,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       percentBarsWithValue: (row: Row) => row.pickCountPub,
     },
     {
-      displayName: `${strings.rank_tier_overall  } ${  strings.abbr_win  }%`,
+      displayName: `${strings.rank_tier_overall} ${strings.abbr_win}%`,
       field: 'winRatePub',
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
@@ -170,7 +170,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       percentBarsWithValue: (row: Row) => row.winCountPub,
     },
     {
-      displayName: `${strings.rank_tier_high  } ${  strings.abbr_pick  }%`,
+      displayName: `${strings.rank_tier_high} ${strings.abbr_pick}%`,
       displayIcon: getRankIcon(8),
       field: 'pickRateHigh',
       sortFn: true,
@@ -180,7 +180,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       colColor: constants.colorImmortal,
     },
     {
-      displayName: `${strings.rank_tier_high  } ${  strings.abbr_win  }%`,
+      displayName: `${strings.rank_tier_high} ${strings.abbr_win}%`,
       displayIcon: getRankIcon(8),
       field: 'winRateHigh',
       sortFn: true,
@@ -190,7 +190,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       colColor: constants.colorImmortalAlt,
     },
     {
-      displayName: `${strings.rank_tier_mid  } ${  strings.abbr_pick  }%`,
+      displayName: `${strings.rank_tier_mid} ${strings.abbr_pick}%`,
       displayIcon: getRankIcon(5),
       field: 'pickRateMid',
       sortFn: true,
@@ -200,7 +200,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       colColor: constants.colorLegend,
     },
     {
-      displayName: `${strings.rank_tier_mid  } ${  strings.abbr_win  }%`,
+      displayName: `${strings.rank_tier_mid} ${strings.abbr_win}%`,
       displayIcon: getRankIcon(5),
       field: 'winRateMid',
       sortFn: true,
@@ -210,7 +210,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       colColor: constants.colorLegendAlt,
     },
     {
-      displayName: `${strings.rank_tier_low  } ${  strings.abbr_pick  }%`,
+      displayName: `${strings.rank_tier_low} ${strings.abbr_pick}%`,
       displayIcon: getRankIcon(3),
       field: 'pickRateLow',
       sortFn: true,
@@ -220,7 +220,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       colColor: constants.colorCrusader,
     },
     {
-      displayName: `${strings.rank_tier_low  } ${  strings.abbr_win  }%`,
+      displayName: `${strings.rank_tier_low} ${strings.abbr_win}%`,
       displayIcon: getRankIcon(3),
       field: 'winRateLow',
       sortFn: true,

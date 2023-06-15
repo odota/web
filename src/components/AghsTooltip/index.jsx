@@ -42,7 +42,7 @@ const AghanimsToolTip = ({ upgrades, skills }) => {
           <span>Aghanim&lsquo;s Shard</span>
         </AghanimsTooltipHeader>
         <AghsTooltipBody
-          icon={`${process.env.REACT_APP_IMAGE_CDN}${newShardSkillObject ? newShardSkillObject.img : ""}`}
+          icon={`${import.meta.env.VITE_IMAGE_CDN}${newShardSkillObject ? newShardSkillObject.img : ""}`}
           skillName={upgrades.shard_skill_name}
           hasUpgrade={upgrades.has_shard}
           isNewSkill={upgrades.shard_new_skill}
@@ -60,7 +60,7 @@ const AghanimsToolTip = ({ upgrades, skills }) => {
           <span>Aghanim&lsquo;s Scepter</span>
         </AghanimsTooltipHeader>
         <AghsTooltipBody
-          icon={`${process.env.REACT_APP_IMAGE_CDN}${newScepterSkillObject ? newScepterSkillObject.img : ""}`}
+          icon={`${import.meta.env.VITE_IMAGE_CDN}${newScepterSkillObject ? newScepterSkillObject.img : ""}`}
           skillName={upgrades.scepter_skill_name}
           hasUpgrade={upgrades.has_scepter}
           isNewSkill={upgrades.scepter_new_skill}

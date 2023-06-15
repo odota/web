@@ -34,6 +34,8 @@ class Laning extends React.Component {
     } = this.props;
     const { laningColumns } = mcs(strings);
 
+    const heatmapPoints = unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)
+
     return (
       <StyledFlexContainer>
         <StyledFlexElementFullWidth>
@@ -46,11 +48,11 @@ class Laning extends React.Component {
         <StyledFlexElement>
           <Heading
             title={strings.th_map}
-            buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_laning : null}
+            buttonLabel={import.meta.env.VITE_ENABLE_GOSUAI ? strings.gosu_laning : null}
             buttonTo={`${sponsorURL}Laning`}
             buttonIcon={sponsorIcon}
           />
-          <Heatmap width={400} startTime={match.start_time} points={unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
+          <Heatmap width={400} startTime={match.start_time} points={heatmapPoints} />
         </StyledFlexElement>
         <StyledFlexElement>
           <Graph match={match} strings={strings} selectedPlayer={this.state.selectedPlayer} />

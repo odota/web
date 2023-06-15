@@ -31,7 +31,7 @@ class Status extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`${process.env.REACT_APP_API_HOST}/api/status`)
+    fetch(`${import.meta.env.VITE_API_HOST}/api/status`)
       .then(jsonResponse)
       .then(json => this.setState({ result: json }));
   }

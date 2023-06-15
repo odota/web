@@ -31,7 +31,7 @@ const PlayerThumb = (props) => {
     <StyledAside style={{ color: playerColors[playerSlot] }}>
       <StyledImg
         src={heroes[heroId]
-          ? `${process.env.REACT_APP_IMAGE_CDN}${heroes[heroId].icon}`
+          ? `${import.meta.env.VITE_IMAGE_CDN}${heroes[heroId].icon}`
           : '/assets/images/blank-1x1.gif'
         }
         alt=""

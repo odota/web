@@ -7,10 +7,10 @@ import { IMAGESIZE_ENUM } from '../../utility';
 const HeroImage = ({
   id, isIcon, imageSizeSuffix = IMAGESIZE_ENUM.LARGE.suffix, heroImageEventProps, ...rest
 }) => {
-  let imageUrl = heroes[id] && process.env.REACT_APP_IMAGE_CDN + heroes[id].img;
+  let imageUrl = heroes[id] && import.meta.env.VITE_IMAGE_CDN + heroes[id].img;
 
   if (isIcon) {
-    imageUrl = heroes[id] && process.env.REACT_APP_IMAGE_CDN + heroes[id].icon;
+    imageUrl = heroes[id] && import.meta.env.VITE_IMAGE_CDN + heroes[id].icon;
   }
 
   return <img src={imageUrl} alt="" {...rest} {...heroImageEventProps} />;

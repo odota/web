@@ -52,7 +52,7 @@ class PlayerButtons extends React.Component {
             disabled={this.state.disableRefresh}
             onClick={() => {
               fetch(
-                `${process.env.REACT_APP_API_HOST}/api/players/${playerId}/refresh`,
+                `${import.meta.env.VITE_API_HOST}/api/players/${playerId}/refresh`,
                 { method: 'POST' },
               );
               this.setState({ disableRefresh: true });

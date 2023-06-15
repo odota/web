@@ -14,7 +14,7 @@ const Buttons = ({ user, strings }) => (
         <FlatButton
           label={<span className="label"><b>{strings.home_login}</b> {strings.home_login_desc}</span>}
           icon={<IconSteam />}
-          href={`${process.env.REACT_APP_API_HOST}/login`}
+          href={`${import.meta.env.VITE_API_HOST}/login`}
         />
       </div>
     }

@@ -188,14 +188,14 @@ const getTitle = (row, col, heroName) => {
 };
 
 export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
-  const imageUrl = heroes[heroId] && process.env.REACT_APP_IMAGE_CDN + heroes[heroId].img;
+  const imageUrl = heroes[heroId] && import.meta.env.VITE_IMAGE_CDN + heroes[heroId].img;
   return imageUrl;
 };
 
 export const getHeroIconUrlFromHeroKey = (heroKey) => {
   const heroId = Object.keys(heroes).find(k => heroes[k].name === heroKey);
   if (heroId && heroId[0] && heroes[heroId[0]]) {
-    return `${process.env.REACT_APP_IMAGE_CDN}${heroes[heroId].icon}`;
+    return `${import.meta.env.VITE_IMAGE_CDN}${heroes[heroId].icon}`;
   }
 
   return '/assets/images/blank-1x1.gif';
@@ -343,7 +343,7 @@ export const getTeamLogoUrl = (logoUrl) => {
   }
   // Use proxy layer to serve team logos
   if (logoUrl.indexOf('/ugc') !== -1) {
-    return `${process.env.REACT_APP_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}`;
+    return `${import.meta.env.VITE_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}`;
   }
   return logoUrl;
 };
@@ -858,7 +858,7 @@ const transformMatchItem = ({
   if (field === 0) {
     return false;
   }
-  return `${process.env.REACT_APP_IMAGE_CDN}${items[itemIds[field]].img}`;
+  return `${import.meta.env.VITE_IMAGE_CDN}${items[itemIds[field]].img}`;
 };
 
 for (let i = 0; i < 6; i += 1) {

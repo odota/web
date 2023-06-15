@@ -77,7 +77,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={benchmarksColumns(match)}
           heading={strings.heading_benchmarks}
-          buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_benchmarks : null}
+          buttonLabel={import.meta.env.VITE_ENABLE_GOSUAI ? strings.gosu_benchmarks : null}
           buttonTo={`${gosuUrl}Benchmarks`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -114,7 +114,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={performanceColumns}
           heading={strings.heading_performances}
-          buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_performances : null}
+          buttonLabel={import.meta.env.VITE_ENABLE_GOSUAI ? strings.gosu_performances : null}
           buttonTo={`${gosuUrl}Performances`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -139,7 +139,7 @@ const matchPages = (strings) => {
     parsed: true,
     content: match => (
       <div>
-        {process.env.REACT_APP_ENABLE_GOSUAI &&
+        {import.meta.env.VITE_ENABLE_GOSUAI &&
         <Heading
           buttonLabel={strings.gosu_combat}
           buttonTo={`${gosuUrl}Combat`}
@@ -176,7 +176,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={unitKillsColumns}
           heading={strings.heading_unit_kills}
-          buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_farm : null}
+          buttonLabel={import.meta.env.VITE_ENABLE_GOSUAI ? strings.gosu_farm : null}
           buttonTo={`${gosuUrl}Farm`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -265,7 +265,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={castsColumns}
           heading={strings.heading_casts}
-          buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_default : null}
+          buttonLabel={import.meta.env.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
           buttonTo={`${gosuUrl}Casts`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -284,7 +284,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={objectiveDamageColumns}
           heading={strings.heading_objective_damage}
-          buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_default : null}
+          buttonLabel={import.meta.env.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
           buttonTo={`${gosuUrl}Objectives`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -318,7 +318,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={actionsColumns}
           heading={strings.heading_actions}
-          buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_actions : null}
+          buttonLabel={import.meta.env.VITE_ENABLE_GOSUAI ? strings.gosu_actions : null}
           buttonTo={`${gosuUrl}Actions`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -346,7 +346,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={analysisColumns}
           heading={strings.heading_analysis}
-          buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_analysis : null}
+          buttonLabel={import.meta.env.VITE_ENABLE_GOSUAI ? strings.gosu_analysis : null}
           buttonTo={`${gosuUrl}Analysis`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}
@@ -362,7 +362,7 @@ const matchPages = (strings) => {
       <div>
         <Heading
           title={strings.heading_cosmetics}
-          buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_default : null}
+          buttonLabel={import.meta.env.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
           buttonTo={`${gosuUrl}Cosmetics`}
           buttonIcon={gosuIcon}
         />
@@ -388,7 +388,7 @@ const matchPages = (strings) => {
           players={match.players}
           columns={fantasyColumns}
           heading={strings.heading_fantasy}
-          buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_default : null}
+          buttonLabel={import.meta.env.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
           buttonTo={`${gosuUrl}Fantasy`}
           buttonIcon={gosuIcon}
           radiantTeam={match.radiant_team}

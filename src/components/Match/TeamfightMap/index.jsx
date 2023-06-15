@@ -240,7 +240,7 @@ export const TeamfightIcon = ({
 export const GoldDelta = ({ radiantGoldDelta }) => (
   <div className="goldChange">
     {isRadiant(radiantGoldDelta) ? radiantGoldDelta : radiantGoldDelta * -1}
-    <img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="Gold" />
+    <img src={`${import.meta.env.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="Gold" />
   </div>
 );
 
@@ -496,7 +496,7 @@ class TeamfightMap extends Component {
                 players={teamfight.players && teamfight.players.filter(p => p.participate)}
                 columns={teamfightColumns}
                 heading={strings.heading_teamfights}
-                buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_teamfights : null}
+                buttonLabel={import.meta.env.VITE_ENABLE_GOSUAI ? strings.gosu_teamfights : null}
                 buttonTo={`${sponsorURL}Teamfights`}
                 buttonIcon={sponsorIcon}
                 radiantTeam={this.props.match.radiant_team}

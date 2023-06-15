@@ -275,7 +275,7 @@ class Combos extends React.Component {
     const { teamA, teamB } = this.state;
 
     this.setState({ loading: true }, () =>
-      fetch(`${process.env.REACT_APP_API_HOST}/api/` +
+      fetch(`${import.meta.env.VITE_API_HOST}/api/` +
 
       `${this.state.queryType === 'pro' ?
         `explorer?sql=${encodeURIComponent(this.buildQueryString())}` :

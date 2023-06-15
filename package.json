@@ -5,15 +5,13 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "start": "react-scripts start",
-    "start:node17": "react-scripts --openssl-legacy-provider start",
-    "start:install": "npm install && npm run lint && npm run start",
-    "build": "react-scripts build",
+    "start": "vite --port 3000",
+    "dev": "npm run start",
+    "build": "vite build --outDir build",
     "build:install": "npm install && npm run lint && npm run build",
     "snapshot": "react-snap",
     "test": "testcafe -c 4 chrome testcafe/ --app \"serve -s build\"",
     "testcafe-travis": "testcafe firefox testcafe/ --app \"serve -s build\"",
-    "eject": "react-scripts eject",
     "analyze": "source-map-explorer build/static/js/main.* --html > analyze.html",
     "lintfix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
@@ -34,7 +32,6 @@
     "dota2-emoticons": "^1.0.3",
     "dotaconstants": "^7.16.0",
     "fuzzy": "^0.1.3",
-    "heatmap.js": "^2.0.5",
     "history": "^4.10.1",
     "lodash": "^4.17.15",
     "long": "^4.0.0",
@@ -50,7 +47,6 @@
     "react-markdown": "^4.0.3",
     "react-redux": "^7.1.3",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^4.0.3",
     "react-stripe-checkout": "^2.6.3",
     "react-tooltip": "3.11.1",
     "react-transition-group": "^2.5.0",
@@ -93,6 +89,7 @@
     "@types/styled-components": "4.0.3",
     "@types/wordcloud": "^1.1.1",
     "@typescript-eslint/parser": "^4.33.0",
+    "@vitejs/plugin-react": "^4.0.0",
     "babel-preset-es2015": "^6.24.1",
     "cross-env": "^6.0.3",
     "eslint": "^7.32.0",
@@ -105,7 +102,9 @@
     "simple-vdf": "^1.1.1",
     "testcafe": "^1.7.1",
     "testcafe-react-selectors": "^3.3.0",
-    "typescript": "^3.9.10"
+    "typescript": "^3.9.10",
+    "vite": "^4.3.9",
+    "vite-plugin-svgr": "^3.2.0"
   },
   "overrides": {
     "react-error-overlay": "6.0.9"

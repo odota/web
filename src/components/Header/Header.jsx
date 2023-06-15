@@ -217,7 +217,7 @@ ReportBug.propTypes = {
 const LogOut = ({ strings }) => (
   <DropdownMenuItem
     component="a"
-    href={`${process.env.REACT_APP_API_HOST}/logout`}
+    href={`${import.meta.env.VITE_API_HOST}/logout`}
     rel="noopener noreferrer"
   >
     <LogOutButton style={{ marginRight: 32, width: 24, height: 24 }} />
@@ -357,7 +357,7 @@ const Header = ({ location, disableSearch }) => {
                   </DrawerLink>
                   <DrawerLink
                     as="a"
-                    href={`${process.env.REACT_APP_API_HOST}/logout`}
+                    href={`${import.meta.env.VITE_API_HOST}/logout`}
                   >
                     <ListItem button onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_logout} />
@@ -367,7 +367,7 @@ const Header = ({ location, disableSearch }) => {
               ) : (
                 <DrawerLink
                   as="a"
-                  href={`${process.env.REACT_APP_API_HOST}/login`}
+                  href={`${import.meta.env.VITE_API_HOST}/login`}
                 >
                   <ListItem button onClick={() => setMenuState(false)}>
                     <ListItemText primary={strings.app_login} />

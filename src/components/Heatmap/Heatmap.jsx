@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import nanoid from 'nanoid';
-import h337 from 'heatmap.js';
 import DotaMap from '../DotaMap';
 
 /**
@@ -30,11 +28,35 @@ const drawHeatmap = ({
 }, heatmap) => {
   // scale points by width/127 units to fit to size of map
   const adjustedData = scaleAndExtrema(points, width / 127, null);
-  heatmap.setData(adjustedData);
+
+  const ctx = heatmap.current.getContext('2d');
+  ctx.clearRect(0, 0, heatmap.current.width, heatmap.current.height);
+
+  adjustedData.data.forEach((p) => {
+    ctx.beginPath();
+    ctx.filter = `blur(4px)`;
+
+    const sizeModifier = Math.max(75 * (1-(p.value / adjustedData.max)), 40);
+
+    ctx.arc(p.x, p.y, width / sizeModifier, 0, 2 * Math.PI);
+    
+    const redValue = Math.floor(255 * (p.value / adjustedData.max));
+    const greenValue = Math.floor(255 * (1 - (p.value / adjustedData.max)));
+    const alphaValue = (p.value / adjustedData.max) - ((p.value / adjustedData.max) * .35);
+
+    ctx.fillStyle = `rgba(${redValue}, ${greenValue}, 0, ${alphaValue})`;
+    ctx.fill();
+  })
+
+  // blur whole heatmap
+  ctx.drawImage(heatmap.current, 0, 0);
+  // heatmap.setData(adjustedData);
 };
 
 class Heatmap extends Component {
-  id = `a-${nanoid()}`;
+  // ref for container
+  containerRef = React.createRef();
+  heatmapCanvas = React.createRef();
 
   static propTypes = {
     width: PropTypes.number,
@@ -42,26 +64,25 @@ class Heatmap extends Component {
   }
 
   componentDidMount() {
-    this.heatmap = h337.create({
-      container: document.getElementById(this.id),
-      radius: 15 * (this.props.width / 600),
-    });
-    drawHeatmap(this.props, this.heatmap);
+    drawHeatmap(this.props, this.heatmapCanvas);
   }
   componentDidUpdate() {
-    drawHeatmap(this.props, this.heatmap);
+    drawHeatmap(this.props, this.heatmapCanvas);
   }
 
   render() {
     return (
       <div
+        ref={this.containerRef}
         style={{
           width: this.props.width,
           height: this.props.width,
+          position: 'relative',
         }}
         id={this.id}
       >
         <DotaMap width={this.props.width} maxWidth={this.props.width} startTime={this.props.startTime} />
+        <canvas style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', }} width={this.props.width} height={this.props.width} ref={this.heatmapCanvas} />
       </div>);
   }
 }

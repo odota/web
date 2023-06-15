@@ -92,7 +92,7 @@ class RequestLayer extends React.Component {
       <div>
         <Helmet title={strings.header_teams} />
         <div style={{ textAlign: 'center' }}>
-          {process.env.REACT_APP_ENABLE_RIVALRY && <FlatButton
+          {import.meta.env.VITE_ENABLE_RIVALRY && <FlatButton
             label={strings.app_rivalry}
             icon={<img src="/assets/images/rivalry-icon.png" alt="" height="24px" />}
             href="https://rivalry.com/opendota"

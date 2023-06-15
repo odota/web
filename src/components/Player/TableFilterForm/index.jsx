@@ -120,7 +120,7 @@ const Styled = styled.div`
 `;
 
 const getPeers = (props, context) => {
-  fetch(`${process.env.REACT_APP_API_HOST}/api/players/${props.playerId}/peers`)
+  fetch(`${import.meta.env.VITE_API_HOST}/api/players/${props.playerId}/peers`)
     .then((resp) => resp.json())
     .then((json) => context.setState({ peers: json }));
 };

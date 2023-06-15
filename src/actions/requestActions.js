@@ -16,7 +16,7 @@ const requestStart = () => ({
   type: START,
 });
 
-const requestError = error => ({
+const requestError = (error) => ({
   type: ERROR,
   error,
 });
@@ -25,14 +25,14 @@ const requestOk = () => ({
   type: OK,
 });
 
-const requestProgress = progress => ({
+const requestProgress = (progress) => ({
   type: PROGRESS,
   progress,
 });
 
 function poll(dispatch, json, matchId) {
-  fetch(`${process.env.REACT_APP_API_HOST}${url}/${json.job.jobId}`)
-    .then(res => res.json())
+  fetch(`${import.meta.env.VITE_API_HOST}${url}/${json.job.jobId}`)
+    .then((res) => res.json())
     .then((_json) => {
       if (_json && _json.progress) {
         dispatch(requestProgress(_json.progress));
@@ -46,10 +46,12 @@ function poll(dispatch, json, matchId) {
     });
 }
 
-export const postRequest = matchId => (dispatch) => {
+export const postRequest = (matchId) => (dispatch) => {
   dispatch(requestStart());
-  return fetch(`${process.env.REACT_APP_API_HOST}${url}/${matchId}`, { method: 'post' })
-    .then(res => res.json())
+  return fetch(`${import.meta.env.VITE_API_HOST}${url}/${matchId}`, {
+    method: 'post',
+  })
+    .then((res) => res.json())
     .then((json) => {
       if (json.job && json.job.jobId) {
         poll(dispatch, json, matchId);
@@ -57,5 +59,5 @@ export const postRequest = matchId => (dispatch) => {
         dispatch(requestError(json.err));
       }
     })
-    .catch(err => dispatch(requestError(err)));
+    .catch((err) => dispatch(requestError(err)));
 };

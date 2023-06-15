@@ -79,7 +79,7 @@ class Explorer extends React.Component {
     });
     this.syncWindowHistory();
     const sqlString = this.state.sql;
-    return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
+    return fetch(`${import.meta.env.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
   };
 
   handleResponse = (json) => {

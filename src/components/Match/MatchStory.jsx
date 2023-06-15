@@ -85,7 +85,7 @@ const ItemSpan = item => (
     <img
       width="26px"
       src={items[item]
-        ? `${process.env.REACT_APP_IMAGE_CDN}${items[item].img}`
+        ? `${import.meta.env.VITE_IMAGE_CDN}${items[item].img}`
         : '/assets/images/blank-1x1.gif'
       }
       alt={(items[item] || {}).dname}

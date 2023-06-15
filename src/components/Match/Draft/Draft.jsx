@@ -157,7 +157,7 @@ const DraftHero = ({
     />
     <HeroIcon radiant={radiant}>
       <img
-        src={heroes[pb.hero_id] && process.env.REACT_APP_IMAGE_CDN + heroes[pb.hero_id].img}
+        src={heroes[pb.hero_id] && import.meta.env.VITE_IMAGE_CDN + heroes[pb.hero_id].img}
         alt=""
         data-ispick={picks.includes(pb.order)}
       />
@@ -231,7 +231,7 @@ const Draft = ({
         <section className="teams">
           <Heading
             title={`${getTeamName(radiantTeam, true)}`}
-            buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_default : null}
+            buttonLabel={import.meta.env.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
             buttonTo={`${sponsorURL}Draft`}
             buttonIcon={sponsorIcon}
             icon={<IconRadiant />}

@@ -354,7 +354,7 @@ const MatchHeader = ({ match, strings }) => {
             rel="noopener noreferrer"
           />
         )}
-        {process.env.REACT_APP_ENABLE_DOTA_COACH && (
+        {import.meta.env.VITE_ENABLE_DOTA_COACH && (
           <FlatButton
             label={strings.app_dota_coach_button}
             icon={
@@ -369,7 +369,7 @@ const MatchHeader = ({ match, strings }) => {
             rel="noopener noreferrer"
           />
         )}
-        {process.env.REACT_APP_ENABLE_RIVALRY && (
+        {import.meta.env.VITE_ENABLE_RIVALRY && (
           <FlatButton
             label={strings.app_rivalry}
             icon={
