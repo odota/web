@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import {
   gameCoordToUV,
   formatSeconds,
+  getWardSize
 } from '../../../utility';
 import PlayerThumb from '../PlayerThumb';
 import DotaMap from '../../DotaMap';
@@ -57,14 +58,13 @@ const wardStyle = (width, log) => {
 
   let fill;
   let strokeWidth;
-  let wardSize;
+
+  const wardSize = getWardSize(log.type, width);
 
   if (log.type === 'observer') {
-    wardSize = (width / 12) * (1600 / 850);
     fill = constants.colorYelorMuted;
     strokeWidth = 2.5;
   } else {
-    wardSize = (width / 12);
     fill = constants.colorBlueMuted;
     strokeWidth = 2;
   }

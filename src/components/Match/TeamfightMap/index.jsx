@@ -210,7 +210,6 @@ const Styled = styled.div`
 }
 `;
 
-const MAP_WIDTH = 400;
 const iconSize = (mapWidth, factor = 12, minSize = 15) =>
   (mapWidth / factor <= minSize ? minSize : mapWidth / factor);
 
@@ -226,7 +225,7 @@ const isRadiant = radiantGoldDelta => radiantGoldDelta > 0;
 const IconType = _isRadiant => (_isRadiant ? IconRadiant : IconDire);
 
 export const TeamfightIcon = ({
-  position, tooltipKey, mapWidth = MAP_WIDTH, onClick, Icon, ...props
+  position, tooltipKey, mapWidth, onClick, Icon, ...props
 }) => (
   <Icon
     className="teamfightIcon"
@@ -475,7 +474,7 @@ class TeamfightMap extends Component {
                     end={teamFight.end}
                     radiantGoldDelta={teamFight.radiant_gold_advantage_delta}
                     deathPositions={teamFight.deaths_pos}
-                    mapWidth={bindWidth(400, 400)}
+                    mapWidth={400}
                     strings={strings}
                   />
                 ))}

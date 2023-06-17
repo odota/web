@@ -316,8 +316,7 @@ export function unpackPositionData(input) {
     Object.keys(input).forEach((x) => {
       Object.keys(input[x]).forEach((y) => {
         result.push({
-          x: Number(x) - 64,
-          y: 128 - (Number(y) - 64),
+          ...gameCoordToUV(x, y),
           value: input[x][y],
         });
       });
@@ -403,8 +402,8 @@ export const wilsonScore = (up, down) => {
   return (
     phat + ((z * z) / (2 * n)) - (z * Math.sqrt(((phat * (1 - phat)) + (z * z / (4 * n))) / n))
   ) / (
-    1 + (z * z / n)
-  );
+      1 + (z * z / n)
+    );
 };
 
 export const groupBy = (xs, key) =>
@@ -953,5 +952,20 @@ export function paramsWithTurbo(params) {
   if (!isTurboMode) {
     return objParams;
   }
-  return {...objParams, significant: 0, game_mode: 23};
+  return { ...objParams, significant: 0, game_mode: 23 };
 }
+
+export const patchDate = {};
+patch.forEach((patchElement) => {
+  patchDate[patchElement.name] = new Date(patchElement.date).getTime() / 1000;
+});
+
+export function getWardSize(type, mapSize) {
+  const originMapSize = 12000;
+
+  if (type === 'observer') {
+    return (mapSize * 1600) / originMapSize;
+  } else {
+    return (mapSize * 1000) / originMapSize;
+  }
+};
