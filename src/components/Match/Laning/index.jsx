@@ -42,12 +42,14 @@ class Laning extends React.Component {
     } = this.props;
     const { laningColumns } = mcs(strings);
 
+    const tableData = [...match.players].sort(this.defaultSort);
+
     return (
       <StyledFlexContainer>
         <StyledFlexElementFullWidth>
           <Heading title={strings.heading_laning} />
           <Table
-            data={match.players.sort(this.defaultSort)}
+            data={tableData}
             columns={laningColumns(this.state, this.setSelectedPlayer)}
           />
         </StyledFlexElementFullWidth>

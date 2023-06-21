@@ -5,7 +5,7 @@ import {
   isRadiant,
   isSupport,
   getLevelFromXp,
-  unpackPositionData
+  unpackPositionData,
 } from '../utility';
 import analyzeMatch from './analyzeMatch';
 import store from '../store';
