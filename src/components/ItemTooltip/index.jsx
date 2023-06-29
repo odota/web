@@ -189,7 +189,7 @@ const ItemTooltip = ({ item, inflictor }) => (
   <Wrapper>
     <Header>
       <div className="header-content">
-        <img id="item-img" src={`${process.env.REACT_APP_IMAGE_CDN}${item}`} alt={item.dname} />
+        <img id="item-img" src={`${process.env.REACT_APP_IMAGE_CDN}${item.img}`} alt={item.dname} />
         <HeaderText>
           <div>{item.dname}</div>
           <div id="gold">{item.tier ? "Neutral item" : <><img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="Gold" />{item.cost}</>}</div>
@@ -197,61 +197,61 @@ const ItemTooltip = ({ item, inflictor }) => (
       </div>
     </Header>
     {(item.attrib && item.attrib.length > 0) &&
-    <Attributes>
-      {(item.attrib).map((attrib) => (
-        <Attribute key={attrib.key}>
-          <span id="header">{attrib.header} </span>
-          <span id="value">{`${attrib.value}`}</span>
-          <span id="footer"> {attrib.footer || ''}</span>
-        </Attribute>
-      ))}
-    </Attributes>
+      <Attributes>
+        {(item.attrib).map((attrib) => (
+          <Attribute key={attrib.key}>
+            <span id="header">{attrib.header} </span>
+            <span id="value">{`${attrib.value}`}</span>
+            <span id="footer"> {attrib.footer || ''}</span>
+          </Attribute>
+        ))}
+      </Attributes>
     }
     {['active', 'toggle', 'use', 'passive'].map((type) => {
       if (item[type]) {
         return item[type].map(ability =>
-          (
-            <Ability>
-              <div className="ability-header">
-                {`${itemAbilities[type].text}: ${ability.name}`}
-                <div className="resources">
-                  {type === 'active' && item.mc &&
+        (
+          <Ability>
+            <div className="ability-header">
+              {`${itemAbilities[type].text}: ${ability.name}`}
+              <div className="resources">
+                {type === 'active' && item.mc &&
                   <span>
                     <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/mana.png`} alt="Mana icon" />
                     <span className="values">{item.mc}</span>
                   </span>
                 }
-                  {type === 'active' && item.cd &&
+                {type === 'active' && item.cd &&
                   <span>
                     <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/cooldown.png`} alt="Cooldown icon" />
                     <span className="values">{item.cd}</span>
                   </span>
                 }
-                </div>
               </div>
-              <div className="ability-text" ref={el => styleValues(el)}>
-                {ability.desc}
-              </div>
-            </Ability>
-          ));
+            </div>
+            <div className="ability-text" ref={el => styleValues(el)}>
+              {ability.desc}
+            </div>
+          </Ability>
+        ));
       }
       return null;
     })}
     {item.hint && item.hint?.map((hint) => <Hint>{hint}</Hint>)}
     {item.lore && <Lore>{item.lore}</Lore>}
     {item.components &&
-    <Components>
-      <div id="header">Components:</div>
-      {item.components.concat((items[`recipe_${inflictor}`] && [`recipe_${inflictor}`]) || []).filter(Boolean).map(component =>
-      items[component] &&
-        (
-          <div className="component">
-            <img src={`${process.env.REACT_APP_IMAGE_CDN}${items[component].img}`} alt="" />
-            <div id="cost">{items[component].cost}</div>
-          </div>
-        ))
-      }
-    </Components>
+      <Components>
+        <div id="header">Components:</div>
+        {item.components.concat((items[`recipe_${inflictor}`] && [`recipe_${inflictor}`]) || []).filter(Boolean).map(component =>
+          items[component] &&
+          (
+            <div className="component">
+              <img src={`${process.env.REACT_APP_IMAGE_CDN}${items[component].img}`} alt="" />
+              <div id="cost">{items[component].cost}</div>
+            </div>
+          ))
+        }
+      </Components>
     }
   </Wrapper>
 );
