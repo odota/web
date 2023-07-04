@@ -28,18 +28,28 @@ class Laning extends React.Component {
     this.setState({ ...this.state, selectedPlayer: playerSlot });
   };
 
+  defaultSort = (r1, r2) => {
+    if (r1.isRadiant !== r2.isRadiant) {
+      return 1;
+    }
+
+    return r1.lane - r2.lane;
+  }
+
   render() {
     const {
       match, strings, sponsorURL, sponsorIcon,
     } = this.props;
     const { laningColumns } = mcs(strings);
 
+    const tableData = [...match.players].sort(this.defaultSort);
+
     return (
       <StyledFlexContainer>
         <StyledFlexElementFullWidth>
           <Heading title={strings.heading_laning} />
           <Table
-            data={match.players}
+            data={tableData}
             columns={laningColumns(this.state, this.setSelectedPlayer)}
           />
         </StyledFlexElementFullWidth>
