@@ -394,3 +394,11 @@ export const StyledDmgTargetRow = styled.div`
     }
   }
 `;
+
+export const StyledLineWinnerSpan = styled.span`
+  & svg {
+    width: 20px !important;
+    height: 20px !important;
+    fill: ${constants.colorGolden};
+  }
+`;

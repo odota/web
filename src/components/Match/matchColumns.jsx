@@ -23,7 +23,7 @@ import {
 } from '../../utility';
 import { TableHeroImage, inflictorWithValue } from '../Visualizations';
 import { CompetitiveRank } from '../Visualizations/Table/HeroImage';
-import { IconBackpack, IconRadiant, IconDire } from '../Icons';
+import { IconBackpack, IconRadiant, IconDire, IconTrophy } from '../Icons';
 import constants from '../constants';
 import {
   StyledAbilityUpgrades,
@@ -35,6 +35,7 @@ import {
   StyledUnusedItem,
   StyledAghanimsBuffs,
   StyledLevel,
+  StyledLineWinnerSpan,
 } from './StyledMatch';
 import TargetsBreakdown from './TargetsBreakdown';
 import HeroImage from './../Visualizations/HeroImage';
@@ -261,9 +262,8 @@ export default (strings) => {
             <svg viewBox="0 0 36 36" className="circular_chart">
               <path
                 className="circle"
-                strokeDasharray={`${
-                  (field / constants.dotaMaxLevel) * 100
-                }, 100`}
+                strokeDasharray={`${(field / constants.dotaMaxLevel) * 100
+                  }, 100`}
                 d="M18 2.0845
                 a 15.9155 15.9155 0 0 1 0 31.831
                 a 15.9155 15.9155 0 0 1 0 -31.831"
@@ -453,29 +453,29 @@ export default (strings) => {
       .concat(
         match.players.map((player) => player.item_neutral).reduce(sum, 0) > 0
           ? {
-              field: 'item_neutral',
-              width: 20,
-              paddingRight: 23,
-              paddingLeft: 5,
-              displayFn: (row) => (
-                <div
-                  style={{
-                    height: 30,
-                    width: 30,
-                    backgroundColor: 'rgba(38, 71, 90, 0.29)',
-                    borderRadius: '15px',
-                  }}
-                >
-                  {row.item_neutral
-                    ? inflictorWithValue(
-                        itemIds[row.item_neutral],
-                        null,
-                        'neutral'
-                      )
-                    : null}
-                </div>
-              ),
-            }
+            field: 'item_neutral',
+            width: 20,
+            paddingRight: 23,
+            paddingLeft: 5,
+            displayFn: (row) => (
+              <div
+                style={{
+                  height: 30,
+                  width: 30,
+                  backgroundColor: 'rgba(38, 71, 90, 0.29)',
+                  borderRadius: '15px',
+                }}
+              >
+                {row.item_neutral
+                  ? inflictorWithValue(
+                    itemIds[row.item_neutral],
+                    null,
+                    'neutral'
+                  )
+                  : null}
+              </div>
+            ),
+          }
           : []
       )
       .concat({
@@ -491,27 +491,25 @@ export default (strings) => {
               {shardTooltip}
             </ReactTooltip>
             <img
-              src={`/assets/images/dota2/scepter_${
-                row.permanent_buffs &&
+              src={`/assets/images/dota2/scepter_${row.permanent_buffs &&
                 row.permanent_buffs.some(
                   (b) => b.permanent_buff === AGHANIMS_SCEPTER
                 )
-                  ? '1'
-                  : '0'
-              }.png`}
+                ? '1'
+                : '0'
+                }.png`}
               alt="Aghanim's Scepter"
               data-tip={scepterTooltip}
               data-for="scepter"
             />
             <img
-              src={`/assets/images/dota2/shard_${
-                row.permanent_buffs &&
+              src={`/assets/images/dota2/shard_${row.permanent_buffs &&
                 row.permanent_buffs.some(
                   (b) => b.permanent_buff === AGHANIMS_SHARD
                 )
-                  ? '1'
-                  : '0'
-              }.png`}
+                ? '1'
+                : '0'
+                }.png`}
               alt="Aghanim's Shard"
               data-tip={shardTooltip}
               data-for="shard"
@@ -526,27 +524,27 @@ export default (strings) => {
           )
           .reduce(sum, 0) > 0
           ? {
-              displayName: strings.th_permanent_buffs,
-              tooltip: strings.tooltip_permanent_buffs,
-              field: 'permanent_buffs',
-              width: 60,
-              displayFn: (row) =>
-                row.permanent_buffs && row.permanent_buffs.length > 0
-                  ? row.permanent_buffs
-                      .filter(
-                        (b) =>
-                          b.permanent_buff !== AGHANIMS_SCEPTER &&
-                          b.permanent_buff !== AGHANIMS_SHARD
-                      )
-                      .map((buff) =>
-                        inflictorWithValue(
-                          buffs[buff.permanent_buff],
-                          buff.stack_count,
-                          'buff'
-                        )
-                      )
-                  : '-',
-            }
+            displayName: strings.th_permanent_buffs,
+            tooltip: strings.tooltip_permanent_buffs,
+            field: 'permanent_buffs',
+            width: 60,
+            displayFn: (row) =>
+              row.permanent_buffs && row.permanent_buffs.length > 0
+                ? row.permanent_buffs
+                  .filter(
+                    (b) =>
+                      b.permanent_buff !== AGHANIMS_SCEPTER &&
+                      b.permanent_buff !== AGHANIMS_SHARD
+                  )
+                  .map((buff) =>
+                    inflictorWithValue(
+                      buffs[buff.permanent_buff],
+                      buff.stack_count,
+                      'buff'
+                    )
+                  )
+                : '-',
+          }
           : []
       );
 
@@ -837,38 +835,38 @@ export default (strings) => {
           <div>
             {field
               ? field
-                  .filter(
-                    (purchase) =>
-                      purchase.time >= curTime - bucket &&
-                      purchase.time < curTime
-                  )
-                  .sort((p1, p2) => {
-                    const item1 = items[p1.key];
-                    const item2 = items[p2.key];
-                    if (item1 && item2 && p1.time === p2.time) {
-                      // We're only concerned with sorting by value
-                      // if items are bought at the same time, time is presorted
-                      return item1.cost - item2.cost;
-                    }
-                    return 0;
-                  })
-                  .map((purchase) => {
-                    if (
-                      items[purchase.key] &&
-                      (showConsumables ||
-                        items[purchase.key].qual !== 'consumable')
-                    ) {
-                      return inflictorWithValue(
-                        purchase.key,
-                        formatSeconds(purchase.time),
-                        null,
-                        null,
-                        null,
-                        purchase.charges
-                      );
-                    }
-                    return null;
-                  })
+                .filter(
+                  (purchase) =>
+                    purchase.time >= curTime - bucket &&
+                    purchase.time < curTime
+                )
+                .sort((p1, p2) => {
+                  const item1 = items[p1.key];
+                  const item2 = items[p2.key];
+                  if (item1 && item2 && p1.time === p2.time) {
+                    // We're only concerned with sorting by value
+                    // if items are bought at the same time, time is presorted
+                    return item1.cost - item2.cost;
+                  }
+                  return 0;
+                })
+                .map((purchase) => {
+                  if (
+                    items[purchase.key] &&
+                    (showConsumables ||
+                      items[purchase.key].qual !== 'consumable')
+                  ) {
+                    return inflictorWithValue(
+                      purchase.key,
+                      formatSeconds(purchase.time),
+                      null,
+                      null,
+                      null,
+                      purchase.charges
+                    );
+                  }
+                  return null;
+                })
               : ''}
           </div>
         ),
@@ -888,8 +886,7 @@ export default (strings) => {
         field: i,
         sortFn: (row) => row.lh_t && row.lh_t[minutes],
         displayFn: (row) =>
-          `${row.lh_t[minutes]} (+${
-            row.lh_t[minutes] - row.lh_t[minutes - (bucket / 60)]
+          `${row.lh_t[minutes]} (+${row.lh_t[minutes] - row.lh_t[minutes - (bucket / 60)]
           })`,
         relativeBars: true,
         sumFn: (acc, row) =>
@@ -1060,6 +1057,15 @@ export default (strings) => {
             <span style={subTextStyle}>{strings.roaming}</span>
           )}
         </div>
+      ),
+    },
+    {
+      displayName: strings.th_win_lane,
+      tooltip: strings.tooltip_win_lane,
+      field: 'line_win',
+      sortFn: true,
+      displayFn: (row, col, field) => (
+        field && <StyledLineWinnerSpan><IconTrophy /></StyledLineWinnerSpan>
       ),
     },
     {
@@ -1285,11 +1291,10 @@ export default (strings) => {
                 src={`${process.env.REACT_APP_IMAGE_CDN}/apps/570/${cosmetic.image_path}`}
                 alt={cosmetic.name}
                 style={{
-                  borderBottom: `2px solid ${
-                    cosmetic.item_rarity
-                      ? cosmeticsRarity[cosmetic.item_rarity]
-                      : constants.colorMuted
-                  }`,
+                  borderBottom: `2px solid ${cosmetic.item_rarity
+                    ? cosmeticsRarity[cosmetic.item_rarity]
+                    : constants.colorMuted
+                    }`,
                 }}
               />
               <ActionOpenInNew />
@@ -1397,13 +1402,13 @@ export default (strings) => {
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {field
             ? Object.keys(field)
-                .sort((a, b) => field[b] - field[a])
-                .map((inflictor) =>
-                  inflictorWithValue(
-                    inflictor,
-                    abbreviateNumber(field[inflictor])
-                  )
+              .sort((a, b) => field[b] - field[a])
+              .map((inflictor) =>
+                inflictorWithValue(
+                  inflictor,
+                  abbreviateNumber(field[inflictor])
                 )
+              )
             : ''}
         </div>
       ),
@@ -1441,13 +1446,13 @@ export default (strings) => {
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {field
             ? Object.keys(field)
-                .sort((a, b) => field[b] - field[a])
-                .map((inflictor) =>
-                  inflictorWithValue(
-                    inflictor,
-                    abbreviateNumber(field[inflictor])
-                  )
+              .sort((a, b) => field[b] - field[a])
+              .map((inflictor) =>
+                inflictorWithValue(
+                  inflictor,
+                  abbreviateNumber(field[inflictor])
                 )
+              )
             : ''}
         </div>
       ),
@@ -1460,13 +1465,13 @@ export default (strings) => {
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {field
             ? Object.keys(field)
-                .sort((a, b) => field[b] - field[a])
-                .map((inflictor) =>
-                  inflictorWithValue(
-                    inflictor,
-                    abbreviateNumber(field[inflictor])
-                  )
+              .sort((a, b) => field[b] - field[a])
+              .map((inflictor) =>
+                inflictorWithValue(
+                  inflictor,
+                  abbreviateNumber(field[inflictor])
                 )
+              )
             : ''}
         </div>
       ),
