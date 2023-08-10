@@ -151,7 +151,7 @@ function transformMatch(m) {
     res[pl.isRadiant] = res[pl.isRadiant] || [];
     res[pl.isRadiant][pl.lane] = res[pl.isRadiant][pl.lane] || 0;
 
-    res[pl.isRadiant][pl.lane] += pl.gold_t[10]
+    res[pl.isRadiant][pl.lane] += (pl.gold_t || [])[10]
     return res;
   }, {});
 
