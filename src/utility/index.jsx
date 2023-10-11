@@ -474,7 +474,7 @@ export function compileLevelOneStats(hero) {
       attack_speed: 1.25,
     },
     all: {
-      attackDamage: 1,
+      attackDamage: 0.7,
       armor: 0.2,
       health: 18,
       health_regen: 0.55,
@@ -502,14 +502,14 @@ export function compileLevelOneStats(hero) {
     attack_rate,
   } = hero;
 
-  const primaryAttrValue = hero[`base_${primary_attr}`];
-  const [agiValue, strValue, intValue] = [hero.base_agi, hero.base_str, hero.base_int];
 
+  const [agiValue, strValue, intValue] = [hero.base_agi, hero.base_str, hero.base_int];
+  const primaryAttrValue = primary_attr === "all" ? agiValue + strValue + intValue : hero[`base_${primary_attr}` ]
 
   return {
     ...hero,
-    base_attack_min: base_attack_min + (statsBonuses[primary_attr].attackDamage * primaryAttrValue),
-    base_attack_max: base_attack_max + (statsBonuses[primary_attr].attackDamage * primaryAttrValue),
+    base_attack_min: Math.round(base_attack_min + (statsBonuses[primary_attr].attackDamage * primaryAttrValue)),
+    base_attack_max: Math.round(base_attack_max + (statsBonuses[primary_attr].attackDamage * primaryAttrValue)),
     base_armor: round(base_armor + (statsBonuses[primary_attr].armor * agiValue)),
     base_health: round(base_health + (statsBonuses[primary_attr].health * strValue)),
     base_health_regen: round(base_health_regen + (base_health_regen * (statsBonuses[primary_attr].health_regen * strValue / 100))),
