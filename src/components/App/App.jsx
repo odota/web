@@ -144,11 +144,6 @@ const App = (props) => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  React.useEffect(() => {
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
-  }, [])
-
   const includeAds = !['/', '/api-keys'].includes(location.pathname);
 
   return (
