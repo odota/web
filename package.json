@@ -90,7 +90,6 @@
     "@types/seamless-immutable": "^7.1.11",
     "@types/styled-components": "4.0.3",
     "@types/wordcloud": "^1.1.1",
-    "@types/youtube": "^0.0.50",
     "@typescript-eslint/parser": "^4.33.0",
     "babel-preset-es2015": "^6.24.1",
     "cross-env": "^6.0.3",
