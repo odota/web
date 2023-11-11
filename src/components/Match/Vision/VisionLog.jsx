@@ -8,6 +8,7 @@ import Heading from '../../Heading';
 import mcs from '../matchColumns';
 import constants from '../../constants';
 import LogHover from './LogHover';
+import config from '../../../config';
 
 const Styled = styled.div`
   display: inline-block;
@@ -106,7 +107,7 @@ const generateData = (match, strings) => (log) => {
 
   return {
     ...match.players[log.player],
-    type: <img height="29" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_${log.type}.png`} alt="" />,
+    type: <img height="29" src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_${log.type}.png`} alt="" />,
     enter_time: formatSeconds(log.entered.time),
     left_time: formatSeconds(((log.left && log.left.time) || (match && match.duration)) - discrepancy) || '-',
     duration: <span style={{ color: durationColor }}>{formatSeconds(duration - discrepancy)}</span>,

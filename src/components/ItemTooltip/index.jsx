@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import items from 'dotaconstants/build/items.json';
 import constants from '../constants';
 import { styleValues } from '../../utility';
+import config from '../../config';
 
 const itemAbilities = {
   active: {
@@ -189,10 +190,10 @@ const ItemTooltip = ({ item, inflictor }) => (
   <Wrapper>
     <Header>
       <div className="header-content">
-        <img id="item-img" src={`${process.env.REACT_APP_IMAGE_CDN}${item.img}`} alt={item.dname} />
+        <img id="item-img" src={`${config.VITE_IMAGE_CDN}${item.img}`} alt={item.dname} />
         <HeaderText>
           <div>{item.dname}</div>
-          <div id="gold">{item.tier ? "Neutral item" : <><img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="Gold" />{item.cost}</>}</div>
+          <div id="gold">{item.tier ? "Neutral item" : <><img src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="Gold" />{item.cost}</>}</div>
         </HeaderText>
       </div>
     </Header>
@@ -217,13 +218,13 @@ const ItemTooltip = ({ item, inflictor }) => (
               <div className="resources">
                 {type === 'active' && item.mc &&
                   <span>
-                    <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/mana.png`} alt="Mana icon" />
+                    <ResourceIcon src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/mana.png`} alt="Mana icon" />
                     <span className="values">{item.mc}</span>
                   </span>
                 }
                 {type === 'active' && item.cd &&
                   <span>
-                    <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/cooldown.png`} alt="Cooldown icon" />
+                    <ResourceIcon src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/cooldown.png`} alt="Cooldown icon" />
                     <span className="values">{item.cd}</span>
                   </span>
                 }
@@ -246,7 +247,7 @@ const ItemTooltip = ({ item, inflictor }) => (
           items[component] &&
           (
             <div className="component">
-              <img src={`${process.env.REACT_APP_IMAGE_CDN}${items[component].img}`} alt="" />
+              <img src={`${config.VITE_IMAGE_CDN}${items[component].img}`} alt="" />
               <div id="cost">{items[component].cost}</div>
             </div>
           ))

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Toggle from 'material-ui/Toggle';
 import TeamTable from '../TeamTable';
 import mcs from '../matchColumns';
+import config from '../../../config';
 
 const toggleStyle = {
   width: '30px',
@@ -55,7 +56,7 @@ class Purchases extends React.Component {
           players={match.players}
           columns={purchaseTimesColumns(match, this.state.showConsumables)}
           heading={strings.heading_purchase_log}
-          buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_default : null}
+          buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
           buttonTo={`${sponsorURL}Purchases`}
           buttonIcon={sponsorIcon}
           radiantTeam={match.radiant_team}

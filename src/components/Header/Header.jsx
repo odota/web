@@ -17,14 +17,14 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { GITHUB_REPO } from '../../config';
+import config from '../../config';
 import AccountWidget from '../AccountWidget';
 import AppLogo from '../App/AppLogo';
 import constants from '../constants';
 import LocalizationMenu from '../Localization';
 import SearchForm from '../Search/SearchForm';
 
-const REPORT_BUG_PATH = `//github.com/${GITHUB_REPO}/issues`;
+const REPORT_BUG_PATH = `//github.com/${config.GITHUB_REPO}/issues`;
 
 const VerticalAlignToolbar = styled(ToolbarGroup)`
   display: flex;
@@ -217,7 +217,7 @@ ReportBug.propTypes = {
 const LogOut = ({ strings }) => (
   <DropdownMenuItem
     component="a"
-    href={`${process.env.REACT_APP_API_HOST}/logout`}
+    href={`${config.VITE_API_HOST}/logout`}
     rel="noopener noreferrer"
   >
     <LogOutButton style={{ marginRight: 32, width: 24, height: 24 }} />
@@ -357,7 +357,7 @@ const Header = ({ location, disableSearch }) => {
                   </DrawerLink>
                   <DrawerLink
                     as="a"
-                    href={`${process.env.REACT_APP_API_HOST}/logout`}
+                    href={`${config.VITE_API_HOST}/logout`}
                   >
                     <ListItem button onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_logout} />
@@ -367,7 +367,7 @@ const Header = ({ location, disableSearch }) => {
               ) : (
                 <DrawerLink
                   as="a"
-                  href={`${process.env.REACT_APP_API_HOST}/login`}
+                  href={`${config.VITE_API_HOST}/login`}
                 >
                   <ListItem button onClick={() => setMenuState(false)}>
                     <ListItemText primary={strings.app_login} />

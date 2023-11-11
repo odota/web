@@ -17,6 +17,7 @@ import {
 } from '../../Icons';
 import PlayerThumb from '../PlayerThumb';
 import constants from '../../constants';
+import config from '../../../config';
 
 const Styled = styled.div`
 .clickable {
@@ -504,7 +505,7 @@ const Timeline = ({
                                   <font style={{ color: constants.colorGolden }}>{Math.abs(death.gold_delta)} </font>
                                   <img
                                     alt="Gold"
-                                    src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`}
+                                    src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`}
                                   />
                                 </span>
                               </section>

@@ -3,8 +3,9 @@ import propTypes from 'prop-types';
 import styled from 'styled-components';
 import constants from '../constants';
 import { styleValues } from '../../utility';
+import config from '../../config';
 
-function formatValues(values) {
+function formatValues(values: any) {
   if (Array.isArray(values)) {
     return values.filter(value => value).join(' / ');
   }
@@ -67,7 +68,7 @@ const HeaderBgImg = styled.div`
     left: -20px;
     height: 100%;
     width: 20%;
-    background: ${({ img }) => `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${process.env.REACT_APP_IMAGE_CDN}${img}')`};
+    background: ${({ img }: any) => `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${config.VITE_IMAGE_CDN}${img}')`};
     background-color: transparent;
     background-repeat: no-repeat;
     transform: scale(4);
@@ -148,15 +149,16 @@ const Break = styled.div`
     background-color: #080D15;
 `;
 
-const AbilityTooltip = ({ ability, inflictor }) => (
+const AbilityTooltip = ({ ability, inflictor }: any) => (
 
   <Wrapper>
     <Header>
+      {/*@ts-ignore*/}
       <HeaderBgImg img={ability.img} />
       <HeaderContent>
         {inflictor && inflictor.startsWith('special_') ?
           <img id="ability-img" src="/assets/images/dota2/talent_tree.svg" alt="Talent Tree" /> :
-          <img id="ability-img" src={`${process.env.REACT_APP_IMAGE_CDN}${ability.img}`} alt="Talent Tree" />
+          <img id="ability-img" src={`${config.VITE_IMAGE_CDN}${ability.img}`} alt="Talent Tree" />
             }
         <div className="name">{ability.dname}</div>
       </HeaderContent>
@@ -165,14 +167,18 @@ const AbilityTooltip = ({ ability, inflictor }) => (
     <div>
       <Behavior>
         {ability.behavior ? <div><span>TARGET: </span><span>{formatValues(ability.behavior)}</span></div> : ''}
+        {/*@ts-ignore*/}
         {ability.dmg_type ? <div><span>DAMAGE TYPE: </span><span type={ability.dmg_type}>{`${ability.dmg_type}`}</span></div> : ''}
+        {/*@ts-ignore*/}
         {ability.bkbpierce ? <div><span>PIERCES SPELL IMMUNITY: </span><span type={ability.bkbpierce}>{`${ability.bkbpierce}`}</span></div> : ''}
       </Behavior>
       <Break />
     </div>
     }
     {ability.desc &&
-    <Description innerRef={el => styleValues(el)}>
+    <Description 
+    //@ts-ignore
+    innerRef={(el: any) => styleValues(el)}>
         {ability.desc}
     </Description>
     }
@@ -181,7 +187,7 @@ const AbilityTooltip = ({ ability, inflictor }) => (
       <Break />
       <Attributes>
         <div>
-          {(ability.attrib || []).map(attrib => (
+          {(ability.attrib || []).map((attrib: any) => (
             <div className="attribute" key={attrib.key}>
               <span id="header">{attrib.header} </span>
               <span id="value">{formatValues(attrib.value)}</span>
@@ -196,13 +202,13 @@ const AbilityTooltip = ({ ability, inflictor }) => (
     <Resources>
         {ability.mc &&
         <span>
-          <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/mana.png`} alt="Mana" />
+          <ResourceIcon src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/mana.png`} alt="Mana" />
           <span className="values">{formatValues(ability.mc)}</span>
         </span>
         }
         {ability.cd &&
         <span>
-          <ResourceIcon src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/tooltips/cooldown.png`} alt="Cooldown" />
+          <ResourceIcon src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/cooldown.png`} alt="Cooldown" />
           <span className="values">{formatValues(ability.cd)}</span>
         </span>
         }

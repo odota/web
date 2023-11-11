@@ -5,6 +5,7 @@ import playerColors from 'dotaconstants/build/player_colors.json';
 import heroes from 'dotaconstants/build/heroes.json';
 import styled from 'styled-components';
 import constants from '../../constants';
+import config from '../../../config';
 
 const StyledAside = styled.aside`
   display: flex;
@@ -31,7 +32,7 @@ const PlayerThumb = (props) => {
     <StyledAside style={{ color: playerColors[playerSlot] }}>
       <StyledImg
         src={heroes[heroId]
-          ? `${process.env.REACT_APP_IMAGE_CDN}${heroes[heroId].icon}`
+          ? `${config.VITE_IMAGE_CDN}${heroes[heroId].icon}`
           : '/assets/images/blank-1x1.gif'
         }
         alt=""

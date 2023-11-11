@@ -12,6 +12,7 @@ import { transformations, isRadiant, sum } from '../../../utility';
 import { IconRadiant, IconDire } from '../../Icons';
 import Warning from '../../Alerts';
 import constants from '../../constants';
+import config from '../../../config';
 
 const Styled = styled.header`
   width: 100vw;
@@ -379,7 +380,7 @@ const MatchHeader = ({ match, strings }) => {
             rel="noopener noreferrer"
           />
         )}
-        {process.env.REACT_APP_ENABLE_DOTA_COACH && (
+        {config.VITE_ENABLE_DOTA_COACH && (
           <FlatButton
             label={strings.app_dota_coach_button}
             icon={
@@ -394,7 +395,7 @@ const MatchHeader = ({ match, strings }) => {
             rel="noopener noreferrer"
           />
         )}
-        {process.env.REACT_APP_ENABLE_RIVALRY && (
+        {config.VITE_ENABLE_RIVALRY && (
           <FlatButton
             label={strings.app_rivalry}
             icon={

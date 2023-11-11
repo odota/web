@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import constants from '../constants';
 import AghanimsTooltipHeader from './AghsTooltipHeader';
 import AghsTooltipBody from './AghsTooltipBody';
+import config from '../../config';
 
 const Wrapper = styled.div`
   width: 340px;
@@ -42,7 +43,7 @@ const AghanimsToolTip = ({ upgrades, skills }) => {
           <span>Aghanim&lsquo;s Shard</span>
         </AghanimsTooltipHeader>
         <AghsTooltipBody
-          icon={`${process.env.REACT_APP_IMAGE_CDN}${newShardSkillObject ? newShardSkillObject.img : ""}`}
+          icon={`${config.VITE_IMAGE_CDN}${newShardSkillObject ? newShardSkillObject.img : ""}`}
           skillName={upgrades.shard_skill_name}
           hasUpgrade={upgrades.has_shard}
           isNewSkill={upgrades.shard_new_skill}
@@ -60,7 +61,7 @@ const AghanimsToolTip = ({ upgrades, skills }) => {
           <span>Aghanim&lsquo;s Scepter</span>
         </AghanimsTooltipHeader>
         <AghsTooltipBody
-          icon={`${process.env.REACT_APP_IMAGE_CDN}${newScepterSkillObject ? newScepterSkillObject.img : ""}`}
+          icon={`${config.VITE_IMAGE_CDN}${newScepterSkillObject ? newScepterSkillObject.img : ""}`}
           skillName={upgrades.scepter_skill_name}
           hasUpgrade={upgrades.has_scepter}
           isNewSkill={upgrades.scepter_new_skill}

@@ -40,6 +40,7 @@ import {
 import TargetsBreakdown from './TargetsBreakdown';
 import HeroImage from './../Visualizations/HeroImage';
 import ItemTooltip from '../ItemTooltip';
+import config from '../../config';
 
 const heroNames = getHeroesById();
 
@@ -1288,7 +1289,7 @@ export default (strings) => {
               rel="noopener noreferrer"
             >
               <img
-                src={`${process.env.REACT_APP_IMAGE_CDN}/apps/570/${cosmetic.image_path}`}
+                src={`${config.VITE_IMAGE_CDN}/apps/570/${cosmetic.image_path}`}
                 alt={cosmetic.name}
                 style={{
                   borderBottom: `2px solid ${cosmetic.item_rarity
@@ -1613,7 +1614,7 @@ export default (strings) => {
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img
           height="15"
-          src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`}
+          src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`}
           alt="Observer ward"
         />
         &nbsp;{strings.th_duration_shorthand}
@@ -1632,7 +1633,7 @@ export default (strings) => {
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img
           height="15"
-          src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`}
+          src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`}
           alt="Sentry ward"
         />
         &nbsp;{strings.th_duration_shorthand}
@@ -1651,7 +1652,7 @@ export default (strings) => {
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img
           height="15"
-          src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`}
+          src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`}
           alt="Observer ward"
         />
         &nbsp;{strings.th_purchase_shorthand}
@@ -1670,7 +1671,7 @@ export default (strings) => {
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img
           height="15"
-          src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`}
+          src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`}
           alt="Sentry ward"
         />
         &nbsp;{strings.th_purchase_shorthand}
@@ -1689,7 +1690,7 @@ export default (strings) => {
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img
           height="15"
-          src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/dust.png`}
+          src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/dust.png`}
           alt="Dust of Appearance"
         />
         &nbsp;{strings.th_purchase_shorthand}
@@ -1708,7 +1709,7 @@ export default (strings) => {
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img
           height="15"
-          src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/smoke_of_deceit.png`}
+          src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/smoke_of_deceit.png`}
           alt="Smoke of Deceit"
         />
         &nbsp;{strings.th_purchase_shorthand}
@@ -1727,7 +1728,7 @@ export default (strings) => {
       <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
         <img
           height="15"
-          src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/gem.png`}
+          src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/gem.png`}
           alt="Gem of Truesight"
         />
         &nbsp;{strings.th_purchase_shorthand}
@@ -1749,7 +1750,7 @@ export default (strings) => {
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img
             height="15"
-            src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`}
+            src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`}
             alt="Observer ward"
           />
           &nbsp;{visionStrings.th_use_shorthand}
@@ -1769,7 +1770,7 @@ export default (strings) => {
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img
             height="15"
-            src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`}
+            src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`}
             alt="Sentry ward"
           />
           &nbsp;{visionStrings.th_use_shorthand}
@@ -1789,7 +1790,7 @@ export default (strings) => {
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img
             height="15"
-            src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/dust.png`}
+            src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/dust.png`}
             alt="Dust of Appearance"
           />
           &nbsp;{visionStrings.th_use_shorthand}
@@ -1808,7 +1809,7 @@ export default (strings) => {
         <div style={{ display: 'inline-flex', verticalAlign: 'middle' }}>
           <img
             height="15"
-            src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/smoke_of_deceit.png`}
+            src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/smoke_of_deceit.png`}
             alt="Smoke of Deceit"
           />
           &nbsp;{visionStrings.th_use_shorthand}

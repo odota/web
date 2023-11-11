@@ -17,6 +17,7 @@ import {
 import { StyledEmote, StyledStoryNetWorthBar, StyledStoryNetWorthText, StyledStoryGoldAmount, StyledStorySpan, StyledStoryWrapper } from './StyledMatch';
 import constants from '../constants';
 import store from '../../store';
+import config from '../../config';
 
 const heroesArr = jsonFn(heroes);
 
@@ -85,7 +86,7 @@ const ItemSpan = item => (
     <img
       width="26px"
       src={items[item]
-        ? `${process.env.REACT_APP_IMAGE_CDN}${items[item].img}`
+        ? `${config.VITE_IMAGE_CDN}${items[item].img}`
         : '/assets/images/blank-1x1.gif'
       }
       alt={(items[item] || {}).dname}

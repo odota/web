@@ -6,6 +6,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import styled from 'styled-components';
 import StripeCheckout from 'react-stripe-checkout';
+import config from '../../config';
 
 const path = '/keys';
 
@@ -83,7 +84,7 @@ class KeyManagement extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`${process.env.REACT_APP_API_HOST}${path}`, {
+    fetch(`${config.VITE_API_HOST}${path}`, {
       credentials: 'include',
       method: 'GET',
     })
@@ -103,7 +104,7 @@ class KeyManagement extends React.Component {
 
   handleSubmit(token) {
     this.setState({ loading: true });
-    fetch(`${process.env.REACT_APP_API_HOST}${path}`, {
+    fetch(`${config.VITE_API_HOST}${path}`, {
       credentials: 'include',
       method: 'POST',
       headers: {
@@ -126,7 +127,7 @@ class KeyManagement extends React.Component {
 
   handleDelete() {
     this.setState({ loading: true });
-    fetch(`${process.env.REACT_APP_API_HOST}${path}`, {
+    fetch(`${config.VITE_API_HOST}${path}`, {
       credentials: 'include',
       method: 'DELETE',
     })
@@ -142,7 +143,7 @@ class KeyManagement extends React.Component {
 
   handleUpdate(token) {
     this.setState({ loading: true });
-    fetch(`${process.env.REACT_APP_API_HOST}${path}`, {
+    fetch(`${config.VITE_API_HOST}${path}`, {
       credentials: 'include',
       method: 'PUT',
       headers: {
@@ -198,7 +199,7 @@ class KeyManagement extends React.Component {
                 <div>
                   { showLoginButton
                     ? (
-                      <RaisedButton primary href={`${process.env.REACT_APP_API_HOST}/login`} label={strings.api_login} style={{ margin: '5px 5px' }} />
+                      <RaisedButton primary href={`${config.VITE_API_HOST}/login`} label={strings.api_login} style={{ margin: '5px 5px' }} />
                     )
                     : <div />
                 }
@@ -208,7 +209,7 @@ class KeyManagement extends React.Component {
                         name="OpenDota"
                         description={strings.api_title}
                         billingAddress
-                        stripeKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}
+                        stripeKey={config.VITE_STRIPE_PUBLIC_KEY}
                         token={this.handleSubmit}
                         zipCode
                         locale="auto"
@@ -247,7 +248,7 @@ class KeyManagement extends React.Component {
                                 name="OpenDota"
                                 description={strings.api_title}
                                 billingAddress
-                                stripeKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}
+                                stripeKey={config.VITE_STRIPE_PUBLIC_KEY}
                                 token={this.handleUpdate}
                                 zipCode
                                 locale="auto"

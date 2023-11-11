@@ -10,6 +10,7 @@ import Heading from '../Heading';
 import Team from '../Team';
 import Table, { TableLink } from '../Table';
 import { Logo } from '../Team/TeamStyled';
+import config from '../../config';
 
 const TeamImageContainer = styled.div`
   display: flex;
@@ -92,7 +93,7 @@ class RequestLayer extends React.Component {
       <div>
         <Helmet title={strings.header_teams} />
         <div style={{ textAlign: 'center' }}>
-          {process.env.REACT_APP_ENABLE_RIVALRY && <FlatButton
+          {config.VITE_ENABLE_RIVALRY && <FlatButton
             label={strings.app_rivalry}
             icon={<img src="/assets/images/rivalry-icon.png" alt="" height="24px" />}
             href="https://rivalry.com/opendota"
