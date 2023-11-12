@@ -18,6 +18,7 @@ import playerColors from 'dotaconstants/build/player_colors.json';
 import Heading from '../../Heading';
 import constants from '../../constants';
 import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHolder, GoldSpan, XpSpan, StyledTooltipGold, StyledCustomizedTooltip } from './Styled';
+import config from '../../../config';
 
 const formatGraphTime = minutes => `${minutes}:00`;
 
@@ -105,7 +106,7 @@ const XpNetworthGraph = ({
       <StyledDire>{strings.general_dire}</StyledDire>
       <Heading
         title={strings.heading_graph_difference}
-        buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_default : null}
+        buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
         buttonTo={`${sponsorURL}Graphs`}
         buttonIcon={sponsorIcon}
       />

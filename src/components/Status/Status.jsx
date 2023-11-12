@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { fromNow, abbreviateNumber } from '../../utility';
 import Table from '../Table';
+import config from '../../config';
 
 function jsonResponse(response) {
   return response.json();
@@ -31,7 +32,7 @@ class Status extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`${process.env.REACT_APP_API_HOST}/api/status`)
+    fetch(`${config.VITE_API_HOST}/api/status`)
       .then(jsonResponse)
       .then(json => this.setState({ result: json }));
   }

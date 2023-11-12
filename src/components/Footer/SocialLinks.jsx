@@ -1,20 +1,20 @@
 import React from 'react';
 import { IconGithub, IconDiscord } from '../Icons';
-import { GITHUB_REPO, DISCORD_LINK } from '../../config';
+import config from '../../config';
 
 export default ({ strings }) => {
   const links = [
     {
       tooltip: strings.app_github,
-      path: `//github.com/${GITHUB_REPO}`,
+      path: `//github.com/${config.GITHUB_REPO}`,
       icon: <IconGithub aria-hidden />,
     },
   ];
 
-  if (DISCORD_LINK) {
+  if (config.DISCORD_LINK) {
     links.push({
       tooltip: strings.app_discord,
-      path: `//discord.gg/${DISCORD_LINK}`,
+      path: `//discord.gg/${config.DISCORD_LINK}`,
       icon: <IconDiscord aria-hidden />,
     });
   }

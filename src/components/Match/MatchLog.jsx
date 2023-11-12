@@ -13,9 +13,9 @@ import {
 import FormField from '../Form/FormField';
 import { StyledLogFilterForm } from './StyledMatch';
 import HeroImage from '../Visualizations/HeroImage';
-import { ReactComponent as Sword } from '../Icons/Sword.svg';
+import sword from '../Icons/Sword.svg';
 import { IconBloodDrop, IconRoshan } from '../Icons';
-import { ReactComponent as Lightning } from '../Icons/Lightning.svg';
+import lightning from '../Icons/Lightning.svg';
 
 const StyledLogContainer = styled.div`
   display: flex;
@@ -126,17 +126,8 @@ const StyledLogContainer = styled.div`
         margin-right: 6px;
       }
 
-      & .swordIcon {
-        fill: #ff2424;
-      }
-
       & .dropIcon {
         fill: #ff5555;
-      }
-
-      & .lightningIcon {
-        fill: #e5cf11;
-        vertical-align: bottom;
       }
 
       & .roshanIcon {
@@ -488,7 +479,7 @@ function EntryMessage({ entry, strings }) {
       const hero = heroNames[entry.detail] || {};
       return (
         <>
-          <Sword className="swordIcon icon" />
+          <img src={sword} className="swordIcon icon" />
           <span className="smallMutedText">{strings.killed}</span>
           <HeroImage id={hero.id} className="detailIcon" isIcon />
           <span className="smallBoldText">{hero.localized_name}</span>
@@ -533,7 +524,8 @@ function EntryMessage({ entry, strings }) {
       if (entry.alt_key === 'building_kill') {
         return (
           <>
-            <Lightning className="lightningIcon icon" />
+            {/*#e5cf11*/}
+            <img src={lightning} className="icon" style={{ filter: 'invert(87%) sepia(98%) saturate(4073%) hue-rotate(341deg) brightness(90%) contrast(100%)'}} />
             <span className="smallMutedText">{strings.destroyed}&nbsp;</span>
             <span className="smallBoldText">
               {translateBuildings(entry.key.indexOf('goodguys') !== -1, entry.key)}{' '}
@@ -570,7 +562,7 @@ function EntryMessage({ entry, strings }) {
           entry.team === 2 ? strings.general_radiant : strings.general_dire;
         return (
           <>
-            <Sword className="swordIcon icon"/>
+            <img src={sword} className="swordIcon icon" />
             <span className="smallMutedText">{strings.killed}</span>
             <img
               src={`/assets/images/dota2/${

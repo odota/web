@@ -12,6 +12,7 @@ import VisionMap from './VisionMap';
 import VisionLog from './VisionLog';
 import constants from '../../constants';
 import Heading from '../../Heading';
+import config from '../../../config';
 
 const Styled = styled.div`
 .visionLog {
@@ -236,7 +237,7 @@ class Vision extends React.Component {
           </div>
           <div style={{ flexGrow: '2' }}>
             <Heading
-              buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_vision : null}
+              buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_vision : null}
               buttonTo={`${sponsorURL}Vision`}
               buttonIcon={sponsorIcon}
             />

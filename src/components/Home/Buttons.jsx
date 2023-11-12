@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
 import { IconSteam } from '../Icons';
 import { ButtonsDiv } from './Styled';
+import config from '../../config';
 
 const Buttons = ({ user, strings }) => (
   <ButtonsDiv>
@@ -14,7 +15,7 @@ const Buttons = ({ user, strings }) => (
         <FlatButton
           label={<span className="label"><b>{strings.home_login}</b> {strings.home_login_desc}</span>}
           icon={<IconSteam />}
-          href={`${process.env.REACT_APP_API_HOST}/login`}
+          href={`${config.VITE_API_HOST}/login`}
         />
       </div>
     }

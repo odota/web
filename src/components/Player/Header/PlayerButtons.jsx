@@ -7,6 +7,7 @@ import ActionUpdate from 'material-ui/svg-icons/navigation/refresh';
 import styled from 'styled-components';
 import { toggleShowForm as toggleShowFormAction } from '../../../actions/formActions';
 import GamemodeToggle from '../../../components/GamemodeToggle';
+import config from '../../../config';
 
 const Styled = styled.div`
   display: flex;
@@ -52,7 +53,7 @@ class PlayerButtons extends React.Component {
             disabled={this.state.disableRefresh}
             onClick={() => {
               fetch(
-                `${process.env.REACT_APP_API_HOST}/api/players/${playerId}/refresh`,
+                `${config.VITE_API_HOST}/api/players/${playerId}/refresh`,
                 { method: 'POST' },
               );
               this.setState({ disableRefresh: true });

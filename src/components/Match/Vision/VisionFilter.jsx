@@ -5,15 +5,16 @@ import Table from '../../Table';
 import Heading from '../../Heading';
 
 import PlayerThumb from '../PlayerThumb';
+import config from '../../../config';
 
 const data = [
   {
     type: 'observer',
-    image: <img height="24" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`} alt="Observer ward" />,
+    image: <img height="24" src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`} alt="Observer ward" />,
   },
   {
     type: 'sentry',
-    image: <img height="24" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`} alt="Sentry ward" />,
+    image: <img height="24" src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`} alt="Sentry ward" />,
   },
 ];
 

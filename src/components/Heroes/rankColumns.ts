@@ -1,8 +1,8 @@
 import heroes from 'dotaconstants/build/heroes.json';
-import constants from 'src/components/constants';
+import constants from '../constants';
 import { abbreviateNumber, displayHeroId } from '../../utility';
 import { GlobalString } from 'src/types/common/GlobalString';
-import { Heroes } from 'src/types/Hero/Heroes';
+import { Heroes } from '../../types/Hero/Heroes';
 import React from 'react';
 
 type Props = {

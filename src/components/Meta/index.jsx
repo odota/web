@@ -13,6 +13,7 @@ import Heading from '../Heading';
 import TableSkeleton from '../Skeletons/TableSkeleton';
 import queryTemplate from './queryTemplate';
 import getFields from './fields';
+import config from '../../config';
 
 function jsonResponse(response) {
   return response.json();
@@ -79,7 +80,7 @@ class Explorer extends React.Component {
     });
     this.syncWindowHistory();
     const sqlString = this.state.sql;
-    return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
+    return fetch(`${config.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
   };
 
   handleResponse = (json) => {

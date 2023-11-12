@@ -10,6 +10,7 @@ import region from 'dotaconstants/build/region.json';
 import { toggleShowForm } from '../../../actions/formActions';
 import FormField from '../../Form/FormField';
 import constants from '../../constants';
+import config from '../../../config';
 
 const textFieldStyle = { width: 53, fontSize: 9, height: 'auto' };
 
@@ -120,7 +121,7 @@ const Styled = styled.div`
 `;
 
 const getPeers = (props, context) => {
-  fetch(`${process.env.REACT_APP_API_HOST}/api/players/${props.playerId}/peers`)
+  fetch(`${config.VITE_API_HOST}/api/players/${props.playerId}/peers`)
     .then((resp) => resp.json())
     .then((json) => context.setState({ peers: json }));
 };

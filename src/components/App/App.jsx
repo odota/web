@@ -31,6 +31,7 @@ import Status from '../Status';
 import Teams from '../Teams';
 import GlobalStyle from './GlobalStyle';
 import muiTheme from './muiTheme';
+import config from '../../config';
 
 const StyledDiv = styled.div`
   transition: ${constants.normalTransition};
@@ -157,7 +158,7 @@ const App = (props) => {
         <Header location={location} />
         <StyledBodyDiv {...props}>
         <AdBannerDiv>
-        {includeAds && process.env.REACT_APP_ENABLE_ADSENSE && (
+        {includeAds && config.VITE_ENABLE_ADSENSE && (
         <ins 
           className="adsbygoogle"
           style={{display: 'block', width: 728, height: 90, margin: 'auto'}}
@@ -195,7 +196,7 @@ const App = (props) => {
           </Switch>
         </StyledBodyDiv>
         <AdBannerDiv>
-          {includeAds && process.env.REACT_APP_ENABLE_RIVALRY && (
+          {includeAds && config.VITE_ENABLE_RIVALRY && (
             <div style={{ fontSize: '12px' }}>
               <a href="https://www.rivalry.com/opendota">
                 <img src="/assets/images/rivalry-banner.gif" alt="Logo for Rivalry.com" />
@@ -206,7 +207,7 @@ const App = (props) => {
               </div>
             </div>
           )}
-          {includeAds && process.env.REACT_APP_ENABLE_ADSENSE && (
+          {includeAds && config.VITE_ENABLE_ADSENSE && (
             <ins
               className="adsbygoogle"
               style={{display: 'block', width: 728, height: 90, margin: 'auto'}}

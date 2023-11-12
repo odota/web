@@ -8,7 +8,7 @@ import BuildingMap from '../BuildingMap';
 import Collapsible from './../../Collapsible/index';
 import AbilityBuildTable from '../AbilityBuildTable';
 import DeferredContainer from './../../DeferredContainer/index';
-
+import config from '../../../config';
 
 const Styled = styled.div`
   width: 100%;
@@ -47,7 +47,7 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
           players={match.players}
           columns={overviewColumns(match)}
           heading={strings.heading_overview}
-          buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_default : null}
+          buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
           buttonTo={`${gosuUrl}Overview`}
           buttonIcon={gosuIcon}
           picksBans={match.picks_bans}

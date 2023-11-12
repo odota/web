@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import store from './store';
 import { getMetadata, getStrings, getAbilities, getHeroAbilities, getNeutralAbilities, getAbilityIds } from './actions';
 import App from './components/App';
+import ReactGA from 'react-ga';
 // import { unregister } from './common/serviceWorker';
 
 // Fetch metadata (used on all pages)
@@ -21,7 +22,6 @@ store.dispatch(getAbilityIds());
 const history = createBrowserHistory();
 
 if (process.env.NODE_ENV === 'production') {
-  const ReactGA = require('react-ga'); // eslint-disable-line global-require
   ReactGA.initialize('UA-55757642-1');
   ReactGA.pageview(window.location.pathname + window.location.search);
 

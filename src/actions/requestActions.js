@@ -1,3 +1,5 @@
+import config from '../config';
+
 const url = '/api/request';
 
 const START = 'request/START';
@@ -31,7 +33,7 @@ const requestProgress = progress => ({
 });
 
 function poll(dispatch, json, matchId) {
-  fetch(`${process.env.REACT_APP_API_HOST}${url}/${json.job.jobId}`)
+  fetch(`${config.VITE_API_HOST}${url}/${json.job.jobId}`)
     .then(res => res.json())
     .then((_json) => {
       if (_json && _json.progress) {
@@ -48,7 +50,7 @@ function poll(dispatch, json, matchId) {
 
 export const postRequest = matchId => (dispatch) => {
   dispatch(requestStart());
-  return fetch(`${process.env.REACT_APP_API_HOST}${url}/${matchId}`, { method: 'post' })
+  return fetch(`${config.VITE_API_HOST}${url}/${matchId}`, { method: 'post' })
     .then(res => res.json())
     .then((json) => {
       if (json.job && json.job.jobId) {
