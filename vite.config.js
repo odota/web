@@ -1,6 +1,7 @@
 export default {
     build: {
-        outDir: 'build'
+        outDir: 'build',
+        target: 'esnext',
     },
     server: {
         // https: true,
