@@ -10,6 +10,10 @@ import constants from '../constants';
 import AbilityTooltip from '../AbilityTooltip';
 import config from '../../config';
 
+const abilityIds = (await import('dotaconstants/build/ability_ids.json')).default;
+const abilities = (await import('dotaconstants/build/abilities.json')).default;
+const neutralAbilities = (await import('dotaconstants/build/neutral_abilities.json')).default;
+
 const getInflictorImage = (inflictor) => {
   if (inflictor.includes('recipe')) {
     return 'recipe';
@@ -159,9 +163,6 @@ class InflictorWithValue extends React.Component {
     ptooltip: PropTypes.shape({}),
     abilityId: PropTypes.number,
     strings: PropTypes.shape({}),
-    abilities: PropTypes.shape({}),
-    neutralAbilities: PropTypes.shape({}),
-    abilityIds: PropTypes.shape({}),
     charges: PropTypes.number,
   }
 
@@ -177,7 +178,7 @@ class InflictorWithValue extends React.Component {
 
   render() {
     const {
-      inflictor, value, type, ptooltip, abilityId, strings, abilities, neutralAbilities, abilityIds, charges,
+      inflictor, value, type, ptooltip, abilityId, strings, charges,
     } = this.props;
 
     const resolvedInflictor = (abilityId && abilityIds && abilityIds[abilityId]) || String(inflictor);
@@ -267,9 +268,6 @@ class InflictorWithValue extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  abilities: state.app.abilities,
-  neutralAbilities: state.app.neutralAbilities,
-  abilityIds: state.app.abilityIds,
   strings: state.app.strings,
 });
 

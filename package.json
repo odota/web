@@ -7,6 +7,7 @@
   "scripts": {
     "start": "vite --host",
     "start:install": "npm install && npm run lint && npm run start",
+    "preview": "vite preview",
     "build": "vite build && npm run typecheck",
     "build:install": "npm install && npm run lint && npm run build",
     "test": "testcafe -c 4 chrome testcafe/ --app \"serve -s build\"",

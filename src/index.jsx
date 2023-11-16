@@ -5,7 +5,7 @@ import { render, hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import store from './store';
-import { getMetadata, getStrings, getAbilities, getHeroAbilities, getNeutralAbilities, getAbilityIds } from './actions';
+import { getMetadata, getStrings } from './actions';
 import App from './components/App';
 import ReactGA from 'react-ga';
 // import { unregister } from './common/serviceWorker';
@@ -14,10 +14,6 @@ import ReactGA from 'react-ga';
 store.dispatch(getMetadata());
 // Fetch strings
 store.dispatch(getStrings());
-store.dispatch(getAbilities());
-store.dispatch(getHeroAbilities());
-store.dispatch(getNeutralAbilities());
-store.dispatch(getAbilityIds());
 
 const history = createBrowserHistory();
 

@@ -10,6 +10,8 @@ import {
 import analyzeMatch from './analyzeMatch';
 import store from '../store';
 
+const abilityIds = (await import('dotaconstants/build/ability_ids.json')).default;
+
 let expandedUnitNames = null;
 
 function generateExpandedUnitNames(strings) {
@@ -144,7 +146,7 @@ function generateVisionLog(match) {
 }
 
 function transformMatch(m) {
-  const { abilityIds, strings } = store.getState().app;
+  const { strings } = store.getState().app;
 
   // lane winning
   const lineResults = m.players.reduce((res, pl) => {

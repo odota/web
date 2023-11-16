@@ -87,18 +87,6 @@ export const getStrings = () => async (dispatch) => {
 
   dispatch({ type: 'strings', payload: { ...defData, ...selData } });
 };
-export const getAbilities = () => async (dispatch) => {
-  dispatch({ type: 'abilities', payload: await import('dotaconstants/build/abilities.json') });
-};
-export const getHeroAbilities = () => async (dispatch) => {
-  dispatch({ type: 'heroAbilities', payload: await import('dotaconstants/build/hero_abilities.json') });
-};
-export const getNeutralAbilities = () => async (dispatch) => {
-  dispatch({ type: 'neutralAbilities', payload: await import('dotaconstants/build/neutral_abilities.json') });
-};
-export const getAbilityIds = () => async (dispatch) => {
-  dispatch({ type: 'abilityIds', payload: await import('dotaconstants/build/ability_ids.json') });
-};
 export const getScenariosItemTimings = params => action('scenariosItemTimings', config.VITE_API_HOST, 'api/scenarios/itemTimings', params);
 export const getScenariosLaneRoles = params => action('scenariosLaneRoles', config.VITE_API_HOST, 'api/scenarios/laneRoles', params);
 export const getScenariosMisc = params => action('scenariosMisc', config.VITE_API_HOST, 'api/scenarios/misc', params);

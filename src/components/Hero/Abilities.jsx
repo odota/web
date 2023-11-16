@@ -6,6 +6,9 @@ import Ability from './Ability';
 import Talents from './Talents';
 import AghanimUpgrades from './AghanimUpgrades';
 
+const abilities = (await import('dotaconstants/build/abilities.json')).default;
+const heroAbilities = (await import('dotaconstants/build/hero_abilities.json')).default;
+
 const Wrapper = styled.div`
   align-items: center;
   display: flex;
@@ -30,7 +33,7 @@ const renderAbilities = abilities => abilities.map(ability => (
   </AbilityItem>
 ));
 
-const Abilities = ({ hero, abilities, heroAbilities }) => {
+const Abilities = ({ hero }) => {
   const filterAbilities = toFilterAbs => toFilterAbs.filter(ability => (ability !== 'generic_hidden'));
 
   const mapAbilities = toFilterAbs => toFilterAbs.map((ability, id) => ({ data: abilities[ability], key: id }));
@@ -88,13 +91,9 @@ const Abilities = ({ hero, abilities, heroAbilities }) => {
 
 Abilities.propTypes = {
   hero: propTypes.shape({}).isRequired,
-  abilities: propTypes.shape({}).isRequired,
-  heroAbilities: propTypes.shape({}).isRequired,
 };
 
 const mapStateToProps = state => ({
-  abilities: state.app.abilities,
-  heroAbilities: state.app.heroAbilities,
 });
 
 export default connect(mapStateToProps)(Abilities);
