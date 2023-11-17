@@ -111,8 +111,6 @@ const App = (props) => {
 
   const back2Top = React.useRef();
 
-
-
   React.useEffect(() => {
     const handleScroll = () => {
       let wait = false;
@@ -146,6 +144,12 @@ const App = (props) => {
   }, [location]);
 
   const includeAds = !['/', '/api-keys'].includes(location.pathname);
+
+  React.useEffect(() => {
+    if (includeAds) {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    }
+  }, []);
 
   return (
     <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
