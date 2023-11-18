@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
 import { IconSteam } from '../Icons';
 import { ButtonsDiv } from './Styled';
 import config from '../../config';
 
-const Buttons = ({ user, strings }) => (
+import { HomePageProps } from './Home';
+
+const Buttons = ({ user, strings }: HomePageProps) => (
   <ButtonsDiv>
     {
       !user &&
@@ -30,12 +31,7 @@ const Buttons = ({ user, strings }) => (
   </ButtonsDiv>
 );
 
-Buttons.propTypes = {
-  user: PropTypes.shape({}),
-  strings: PropTypes.shape({}),
-};
-
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
   const { data } = state.app.metadata;
   return {
     user: data.user,
