@@ -6,24 +6,8 @@ import Sponsors from './Sponsors';
 import { HeadContainerDiv, HeadlineDiv, DescriptionDiv, BottomTextDiv } from './Styled';
 
 export interface HomePageProps {
-  user?: string
-  strings: {
-    app_name: string
-    app_description: string
-    home_background_by: string
-    home_login: string
-    home_login_desc: string
-    home_parse: string
-    home_parse_desc: string
-    home_sponsored_by: string
-    home_become_sponsor: string
-    home_opensource_title: string
-    home_opensource_desc: string
-    home_indepth_title: string
-    home_indepth_desc: string
-    home_free_title: string
-    home_free_desc: string
-  }
+  user?: string;
+  strings: { [key: string]: string };
 }
 
 const Home = ({ strings }: HomePageProps) => (
