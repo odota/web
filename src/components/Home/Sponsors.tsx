@@ -1,10 +1,11 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ButtonsDiv } from './Styled';
 import config from '../../config';
+
+import { HomePageProps } from './Home';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -34,11 +35,11 @@ const StyledDiv = styled.div`
   }
 `;
 
-const Sponsors = ({ strings }) => (
+const Sponsors = ({ strings }: HomePageProps) => (
   <StyledDiv>
     <div className="headline">{strings.home_sponsored_by}</div>
     <div className="images">
-      {config.VITE_ENABLE_DOTA_COACH && (
+      {config.VITE_ENABLE_DOTACOACH && (
         <a
           href="https://dota-coach.com?s=OpenDota&c=main"
           target="_blank"
@@ -84,11 +85,7 @@ const Sponsors = ({ strings }) => (
   </StyledDiv>
 );
 
-Sponsors.propTypes = {
-  strings: PropTypes.shape({}),
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 
