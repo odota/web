@@ -1,4 +1,3 @@
-// @ts-nocheck
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -176,6 +175,7 @@ const App = (props: AppProps) => {
   }, []);
 
   return (
+    // @ts-ignore
     <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}> {/* muiTheme types are missing here */}
       <GlobalStyle />
       <StyledDiv {...props}>
@@ -246,6 +246,7 @@ const App = (props: AppProps) => {
         </AdBannerDiv>
         <Footer />
         <Back2Top
+          // @ts-ignore
           ref={back2Top} // Type 'undefined' is not assignable to type 'HTMLButtonElement | null' 
           id="back2Top"
           title={strings.back2Top}
@@ -266,4 +267,5 @@ const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 
+// @ts-ignore
 export default connect(mapStateToProps)(withRouter(App)); // Property 'strings' is missing in type
