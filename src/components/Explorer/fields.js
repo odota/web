@@ -28,37 +28,37 @@ const getFields = (players = [], leagues = [], teams = []) => {
     bundle: 'uses',
   });
 
-  const timingSelect = itemKey => ({
-    text: `${strings.explorer_timing} - ${itemData[itemKey].dname} ${getItemSuffix(itemKey)}`,
-    value: 'match_logs.time',
-    order: 'ASC',
-    join: `JOIN match_logs 
-  ON match_logs.match_id = matches.match_id 
-  AND player_matches.player_slot = match_logs.targetname_slot 
-  AND match_logs.type = 'DOTA_COMBATLOG_PURCHASE'
-  AND match_logs.valuename = 'item_${itemKey}'`,
-    key: `timing_${itemKey}`,
-    formatSeconds: true,
-    bundle: 'timing',
-    singleSelection: true,
-  });
+  // const timingSelect = itemKey => ({
+  //   text: `${strings.explorer_timing} - ${itemData[itemKey].dname} ${getItemSuffix(itemKey)}`,
+  //   value: 'match_logs.time',
+  //   order: 'ASC',
+  //   join: `JOIN match_logs 
+  // ON match_logs.match_id = matches.match_id 
+  // AND player_matches.player_slot = match_logs.targetname_slot 
+  // AND match_logs.type = 'DOTA_COMBATLOG_PURCHASE'
+  // AND match_logs.valuename = 'item_${itemKey}'`,
+  //   key: `timing_${itemKey}`,
+  //   formatSeconds: true,
+  //   bundle: 'timing',
+  //   singleSelection: true,
+  // });
 
-  const killSelect = ({
-    text,
-    unitKey,
-  }) => ({
-    text: `${strings.explorer_kill} - ${text}`,
-    value: 'match_logs.time',
-    order: 'ASC',
-    join: `JOIN match_logs 
-  ON match_logs.match_id = matches.match_id 
-  AND player_matches.player_slot = match_logs.sourcename_slot 
-  AND match_logs.type = 'DOTA_COMBATLOG_DEATH'
-  AND match_logs.targetname LIKE '${unitKey}'`,
-    key: `kill_${unitKey}`,
-    bundle: 'kill',
-    singleSelection: true,
-  });
+  // const killSelect = ({
+  //   text,
+  //   unitKey,
+  // }) => ({
+  //   text: `${strings.explorer_kill} - ${text}`,
+  //   value: 'match_logs.time',
+  //   order: 'ASC',
+  //   join: `JOIN match_logs 
+  // ON match_logs.match_id = matches.match_id 
+  // AND player_matches.player_slot = match_logs.sourcename_slot 
+  // AND match_logs.type = 'DOTA_COMBATLOG_DEATH'
+  // AND match_logs.targetname LIKE '${unitKey}'`,
+  //   key: `kill_${unitKey}`,
+  //   bundle: 'kill',
+  //   singleSelection: true,
+  // });
 
   const singleFields = [{
     text: strings.heading_kills,
@@ -301,26 +301,27 @@ const getFields = (players = [], leagues = [], teams = []) => {
         text: strings.heading_damage_instances,
         join: ', json_each(player_matches.hero_hits)',
         key: 'damage_instances',
-      }, killSelect({
-        text: strings.heading_courier,
-        unitKey: 'npc_dota_courier',
-      }),
-      killSelect({
-        text: strings.heading_roshan,
-        unitKey: 'npc_dota_roshan',
-      }),
-      killSelect({
-        text: strings.heading_tower,
-        unitKey: '%tower%',
-      }),
-      killSelect({
-        text: strings.heading_barracks,
-        unitKey: '%rax%',
-      }),
-      killSelect({
-        text: strings.heading_shrine,
-        unitKey: '%healers%',
-      }),
+      }, 
+      // killSelect({
+      //   text: strings.heading_courier,
+      //   unitKey: 'npc_dota_courier',
+      // }),
+      // killSelect({
+      //   text: strings.heading_roshan,
+      //   unitKey: 'npc_dota_roshan',
+      // }),
+      // killSelect({
+      //   text: strings.heading_tower,
+      //   unitKey: '%tower%',
+      // }),
+      // killSelect({
+      //   text: strings.heading_barracks,
+      //   unitKey: '%rax%',
+      // }),
+      // killSelect({
+      //   text: strings.heading_shrine,
+      //   unitKey: '%healers%',
+      // }),
       {
         text: strings.explorer_hero_combos,
         value: 1,
@@ -376,7 +377,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
       },
     ]
       .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cd).map(usesSelect))
-      .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect))
+      //.concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect))
       .concat(singleFields)
       .sort((a, b) => a.text && a.text.localeCompare(b.text)),
     group: [{
