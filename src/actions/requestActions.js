@@ -55,6 +55,9 @@ export const postRequest = matchId => (dispatch) => {
     .then((json) => {
       if (json.job && json.job.jobId) {
         poll(dispatch, json, matchId);
+      } else if (json.job && !json.job.jobId) {
+        // No parse job created so just go to the page
+        window.location.href = `/matches/${matchId}`;
       } else {
         dispatch(requestError(json.err));
       }
