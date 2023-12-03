@@ -5,6 +5,7 @@ import Helmet from 'react-helmet';
 import { fromNow, abbreviateNumber } from '../../utility';
 import Table from '../Table';
 import config from '../../config';
+import CountUp from 'react-countup';
 
 function jsonResponse(response) {
   return response.json();
@@ -12,7 +13,7 @@ function jsonResponse(response) {
 
 const columns = [
   { displayName: 'key', field: 'key' },
-  { displayName: 'value', field: 'value' },
+  { displayName: 'value', field: 'value', displayFn: (row) => row.end != null ? <CountUp start={row.start} end={row.end} duration={10} delay={0} useEasing={false} /> : row.value },
 ];
 
 const tableStyle = {
@@ -29,12 +30,18 @@ class Status extends React.Component {
 
   state = {
     result: {},
+    last: {},
   }
 
   componentDidMount() {
-    fetch(`${config.VITE_API_HOST}/api/status`)
+    const update = () => fetch(`${config.VITE_API_HOST}/api/status`)
       .then(jsonResponse)
-      .then(json => this.setState({ result: json }));
+      .then(async (json) => {
+        const nextState = { result: json, last: this.state.result };
+        return this.setState(nextState);
+      });
+    update();
+    setInterval(update, 10000);
   }
   render() {
     const { strings } = this.props;
@@ -48,7 +55,7 @@ class Status extends React.Component {
           style={tableStyle}
           data={Object.keys(this.state.result)
             .filter((key) => typeof (this.state.result[key]) !== 'object')
-            .map((key) => ({ key, value: this.state.result[key] }))}
+            .map((key) => ({ key, value: this.state.result[key], start: this.state.last[key] ?? this.state.result[key], end: this.state.result[key] }))}
           columns={columns}
         />
         <Table
