@@ -143,7 +143,7 @@ const App = (props) => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  const includeAds = !['/', '/api-keys'].includes(location.pathname);
+  const includeAds = !['/', '/api-keys', '/status'].includes(location.pathname);
 
   React.useEffect(() => {
     if (includeAds) {

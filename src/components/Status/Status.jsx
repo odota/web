@@ -6,6 +6,7 @@ import { fromNow, abbreviateNumber } from '../../utility';
 import Table from '../Table';
 import config from '../../config';
 import CountUp from 'react-countup';
+import { LazyLog } from 'react-lazylog';
 
 function jsonResponse(response) {
   return response.json();
@@ -51,6 +52,9 @@ class Status extends React.Component {
       }}
       >
         <Helmet title={strings.title_status} />
+        <div style={{ minWidth: '300px', width: '80vw', height: '300px' }}>
+          <LazyLog stream url={`${config.VITE_API_HOST.replace('http', 'ws')}`} websocket follow enableSearch />
+        </div>
         <Table
           style={tableStyle}
           data={Object.keys(this.state.result)
