@@ -6,7 +6,7 @@ import { fromNow, abbreviateNumber } from '../../utility';
 import Table from '../Table';
 import config from '../../config';
 import CountUp from 'react-countup';
-import { LazyLog } from 'react-lazylog';
+import { LazyLog, ScrollFollow } from '@melloware/react-logviewer';
 
 function jsonResponse(response) {
   return response.json();
@@ -34,6 +34,11 @@ class Status extends React.Component {
     last: {},
   }
 
+  constructor(props) {
+    super(props);
+    this.logRef = React.createRef();
+  }
+
   componentDidMount() {
     const update = () => fetch(`${config.VITE_API_HOST}/api/status`)
       .then(jsonResponse)
@@ -43,6 +48,10 @@ class Status extends React.Component {
       });
     update();
     setInterval(update, 10000);
+    // setInterval(() => {
+    //   // Clear the log every 10 minutes to avoid perf issues
+    //   this.logRef.current.clear();
+    // }, 10 * 60 * 1000);
   }
   render() {
     const { strings } = this.props;
@@ -53,7 +62,12 @@ class Status extends React.Component {
       >
         <Helmet title={strings.title_status} />
         <div style={{ minWidth: '300px', width: '80vw', height: '300px' }}>
-          <LazyLog stream url={`${config.VITE_API_HOST.replace('http', 'ws')}`} websocket follow enableSearch />
+        {/* This currently won't do following */}
+        <ScrollFollow
+          startFollowing={true}
+          render={({ follow, onScroll }) => (
+          <LazyLog ref={this.logRef} stream url={`${config.VITE_API_HOST.replace('http', 'ws')}`} websocket follow={follow} enableSearch />
+        )} />
         </div>
         <Table
           style={tableStyle}
