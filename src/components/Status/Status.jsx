@@ -44,6 +44,10 @@ class Status extends React.Component {
       });
     update();
     setInterval(update, 10000);
+    setInterval(() => {
+      // Periodically clear the logs and reconnect
+      this.setState({ ts: new Date() });
+    }, 30 * 60 * 1000);
   }
   render() {
     const { strings } = this.props;
