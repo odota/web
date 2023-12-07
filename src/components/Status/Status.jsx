@@ -32,6 +32,7 @@ class Status extends React.Component {
   state = {
     result: {},
     last: {},
+    ts: new Date(),
   }
 
   componentDidMount() {
@@ -53,7 +54,11 @@ class Status extends React.Component {
       >
         <Helmet title={strings.title_status} />
         <div style={{ minWidth: '300px', width: '80vw', height: '300px' }}>
-          <LazyLog stream url={`${config.VITE_API_HOST.replace('http', 'ws')}`} websocket follow enableSearch />
+          <LazyLog key={Number(this.state.ts)} stream url={`${config.VITE_API_HOST.replace('http', 'ws')}`} websocket follow enableSearch onLoad={() => {
+            // Trigger a reload since we finished connecting to socket
+            this.setState({ ts: new Date() });
+          }
+          } />
         </div>
         <Table
           style={tableStyle}
@@ -73,20 +78,8 @@ class Status extends React.Component {
         />
         <Table
           style={tableStyle}
-          data={(this.state.result.last_added || [])
-            .map((match) => ({ key: match.match_id, value: fromNow(match.start_time + match.duration) }))}
-          columns={columns}
-        />
-        <Table
-          style={tableStyle}
-          data={(this.state.result.last_parsed || [])
-            .map((match) => ({ key: match.match_id, value: fromNow(match.start_time + match.duration) }))}
-          columns={columns}
-        />
-        <Table
-          style={tableStyle}
           data={Object.keys(this.state.result.load_times || {})
-            .map((key) => ({ key, value: this.state.result.load_times[key] }))}
+            .map((key) => ({ key, value: this.state.result.load_times?.[key], start: this.state.last?.load_times?.[key] ?? this.state.result.load_times?.[key], end: this.state.result.load_times?.[key] }))}
           columns={columns}
         />
         <Table
@@ -94,7 +87,7 @@ class Status extends React.Component {
           data={(this.state.result.api_paths || [])
             .slice()
             .reverse()
-            .map((row) => ({ key: row.hostname, value: row.count }))
+            .map((row) => ({ key: row.hostname, value: row.count, start: this.state.last?.api_paths?.find(row2 => row2.hostname === row.hostname)?.count ?? row.count, end: row.count }))
           }
           columns={columns}
         />
@@ -103,7 +96,7 @@ class Status extends React.Component {
           data={(this.state.result.retriever || [])
             .slice()
             .reverse()
-            .map(row => ({ key: row.hostname, value: row.count }))
+            .map(row => ({ key: row.hostname, value: row.count, start: this.state.last?.retriever?.find(row2 => row2.hostname === row.hostname)?.count ?? row.count, end: row.count }))
           }
           columns={columns}
         />
