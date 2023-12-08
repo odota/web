@@ -6,7 +6,7 @@ import { fromNow, abbreviateNumber } from '../../utility';
 import Table from '../Table';
 import config from '../../config';
 import CountUp from 'react-countup';
-import { LazyLog } from 'react-lazylog';
+import { LazyLog, ScrollFollow } from 'react-lazylog';
 
 function jsonResponse(response) {
   return response.json();
@@ -33,6 +33,7 @@ class Status extends React.Component {
     result: {},
     last: {},
     ts: new Date(),
+    follow: true,
   }
 
   componentDidMount() {
@@ -52,18 +53,28 @@ class Status extends React.Component {
   render() {
     const { strings } = this.props;
     return (
-      <div style={{
-        display: 'flex', flexDirection: 'row', flexWrap: 'wrap', fontSize: '10px',
-      }}
-      >
+      <>
         <Helmet title={strings.title_status} />
         <div style={{ minWidth: '300px', width: '80vw', height: '300px' }}>
-          <LazyLog key={Number(this.state.ts)} stream url={`${config.VITE_API_HOST.replace('http', 'ws')}`} websocket follow enableSearch onLoad={() => {
+          <LazyLog 
+          key={Number(this.state.ts)}
+          stream 
+          url={`${config.VITE_API_HOST.replace('http', 'ws')}`} 
+          websocket 
+          follow={this.state.follow} 
+          enableSearch 
+          selectableLines 
+          onLoad={() => {
             // Trigger a reload since we finished connecting to socket
             this.setState({ ts: new Date() });
           }
           } />
         </div>
+        <button style={{ width: '200px', height: '40px', margin: '8px'}} onClick={() => this.setState({ follow: !this.state.follow })}>{this.state.follow ? 'Stop' : 'Start'}</button>
+      <div style={{
+        display: 'flex', flexDirection: 'row', flexWrap: 'wrap', fontSize: '10px',
+      }}
+      >
         <Table
           style={tableStyle}
           data={Object.keys(this.state.result)
@@ -104,7 +115,8 @@ class Status extends React.Component {
           }
           columns={columns}
         />
-      </div>);
+      </div>
+      </>);
   }
 }
 
