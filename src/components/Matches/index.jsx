@@ -27,7 +27,12 @@ export const WinnerSpan = styled.span`
   }
 `;
 
-const matchesColumns = strings => [{
+const matchesColumns = strings => [
+  {
+    field: 'version',
+    displayFn: (row, col, field) => <div>{field ? '☆' : ''}</div>
+  },
+  {
   displayName: strings.th_match_id,
   field: 'match_id',
   sortFn: true,
