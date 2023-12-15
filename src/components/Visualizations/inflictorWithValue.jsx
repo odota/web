@@ -195,8 +195,8 @@ class InflictorWithValue extends React.Component {
           image = '/assets/images/stats.png';
         } else if (resolvedInflictor.includes('special_bonus')) {
           image = '/assets/images/dota2/talent_tree.svg';
-        } else if (neutralAbility) {
-          image = neutralAbility.img;
+        } else if (['ability_lamp_use', 'ability_pluck_famango', 'twin_gate_portal_warp'].includes(resolvedInflictor)) {
+          image = `/assets/images/dota2/abilities/${resolvedInflictor}.png`;
         } else {
           image = `${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/abilities/${resolvedInflictor}.png`;
         }
