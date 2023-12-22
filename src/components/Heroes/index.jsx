@@ -63,7 +63,7 @@ class RequestLayer extends React.Component {
           <Heading
             className="top-heading with-tabbar"
             title={title}
-            subtitle={`${abbreviateNumber(matchCount)} ${key === 'turbo' ? strings.hero_this_month : strings.hero_last_30days}`}
+            subtitle={`${abbreviateNumber(matchCount)} ${strings.hero_last_7days}`}
             icon=""
             twoLine
           />
