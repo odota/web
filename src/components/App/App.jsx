@@ -12,7 +12,6 @@ import Api from '../Api';
 import Subscription from '../Subscription';
 import constants from '../constants';
 import Distributions from '../Distributions';
-import Explorer from '../Explorer';
 import Footer from '../Footer';
 import FourOhFour from '../FourOhFour';
 import Header from '../Header';
@@ -27,11 +26,13 @@ import Records from '../Records';
 import Request from '../Request';
 import Scenarios from '../Scenarios';
 import Search from '../Search';
-import Status from '../Status';
 import Teams from '../Teams';
 import GlobalStyle from './GlobalStyle';
 import muiTheme from './muiTheme';
 import config from '../../config';
+
+const Status = (await import('../Status')).default;
+const Explorer = (await import('../Explorer')).default;
 
 const StyledDiv = styled.div`
   transition: ${constants.normalTransition};
