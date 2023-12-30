@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import nanoid from 'nanoid';
-import items from 'dotaconstants/build/items.json';
 import styled from 'styled-components';
 import ItemTooltip from './../ItemTooltip/index';
 import constants from '../constants';
@@ -13,6 +12,7 @@ import config from '../../config';
 const abilityIds = (await import('dotaconstants/build/ability_ids.json')).default;
 const abilities = (await import('dotaconstants/build/abilities.json')).default;
 const neutralAbilities = (await import('dotaconstants/build/neutral_abilities.json')).default;
+const items = (await import('dotaconstants/build/items.json')).default;
 
 const getInflictorImage = (inflictor) => {
   if (inflictor.includes('recipe')) {

@@ -1,11 +1,12 @@
 import heroData from 'dotaconstants/build/heroes.json';
 import patchData from 'dotaconstants/build/patch.json';
-import itemData from 'dotaconstants/build/items.json';
 import regionData from 'dotaconstants/build/region.json';
 import clusterData from 'dotaconstants/build/cluster.json';
 import store from '../../store';
 import { formatTemplateToString } from '../../utility';
 // import { isActiveItem } from '../../utility';
+
+const items = (await import('dotaconstants/build/items.json')).default;
 
 const getItemSuffix = itemKey => (['_2', '_3', '_4', '_5'].some(suffix => itemKey.indexOf(suffix) !== -1) ? itemKey[itemKey.length - 1] : '');
 
@@ -21,7 +22,7 @@ const getFields = (players = [], leagues = [], teams = []) => {
   };
 
   const usesSelect = itemKey => ({
-    text: `${strings.explorer_uses} - ${itemData[itemKey].dname} ${getItemSuffix(itemKey)}`,
+    text: `${strings.explorer_uses} - ${items[itemKey].dname} ${getItemSuffix(itemKey)}`,
     value: `(item_uses->>'${itemKey}')::int`,
     key: `uses_${itemKey}`,
     alias: 'uses',
@@ -29,7 +30,7 @@ const getFields = (players = [], leagues = [], teams = []) => {
   });
 
   // const timingSelect = itemKey => ({
-  //   text: `${strings.explorer_timing} - ${itemData[itemKey].dname} ${getItemSuffix(itemKey)}`,
+  //   text: `${strings.explorer_timing} - ${items[itemKey].dname} ${getItemSuffix(itemKey)}`,
   //   value: 'match_logs.time',
   //   order: 'ASC',
   //   join: `JOIN match_logs 
@@ -376,8 +377,8 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
         bundle: 'picks_bans',
       },
     ]
-      .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cd).map(usesSelect))
-      //.concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect))
+      .concat(Object.keys(items).filter(itemKey => items[itemKey].cd).map(usesSelect))
+      //.concat(Object.keys(items).filter(itemKey => items[itemKey].cost > 2000).map(timingSelect))
       .concat(singleFields)
       .sort((a, b) => a.text && a.text.localeCompare(b.text)),
     group: [{
@@ -434,8 +435,8 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
       value: heroData[heroId].id,
       key: String(heroData[heroId].id),
     })),
-    playerPurchased: Object.keys(itemData).map(itemName => ({
-      text: itemData[itemName].dname,
+    playerPurchased: Object.keys(items).map(itemName => ({
+      text: items[itemName].dname,
       value: itemName,
       key: itemName,
     })),

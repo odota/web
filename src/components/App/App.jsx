@@ -1,7 +1,7 @@
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import React from 'react';
+import React, { Suspense } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
@@ -15,7 +15,6 @@ import Distributions from '../Distributions';
 import Footer from '../Footer';
 import FourOhFour from '../FourOhFour';
 import Header from '../Header';
-import Heroes from '../Heroes';
 import Home from '../Home';
 import Matches from '../Matches';
 import Meta from '../Meta';
@@ -30,9 +29,11 @@ import Teams from '../Teams';
 import GlobalStyle from './GlobalStyle';
 import muiTheme from './muiTheme';
 import config from '../../config';
+import Spinner from '../Spinner';
 
-const Status = (await import('../Status')).default;
-const Explorer = (await import('../Explorer')).default;
+const Status = React.lazy(() => import('../Status'));
+const Explorer = React.lazy(() => import('../Explorer'));
+const Heroes = React.lazy(() => import('../Heroes'));
 
 const StyledDiv = styled.div`
   transition: ${constants.normalTransition};
@@ -154,6 +155,7 @@ const App = (props) => {
 
   return (
     <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
+      <Suspense fallback={<Spinner />}>
       <GlobalStyle />
       <StyledDiv {...props}>
         <Helmet
@@ -235,6 +237,7 @@ const App = (props) => {
           <div id="back2TopTxt">{strings.back2Top}</div>
         </button>
       </StyledDiv>
+    </Suspense>
     </MuiThemeProvider>
   );
 };

@@ -1,6 +1,5 @@
 import heroes from 'dotaconstants/build/heroes.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
-import items from 'dotaconstants/build/items.json';
 import patch from 'dotaconstants/build/patch.json';
 import xpLevel from 'dotaconstants/build/xp_level.json';
 import curry from 'lodash/fp/curry';
@@ -23,6 +22,8 @@ import {
 } from '../components/Visualizations';
 import store from '../store';
 import config from '../config';
+
+const items = (await import('dotaconstants/build/items.json')).default;
 
 const second = 1;
 const minute = second * 60;

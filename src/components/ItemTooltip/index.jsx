@@ -1,10 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
-import items from 'dotaconstants/build/items.json';
 import constants from '../constants';
 import { styleValues } from '../../utility';
 import config from '../../config';
+
+const items = (await import('dotaconstants/build/items.json')).default;
 
 const itemAbilities = {
   active: {

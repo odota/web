@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import itemData from 'dotaconstants/build/items.json';
 import {
   displayHeroId,
   formatSeconds,
@@ -22,6 +21,8 @@ import constants from '../constants';
 import { StyledTeamIconContainer } from '../Match/StyledMatch';
 import HeroImage from './../Visualizations/HeroImage';
 import { WinnerSpan } from '../Matches';
+
+const items = (await import('dotaconstants/build/items.json')).default;
 
 /*
 function resolveId(key, value, mappings) {
@@ -110,7 +111,7 @@ class ExplorerOutputSection extends React.Component {
             } else if (column.field === 'rune_id') {
               return strings[`rune_${field}`];
             } else if (column.field === 'item_name') {
-              return itemData[field] ? itemData[field].dname : field;
+              return items[field] ? items[field].dname : field;
             } else if (column.field === 'time' || (column.field === 'avg' && expandedBuilder.select && expandedBuilder.select.formatSeconds)) {
               return formatSeconds(field);
             } else if (column.field === 'inflictor') {

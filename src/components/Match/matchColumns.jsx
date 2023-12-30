@@ -2,7 +2,6 @@ import React from 'react';
 import findLast from 'lodash/fp/findLast';
 import { Tooltip } from '@material-ui/core';
 import heroes from 'dotaconstants/build/heroes.json';
-import items from 'dotaconstants/build/items.json';
 import orderTypes from 'dotaconstants/build/order_types.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
 import buffs from 'dotaconstants/build/permanent_buffs.json';
@@ -42,8 +41,8 @@ import HeroImage from './../Visualizations/HeroImage';
 import ItemTooltip from '../ItemTooltip';
 import config from '../../config';
 
+const items = (await import('dotaconstants/build/items.json')).default;
 const heroNames = getHeroesById();
-
 const parsedBenchmarkCols = ['lhten', 'stuns_per_min'];
 
 const shardTooltip = <ItemTooltip item={items.aghanims_shard} />;
