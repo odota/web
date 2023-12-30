@@ -169,7 +169,7 @@ class KeyManagement extends React.Component {
     const showLoginButton = !user;
     const showGetKeyButton = user && !(this.state.customer && this.state.customer.api_key);
     const premUnit = 100;
-    const freeCallLimit = 50000;
+    const freeCallLimit = 2000;
     const freeRateLimit = 60;
     const premRateLimit = 1200;
     const premPrice = 0.01;
@@ -325,7 +325,7 @@ class KeyManagement extends React.Component {
                         </tr>
                         <tr>
                           <th>{strings.api_details_call_limit}</th>
-                          <td>{strings.api_details_call_limit_free.replace('$limit', freeCallLimit)}</td>
+                          <td>{strings.api_details_call_limit_free_day.replace('$limit', freeCallLimit)}</td>
                           <td>{strings.api_details_call_limit_prem}</td>
                         </tr>
                         <tr>

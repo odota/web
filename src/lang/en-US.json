@@ -34,6 +34,7 @@
   "api_details_key_required_prem": "Yes -- requires payment method",
   "api_details_call_limit": "Call Limit",
   "api_details_call_limit_free": "$limit per month",
+  "api_details_call_limit_free_day": "$limit per day",
   "api_details_call_limit_prem": "Unlimited",
   "api_details_rate_limit": "Rate Limit",
   "api_details_rate_limit_val": "$num calls per minute",
