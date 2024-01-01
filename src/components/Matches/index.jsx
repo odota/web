@@ -91,13 +91,13 @@ const publicMatchesColumns = strings => [
   {
     displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
     field: 'radiant_team',
-    displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
+    displayFn: (row, col, field) => field?.map(heroId =>
       (heroes[heroId] ? <HeroImage id={heroId} key={heroId} style={{ width: '50px' }} alt="" /> : null)),
   },
   {
     displayName: <StyledTeamIconContainer >{strings.general_dire}</StyledTeamIconContainer>,
     field: 'dire_team',
-    displayFn: (row, col, field) => (field || '').split(',').map(heroId =>
+    displayFn: (row, col, field) => field?.map(heroId =>
       (heroes[heroId] ? <HeroImage id={heroId} key={heroId} style={{ width: '50px' }} alt="" /> : null)),
   },
 ];
