@@ -17,7 +17,6 @@ import FourOhFour from '../FourOhFour';
 import Header from '../Header';
 import Home from '../Home';
 import Matches from '../Matches';
-import Meta from '../Meta';
 import Player from '../Player';
 import Predictions from '../Predictions';
 // import Assistant from "../Assistant";
@@ -194,7 +193,7 @@ const App = (props) => {
             <Route exact path="/combos" component={Combos} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/records/:info?" component={Records} />
-            <Route exact path="/meta" component={Meta} />
+            {/* <Route exact path="/meta" component={Meta} /> */}
             <Route exact path="/scenarios/:info?" component={Scenarios} />
             <Route exact path="/predictions" component={Predictions} />
             <Route exact path="/api-keys" component={Api} />
