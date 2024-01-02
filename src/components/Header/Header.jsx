@@ -267,6 +267,21 @@ const Header = ({ location, disableSearch }) => {
       label: strings.combos,
     },
     {
+      key: 'header_distributions',
+      to: '/distributions',
+      label: strings.header_distributions,
+    },
+    {
+      key: 'header_records',
+      to: '/records',
+      label: strings.header_records,
+    },
+    {
+      key: 'header_scenarios',
+      to: '/scenarios',
+      label: strings.header_scenarios,
+    },
+    {
       key: 'header_api',
       to: '/api-keys',
       label: strings.header_api,
@@ -285,26 +300,6 @@ const Header = ({ location, disableSearch }) => {
 
   const drawerPages = [
     ...navbarPages,
-    {
-      key: 'header_distributions',
-      to: '/distributions',
-      label: strings.header_distributions,
-    },
-    {
-      key: 'header_records',
-      to: '/records',
-      label: strings.header_records,
-    },
-    {
-      key: 'header_meta',
-      to: '/meta',
-      label: strings.header_meta,
-    },
-    {
-      key: 'header_scenarios',
-      to: '/scenarios',
-      label: strings.header_scenarios,
-    },
   ];
 
   return (
