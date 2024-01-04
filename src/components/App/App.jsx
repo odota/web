@@ -18,7 +18,7 @@ import Header from '../Header';
 import Home from '../Home';
 import Matches from '../Matches';
 import Player from '../Player';
-import Predictions from '../Predictions';
+// import Predictions from '../Predictions';
 // import Assistant from "../Assistant";
 import Records from '../Records';
 import Request from '../Request';
@@ -195,7 +195,7 @@ const App = (props) => {
             <Route exact path="/records/:info?" component={Records} />
             {/* <Route exact path="/meta" component={Meta} /> */}
             <Route exact path="/scenarios/:info?" component={Scenarios} />
-            <Route exact path="/predictions" component={Predictions} />
+            {/* <Route exact path="/predictions" component={Predictions} /> */}
             <Route exact path="/api-keys" component={Api} />
             <Route exact path="/subscribe" component={Subscription} />
             <Route component={FourOhFour} />
