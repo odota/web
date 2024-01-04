@@ -18,7 +18,7 @@ const matchesColumns = (field, strings) => [{
   displayName: strings[`heading_${field}`],
   tooltip: strings[`tooltip_${field}`],
   field: 'score',
-  displayFn: (row, col, _field) => (row.hero_id === '' ? formatSeconds(_field) : Number(_field).toLocaleString()),
+  displayFn: (row, col, _field) => (!row.hero_id ? formatSeconds(_field) : Number(_field).toLocaleString()),
 }, {
   displayName: strings.th_match_id,
   tooltip: strings.match_id,
@@ -28,7 +28,7 @@ const matchesColumns = (field, strings) => [{
   displayName: strings.th_hero_id,
   tooltip: strings.tooltip_hero_id,
   field: 'hero_id',
-  displayFn: (row, col, _field) => (row.hero_id === '' ? null : displayHeroId(row, col, _field)),
+  displayFn: (row, col, _field) => (!row.hero_id ? null : displayHeroId(row, col, _field)),
 }];
 
 const fields = ['duration', 'kills', 'deaths', 'assists', 'gold_per_min', 'xp_per_min', 'last_hits', 'denies', 'hero_damage', 'tower_damage', 'hero_healing'];
