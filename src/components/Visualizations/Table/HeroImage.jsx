@@ -20,13 +20,15 @@ import constants from '../../constants';
 import AttrStrength from '../../Icons/AttrStrength';
 import AttrIntelligent from '../../Icons/AttrIntelligent';
 import AttrAgility from '../../Icons/AttrAgility';
+import AttrUniversal from '../../Icons/AttrUniversal';
 import HeroImage from '../HeroImage';
 
 // hero to use as background image in tooltip
 const backgroundMapping = {
-  str: 2,
-  agi: 47,
-  int: 10,
+  str: 2,   // Axe
+  agi: 47,  // Viper
+  int: 10,  // Morphling
+  all: 91,  // Io
 };
 
 const Styled = styled.div`
@@ -683,6 +685,9 @@ class TableHeroImage extends React.Component {
                       )}
                       {hero.primary_attr === 'int' && (
                         <AttrIntelligent id="heroImg-attribute" />
+                      )}
+                      {hero.primary_attr === 'all' && (
+                        <AttrUniversal id="heroImg-attribute" />
                       )}
                       <div className="health-mana">
                         <span id="health">{Math.floor(hero.base_health)}</span>
