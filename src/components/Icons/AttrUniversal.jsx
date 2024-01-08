@@ -3,25 +3,39 @@ import React from 'react';
 export default props => (
   // Generated with vectorizer.ai
   <svg viewBox='0.00 0.00 46.00 46.00' {...props}>
-    <g stroke-width='2.00' fill='none' stroke-linecap='butt'>
-      <path stroke='#898f1b' vector-effect='non-scaling-stroke' d='
+    <g strokeWidth='2.00' fill='none' strokeLinecap='butt'>
+      <path
+        stroke='#898f1b'
+        vectorEffect='non-scaling-stroke'
+        d='
 M 43.94 24.25
 L 40.55 21.73'
       />
-      <path stroke='#898f1b' vector-effect='non-scaling-stroke' d='
+      <path
+        stroke='#898f1b'
+        vectorEffect='non-scaling-stroke'
+        d='
 M 23.35 22.02
 L 23.27 22.55'
       />
-      <path stroke='#13dd8e' vector-effect='non-scaling-stroke' d='
+      <path
+        stroke='#13dd8e'
+        vectorEffect='non-scaling-stroke'
+        d='
 M 13.16 8.28
 Q 13.58 5.86 12.88 4.62'
       />
-      <path stroke='#768b79' vector-effect='non-scaling-stroke' d='
+      <path
+        stroke='#768b79'
+        vectorEffect='non-scaling-stroke'
+        d='
 M 15.31 38.70
 L 11.52 40.56'
       />
     </g>
-    <path fill='#26e030' d='
+    <path
+      fill='#26e030'
+      d='
   M 43.94 24.25
   L 40.55 21.73
   Q 39.61 13.59 33.10 8.64
@@ -58,7 +72,9 @@ L 11.52 40.56'
   A 21.00 20.99 29.1 0 1 43.94 24.25
   Z'
     />
-    <path fill='#00d9ec' d='
+    <path
+      fill='#00d9ec'
+      d='
   M 12.88 4.62
   Q 13.58 5.86 13.16 8.28
   C 8.81 12.28 6.26 15.31 5.58 21.08
@@ -94,7 +110,9 @@ L 11.52 40.56'
   A 20.98 20.96 -2.3 0 1 12.88 4.62
   Z'
     />
-    <path fill='#ec3d06' d='
+    <path
+      fill='#ec3d06'
+      d='
   M 40.55 21.73
   L 43.94 24.25
   A 20.98 20.98 0.0 0 1 27.95 43.39

@@ -236,7 +236,7 @@ const App = (props) => {
           <div id="back2TopTxt">{strings.back2Top}</div>
         </button>
       </StyledDiv>
-    </Suspense>
+      </Suspense>
     </MuiThemeProvider>
   );
 };
