@@ -34,8 +34,8 @@ const renderAbilities = abilities => abilities.map(ability => (
 ));
 
 const Abilities = ({ hero }) => {
-  const filterAbilities = toFilterAbs => toFilterAbs.filter(ability => (ability !== 'generic_hidden'));
-
+  const filterAbilities = (toFilterAbs) =>
+    toFilterAbs.filter((ability) => ability !== 'generic_hidden' && abilities[ability].behavior !== 'Hidden');
   const mapAbilities = toFilterAbs => toFilterAbs.map((ability, id) => ({ data: abilities[ability], key: id }));
   const mapTalents = talents => talents.map(talent => ({ ...abilities[talent.name], ...talent }));
 
