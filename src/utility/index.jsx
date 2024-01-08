@@ -189,7 +189,7 @@ const getTitle = (row, col, heroName) => {
   return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
 };
 
-export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
+export const getHeroImageUrl = (heroId, _) => {
   const imageUrl = heroes[heroId] && config.VITE_IMAGE_CDN + heroes[heroId].img;
   return imageUrl;
 };
@@ -506,7 +506,7 @@ export function compileLevelOneStats(hero) {
 
 
   const [agiValue, strValue, intValue] = [hero.base_agi, hero.base_str, hero.base_int];
-  const primaryAttrValue = primary_attr === "all" ? agiValue + strValue + intValue : hero[`base_${primary_attr}` ]
+  const primaryAttrValue = primary_attr === "all" ? agiValue + strValue + intValue : hero[`base_${primary_attr}`]
 
   return {
     ...hero,

@@ -4,10 +4,10 @@ import { createBrowserHistory } from 'history';
 import { render, hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import ReactGA from 'react-ga';
 import store from './store';
 import { getMetadata, getStrings } from './actions';
 import App from './components/App';
-import ReactGA from 'react-ga';
 // import { unregister } from './common/serviceWorker';
 
 // Fetch metadata (used on all pages)
