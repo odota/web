@@ -83,36 +83,47 @@ class Status extends React.Component {
               .map((key) => ({ key, value: this.state.result[key], start: this.state.last[key] ?? this.state.result[key], end: this.state.result[key] }))}
             columns={columns}
           />
-          <Table
-            style={tableStyle}
-            data={Object.keys(this.state.result.health || {})
-              .map((key) => ({
-                key,
-                value: `${abbreviateNumber(this.state.result.health[key].metric)}/${abbreviateNumber(this.state.result.health[key].threshold)}`,
-              }))}
-            columns={columns}
-          />
-          <Table
-            style={tableStyle}
-            data={Object.keys(this.state.result.load_times || {})
-              .map((key) => ({ key, value: this.state.result.load_times?.[key], start: this.state.last?.load_times?.[key] ?? this.state.result.load_times?.[key], end: this.state.result.load_times?.[key] }))}
-            columns={columns}
-          />
+          <div>
+            <Table
+              style={tableStyle}
+              data={Object.keys(this.state.result.health || {})
+                .map((key) => ({
+                  key,
+                  value: `${abbreviateNumber(this.state.result.health[key].metric)}/${abbreviateNumber(this.state.result.health[key].threshold)}`,
+                }))}
+              columns={columns}
+            />
+            <Table
+              style={tableStyle}
+              data={Object.keys(this.state.result.load_times || {})
+                .map((key) => ({ key, value: this.state.result.load_times?.[key], start: this.state.last?.load_times?.[key] ?? this.state.result.load_times?.[key], end: this.state.result.load_times?.[key] }))}
+              columns={columns}
+            />
+            <Table
+              style={tableStyle}
+              data={(this.state.result.api_status || [])
+                .slice()
+                .reverse()
+                .map((row) => ({ key: row.status, value: row.count, start: this.state.last?.api_status?.find(row2 => row2.status === row.status)?.count ?? row.count, end: row.count }))
+              }
+              columns={columns}
+            />
+            <Table
+              style={tableStyle}
+              data={(this.state.result.retriever || [])
+                .slice()
+                .reverse()
+                .map(row => ({ key: row.hostname, value: row.count, start: this.state.last?.retriever?.find(row2 => row2.hostname === row.hostname)?.count ?? row.count, end: row.count }))
+              }
+              columns={columns}
+            />
+          </div>
           <Table
             style={tableStyle}
             data={(this.state.result.api_paths || [])
               .slice()
               .reverse()
               .map((row) => ({ key: row.hostname, value: row.count, start: this.state.last?.api_paths?.find(row2 => row2.hostname === row.hostname)?.count ?? row.count, end: row.count }))
-            }
-            columns={columns}
-          />
-          <Table
-            style={tableStyle}
-            data={(this.state.result.retriever || [])
-              .slice()
-              .reverse()
-              .map(row => ({ key: row.hostname, value: row.count, start: this.state.last?.retriever?.find(row2 => row2.hostname === row.hostname)?.count ?? row.count, end: row.count }))
             }
             columns={columns}
           />
