@@ -36,7 +36,6 @@ export const getSearchResultAndPros = query => dispatch => Promise.all([
   ...(/^\d+$/.test(query) ? [dispatch(getMatch(query))] : []),
 ]);
 export const getDistributions = () => action('distributions', config.VITE_API_HOST, 'api/distributions');
-export const getPvgnaHeroGuides = () => action('pvgnaGuides', 'https://yasp.pvgna.com', 'yasp');
 export const getHeroStats = params => action('heroStats', config.VITE_API_HOST, 'api/heroStats', params);
 export const getLeagues = () => action('leagues', config.VITE_API_HOST, 'api/leagues');
 export const getTeams = () => action('teams', config.VITE_API_HOST, 'api/teams');
