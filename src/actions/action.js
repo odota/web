@@ -1,4 +1,5 @@
 import querystring from 'querystring';
+import config from '../config';
 
 export default function action(type, host, path, params = {}, transform) {
   return (dispatch) => {
