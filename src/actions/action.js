@@ -14,7 +14,7 @@ export default function action(type, host, path, params = {}, transform) {
       type: `ERROR/${type}`,
       error,
     });
-    const fetchDataWithRetry = delay => fetch(url, path === 'api/metadata' ? { credentials: 'include' } : {})
+    const fetchDataWithRetry = delay => fetch(url, { credentials: 'include' })
       .then((response) => {
         if (!response.ok || !response.status) {
           const err = new Error();
