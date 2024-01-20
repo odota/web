@@ -72,6 +72,7 @@ display: inline-block;
 
     object, img {
       height: 18px;
+      width: 25px;
     }
   }
   &.neutral {
