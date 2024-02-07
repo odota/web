@@ -572,7 +572,7 @@ class TableHeroImage extends React.Component {
                   </div>
                 )}
                 {accountId ? (
-                  <TableLink to={`/players/${accountId}`}>{title}</TableLink>
+                  <a href={`/players/${accountId}`}>{title}</a>
                 ) : (
                   title
                 )}
