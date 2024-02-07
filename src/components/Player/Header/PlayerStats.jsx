@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import ActionHelp from 'material-ui/svg-icons/action/help';
 import styled from 'styled-components';
+import { Facebook } from 'react-content-loader';
 import Error from '../../Error';
-import Spinner from '../../Spinner';
 import PlayedWith from './PlayedWith';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
@@ -68,7 +68,7 @@ export const PlayerStatsCards = ({
     return <Error />;
   }
   if (loading) {
-    return <Spinner />;
+    return <Facebook primaryColor="#666" secondaryColor="#ecebeb" width={400} height={60} animate />;
   }
   return (
     <Styled>
@@ -109,7 +109,7 @@ PlayerStatsCards.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  loading: state.app.player.loading,
+  loading: state.app.playerWinLoss.loading,
   error: state.app.player.error,
   wins: state.app.playerWinLoss.data.win,
   losses: state.app.playerWinLoss.data.lose,

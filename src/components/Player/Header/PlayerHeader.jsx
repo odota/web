@@ -271,12 +271,27 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
 };
 
 const PlayerHeader = ({
-  playerName, officialPlayerName, playerId, picture, registered, plus, loading, error, small, playerSoloCompetitiveRank, loggedInUser, rankTier, leaderboardRank, strings,
+  playerName,
+  officialPlayerName,
+  playerId,
+  picture,
+  registered,
+  plus,
+  playerLoading,
+  playerError,
+  small,
+  playerSoloCompetitiveRank,
+  loggedInUser,
+  rankTier,
+  leaderboardRank,
+  strings,
+  playerWinLossLoading,
+  playerWinLossError,
 }) => {
-  if (error) {
+  if (playerError || playerWinLossError) {
     return <Error />;
   }
-  if (loading) {
+  if (playerLoading || playerWinLossLoading) {
     return <Facebook primaryColor="#666" secondaryColor="#ecebeb" width={400} height={60} animate />;
   }
 
@@ -358,8 +373,10 @@ PlayerHeader.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  loading: state.app.player.loading,
-  error: state.app.player.error,
+  playerLoading: state.app.player.loading,
+  playerWinLossLoading: state.app.playerWinLoss.loading,
+  playerError: state.app.player.error,
+  playerWinLossError: state.app.playerWinLoss.error,
   playerName: (state.app.player.data.profile || {}).personaname,
   officialPlayerName: (state.app.player.data.profile || {}).name,
   playerSoloCompetitiveRank: state.app.player.data.solo_competitive_rank,

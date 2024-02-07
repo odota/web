@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
@@ -464,6 +465,7 @@ class TableHeroImage extends React.Component {
       predictedVictory,
       leaverStatus,
       strings,
+      match,
       hero = {},
     } = this.props;
     const { tooltipVisible } = this.state;
@@ -476,6 +478,9 @@ class TableHeroImage extends React.Component {
         this.setTooltipVisibility(false);
       },
     };
+
+    const { params } = match;
+    const { playerId } = params;
 
     return (
       <Styled style={expand}>
@@ -572,7 +577,7 @@ class TableHeroImage extends React.Component {
                   </div>
                 )}
                 {accountId ? (
-                  <a href={`/players/${accountId}`}>{title}</a>
+                  <TableLink to={`/players/${accountId}`}>{title}</TableLink>
                 ) : (
                   title
                 )}
@@ -828,4 +833,4 @@ const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 
-export default connect(mapStateToProps)(TableHeroImage);
+export default withRouter(connect(mapStateToProps)(TableHeroImage));
