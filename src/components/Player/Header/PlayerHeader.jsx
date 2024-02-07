@@ -271,7 +271,20 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
 };
 
 const PlayerHeader = ({
-  playerName, officialPlayerName, playerId, picture, registered, plus, loading, error, small, playerSoloCompetitiveRank, loggedInUser, rankTier, leaderboardRank, strings,
+  playerName,
+  officialPlayerName,
+  playerId,
+  picture,
+  registered,
+  plus,
+  loading,
+  error,
+  small,
+  playerSoloCompetitiveRank,
+  loggedInUser,
+  rankTier,
+  leaderboardRank,
+  strings,
 }) => {
   if (error) {
     return <Error />;

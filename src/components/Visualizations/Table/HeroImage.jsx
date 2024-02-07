@@ -476,7 +476,7 @@ class TableHeroImage extends React.Component {
         this.setTooltipVisibility(false);
       },
     };
-
+  
     return (
       <Styled style={expand}>
         <HeroImageContainer>
