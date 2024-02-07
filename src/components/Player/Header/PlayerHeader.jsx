@@ -277,21 +277,19 @@ const PlayerHeader = ({
   picture,
   registered,
   plus,
-  playerLoading,
-  playerError,
+  loading,
+  error,
   small,
   playerSoloCompetitiveRank,
   loggedInUser,
   rankTier,
   leaderboardRank,
   strings,
-  playerWinLossLoading,
-  playerWinLossError,
 }) => {
-  if (playerError || playerWinLossError) {
+  if (error) {
     return <Error />;
   }
-  if (playerLoading || playerWinLossLoading) {
+  if (loading) {
     return <Facebook primaryColor="#666" secondaryColor="#ecebeb" width={400} height={60} animate />;
   }
 
@@ -373,10 +371,8 @@ PlayerHeader.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  playerLoading: state.app.player.loading,
-  playerWinLossLoading: state.app.playerWinLoss.loading,
-  playerError: state.app.player.error,
-  playerWinLossError: state.app.playerWinLoss.error,
+  loading: state.app.player.loading,
+  error: state.app.player.error,
   playerName: (state.app.player.data.profile || {}).personaname,
   officialPlayerName: (state.app.player.data.profile || {}).name,
   playerSoloCompetitiveRank: state.app.player.data.solo_competitive_rank,
