@@ -1203,5 +1203,8 @@
   "killed": "killed",
   "team_courier": "{team}'s courier",
   "slain_roshan": "Have slain Roshan",
-  "drew_first_blood": "Drew First Blood"
+  "drew_first_blood": "Drew First Blood",
+  "player_profile_private_title": "THIS PROFILE IS PRIVATE" ,
+  "player_profile_private_description": "If this is your profile, sign in with Steam in order to view your statistics.",
+  "sign_in_with_steam": "Sign in with Steam"
 }

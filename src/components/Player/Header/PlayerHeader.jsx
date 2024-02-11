@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
+import LockIcon from '@material-ui/icons/Lock';
 import styled from 'styled-components';
 import { Facebook } from 'react-content-loader';
 import { rankTierToString } from '../../../utility';
 import Error from '../../Error';
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
-import PlayerButtons from './PlayerButtons';
+import PlayerButtons from './PlayerButtons'
 import constants from '../../constants';
 
 const Styled = styled.div`
@@ -42,6 +43,7 @@ grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
+  margin-bottom: 2%;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -188,6 +190,11 @@ grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
   }
 }
 
+.lockIcon {
+  @media only screen and (max-width: 768px) {
+    text-align: center;
+  }
+}
 `;
 
 const LARGE_IMAGE_SIZE = 124;
@@ -285,6 +292,7 @@ const PlayerHeader = ({
   rankTier,
   leaderboardRank,
   strings,
+  isPlayerProfilePrivate,
 }) => {
   if (error) {
     return <Error />;
@@ -340,8 +348,16 @@ const PlayerHeader = ({
               <span className="playerName">{officialPlayerName || playerName}</span>
               <PlayerBadges playerId={playerId} />
             </div>
-            <PlayerStats playerId={playerId} loggedInId={loggedInUser && String(loggedInUser.account_id)} compact={!small} />
-            <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={!small} />
+            {isPlayerProfilePrivate ? (
+              <div className="lockIcon">
+                <LockIcon />   
+              </div>
+            ) : (
+              <>
+                <PlayerStats playerId={playerId} loggedInId={loggedInUser && String(loggedInUser.account_id)} compact={!small} />
+                <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={!small} />
+              </>
+            )}
           </div>
           <div style={{ display: 'flex' }}>
             {getDotaPlusBadge(plus, strings)}
@@ -368,6 +384,7 @@ PlayerHeader.propTypes = {
   rankTier: PropTypes.number,
   leaderboardRank: PropTypes.number,
   strings: PropTypes.shape({}),
+  isPlayerProfilePrivate: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({

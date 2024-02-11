@@ -7,11 +7,13 @@ import Long from 'long';
 import {
   getPlayer,
   getPlayerWinLoss,
+  getProPlayers,
 } from '../../actions';
 import TabBar from '../TabBar';
 import Spinner from '../Spinner';
 import TableFilterForm from './TableFilterForm';
 import PlayerHeader from './Header/PlayerHeader';
+import PlayerProfilePrivate from './PlayerProfilePrivate';
 // import Error from '../Error';
 import playerPages from './playerPages';
 
@@ -32,6 +34,8 @@ class RequestLayer extends React.Component {
     playerName: PropTypes.string,
     playerLoading: PropTypes.bool,
     strings: PropTypes.shape({}),
+    proPlayerIds: PropTypes.arrayOf(PropTypes.number),
+    isPlayerMatchHistoryDisabled: PropTypes.bool,
   }
 
   componentDidMount() {
@@ -39,6 +43,7 @@ class RequestLayer extends React.Component {
     const { playerId } = props.match.params;
     props.getPlayer(playerId);
     props.getPlayerWinLoss(playerId, props.location.search);
+    props.getProPlayers();
   }
 
   componentDidUpdate(prevProps) {
@@ -53,8 +58,11 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    const { location, match, strings } = this.props;
+    const { location, match, strings, proPlayerIds, isPlayerMatchHistoryDisabled } = this.props;
     const { playerId } = this.props.match.params;
+    const isProPlayer = proPlayerIds.filter((id) => playerId === id).length > 0;
+    const isPlayerProfilePrivate = isPlayerMatchHistoryDisabled && !isProPlayer;
+
     if (Long.fromString(playerId).greaterThan('76561197960265728')) {
       this.props.history.push(`/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
     }
@@ -66,13 +74,17 @@ class RequestLayer extends React.Component {
       <div>
         {!this.props.playerLoading && <Helmet title={title} />}
         <div>
-          <PlayerHeader playerId={playerId} location={location} />
-          <TabBar info={info} tabs={playerPages(playerId, strings)} />
+          <PlayerHeader playerId={playerId} location={location} isPlayerProfilePrivate={isPlayerProfilePrivate} />
+          <TabBar info={info} tabs={playerPages(playerId, strings, isPlayerProfilePrivate)} />
         </div>
-        <div>
-          <TableFilterForm playerId={playerId} />
-          {page ? page.content(playerId, match.params, location) : <Spinner />}
-        </div>
+        {isPlayerProfilePrivate ? (
+          <PlayerProfilePrivate />
+        ) : (
+          <div>
+            <TableFilterForm playerId={playerId} />
+            {page ? page.content(playerId, match.params, location) : <Spinner />}
+          </div>
+        )}
       </div>
     );
   }
@@ -83,11 +95,14 @@ const mapStateToProps = state => ({
   playerLoading: (state.app.player.loading),
   officialPlayerName: (state.app.player.data.profile || {}).name,
   strings: state.app.strings,
-});
+  proPlayerIds: state.app.proPlayers.data.map((p) => p.account_id),
+  isPlayerMatchHistoryDisabled: (state.app.player.data.profile || {}).fh_unavailable,
+})
 
 const mapDispatchToProps = dispatch => ({
   getPlayer: playerId => dispatch(getPlayer(playerId)),
   getPlayerWinLoss: (playerId, options) => dispatch(getPlayerWinLoss(playerId, options)),
+  getProPlayers: () => dispatch(getProPlayers()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RequestLayer));
