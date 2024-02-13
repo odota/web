@@ -10,7 +10,7 @@ import { rankTierToString } from '../../../utility';
 import Error from '../../Error';
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
-import PlayerButtons from './PlayerButtons'
+import PlayerButtons from './PlayerButtons';
 import constants from '../../constants';
 
 const Styled = styled.div`
@@ -348,11 +348,7 @@ const PlayerHeader = ({
               <span className="playerName">{officialPlayerName || playerName}</span>
               <PlayerBadges playerId={playerId} />
             </div>
-            {isPlayerProfilePrivate ? (
-              <div className="lockIcon">
-                <LockIcon />   
-              </div>
-            ) : (
+            {!isPlayerProfilePrivate && (
               <>
                 <PlayerStats playerId={playerId} loggedInId={loggedInUser && String(loggedInUser.account_id)} compact={!small} />
                 <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={!small} />

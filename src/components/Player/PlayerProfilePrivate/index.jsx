@@ -35,14 +35,15 @@ padding-top: 5%;
 `
 
 const PlayerProfilePrivate = ({ strings }) => {
-  const handleButtonClick = () => window.location.href = `${config.VITE_API_HOST}/login`
+  const handleButtonClick = () => window.location.href = `${config.VITE_API_HOST}/login`;
+  const playerProfilePrivateTitle = (strings.player_profile_private_title || "").toUpperCase();
 
   return (
     <Styled>
       <div>
         <div className="playerProfilePrivateTitle">
           <LockIcon className="lockIcon" />
-          <div>{(strings.player_profile_private_title)}</div>
+          <div>{playerProfilePrivateTitle}</div>
         </div>
         <div className="playerProfilePrivateDescription">{strings.player_profile_private_description}</div>
         <Button

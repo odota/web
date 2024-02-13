@@ -43,7 +43,6 @@ class RequestLayer extends React.Component {
     const { playerId } = props.match.params;
     props.getPlayer(playerId);
     props.getPlayerWinLoss(playerId, props.location.search);
-    props.getProPlayers();
   }
 
   componentDidUpdate(prevProps) {
@@ -58,10 +57,9 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    const { location, match, strings, proPlayerIds, isPlayerMatchHistoryDisabled } = this.props;
+    const { location, match, strings } = this.props;
     const { playerId } = this.props.match.params;
-    const isProPlayer = proPlayerIds.filter((id) => playerId === id).length > 0;
-    const isPlayerProfilePrivate = isPlayerMatchHistoryDisabled && !isProPlayer;
+    const isPlayerProfilePrivate = this.props.isPlayerMatchHistoryDisabled && !this.props.officialPlayerName;
 
     if (Long.fromString(playerId).greaterThan('76561197960265728')) {
       this.props.history.push(`/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
@@ -95,14 +93,12 @@ const mapStateToProps = state => ({
   playerLoading: (state.app.player.loading),
   officialPlayerName: (state.app.player.data.profile || {}).name,
   strings: state.app.strings,
-  proPlayerIds: state.app.proPlayers.data.map((p) => p.account_id),
   isPlayerMatchHistoryDisabled: (state.app.player.data.profile || {}).fh_unavailable,
 })
 
 const mapDispatchToProps = dispatch => ({
   getPlayer: playerId => dispatch(getPlayer(playerId)),
   getPlayerWinLoss: (playerId, options) => dispatch(getPlayerWinLoss(playerId, options)),
-  getProPlayers: () => dispatch(getProPlayers()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RequestLayer));
