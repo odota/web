@@ -34,8 +34,7 @@ class RequestLayer extends React.Component {
     playerName: PropTypes.string,
     playerLoading: PropTypes.bool,
     strings: PropTypes.shape({}),
-    proPlayerIds: PropTypes.arrayOf(PropTypes.number),
-    isPlayerMatchHistoryDisabled: PropTypes.bool,
+    isPlayerProfilePrivate: PropTypes.bool,
   }
 
   componentDidMount() {
@@ -57,9 +56,8 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    const { location, match, strings } = this.props;
+    const { location, match, strings, isPlayerProfilePrivate } = this.props;
     const { playerId } = this.props.match.params;
-    const isPlayerProfilePrivate = this.props.isPlayerMatchHistoryDisabled && !this.props.officialPlayerName;
 
     if (Long.fromString(playerId).greaterThan('76561197960265728')) {
       this.props.history.push(`/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
@@ -93,7 +91,7 @@ const mapStateToProps = state => ({
   playerLoading: (state.app.player.loading),
   officialPlayerName: (state.app.player.data.profile || {}).name,
   strings: state.app.strings,
-  isPlayerMatchHistoryDisabled: (state.app.player.data.profile || {}).fh_unavailable,
+  isPlayerProfilePrivate: (state.app.player.data.profile || {}).fh_unavailable && !(state.app.player.data.profile || {}).name,
 })
 
 const mapDispatchToProps = dispatch => ({
