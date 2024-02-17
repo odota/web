@@ -4,14 +4,12 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { withRouter } from 'react-router-dom';
 import Long from 'long';
-import {
-  getPlayer,
-  getPlayerWinLoss,
-} from '../../actions';
+import { getPlayer, getPlayerWinLoss } from '../../actions';
 import TabBar from '../TabBar';
 import Spinner from '../Spinner';
 import TableFilterForm from './TableFilterForm';
 import PlayerHeader from './Header/PlayerHeader';
+import PlayerProfilePrivate from './PlayerProfilePrivate';
 // import Error from '../Error';
 import playerPages from './playerPages';
 
@@ -32,6 +30,7 @@ class RequestLayer extends React.Component {
     playerName: PropTypes.string,
     playerLoading: PropTypes.bool,
     strings: PropTypes.shape({}),
+    isPlayerProfilePrivate: PropTypes.bool,
   }
 
   componentDidMount() {
@@ -53,8 +52,9 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    const { location, match, strings } = this.props;
+    const { location, match, strings, isPlayerProfilePrivate } = this.props;
     const { playerId } = this.props.match.params;
+
     if (Long.fromString(playerId).greaterThan('76561197960265728')) {
       this.props.history.push(`/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
     }
@@ -66,13 +66,17 @@ class RequestLayer extends React.Component {
       <div>
         {!this.props.playerLoading && <Helmet title={title} />}
         <div>
-          <PlayerHeader playerId={playerId} location={location} />
-          <TabBar info={info} tabs={playerPages(playerId, strings)} />
+          <PlayerHeader playerId={playerId} location={location} isPlayerProfilePrivate={isPlayerProfilePrivate} />
+          <TabBar info={info} tabs={playerPages(playerId, strings, isPlayerProfilePrivate)} />
         </div>
-        <div>
-          <TableFilterForm playerId={playerId} />
-          {page ? page.content(playerId, match.params, location) : <Spinner />}
-        </div>
+        {isPlayerProfilePrivate ? (
+          <PlayerProfilePrivate />
+        ) : (
+          <div>
+            <TableFilterForm playerId={playerId} />
+            {page ? page.content(playerId, match.params, location) : <Spinner />}
+          </div>
+        )}
       </div>
     );
   }
@@ -83,7 +87,8 @@ const mapStateToProps = state => ({
   playerLoading: (state.app.player.loading),
   officialPlayerName: (state.app.player.data.profile || {}).name,
   strings: state.app.strings,
-});
+  isPlayerProfilePrivate: (state.app.player.data.profile || {}).fh_unavailable && !(state.app.player.data.profile || {}).name,
+})
 
 const mapDispatchToProps = dispatch => ({
   getPlayer: playerId => dispatch(getPlayer(playerId)),
