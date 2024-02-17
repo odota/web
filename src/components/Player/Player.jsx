@@ -4,11 +4,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { withRouter } from 'react-router-dom';
 import Long from 'long';
-import {
-  getPlayer,
-  getPlayerWinLoss,
-  getProPlayers,
-} from '../../actions';
+import { getPlayer, getPlayerWinLoss } from '../../actions';
 import TabBar from '../TabBar';
 import Spinner from '../Spinner';
 import TableFilterForm from './TableFilterForm';

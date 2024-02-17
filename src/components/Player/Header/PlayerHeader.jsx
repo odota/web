@@ -42,7 +42,6 @@ grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin-bottom: 2%;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
@@ -186,12 +185,6 @@ grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
   }
   &-star {
     position: absolute;
-  }
-}
-
-.lockIcon {
-  @media only screen and (max-width: 768px) {
-    text-align: center;
   }
 }
 `;
