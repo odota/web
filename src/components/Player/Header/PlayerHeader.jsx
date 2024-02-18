@@ -187,6 +187,7 @@ grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
     position: absolute;
   }
 }
+
 `;
 
 const LARGE_IMAGE_SIZE = 124;
@@ -284,7 +285,6 @@ const PlayerHeader = ({
   rankTier,
   leaderboardRank,
   strings,
-  isPlayerProfilePrivate,
 }) => {
   if (error) {
     return <Error />;
@@ -340,12 +340,8 @@ const PlayerHeader = ({
               <span className="playerName">{officialPlayerName || playerName}</span>
               <PlayerBadges playerId={playerId} />
             </div>
-            {!isPlayerProfilePrivate && (
-              <>
-                <PlayerStats playerId={playerId} loggedInId={loggedInUser && String(loggedInUser.account_id)} compact={!small} />
-                <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={!small} />
-              </>
-            )}
+            <PlayerStats playerId={playerId} loggedInId={loggedInUser && String(loggedInUser.account_id)} compact={!small} />
+            <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={!small} />
           </div>
           <div style={{ display: 'flex' }}>
             {getDotaPlusBadge(plus, strings)}
@@ -372,7 +368,6 @@ PlayerHeader.propTypes = {
   rankTier: PropTypes.number,
   leaderboardRank: PropTypes.number,
   strings: PropTypes.shape({}),
-  isPlayerProfilePrivate: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
