@@ -90,8 +90,7 @@ const playerPages = strings => [{
   content: (playerId, routeParams, location) => (<ActivityPage playerId={playerId} routeParams={routeParams} location={location} />),
 }];
 
-export default (playerId, strings, isPlayerProfilePrivate) => playerPages(strings).map(page => ({
+export default (playerId, strings) => playerPages(strings).map(page => ({
   ...page,
   route: `/players/${playerId}/${page.key}`,
-  disabled: isPlayerProfilePrivate,
 }));
