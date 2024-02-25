@@ -45,6 +45,7 @@ const Header = styled.div`
   #item-img {
     display: inline-block;
     height: 100%;
+    width: 100%;
     border: 1px solid #080D15;
     box-sizing: border-box;
   } 
