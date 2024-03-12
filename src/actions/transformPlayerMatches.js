@@ -8,8 +8,8 @@ export default function transformPlayerMatches(fields) {
     if (fields.included_account_id && !Array.isArray(fields.included_account_id)) {
       return response.map((match) => {
         let sameTeam = false;
-        const match = Object.entries(match.heroes).find(([key, val]) => val.account_id && val.account_id.toString() === fields.included_account_id);
-        const partnerHero = {...match?.val, player_slot: match?.key};
+        const found = Object.entries(match.heroes).find(([key, val]) => val.account_id && val.account_id.toString() === fields.included_account_id);
+        const partnerHero = {...found?.val, player_slot: found?.key};
         if (isRadiant(partnerHero.player_slot) === isRadiant(match.player_slot)) {
           sameTeam = true;
         }
