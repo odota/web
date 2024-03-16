@@ -71,7 +71,7 @@ class SearchForm extends React.Component {
           hintText={
             small
               ? strings.search_title
-              : `${strings.search_title.slice(0, -13)}...`
+              : `${strings.search_title?.slice(0, -13)}...`
           }
           value={this.state.query}
           onChange={this.handleChange}
