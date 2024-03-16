@@ -888,14 +888,21 @@ export function getDOY(date) {
 }
 
 // find and style/highlight number values in tooltip descriptions
-export function styleValues(el) {
+export function styleValues(el, style = 'font-weight:500;color:#F5F5F5') {
   if (el) {
     const element = el;
     element.innerHTML = el.innerHTML
       .replace(/(,)(\d)/gm, ' / $2')
-      .replace(/\+?\s?-?\s?\d+\.?%?\d*%?x?/gm, '<span style="font-weight:500;color:#F5F5F5">$&</span>');
+      .replace(/\s?-?\s?\d+\.?%?\d*%?x?/gm, `<span style=${style}>$&</span>`);
   }
   return null;
+}
+
+export function formatValues(values) {
+  if (Array.isArray(values)) {
+    return values.filter(value => value).join(' / ');
+  }
+  return values;
 }
 
 // handles table cell custom and default styling
