@@ -47,12 +47,15 @@ const TabContainer = styled.div`
   margin: 0 12px;
   text-align: center;
   position: relative;
+  line-height: 1;
+
+  @media only screen and (max-width: 1500px) {
+    display: none;
+  }
 `;
 
 const AppLogoWrapper = styled.div`
-  @media screen and (max-width: 800px) {
-    display: none;
-  }
+  line-height: 1;
 `;
 
 const DropdownMenu = styled(Menu)`
@@ -111,7 +114,7 @@ const DrawerLink = styled(Link)`
 
    & li:hover {
       background-color: rgba(0, 0, 0, 0.08);
-      transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; 
+      transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
 `;
 
@@ -164,6 +167,10 @@ const SettingsGroup = ({ children }) => {
 
 const MenuButtonWrapper = styled.div`
   margin-right: 12px;
+
+  @media only screen and (min-width: 1500px) {
+    display: none;
+  }
 `;
 
 const LogoGroup = ({ onMenuClick }) => (
@@ -310,7 +317,7 @@ const Header = ({ location, disableSearch }) => {
           {small && <LinkGroup navbarPages={navbarPages} />}
         </VerticalAlignDiv>
         {!disableSearch && <SearchGroup />}
-        <VerticalAlignDiv style={{ marginLeft: '16px' }}>
+        <VerticalAlignDiv>
           {small && <AccountGroup />}
           <SettingsGroup>
             <LocalizationMenu />
@@ -331,8 +338,8 @@ const Header = ({ location, disableSearch }) => {
             </MenuLogoWrapper>
             <List>
               {drawerPages.map((page) => (
-                <DrawerLink 
-                  key={`drawer__${page.to}`} 
+                <DrawerLink
+                  key={`drawer__${page.to}`}
                   to={page.to}
                   onClick={() => setMenuState(false)}
                 >

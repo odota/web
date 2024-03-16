@@ -19,6 +19,7 @@ const StyledFlatButton = styled(FlatButton)`
    padding-right: 10px !important;
    padding-left: 0 !important;
  }
+ display: flex;
 `;
 
 const LoggedIn = ({ playerId, style, strings }) => {
