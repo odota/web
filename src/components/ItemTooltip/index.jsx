@@ -119,8 +119,8 @@ const HeaderText = styled.div`
 `;
 
 const ResourceIcon = styled.img`
-  width: 16px !important;
-  height: 16px !important;
+  max-width: 16px;
+  max-height: 16px;
   vertical-align: sub;
   margin-right: 5px;
 `;
@@ -284,7 +284,7 @@ const Ability = (item, type, title, description, hasNonPassive) => {
           <div>
             {item.mc && type !== 'passive' &&
               <span className="entry">
-                <ResourceIcon src='/assets/images/dota2/ability_manacost.png' alt='Mana icon' />
+                <ResourceIcon src='/assets/images/dota2/ability_manacost.png' alt='Mana icon' height="16px" />
                 <span className='values'>{item.mc}</span>
               </span>}
             {item.hc && type !== 'passive' &&
