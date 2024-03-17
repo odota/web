@@ -119,8 +119,8 @@ const HeaderText = styled.div`
 `;
 
 const ResourceIcon = styled.img`
-  width: 16px;
-  height: 16px;
+  width: 16px !important;
+  height: 16px !important;
   vertical-align: sub;
   margin-right: 5px;
 `;
