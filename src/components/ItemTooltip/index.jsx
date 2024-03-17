@@ -284,7 +284,7 @@ const Ability = (item, type, title, description, hasNonPassive) => {
           <div>
             {item.mc && type !== 'passive' &&
               <span className="entry">
-                <ResourceIcon src='/assets/images/dota2/ability_manacost.png' alt='Mana icon' height="16px" />
+                <ResourceIcon src='/assets/images/dota2/ability_manacost.png' alt='Mana icon' />
                 <span className='values'>{item.mc}</span>
               </span>}
             {item.hc && type !== 'passive' &&
