@@ -225,7 +225,7 @@ class InflictorWithValue extends React.Component {
             onMouseEnter={this.setShowTooltip}
           >
             {(!type || type === 'purchase' || type === 'backpack' || type === 'neutral') &&
-              <object data={image} height="27px" width="37px" type="image/png">
+              <object data={image} height="27px" width={ability ? '27px' : '37px'} type="image/png">
                 <img src="/assets/images/Dota2Logo.svg" alt="Dota 2 Logo" style={{ filter: 'grayscale(60%)', height: '27px' }} />
               </object>}
             {type === 'buff' &&
