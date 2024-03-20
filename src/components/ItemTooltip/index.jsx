@@ -211,7 +211,7 @@ const AbilityComponent = styled.div`
   margin: 10px 9px;
 
   & .ability-name {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     vertical-align: middle;
     padding-left: 4px;
