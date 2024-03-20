@@ -1,0 +1,73 @@
+step-restore-cache: &step-restore-cache
+  restore_cache:
+    keys:
+      - v1-dependencies-{{ arch }}-{{ checksum "package-lock.json" }}
+      - v1-dependencies-{{ arch }}
+
+steps-test: &steps-test
+  steps:
+    - run:
+        name: Install Linux Dependencies
+        command: |
+          if [ "`uname`" == "Linux" ]; then
+            sudo apt-get install --no-install-recommends -y libasound2 libgtk-3-0 libnss3 libxss1 libxtst6
+          fi
+    - checkout
+    - *step-restore-cache
+    - run: npm install
+    - save_cache:
+        paths:
+          - node_modules
+        key: v1-dependencies-{{ arch }}-{{ checksum "package-lock.json" }}
+    - run: npm test
+
+
+version: 2.1
+orbs:
+  win: circleci/windows@2.4.0
+jobs:
+  test-linux-8:
+    docker:
+      - image: circleci/node:8
+    <<: *steps-test
+  test-linux-10:
+    docker:
+      - image: circleci/node:10
+    <<: *steps-test
+  test-mac:
+    macos:
+      xcode: "10.2.0"
+    <<: *steps-test
+  test-windows:
+    executor:
+      name: win/default
+      shell: bash.exe
+    <<: *steps-test
+
+  release:
+    docker:
+      - image: circleci/node:10.15
+    steps:
+      - checkout
+      - *step-restore-cache
+      - run: npm install
+      - run: npx semantic-release
+workflows:
+  version: 2
+  test_and_release:
+    # Run the test jobs first, then the release only when all the test jobs are successful
+    jobs:
+      - test-linux-8
+      - test-linux-10
+      - test-mac
+      - test-windows
+      - release:
+          requires:
+            - test-linux-8
+            - test-linux-10
+            - test-mac
+            - test-windows
+          filters:
+            branches:
+              only:
+                - master
