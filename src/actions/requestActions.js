@@ -43,7 +43,7 @@ function poll(dispatch, json, matchId) {
         dispatch(requestOk());
         window.location.href = `/matches/${matchId}`;
       } else {
-        setTimeout(poll, 2000, dispatch, { job: _json }, matchId);
+        setTimeout(poll, 5000, dispatch, { job: _json }, matchId);
       }
     });
 }
