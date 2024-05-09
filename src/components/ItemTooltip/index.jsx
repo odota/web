@@ -17,17 +17,17 @@ function getRecentChanges(item) {
   const changes = [];
   // Latest patch wasn't a major patch e.g. 7_35b, return more entries
   if (latest.length > 4) {
-    patchnotes[previous].items[item]?.forEach(note => changes.push({patch: previous, note}))
+    patchnotes[previous].items[item]?.forEach(note => changes.push({ patch: previous, note }));
   }
-  patchnotes[latest].items[item]?.forEach(note => changes.push({patch: latest, note}))
+  patchnotes[latest].items[item]?.forEach(note => changes.push({ patch: latest, note }));
   return changes;
 }
 
 const textHighlightColors = {
   use: '#95c07a',
   active: '#9f9fcf',
-  passive: '#7e8c9d',
-}
+  passive: '#7e8c9d'
+};
 
 const Wrapper = styled.div`
   width: 300px;
@@ -35,7 +35,7 @@ const Wrapper = styled.div`
   color: #7a80a7;
   overflow: hidden;
   border: 2px solid #27292b;
-  
+
   hr {
     border-color: #29353b;
     margin: 0 9px;
@@ -128,7 +128,7 @@ const ResourceIcon = styled.img`
 const Attributes = styled.div`
   padding: 0 8px;
   margin: 9px 0;
-  
+
   & #footer {
     color: #95a5a6;
   }
@@ -146,12 +146,12 @@ const GameplayChanges = styled.div`
   margin: 10px 9px;
   background-color: #18212a;
   padding: 6px;
-  
+
   & .patch {
     color: #a09259;
     margin-right: 2px;
   }
-  
+
   & .note {
     color: grey;
   }
@@ -231,13 +231,14 @@ const AbilityComponent = styled.div`
       margin-left: 10px;
     }
   }
-  
+
   & .content {
     padding: 5px;
   }
 
   .active {
     color: #7a80a7;
+
     & .header {
       color: ${textHighlightColors.active};
       background: linear-gradient(to right, #373B7F, #181E30);
@@ -250,6 +251,7 @@ const AbilityComponent = styled.div`
 
   .passive {
     color: #626d7b;
+
     & .header {
       color: ${textHighlightColors.passive};
       background: linear-gradient(to right, #263540, #1C2630);
@@ -262,6 +264,7 @@ const AbilityComponent = styled.div`
 
   .use {
     color: #7b8a72;
+
     & .header {
       color: ${textHighlightColors.use};
       background: linear-gradient(to right, #273F27, #17231F);
@@ -273,27 +276,31 @@ const AbilityComponent = styled.div`
   }
 `;
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 const Ability = (item, type, title, description, hasNonPassive) => {
-  const highlightStyle = `font-weight:500;color:${textHighlightColors[type]};text-shadow:2px 2px 0 #00000090;`;
+  const styleType = abilityType[type] || 'passive';
+  const highlightStyle = `font-weight:500;color:${textHighlightColors[styleType]};text-shadow:2px 2px 0 #00000090;`;
   return (
     <AbilityComponent>
-      <div className={type}>
+      <div className={styleType}>
         <div className='header'>
-          <span className='ability-name'>{title}</span>
+          <span className='ability-name'>{`${capitalizeFirstLetter(type)}: ${title}`}</span>
           <div>
-            {item.mc && type !== 'passive' &&
-              <span className="entry">
+            {item.mc && styleType !== 'passive' &&
+              <span className='entry'>
                 <ResourceIcon src='/assets/images/dota2/ability_manacost.png' alt='Mana icon' />
                 <span className='values'>{item.mc}</span>
               </span>}
-            {item.hc && type !== 'passive' &&
-              <span className="entry">
+            {item.hc && styleType !== 'passive' &&
+              <span className='entry'>
                 <ResourceIcon src='/assets/images/dota2/ability_healthcost.png' alt='Health icon' />
                 <span className='values'>{item.hc}</span>
               </span>}
-            {item.cd && ((!hasNonPassive && type === 'passive') || type !== 'passive')  &&
-              <span className="entry">
+            {item.cd && ((!hasNonPassive && styleType === 'passive') || styleType !== 'passive') &&
+              <span className='entry'>
                 <ResourceIcon src='/assets/images/dota2/ability_cooldown.png' alt='Cooldown icon' />
                 <span className='values'>{item.cd}</span>
               </span>}
@@ -309,79 +316,75 @@ const Ability = (item, type, title, description, hasNonPassive) => {
   );
 };
 
+const AttributeContainer = ({stats = []}) => (
+    <Attributes>
+      {stats?.map((attrib) => (
+        <div key={attrib.key}>
+          <div id='header' ref={el => styleValues(el)}>
+            {attrib.display.replace('{value}', attrib.value)}
+          </div>
+        </div>
+      ))}
+    </Attributes>
+  );
+
 // How each type should be styled
 const abilityType = {
-  Active: 'active',
-  Toggle: 'active',
-  Passive: 'passive',
-  Use: 'use',
-}
-
-function parseAbilities(lines) {
-  const abilities = [];
-  const hints = [];
-  lines?.forEach((line) => {
-    const match = line.match(/^(Use|Active|Passive|Toggle): (([A-Z]\w+'*\w )+)/);
-    if (match) {
-      const [str, typeStr, titleCase, firstWord] = match;
-      const type = abilityType[typeStr] || 'passive';
-      const title = `${typeStr}: ${  titleCase.replace(firstWord, '')}`;
-      abilities.push({
-        type,
-        title,
-        description: line.replace(str, firstWord),
-      });
-    } else {
-      hints.push(line);
-    }
-  });
-  return [abilities, hints];
-}
+  active: 'active',
+  toggle: 'active',
+  passive: 'passive',
+  upgrade: 'passive',
+  use: 'use'
+};
 
 const ItemTooltip = ({ item, inflictor }) => {
   const recentChanges = getRecentChanges(inflictor);
-  const [ abilities, hints ] = parseAbilities(item.hint);
-  const stats = item.attrib.filter(a => a.hasOwnProperty('display'));
-  const hasNonPassive = abilities.some((a) => ['active', 'use'].includes(a.type))
+  const upperCaseStats = [];
+  const stats = item.attrib.filter(a => a.hasOwnProperty('display')).filter(a => {
+    if (!/[a-z]/.test(a.display.replace('{value}', ''))) {
+      upperCaseStats.push(a);
+      return false;
+    }
+    return true;
+  });
+  const abilities = item.abilities || [];
+  const hasNonPassive = abilities.some((a) => ['active', 'use'].includes(a.type));
   return (
     <Wrapper>
       <Header>
         <div className='header-content'>
           <img id='item-img' src={`${config.VITE_IMAGE_CDN}${item.img}`} alt={item.dname} />
-            <HeaderText>
-              <div>{item.dname}</div>
-              {item.tier ? <div className='neutral-header'><span
-                className={`neutral_tier_${item.tier}`}
-              >{`Tier ${item.tier} `}
-                                                           </span><span>Neutral Item</span>
-                           </div>
-                  : <div id='gold'><img
-                      src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`}
-                      alt='Gold'
-                  />{item.cost}
-                    </div>}
-            </HeaderText>
+          <HeaderText>
+            <div>{item.dname}</div>
+            {item.tier ? <div className='neutral-header'><span
+              className={`neutral_tier_${item.tier}`}
+            >{`Tier ${item.tier} `}
+                                                         </span><span>Neutral Item</span>
+                         </div>
+              : <div id='gold'><img
+                  src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`}
+                  alt='Gold'
+              />{item.cost}
+                </div>}
+          </HeaderText>
         </div>
       </Header>
-      {(item.behavior || item.dmg_type || item.bkbpierce || item.dispellable) && <div><AbilityBehaviour ability={item} /><hr /></div>}
+      {(item.behavior || item.dmg_type || item.bkbpierce || item.dispellable) &&
+        <div><AbilityBehaviour ability={item} />
+          <hr />
+        </div>}
       {(stats && stats.length > 0) &&
-        <Attributes>
-          {(stats).map((attrib) => (
-            <div key={attrib.key}>
-              <div id='header' ref={el => styleValues(el)}>
-                {attrib.display.replace('{value}', attrib.value)}
-              </div>
-            </div>
-          ))}
-        </Attributes>}
-      {abilities.map(({type, title, description}) => Ability(item, type, title, description, hasNonPassive))}
-      {hints.map((hint) => <Hint>{hint}</Hint>)}
+        <AttributeContainer stats={stats} />}
+      {abilities.map(({ type, title, description }) => Ability(item, type, title, description, hasNonPassive))}
+      {item.hint?.map((hint) => <Hint>{hint}</Hint>)}
+      {upperCaseStats.length > 0 &&
+        <AttributeContainer stats={upperCaseStats} />}
       {item.lore && <Lore>{item.lore}</Lore>}
       {recentChanges.length > 0 &&
         <GameplayChanges>
           {recentChanges.map(({ patch, note }) => (
             <GameplayChange>
-              <span className="patch">{`${patch.replace('_','.')  }:`}</span><span className="note">{note}</span>
+              <span className='patch'>{`${patch.replace('_', '.')}:`}</span><span className='note'>{note}</span>
             </GameplayChange>
           ))}
         </GameplayChanges>}
@@ -401,7 +404,7 @@ const ItemTooltip = ({ item, inflictor }) => {
       }
     </Wrapper>
   );
-}
+};
 
 ItemTooltip.propTypes = {
   item: propTypes.shape({}).isRequired,
