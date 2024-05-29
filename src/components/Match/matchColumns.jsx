@@ -87,6 +87,7 @@ export default (strings) => {
             : strings.general_no_hero
         }
         heroID={row.hero_id}
+        facet={row.hero_variant}
         showGuide={showGuide}
         guideType={guideType}
         guideUrl={
