@@ -81,12 +81,6 @@ const Styled = styled.div`
   }
 
   .image {
-    &[data-facet="true"] {
-      margin-right: 12px;
-    }
-    &[data-facet="false"] {
-      margin-right: 7px;
-    }
     position: relative;
     height: 29px;
     box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
@@ -304,7 +298,6 @@ const Styled = styled.div`
     width: 2px;
     height: 29px;
     position: absolute;
-    right: 12px;
   }
 
   .golden {
@@ -622,7 +615,7 @@ class TableHeroImage extends React.Component {
                   className="image"
                   data-tip={hero.id === undefined && null}
                   data-for={heroName}
-                  data-facet={facet !== undefined}
+                  style={{ marginRight: facet ? '12px': '7px' }}
                   {...heroImageEventProps}
                 />
               ) : (
@@ -631,7 +624,7 @@ class TableHeroImage extends React.Component {
                   className="image"
                   data-tip={hero.id === undefined && null}
                   data-for={heroName !== undefined && heroName}
-                  data-facet={facet !== undefined}
+                  style={{ marginRight: facet ? '12px': '7px' }}
                   heroImageEventProps={heroImageEventProps}
                 />
               )}
@@ -655,7 +648,7 @@ class TableHeroImage extends React.Component {
               {playerSlot !== undefined && (
                 <div
                   className="playerSlot"
-                  style={{ backgroundColor: playerColors[playerSlot] }}
+                  style={{ backgroundColor: playerColors[playerSlot], right: facet ? '12px' : '7px' }}
                 />
               )}
             </div>
