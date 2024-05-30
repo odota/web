@@ -24,6 +24,7 @@ import AttrIntelligent from '../../Icons/AttrIntelligent';
 import AttrAgility from '../../Icons/AttrAgility';
 import AttrUniversal from '../../Icons/AttrUniversal';
 import HeroImage from '../HeroImage';
+import config from '../../../config';
 
 // hero to use as background image in tooltip
 const backgroundMapping = {
@@ -80,7 +81,12 @@ const Styled = styled.div`
   }
 
   .image {
-    margin-right: 9px;
+    &[data-facet="true"] {
+      margin-right: 12px;
+    }
+    &[data-facet="false"] {
+      margin-right: 7px;
+    }
     position: relative;
     height: 29px;
     box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
@@ -91,7 +97,7 @@ const Styled = styled.div`
     height: 18px;
     position: absolute;
     bottom: -4px;
-    right: 3px;
+    right: 8px;
     z-index: 2;
     border-radius: 1px;
     
@@ -298,7 +304,7 @@ const Styled = styled.div`
     width: 2px;
     height: 29px;
     position: absolute;
-    right: 7px;
+    right: 12px;
   }
 
   .golden {
@@ -616,6 +622,7 @@ class TableHeroImage extends React.Component {
                   className="image"
                   data-tip={hero.id === undefined && null}
                   data-for={heroName}
+                  data-facet={facet !== undefined}
                   {...heroImageEventProps}
                 />
               ) : (
@@ -624,6 +631,7 @@ class TableHeroImage extends React.Component {
                   className="image"
                   data-tip={hero.id === undefined && null}
                   data-for={heroName !== undefined && heroName}
+                  data-facet={facet !== undefined}
                   heroImageEventProps={heroImageEventProps}
                 />
               )}
@@ -636,16 +644,17 @@ class TableHeroImage extends React.Component {
                   <img src="/assets/images/dota2/disconnect_icon.png" alt="" />
                 </span>
               )}
-              {
-                (heroID && facet) && <div className={`facet color_${selectedFacet.color}_${selectedFacet.gradientId}`}>
-                  <img className='facet'
-                       src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/facets/${selectedFacet.icon}.png`}
-                       alt='' />
-                </div>
-              }
+              {(heroID && facet) && (<div className={`facet color_${selectedFacet.color}_${selectedFacet.gradientId}`}>
+                  <img
+                    className='facet'
+                    src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/icons/facets/${selectedFacet.icon}.png`}
+                    alt=''
+                  />
+                                     </div>
+              )}
               {playerSlot !== undefined && (
                 <div
-                  className='playerSlot'
+                  className="playerSlot"
                   style={{ backgroundColor: playerColors[playerSlot] }}
                 />
               )}
