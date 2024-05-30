@@ -494,7 +494,7 @@ class TeamfightMap extends Component {
             </div>
             <div className="tableContainer">
               <TeamTable
-                players={teamfight.players && teamfight.players.filter(p => p.participate)}
+                players={teamfight.players}
                 columns={teamfightColumns}
                 heading={strings.heading_teamfights}
                 buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_teamfights : null}

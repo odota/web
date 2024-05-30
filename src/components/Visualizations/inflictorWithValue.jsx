@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import nanoid from 'nanoid';
-import items from 'dotaconstants/build/items.json';
 import styled from 'styled-components';
 import ItemTooltip from './../ItemTooltip/index';
 import constants from '../constants';
@@ -13,6 +12,7 @@ import config from '../../config';
 const abilityIds = (await import('dotaconstants/build/ability_ids.json')).default;
 const abilities = (await import('dotaconstants/build/abilities.json')).default;
 const neutralAbilities = (await import('dotaconstants/build/neutral_abilities.json')).default;
+const items = (await import('dotaconstants/build/items.json')).default;
 
 const getInflictorImage = (inflictor) => {
   if (inflictor.includes('recipe')) {
@@ -69,12 +69,13 @@ display: inline-block;
   &.backpack {
     height: 10px;
     white-space: nowrap;
-    
+
     object, img {
       height: 18px;
+      width: 25px;
     }
   }
-  &.neutral {    
+  &.neutral {
     > object, > img {
       height: 30px;
       width: 30px;
@@ -195,8 +196,8 @@ class InflictorWithValue extends React.Component {
           image = '/assets/images/stats.png';
         } else if (resolvedInflictor.includes('special_bonus')) {
           image = '/assets/images/dota2/talent_tree.svg';
-        } else if (neutralAbility) {
-          image = neutralAbility.img;
+        } else if (['ability_lamp_use', 'ability_pluck_famango', 'twin_gate_portal_warp'].includes(resolvedInflictor)) {
+          image = `/assets/images/dota2/abilities/${resolvedInflictor}.png`;
         } else {
           image = `${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/abilities/${resolvedInflictor}.png`;
         }
@@ -224,41 +225,41 @@ class InflictorWithValue extends React.Component {
             onMouseEnter={this.setShowTooltip}
           >
             {(!type || type === 'purchase' || type === 'backpack' || type === 'neutral') &&
-            <object data={image} height="27px" type="image/png">
-              <img src="/assets/images/Dota2Logo.svg" alt="Dota 2 Logo" style={{ filter: 'grayscale(60%)', height: '27px' }} />
-            </object>}
+              <object data={image} height="27px" width={ability ? '27px' : '37px'} type="image/png">
+                <img src="/assets/images/Dota2Logo.svg" alt="Dota 2 Logo" style={{ filter: 'grayscale(60%)', height: '27px' }} />
+              </object>}
             {type === 'buff' &&
-            <div
-              className="buff"
-              style={{
-                backgroundImage: `url(${image})`,
-              }}
-            />
-          }
+              <div
+                className="buff"
+                style={{
+                  backgroundImage: `url(${image})`,
+                }}
+              />
+            }
             {!type && <div className="overlay">{value}</div>}
             {type === 'buff' &&
-            <div className="buffOverlay">
-              {value > 0 && value}
-            </div>
-          }
+              <div className="buffOverlay">
+                {value > 0 && value}
+              </div>
+            }
             {charges &&
               <div className="chargeOverlay">
                 {charges}
               </div>
-          }
-            {type === 'backpack' &&
-            <div className="backpackOverlay">
-              <span>{value}</span>
-            </div>
-          }
-            {tooltip &&
-            <div className="tooltip">
-              {this.state.showTooltip &&
-              <ReactTooltip id={ttId} effect="solid" place="left">
-                {tooltip}
-              </ReactTooltip>
             }
-            </div>}
+            {type === 'backpack' &&
+              <div className="backpackOverlay">
+                <span>{value}</span>
+              </div>
+            }
+            {tooltip &&
+              <div className="tooltip">
+                {this.state.showTooltip &&
+                  <ReactTooltip id={ttId} effect="solid" place="left">
+                    {tooltip}
+                  </ReactTooltip>
+                }
+              </div>}
           </div>
         </StyledDiv>
       );

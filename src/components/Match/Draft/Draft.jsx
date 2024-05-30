@@ -188,7 +188,11 @@ const Draft = ({
   let orderOne = [];
   let orderTwo = [];
   let picks = [];
-  if (startTime > 1629255201) { // post 7.30
+  if (startTime > 1691534760) { // post 7.34
+    orderOne = [1, 4, 7, 8, 10, 11, 14, 15, 18, 19, 22, 23];
+    orderTwo = [2, 3, 5, 6, 9, 12, 13, 16, 17, 20, 21, 24];
+    picks = [8, 9, 13, 14, 15, 16, 17, 18, 23, 24];
+  } else if (startTime > 1629255201) { // post 7.30
     orderOne = [1, 3, 5, 8, 9, 11, 13, 16, 17, 19, 21, 23];
     orderTwo = [2, 4, 6, 7, 10, 12, 14, 15, 18, 20, 22, 24];
     picks = [5, 6, 7, 8, 15, 16, 17, 18, 23, 24];

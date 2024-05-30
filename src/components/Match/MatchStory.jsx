@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Tooltip } from '@material-ui/core';
 import heroes from 'dotaconstants/build/heroes.json';
-import items from 'dotaconstants/build/items.json';
 import itemColors from 'dotaconstants/build/item_colors.json';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
 import { IconRadiant, IconDire } from '../Icons';
@@ -18,6 +17,8 @@ import { StyledEmote, StyledStoryNetWorthBar, StyledStoryNetWorthText, StyledSto
 import constants from '../constants';
 import store from '../../store';
 import config from '../../config';
+
+const items = (await import('dotaconstants/build/items.json')).default;
 
 const heroesArr = jsonFn(heroes);
 

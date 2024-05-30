@@ -79,7 +79,7 @@ const Sponsors = ({ strings }: HomePageProps) => (
         label={
           <span style={{ fontWeight: 300 }}>{strings.home_become_sponsor}</span>
         }
-        href="//carry.opendota.com"
+        href="mailto:sponsor@opendota.com"
       />
     </ButtonsDiv>
   </StyledDiv>

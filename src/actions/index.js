@@ -36,7 +36,6 @@ export const getSearchResultAndPros = query => dispatch => Promise.all([
   ...(/^\d+$/.test(query) ? [dispatch(getMatch(query))] : []),
 ]);
 export const getDistributions = () => action('distributions', config.VITE_API_HOST, 'api/distributions');
-export const getPvgnaHeroGuides = () => action('pvgnaGuides', 'https://yasp.pvgna.com', 'yasp');
 export const getHeroStats = params => action('heroStats', config.VITE_API_HOST, 'api/heroStats', params);
 export const getLeagues = () => action('leagues', config.VITE_API_HOST, 'api/leagues');
 export const getTeams = () => action('teams', config.VITE_API_HOST, 'api/teams');
@@ -58,9 +57,9 @@ export const getPlayerMatches = (accountId, params) => action('playerMatches', c
   ...paramsWithTurbo(params),
   significant: 0,
   project: [
-    'duration', 'game_mode', 'lobby_type', // needed since significant = 0 excludes these fields when used with project field
-    'start_time', 'hero_id', 'start_time', 'version', 'kills', 'deaths', 'assists', 'skill', 'leaver_status', 'party_size', 'average_rank', // default fields when querying without project field
-    'item_0', 'item_1', 'item_2', 'item_3', 'item_4', 'item_5', 'backpack_0', // additional fields required for items
+    'duration', 'game_mode', 'lobby_type',
+    'start_time', 'hero_id', 'version', 'kills', 'deaths', 'assists', 'leaver_status', 'party_size', 'average_rank', // default fields when querying without project field
+    'item_0', 'item_1', 'item_2', 'item_3', 'item_4', 'item_5', // additional fields required for items
   ] }, transformPlayerMatches({ ...querystring.parse(params.substring(1)) }));
 export const getPlayerPeers = (accountId, params) => action('playerPeers', config.VITE_API_HOST, `api/players/${accountId}/peers`, paramsWithTurbo(params));
 export const getPlayerHeroes = (accountId, params) => action('playerHeroes', config.VITE_API_HOST, `api/players/${accountId}/heroes`, paramsWithTurbo(params));

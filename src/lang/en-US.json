@@ -34,6 +34,7 @@
   "api_details_key_required_prem": "Yes -- requires payment method",
   "api_details_call_limit": "Call Limit",
   "api_details_call_limit_free": "$limit per month",
+  "api_details_call_limit_free_day": "$limit per day",
   "api_details_call_limit_prem": "Unlimited",
   "api_details_rate_limit": "Rate Limit",
   "api_details_rate_limit_val": "$num calls per minute",
@@ -440,6 +441,7 @@
   "hero_pro_heading": "Heroes in Professional Matches",
   "hero_public_heading": "Heroes in Public Matches (Sampled)",
   "hero_turbo_heading": "Heroes in Turbo Matches",
+  "hero_last_7days": "matches in last 7 days",
   "hero_last_30days": "matches in last 30 days",
   "hero_this_month": "matches this month",
   "hero_pick_ban_rate": "Pro P+B%",
@@ -1201,5 +1203,8 @@
   "killed": "killed",
   "team_courier": "{team}'s courier",
   "slain_roshan": "Have slain Roshan",
-  "drew_first_blood": "Drew First Blood"
+  "drew_first_blood": "Drew First Blood",
+  "player_profile_private_title": "This profile is private" ,
+  "player_profile_private_description": "If this is your profile, sign in with Steam in order to view your statistics.",
+  "sign_in_with_steam": "Sign in with Steam"
 }

@@ -388,13 +388,13 @@ class TableFilterForm extends React.Component {
               strict
               limit={1}
             />
-            <CustomFormField
+{/*             <CustomFormField
               name="role_id"
               label={strings.heading_lane_role}
               dataSource={roleList}
               strict
               limit={1}
-            />
+            /> */}
             <CustomFormField
               name="lane_role"
               label={strings.filter_lane_role}

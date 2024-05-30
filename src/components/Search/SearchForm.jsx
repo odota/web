@@ -17,7 +17,7 @@ class SearchForm extends React.Component {
     }),
     strings: PropTypes.shape({}),
     small: PropTypes.bool,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -61,11 +61,18 @@ class SearchForm extends React.Component {
   render() {
     const { strings, small } = this.props;
     return (
-      <form onSubmit={this.formSubmit} style={{ width: small ? '280px' : 'auto' }}>
+      <form
+        onSubmit={this.formSubmit}
+        style={{ width: small ? '260px' : 'auto' }}
+      >
         <TextField
           id="searchField"
           aria-label={strings.search_title}
-          hintText={strings.search_title}
+          hintText={
+            small
+              ? strings.search_title
+              : `${strings.search_title?.slice(0, -13)}...`
+          }
           value={this.state.query}
           onChange={this.handleChange}
           fullWidth
@@ -75,7 +82,7 @@ class SearchForm extends React.Component {
             left: '-40px',
             width: 'calc(100% + 40px)',
           }}
-          style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}
+          style={{ whiteSpace: 'nowrap', overflow: 'hidden', display: 'flex' }}
           underlineStyle={{ borderColor: 'transparent' }}
         />
       </form>

@@ -524,7 +524,7 @@ function EntryMessage({ entry, strings }) {
       if (entry.alt_key === 'building_kill') {
         return (
           <>
-            {/*#e5cf11*/}
+            {/* #e5cf11 */}
             <img src={lightning} className="icon" style={{ filter: 'invert(87%) sepia(98%) saturate(4073%) hue-rotate(341deg) brightness(90%) contrast(100%)'}} />
             <span className="smallMutedText">{strings.destroyed}&nbsp;</span>
             <span className="smallBoldText">

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import ActionHelp from 'material-ui/svg-icons/action/help';
 import styled from 'styled-components';
-import Error from '../../Error';
 import Spinner from '../../Spinner';
+import Error from '../../Error';
 import PlayedWith from './PlayedWith';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
@@ -109,7 +109,7 @@ PlayerStatsCards.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  loading: state.app.player.loading,
+  loading: state.app.playerWinLoss.loading,
   error: state.app.player.error,
   wins: state.app.playerWinLoss.data.win,
   losses: state.app.playerWinLoss.data.lose,

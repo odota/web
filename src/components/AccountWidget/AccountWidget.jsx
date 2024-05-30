@@ -25,7 +25,12 @@ const AccountWidget = ({
         :
         <Button href={`${config.VITE_API_HOST}/login`}>
           <IconSteam />
-          <ButtonLabel>{strings.app_login}</ButtonLabel>
+          <ButtonLabel
+            style={{
+              lineHeight: '1px',
+            }}
+          >{strings.app_login}
+          </ButtonLabel>
         </Button>
       }
     </div>

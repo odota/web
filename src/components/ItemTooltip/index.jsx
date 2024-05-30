@@ -1,39 +1,53 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
-import items from 'dotaconstants/build/items.json';
 import constants from '../constants';
 import { styleValues } from '../../utility';
 import config from '../../config';
+import AbilityBehaviour from '../AbilityTooltip/AbilityBehaviour';
 
-const itemAbilities = {
-  active: {
-    text: 'Active',
-  },
-  passive: {
-    text: 'Passive',
-  },
-  use: {
-    text: 'Use',
-  },
-  toggle: {
-    text: 'Toggle',
-  },
+const items = (await import('dotaconstants/build/items.json')).default;
+const patchnotes = (await import('dotaconstants/build/patchnotes.json')).default;
+
+// Get patchnotes from up to two last letter patches
+function getRecentChanges(item) {
+  const patches = Object.keys(patchnotes);
+  const latest = patches[patches.length - 1];
+  const previous = patches[patches.length - 2];
+  const changes = [];
+  // Latest patch wasn't a major patch e.g. 7_35b, return more entries
+  if (latest.length > 4) {
+    patchnotes[previous].items[item]?.forEach(note => changes.push({ patch: previous, note }));
+  }
+  patchnotes[latest].items[item]?.forEach(note => changes.push({ patch: latest, note }));
+  return changes;
+}
+
+const textHighlightColors = {
+  use: '#95c07a',
+  active: '#9f9fcf',
+  passive: '#7e8c9d'
 };
 
 const Wrapper = styled.div`
   width: 300px;
-  background: rgb(21, 27, 29);
+  background: linear-gradient(#16232B, #10171D);
+  color: #7a80a7;
   overflow: hidden;
   border: 2px solid #27292b;
+
+  hr {
+    border-color: #29353b;
+    margin: 0 9px;
+  }
 `;
 
 const Header = styled.div`
   font-size: ${constants.fontSizeCommon};
   text-transform: uppercase;
   color: ${constants.colorBlue};
-  background-color: rgba(0, 0, 0, 0.08);
-  
+  background-color: #222C35;
+
   .header-content {
     height: 50px;
     padding: 13px;
@@ -44,9 +58,10 @@ const Header = styled.div`
   #item-img {
     display: inline-block;
     height: 100%;
+    width: 100%;
     border: 1px solid #080D15;
     box-sizing: border-box;
-  } 
+  }
 `;
 
 const HeaderText = styled.div`
@@ -78,22 +93,41 @@ const HeaderText = styled.div`
       top: 2px;
     }
   }
-`;
 
-const Attribute = styled.div`
-  padding: 2px 0;
+  & .neutral-header {
+    font-weight: normal;
+    text-transform: none;
+    font-size: ${constants.fontSizeSmall};
+
+    & .neutral_tier_2 {
+      color: ${constants.colorNeutralTier2};
+    }
+
+    & .neutral_tier_3 {
+      color: ${constants.colorNeutralTier3};
+    }
+
+    & .neutral_tier_4 {
+      color: ${constants.colorNeutralTier4};
+    }
+
+    & .neutral_tier_5 {
+      color: ${constants.colorNeutralTier5};
+    }
+  }
+
 `;
 
 const ResourceIcon = styled.img`
-  width: 16px;
-  height: 16px;
+  max-width: 16px;
+  max-height: 16px;
   vertical-align: sub;
   margin-right: 5px;
 `;
 
 const Attributes = styled.div`
-  margin-top: 8px;
-  padding: 0px 13px 0px 13px;
+  padding: 0 8px;
+  margin: 9px 0;
 
   & #footer {
     color: #95a5a6;
@@ -103,9 +137,30 @@ const Attributes = styled.div`
     font-weight: 500;
   }
 
-  & #header{
-    color: #95a5a6; 
+  & #header {
+    color: #95a5a6;
   }
+`;
+
+const GameplayChanges = styled.div`
+  margin: 10px 9px;
+  background-color: #18212a;
+  padding: 6px;
+
+  & .patch {
+    color: #a09259;
+    margin-right: 2px;
+  }
+
+  & .note {
+    color: grey;
+  }
+`;
+
+const GameplayChange = styled.div`
+  display: flex;
+  align-items: flex-start;
+  font-size: 10px;
 `;
 
 const Lore = styled.div`
@@ -118,49 +173,15 @@ const Lore = styled.div`
 `;
 
 const Hint = styled.div`
-  margin: 10px 9px 10px 9px;
+  margin: 10px 9px;
   padding: 6px;
   background-color: #51565F;
   color: #080D15;
 `;
 
-const Ability = styled.div`
-  margin: 10px 9px 0px 9px;
-  background-color: rgba(30, 37, 43, 0.67); 
-  color: rgb(176, 198, 212);
-
-  .ability-header {
-    padding: 6px; 
-    text-shadow: 1px 1px 1px black;
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.18);
-    background: linear-gradient(to right,rgba(255, 255, 255, 0.13) ,transparent )  ;
-    font-weight: bold;
-
-    & .resources {
-      float: right;
-      color: ${constants.primaryTextColor};
-      font-weight: normal;
-
-      & > span {
-        margin-left: 10px;
-      }
-
-      & .values {
-        font-weight: 500;
-      }
-    }
-  }
-
-  .ability-text {
-    padding: 6px;
-    font-weight: normal;
-    color: rgb(169, 181, 193);
-    text-shadow: 1px 1px black;
-  }
-`;
 const Components = styled.div`
   font-family: Tahoma;
-  margin: 6px 9px 0px 9px;
+  margin: 6px 9px;
 
   #header {
     font-size: 10px;
@@ -186,80 +207,208 @@ const Components = styled.div`
   }
 `;
 
-const ItemTooltip = ({ item, inflictor }) => (
-  <Wrapper>
-    <Header>
-      <div className="header-content">
-        <img id="item-img" src={`${config.VITE_IMAGE_CDN}${item.img}`} alt={item.dname} />
-        <HeaderText>
-          <div>{item.dname}</div>
-          <div id="gold">{item.tier ? "Neutral item" : <><img src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="Gold" />{item.cost}</>}</div>
-        </HeaderText>
+const AbilityComponent = styled.div`
+  margin: 10px 9px;
+
+  & .ability-name {
+    font-size: 13px;
+    font-weight: bold;
+    vertical-align: middle;
+    padding-left: 4px;
+    text-shadow: 1px 1px 0 #00000090;
+  }
+
+  & .header {
+    height: 28px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+
+    .entry {
+      color: ${constants.textColorPrimary};
+      margin-left: 10px;
+    }
+  }
+
+  & .content {
+    padding: 5px;
+  }
+
+  .active {
+    color: #7a80a7;
+
+    & .header {
+      color: ${textHighlightColors.active};
+      background: linear-gradient(to right, #373B7F, #181E30);
+    }
+
+    & .content {
+      background-color: #181E30;
+    }
+  }
+
+  .passive {
+    color: #626d7b;
+
+    & .header {
+      color: ${textHighlightColors.passive};
+      background: linear-gradient(to right, #263540, #1C2630);
+    }
+
+    & .content {
+      background-color: #1C2630;
+    }
+  }
+
+  .use {
+    color: #7b8a72;
+
+    & .header {
+      color: ${textHighlightColors.use};
+      background: linear-gradient(to right, #273F27, #17231F);
+    }
+
+    & .content {
+      background-color: #17231F;
+    }
+  }
+`;
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const Ability = (item, type, title, description, hasNonPassive) => {
+  const styleType = abilityType[type] || 'passive';
+  const highlightStyle = `font-weight:500;color:${textHighlightColors[styleType]};text-shadow:2px 2px 0 #00000090;`;
+  return (
+    <AbilityComponent>
+      <div className={styleType}>
+        <div className='header'>
+          <span className='ability-name'>{`${capitalizeFirstLetter(type)}: ${title}`}</span>
+          <div>
+            {item.mc && styleType !== 'passive' &&
+              <span className='entry'>
+                <ResourceIcon src='/assets/images/dota2/ability_manacost.png' alt='Mana icon' />
+                <span className='values'>{item.mc}</span>
+              </span>}
+            {item.hc && styleType !== 'passive' &&
+              <span className='entry'>
+                <ResourceIcon src='/assets/images/dota2/ability_healthcost.png' alt='Health icon' />
+                <span className='values'>{item.hc}</span>
+              </span>}
+            {item.cd && ((!hasNonPassive && styleType === 'passive') || styleType !== 'passive') &&
+              <span className='entry'>
+                <ResourceIcon src='/assets/images/dota2/ability_cooldown.png' alt='Cooldown icon' />
+                <span className='values'>{item.cd}</span>
+              </span>}
+          </div>
+        </div>
+        <div className='content'>
+          <div className='ability-text' ref={el => styleValues(el, highlightStyle)}>
+            {description}
+          </div>
+        </div>
       </div>
-    </Header>
-    {(item.attrib && item.attrib.length > 0) &&
-      <Attributes>
-        {(item.attrib).map((attrib) => (
-          <Attribute key={attrib.key}>
-            <span id="header">{attrib.header} </span>
-            <span id="value">{`${attrib.value}`}</span>
-            <span id="footer"> {attrib.footer || ''}</span>
-          </Attribute>
-        ))}
-      </Attributes>
+    </AbilityComponent>
+  );
+};
+
+const AttributeContainer = ({stats = []}) => (
+    <Attributes>
+      {stats?.map((attrib) => (
+        <div key={attrib.key}>
+          <div id='header' ref={el => styleValues(el)}>
+            {attrib.display.replace('{value}', attrib.value)}
+          </div>
+        </div>
+      ))}
+    </Attributes>
+  );
+
+// How each type should be styled
+const abilityType = {
+  active: 'active',
+  toggle: 'active',
+  passive: 'passive',
+  upgrade: 'passive',
+  use: 'use'
+};
+
+const ItemTooltip = ({ item, inflictor }) => {
+  const recentChanges = getRecentChanges(inflictor);
+  const upperCaseStats = [];
+  const stats = item.attrib.filter(a => a.hasOwnProperty('display')).filter(a => {
+    if (!/[a-z]/.test(a.display.replace('{value}', ''))) {
+      upperCaseStats.push(a);
+      return false;
     }
-    {['active', 'toggle', 'use', 'passive'].map((type) => {
-      if (item[type]) {
-        return item[type].map(ability =>
-        (
-          <Ability>
-            <div className="ability-header">
-              {`${itemAbilities[type].text}: ${ability.name}`}
-              <div className="resources">
-                {type === 'active' && item.mc &&
-                  <span>
-                    <ResourceIcon src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/mana.png`} alt="Mana icon" />
-                    <span className="values">{item.mc}</span>
-                  </span>
-                }
-                {type === 'active' && item.cd &&
-                  <span>
-                    <ResourceIcon src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/cooldown.png`} alt="Cooldown icon" />
-                    <span className="values">{item.cd}</span>
-                  </span>
-                }
+    return true;
+  });
+  const abilities = item.abilities || [];
+  const hasNonPassive = abilities.some((a) => ['active', 'use'].includes(a.type));
+  return (
+    <Wrapper>
+      <Header>
+        <div className='header-content'>
+          <img id='item-img' src={`${config.VITE_IMAGE_CDN}${item.img}`} alt={item.dname} />
+          <HeaderText>
+            <div>{item.dname}</div>
+            {item.tier ? <div className='neutral-header'><span
+              className={`neutral_tier_${item.tier}`}
+            >{`Tier ${item.tier} `}
+                                                         </span><span>Neutral Item</span>
+                         </div>
+              : <div id='gold'><img
+                  src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`}
+                  alt='Gold'
+              />{item.cost}
+                </div>}
+          </HeaderText>
+        </div>
+      </Header>
+      {(item.behavior || item.dmg_type || item.bkbpierce || item.dispellable) &&
+        <div><AbilityBehaviour ability={item} />
+          <hr />
+        </div>}
+      {(stats && stats.length > 0) &&
+        <AttributeContainer stats={stats} />}
+      {abilities.map(({ type, title, description }) => Ability(item, type, title, description, hasNonPassive))}
+      {item.hint?.map((hint) => <Hint>{hint}</Hint>)}
+      {upperCaseStats.length > 0 &&
+        <AttributeContainer stats={upperCaseStats} />}
+      {item.lore && <Lore>{item.lore}</Lore>}
+      {recentChanges.length > 0 &&
+        <GameplayChanges>
+          {recentChanges.map(({ patch, note }) => (
+            <GameplayChange>
+              <span className='patch'>{`${patch.replace('_', '.')}:`}</span><span className='note'>{note}</span>
+            </GameplayChange>
+          ))}
+        </GameplayChanges>}
+      {item.components &&
+        <Components>
+          <div id='header'>Components:</div>
+          {item.components.concat((items[`recipe_${inflictor}`] && [`recipe_${inflictor}`]) || []).filter(Boolean).map(component =>
+            items[component] &&
+            (
+              <div className='component'>
+                <img src={`${config.VITE_IMAGE_CDN}${items[component].img}`} alt='' />
+                <div id='cost'>{items[component].cost}</div>
               </div>
-            </div>
-            <div className="ability-text" ref={el => styleValues(el)}>
-              {ability.desc}
-            </div>
-          </Ability>
-        ));
+            ))
+          }
+        </Components>
       }
-      return null;
-    })}
-    {item.hint && item.hint?.map((hint) => <Hint>{hint}</Hint>)}
-    {item.lore && <Lore>{item.lore}</Lore>}
-    {item.components &&
-      <Components>
-        <div id="header">Components:</div>
-        {item.components.concat((items[`recipe_${inflictor}`] && [`recipe_${inflictor}`]) || []).filter(Boolean).map(component =>
-          items[component] &&
-          (
-            <div className="component">
-              <img src={`${config.VITE_IMAGE_CDN}${items[component].img}`} alt="" />
-              <div id="cost">{items[component].cost}</div>
-            </div>
-          ))
-        }
-      </Components>
-    }
-  </Wrapper>
-);
+    </Wrapper>
+  );
+};
 
 ItemTooltip.propTypes = {
   item: propTypes.shape({}).isRequired,
-  inflictor: propTypes.string.isRequired,
+  inflictor: propTypes.string.isRequired
 };
 
 export default ItemTooltip;

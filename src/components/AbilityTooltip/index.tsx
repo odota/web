@@ -2,15 +2,9 @@ import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import constants from '../constants';
-import { styleValues } from '../../utility';
+import { styleValues, formatValues } from '../../utility';
+import AbilityBehaviour from './AbilityBehaviour';
 import config from '../../config';
-
-function formatValues(values: any) {
-  if (Array.isArray(values)) {
-    return values.filter(value => value).join(' / ');
-  }
-  return values;
-}
 
 const Wrapper = styled.div`
   position: relative;
@@ -98,31 +92,6 @@ const Attributes = styled.div`
     }
 `;
 
-const Behavior = styled.div`
-    position: relative;
-    padding: 13px;
-    color: #95a5a6;
-
-    span {  
-        &:nth-child(2) {
-          color: ${constants.primaryTextColor};
-          font-weight: 500;
-        }
-        &[type="Yes"] {
-            color: ${constants.colorGreen};
-        }
-        &[type="No"] {
-            color: ${constants.colorRed};
-        }
-        &[type="Pure"] {
-            color: #bc7bfc;
-        }
-        &[type="Physical"] {
-            color: #7bb2fc;
-        }
-    }
-`;
-
 const Resources = styled.div`
     padding: 6px 13px 13px 13px;
 
@@ -165,20 +134,14 @@ const AbilityTooltip = ({ ability, inflictor }: any) => (
     </Header>
     {(ability.behavior || ability.dmg_type || ability.bkbpierce) &&
     <div>
-      <Behavior>
-        {ability.behavior ? <div><span>TARGET: </span><span>{formatValues(ability.behavior)}</span></div> : ''}
-        {/*@ts-ignore*/}
-        {ability.dmg_type ? <div><span>DAMAGE TYPE: </span><span type={ability.dmg_type}>{`${ability.dmg_type}`}</span></div> : ''}
-        {/*@ts-ignore*/}
-        {ability.bkbpierce ? <div><span>PIERCES SPELL IMMUNITY: </span><span type={ability.bkbpierce}>{`${ability.bkbpierce}`}</span></div> : ''}
-      </Behavior>
+      <AbilityBehaviour ability={ability} />
       <Break />
     </div>
     }
     {ability.desc &&
-    <Description 
+    <Description
     //@ts-ignore
-    innerRef={(el: any) => styleValues(el)}>
+    ref={(el: any) => styleValues(el)}>
         {ability.desc}
     </Description>
     }

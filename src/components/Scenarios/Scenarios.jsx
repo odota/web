@@ -19,7 +19,7 @@ import ScenariosSkeleton from '../Skeletons/ScenariosSkeleton';
 import { formatTemplateToString, groupByArray } from '../../utility/index';
 import { IconLaneRoles } from '../Icons';
 
-const minSampleSize = row => row.games > 200;
+const minSampleSize = row => row.games > 10;
 
 const forms = {
   itemTimings: {

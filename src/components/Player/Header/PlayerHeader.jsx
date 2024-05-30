@@ -27,7 +27,7 @@ grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   grid-column: 2;
 }
 
@@ -117,16 +117,15 @@ grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 30px;
   -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
   drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
   filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
   drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
-  
+
   @media only screen and (max-width: 768px) {
     flex-wrap: nowrap;
   }
-  
+
   &[data-hint-position="top"] {
     &::after {
       margin-bottom: 3px;
@@ -138,7 +137,7 @@ grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
       margin-left: 57px;
     }
   }
-  
+
   & img {
     width: 65px;
     height: 75px;
@@ -150,7 +149,7 @@ grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 25;
+  margin: 0 25px;
   -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
   drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
   filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
@@ -177,11 +176,11 @@ grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
   &-board {
     position: absolute;
     align-self: center;
-    margin-top: 40px;
+    margin-top: 80px;
     margin-left: 1px;
     font-size: 22px;
     color: #ECD9C8;
-    text-shadow: 0 0 10px black;
+    text-shadow: 2px 2px 2px black;
   }
   &-star {
     position: absolute;
@@ -271,7 +270,20 @@ const getRankTierMedal = (rankTier, leaderboardRank) => {
 };
 
 const PlayerHeader = ({
-  playerName, officialPlayerName, playerId, picture, registered, plus, loading, error, small, playerSoloCompetitiveRank, loggedInUser, rankTier, leaderboardRank, strings,
+  playerName,
+  officialPlayerName,
+  playerId,
+  picture,
+  registered,
+  plus,
+  loading,
+  error,
+  small,
+  playerSoloCompetitiveRank,
+  loggedInUser,
+  rankTier,
+  leaderboardRank,
+  strings,
 }) => {
   if (error) {
     return <Error />;

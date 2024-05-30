@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-// import items from 'dotaconstants/build/items.json';
 import { threshold, formatSeconds } from '../../../utility';
 import Table from '../../Table';
 import Heading from '../../Heading';
