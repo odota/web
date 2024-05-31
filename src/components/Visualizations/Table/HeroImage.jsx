@@ -5,8 +5,6 @@ import ReactTooltip from 'react-tooltip';
 import { Tooltip } from '@material-ui/core';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import playerColors from 'dotaconstants/build/player_colors.json';
-import heroes from 'dotaconstants/build/heroes.json';
-import heroAbilities from 'dotaconstants/build/hero_abilities.json';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import NotificationSync from 'material-ui/svg-icons/notification/sync';
 import styled from 'styled-components';
@@ -24,7 +22,7 @@ import AttrIntelligent from '../../Icons/AttrIntelligent';
 import AttrAgility from '../../Icons/AttrAgility';
 import AttrUniversal from '../../Icons/AttrUniversal';
 import HeroImage from '../HeroImage';
-import config from '../../../config';
+import HeroFacet from './HeroFacet';
 
 // hero to use as background image in tooltip
 const backgroundMapping = {
@@ -84,115 +82,6 @@ const Styled = styled.div`
     position: relative;
     height: 29px;
     box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
-  }
-
-  .facet {
-    width: 18px;
-    height: 18px;
-    position: absolute;
-    bottom: -4px;
-    right: 8px;
-    z-index: 2;
-    border-radius: 1px;
-    
-    & img {
-      position: static;
-      height: 12px;
-      width: 12px;
-      padding: 3px;
-    }
-  }
-
-  .color_Red_0 {
-    background: linear-gradient(to right, #9F3C3C, #4A2040);
-  }
-  
-  .color_Red_1 {
-    background: linear-gradient(to right, #954533, #452732);
-  }
-  
-  .color_Red_2 {
-    background: linear-gradient(to right, #A3735E, #4F2A25);
-  }
-
-  .color_Yellow_0 {
-    background: linear-gradient(to right, #C8A45C, #6F3D21);
-  }
-  
-  .color_Yellow_1 {
-    background: linear-gradient(to right, #C6A158, #604928);
-  }
-  
-  .color_Yellow_2 {
-    background: linear-gradient(to right, #CAC194, #433828);
-  }
-  
-  .color_Yellow_3 {
-    background: linear-gradient(to right, #C3A99A, #4D352B);
-  }
-
-  .color_Purple_0 {
-    background: linear-gradient(to right, #B57789, #412755);
-  }
-  
-  .color_Purple_1 {
-    background: linear-gradient(to right, #9C70A4, #282752);
-  }
-
-  .color_Purple_2 {
-    background: linear-gradient(to right, #675CAE, #261C44);
-  }
-  
-  .color_Blue_0 {
-    background: linear-gradient(to right, #727CB2, #342D5B);
-  }
-  
-  .color_Blue_1 {
-    background: linear-gradient(to right, #547EA6, #2A385E);
-  }
-  
-  .color_Blue_2 {
-    background: linear-gradient(to right, #6BAEBC, #135459);
-  }
-
-  .color_Blue_3 {
-    background: linear-gradient(to right, #94B5BA, #385B59);
-  }
-
-  .color_Green_0 {
-    background: linear-gradient(to right, #A2B23E, #2D5A18);
-  }
-  
-  .color_Green_1 {
-    background: linear-gradient(to right, #7EC2B2, #29493A);
-  }
-  
-  .color_Green_2 {
-    background: linear-gradient(to right, #A2B23E, #2D5A18);
-  }
-
-  .color_Green_3 {
-    background: linear-gradient(to right, #9A9F6A, #223824);
-  }
-  
-  .color_Green_4 {
-    background: linear-gradient(to right, #9FAD8E, #3F4129);
-  }
-  
-  .color_Gray_0 {
-    background: linear-gradient(to right, #565C61, #1B1B21);
-  }
-
-  .color_Gray_1 {
-    background: linear-gradient(to right, #6A6D73, #29272C);
-  }
-
-  .color_Gray_2 {
-    background: linear-gradient(to right, #95A9B1, #3E464F);
-  }
-
-  .color_Gray_3 {
-    background: linear-gradient(to right, #ADB6BE, #4E5557);
   }
   
   .abandoned {
@@ -371,7 +260,6 @@ const HeroToolTip = styled.div`
   width: 290px;
   overflow: hidden;
   background-color: #131519;
-  overflow: hidden;
 
   .header {
     height: 120px;
@@ -588,12 +476,6 @@ class TableHeroImage extends React.Component {
       },
     };
 
-    let selectedFacet;
-
-    if (heroID && facet) {
-      selectedFacet =  heroAbilities[heroes[heroID].name]?.facets[facet - 1];
-    }
-
     return (
       <Styled style={expand}>
         <HeroImageContainer>
@@ -637,14 +519,7 @@ class TableHeroImage extends React.Component {
                   <img src="/assets/images/dota2/disconnect_icon.png" alt="" />
                 </span>
               )}
-              {(heroID && facet) && (<div className={`facet color_${selectedFacet.color}_${selectedFacet.gradientId}`}>
-                  <img
-                    className='facet'
-                    src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/icons/facets/${selectedFacet.icon}.png`}
-                    alt=''
-                  />
-                                     </div>
-              )}
+              {(heroID && facet) && <HeroFacet heroID={heroID} facet={facet} />}
               {playerSlot !== undefined && (
                 <div
                   className="playerSlot"
