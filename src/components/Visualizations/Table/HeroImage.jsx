@@ -86,7 +86,6 @@ const Styled = styled.div`
   
   .abandoned {
     position: absolute;
-    right: 7px;
     bottom: 8px;
     height: 15px;
 
@@ -454,7 +453,7 @@ class TableHeroImage extends React.Component {
       party,
       heroName,
       heroID,
-      facet = 2,  // TODO - remove default
+      facet,
       showGuide,
       guideUrl,
       guideType,
@@ -513,13 +512,14 @@ class TableHeroImage extends React.Component {
               {leaverStatus !== undefined && leaverStatus > 1 && (
                 <span
                   className="abandoned"
+                  style={{ right: facet ? '12px' : '7px' }}
                   data-hint={strings[`leaver_status_${leaverStatus}`]}
                   data-hint-position="top"
                 >
                   <img src="/assets/images/dota2/disconnect_icon.png" alt="" />
                 </span>
               )}
-              {(heroID && facet) && <HeroFacet heroID={heroID} facet={facet} />}
+              <HeroFacet heroID={heroID} facet={facet} />
               {playerSlot !== undefined && (
                 <div
                   className="playerSlot"
