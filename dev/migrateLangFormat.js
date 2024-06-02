@@ -13,12 +13,15 @@ if (!fs.existsSync(oldLangsPath)) {
 
 langs.forEach((langFile) => {
   // Make a backup of the old file.
-  if (!fs.existsSync(path.resolve(oldLangsPath, langFile))) {
+  if (!fs.existsSync(path.resolve(oldLangs, langFile))) {
     fs.copyFileSync(path.resolve(langsPath, langFile), path.resolve(oldLangsPath, langFile));
   }
 
 
+
+
   const lang = JSON.parse(fs.readFileSync(path.resolve(langsPath, langFile)));
+   JSON.parse(fs.readFileSync(path.resolve(langsPath, langFile)));
   const pattern = /(%[^\s^%]+)/g;
   const updatedLang = {};
   Object.entries(lang).map(([langKey, string]) => {
