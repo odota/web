@@ -663,6 +663,7 @@ export function displayHeroId(row, col, field, showGuide = false, guideUrl, guid
     <TableHeroImage
       parsed={row.version}
       heroID={heroId}
+      facet={row.hero_variant}
       title={getTitle(row, col, heroName)}
       subtitle={getSubtitle(row)}
       heroName={heroName}
