@@ -156,7 +156,7 @@ class Hero extends React.Component {
       <div>
         <Helmet title={hero.localized_name} />
         <HeroBlock>
-          <Header hero={hero} />
+          <Header hero={hero} win_rate ={strings.heading_win_rate}/>
           <HeroFooter>
             <HeroDetailsButton type='button' onClick={this.toggleDetailVisibility}>
               {this.state.detailsOpen ? strings.hide_details : strings.show_details}
