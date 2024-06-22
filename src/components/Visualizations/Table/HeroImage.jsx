@@ -20,13 +20,16 @@ import constants from '../../constants';
 import AttrStrength from '../../Icons/AttrStrength';
 import AttrIntelligent from '../../Icons/AttrIntelligent';
 import AttrAgility from '../../Icons/AttrAgility';
+import AttrUniversal from '../../Icons/AttrUniversal';
 import HeroImage from '../HeroImage';
+import HeroFacet from './HeroFacet';
 
 // hero to use as background image in tooltip
 const backgroundMapping = {
-  str: 2,
-  agi: 47,
-  int: 10,
+  str: 2,   // Axe
+  agi: 47,  // Viper
+  int: 10,  // Morphling
+  all: 91,  // Io
 };
 
 const Styled = styled.div`
@@ -76,15 +79,13 @@ const Styled = styled.div`
   }
 
   .image {
-    margin-right: 7px;
     position: relative;
     height: 29px;
     box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
   }
-
+  
   .abandoned {
     position: absolute;
-    right: 7px;
     bottom: 8px;
     height: 15px;
 
@@ -185,7 +186,6 @@ const Styled = styled.div`
     width: 2px;
     height: 29px;
     position: absolute;
-    right: 7px;
   }
 
   .golden {
@@ -259,7 +259,6 @@ const HeroToolTip = styled.div`
   width: 290px;
   overflow: hidden;
   background-color: #131519;
-  overflow: hidden;
 
   .header {
     height: 120px;
@@ -454,6 +453,7 @@ class TableHeroImage extends React.Component {
       party,
       heroName,
       heroID,
+      facet,
       showGuide,
       guideUrl,
       guideType,
@@ -492,10 +492,11 @@ class TableHeroImage extends React.Component {
               {image ? (
                 <img
                   src={image}
-                  alt=""
+                  alt={heroName}
                   className="image"
                   data-tip={hero.id === undefined && null}
                   data-for={heroName}
+                  style={{ marginRight: facet ? '12px': '7px' }}
                   {...heroImageEventProps}
                 />
               ) : (
@@ -504,22 +505,25 @@ class TableHeroImage extends React.Component {
                   className="image"
                   data-tip={hero.id === undefined && null}
                   data-for={heroName !== undefined && heroName}
+                  style={{ marginRight: facet ? '12px': '7px' }}
                   heroImageEventProps={heroImageEventProps}
                 />
               )}
               {leaverStatus !== undefined && leaverStatus > 1 && (
                 <span
                   className="abandoned"
+                  style={{ right: facet ? '12px' : '7px' }}
                   data-hint={strings[`leaver_status_${leaverStatus}`]}
                   data-hint-position="top"
                 >
                   <img src="/assets/images/dota2/disconnect_icon.png" alt="" />
                 </span>
               )}
+              <HeroFacet heroID={heroID} facet={facet} />
               {playerSlot !== undefined && (
                 <div
                   className="playerSlot"
-                  style={{ backgroundColor: playerColors[playerSlot] }}
+                  style={{ backgroundColor: playerColors[playerSlot], right: facet ? '12px' : '7px' }}
                 />
               )}
             </div>
@@ -683,6 +687,9 @@ class TableHeroImage extends React.Component {
                       )}
                       {hero.primary_attr === 'int' && (
                         <AttrIntelligent id="heroImg-attribute" />
+                      )}
+                      {hero.primary_attr === 'all' && (
+                        <AttrUniversal id="heroImg-attribute" />
                       )}
                       <div className="health-mana">
                         <span id="health">{Math.floor(hero.base_health)}</span>

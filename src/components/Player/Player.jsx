@@ -14,6 +14,7 @@ import TableFilterForm from './TableFilterForm';
 import PlayerHeader from './Header/PlayerHeader';
 // import Error from '../Error';
 import playerPages from './playerPages';
+import PlayerProfilePrivate from './PlayerProfilePrivate';
 
 class RequestLayer extends React.Component {
   static propTypes = {
@@ -32,6 +33,7 @@ class RequestLayer extends React.Component {
     playerName: PropTypes.string,
     playerLoading: PropTypes.bool,
     strings: PropTypes.shape({}),
+    isPlayerProfilePublic: PropTypes.bool,
   }
 
   componentDidMount() {
@@ -53,7 +55,7 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    const { location, match, strings } = this.props;
+    const { location, match, strings, isPlayerProfilePublic } = this.props;
     const { playerId } = this.props.match.params;
     if (Long.fromString(playerId).greaterThan('76561197960265728')) {
       this.props.history.push(`/players/${Long.fromString(playerId).subtract('76561197960265728')}`);
@@ -67,23 +69,35 @@ class RequestLayer extends React.Component {
         {!this.props.playerLoading && <Helmet title={title} />}
         <div>
           <PlayerHeader playerId={playerId} location={location} />
-          <TabBar info={info} tabs={playerPages(playerId, strings)} />
+          <TabBar info={info} tabs={playerPages(playerId, strings, isPlayerProfilePublic)} />
         </div>
-        <div>
-          <TableFilterForm playerId={playerId} />
-          {page ? page.content(playerId, match.params, location) : <Spinner />}
-        </div>
+        {isPlayerProfilePublic ? (
+          <div>
+            <TableFilterForm playerId={playerId} />
+            {page ? page.content(playerId, match.params, location) : <Spinner />}
+          </div>
+        ) : (
+          <PlayerProfilePrivate />
+        )}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  playerName: (state.app.player.data.profile || {}).personaname,
-  playerLoading: (state.app.player.loading),
-  officialPlayerName: (state.app.player.data.profile || {}).name,
-  strings: state.app.strings,
-});
+const mapStateToProps = state => {
+  const playerProfile = state.app.player.data.profile || {};
+  const loggedInUser = state.app.metadata.data.user || {};
+
+  return {
+    playerName: playerProfile.personaname,
+    playerLoading: state.app.player.loading,
+    officialPlayerName: playerProfile.name,
+    strings: state.app.strings,
+    isPlayerProfilePublic: !!playerProfile.name 
+      || !playerProfile.fh_unavailable 
+      || (playerProfile.fh_unavailable && loggedInUser.account_id === playerProfile.account_id)
+  }
+};
 
 const mapDispatchToProps = dispatch => ({
   getPlayer: playerId => dispatch(getPlayer(playerId)),

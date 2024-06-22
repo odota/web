@@ -116,12 +116,10 @@ const TargetsBreakdown = ({ field, abilityUses = null }) => {
       const valueOverall = f[inflictor].totalCasts ? f[inflictor].totalCasts : sumValues(f[inflictor]);
       r.push((
         <div style={{ display: 'flex' }}>
-          {
-            <StyledDmgTargetInflictor id="target">
+          <StyledDmgTargetInflictor id="target">
               {inflictorWithValue(inflictor, abbreviateNumber(valueOverall))}
-            </StyledDmgTargetInflictor>
-          }
-          {<NavigationArrowForward style={arrowStyle} />}
+          </StyledDmgTargetInflictor>
+          <NavigationArrowForward style={arrowStyle} />
           {!f[inflictor].null ?
             damageTargetIcons(f[inflictor]) : <Dummy />
           }

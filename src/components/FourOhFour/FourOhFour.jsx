@@ -48,7 +48,7 @@ const FourOhFour = ({ strings, msg }) => (
       <Helmet title={`${strings.error} 404`} />
       <img
         src={`/assets/images/${randomImage}.gif`}
-        alt=""
+        alt="A gif of a pixelized Dota hero crying"
       />
       <div className="message">
         {strings.error_four_oh_four_message}

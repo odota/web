@@ -1,8 +1,8 @@
 import heroes from 'dotaconstants/build/heroes.json';
-import constants from 'src/components/constants';
+import constants from '../constants';
 import { abbreviateNumber, displayHeroId } from '../../utility';
 import { GlobalString } from 'src/types/common/GlobalString';
-import { Heroes } from 'src/types/Hero/Heroes';
+import { Heroes } from '../../types/Hero/Heroes';
 import React from 'react';
 
 type Props = {
@@ -159,7 +159,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
-      percentBarsWithValue: (row: Row) => row.pickCountPub,
+      percentBarsWithValue: (row: Row) => decimalToCount(row.pickRatePub, row.matchCountPub),
     },
     {
       displayName: `${strings.rank_tier_overall  } ${  strings.abbr_win  }%`,
@@ -167,7 +167,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
-      percentBarsWithValue: (row: Row) => row.winCountPub,
+      percentBarsWithValue: (row: Row) => decimalToCount(row.winRatePub, row.pickCountPub),
     },
     {
       displayName: `${strings.rank_tier_high  } ${  strings.abbr_pick  }%`,
@@ -176,7 +176,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
-      percentBarsWithValue: (row: Row) => row.pickCountHigh,
+      percentBarsWithValue: (row: Row) => decimalToCount(row.pickRateHigh, row.matchCountHigh),
       colColor: constants.colorImmortal,
     },
     {
@@ -186,7 +186,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
-      percentBarsWithValue: (row: Row) => row.winCountHigh,
+      percentBarsWithValue: (row: Row) => decimalToCount(row.winRateHigh, row.pickCountHigh),
       colColor: constants.colorImmortalAlt,
     },
     {
@@ -196,7 +196,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
-      percentBarsWithValue: (row: Row) => row.pickCountMid,
+      percentBarsWithValue: (row: Row) => decimalToCount(row.pickRateMid, row.matchCountMid),
       colColor: constants.colorLegend,
     },
     {
@@ -206,7 +206,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
-      percentBarsWithValue: (row: Row) => row.winCountMid,
+      percentBarsWithValue: (row: Row) => decimalToCount(row.winRateMid, row.pickCountMid),
       colColor: constants.colorLegendAlt,
     },
     {
@@ -216,7 +216,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
-      percentBarsWithValue: (row: Row) => row.pickCountLow,
+      percentBarsWithValue: (row: Row) => decimalToCount(row.pickRateLow, row.matchCountLow),
       colColor: constants.colorCrusader,
     },
     {
@@ -226,7 +226,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
-      percentBarsWithValue: (row: Row) => row.winCountLow,
+      percentBarsWithValue: (row: Row) => decimalToCount(row.winRateLow, row.pickCountLow),
       colColor: constants.colorCrusaderAlt,
     },
   ];

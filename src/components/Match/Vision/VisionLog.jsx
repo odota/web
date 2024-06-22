@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-// import items from 'dotaconstants/build/items.json';
 import { threshold, formatSeconds } from '../../../utility';
 import Table from '../../Table';
 import Heading from '../../Heading';
 import mcs from '../matchColumns';
 import constants from '../../constants';
 import LogHover from './LogHover';
+import config from '../../../config';
 
 const Styled = styled.div`
   display: inline-block;
@@ -77,14 +77,14 @@ const columns = (strings) => {
 };
 
 
-function logWard(log) {
+function logWard(log, startTime) {
   return (
     <Styled>
       <div className="minimap"><img
         src="/assets/images/dota2/map/minimap2.jpg"
         style={{ height: '30px' }}
-        alt=""
-      /><div className="placement">{LogHover(log)}</div>
+        alt="Minimap"
+      /><div className="placement">{LogHover(log, startTime)}</div>
       </div>
 
     </Styled>
@@ -106,12 +106,12 @@ const generateData = (match, strings) => (log) => {
 
   return {
     ...match.players[log.player],
-    type: <img height="29" src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_${log.type}.png`} alt="" />,
+    type: <img height="29" src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_${log.type}.png`} alt="" />,
     enter_time: formatSeconds(log.entered.time),
     left_time: formatSeconds(((log.left && log.left.time) || (match && match.duration)) - discrepancy) || '-',
     duration: <span style={{ color: durationColor }}>{formatSeconds(duration - discrepancy)}</span>,
     killer: wardKiller && heroTd(wardKiller),
-    placement: logWard(log),
+    placement: logWard(log, match.start_time),
   };
 };
 

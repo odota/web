@@ -4,8 +4,9 @@ import { createBrowserHistory } from 'history';
 import { render, hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import ReactGA from 'react-ga';
 import store from './store';
-import { getMetadata, getStrings, getAbilities, getHeroAbilities, getNeutralAbilities, getAbilityIds } from './actions';
+import { getMetadata, getStrings } from './actions';
 import App from './components/App';
 // import { unregister } from './common/serviceWorker';
 
@@ -13,15 +14,10 @@ import App from './components/App';
 store.dispatch(getMetadata());
 // Fetch strings
 store.dispatch(getStrings());
-store.dispatch(getAbilities());
-store.dispatch(getHeroAbilities());
-store.dispatch(getNeutralAbilities());
-store.dispatch(getAbilityIds());
 
 const history = createBrowserHistory();
 
 if (process.env.NODE_ENV === 'production') {
-  const ReactGA = require('react-ga'); // eslint-disable-line global-require
   ReactGA.initialize('UA-55757642-1');
   ReactGA.pageview(window.location.pathname + window.location.search);
 

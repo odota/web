@@ -6,7 +6,7 @@ OpenDota Web UI: A web interface for viewing Dota 2 data. This utilizes the [Ope
 
 ## Quickstart
 
-- Clone the repo using `git clone git://github.com/odota/web`
+- Clone the repo using `git clone git@github.com:odota/web.git`
 
 ### With Docker
 
@@ -35,7 +35,7 @@ $ docker-compose up
 
 - You can set the following environment variables:
   - PORT: Changes the port that the development server runs on
-  - REACT_APP_API_HOST: Changes the API that the UI requests data from (default https://api.opendota.com)
+  - VITE_API_HOST: Changes the API that the UI requests data from (default https://api.opendota.com)
 
 ## Tech Stack
 

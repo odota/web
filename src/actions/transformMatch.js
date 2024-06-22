@@ -10,6 +10,8 @@ import {
 import analyzeMatch from './analyzeMatch';
 import store from '../store';
 
+const abilityIds = (await import('dotaconstants/build/ability_ids.json')).default;
+
 let expandedUnitNames = null;
 
 function generateExpandedUnitNames(strings) {
@@ -17,7 +19,7 @@ function generateExpandedUnitNames(strings) {
   Object.keys(strings)
     .filter(str => str.indexOf('npc_dota_') === 0)
     .forEach((key) => {
-    // Currently, no unit goes up higher than 4
+      // Currently, no unit goes up higher than 4
       for (let i = 1; i < 5; i += 1) {
         expanded[key.replace('#', i)] = strings[key];
       }
@@ -144,7 +146,17 @@ function generateVisionLog(match) {
 }
 
 function transformMatch(m) {
-  const { abilityIds, strings } = store.getState().app;
+  const { strings } = store.getState().app;
+
+  // lane winning
+  const lineResults = m.players.reduce((res, pl) => {
+    res[pl.isRadiant] = res[pl.isRadiant] || [];
+    res[pl.isRadiant][pl.lane] = res[pl.isRadiant][pl.lane] || 0;
+
+    res[pl.isRadiant][pl.lane] += (pl.gold_t || [])[10]
+    return res;
+  }, {});
+
   const newPlayers = m.players.map((player) => {
     const newPlayer = {
       ...player,
@@ -153,6 +165,7 @@ function transformMatch(m) {
       kill_streaks_max: getMaxKeyOfObject(player.kill_streaks),
       lh_ten: (player.lh_t || [])[10],
       dn_ten: (player.dn_t || [])[10],
+      line_win: lineResults[player.isRadiant]?.[player.lane] > lineResults[!player.isRadiant]?.[player.lane],
       analysis: analyzeMatch(m, player),
     };
 

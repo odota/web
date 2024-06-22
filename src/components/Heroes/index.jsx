@@ -63,7 +63,7 @@ class RequestLayer extends React.Component {
           <Heading
             className="top-heading with-tabbar"
             title={title}
-            subtitle={`${abbreviateNumber(matchCount)} ${key === 'turbo' ? strings.hero_this_month : strings.hero_last_30days}`}
+            subtitle={`${abbreviateNumber(matchCount)} ${strings.hero_last_7days}`}
             icon=""
             twoLine
           />
@@ -124,18 +124,22 @@ class RequestLayer extends React.Component {
 
         pickCountPub,
         winCountPub,
+        matchCountPub,
         pickRatePub: pickCountPub / matchCountPub,
         winRatePub: winCountPub / pickCountPub,
         pickCountHigh,
         winCountHigh,
+        matchCountHigh,
         pickRateHigh: pickCountHigh / matchCountHigh,
         winRateHigh: winCountHigh / pickCountHigh,
         pickCountMid,
         winCountMid,
+        matchCountMid,
         pickRateMid: pickCountMid / matchCountMid,
         winRateMid: winCountMid / pickCountMid,
         pickCountLow,
         winCountLow,
+        matchCountLow,
         pickRateLow: pickCountLow / matchCountLow,
         winRateLow: winCountLow / pickCountLow,
 

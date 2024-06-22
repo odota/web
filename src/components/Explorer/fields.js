@@ -1,11 +1,12 @@
 import heroData from 'dotaconstants/build/heroes.json';
 import patchData from 'dotaconstants/build/patch.json';
-import itemData from 'dotaconstants/build/items.json';
 import regionData from 'dotaconstants/build/region.json';
 import clusterData from 'dotaconstants/build/cluster.json';
 import store from '../../store';
 import { formatTemplateToString } from '../../utility';
 // import { isActiveItem } from '../../utility';
+
+const items = (await import('dotaconstants/build/items.json')).default;
 
 const getItemSuffix = itemKey => (['_2', '_3', '_4', '_5'].some(suffix => itemKey.indexOf(suffix) !== -1) ? itemKey[itemKey.length - 1] : '');
 
@@ -21,44 +22,44 @@ const getFields = (players = [], leagues = [], teams = []) => {
   };
 
   const usesSelect = itemKey => ({
-    text: `${strings.explorer_uses} - ${itemData[itemKey].dname} ${getItemSuffix(itemKey)}`,
+    text: `${strings.explorer_uses} - ${items[itemKey].dname} ${getItemSuffix(itemKey)}`,
     value: `(item_uses->>'${itemKey}')::int`,
     key: `uses_${itemKey}`,
     alias: 'uses',
     bundle: 'uses',
   });
 
-  const timingSelect = itemKey => ({
-    text: `${strings.explorer_timing} - ${itemData[itemKey].dname} ${getItemSuffix(itemKey)}`,
-    value: 'match_logs.time',
-    order: 'ASC',
-    join: `JOIN match_logs 
-  ON match_logs.match_id = matches.match_id 
-  AND player_matches.player_slot = match_logs.targetname_slot 
-  AND match_logs.type = 'DOTA_COMBATLOG_PURCHASE'
-  AND match_logs.valuename = 'item_${itemKey}'`,
-    key: `timing_${itemKey}`,
-    formatSeconds: true,
-    bundle: 'timing',
-    singleSelection: true,
-  });
+  // const timingSelect = itemKey => ({
+  //   text: `${strings.explorer_timing} - ${items[itemKey].dname} ${getItemSuffix(itemKey)}`,
+  //   value: 'match_logs.time',
+  //   order: 'ASC',
+  //   join: `JOIN match_logs 
+  // ON match_logs.match_id = matches.match_id 
+  // AND player_matches.player_slot = match_logs.targetname_slot 
+  // AND match_logs.type = 'DOTA_COMBATLOG_PURCHASE'
+  // AND match_logs.valuename = 'item_${itemKey}'`,
+  //   key: `timing_${itemKey}`,
+  //   formatSeconds: true,
+  //   bundle: 'timing',
+  //   singleSelection: true,
+  // });
 
-  const killSelect = ({
-    text,
-    unitKey,
-  }) => ({
-    text: `${strings.explorer_kill} - ${text}`,
-    value: 'match_logs.time',
-    order: 'ASC',
-    join: `JOIN match_logs 
-  ON match_logs.match_id = matches.match_id 
-  AND player_matches.player_slot = match_logs.sourcename_slot 
-  AND match_logs.type = 'DOTA_COMBATLOG_DEATH'
-  AND match_logs.targetname LIKE '${unitKey}'`,
-    key: `kill_${unitKey}`,
-    bundle: 'kill',
-    singleSelection: true,
-  });
+  // const killSelect = ({
+  //   text,
+  //   unitKey,
+  // }) => ({
+  //   text: `${strings.explorer_kill} - ${text}`,
+  //   value: 'match_logs.time',
+  //   order: 'ASC',
+  //   join: `JOIN match_logs 
+  // ON match_logs.match_id = matches.match_id 
+  // AND player_matches.player_slot = match_logs.sourcename_slot 
+  // AND match_logs.type = 'DOTA_COMBATLOG_DEATH'
+  // AND match_logs.targetname LIKE '${unitKey}'`,
+  //   key: `kill_${unitKey}`,
+  //   bundle: 'kill',
+  //   singleSelection: true,
+  // });
 
   const singleFields = [{
     text: strings.heading_kills,
@@ -301,26 +302,27 @@ const getFields = (players = [], leagues = [], teams = []) => {
         text: strings.heading_damage_instances,
         join: ', json_each(player_matches.hero_hits)',
         key: 'damage_instances',
-      }, killSelect({
-        text: strings.heading_courier,
-        unitKey: 'npc_dota_courier',
-      }),
-      killSelect({
-        text: strings.heading_roshan,
-        unitKey: 'npc_dota_roshan',
-      }),
-      killSelect({
-        text: strings.heading_tower,
-        unitKey: '%tower%',
-      }),
-      killSelect({
-        text: strings.heading_barracks,
-        unitKey: '%rax%',
-      }),
-      killSelect({
-        text: strings.heading_shrine,
-        unitKey: '%healers%',
-      }),
+      }, 
+      // killSelect({
+      //   text: strings.heading_courier,
+      //   unitKey: 'npc_dota_courier',
+      // }),
+      // killSelect({
+      //   text: strings.heading_roshan,
+      //   unitKey: 'npc_dota_roshan',
+      // }),
+      // killSelect({
+      //   text: strings.heading_tower,
+      //   unitKey: '%tower%',
+      // }),
+      // killSelect({
+      //   text: strings.heading_barracks,
+      //   unitKey: '%rax%',
+      // }),
+      // killSelect({
+      //   text: strings.heading_shrine,
+      //   unitKey: '%healers%',
+      // }),
       {
         text: strings.explorer_hero_combos,
         value: 1,
@@ -375,8 +377,8 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
         bundle: 'picks_bans',
       },
     ]
-      .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cd).map(usesSelect))
-      .concat(Object.keys(itemData).filter(itemKey => itemData[itemKey].cost > 2000).map(timingSelect))
+      .concat(Object.keys(items).filter(itemKey => items[itemKey].cd).map(usesSelect))
+      // .concat(Object.keys(items).filter(itemKey => items[itemKey].cost > 2000).map(timingSelect))
       .concat(singleFields)
       .sort((a, b) => a.text && a.text.localeCompare(b.text)),
     group: [{
@@ -433,8 +435,8 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
       value: heroData[heroId].id,
       key: String(heroData[heroId].id),
     })),
-    playerPurchased: Object.keys(itemData).map(itemName => ({
-      text: itemData[itemName].dname,
+    playerPurchased: Object.keys(items).map(itemName => ({
+      text: items[itemName].dname,
       value: itemName,
       key: itemName,
     })),
@@ -499,7 +501,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
       const laneRoleId = Number(str.substring('lane_role_'.length));
       return { text: strings[str], value: laneRoleId, key: String(laneRoleId) };
     }),
-    isTi9Team: [{ text: 'Yes', value: true, key: 'true' }],
+    isTiTeam: [{ text: 'Yes', value: true, key: 'true' }],
     megaWin: [{ text: 'Yes', value: true, key: 'true' }],
     minGoldAdvantage: goldAdvantage,
     maxGoldAdvantage: goldAdvantage,

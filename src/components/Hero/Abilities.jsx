@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import propTypes from 'prop-types';
 import Ability from './Ability';
 import Talents from './Talents';
+import AghanimUpgrades from './AghanimUpgrades';
+
+const abilities = (await import('dotaconstants/build/abilities.json')).default;
+const heroAbilities = (await import('dotaconstants/build/hero_abilities.json')).default;
 
 const Wrapper = styled.div`
   align-items: center;
@@ -29,9 +33,9 @@ const renderAbilities = abilities => abilities.map(ability => (
   </AbilityItem>
 ));
 
-const Abilities = ({ hero, abilities, heroAbilities }) => {
-  const filterAbilities = toFilterAbs => toFilterAbs.filter(ability => (ability !== 'generic_hidden'));
-
+const Abilities = ({ hero }) => {
+  const filterAbilities = (toFilterAbs) =>
+    toFilterAbs.filter((ability) => ability !== 'generic_hidden' && abilities[ability].behavior !== 'Hidden');
   const mapAbilities = toFilterAbs => toFilterAbs.map((ability, id) => ({ data: abilities[ability], key: id }));
   const mapTalents = talents => talents.map(talent => ({ ...abilities[talent.name], ...talent }));
 
@@ -67,7 +71,6 @@ const Abilities = ({ hero, abilities, heroAbilities }) => {
     // Map Talents and assign them to correct level in Object
     const heroTalents = mapTalents(heroAbs.talents);
     talsMap.talents = mapTalentsToLevel(heroTalents);
-
     return talsMap;
   };
 
@@ -75,9 +78,12 @@ const Abilities = ({ hero, abilities, heroAbilities }) => {
 
   return (
     <Wrapper>
-      {renderAbilities(heroAbs.skills)}
       <AbilityItem>
         <Talents talents={heroAbs.talents} />
+      </AbilityItem>
+      {renderAbilities(heroAbs.skills)}
+      <AbilityItem>
+        <AghanimUpgrades heroName={hero.name} skills={heroAbs.skills} />
       </AbilityItem>
     </Wrapper>
   );
@@ -85,13 +91,9 @@ const Abilities = ({ hero, abilities, heroAbilities }) => {
 
 Abilities.propTypes = {
   hero: propTypes.shape({}).isRequired,
-  abilities: propTypes.shape({}).isRequired,
-  heroAbilities: propTypes.shape({}).isRequired,
 };
 
 const mapStateToProps = state => ({
-  abilities: state.app.abilities,
-  heroAbilities: state.app.heroAbilities,
 });
 
 export default connect(mapStateToProps)(Abilities);

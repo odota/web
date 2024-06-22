@@ -1,6 +1,5 @@
 import heroes from 'dotaconstants/build/heroes.json';
 import itemIds from 'dotaconstants/build/item_ids.json';
-import items from 'dotaconstants/build/items.json';
 import patch from 'dotaconstants/build/patch.json';
 import xpLevel from 'dotaconstants/build/xp_level.json';
 import curry from 'lodash/fp/curry';
@@ -22,6 +21,9 @@ import {
   TableHeroImage,
 } from '../components/Visualizations';
 import store from '../store';
+import config from '../config';
+
+const items = (await import('dotaconstants/build/items.json')).default;
 
 const second = 1;
 const minute = second * 60;
@@ -67,6 +69,13 @@ export function formatSeconds(input) {
   }
 
   return null;
+}
+
+export function formatSkillOrAttributeValues(values) {
+  if (Array.isArray(values)) {
+    return values.filter(value => value).join(' / ');
+  }
+  return values;
 }
 
 export function getLevelFromXp(xp) {
@@ -180,15 +189,15 @@ const getTitle = (row, col, heroName) => {
   return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
 };
 
-export const getHeroImageUrl = (heroId, imageSizeSuffix) => {
-  const imageUrl = heroes[heroId] && process.env.REACT_APP_IMAGE_CDN + heroes[heroId].img;
+export const getHeroImageUrl = (heroId, _) => {
+  const imageUrl = heroes[heroId] && config.VITE_IMAGE_CDN + heroes[heroId].img;
   return imageUrl;
 };
 
 export const getHeroIconUrlFromHeroKey = (heroKey) => {
   const heroId = Object.keys(heroes).find(k => heroes[k].name === heroKey);
   if (heroId && heroId[0] && heroes[heroId[0]]) {
-    return `${process.env.REACT_APP_IMAGE_CDN}${heroes[heroId].icon}`;
+    return `${config.VITE_IMAGE_CDN}${heroes[heroId].icon}`;
   }
 
   return '/assets/images/blank-1x1.gif';
@@ -309,8 +318,7 @@ export function unpackPositionData(input) {
     Object.keys(input).forEach((x) => {
       Object.keys(input[x]).forEach((y) => {
         result.push({
-          x: Number(x) - 64,
-          y: 128 - (Number(y) - 64),
+          ...gameCoordToUV(x, y),
           value: input[x][y],
         });
       });
@@ -337,7 +345,7 @@ export const getTeamLogoUrl = (logoUrl) => {
   }
   // Use proxy layer to serve team logos
   if (logoUrl.indexOf('/ugc') !== -1) {
-    return `${process.env.REACT_APP_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}`;
+    return `${config.VITE_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}`;
   }
   return logoUrl;
 };
@@ -396,8 +404,8 @@ export const wilsonScore = (up, down) => {
   return (
     phat + ((z * z) / (2 * n)) - (z * Math.sqrt(((phat * (1 - phat)) + (z * z / (4 * n))) / n))
   ) / (
-    1 + (z * z / n)
-  );
+      1 + (z * z / n)
+    );
 };
 
 export const groupBy = (xs, key) =>
@@ -467,6 +475,17 @@ export function compileLevelOneStats(hero) {
       move_speed: 0.063,
       attack_speed: 1.25,
     },
+    all: {
+      attackDamage: 0.7,
+      armor: 0.2,
+      health: 18,
+      health_regen: 0.55,
+      mana: 12,
+      mana_regen: 1.8,
+      mr: 0.08,
+      move_speed: 0.063,
+      attack_speed: 1.25,
+    },
   };
 
   const round = value => Math.round(value * 100) / 100;
@@ -485,14 +504,14 @@ export function compileLevelOneStats(hero) {
     attack_rate,
   } = hero;
 
-  const primaryAttrValue = hero[`base_${primary_attr}`];
-  const [agiValue, strValue, intValue] = [hero.base_agi, hero.base_str, hero.base_int];
 
+  const [agiValue, strValue, intValue] = [hero.base_agi, hero.base_str, hero.base_int];
+  const primaryAttrValue = primary_attr === "all" ? agiValue + strValue + intValue : hero[`base_${primary_attr}`]
 
   return {
     ...hero,
-    base_attack_min: base_attack_min + (statsBonuses[primary_attr].attackDamage * primaryAttrValue),
-    base_attack_max: base_attack_max + (statsBonuses[primary_attr].attackDamage * primaryAttrValue),
+    base_attack_min: Math.round(base_attack_min + (statsBonuses[primary_attr].attackDamage * primaryAttrValue)),
+    base_attack_max: Math.round(base_attack_max + (statsBonuses[primary_attr].attackDamage * primaryAttrValue)),
     base_armor: round(base_armor + (statsBonuses[primary_attr].armor * agiValue)),
     base_health: round(base_health + (statsBonuses[primary_attr].health * strValue)),
     base_health_regen: round(base_health_regen + (base_health_regen * (statsBonuses[primary_attr].health_regen * strValue / 100))),
@@ -644,6 +663,7 @@ export function displayHeroId(row, col, field, showGuide = false, guideUrl, guid
     <TableHeroImage
       parsed={row.version}
       heroID={heroId}
+      facet={row.hero_variant}
       title={getTitle(row, col, heroName)}
       subtitle={getSubtitle(row)}
       heroName={heroName}
@@ -841,7 +861,7 @@ const transformMatchItem = ({
   if (field === 0) {
     return false;
   }
-  return `${process.env.REACT_APP_IMAGE_CDN}${items[itemIds[field]].img}`;
+  return `${config.VITE_IMAGE_CDN}${items[itemIds[field]].img}`;
 };
 
 for (let i = 0; i < 6; i += 1) {
@@ -869,14 +889,21 @@ export function getDOY(date) {
 }
 
 // find and style/highlight number values in tooltip descriptions
-export function styleValues(el) {
+export function styleValues(el, style = 'font-weight:500;color:#F5F5F5') {
   if (el) {
     const element = el;
     element.innerHTML = el.innerHTML
       .replace(/(,)(\d)/gm, ' / $2')
-      .replace(/\+?\s?-?\s?\d+\.?%?\d*%?x?/gm, '<span style="font-weight:500;color:#F5F5F5">$&</span>');
+      .replace(/\s?-?\s?\d+\.?%?\d*%?x?/gm, `<span style=${style}>$&</span>`);
   }
   return null;
+}
+
+export function formatValues(values) {
+  if (Array.isArray(values)) {
+    return values.filter(value => value).join(' / ');
+  }
+  return values;
 }
 
 // handles table cell custom and default styling
@@ -935,5 +962,20 @@ export function paramsWithTurbo(params) {
   if (!isTurboMode) {
     return objParams;
   }
-  return {...objParams, significant: 0, game_mode: 23};
+  return { ...objParams, significant: 0, game_mode: 23 };
 }
+
+export const patchDate = {};
+patch.forEach((patchElement) => {
+  patchDate[patchElement.name] = new Date(patchElement.date).getTime() / 1000;
+});
+
+export function getWardSize(type, mapSize) {
+  const originMapSize = 12000;
+
+  if (type === 'observer') {
+    return (mapSize * 1600) / originMapSize;
+  } else {
+    return (mapSize * 1000) / originMapSize;
+  }
+};

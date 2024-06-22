@@ -7,9 +7,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { IconSteam } from '../Icons';
 
 import { useStrings } from '../../hooks/useStrings.hook';
+import config from '../../config';
 
-const stripePromise = process.env.REACT_APP_STRIPE_PUBLIC_KEY
-  ? loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
+const stripePromise = config.VITE_STRIPE_PUBLIC_KEY
+  ? loadStripe(config.VITE_STRIPE_PUBLIC_KEY)
   : null;
 
 const PageContainer = styled.div`
@@ -85,7 +86,7 @@ const handleSubscribe = async (user) => {
       },
     ],
     mode: 'subscription',
-    successUrl: `${process.env.REACT_APP_API_HOST}/subscribeSuccess?session_id={CHECKOUT_SESSION_ID}`,
+    successUrl: `${config.VITE_API_HOST}/subscribeSuccess?session_id={CHECKOUT_SESSION_ID}`,
     cancelUrl: window.location.href,
     clientReferenceId: `${user.account_id}`,
   });
@@ -100,7 +101,7 @@ const handleSubscribe = async (user) => {
 const Subscription = ({ user, isSubscriber }) => {
   const strings = useStrings();
   const handleManage = useCallback(async () => {
-    const res = await fetch(`${process.env.REACT_APP_API_HOST}/manageSub`, {
+    const res = await fetch(`${config.VITE_API_HOST}/manageSub`, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -164,7 +165,7 @@ const Subscription = ({ user, isSubscriber }) => {
           {!user && (
             <RaisedButton
               primary
-              href={`${process.env.REACT_APP_API_HOST}/login`}
+              href={`${config.VITE_API_HOST}/login`}
               label={strings.subscriptions_button_login}
               icon={<IconSteam />}
             />

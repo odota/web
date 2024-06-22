@@ -6,8 +6,7 @@ import { getHeroMatchups } from '../../actions';
 import Table, { TableLink } from '../Table';
 import MatchupsSkeleton from '../Skeletons/MatchupsSkeleton';
 import { wilsonScore } from '../../utility';
-
-const { REACT_APP_IMAGE_CDN } = process.env;
+import config from '../../config';
 
 const HeroImage = styled.img`
   width: 50px;
@@ -33,7 +32,7 @@ const getMatchupsColumns = (heroes, strings) => {
 
         return (
           <HeroWrapper>
-            <HeroImage key={field} alt={hero.localized_name} src={REACT_APP_IMAGE_CDN + hero.img} />
+            <HeroImage key={field} alt={hero.localized_name} src={config.VITE_IMAGE_CDN + hero.img} />
             <TableLink to={`/heroes/${field}`}>{hero.localized_name}</TableLink>
           </HeroWrapper>
         );

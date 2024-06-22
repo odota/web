@@ -38,6 +38,7 @@ class Heatmap extends Component {
 
   static propTypes = {
     width: PropTypes.number,
+    startTime: PropTypes.instanceOf(Date)
   }
 
   componentDidMount() {
@@ -60,13 +61,14 @@ class Heatmap extends Component {
         }}
         id={this.id}
       >
-        <DotaMap width={this.props.width} maxWidth={this.props.width} />
+        <DotaMap width={this.props.width} maxWidth={this.props.width} startTime={this.props.startTime} />
       </div>);
   }
 }
 
 Heatmap.defaultProps = {
   width: 600,
+  startTime: null
 };
 
 export default Heatmap;

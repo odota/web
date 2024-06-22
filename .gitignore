@@ -8,3 +8,4 @@ build
 .env
 yarn.lock
 src/*.d.ts
+.vite

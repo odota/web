@@ -1,4 +1,5 @@
 import querystring from 'querystring';
+import config from '../config';
 
 export default function action(type, host, path, params = {}, transform) {
   return (dispatch) => {
@@ -14,7 +15,7 @@ export default function action(type, host, path, params = {}, transform) {
       type: `ERROR/${type}`,
       error,
     });
-    const fetchDataWithRetry = delay => fetch(url, path === 'api/metadata' ? { credentials: 'include' } : {})
+    const fetchDataWithRetry = delay => fetch(url, url.startsWith(config.VITE_API_HOST) ? { credentials: 'include' } : {})
       .then((response) => {
         if (!response.ok || !response.status) {
           const err = new Error();

@@ -31,7 +31,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "skipLibCheck": false,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "types": ["vite/client"]
   },
   "include": [
     "src"

@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
+import config from '../../../config';
 
 const shouldShow = props => props.loggedInId && props.loggedInId !== props.playerId;
 
 const getData = (props, context) => {
   if (shouldShow(props)) {
-    fetch(`${process.env.REACT_APP_API_HOST}/api/players/${props.loggedInId}/wl?included_account_id=${props.playerId}`)
+    fetch(`${config.VITE_API_HOST}/api/players/${props.loggedInId}/wl?included_account_id=${props.playerId}`)
       .then(resp => resp.json())
       .then(json => context.setState({ ...context.state, ...json }));
   }

@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { IconOpenSource, IconStatsBars, IconWand } from '../Icons';
 import constants from '../constants';
+
+import { HomePageProps } from './Home';
 
 const StyledDiv = styled.div`
   margin: 50px auto 0;
   text-align: center;
   max-width: 1920px;
-  padding-bottom: 30px;
+  padding: 50px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
   & .whyList {
@@ -50,7 +51,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-const Why = ({ strings }) => (
+const Why = ({ strings }: HomePageProps) => (
   <StyledDiv>
     <div className="whyList">
       <div className="whyElement">
@@ -84,11 +85,7 @@ const Why = ({ strings }) => (
   </StyledDiv>
 );
 
-Why.propTypes = {
-  strings: PropTypes.shape({}),
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 

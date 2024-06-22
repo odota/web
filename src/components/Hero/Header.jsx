@@ -4,8 +4,9 @@ import { shape } from 'prop-types';
 import constants from '../constants';
 import AttributesMain from './AttributesMain';
 import Abilities from './Abilities';
+import config from '../../config';
 
-const getHeroImgSrc = (src) => process.env.REACT_APP_IMAGE_CDN + src;
+const getHeroImgSrc = (src) => config.VITE_IMAGE_CDN + src;
 
 const HeroProfile = styled.div`
   background: ${constants.almostBlack};

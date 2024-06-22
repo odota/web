@@ -1,8 +1,10 @@
 import React from 'react';
 import MenuItem from 'material-ui/MenuItem';
 import heroes from 'dotaconstants/build/heroes.json';
-import items from 'dotaconstants/build/items.json';
 import { getTimeRange } from './ScenariosColumns';
+import config from '../../config';
+
+const items = (await import('dotaconstants/build/items.json')).default;
 
 export default function getFormFieldData(metadata, strings) {
   const {
@@ -14,7 +16,7 @@ export default function getFormFieldData(metadata, strings) {
       value: (
         <MenuItem
           primaryText={heroes[id] && heroes[id].localized_name}
-          leftIcon={<img src={`${process.env.REACT_APP_IMAGE_CDN}${heroes[id] && heroes[id].icon}`} alt="" />}
+          leftIcon={<img src={`${config.VITE_IMAGE_CDN}${heroes[id] && heroes[id].icon}`} alt="" />}
         />
       ),
       altValue: id,
@@ -26,7 +28,7 @@ export default function getFormFieldData(metadata, strings) {
       value: (
         <MenuItem
           primaryText={items[item].dname}
-          leftIcon={<img src={`${process.env.REACT_APP_IMAGE_CDN}${items[item].img}`} alt="" />}
+          leftIcon={<img src={`${config.VITE_IMAGE_CDN}${items[item].img}`} alt="" />}
         />
       ),
       altValue: item,

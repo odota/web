@@ -11,6 +11,7 @@ import PlayerThumb from '../PlayerThumb';
 import Timeline from '../Overview/Timeline';
 import DotaMap from '../../DotaMap';
 import constants from '../../constants';
+import config from '../../../config';
 
 const Styled = styled.div`
 .parentContainer {
@@ -210,7 +211,6 @@ const Styled = styled.div`
 }
 `;
 
-const MAP_WIDTH = 400;
 const iconSize = (mapWidth, factor = 12, minSize = 15) =>
   (mapWidth / factor <= minSize ? minSize : mapWidth / factor);
 
@@ -226,7 +226,7 @@ const isRadiant = radiantGoldDelta => radiantGoldDelta > 0;
 const IconType = _isRadiant => (_isRadiant ? IconRadiant : IconDire);
 
 export const TeamfightIcon = ({
-  position, tooltipKey, mapWidth = MAP_WIDTH, onClick, Icon, ...props
+  position, tooltipKey, mapWidth, onClick, Icon, ...props
 }) => (
   <Icon
     className="teamfightIcon"
@@ -241,7 +241,7 @@ export const TeamfightIcon = ({
 export const GoldDelta = ({ radiantGoldDelta }) => (
   <div className="goldChange">
     {isRadiant(radiantGoldDelta) ? radiantGoldDelta : radiantGoldDelta * -1}
-    <img src={`${process.env.REACT_APP_IMAGE_CDN}/apps/dota2/images/dota_react/tooltips/gold.png`} alt="" />
+    <img src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`} alt="Gold" />
   </div>
 );
 
@@ -475,7 +475,7 @@ class TeamfightMap extends Component {
                     end={teamFight.end}
                     radiantGoldDelta={teamFight.radiant_gold_advantage_delta}
                     deathPositions={teamFight.deaths_pos}
-                    mapWidth={bindWidth(400, 400)}
+                    mapWidth={400}
                     strings={strings}
                   />
                 ))}
@@ -494,10 +494,10 @@ class TeamfightMap extends Component {
             </div>
             <div className="tableContainer">
               <TeamTable
-                players={teamfight.players && teamfight.players.filter(p => p.participate)}
+                players={teamfight.players}
                 columns={teamfightColumns}
                 heading={strings.heading_teamfights}
-                buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_teamfights : null}
+                buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_teamfights : null}
                 buttonTo={`${sponsorURL}Teamfights`}
                 buttonIcon={sponsorIcon}
                 radiantTeam={this.props.match.radiant_team}

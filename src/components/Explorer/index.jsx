@@ -22,6 +22,7 @@ import getFields from './fields';
 import autocomplete from './autocomplete';
 import TableSkeleton from '../Skeletons/TableSkeleton';
 import { formatTemplateToString } from '../../utility';
+import config from '../../config';
 
 const playerMapping = {};
 const teamMapping = {};
@@ -94,7 +95,7 @@ class Explorer extends React.Component {
   componentDidUpdate(nextProps) {
     if (this.editor && !this.completersSet && nextProps.proPlayers.length && nextProps.teams.length && nextProps.leagues.length) {
       this.completersSet = true;
-      fetch(`${process.env.REACT_APP_API_HOST}/api/schema`).then(jsonResponse).then((schema) => {
+      fetch(`${config.VITE_API_HOST}/api/schema`).then(jsonResponse).then((schema) => {
         this.editor.completers = [autocomplete(schema, nextProps.proPlayers, nextProps.teams, nextProps.leagues)];
       });
     }
@@ -129,7 +130,7 @@ class Explorer extends React.Component {
   sendRequest = () => {
     this.syncWindowHistory();
     const sqlString = this.getSqlString();
-    return fetch(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
+    return fetch(`${config.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
   }
 
   handleQuery = () => {
@@ -254,7 +255,7 @@ class Explorer extends React.Component {
           <ExplorerFormField label={strings.explorer_order} fields={expandedFields} builderField="order" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_having} fields={expandedFields} builderField="having" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_limit} fields={expandedFields} builderField="limit" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label={formatTemplateToString(strings.explorer_is_ti_team, { number: 9 })} fields={expandedFields} builderField="isTi9Team" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField label={strings.explorer_is_ti_team} fields={expandedFields} builderField="isTiTeam" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_mega_comeback} fields={expandedFields} builderField="megaWin" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_max_gold_adv} fields={expandedFields} builderField="maxGoldAdvantage" handleFieldUpdate={handleFieldUpdate} builder={builder} />
           <ExplorerFormField label={strings.explorer_min_gold_adv} fields={expandedFields} builderField="minGoldAdvantage" handleFieldUpdate={handleFieldUpdate} builder={builder} />
@@ -299,7 +300,7 @@ class Explorer extends React.Component {
             />
             <ExplorerOutputButton
               label={strings.explorer_api_button}
-              onClick={() => window.open(`${process.env.REACT_APP_API_HOST}/api/explorer?sql=${encodeURIComponent(getSqlString())}`, '_blank')}
+              onClick={() => window.open(`${config.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(getSqlString())}`, '_blank')}
               context={explorer}
             />
           </span>

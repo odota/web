@@ -8,6 +8,7 @@ import { unpackPositionData } from '../../../utility';
 import mcs from '../matchColumns';
 import { StyledFlexContainer, StyledFlexElement, StyledFlexElementFullWidth } from '../StyledMatch';
 import Graph from './Graph';
+import config from '../../../config';
 
 class Laning extends React.Component {
   static propTypes = {
@@ -28,29 +29,39 @@ class Laning extends React.Component {
     this.setState({ ...this.state, selectedPlayer: playerSlot });
   };
 
+  defaultSort = (r1, r2) => {
+    if (r1.isRadiant !== r2.isRadiant) {
+      return 1;
+    }
+
+    return r1.lane - r2.lane;
+  }
+
   render() {
     const {
       match, strings, sponsorURL, sponsorIcon,
     } = this.props;
     const { laningColumns } = mcs(strings);
 
+    const tableData = [...match.players].sort(this.defaultSort);
+
     return (
       <StyledFlexContainer>
         <StyledFlexElementFullWidth>
           <Heading title={strings.heading_laning} />
           <Table
-            data={match.players}
+            data={tableData}
             columns={laningColumns(this.state, this.setSelectedPlayer)}
           />
         </StyledFlexElementFullWidth>
         <StyledFlexElement>
           <Heading
             title={strings.th_map}
-            buttonLabel={process.env.REACT_APP_ENABLE_GOSUAI ? strings.gosu_laning : null}
+            buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_laning : null}
             buttonTo={`${sponsorURL}Laning`}
             buttonIcon={sponsorIcon}
           />
-          <Heatmap width={400} points={unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
+          <Heatmap width={400} startTime={match.start_time} points={unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
         </StyledFlexElement>
         <StyledFlexElement>
           <Graph match={match} strings={strings} selectedPlayer={this.state.selectedPlayer} />

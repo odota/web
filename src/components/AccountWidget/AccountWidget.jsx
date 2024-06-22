@@ -4,6 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+import config from '../../config';
 import Error from '../Error';
 import { IconSteam } from '../Icons';
 import LoggedIn from './LoggedIn';
@@ -22,9 +23,14 @@ const AccountWidget = ({
       {!error && !loading && user
         ? <LoggedIn style={style} playerId={user.account_id} />
         :
-        <Button href={`${process.env.REACT_APP_API_HOST}/login`}>
+        <Button href={`${config.VITE_API_HOST}/login`}>
           <IconSteam />
-          <ButtonLabel>{strings.app_login}</ButtonLabel>
+          <ButtonLabel
+            style={{
+              lineHeight: '1px',
+            }}
+          >{strings.app_login}
+          </ButtonLabel>
         </Button>
       }
     </div>

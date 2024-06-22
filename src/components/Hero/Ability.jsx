@@ -6,6 +6,7 @@ import ReactTooltip from 'react-tooltip';
 
 import constants from '../constants';
 import AbilityTooltip from '../AbilityTooltip';
+import config from '../../config';
 
 const Wrapper = styled.div`
   background: linear-gradient(to bottom, ${constants.colorBlueMuted}, ${constants.primarySurfaceColor});
@@ -59,7 +60,7 @@ const Ability = (props) => {
 
   return (
     <Wrapper data-tip data-for={ttId}>
-      <AbilityIcon src={process.env.REACT_APP_IMAGE_CDN + props.img} />
+      <AbilityIcon src={config.VITE_IMAGE_CDN + props.img} />
       {(showMana) && <AbilityManaComsumption>{manaString}</AbilityManaComsumption>}
       <ReactTooltip id={ttId} effect="solid" place="bottom">
         <AbilityTooltip ability={props} />

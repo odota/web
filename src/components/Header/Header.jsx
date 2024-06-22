@@ -17,14 +17,14 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { GITHUB_REPO } from '../../config';
+import config from '../../config';
 import AccountWidget from '../AccountWidget';
 import AppLogo from '../App/AppLogo';
 import constants from '../constants';
 import LocalizationMenu from '../Localization';
 import SearchForm from '../Search/SearchForm';
 
-const REPORT_BUG_PATH = `//github.com/${GITHUB_REPO}/issues`;
+const REPORT_BUG_PATH = `//github.com/${config.GITHUB_REPO}/issues`;
 
 const VerticalAlignToolbar = styled(ToolbarGroup)`
   display: flex;
@@ -47,12 +47,15 @@ const TabContainer = styled.div`
   margin: 0 12px;
   text-align: center;
   position: relative;
+  line-height: 1;
+
+  @media only screen and (max-width: 1500px) {
+    display: none;
+  }
 `;
 
 const AppLogoWrapper = styled.div`
-  @media screen and (max-width: 800px) {
-    display: none;
-  }
+  line-height: 1;
 `;
 
 const DropdownMenu = styled(Menu)`
@@ -111,7 +114,7 @@ const DrawerLink = styled(Link)`
 
    & li:hover {
       background-color: rgba(0, 0, 0, 0.08);
-      transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; 
+      transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
 `;
 
@@ -164,6 +167,10 @@ const SettingsGroup = ({ children }) => {
 
 const MenuButtonWrapper = styled.div`
   margin-right: 12px;
+
+  @media only screen and (min-width: 1500px) {
+    display: none;
+  }
 `;
 
 const LogoGroup = ({ onMenuClick }) => (
@@ -217,7 +224,7 @@ ReportBug.propTypes = {
 const LogOut = ({ strings }) => (
   <DropdownMenuItem
     component="a"
-    href={`${process.env.REACT_APP_API_HOST}/logout`}
+    href={`${config.VITE_API_HOST}/logout`}
     rel="noopener noreferrer"
   >
     <LogOutButton style={{ marginRight: 32, width: 24, height: 24 }} />
@@ -267,20 +274,6 @@ const Header = ({ location, disableSearch }) => {
       label: strings.combos,
     },
     {
-      key: 'header_api',
-      to: '/api-keys',
-      label: strings.header_api,
-    },
-    {
-      key: 'header_subscribe',
-      to: '/subscribe',
-      label: strings.header_subscribe,
-    },
-  ];
-
-  const drawerPages = [
-    ...navbarPages,
-    {
       key: 'header_distributions',
       to: '/distributions',
       label: strings.header_distributions,
@@ -291,15 +284,29 @@ const Header = ({ location, disableSearch }) => {
       label: strings.header_records,
     },
     {
-      key: 'header_meta',
-      to: '/meta',
-      label: strings.header_meta,
-    },
-    {
       key: 'header_scenarios',
       to: '/scenarios',
       label: strings.header_scenarios,
     },
+    {
+      key: 'header_api',
+      to: '/api-keys',
+      label: strings.header_api,
+    },
+    {
+      key: 'header_subscribe',
+      to: '/subscribe',
+      label: strings.header_subscribe,
+    },
+    // {
+    //   key: 'header_predictions',
+    //   to: '/predictions',
+    //   label: 'TI Predictions',
+    // },
+  ];
+
+  const drawerPages = [
+    ...navbarPages,
   ];
 
   return (
@@ -310,7 +317,7 @@ const Header = ({ location, disableSearch }) => {
           {small && <LinkGroup navbarPages={navbarPages} />}
         </VerticalAlignDiv>
         {!disableSearch && <SearchGroup />}
-        <VerticalAlignDiv style={{ marginLeft: '16px' }}>
+        <VerticalAlignDiv>
           {small && <AccountGroup />}
           <SettingsGroup>
             <LocalizationMenu />
@@ -331,8 +338,8 @@ const Header = ({ location, disableSearch }) => {
             </MenuLogoWrapper>
             <List>
               {drawerPages.map((page) => (
-                <DrawerLink 
-                  key={`drawer__${page.to}`} 
+                <DrawerLink
+                  key={`drawer__${page.to}`}
                   to={page.to}
                   onClick={() => setMenuState(false)}
                 >
@@ -352,7 +359,7 @@ const Header = ({ location, disableSearch }) => {
                   </DrawerLink>
                   <DrawerLink
                     as="a"
-                    href={`${process.env.REACT_APP_API_HOST}/logout`}
+                    href={`${config.VITE_API_HOST}/logout`}
                   >
                     <ListItem button onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_logout} />
@@ -362,7 +369,7 @@ const Header = ({ location, disableSearch }) => {
               ) : (
                 <DrawerLink
                   as="a"
-                  href={`${process.env.REACT_APP_API_HOST}/login`}
+                  href={`${config.VITE_API_HOST}/login`}
                 >
                   <ListItem button onClick={() => setMenuState(false)}>
                     <ListItemText primary={strings.app_login} />
