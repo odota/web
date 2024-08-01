@@ -153,7 +153,7 @@ class HeroFacet extends React.Component {
 
     if (!(heroID && facet)) return null;
 
-    const selectedFacet = heroAbilities[heroes[heroID].name]?.facets[facet - 1];
+    const selectedFacet = heroAbilities[heroes[heroID].name]?.facets[facet - 1] ?? {};
     const { color, gradient_id, icon, name } = selectedFacet;
 
     const imageURL = `${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/icons/facets/${icon}.png`;
