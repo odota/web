@@ -70,17 +70,16 @@ display: inline-block;
     height: 10px;
     white-space: nowrap;
 
-    object, img {
+    img {
       height: 18px;
       width: 25px;
     }
   }
   &.neutral {
-    > object, > img {
+    > img {
       height: 30px;
       width: 30px;
       border-radius: 15px;
-      object-fit: cover;
       position: relative;
       bottom: 1px;
     }
@@ -169,18 +168,23 @@ class InflictorWithValue extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { showTooltip: false };
+    this.state = { showTooltip: false, imageError: false };
   }
   setShowTooltip = () => {
     if (!this.state.showTooltip) {
       this.setState({ showTooltip: true });
     }
   };
+  setImageError = (state) => {
+    this.setState({ imageError: state });
+  }
 
   render() {
     const {
       inflictor, value, type, ptooltip, abilityId, strings, charges,
     } = this.props;
+
+    const { imageError } = this.state;
 
     const resolvedInflictor = (abilityId && abilityIds && abilityIds[abilityId]) || String(inflictor);
     if (resolvedInflictor) {
@@ -216,6 +220,8 @@ class InflictorWithValue extends React.Component {
         tooltip = ptooltip;
       }
 
+      const fallbackImage = '/assets/images/Dota2Logo.svg';
+
       return (
         <StyledDiv>
           <div
@@ -225,9 +231,17 @@ class InflictorWithValue extends React.Component {
             onMouseEnter={this.setShowTooltip}
           >
             {(!type || type === 'purchase' || type === 'backpack' || type === 'neutral') &&
-              <object data={image} height="27px" width={ability ? '27px' : '37px'} type="image/png">
-                <img src="/assets/images/Dota2Logo.svg" alt="Dota 2 Logo" style={{ filter: 'grayscale(60%)', height: '27px' }} />
-              </object>}
+              <img
+                src={imageError ? fallbackImage : image}
+                alt={imageError ? "Dota 2 Logo" : ""}
+                height="27px"
+                style={{
+                  filter: imageError ? 'grayscale(60%)' : null
+                }}
+                width={(ability || imageError) ? '27px' : '37px'}
+                onError={() => this.setImageError(true)}
+              />
+            }
             {type === 'buff' &&
               <div
                 className="buff"
