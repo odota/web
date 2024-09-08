@@ -611,7 +611,7 @@ export default (strings) => {
               null,
               null,
               null,
-              row.abilities[index - 1]
+              row.abilities?.[index - 1]
             ) || <div className="placeholder" />}
           </div>
         </StyledAbilityUpgrades>
