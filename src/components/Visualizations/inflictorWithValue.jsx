@@ -79,6 +79,7 @@ display: inline-block;
     > img {
       height: 30px;
       width: 30px;
+      object-fit: cover;
       border-radius: 15px;
       position: relative;
       bottom: 1px;
