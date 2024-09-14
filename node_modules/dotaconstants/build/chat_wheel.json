@@ -1,0 +1,3964 @@
+{
+  "0": {
+    "id": 0,
+    "name": "Ok",
+    "label": "Okay",
+    "message": "Okay."
+  },
+  "1": {
+    "id": 1,
+    "name": "Care",
+    "label": "Care",
+    "message": "Careful!"
+  },
+  "2": {
+    "id": 2,
+    "name": "GetBack",
+    "label": "Get Back",
+    "message": "Get Back!"
+  },
+  "3": {
+    "id": 3,
+    "name": "NeedWards",
+    "label": "Need Wards",
+    "message": "We need wards."
+  },
+  "4": {
+    "id": 4,
+    "name": "Stun",
+    "label": "Stun",
+    "message": "Stun now!"
+  },
+  "5": {
+    "id": 5,
+    "name": "Help",
+    "label": "Help",
+    "message": "Help!"
+  },
+  "6": {
+    "id": 6,
+    "name": "Push",
+    "label": "Push",
+    "message": "Push now"
+  },
+  "7": {
+    "id": 7,
+    "name": "GoodJob",
+    "label": "Well played",
+    "message": "Well played!"
+  },
+  "8": {
+    "id": 8,
+    "name": "Missing",
+    "label": "Missing",
+    "message": "Missing!"
+  },
+  "9": {
+    "id": 9,
+    "name": "Missing_Top",
+    "label": "Missing top",
+    "message": "Missing top!"
+  },
+  "10": {
+    "id": 10,
+    "name": "Missing_Mid",
+    "label": "Missing mid",
+    "message": "Missing mid!"
+  },
+  "11": {
+    "id": 11,
+    "name": "Missing_Bottom",
+    "label": "Missing bottom",
+    "message": "Missing bottom!"
+  },
+  "12": {
+    "id": 12,
+    "name": "Go",
+    "label": "Go!",
+    "message": "Go!"
+  },
+  "13": {
+    "id": 13,
+    "name": "Initiate",
+    "label": "Initiate!",
+    "message": "Initiate!"
+  },
+  "14": {
+    "id": 14,
+    "name": "Follow",
+    "label": "Follow me",
+    "message": "Follow me"
+  },
+  "15": {
+    "id": 15,
+    "name": "Group_Up",
+    "label": "Group up",
+    "message": "Group up"
+  },
+  "16": {
+    "id": 16,
+    "name": "Spread_Out",
+    "label": "Spread out",
+    "message": "Spread out"
+  },
+  "17": {
+    "id": 17,
+    "name": "Split_Farm",
+    "label": "Split farm",
+    "message": "Split up and farm"
+  },
+  "18": {
+    "id": 18,
+    "name": "Attack",
+    "label": "Attack now!",
+    "message": "Attack now!"
+  },
+  "19": {
+    "id": 19,
+    "name": "BRB",
+    "label": "Be right back",
+    "message": "Be right back"
+  },
+  "20": {
+    "id": 20,
+    "name": "Dive",
+    "label": "Dive!",
+    "message": "Dive!"
+  },
+  "21": {
+    "id": 21,
+    "name": "OMW",
+    "label": "On my way",
+    "message": "On my way"
+  },
+  "22": {
+    "id": 22,
+    "name": "Get_Ready",
+    "label": "Get ready",
+    "message": "Get ready"
+  },
+  "23": {
+    "id": 23,
+    "name": "Bait",
+    "label": "Bait",
+    "message": "Bait"
+  },
+  "24": {
+    "id": 24,
+    "name": "Heal",
+    "label": "Heal",
+    "message": "Heal"
+  },
+  "25": {
+    "id": 25,
+    "name": "Mana",
+    "label": "Mana",
+    "message": "Mana"
+  },
+  "26": {
+    "id": 26,
+    "name": "OOM",
+    "label": "Out of mana",
+    "message": "Out of mana"
+  },
+  "27": {
+    "id": 27,
+    "name": "Skill_Cooldown",
+    "label": "Cooldown",
+    "message": "Skills on cooldown"
+  },
+  "28": {
+    "id": 28,
+    "name": "Ulti_Ready",
+    "label": "Ultimate ready",
+    "message": "Ultimate ready"
+  },
+  "29": {
+    "id": 29,
+    "name": "Enemy_Returned",
+    "label": "Returned",
+    "message": "Enemy returned"
+  },
+  "30": {
+    "id": 30,
+    "name": "All_Missing",
+    "label": "All miss",
+    "message": "All enemy heroes missing!"
+  },
+  "31": {
+    "id": 31,
+    "name": "Enemy_Incoming",
+    "label": "Incoming",
+    "message": "Enemy incoming!"
+  },
+  "32": {
+    "id": 32,
+    "name": "Invis_Enemy",
+    "label": "Invisible enemy",
+    "message": "Invisible enemy nearby!"
+  },
+  "33": {
+    "id": 33,
+    "name": "Enemy_Had_Rune",
+    "label": "Enemy has rune",
+    "message": "Enemy has rune"
+  },
+  "34": {
+    "id": 34,
+    "name": "Split_Push",
+    "label": "Split push",
+    "message": "Split push"
+  },
+  "35": {
+    "id": 35,
+    "name": "Coming_To_Gank",
+    "label": "Coming to gank",
+    "message": "Coming to gank"
+  },
+  "36": {
+    "id": 36,
+    "name": "Request_Gank",
+    "label": "Request gank",
+    "message": "Requesting a gank"
+  },
+  "37": {
+    "id": 37,
+    "name": "Fight_Under_Tower",
+    "label": "Under tower",
+    "message": "Fight under the tower"
+  },
+  "38": {
+    "id": 38,
+    "name": "Deny_Tower",
+    "label": "Deny tower",
+    "message": "Deny the tower!"
+  },
+  "41": {
+    "id": 41,
+    "name": "Need_Detection",
+    "label": "We need detection",
+    "message": "We need detection"
+  },
+  "42": {
+    "id": 42,
+    "name": "They_Have_Detection",
+    "label": "They have detection",
+    "message": "They have detection"
+  },
+  "43": {
+    "id": 43,
+    "name": "Buy_TP",
+    "label": "Buy Town Portal Scroll",
+    "message": "Buy a Town Portal Scroll"
+  },
+  "45": {
+    "id": 45,
+    "name": "Deward",
+    "label": "Deward",
+    "message": "Deward please"
+  },
+  "46": {
+    "id": 46,
+    "name": "Building_Mek",
+    "label": "Building Mekansm",
+    "message": "Building Mekansm"
+  },
+  "47": {
+    "id": 47,
+    "name": "Building_Pipe",
+    "label": "Building Pipe of Insight",
+    "message": "Building Pipe of Insight"
+  },
+  "48": {
+    "id": 48,
+    "name": "Stack_And_Pull",
+    "label": "Stack and pull",
+    "message": "Stack and pull please"
+  },
+  "49": {
+    "id": 49,
+    "name": "Pull",
+    "label": "Pull creeps",
+    "message": "Pull creeps please"
+  },
+  "50": {
+    "id": 50,
+    "name": "Pulling",
+    "label": "Pulling creeps",
+    "message": "Pulling creeps"
+  },
+  "51": {
+    "id": 51,
+    "name": "Stack",
+    "label": "Stack neutrals",
+    "message": "Stack neutrals"
+  },
+  "52": {
+    "id": 52,
+    "name": "Jungling",
+    "label": "Jungling",
+    "message": "Jungling"
+  },
+  "53": {
+    "id": 53,
+    "name": "Roshan",
+    "label": "Roshan",
+    "message": "Roshan"
+  },
+  "54": {
+    "id": 54,
+    "name": "Affirmative",
+    "label": "Affirmative",
+    "message": "Affirmative"
+  },
+  "55": {
+    "id": 55,
+    "name": "Wait",
+    "label": "Wait",
+    "message": "Wait"
+  },
+  "56": {
+    "id": 56,
+    "name": "Pause",
+    "label": "Pause",
+    "message": "Pause please!"
+  },
+  "57": {
+    "id": 57,
+    "name": "Current_Time",
+    "label": "Current Time",
+    "message": "Current Game Time"
+  },
+  "58": {
+    "id": 58,
+    "name": "Check_Runes",
+    "label": "Check runes",
+    "message": "Check runes please"
+  },
+  "59": {
+    "id": 59,
+    "name": "Smoke_Gank",
+    "label": "Smoke gank!",
+    "message": "Let's smoke gank!"
+  },
+  "60": {
+    "id": 60,
+    "name": "GLHF",
+    "label": "Good luck",
+    "message": "Good luck, have fun"
+  },
+  "61": {
+    "id": 61,
+    "name": "Nice",
+    "label": "Nice",
+    "message": "Nice"
+  },
+  "62": {
+    "id": 62,
+    "name": "Thanks",
+    "label": "Thanks",
+    "message": "Thanks!"
+  },
+  "63": {
+    "id": 63,
+    "name": "Sorry",
+    "label": "Sorry",
+    "message": "Sorry"
+  },
+  "64": {
+    "id": 64,
+    "name": "No_Give_Up",
+    "label": "Don't give up",
+    "message": "Don't give up!"
+  },
+  "65": {
+    "id": 65,
+    "name": "Just_Happened",
+    "label": "That just happened",
+    "message": "That just happened"
+  },
+  "66": {
+    "id": 66,
+    "name": "Game_Is_Hard",
+    "label": "Game is hard",
+    "message": "Game is hard"
+  },
+  "67": {
+    "id": 67,
+    "name": "New_Meta",
+    "label": "New meta",
+    "message": "New meta"
+  },
+  "68": {
+    "id": 68,
+    "name": "My_Bad",
+    "label": "My bad",
+    "message": "My bad"
+  },
+  "69": {
+    "id": 69,
+    "name": "Regret",
+    "label": "Regret",
+    "message": "I immediately regret my decision"
+  },
+  "70": {
+    "id": 70,
+    "name": "Relax",
+    "label": "Relax",
+    "message": "Relax, you're doing fine"
+  },
+  "71": {
+    "id": 71,
+    "name": "MissingHero",
+    "label": "dota_chatwheel_label_MissingHero",
+    "message": "%s1 is missing!"
+  },
+  "72": {
+    "id": 72,
+    "name": "ReturnedHero",
+    "label": "dota_chatwheel_label_ReturnedHero",
+    "message": "%s1 has returned!"
+  },
+  "73": {
+    "id": 73,
+    "name": "GG",
+    "label": "GG",
+    "message": "Good game"
+  },
+  "74": {
+    "id": 74,
+    "name": "GGWP",
+    "label": "GGWP",
+    "message": "Good game, well played"
+  },
+  "75": {
+    "id": 75,
+    "name": "All_GG",
+    "all_chat": true,
+    "label": "GG",
+    "message": "Good game"
+  },
+  "76": {
+    "id": 76,
+    "name": "All_GGWP",
+    "all_chat": true,
+    "label": "GGWP",
+    "message": "Good game, well played"
+  },
+  "77": {
+    "id": 77,
+    "name": "What_To_Buy",
+    "label": "What should I buy?",
+    "message": "What should I buy?"
+  },
+  "78": {
+    "id": 78,
+    "name": "Im_Retreating",
+    "label": "I'm retreating",
+    "message": "I'm retreating"
+  },
+  "79": {
+    "id": 79,
+    "name": "Space_Created",
+    "label": "Space created",
+    "message": "Space created"
+  },
+  "80": {
+    "id": 80,
+    "name": "Whoops",
+    "label": "Whoops",
+    "message": "Whoops"
+  },
+  "81": {
+    "id": 81,
+    "name": "Tower_then_Back",
+    "label": "Tower then back",
+    "message": "Destroy the tower, then get back"
+  },
+  "82": {
+    "id": 82,
+    "name": "Barracks_then_Back",
+    "label": "Barracks then back",
+    "message": "Destroy the barracks, then get back"
+  },
+  "83": {
+    "id": 83,
+    "name": "Ward_Bottom_Rune",
+    "label": "Ward bot rune",
+    "message": "Ward the bottom rune"
+  },
+  "84": {
+    "id": 84,
+    "name": "Ward_Top_Rune",
+    "label": "Ward top rune",
+    "message": "Ward the top rune"
+  },
+  "85": {
+    "id": 85,
+    "name": "Zeus_Ult",
+    "label": "Zeus Ult",
+    "message": "Zeus Ult Now!"
+  },
+  "86": {
+    "id": 86,
+    "name": "Rimshot",
+    "label": "Ba-dum tishh",
+    "message": "Ba-dum tishh",
+    "sound_ext": "wav"
+  },
+  "87": {
+    "id": 87,
+    "name": "Charge",
+    "label": "Charge",
+    "message": "Charge",
+    "sound_ext": "wav"
+  },
+  "88": {
+    "id": 88,
+    "name": "Frog",
+    "label": "Frog",
+    "message": "Frog",
+    "sound_ext": "wav"
+  },
+  "89": {
+    "id": 89,
+    "name": "Crash_and_Burn",
+    "label": "Crash",
+    "message": "Crash and burn",
+    "sound_ext": "wav"
+  },
+  "90": {
+    "id": 90,
+    "name": "Applause",
+    "label": "Applause",
+    "message": "Applause",
+    "sound_ext": "wav"
+  },
+  "91": {
+    "id": 91,
+    "name": "Sad_Trombone",
+    "label": "Sad trombone",
+    "message": "Sad trombone",
+    "sound_ext": "wav"
+  },
+  "92": {
+    "id": 92,
+    "name": "Crickets",
+    "label": "Crickets",
+    "message": "Crickets",
+    "sound_ext": "wav"
+  },
+  "93": {
+    "id": 93,
+    "name": "Drum_Roll",
+    "label": "Drum roll",
+    "message": "Drum roll",
+    "sound_ext": "wav"
+  },
+  "94": {
+    "id": 94,
+    "name": "Headshake",
+    "label": "Headshake",
+    "message": "Headshake",
+    "sound_ext": "wav"
+  },
+  "95": {
+    "id": 95,
+    "name": "Crybaby",
+    "label": "Crybaby",
+    "message": "Crybaby",
+    "sound_ext": "wav"
+  },
+  "96": {
+    "id": 96,
+    "name": "Patience",
+    "label": "Patience",
+    "message": "Patience from Zhou",
+    "sound_ext": "wav"
+  },
+  "101": {
+    "id": 101,
+    "name": "Bozhe_Ti_Posmotri",
+    "label": "Что Происходит",
+    "message": "Боже, ты посмотри вокруг, что происходит!",
+    "sound_ext": "wav"
+  },
+  "111": {
+    "id": 111,
+    "name": "Day_Night_Cycle",
+    "label": "Day/Night Cycle",
+    "message": "dota_chatwheel_message_Day_Night_Cycle"
+  },
+  "112": {
+    "id": 112,
+    "name": "Thats_Playing_to_Win",
+    "label": "That's Playing to Win!",
+    "message": "That's playing to win, baby!",
+    "sound_ext": "wav"
+  },
+  "114": {
+    "id": 114,
+    "name": "Absolutely_Perfect",
+    "label": "Absolutely Perfect",
+    "message": "Absolutely Perfect",
+    "sound_ext": "wav"
+  },
+  "115": {
+    "id": 115,
+    "name": "Looking_Spicy",
+    "label": "Looking Spicy",
+    "message": "It's looking Spicy!",
+    "sound_ext": "wav"
+  },
+  "116": {
+    "id": 116,
+    "name": "No_Chill",
+    "label": "No Chill!",
+    "message": "This guy has no chill",
+    "sound_ext": "wav"
+  },
+  "117": {
+    "id": 117,
+    "name": "Lets_Play_Dota",
+    "label": "Let's Play Dota",
+    "message": "Let's Play Some Dota",
+    "sound_ext": "wav"
+  },
+  "118": {
+    "id": 118,
+    "name": "Waow",
+    "all_chat": true,
+    "label": "Waow",
+    "message": "Waow",
+    "sound_ext": "wav"
+  },
+  "119": {
+    "id": 119,
+    "name": "What_Just_Happened",
+    "label": "What Just Happened?",
+    "message": "I can't believe what we're seeing. What just happened?",
+    "sound_ext": "wav"
+  },
+  "120": {
+    "id": 120,
+    "name": "Youre_a_Hero",
+    "label": "You're a Goddamn Hero!",
+    "message": "You're a goddamn hero!",
+    "sound_ext": "wav"
+  },
+  "121": {
+    "id": 121,
+    "name": "All_Dead",
+    "label": "All Dead",
+    "message": "They're all dead!",
+    "sound_ext": "wav"
+  },
+  "122": {
+    "id": 122,
+    "name": "Ding_Ding_Ding",
+    "all_chat": true,
+    "label": "Ding Ding Ding!",
+    "message": "Ding Ding Ding Mother******",
+    "sound_ext": "wav"
+  },
+  "131": {
+    "id": 131,
+    "name": "Bockbock",
+    "label": "Bock bock",
+    "message": "Bock bock",
+    "sound_ext": "wav"
+  },
+  "132": {
+    "id": 132,
+    "name": "Kiss",
+    "label": "Kiss",
+    "message": "Kiss",
+    "sound_ext": "wav"
+  },
+  "133": {
+    "id": 133,
+    "name": "Ow",
+    "label": "Oww",
+    "message": "Oww",
+    "sound_ext": "wav"
+  },
+  "134": {
+    "id": 134,
+    "name": "Party_Horn",
+    "label": "Party horn",
+    "message": "Party horn",
+    "sound_ext": "wav"
+  },
+  "135": {
+    "id": 135,
+    "name": "Snore",
+    "label": "Snore",
+    "message": "Snore",
+    "sound_ext": "wav"
+  },
+  "136": {
+    "id": 136,
+    "name": "Yahoo",
+    "label": "Yahoo",
+    "message": "Yahoo",
+    "sound_ext": "wav"
+  },
+  "137": {
+    "id": 137,
+    "name": "Happy_Tree",
+    "image": "sprays/liltree_happy_spray_icon.png"
+  },
+  "138": {
+    "id": 138,
+    "name": "High_Five",
+    "image": "sprays/furbolg_highfive_spray_icon.png"
+  },
+  "139": {
+    "id": 139,
+    "name": "Zen",
+    "image": "sprays/monkey_zen_spray_icon.png"
+  },
+  "140": {
+    "id": 140,
+    "name": "Thumbs_Up",
+    "image": "sprays/tide_thumbsup_spray_icon.png"
+  },
+  "141": {
+    "id": 141,
+    "name": "Funny",
+    "image": "sprays/lion_xd_spray_icon.png"
+  },
+  "142": {
+    "id": 142,
+    "name": "Cry",
+    "image": "sprays/bear_cry_spray_icon.png"
+  },
+  "143": {
+    "id": 143,
+    "name": "Shrug",
+    "image": "sprays/sf_shrug_spray_icon.png"
+  },
+  "144": {
+    "id": 144,
+    "name": "Sad_Tree",
+    "image": "sprays/liltree_sad_spray_icon.png"
+  },
+  "145": {
+    "id": 145,
+    "name": "Angry",
+    "image": "sprays/lina_angry_spray_icon.png"
+  },
+  "146": {
+    "id": 146,
+    "name": "Question",
+    "image": "sprays/shaker_confus_spray_icon.png"
+  },
+  "147": {
+    "id": 147,
+    "name": "Shhh",
+    "image": "sprays/mirana_shh_spray_icon.png"
+  },
+  "148": {
+    "id": 148,
+    "name": "Nervous",
+    "image": "sprays/naturesprophet_o_o_spray_icon.png"
+  },
+  "149": {
+    "id": 149,
+    "name": "Thinking",
+    "image": "sprays/invoker_smart_spray_icon.png"
+  },
+  "150": {
+    "id": 150,
+    "name": "Just_Right",
+    "image": "sprays/pudge_nailedit_spray_icon.png"
+  },
+  "151": {
+    "id": 151,
+    "name": "Whoa",
+    "image": "sprays/monkeyking_monkeychamp_spray_icon.png"
+  },
+  "152": {
+    "id": 152,
+    "name": "Easiest_Money",
+    "all_chat": true,
+    "label": "Easiest Money",
+    "message": "Easiest money of my life!",
+    "sound_ext": "wav"
+  },
+  "153": {
+    "id": 153,
+    "name": "Echo_Slama_Jama",
+    "all_chat": true,
+    "label": "Echo Slamma Jamma",
+    "message": "Echo Slamma Jamma!",
+    "sound_ext": "wav"
+  },
+  "154": {
+    "id": 154,
+    "name": "Next_Level",
+    "all_chat": true,
+    "label": "Next Level",
+    "message": "The next level play!",
+    "sound_ext": "wav"
+  },
+  "155": {
+    "id": 155,
+    "name": "Oy_Oy_Oy",
+    "all_chat": true,
+    "label": "Oyoy oy oy",
+    "message": "Oyoy oy oy, oy, oy, oy Oy OY!",
+    "sound_ext": "wav"
+  },
+  "156": {
+    "id": 156,
+    "name": "Lakad_Matataaaag",
+    "all_chat": true,
+    "label": "Lakad Matataaaag!",
+    "message": "Lakad Matataaaag! Normalin Normalin.",
+    "sound_ext": "wav"
+  },
+  "157": {
+    "id": 157,
+    "name": "FavoriteTeam",
+    "label": "Favorite Team Spray",
+    "image": "sprays/favorite_team_%d.png"
+  },
+  "158": {
+    "id": 158,
+    "name": "Greevil_Laughter",
+    "all_chat": true,
+    "label": "Greevil Laughter",
+    "message": "Greevil Laughter",
+    "sound_ext": "wav"
+  },
+  "159": {
+    "id": 159,
+    "name": "Sparkling_Celebration",
+    "label": "Sparkling Celebration",
+    "message": "Sparkling Celebration",
+    "sound_ext": "wav"
+  },
+  "160": {
+    "id": 160,
+    "name": "Frostivus_Magic",
+    "all_chat": true,
+    "label": "Frostivus Magic",
+    "message": "Frostivus Magic",
+    "sound_ext": "wav"
+  },
+  "161": {
+    "id": 161,
+    "name": "Sleighbells",
+    "label": "Sleighbells",
+    "message": "Sleighbells",
+    "sound_ext": "wav"
+  },
+  "162": {
+    "id": 162,
+    "name": "NewBloom_Ceremonial_Drums",
+    "label": "Ceremonial Drums",
+    "message": "Ceremonial Drums",
+    "sound_ext": "wav"
+  },
+  "163": {
+    "id": 163,
+    "name": "NewBloom_Oink_Oink",
+    "label": "Oink Oink!",
+    "message": "Oink Oink!",
+    "sound_ext": "wav"
+  },
+  "164": {
+    "id": 164,
+    "name": "NewBloom_Celebratory_Gong",
+    "all_chat": true,
+    "label": "Celebratory Gong",
+    "message": "Celebratory Gong",
+    "sound_ext": "wav"
+  },
+  "165": {
+    "id": 165,
+    "name": "Kooka_Laugh",
+    "label": "Kookaburra Laugh",
+    "message": "Kookaburra Laugh",
+    "sound_ext": "wav"
+  },
+  "166": {
+    "id": 166,
+    "name": "Monkey_Business",
+    "label": "Monkey Business",
+    "message": "Monkey Business",
+    "sound_ext": "wav"
+  },
+  "167": {
+    "id": 167,
+    "name": "Orangutan_Kiss",
+    "label": "Sloppy Orangutan Kiss",
+    "message": "Sloppy Orangutan Kiss",
+    "sound_ext": "wav"
+  },
+  "168": {
+    "id": 168,
+    "name": "Mosquito_Buzz",
+    "label": "Mosquito Buzz",
+    "message": "Mosquito Buzz",
+    "sound_ext": "wav"
+  },
+  "169": {
+    "id": 169,
+    "name": "Crowd_Groan",
+    "label": "Crowd Groan",
+    "message": "Crowd Groan",
+    "sound_ext": "wav"
+  },
+  "170": {
+    "id": 170,
+    "name": "Head_Bonk",
+    "label": "Head Bonk",
+    "message": "Head Bonk",
+    "sound_ext": "wav"
+  },
+  "171": {
+    "id": 171,
+    "name": "Record_Scratch",
+    "label": "Record Scratch",
+    "message": "Record Scratch",
+    "sound_ext": "wav"
+  },
+  "172": {
+    "id": 172,
+    "name": "Ta_Daaaaaa",
+    "label": "Ta Daaaaaa",
+    "message": "Ta Daaaaaa",
+    "sound_ext": "wav"
+  },
+  "173": {
+    "id": 173,
+    "name": "Ay_Ay_Ay",
+    "label": "Ай-ай-ай-ай-ай",
+    "message": "Ай-ай-ай-ай-ай, что сейчас произошло",
+    "sound_ext": "wav"
+  },
+  "174": {
+    "id": 174,
+    "name": "Ehto_G_G",
+    "label": "Это ГГ",
+    "message": "Это ГГ",
+    "sound_ext": "wav"
+  },
+  "175": {
+    "id": 175,
+    "name": "Oy_Oy_Bezhat",
+    "label": "Ой-ой-ой-ой-ой, бежать!",
+    "message": "Ой-ой-ой-ой-ой, бежать!",
+    "sound_ext": "wav"
+  },
+  "176": {
+    "id": 176,
+    "name": "Eto_Sochno",
+    "all_chat": true,
+    "label": "Как же это сочно, ах!",
+    "message": "Как же это сочно, ах!",
+    "sound_ext": "wav"
+  },
+  "177": {
+    "id": 177,
+    "name": "Da_Da_Da_Nyet",
+    "all_chat": true,
+    "label": "Да? Да? Да? Нет.",
+    "message": "Да? Да? Да? Нет.",
+    "sound_ext": "wav"
+  },
+  "178": {
+    "id": 178,
+    "name": "Wot_Eto_Bru",
+    "label": "Вот Это Врыв!",
+    "message": "Вот Это Врыв!",
+    "sound_ext": "wav"
+  },
+  "179": {
+    "id": 179,
+    "name": "Kreasa_Kreasa",
+    "label": "Резать Резать Резать Резать",
+    "message": "Резать Резать Резать Резать",
+    "sound_ext": "wav"
+  },
+  "180": {
+    "id": 180,
+    "name": "Eto_Nenormalno",
+    "label": "Это ненормально, это нечестно!",
+    "message": "Это ненормально, это нечестно!",
+    "sound_ext": "wav"
+  },
+  "181": {
+    "id": 181,
+    "name": "Krasavchik",
+    "label": "Красавчик!",
+    "message": "Красавчик!",
+    "sound_ext": "wav"
+  },
+  "182": {
+    "id": 182,
+    "name": "Eto_Prosto_Netchto",
+    "all_chat": true,
+    "label": "Это. Просто. Нечто.",
+    "message": "Это. Просто. Нечто.",
+    "sound_ext": "wav"
+  },
+  "183": {
+    "id": 183,
+    "name": "Zhil_Do_Konsta",
+    "label": "Как Герой",
+    "message": "Жил до конца, умер как герой",
+    "sound_ext": "wav"
+  },
+  "190": {
+    "id": 190,
+    "name": "Goodness_Gracious",
+    "all_chat": true,
+    "label": "Goodness Gracious",
+    "message": "Sir Chief. Goodness Gracious Papable.",
+    "sound_ext": "wav"
+  },
+  "191": {
+    "id": 191,
+    "name": "Nakupuuu",
+    "all_chat": true,
+    "label": "NAKUPUU",
+    "message": "NAKUPUU",
+    "sound_ext": "wav"
+  },
+  "192": {
+    "id": 192,
+    "name": "Whats_Cooking",
+    "all_chat": true,
+    "label": "What's Cooking",
+    "message": "You know what's cooking? BOOM!",
+    "sound_ext": "wav"
+  },
+  "193": {
+    "id": 193,
+    "name": "Eughahaha_Aah_Ha_Ha_Ha_Ha",
+    "all_chat": true,
+    "label": "Eughahaha Aah Ha Ha Ha Ha",
+    "message": "Eughahaha Aah Ha Ha Ha Ha",
+    "sound_ext": "wav"
+  },
+  "194": {
+    "id": 194,
+    "name": "TI9_GlaDOS_Estimate_99",
+    "all_chat": true,
+    "label": "99% Probability of Winning.",
+    "message": "99% Probability of Winning.",
+    "sound_ext": "wav"
+  },
+  "195": {
+    "id": 195,
+    "name": "TI9_GlaDOS_Disappointed",
+    "label": "I'm Just Disappointed",
+    "message": "I'm not angry, I'm Just Disappointed",
+    "sound_ext": "wav"
+  },
+  "196": {
+    "id": 196,
+    "name": "TI9_GlaDOS_Estimate_1",
+    "all_chat": true,
+    "label": "1% Probability of Winning.",
+    "message": "1% Probability of Winning.",
+    "sound_ext": "wav"
+  },
+  "197": {
+    "id": 197,
+    "name": "TI9_GlaDOS_Estimate_17",
+    "all_chat": true,
+    "label": "17% Probability of Winning.",
+    "message": "17% Probability of Winning.",
+    "sound_ext": "wav"
+  },
+  "199": {
+    "id": 199,
+    "name": "TI9_GlaDOS_Excellent_Work",
+    "all_chat": true,
+    "label": "Excellent Work",
+    "message": "Once again, excellent work",
+    "sound_ext": "wav"
+  },
+  "200": {
+    "id": 200,
+    "name": "TI9_GlaDOS_The_Point",
+    "all_chat": true,
+    "label": "The Point",
+    "message": "I'm not sure what the point of that was",
+    "sound_ext": "wav"
+  },
+  "202": {
+    "id": 202,
+    "name": "Commend_This_Man",
+    "label": "Commend this man",
+    "message": "Commend this man, immediately.",
+    "sound_ext": "wav"
+  },
+  "203": {
+    "id": 203,
+    "name": "Slacks_OMG",
+    "all_chat": true,
+    "label": "Oh My God",
+    "message": "Oh My God! Never in all my years as a caster",
+    "sound_ext": "wav"
+  },
+  "204": {
+    "id": 204,
+    "name": "TI9_GlaDOS_That_Happened",
+    "all_chat": true,
+    "label": "That Just Happened",
+    "message": "That Just Happened",
+    "sound_ext": "wav"
+  },
+  "211": {
+    "id": 211,
+    "name": "Ni_Qi_Bu_Qi",
+    "all_chat": true,
+    "label": "你气不气?",
+    "message": "你气不气?",
+    "sound_ext": "wav"
+  },
+  "212": {
+    "id": 212,
+    "name": "Zai_Jian_Le_Bao_Bei",
+    "all_chat": true,
+    "label": "再见了宝贝儿！",
+    "message": "再见了宝贝儿！",
+    "sound_ext": "wav"
+  },
+  "213": {
+    "id": 213,
+    "name": "Duiyou_Ne",
+    "all_chat": true,
+    "label": "队友呢？",
+    "message": "啊，队友呢？队友呢？队友呢？！ 队友呢？！？！",
+    "sound_ext": "wav"
+  },
+  "214": {
+    "id": 214,
+    "name": "Piao_Liang",
+    "label": "漂~ 亮！",
+    "message": "漂~ 亮！",
+    "sound_ext": "wav"
+  },
+  "215": {
+    "id": 215,
+    "name": "Tian_Huo",
+    "label": "天火！",
+    "message": "天火！",
+    "sound_ext": "wav"
+  },
+  "216": {
+    "id": 216,
+    "name": "Gan_Ma_Ne_Xiong_Di",
+    "label": "干嘛呢兄弟",
+    "message": "干嘛呢兄弟",
+    "sound_ext": "wav"
+  },
+  "217": {
+    "id": 217,
+    "name": "Lian_Dou_Xiu_Wai_La",
+    "label": "脸都秀歪啦",
+    "message": "脸都秀歪啦",
+    "sound_ext": "wav"
+  },
+  "218": {
+    "id": 218,
+    "name": "Liu_Liu_Liu",
+    "label": "这波不亏, 666",
+    "message": "这波不亏, 666",
+    "sound_ext": "wav"
+  },
+  "219": {
+    "id": 219,
+    "name": "Jia_You",
+    "label": "加油！",
+    "message": "加油！",
+    "sound_ext": "wav"
+  },
+  "220": {
+    "id": 220,
+    "name": "Zou_Hao_Bu_Song",
+    "all_chat": true,
+    "label": "走好，不送",
+    "message": "走好，不送",
+    "sound_ext": "wav"
+  },
+  "221": {
+    "id": 221,
+    "name": "Wan_Bu_Liao_La",
+    "label": "玩不了啦！",
+    "message": "玩不了啦！",
+    "sound_ext": "wav"
+  },
+  "224": {
+    "id": 224,
+    "name": "Kor_Yes_No",
+    "all_chat": true,
+    "label": "네, 노, 네, 노 노 노!",
+    "message": "네, 노, 네, 노 노 노!",
+    "sound_ext": "wav"
+  },
+  "225": {
+    "id": 225,
+    "name": "Kor_Scan",
+    "all_chat": true,
+    "label": "스캔",
+    "message": "스캔 돌려야 되요 따라란따란따라라라란 스캔 돌려야 된다고요!",
+    "sound_ext": "wav"
+  },
+  "226": {
+    "id": 226,
+    "name": "Kor_Immortality",
+    "all_chat": true,
+    "label": "Immortality",
+    "message": "Mommy! I got me! Immortality!",
+    "sound_ext": "wav"
+  },
+  "227": {
+    "id": 227,
+    "name": "Kor_Yolo",
+    "all_chat": true,
+    "label": "Yolo",
+    "message": "골드 부활 못 해! YOLO! 골드 부활 못 해! YOLO!",
+    "sound_ext": "wav"
+  },
+  "228": {
+    "id": 228,
+    "name": "Kor_House",
+    "all_chat": true,
+    "label": "10억짜리 꿈의 고리! 15억짜리 꿈의 고리!",
+    "message": "10억짜리 꿈의 고리! 15억짜리 꿈의 고리!",
+    "sound_ext": "wav"
+  },
+  "229": {
+    "id": 229,
+    "name": "Kor_Roshan",
+    "label": "Roshan! Roshan! Roshan!",
+    "message": "Roshan! Roshan! Roshan!",
+    "sound_ext": "wav"
+  },
+  "230": {
+    "id": 230,
+    "name": "TI10_Ceeeb",
+    "all_chat": true,
+    "label": "Ceeeb",
+    "message": "Ceeeb",
+    "sound_ext": "wav"
+  },
+  "231": {
+    "id": 231,
+    "name": "Negative",
+    "label": "Negative",
+    "message": "Negative"
+  },
+  "232": {
+    "id": 232,
+    "name": "Not_Yet",
+    "label": "Not Yet",
+    "message": "Not Yet"
+  },
+  "233": {
+    "id": 233,
+    "name": "HappyPenguin",
+    "all_chat": true,
+    "label": "Happy Penguin",
+    "message": "Happy Penguin",
+    "sound_ext": "wav"
+  },
+  "234": {
+    "id": 234,
+    "name": "NewBloom_Firecrackers",
+    "label": "Firecrackers!",
+    "message": "Pop pop pop!",
+    "sound_ext": "wav"
+  },
+  "235": {
+    "id": 235,
+    "name": "TI10_Spray_1",
+    "image": "sprays/ti10_grimstroke_happytree_icon.png"
+  },
+  "236": {
+    "id": 236,
+    "name": "TI10_Spray_2",
+    "image": "sprays/ti10_jugg_icon.png"
+  },
+  "237": {
+    "id": 237,
+    "name": "TI10_Spray_3",
+    "image": "sprays/ti10_mars_fightme_icon.png"
+  },
+  "238": {
+    "id": 238,
+    "name": "TI10_Spray_4",
+    "image": "sprays/ti10_morphling_icon.png"
+  },
+  "239": {
+    "id": 239,
+    "name": "TI10_Spray_5",
+    "image": "sprays/ti10_ogre_think_icon.png"
+  },
+  "240": {
+    "id": 240,
+    "name": "TI10_Spray_6",
+    "image": "sprays/ti10_rubick_icon.png"
+  },
+  "241": {
+    "id": 241,
+    "name": "TI10_Spray_7",
+    "image": "sprays/ti10_sven_icon.png"
+  },
+  "242": {
+    "id": 242,
+    "name": "TI10_Spray_8",
+    "image": "sprays/ti10_techies_barrel_icon.png"
+  },
+  "243": {
+    "id": 243,
+    "name": "TI10_Spray_9",
+    "image": "sprays/ti10_wisp_strong_icon.png"
+  },
+  "244": {
+    "id": 244,
+    "name": "TI10_Spray_10",
+    "image": "sprays/ti10_wraithking_cdi_icon.png"
+  },
+  "245": {
+    "id": 245,
+    "name": "TI10_Spray_11",
+    "image": "sprays/ti10_chicken_icon.png"
+  },
+  "246": {
+    "id": 246,
+    "name": "TI10_Spray_12",
+    "image": "sprays/ti10_darkwillow_wow_icon.png"
+  },
+  "247": {
+    "id": 247,
+    "name": "TI10_Spray_13",
+    "image": "sprays/ti10_invoker_sunstrike_icon.png"
+  },
+  "248": {
+    "id": 248,
+    "name": "TI10_Spray_14",
+    "image": "sprays/ti10_jakiro_icon.png"
+  },
+  "249": {
+    "id": 249,
+    "name": "TI10_Spray_15",
+    "image": "sprays/ti10_np_popcorn_icon.png"
+  },
+  "250": {
+    "id": 250,
+    "name": "TI10_Spray_16",
+    "image": "sprays/ti10_roshan_cheese_icon.png"
+  },
+  "251": {
+    "id": 251,
+    "name": "TI10_Spray_17",
+    "image": "sprays/ti10_snapfire_cookie_icon.png"
+  },
+  "252": {
+    "id": 252,
+    "name": "TI10_Spray_18",
+    "image": "sprays/ti10_kotl_mana_icon.png"
+  },
+  "253": {
+    "id": 253,
+    "name": "TI10_Spray_19",
+    "image": "sprays/ti10_undying_rip_icon.png"
+  },
+  "254": {
+    "id": 254,
+    "name": "TI10_Spray_20",
+    "image": "sprays/ti10_troll_loser_icon.png"
+  },
+  "255": {
+    "id": 255,
+    "name": "Boing",
+    "label": "Boing",
+    "message": "Boing",
+    "sound_ext": "wav"
+  },
+  "256": {
+    "id": 256,
+    "name": "Moo",
+    "label": "Moo",
+    "message": "Moo",
+    "sound_ext": "wav"
+  },
+  "257": {
+    "id": 257,
+    "name": "Orc_Hit",
+    "label": "Orchestra Hit",
+    "message": "Orchestra Hit",
+    "sound_ext": "wav"
+  },
+  "258": {
+    "id": 258,
+    "name": "HeeHaw",
+    "label": "Heehaw",
+    "message": "Heehaw",
+    "sound_ext": "wav"
+  },
+  "259": {
+    "id": 259,
+    "name": "Oops",
+    "label": "Oops",
+    "message": "Oops",
+    "sound_ext": "wav"
+  },
+  "260": {
+    "id": 260,
+    "name": "WoopWoo",
+    "label": "WoopWoo",
+    "message": "WoopWoo",
+    "sound_ext": "wav"
+  },
+  "263": {
+    "id": 263,
+    "name": "Holy_Moly",
+    "label": "Holy Moly!",
+    "message": "Holy Moly!",
+    "sound_ext": "wav"
+  },
+  "264": {
+    "id": 264,
+    "name": "Takaya_Haliava",
+    "label": "Такая халява!",
+    "message": "Такая халява...Ха!",
+    "sound_ext": "wav"
+  },
+  "265": {
+    "id": 265,
+    "name": "wo_shi_yi",
+    "label": "我是一个没有感情的刷钱机器",
+    "message": "我是一个没有感情的刷钱机器",
+    "sound_ext": "wav"
+  },
+  "266": {
+    "id": 266,
+    "name": "Oh_My_God_What",
+    "label": "Oh My God. What?",
+    "message": "Oh my god. What? Oh! Oh!",
+    "sound_ext": "wav"
+  },
+  "267": {
+    "id": 267,
+    "name": "Aaah_Aaah_Chto",
+    "label": "А? Что?!",
+    "message": "Ё! А? А? Что?!",
+    "sound_ext": "wav"
+  },
+  "268": {
+    "id": 268,
+    "name": "ni_xing_ni",
+    "label": "你行你行，你上你上",
+    "message": "你行你行，你上你上",
+    "sound_ext": "wav"
+  },
+  "269": {
+    "id": 269,
+    "name": "Coming_Through",
+    "label": "Coming Through",
+    "message": "Coming through with the wooooo",
+    "sound_ext": "wav"
+  },
+  "270": {
+    "id": 270,
+    "name": "A_Net_Net_Da",
+    "label": "Нет нет ДА!",
+    "message": "А нет, нет, ДА!",
+    "sound_ext": "wav"
+  },
+  "271": {
+    "id": 271,
+    "name": "hui_tian_mie",
+    "label": "毁天灭地, NICE啊！",
+    "message": "毁天灭地, NICE啊！",
+    "sound_ext": "wav"
+  },
+  "272": {
+    "id": 272,
+    "name": "What_The_F_Just_Happened",
+    "all_chat": true,
+    "label": "What the **** Just Happened",
+    "message": "What the **** just happened?",
+    "sound_ext": "wav"
+  },
+  "273": {
+    "id": 273,
+    "name": "Eto_Takaya_Dushka",
+    "all_chat": true,
+    "label": "Это такая душка!",
+    "message": "Ух, это такая душка!",
+    "sound_ext": "wav"
+  },
+  "274": {
+    "id": 274,
+    "name": "lai_ni_da",
+    "all_chat": true,
+    "label": "来，你打我呀！",
+    "message": "来，你打我呀！",
+    "sound_ext": "wav"
+  },
+  "275": {
+    "id": 275,
+    "name": "See_You_Later_Nerds",
+    "all_chat": true,
+    "label": "See You Later Nerds",
+    "message": "See you later nerds",
+    "sound_ext": "wav"
+  },
+  "276": {
+    "id": 276,
+    "name": "Chto_Eto_Kakaya_Zhest",
+    "all_chat": true,
+    "label": "Какая Жесть!",
+    "message": "Что это?! Какая жесть!",
+    "sound_ext": "wav"
+  },
+  "277": {
+    "id": 277,
+    "name": "tiao_zou_le",
+    "all_chat": true,
+    "label": "跳走了",
+    "message": "跳走了",
+    "sound_ext": "wav"
+  },
+  "278": {
+    "id": 278,
+    "name": "Nothing_That_Can_Stop_This_Man",
+    "all_chat": true,
+    "label": "Nothing Can Stop This Man",
+    "message": "There is nothing that can stop this man",
+    "sound_ext": "wav"
+  },
+  "279": {
+    "id": 279,
+    "name": "A_Nu_Ka_Idi_Suda",
+    "all_chat": true,
+    "label": "Иди-ка сюда",
+    "message": "А ну-ка иди-ка сюда. А вот все. Все.",
+    "sound_ext": "wav"
+  },
+  "280": {
+    "id": 280,
+    "name": "ay_ay_ay_cn",
+    "all_chat": true,
+    "label": "唉唉唉！唉？唉 …",
+    "message": "唉唉唉！唉？唉 …",
+    "sound_ext": "wav"
+  },
+  "281": {
+    "id": 281,
+    "name": "TI10EventGameReward1",
+    "all_chat": true,
+    "label": "Let us skirmish!",
+    "message": "Friends, let us skirmish!",
+    "sound_ext": "wav"
+  },
+  "282": {
+    "id": 282,
+    "name": "TI10EventGameReward2",
+    "all_chat": true,
+    "label": "...Sadness that you're gone.",
+    "message": "I admit nothing but my sadness that you're gone.",
+    "sound_ext": "wav"
+  },
+  "283": {
+    "id": 283,
+    "name": "TI10EventGameReward3",
+    "all_chat": true,
+    "label": "The Ol' Razzle-Dazzle!",
+    "message": "Now for the ol' razzle-dazzle!",
+    "sound_ext": "wav"
+  },
+  "284": {
+    "id": 284,
+    "name": "TI10EventGameReward4",
+    "all_chat": true,
+    "label": "BOCK BOCK BOCK!",
+    "message": "BOCK BOCK BOCK! That is what you sound like!",
+    "sound_ext": "wav"
+  },
+  "285": {
+    "id": 285,
+    "name": "TI10EventGameReward5",
+    "all_chat": true,
+    "label": "Ahh ha ha ha hoo, let's do this!",
+    "message": "Ahhhh ha ha ha ha ha ha ha ha hoo, let's do this!",
+    "sound_ext": "wav"
+  },
+  "287": {
+    "id": 287,
+    "name": "Black_Cat",
+    "all_chat": true,
+    "label": "Black Cat",
+    "message": "Meow!!",
+    "sound_ext": "wav"
+  },
+  "288": {
+    "id": 288,
+    "name": "Ghost",
+    "all_chat": true,
+    "label": "Ghost",
+    "message": "Boooooo!",
+    "sound_ext": "wav"
+  },
+  "289": {
+    "id": 289,
+    "name": "Nightmare",
+    "all_chat": true,
+    "label": "Nightmare",
+    "message": "*Nightmare Noises*",
+    "sound_ext": "wav"
+  },
+  "290": {
+    "id": 290,
+    "name": "Scream",
+    "all_chat": true,
+    "label": "Scream",
+    "message": "Eeeeeeek!!",
+    "sound_ext": "wav"
+  },
+  "291": {
+    "id": 291,
+    "name": "Stabby",
+    "all_chat": true,
+    "label": "Stabby",
+    "message": "*Violin Stabs*",
+    "sound_ext": "wav"
+  },
+  "292": {
+    "id": 292,
+    "name": "Laugh",
+    "all_chat": true,
+    "label": "Laugh",
+    "message": "Mwahahahaha!",
+    "sound_ext": "wav"
+  },
+  "293": {
+    "id": 293,
+    "name": "Diretide_Spray_1",
+    "image": "sprays/diretide_apple.png"
+  },
+  "294": {
+    "id": 294,
+    "name": "Diretide_Spray_2",
+    "image": "sprays/diretide_boo.png"
+  },
+  "295": {
+    "id": 295,
+    "name": "Diretide_Spray_3",
+    "image": "sprays/diretide_brood.png"
+  },
+  "296": {
+    "id": 296,
+    "name": "Diretide_Spray_4",
+    "image": "sprays/diretide_bs.png"
+  },
+  "297": {
+    "id": 297,
+    "name": "Diretide_Spray_5",
+    "image": "sprays/diretide_cat.png"
+  },
+  "298": {
+    "id": 298,
+    "name": "Diretide_Spray_6",
+    "image": "sprays/diretide_dp.png"
+  },
+  "299": {
+    "id": 299,
+    "name": "Diretide_Spray_7",
+    "image": "sprays/diretide_gummy.png"
+  },
+  "300": {
+    "id": 300,
+    "name": "Guild_Question",
+    "image": "sprays/shaker_confus_spray_icon.png"
+  },
+  "301": {
+    "id": 301,
+    "name": "Guild_Just_Right",
+    "image": "sprays/pudge_nailedit_spray_icon.png"
+  },
+  "302": {
+    "id": 302,
+    "name": "Guild_TI10_Spray_13",
+    "image": "sprays/ti10_invoker_sunstrike_icon.png"
+  },
+  "303": {
+    "id": 303,
+    "name": "Guild_Lakad_Matataaaag",
+    "all_chat": true,
+    "label": "Lakad Matataaaag!",
+    "message": "Lakad Matataaaag! Normalin Normalin.",
+    "sound_ext": "wav"
+  },
+  "304": {
+    "id": 304,
+    "name": "Guild_Kor_Yolo",
+    "all_chat": true,
+    "label": "Yolo",
+    "message": "골드 부활 못 해! YOLO! 골드 부활 못 해! YOLO!",
+    "sound_ext": "wav"
+  },
+  "305": {
+    "id": 305,
+    "name": "Guild_Eto_Prosto_Netchto",
+    "all_chat": true,
+    "label": "Это. Просто. Нечто.",
+    "message": "Это. Просто. Нечто.",
+    "sound_ext": "wav"
+  },
+  "306": {
+    "id": 306,
+    "name": "Diretide_Spray_8",
+    "image": "sprays/diretide_lycan.png"
+  },
+  "307": {
+    "id": 307,
+    "name": "Diretide_Spray_9",
+    "image": "sprays/diretide_roshan.png"
+  },
+  "308": {
+    "id": 308,
+    "name": "Diretide_Spray_10",
+    "image": "sprays/diretide_taffy.png"
+  },
+  "309": {
+    "id": 309,
+    "name": "Candy_From_A_Baby",
+    "all_chat": true,
+    "label": "Like Stealing Candy",
+    "message": "Like stealing candy from a baby. A no longer living baby.",
+    "sound_ext": "wav"
+  },
+  "310": {
+    "id": 310,
+    "name": "Moon_Drives_You",
+    "all_chat": true,
+    "label": "The Moon Drives You",
+    "message": "The moon drives you to delirium!",
+    "sound_ext": "wav"
+  },
+  "311": {
+    "id": 311,
+    "name": "One_by_One",
+    "all_chat": true,
+    "label": "One By One",
+    "message": "One by one they fall!",
+    "sound_ext": "wav"
+  },
+  "312": {
+    "id": 312,
+    "name": "Celebrate",
+    "all_chat": true,
+    "label": "Celebrate!",
+    "message": "Celebrate in the mad moon light!",
+    "sound_ext": "wav"
+  },
+  "313": {
+    "id": 313,
+    "name": "Something_Dire",
+    "all_chat": true,
+    "label": "Something Dire...",
+    "message": "Something dire this way comes.",
+    "sound_ext": "wav"
+  },
+  "314": {
+    "id": 314,
+    "name": "Woods_Begin",
+    "all_chat": true,
+    "label": "The Woods Begin",
+    "message": "The woods begin to stir!",
+    "sound_ext": "wav"
+  },
+  "315": {
+    "id": 315,
+    "name": "Reap_Your_Harvest",
+    "all_chat": true,
+    "label": "Reap Your Harvest",
+    "message": "Reap your harvest and protect your soul!",
+    "sound_ext": "wav"
+  },
+  "316": {
+    "id": 316,
+    "name": "Guild_Next_Level",
+    "all_chat": true,
+    "label": "Next Level",
+    "message": "The next level play!",
+    "sound_ext": "wav"
+  },
+  "317": {
+    "id": 317,
+    "name": "Guild_Duiyou_Ne",
+    "all_chat": true,
+    "label": "队友呢？",
+    "message": "啊，队友呢？队友呢？队友呢？！ 队友呢？！？！",
+    "sound_ext": "wav"
+  },
+  "318": {
+    "id": 318,
+    "name": "Guild_Ay_Ay_Ay",
+    "all_chat": true,
+    "label": "Ай-ай-ай-ай-ай",
+    "message": "Ай-ай-ай-ай-ай, что сейчас произошло",
+    "sound_ext": "wav"
+  },
+  "319": {
+    "id": 319,
+    "name": "Guild_Happy_Tree",
+    "image": "sprays/liltree_happy_spray_icon.png"
+  },
+  "320": {
+    "id": 320,
+    "name": "Guild_TI9_Earthshaker_Dunk",
+    "image": "sprays/ti9_earthshaker_dunk_icon.png"
+  },
+  "321": {
+    "id": 321,
+    "name": "Guild_TI10_Spray_11",
+    "image": "sprays/ti10_chicken_icon.png"
+  },
+  "322": {
+    "id": 322,
+    "name": "Guild_Looking_Spicy",
+    "all_chat": true,
+    "label": "Looking Spicy",
+    "message": "It's looking Spicy!",
+    "sound_ext": "wav"
+  },
+  "323": {
+    "id": 323,
+    "name": "Guild_ay_ay_ay_cn",
+    "all_chat": true,
+    "label": "唉唉唉！唉？唉 …",
+    "message": "唉唉唉！唉？唉 …",
+    "sound_ext": "wav"
+  },
+  "324": {
+    "id": 324,
+    "name": "Guild_Ehto_G_G",
+    "all_chat": true,
+    "label": "Это ГГ",
+    "message": "Это ГГ",
+    "sound_ext": "wav"
+  },
+  "325": {
+    "id": 325,
+    "name": "Guild_TI9_Wyvern_Kiss",
+    "image": "sprays/ti9_wyvern_kiss_icon.png"
+  },
+  "326": {
+    "id": 326,
+    "name": "Guild_TI9_Monkeyking_Bananaphone",
+    "image": "sprays/ti9_monkeyking_bananaphone_icon.png"
+  },
+  "327": {
+    "id": 327,
+    "name": "Guild_Zen",
+    "image": "sprays/monkey_zen_spray_icon.png"
+  },
+  "328": {
+    "id": 328,
+    "name": "Guild_What_Just_Happened",
+    "all_chat": true,
+    "label": "What Just Happened?",
+    "message": "I can't believe what we're seeing. What just happened?",
+    "sound_ext": "wav"
+  },
+  "329": {
+    "id": 329,
+    "name": "Guild_A_Net_Net_Da",
+    "all_chat": true,
+    "label": "Нет нет ДА!",
+    "message": "А нет, нет, ДА!",
+    "sound_ext": "wav"
+  },
+  "330": {
+    "id": 330,
+    "name": "Guild_Ni_Qi_Bu_Qi",
+    "all_chat": true,
+    "label": "你气不气?",
+    "message": "你气不气?",
+    "sound_ext": "wav"
+  },
+  "331": {
+    "id": 331,
+    "name": "Guild_TI9_AA_Icecream",
+    "image": "sprays/ti9_aa_icecream_icon.png"
+  },
+  "332": {
+    "id": 332,
+    "name": "Guild_Sad_Tree",
+    "image": "sprays/liltree_sad_spray_icon.png"
+  },
+  "333": {
+    "id": 333,
+    "name": "Guild_TI9_Skywrath_Dunno",
+    "image": "sprays/ti9_skywrath_dunno_icon.png"
+  },
+  "334": {
+    "id": 334,
+    "name": "ti11_alchemist",
+    "image": "sprays/ti11_alchemist_icon.png"
+  },
+  "335": {
+    "id": 335,
+    "name": "ti11_arc_warden",
+    "image": "sprays/ti11_arc_warden_icon.png"
+  },
+  "336": {
+    "id": 336,
+    "name": "ti11_brewmaster",
+    "image": "sprays/ti11_brewmaster_icon.png"
+  },
+  "337": {
+    "id": 337,
+    "name": "ti11_darkseer_1",
+    "image": "sprays/ti11_darkseer_1_icon.png"
+  },
+  "338": {
+    "id": 338,
+    "name": "ti11_doomzeus",
+    "image": "sprays/ti11_doomzeus_icon.png"
+  },
+  "339": {
+    "id": 339,
+    "name": "ti11_hoodwink",
+    "image": "sprays/ti11_hoodwink_icon.png"
+  },
+  "340": {
+    "id": 340,
+    "name": "ti11_lich",
+    "image": "sprays/ti11_lich_icon.png"
+  },
+  "341": {
+    "id": 341,
+    "name": "ti11_necrophos",
+    "image": "sprays/ti11_necrophos_icon.png"
+  },
+  "342": {
+    "id": 342,
+    "name": "ti11_pangolier",
+    "image": "sprays/ti11_pangolier_icon.png"
+  },
+  "343": {
+    "id": 343,
+    "name": "ti11_phantom_assassin",
+    "image": "sprays/ti11_phantom_assassin_icon.png"
+  },
+  "344": {
+    "id": 344,
+    "name": "ti11_phantom_lancer",
+    "image": "sprays/ti11_phantom_lancer_icon.png"
+  },
+  "345": {
+    "id": 345,
+    "name": "ti11_pudge",
+    "image": "sprays/ti11_pudge_icon.png"
+  },
+  "346": {
+    "id": 346,
+    "name": "ti11_shadow_demon",
+    "image": "sprays/ti11_shadow_demon_icon.png"
+  },
+  "347": {
+    "id": 347,
+    "name": "ti11_shadow_shaman",
+    "image": "sprays/ti11_shadow_shaman_icon.png"
+  },
+  "348": {
+    "id": 348,
+    "name": "ti11_shopkeeper",
+    "image": "sprays/ti11_shopkeeper_icon.png"
+  },
+  "349": {
+    "id": 349,
+    "name": "ti11_spectre",
+    "image": "sprays/ti11_spectre_icon.png"
+  },
+  "350": {
+    "id": 350,
+    "name": "Guild_ti11_Tusk",
+    "image": "sprays/ti11_tusk_icon.png"
+  },
+  "351": {
+    "id": 351,
+    "name": "Guild_ti11_Visage",
+    "image": "sprays/ti11_visage_icon.png"
+  },
+  "352": {
+    "id": 352,
+    "name": "Guild_ti11_Void_Spirit",
+    "image": "sprays/ti11_void_spirit_icon.png"
+  },
+  "353": {
+    "id": 353,
+    "name": "sprays_hey_zeus",
+    "image": "sprays/sprays_hey_zeus_icon.psd"
+  },
+  "354": {
+    "id": 354,
+    "name": "Banjo_Charge",
+    "label": "Banjo Charge",
+    "message": "Banjo Charge",
+    "sound_ext": "wav"
+  },
+  "355": {
+    "id": 355,
+    "name": "Choo_Choo",
+    "label": "Choo Choo",
+    "message": "Choo Choo",
+    "sound_ext": "wav"
+  },
+  "356": {
+    "id": 356,
+    "name": "Gong",
+    "label": "Gong",
+    "message": "Gong",
+    "sound_ext": "wav"
+  },
+  "357": {
+    "id": 357,
+    "name": "Slide",
+    "label": "Slide",
+    "message": "Slide",
+    "sound_ext": "wav"
+  },
+  "358": {
+    "id": 358,
+    "name": "Uh_Oh",
+    "label": "Uh Oh",
+    "message": "Uh Oh",
+    "sound_ext": "wav"
+  },
+  "359": {
+    "id": 359,
+    "name": "Guild_TI9_Lion_Zap",
+    "image": "sprays/ti9_lion_zap_icon.png"
+  },
+  "360": {
+    "id": 360,
+    "name": "Guild_TI10_Morphling",
+    "image": "sprays/ti10_morphling_icon.png"
+  },
+  "361": {
+    "id": 361,
+    "name": "Guild_Furbolg_Highfive",
+    "image": "sprays/furbolg_highfive_spray_icon.png"
+  },
+  "362": {
+    "id": 362,
+    "name": "Guild_Easiest_Money",
+    "all_chat": true,
+    "label": "Easiest Money",
+    "message": "Easiest money of my life!",
+    "sound_ext": "wav"
+  },
+  "367": {
+    "id": 367,
+    "name": "DDB_Let_Me_In",
+    "all_chat": true,
+    "label": "Let Me In",
+    "message": "All you have to do is...let...me...in.",
+    "sound_ext": "wav"
+  },
+  "368": {
+    "id": 368,
+    "name": "DDB_Run_Little_Mouse",
+    "all_chat": true,
+    "label": "Run Little Mouse",
+    "message": "Run little mouse!",
+    "sound_ext": "wav"
+  },
+  "370": {
+    "id": 370,
+    "name": "DDB_Stupid_Brave",
+    "all_chat": true,
+    "label": "Stupid. Brave but Stupid.",
+    "message": "Stupid. Brave but stupid.",
+    "sound_ext": "wav"
+  },
+  "373": {
+    "id": 373,
+    "name": "DDB_Do_You_Love_Me",
+    "all_chat": true,
+    "label": "Do You Love Me",
+    "message": "Do you love me?",
+    "sound_ext": "wav"
+  },
+  "374": {
+    "id": 374,
+    "name": "DDB_Do_You_Love_Me_2",
+    "all_chat": true,
+    "label": "Do You Love Me",
+    "message": "Do. You. Love Me?",
+    "sound_ext": "wav"
+  },
+  "378": {
+    "id": 378,
+    "name": "DDB_Death",
+    "all_chat": true,
+    "label": "Death",
+    "message": "Death",
+    "sound_ext": "wav"
+  },
+  "379": {
+    "id": 379,
+    "name": "DDB_No",
+    "all_chat": true,
+    "label": "No",
+    "message": "No",
+    "sound_ext": "wav"
+  },
+  "380": {
+    "id": 380,
+    "name": "DDB_Form_Up",
+    "label": "Form Up",
+    "message": "Form up! We're going back in.",
+    "sound_ext": "wav"
+  },
+  "382": {
+    "id": 382,
+    "name": "DDB_You_Have_Failed_Me",
+    "label": "You Have Failed Me",
+    "message": "You have failed me.",
+    "sound_ext": "wav"
+  },
+  "383": {
+    "id": 383,
+    "name": "DDB_Isnt_It_Magical_Papa",
+    "all_chat": true,
+    "label": "Isn't It Magical Papa",
+    "message": "Isn't it magical papa?",
+    "sound_ext": "wav"
+  },
+  "384": {
+    "id": 384,
+    "name": "DDB_Very_Wise",
+    "all_chat": true,
+    "label": "Very Wise",
+    "message": "Very wise",
+    "sound_ext": "wav"
+  },
+  "385": {
+    "id": 385,
+    "name": "DDB_For_Eternity",
+    "all_chat": true,
+    "label": "For Eternity",
+    "message": "I could do this for eternity.",
+    "sound_ext": "wav"
+  },
+  "386": {
+    "id": 386,
+    "name": "agh_chicken",
+    "image": "sprays/agh_chicken_icon.png"
+  },
+  "387": {
+    "id": 387,
+    "name": "agh_feed",
+    "image": "sprays/agh_feed_icon.png"
+  },
+  "388": {
+    "id": 388,
+    "name": "agh_stare",
+    "image": "sprays/agh_stare_icon.png"
+  },
+  "389": {
+    "id": 389,
+    "name": "agh_sweaters",
+    "image": "sprays/agh_sweater_icons.png"
+  },
+  "390": {
+    "id": 390,
+    "name": "marci_meat",
+    "image": "sprays/marci_meat_icon.png"
+  },
+  "391": {
+    "id": 391,
+    "name": "agh_drink",
+    "image": "sprays/agh_drink_icon.png"
+  },
+  "392": {
+    "id": 392,
+    "name": "agh_rockdate",
+    "image": "sprays/agh_rockdate_icon.png"
+  },
+  "393": {
+    "id": 393,
+    "name": "Guild_TI9_Spiritbreaker_ChooChoo",
+    "image": "sprays/ti9_spiritbreaker_choochoo_icon.png"
+  },
+  "394": {
+    "id": 394,
+    "name": "Guild_Funny",
+    "image": "sprays/lion_xd_spray_icon.png"
+  },
+  "395": {
+    "id": 395,
+    "name": "Guild_TI10_Spray_19",
+    "image": "sprays/ti10_undying_rip_icon.png"
+  },
+  "396": {
+    "id": 396,
+    "name": "Guild_Absolutely_Perfect",
+    "all_chat": true,
+    "label": "Absolutely Perfect",
+    "message": "Absolutely Perfect",
+    "sound_ext": "wav"
+  },
+  "397": {
+    "id": 397,
+    "name": "Guild_Eto_Sochno",
+    "all_chat": true,
+    "label": "Как же это сочно, ах!",
+    "message": "Как же это сочно, ах!",
+    "sound_ext": "wav"
+  },
+  "398": {
+    "id": 398,
+    "name": "Guild_Piao_Liang",
+    "all_chat": true,
+    "label": "漂~ 亮！",
+    "message": "漂~ 亮！",
+    "sound_ext": "wav"
+  },
+  "399": {
+    "id": 399,
+    "name": "Fall2021EventGameReward1",
+    "all_chat": true,
+    "label": "I like your style!",
+    "message": "I like your moves, I like your style!",
+    "sound_ext": "wav"
+  },
+  "400": {
+    "id": 400,
+    "name": "Fall2021EventGameRewardTeam1",
+    "label": "Hello friend!",
+    "message": "Friend! Hello friend!",
+    "sound_ext": "wav"
+  },
+  "401": {
+    "id": 401,
+    "name": "Fall2021EventGameReward2",
+    "all_chat": true,
+    "label": "That's some hot chili!",
+    "message": "Oooh that is some hot chili you're serving up down there!",
+    "sound_ext": "wav"
+  },
+  "402": {
+    "id": 402,
+    "name": "Fall2021EventGameRewardTeam2",
+    "label": "Pumped!",
+    "message": "Oh I am pumped here!",
+    "sound_ext": "wav"
+  },
+  "403": {
+    "id": 403,
+    "name": "Fall2021EventGameReward3",
+    "all_chat": true,
+    "label": "Retreat, retreat!",
+    "message": "Better retreat, retreat!",
+    "sound_ext": "wav"
+  },
+  "404": {
+    "id": 404,
+    "name": "Fall2021EventGameRewardTeam3",
+    "label": "Whoopsie!",
+    "message": "Whoopsie!",
+    "sound_ext": "wav"
+  },
+  "405": {
+    "id": 405,
+    "name": "Fall2021EventGameReward4",
+    "all_chat": true,
+    "label": "Surprisingly good!",
+    "message": "Good, good! Surprisingly good!",
+    "sound_ext": "wav"
+  },
+  "406": {
+    "id": 406,
+    "name": "Fall2021EventGameRewardTeam4",
+    "label": "True savagery!",
+    "message": "True savagery!",
+    "sound_ext": "wav"
+  },
+  "407": {
+    "id": 407,
+    "name": "Fall2021EventGameReward5",
+    "all_chat": true,
+    "label": "No! Oh well.",
+    "message": "Noooooo! Oh well.",
+    "sound_ext": "wav"
+  },
+  "408": {
+    "id": 408,
+    "name": "Fall2021EventGameRewardTeam5",
+    "label": "That's nice!",
+    "message": "Ooooh, that's nice!",
+    "sound_ext": "wav"
+  },
+  "409": {
+    "id": 409,
+    "name": "Guild_Invoker_Smart_Spray",
+    "image": "sprays/invoker_smart_spray_icon.png"
+  },
+  "410": {
+    "id": 410,
+    "name": "Guild_MonkeyKing_MonkeyChamp_Spray",
+    "image": "sprays/monkeyking_monkeychamp_spray_icon.png"
+  },
+  "411": {
+    "id": 411,
+    "name": "Guild_Pudge_NailedIt_Spray",
+    "image": "sprays/pudge_nailedit_spray_icon.png"
+  },
+  "412": {
+    "id": 412,
+    "name": "Guild_Zou_Hao_Bu_Song",
+    "all_chat": true,
+    "label": "走好，不送",
+    "message": "走好，不送",
+    "sound_ext": "wav"
+  },
+  "413": {
+    "id": 413,
+    "name": "Guild_Liu_Liu_Liu",
+    "all_chat": true,
+    "label": "这波不亏, 666",
+    "message": "这波不亏, 666",
+    "sound_ext": "wav"
+  },
+  "414": {
+    "id": 414,
+    "name": "Guild_All_Dead",
+    "all_chat": true,
+    "label": "All Dead",
+    "message": "They're all dead!",
+    "sound_ext": "wav"
+  },
+  "415": {
+    "id": 415,
+    "name": "sprays_tomato_pie",
+    "image": "sprays/sprays_tomato_pie_icon.psd"
+  },
+  "416": {
+    "id": 416,
+    "name": "Guild_sprays_abba_tub",
+    "image": "sprays/sprays_abba_tub_icon.psd"
+  },
+  "417": {
+    "id": 417,
+    "name": "Guild_sprays_serious_silence",
+    "image": "sprays/sprays_serious_silence_icon.psd"
+  },
+  "418": {
+    "id": 418,
+    "name": "Guild_sprays_solid_trunk",
+    "image": "sprays/sprays_solid_trunk_icon.psd"
+  },
+  "419": {
+    "id": 419,
+    "name": "sprays_tiny_airlines",
+    "image": "sprays/sprays_tiny_airlines_icon.psd"
+  },
+  "420": {
+    "id": 420,
+    "name": "sprays_primal_feast",
+    "image": "sprays/sprays_primal_feast_icon.psd"
+  },
+  "421": {
+    "id": 421,
+    "name": "sprays_greeving_rosh",
+    "image": "sprays/sprays_greeving_rosh_icon.psd"
+  },
+  "422": {
+    "id": 422,
+    "name": "Guild_Slark_Love",
+    "image": "sprays/ti9_slark_love_icon.png"
+  },
+  "423": {
+    "id": 423,
+    "name": "Guild_Cry",
+    "image": "sprays/bear_cry_spray_icon.png"
+  },
+  "424": {
+    "id": 424,
+    "name": "Guild_Tusk_Snowball",
+    "image": "sprays/ti9_tusk_snowball_icon.png"
+  },
+  "440": {
+    "id": 440,
+    "name": "TI11_Chat_Wheel_SFX_1",
+    "all_chat": true,
+    "label": "Bwaak",
+    "message": "Bwaak bok bok bok bok",
+    "sound_ext": "wav"
+  },
+  "441": {
+    "id": 441,
+    "name": "TI11_Chat_Wheel_SFX_2",
+    "all_chat": true,
+    "label": "Elephant",
+    "message": "Elephant",
+    "sound_ext": "wav"
+  },
+  "442": {
+    "id": 442,
+    "name": "TI11_Chat_Wheel_SFX_3",
+    "all_chat": true,
+    "label": "Honk",
+    "message": "Honk",
+    "sound_ext": "wav"
+  },
+  "443": {
+    "id": 443,
+    "name": "TI11_Chat_Wheel_SFX_4",
+    "all_chat": true,
+    "label": "Outta here",
+    "message": "Outta here",
+    "sound_ext": "wav"
+  },
+  "444": {
+    "id": 444,
+    "name": "TI11_Chat_Wheel_SFX_5",
+    "all_chat": true,
+    "label": "Tick tock",
+    "message": "Tick tock tick tock tick tock",
+    "sound_ext": "wav"
+  },
+  "450": {
+    "id": 450,
+    "name": "TI11_Caster_English_1",
+    "all_chat": true,
+    "label": "Oh... Very Cute!",
+    "message": "Oh... Very Cute!",
+    "sound_ext": "wav"
+  },
+  "451": {
+    "id": 451,
+    "name": "TI11_Caster_English_2",
+    "all_chat": true,
+    "label": "Oh my god! Woo!",
+    "message": "Oh my god! Woo!",
+    "sound_ext": "wav"
+  },
+  "452": {
+    "id": 452,
+    "name": "TI11_Caster_English_3",
+    "all_chat": true,
+    "label": "Whoa! Juicy!",
+    "message": "Whoa! Juicy!",
+    "sound_ext": "wav"
+  },
+  "453": {
+    "id": 453,
+    "name": "TI11_Caster_English_4",
+    "all_chat": true,
+    "label": "His brain is so big.",
+    "message": "His brain is so big.",
+    "sound_ext": "wav"
+  },
+  "454": {
+    "id": 454,
+    "name": "TI11_Caster_English_5",
+    "all_chat": true,
+    "label": "Fight. Fight. Fight.",
+    "message": "Fight. Fight. Fight.",
+    "sound_ext": "wav"
+  },
+  "455": {
+    "id": 455,
+    "name": "TI11_Caster_English_6",
+    "all_chat": true,
+    "label": "I love Dota so much.",
+    "message": "I love Dota so much.",
+    "sound_ext": "wav"
+  },
+  "456": {
+    "id": 456,
+    "name": "TI11_Caster_Chinese_1",
+    "all_chat": true,
+    "label": "一拳超人，他来了呀",
+    "message": "一拳超人，他来了呀",
+    "sound_ext": "wav"
+  },
+  "457": {
+    "id": 457,
+    "name": "TI11_Caster_Chinese_2",
+    "all_chat": true,
+    "label": "这大概就是年轻人的操作吧",
+    "message": "这大概就是年轻人的操作吧",
+    "sound_ext": "wav"
+  },
+  "458": {
+    "id": 458,
+    "name": "TI11_Caster_Chinese_3",
+    "all_chat": true,
+    "label": "有没有神之一勾? 嗯~哼~",
+    "message": "有没有神之一勾? 嗯~哼~",
+    "sound_ext": "wav"
+  },
+  "459": {
+    "id": 459,
+    "name": "TI11_Caster_Chinese_4",
+    "all_chat": true,
+    "label": "哇~哦！",
+    "message": "哇~哦！",
+    "sound_ext": "wav"
+  },
+  "460": {
+    "id": 460,
+    "name": "TI11_Caster_Chinese_5",
+    "all_chat": true,
+    "label": "这一把要一战成神，打你们五个!",
+    "message": "这一把要一战成神，打你们五个!",
+    "sound_ext": "wav"
+  },
+  "461": {
+    "id": 461,
+    "name": "TI11_Caster_Chinese_6",
+    "all_chat": true,
+    "label": "终于等到你",
+    "message": "终于等到你",
+    "sound_ext": "wav"
+  },
+  "462": {
+    "id": 462,
+    "name": "TI11_Caster_Russian_1",
+    "all_chat": true,
+    "label": "Да бей, бей просто, уничтожь!",
+    "message": "Да бей, бей просто, уничтожь!",
+    "sound_ext": "wav"
+  },
+  "463": {
+    "id": 463,
+    "name": "TI11_Caster_Russian_2",
+    "all_chat": true,
+    "label": "Я всё видела! Это он виноват.",
+    "message": "Я всё видела! Это он виноват.",
+    "sound_ext": "wav"
+  },
+  "464": {
+    "id": 464,
+    "name": "TI11_Caster_Russian_3",
+    "all_chat": true,
+    "label": "Брбрбрбр. Ладно, смотрим дальше.",
+    "message": "Брбрбрбр. Ладно, смотрим дальше.",
+    "sound_ext": "wav"
+  },
+  "465": {
+    "id": 465,
+    "name": "TI11_Caster_Russian_4",
+    "all_chat": true,
+    "label": "Бить! Бить! Бить! Бить! Ещё бить!",
+    "message": "Бить! Бить! Бить! Бить! Ещё бить!",
+    "sound_ext": "wav"
+  },
+  "466": {
+    "id": 466,
+    "name": "TI11_Caster_Russian_5",
+    "all_chat": true,
+    "label": "Смех",
+    "message": "Смех",
+    "sound_ext": "wav"
+  },
+  "467": {
+    "id": 467,
+    "name": "TI11_Caster_Russian_6",
+    "all_chat": true,
+    "label": "Ребята, I got this.",
+    "message": "Ребята, I got this.",
+    "sound_ext": "wav"
+  },
+  "468": {
+    "id": 468,
+    "name": "TI11_Caster_Spanish_1",
+    "all_chat": true,
+    "label": "RRRRRRRRAMPAGE!",
+    "message": "RRRRRRRRAMPAGE!",
+    "sound_ext": "wav"
+  },
+  "469": {
+    "id": 469,
+    "name": "TI11_Caster_Spanish_2",
+    "all_chat": true,
+    "label": "Con el Wombo Combo perfecto!",
+    "message": "Con el Wombo Combo perfecto!",
+    "sound_ext": "wav"
+  },
+  "470": {
+    "id": 470,
+    "name": "TI11_Caster_Spanish_3",
+    "all_chat": true,
+    "label": "3, 2, 1, aaaadios!",
+    "message": "3, 2, 1, aaaadios!",
+    "sound_ext": "wav"
+  },
+  "471": {
+    "id": 471,
+    "name": "TI11_Caster_Spanish_4",
+    "all_chat": true,
+    "label": "Tiene que defender! Defiende la escuadra!",
+    "message": "Tiene que defender! Defiende la escuadra!",
+    "sound_ext": "wav"
+  },
+  "472": {
+    "id": 472,
+    "name": "TI11_Caster_Spanish_5",
+    "all_chat": true,
+    "label": "Ooooh, por dios!",
+    "message": "Ooooh, por dios!",
+    "sound_ext": "wav"
+  },
+  "473": {
+    "id": 473,
+    "name": "TI11_Caster_Spanish_6",
+    "all_chat": true,
+    "label": "Hasta Luego, pldldldldldldldldldldld!",
+    "message": "Hasta Luego, pldldldldldldldldldldld!",
+    "sound_ext": "wav"
+  },
+  "474": {
+    "id": 474,
+    "name": "TI11_Caster_Portuguese_1",
+    "all_chat": true,
+    "label": "Clica, clica, clica, clica... Pesado!",
+    "message": "Clica, clica, clica, clica... Pesado!",
+    "sound_ext": "wav"
+  },
+  "475": {
+    "id": 475,
+    "name": "TI11_Caster_Portuguese_2",
+    "all_chat": true,
+    "label": "A Canção da Sereia! OooOooO!",
+    "message": "A Canção da Sereia! OooOooO!",
+    "sound_ext": "wav"
+  },
+  "476": {
+    "id": 476,
+    "name": "TI11_Caster_Portuguese_3",
+    "all_chat": true,
+    "label": "Tick, tick... Boom! É a shotgun da destruição!",
+    "message": "Tick, tick... Boom! É a shotgun da destruição!",
+    "sound_ext": "wav"
+  },
+  "477": {
+    "id": 477,
+    "name": "TI11_Caster_Portuguese_4",
+    "all_chat": true,
+    "label": "Partida tensa. Partida complicada.",
+    "message": "Partida tensa. Partida complicada.",
+    "sound_ext": "wav"
+  },
+  "478": {
+    "id": 478,
+    "name": "TI11_Caster_Portuguese_5",
+    "all_chat": true,
+    "label": "Que Dota é esse, cara?",
+    "message": "Que Dota é esse, cara?",
+    "sound_ext": "wav"
+  },
+  "479": {
+    "id": 479,
+    "name": "TI11_Caster_Portuguese_6",
+    "all_chat": true,
+    "label": "Wow, que dano!",
+    "message": "Wow, que dano!",
+    "sound_ext": "wav"
+  },
+  "490": {
+    "id": 490,
+    "name": "Guild_No_Chill",
+    "label": "No Chill!",
+    "message": "This guy has no chill",
+    "sound_ext": "wav"
+  },
+  "491": {
+    "id": 491,
+    "name": "Guild_Krasavchik",
+    "label": "Красавчик!",
+    "message": "Красавчик!",
+    "sound_ext": "wav"
+  },
+  "492": {
+    "id": 492,
+    "name": "Guild_Bai_Tuo_Shei_Qu",
+    "label": "拜托谁去杀了他吧",
+    "message": "拜托谁去杀了他吧",
+    "sound_ext": "wav"
+  },
+  "493": {
+    "id": 493,
+    "name": "Guild_Thats_Playing_to_Win",
+    "label": "That's Playing to Win!",
+    "message": "That's playing to win, baby!",
+    "sound_ext": "wav"
+  },
+  "494": {
+    "id": 494,
+    "name": "Guild_Bozhe_Ti_Posmotri",
+    "label": "Что Происходит",
+    "message": "Боже, ты посмотри вокруг, что происходит!",
+    "sound_ext": "wav"
+  },
+  "495": {
+    "id": 495,
+    "name": "Guild_Gao_Fu_Shuai",
+    "label": "这就是高富帅啊",
+    "message": "这就是高富帅啊",
+    "sound_ext": "wav"
+  },
+  "496": {
+    "id": 496,
+    "name": "Guild_Youre_a_Hero",
+    "label": "You're a Goddamn Hero!",
+    "message": "You're a goddamn hero!",
+    "sound_ext": "wav"
+  },
+  "497": {
+    "id": 497,
+    "name": "Guild_Zhil_Do_Konsta",
+    "label": "Как Герой",
+    "message": "Жил до конца, умер как герой",
+    "sound_ext": "wav"
+  },
+  "498": {
+    "id": 498,
+    "name": "Guild_Hu_Lu_Wa",
+    "label": "葫芦娃救爷爷",
+    "message": "葫芦娃救爷爷",
+    "sound_ext": "wav"
+  },
+  "500": {
+    "id": 500,
+    "name": "TI11_Patience",
+    "label": "Patience",
+    "message": "Patience from Zhou",
+    "sound_ext": "wav"
+  },
+  "501": {
+    "id": 501,
+    "name": "TI11_Youre_a_Hero",
+    "label": "You're a Goddamn Hero!",
+    "message": "You're a goddamn hero!",
+    "sound_ext": "wav"
+  },
+  "502": {
+    "id": 502,
+    "name": "TI11_What_Just_Happened",
+    "label": "What Just Happened?",
+    "message": "I can't believe what we're seeing. What just happened?",
+    "sound_ext": "wav"
+  },
+  "503": {
+    "id": 503,
+    "name": "TI11_Waow",
+    "all_chat": true,
+    "label": "Waow",
+    "message": "Waow",
+    "sound_ext": "wav"
+  },
+  "504": {
+    "id": 504,
+    "name": "TI11_Ding_Ding_Ding",
+    "all_chat": true,
+    "label": "Ding Ding Ding!",
+    "message": "Ding Ding Ding Mother******",
+    "sound_ext": "wav"
+  },
+  "505": {
+    "id": 505,
+    "name": "TI11_Lets_Play_Dota",
+    "label": "Let's Play Dota",
+    "message": "Let's Play Some Dota",
+    "sound_ext": "wav"
+  },
+  "506": {
+    "id": 506,
+    "name": "TI11_Absolutely_Perfect",
+    "label": "Absolutely Perfect",
+    "message": "Absolutely Perfect",
+    "sound_ext": "wav"
+  },
+  "507": {
+    "id": 507,
+    "name": "TI11_Looking_Spicy",
+    "label": "Looking Spicy",
+    "message": "It's looking Spicy!",
+    "sound_ext": "wav"
+  },
+  "508": {
+    "id": 508,
+    "name": "TI11_What_The_F_Just_Happened",
+    "all_chat": true,
+    "label": "What the **** Just Happened",
+    "message": "What the **** just happened?",
+    "sound_ext": "wav"
+  },
+  "509": {
+    "id": 509,
+    "name": "TI11_See_You_Later_Nerds",
+    "all_chat": true,
+    "label": "See You Later Nerds",
+    "message": "See you later nerds",
+    "sound_ext": "wav"
+  },
+  "510": {
+    "id": 510,
+    "name": "TI11_Holy_Moly",
+    "label": "Holy Moly!",
+    "message": "Holy Moly!",
+    "sound_ext": "wav"
+  },
+  "511": {
+    "id": 511,
+    "name": "TI11_Oh_My_God_What",
+    "label": "Oh My God. What?",
+    "message": "Oh my god. What? Oh! Oh!",
+    "sound_ext": "wav"
+  },
+  "512": {
+    "id": 512,
+    "name": "TI11_Questionable_at_Best",
+    "label": "Questionable at Best",
+    "message": "I...uh...That was questionable at the...at the best.",
+    "sound_ext": "wav"
+  },
+  "513": {
+    "id": 513,
+    "name": "TI11_Coming_Through",
+    "all_chat": true,
+    "label": "Coming Through",
+    "message": "Coming through with the wooooo",
+    "sound_ext": "wav"
+  },
+  "514": {
+    "id": 514,
+    "name": "TI11_Nothing_That_Can_Stop_This_Man",
+    "all_chat": true,
+    "label": "Nothing Can Stop This Man",
+    "message": "There is nothing that can stop this man",
+    "sound_ext": "wav"
+  },
+  "520": {
+    "id": 520,
+    "name": "TI11_Ay_Ay_Ay",
+    "label": "Ай-ай-ай-ай-ай",
+    "message": "Ай-ай-ай-ай-ай, что сейчас произошло",
+    "sound_ext": "wav"
+  },
+  "521": {
+    "id": 521,
+    "name": "TI11_Ehto_G_G",
+    "label": "Это ГГ",
+    "message": "Это ГГ",
+    "sound_ext": "wav"
+  },
+  "522": {
+    "id": 522,
+    "name": "TI11_Oy_Oy_Bezhat",
+    "label": "Ой-ой-ой-ой-ой, бежать!",
+    "message": "Ой-ой-ой-ой-ой, бежать!",
+    "sound_ext": "wav"
+  },
+  "523": {
+    "id": 523,
+    "name": "TI11_Eto_Sochno",
+    "all_chat": true,
+    "label": "Как же это сочно, ах!",
+    "message": "Как же это сочно, ах!",
+    "sound_ext": "wav"
+  },
+  "524": {
+    "id": 524,
+    "name": "TI11_Eto_Prosto_Netchto",
+    "all_chat": true,
+    "label": "Это. Просто. Нечто.",
+    "message": "Это. Просто. Нечто.",
+    "sound_ext": "wav"
+  },
+  "525": {
+    "id": 525,
+    "name": "TI11_Zhil_Do_Konsta",
+    "label": "Как Герой",
+    "message": "Жил до конца, умер как герой",
+    "sound_ext": "wav"
+  },
+  "526": {
+    "id": 526,
+    "name": "TI11_Kreasa_Kreasa",
+    "label": "Резать Резать Резать Резать",
+    "message": "Резать Резать Резать Резать",
+    "sound_ext": "wav"
+  },
+  "527": {
+    "id": 527,
+    "name": "TI11_Wot_Eto_Bru",
+    "label": "Вот Это Врыв!",
+    "message": "Вот Это Врыв!",
+    "sound_ext": "wav"
+  },
+  "528": {
+    "id": 528,
+    "name": "TI11_Eto_Takaya_Dushka",
+    "all_chat": true,
+    "label": "Это такая душка!",
+    "message": "Ух, это такая душка!",
+    "sound_ext": "wav"
+  },
+  "529": {
+    "id": 529,
+    "name": "TI11_Chto_Eto_Kakaya_Zhest",
+    "all_chat": true,
+    "label": "Какая Жесть!",
+    "message": "Что это?! Какая жесть!",
+    "sound_ext": "wav"
+  },
+  "530": {
+    "id": 530,
+    "name": "TI11_Eto_Nenormalno",
+    "label": "Это ненормально, это нечестно!",
+    "message": "Это ненормально, это нечестно!",
+    "sound_ext": "wav"
+  },
+  "531": {
+    "id": 531,
+    "name": "TI11_Takaya_Haliava",
+    "label": "Такая халява!",
+    "message": "Такая халява...Ха!",
+    "sound_ext": "wav"
+  },
+  "532": {
+    "id": 532,
+    "name": "TI11_Aaah_Aaah_Chto",
+    "label": "А? Что?!",
+    "message": "Ё! А? А? Что?!",
+    "sound_ext": "wav"
+  },
+  "533": {
+    "id": 533,
+    "name": "TI11_A_Nu_Ka_Idi_Suda",
+    "all_chat": true,
+    "label": "Иди-ка сюда",
+    "message": "А ну-ка иди-ка сюда. А вот все. Все.",
+    "sound_ext": "wav"
+  },
+  "534": {
+    "id": 534,
+    "name": "TI11_Da_Da_Da_Nyet",
+    "all_chat": true,
+    "label": "Да? Да? Да? Нет.",
+    "message": "Да? Да? Да? Нет.",
+    "sound_ext": "wav"
+  },
+  "540": {
+    "id": 540,
+    "name": "TI11_Tian_Huo",
+    "label": "天火！",
+    "message": "天火！",
+    "sound_ext": "wav"
+  },
+  "541": {
+    "id": 541,
+    "name": "TI11_Piao_Liang",
+    "label": "漂~ 亮！",
+    "message": "漂~ 亮！",
+    "sound_ext": "wav"
+  },
+  "542": {
+    "id": 542,
+    "name": "TI11_Gan_Ma_Ne_Xiong_Di",
+    "label": "干嘛呢兄弟",
+    "message": "干嘛呢兄弟",
+    "sound_ext": "wav"
+  },
+  "543": {
+    "id": 543,
+    "name": "TI11_Duiyou_Ne",
+    "all_chat": true,
+    "label": "队友呢？",
+    "message": "啊，队友呢？队友呢？队友呢？！ 队友呢？！？！",
+    "sound_ext": "wav"
+  },
+  "544": {
+    "id": 544,
+    "name": "TI11_Zai_Jian_Le_Bao_Bei",
+    "all_chat": true,
+    "label": "再见了宝贝儿！",
+    "message": "再见了宝贝儿！",
+    "sound_ext": "wav"
+  },
+  "545": {
+    "id": 545,
+    "name": "TI11_Wan_Bu_Liao_La",
+    "label": "玩不了啦！",
+    "message": "玩不了啦！",
+    "sound_ext": "wav"
+  },
+  "546": {
+    "id": 546,
+    "name": "TI11_Jia_You",
+    "label": "加油！",
+    "message": "加油！",
+    "sound_ext": "wav"
+  },
+  "547": {
+    "id": 547,
+    "name": "TI11_Lian_Dou_Xiu_Wai_La",
+    "label": "脸都秀歪啦",
+    "message": "脸都秀歪啦",
+    "sound_ext": "wav"
+  },
+  "548": {
+    "id": 548,
+    "name": "TI11_Ni_Qi_Bu_Qi",
+    "all_chat": true,
+    "label": "你气不气?",
+    "message": "你气不气?",
+    "sound_ext": "wav"
+  },
+  "549": {
+    "id": 549,
+    "name": "TI11_lai_ni_da",
+    "all_chat": true,
+    "label": "来，你打我呀！",
+    "message": "来，你打我呀！",
+    "sound_ext": "wav"
+  },
+  "550": {
+    "id": 550,
+    "name": "TI11_wo_shi_yi",
+    "label": "我是一个没有感情的刷钱机器",
+    "message": "我是一个没有感情的刷钱机器",
+    "sound_ext": "wav"
+  },
+  "551": {
+    "id": 551,
+    "name": "TI11_ni_xing_ni",
+    "label": "你行你行，你上你上",
+    "message": "你行你行，你上你上",
+    "sound_ext": "wav"
+  },
+  "552": {
+    "id": 552,
+    "name": "TI11_hui_tian_mie",
+    "label": "毁天灭地, NICE啊！",
+    "message": "毁天灭地, NICE啊！",
+    "sound_ext": "wav"
+  },
+  "553": {
+    "id": 553,
+    "name": "TI11_tiao_zou_le",
+    "all_chat": true,
+    "label": "跳走了",
+    "message": "跳走了",
+    "sound_ext": "wav"
+  },
+  "554": {
+    "id": 554,
+    "name": "TI11_ay_ay_ay_cn",
+    "all_chat": true,
+    "label": "唉唉唉！唉？唉 …",
+    "message": "唉唉唉！唉？唉 …",
+    "sound_ext": "wav"
+  },
+  "560": {
+    "id": 560,
+    "name": "TI11_Eughahaha_Aah_Ha_Ha_Ha_Ha",
+    "all_chat": true,
+    "label": "Eughahaha Aah Ha Ha Ha Ha",
+    "message": "Eughahaha Aah Ha Ha Ha Ha",
+    "sound_ext": "wav"
+  },
+  "561": {
+    "id": 561,
+    "name": "TI11_Goodness_Gracious",
+    "all_chat": true,
+    "label": "Goodness Gracious",
+    "message": "Sir Chief. Goodness Gracious Papable.",
+    "sound_ext": "wav"
+  },
+  "562": {
+    "id": 562,
+    "name": "TI11_Nakupuuu",
+    "all_chat": true,
+    "label": "NAKUPUU",
+    "message": "NAKUPUU",
+    "sound_ext": "wav"
+  },
+  "563": {
+    "id": 563,
+    "name": "TI11_Whats_Cooking",
+    "all_chat": true,
+    "label": "What's Cooking",
+    "message": "You know what's cooking? BOOM!",
+    "sound_ext": "wav"
+  },
+  "564": {
+    "id": 564,
+    "name": "TI11_Easiest_Money",
+    "all_chat": true,
+    "label": "Easiest Money",
+    "message": "Easiest money of my life!",
+    "sound_ext": "wav"
+  },
+  "565": {
+    "id": 565,
+    "name": "TI11_Echo_Slama_Jama",
+    "all_chat": true,
+    "label": "Echo Slamma Jamma",
+    "message": "Echo Slamma Jamma!",
+    "sound_ext": "wav"
+  },
+  "566": {
+    "id": 566,
+    "name": "TI11_Next_Level",
+    "all_chat": true,
+    "label": "Next Level",
+    "message": "The next level play!",
+    "sound_ext": "wav"
+  },
+  "567": {
+    "id": 567,
+    "name": "TI11_Oy_Oy_Oy",
+    "all_chat": true,
+    "label": "Oyoy oy oy",
+    "message": "Oyoy oy oy, oy, oy, oy Oy OY!",
+    "sound_ext": "wav"
+  },
+  "568": {
+    "id": 568,
+    "name": "TI11_Lakad_Matataaaag",
+    "all_chat": true,
+    "label": "Lakad Matataaaag!",
+    "message": "Lakad Matataaaag! Normalin Normalin.",
+    "sound_ext": "wav"
+  },
+  "569": {
+    "id": 569,
+    "name": "TI11_Kor_Roshan",
+    "label": "Roshan! Roshan! Roshan!",
+    "message": "Roshan! Roshan! Roshan!",
+    "sound_ext": "wav"
+  },
+  "570": {
+    "id": 570,
+    "name": "TI11_Kor_Yes_No",
+    "all_chat": true,
+    "label": "네, 노, 네, 노 노 노!",
+    "message": "네, 노, 네, 노 노 노!",
+    "sound_ext": "wav"
+  },
+  "571": {
+    "id": 571,
+    "name": "TI11_Kor_Scan",
+    "all_chat": true,
+    "label": "스캔",
+    "message": "스캔 돌려야 되요 따라란따란따라라라란 스캔 돌려야 된다고요!",
+    "sound_ext": "wav"
+  },
+  "572": {
+    "id": 572,
+    "name": "TI11_Kor_Immortality",
+    "all_chat": true,
+    "label": "Immortality",
+    "message": "Mommy! I got me! Immortality!",
+    "sound_ext": "wav"
+  },
+  "573": {
+    "id": 573,
+    "name": "TI11_Kor_Yolo",
+    "all_chat": true,
+    "label": "Yolo",
+    "message": "골드 부활 못 해! YOLO! 골드 부활 못 해! YOLO!",
+    "sound_ext": "wav"
+  },
+  "574": {
+    "id": 574,
+    "name": "TI11_Kor_House",
+    "all_chat": true,
+    "label": "10억짜리 꿈의 고리! 15억짜리 꿈의 고리!",
+    "message": "10억짜리 꿈의 고리! 15억짜리 꿈의 고리!",
+    "sound_ext": "wav"
+  },
+  "575": {
+    "id": 575,
+    "name": "TI11_Truesight_StupidestWayToDie",
+    "all_chat": true,
+    "label": "Самая тупая смерть в жизни просто.",
+    "message": "Самая тупая смерть в жизни просто.",
+    "sound_ext": "wav"
+  },
+  "577": {
+    "id": 577,
+    "name": "TI11_Truesight_Moolah",
+    "all_chat": true,
+    "label": "Moo-lah!",
+    "message": "Moo-lah!",
+    "sound_ext": "wav"
+  },
+  "578": {
+    "id": 578,
+    "name": "TI11_Truesight_NoMoreTips",
+    "all_chat": true,
+    "label": "没有打赏次数了吗？哦冷却",
+    "message": "没有打赏次数了吗？哦冷却",
+    "sound_ext": "wav"
+  },
+  "579": {
+    "id": 579,
+    "name": "TI11_Truesight_DidWeActuallyWin",
+    "all_chat": true,
+    "label": "А чё, мы выиграли, что ли?",
+    "message": "А чё, мы выиграли, что ли?",
+    "sound_ext": "wav"
+  },
+  "581": {
+    "id": 581,
+    "name": "TI11_Truesight_SnailWalksIntoABar",
+    "all_chat": true,
+    "label": "Заходит улитка в бар!",
+    "message": "Заходит улитка в бар!",
+    "sound_ext": "wav"
+  },
+  "582": {
+    "id": 582,
+    "name": "TI11_Truesight_321LetsGo",
+    "all_chat": true,
+    "label": "3, 2, 1... 加油！",
+    "message": "3, 2, 1... 加油！",
+    "sound_ext": "wav"
+  },
+  "583": {
+    "id": 583,
+    "name": "TI11_Truesight_KeyboardNotWorking",
+    "all_chat": true,
+    "label": "Uh, my keyboard is not working.",
+    "message": "Uh, my keyboard is not working.",
+    "sound_ext": "wav"
+  },
+  "584": {
+    "id": 584,
+    "name": "TI11_Truesight_SoundsGood",
+    "all_chat": true,
+    "label": "可以啊",
+    "message": "可以啊",
+    "sound_ext": "wav"
+  },
+  "585": {
+    "id": 585,
+    "name": "TI11_Truesight_YoureDamnCrazy",
+    "all_chat": true,
+    "label": "Капец вы крейзи, парни. Ну ладно.",
+    "message": "Капец вы крейзи, парни. Ну ладно.",
+    "sound_ext": "wav"
+  },
+  "586": {
+    "id": 586,
+    "name": "TI11_Truesight_IveWonTheInternational",
+    "all_chat": true,
+    "label": "Добрый вечер, я Интернешнел выиграл.",
+    "message": "Добрый вечер, я Интернешнел выиграл.",
+    "sound_ext": "wav"
+  },
+  "587": {
+    "id": 587,
+    "name": "TI11_Truesight_SuchASmartIdea",
+    "all_chat": true,
+    "label": "Блин, ты очень умно придумал.",
+    "message": "Блин, ты очень умно придумал.",
+    "sound_ext": "wav"
+  },
+  "588": {
+    "id": 588,
+    "name": "TI11_Truesight_EveryGameLikeTheLast",
+    "all_chat": true,
+    "label": "每一把都当最后一把，然后也不要怕输",
+    "message": "每一把都当最后一把，然后也不要怕输",
+    "sound_ext": "wav"
+  },
+  "589": {
+    "id": 589,
+    "name": "Guild_Lichsicle",
+    "image": "sprays/ti11_lich_icon.png"
+  },
+  "590": {
+    "id": 590,
+    "name": "Guild_Puck_Dagoned",
+    "image": "sprays/ti9_puck_dagoned_icon.png"
+  },
+  "591": {
+    "id": 591,
+    "name": "Guild_Sven_Strength",
+    "image": "sprays/ti9_sven_strength_icon.png"
+  },
+  "592": {
+    "id": 592,
+    "name": "Guild_See_You_Later_Nerds",
+    "all_chat": true,
+    "label": "See You Later Nerds",
+    "message": "See you later nerds",
+    "sound_ext": "wav"
+  },
+  "593": {
+    "id": 593,
+    "name": "Guild_Que_Dota_E_Esse",
+    "all_chat": true,
+    "label": "Que Dota é esse, cara?",
+    "message": "Que Dota é esse, cara?",
+    "sound_ext": "wav"
+  },
+  "594": {
+    "id": 594,
+    "name": "Guild_Zai_Jian_Le_Bao_Bei",
+    "all_chat": true,
+    "label": "再见了宝贝儿！",
+    "message": "再见了宝贝儿！",
+    "sound_ext": "wav"
+  },
+  "595": {
+    "id": 595,
+    "name": "gabe_proud",
+    "all_chat": true,
+    "label": "I am very proud of you",
+    "message": "You are doing very well, I am very proud of you!",
+    "sound_ext": "wav"
+  },
+  "596": {
+    "id": 596,
+    "name": "gabe_unreal",
+    "all_chat": true,
+    "label": "That was unreal!",
+    "message": "That was unreal!",
+    "sound_ext": "wav"
+  },
+  "597": {
+    "id": 597,
+    "name": "gabe_goodness",
+    "all_chat": true,
+    "label": "Goodness!",
+    "message": "Goodness!",
+    "sound_ext": "wav"
+  },
+  "598": {
+    "id": 598,
+    "name": "gabe_learn",
+    "all_chat": true,
+    "label": "This is a good opportunity to learn!",
+    "message": "This is a good opportunity to learn!",
+    "sound_ext": "wav"
+  },
+  "599": {
+    "id": 599,
+    "name": "gabe_wisdom",
+    "all_chat": true,
+    "label": "Making mistakes is the path to wisdom.",
+    "message": "Making mistakes is the path to wisdom.",
+    "sound_ext": "wav"
+  },
+  "600": {
+    "id": 600,
+    "name": "gabe_personality",
+    "all_chat": true,
+    "label": "You're a beautiful person with a charming personality",
+    "message": "You're a beautiful person with a charming personality",
+    "sound_ext": "wav"
+  },
+  "601": {
+    "id": 601,
+    "name": "gabe_mistakes",
+    "all_chat": true,
+    "label": "You can't improve until you make mistakes",
+    "message": "You can't improve until you make mistakes",
+    "sound_ext": "wav"
+  },
+  "602": {
+    "id": 602,
+    "name": "gabe_crab",
+    "all_chat": true,
+    "label": "I've always wanted to be a giant space crab",
+    "message": "I've always wanted to be a giant space crab",
+    "sound_ext": "wav"
+  },
+  "603": {
+    "id": 603,
+    "name": "Guild_Kotl_Mana",
+    "image": "sprays/ti10_kotl_mana_icon.png"
+  },
+  "604": {
+    "id": 604,
+    "name": "Guild_Shadowfiend_Shrug",
+    "image": "sprays/sf_shrug_spray_icon.png"
+  },
+  "605": {
+    "id": 605,
+    "name": "Guild_Arc_Warden_Stab",
+    "image": "sprays/ti11_arc_warden_icon.png"
+  },
+  "606": {
+    "id": 606,
+    "name": "Guild_Holy_Moly",
+    "all_chat": true,
+    "label": "Holy Moly!",
+    "message": "Holy Moly!",
+    "sound_ext": "wav"
+  },
+  "607": {
+    "id": 607,
+    "name": "Guild_Da_Da_Da_Nyet",
+    "all_chat": true,
+    "label": "Да? Да? Да? Нет.",
+    "message": "Да? Да? Да? Нет.",
+    "sound_ext": "wav"
+  },
+  "608": {
+    "id": 608,
+    "name": "Guild_321_Adios",
+    "all_chat": true,
+    "label": "3, 2, 1, aaaadios!",
+    "message": "3, 2, 1, aaaadios!",
+    "sound_ext": "wav"
+  },
+  "609": {
+    "id": 609,
+    "name": "TI12_Caster_English_1",
+    "all_chat": true,
+    "label": "Its Too Good",
+    "message": "Omg its too good...but no, its not good enough at all, or wait, is it,maybe?",
+    "sound_ext": "wav"
+  },
+  "610": {
+    "id": 610,
+    "name": "TI12_Caster_English_2",
+    "all_chat": true,
+    "label": "Not Like This",
+    "message": "Oh my god, no, not like this!",
+    "sound_ext": "wav"
+  },
+  "611": {
+    "id": 611,
+    "name": "TI12_Caster_English_3",
+    "all_chat": true,
+    "label": "What Is Happening",
+    "message": "What in god's green earth is happening right now?!",
+    "sound_ext": "wav"
+  },
+  "612": {
+    "id": 612,
+    "name": "TI12_Caster_English_4",
+    "all_chat": true,
+    "label": "Nom nom nom",
+    "message": "Nom nom nom nom nom nom nom",
+    "sound_ext": "wav"
+  },
+  "613": {
+    "id": 613,
+    "name": "TI12_Caster_English_5",
+    "all_chat": true,
+    "label": "Respect Buybacks",
+    "message": "They did not respect the buybacks once again!",
+    "sound_ext": "wav"
+  },
+  "614": {
+    "id": 614,
+    "name": "TI12_Caster_Spanish_1",
+    "all_chat": true,
+    "label": "El combo de la muerte",
+    "message": "El combo de la muerte.",
+    "sound_ext": "wav"
+  },
+  "615": {
+    "id": 615,
+    "name": "TI12_Caster_Spanish_2",
+    "all_chat": true,
+    "label": "¡Trrraampa mortal!",
+    "message": "¡En la trrraampa mortal!",
+    "sound_ext": "wav"
+  },
+  "616": {
+    "id": 616,
+    "name": "TI12_Caster_Spanish_3",
+    "all_chat": true,
+    "label": "¡Nooooo!",
+    "message": "¡Nooooo!",
+    "sound_ext": "wav"
+  },
+  "617": {
+    "id": 617,
+    "name": "TI12_Caster_Spanish_4",
+    "all_chat": true,
+    "label": "Toma para que me respeten.",
+    "message": "Toma para que me respeten.",
+    "sound_ext": "wav"
+  },
+  "618": {
+    "id": 618,
+    "name": "TI12_Caster_Spanish_5",
+    "all_chat": true,
+    "label": "Cerca de la mueeerrrteee.",
+    "message": "Cerca de la mueeerrrteee.",
+    "sound_ext": "wav"
+  },
+  "619": {
+    "id": 619,
+    "name": "TI12_Caster_Portuguese_1",
+    "all_chat": true,
+    "label": "Eita! BLBLBLBLBL!",
+    "message": "Eita! BLBLBLBLBL!",
+    "sound_ext": "wav"
+  },
+  "620": {
+    "id": 620,
+    "name": "TI12_Caster_Portuguese_2",
+    "all_chat": true,
+    "label": "Naturalizado Deus.",
+    "message": "Nascido homem, naturalizado deus.",
+    "sound_ext": "wav"
+  },
+  "621": {
+    "id": 621,
+    "name": "TI12_Caster_Portuguese_3",
+    "all_chat": true,
+    "label": "Chocada, Passada",
+    "message": "Chocada, passada.",
+    "sound_ext": "wav"
+  },
+  "622": {
+    "id": 622,
+    "name": "TI12_Caster_Portuguese_4",
+    "all_chat": true,
+    "label": "Joga Fácil",
+    "message": "Joga fácil, joga lindo.",
+    "sound_ext": "wav"
+  },
+  "623": {
+    "id": 623,
+    "name": "TI12_Caster_Portuguese_5",
+    "all_chat": true,
+    "label": "Controlado E Punido!",
+    "message": "Encontrado, controlado e punido!",
+    "sound_ext": "wav"
+  },
+  "624": {
+    "id": 624,
+    "name": "TI12_Caster_Russian_1",
+    "all_chat": true,
+    "label": "Просто муа!",
+    "message": "Это просто... Просто муа!",
+    "sound_ext": "wav"
+  },
+  "625": {
+    "id": 625,
+    "name": "TI12_Caster_Russian_2",
+    "all_chat": true,
+    "label": "В Зоне",
+    "message": "В какой же они зоне!",
+    "sound_ext": "wav"
+  },
+  "626": {
+    "id": 626,
+    "name": "TI12_Caster_Russian_3",
+    "all_chat": true,
+    "label": "Не хватило!",
+    "message": "Чуть-чуть не хватило!",
+    "sound_ext": "wav"
+  },
+  "627": {
+    "id": 627,
+    "name": "TI12_Caster_Russian_4",
+    "all_chat": true,
+    "label": "Здорово, парни!",
+    "message": "Здорово, парни! Как дела?",
+    "sound_ext": "wav"
+  },
+  "628": {
+    "id": 628,
+    "name": "TI12_Caster_Russian_5",
+    "all_chat": true,
+    "label": "Вот это да!",
+    "message": "Хо-хо-хо! Вот это да!",
+    "sound_ext": "wav"
+  },
+  "629": {
+    "id": 629,
+    "name": "TI12_Caster_Chinese_1",
+    "all_chat": true,
+    "label": "啊？",
+    "message": "啊？",
+    "sound_ext": "wav"
+  },
+  "630": {
+    "id": 630,
+    "name": "TI12_Caster_Chinese_2",
+    "all_chat": true,
+    "label": "喂喂喂？",
+    "message": "喂喂喂？ Hello？队友呢？Hello？",
+    "sound_ext": "wav"
+  },
+  "631": {
+    "id": 631,
+    "name": "TI12_Caster_Chinese_3",
+    "all_chat": true,
+    "label": "我好难受哇",
+    "message": "我好难受哇",
+    "sound_ext": "wav"
+  },
+  "632": {
+    "id": 632,
+    "name": "TI12_Caster_Chinese_4",
+    "all_chat": true,
+    "label": "乌龟也是很卖力的",
+    "message": "乌龟也是很卖力的！ 哎！",
+    "sound_ext": "wav"
+  },
+  "633": {
+    "id": 633,
+    "name": "TI12_Caster_Chinese_5",
+    "all_chat": true,
+    "label": "太牛了，这一波",
+    "message": "太牛了，这一波",
+    "sound_ext": "wav"
+  },
+  "634": {
+    "id": 634,
+    "name": "TI12_Caster_Legacy_1",
+    "all_chat": true,
+    "label": "Ай-ай-ай-ай-ай",
+    "message": "Ай-ай-ай-ай-ай, что сейчас произошло",
+    "sound_ext": "wav"
+  },
+  "635": {
+    "id": 635,
+    "name": "TI12_Caster_Legacy_2",
+    "all_chat": true,
+    "label": "队友呢？",
+    "message": "啊，队友呢？队友呢？队友呢？！ 队友呢？！？！",
+    "sound_ext": "wav"
+  },
+  "636": {
+    "id": 636,
+    "name": "TI12_Caster_Legacy_3",
+    "all_chat": true,
+    "label": "네, 노, 네, 노 노 노!",
+    "message": "네, 노, 네, 노 노 노!",
+    "sound_ext": "wav"
+  },
+  "637": {
+    "id": 637,
+    "name": "TI12_Caster_Legacy_4",
+    "all_chat": true,
+    "label": "Coming Through",
+    "message": "Coming through with the wooooo",
+    "sound_ext": "wav"
+  },
+  "638": {
+    "id": 638,
+    "name": "TI12_Caster_Legacy_5",
+    "all_chat": true,
+    "label": "Con el Wombo Combo perfecto!",
+    "message": "Con el Wombo Combo perfecto!",
+    "sound_ext": "wav"
+  },
+  "639": {
+    "id": 639,
+    "name": "frostivus_ancientchocolate",
+    "image": "sprays/frostivus_ancientchocolate_icon.psd"
+  },
+  "640": {
+    "id": 640,
+    "name": "frostivus_cookie_seer",
+    "image": "sprays/frostivus_cookie_seer_icon.psd"
+  },
+  "641": {
+    "id": 641,
+    "name": "frostivus_enchantress",
+    "image": "sprays/frostivus_enchantress_icon.psd"
+  },
+  "642": {
+    "id": 642,
+    "name": "frostivus_hoodcracker",
+    "image": "sprays/frostivus_hoodcracker_icon.psd"
+  },
+  "643": {
+    "id": 643,
+    "name": "frostivus_necrogrinch",
+    "image": "sprays/frostivus_necrogrinch_icon.psd"
+  },
+  "644": {
+    "id": 644,
+    "name": "frostivus_pudgeslap",
+    "image": "sprays/frostivus_pudgeslap_icon.psd"
+  },
+  "645": {
+    "id": 645,
+    "name": "frostivus_youllshootyoureyeout",
+    "image": "sprays/frostivus_youllshootyoureyeout_icon.psd"
+  },
+  "646": {
+    "id": 646,
+    "name": "frostivus_cool_king",
+    "image": "sprays/frostivus_cool_king_icon.psd"
+  },
+  "647": {
+    "id": 647,
+    "name": "Guild_NP_Popcorn",
+    "image": "sprays/ti10_np_popcorn_icon.png"
+  },
+  "648": {
+    "id": 648,
+    "name": "Guild_Chicken",
+    "image": "sprays/ti10_chicken_icon.png"
+  },
+  "649": {
+    "id": 649,
+    "name": "Guild_Meepo_Dirt_Nap",
+    "image": "sprays/ti9_meepo_dirt_nap_icon.png"
+  },
+  "650": {
+    "id": 650,
+    "name": "Guild_TI11_Caster_Spanish_2",
+    "all_chat": true,
+    "label": "Con el Wombo Combo perfecto!",
+    "message": "Con el Wombo Combo perfecto!",
+    "sound_ext": "wav"
+  },
+  "651": {
+    "id": 651,
+    "name": "Guild_Eto_Takaya_Dushka",
+    "all_chat": true,
+    "label": "Это такая душка!",
+    "message": "Ух, это такая душка!",
+    "sound_ext": "wav"
+  },
+  "652": {
+    "id": 652,
+    "name": "Guild_TI11_Caster_Chinese_4",
+    "all_chat": true,
+    "label": "哇~哦！",
+    "message": "哇~哦！",
+    "sound_ext": "wav"
+  },
+  "653": {
+    "id": 653,
+    "name": "Guild_agh_feed",
+    "image": "sprays/agh_feed_icon.png"
+  },
+  "654": {
+    "id": 654,
+    "name": "Guild_TI9_Bountyhunter_Riches",
+    "image": "sprays/ti9_bountyhunter_riches_icon.png"
+  },
+  "655": {
+    "id": 655,
+    "name": "Guild_ti11_hoodwink",
+    "image": "sprays/ti11_hoodwink_icon.png"
+  },
+  "656": {
+    "id": 656,
+    "name": "Guild_TI11_Chto_Eto_Kakaya_Zhest",
+    "all_chat": true,
+    "label": "Какая Жесть!",
+    "message": "Что это?! Какая жесть!",
+    "sound_ext": "wav"
+  },
+  "657": {
+    "id": 657,
+    "name": "Guild_TI11_Caster_Spanish_5",
+    "all_chat": true,
+    "label": "Ooooh, por dios!",
+    "message": "Ooooh, por dios!",
+    "sound_ext": "wav"
+  },
+  "658": {
+    "id": 658,
+    "name": "Guild_ni_xing_ni",
+    "label": "你行你行，你上你上",
+    "message": "你行你行，你上你上",
+    "sound_ext": "wav"
+  },
+  "659": {
+    "id": 659,
+    "name": "sprays_crownfall_skreeauk",
+    "image": "sprays/crownfall_skreeauk_spray_icon.png"
+  },
+  "660": {
+    "id": 660,
+    "name": "sprays_crownfall_skywrath",
+    "image": "sprays/crownfall_skywrath_spray_icon.png"
+  },
+  "661": {
+    "id": 661,
+    "name": "sprays_crownfall_venge",
+    "image": "sprays/crownfall_venge_spray_icon.png"
+  },
+  "662": {
+    "id": 662,
+    "name": "Crownfall_Queen_Imperia_1",
+    "all_chat": true,
+    "label": "Yes. Bleed for me! Ha ha ha!",
+    "message": "Yes. Bleed for me! Ha ha ha!",
+    "sound_ext": "wav"
+  },
+  "663": {
+    "id": 663,
+    "name": "Crownfall_Queen_Imperia_2",
+    "all_chat": true,
+    "label": "Fall at my feet, peasant!",
+    "message": "Fall at my feet, peasant!",
+    "sound_ext": "wav"
+  },
+  "664": {
+    "id": 664,
+    "name": "Crownfall_Queen_Imperia_3",
+    "all_chat": true,
+    "label": "Long live the queen. The real queen.",
+    "message": "Long live the queen. The real queen.",
+    "sound_ext": "wav"
+  },
+  "665": {
+    "id": 665,
+    "name": "Crownfall_Queen_Imperia_4",
+    "all_chat": true,
+    "label": "Of all the ways to die!",
+    "message": "Of all the ways to die!",
+    "sound_ext": "wav"
+  },
+  "666": {
+    "id": 666,
+    "name": "Crownfall_Queen_Imperia_5",
+    "all_chat": true,
+    "label": "Why am I surrounded by such peons?",
+    "message": "Why am I surrounded by such peons?",
+    "sound_ext": "wav"
+  },
+  "667": {
+    "id": 667,
+    "name": "Crownfall_Queen_Imperia_6",
+    "all_chat": true,
+    "label": "I'm seriously getting tired of this place.",
+    "message": "I'm seriously getting tired of this place.",
+    "sound_ext": "wav"
+  },
+  "668": {
+    "id": 668,
+    "name": "sprays_crownfall_legion_sorla",
+    "image": "sprays/crownfall_legion_sorla_spray_icon.png"
+  },
+  "669": {
+    "id": 669,
+    "name": "sprays_crownfall_warlock",
+    "image": "sprays/crownfall_warlock_spray_icon.png"
+  },
+  "670": {
+    "id": 670,
+    "name": "sprays_crownfall_axe_centaur",
+    "image": "sprays/crownfall_axe_centaur_spray_icon.png"
+  },
+  "671": {
+    "id": 671,
+    "name": "Guild_wisp_strong",
+    "image": "sprays/ti10_wisp_strong_icon.png"
+  },
+  "672": {
+    "id": 672,
+    "name": "Guild_ti11_spectre",
+    "image": "sprays/ti11_spectre_icon.png"
+  },
+  "673": {
+    "id": 673,
+    "name": "Guild_TI9_Pugna_Magic",
+    "image": "sprays/ti9_pugna_magic_icon.png"
+  },
+  "674": {
+    "id": 674,
+    "name": "Guild_Eto_Nenormalno",
+    "all_chat": true,
+    "label": "Это ненормально, это нечестно!",
+    "message": "Это ненормально, это нечестно!",
+    "sound_ext": "wav"
+  },
+  "675": {
+    "id": 675,
+    "name": "Guild_TI11_Caster_Spanish_6",
+    "all_chat": true,
+    "label": "Hasta Luego, pldldldldldldldldldldld!",
+    "message": "Hasta Luego, pldldldldldldldldldldld!",
+    "sound_ext": "wav"
+  },
+  "676": {
+    "id": 676,
+    "name": "Guild_TI11_Nothing_That_Can_Stop_This_Man",
+    "all_chat": true,
+    "label": "Nothing Can Stop This Man",
+    "message": "There is nothing that can stop this man",
+    "sound_ext": "wav"
+  },
+  "677": {
+    "id": 677,
+    "name": "sprays_crownfall_lich_mvp",
+    "image": "sprays/crownfall_lich_mvp_spray_icon.png"
+  },
+  "678": {
+    "id": 678,
+    "name": "sprays_crownfall_cm_feast",
+    "image": "sprays/crownfall_cm_feast_spray_icon.png"
+  },
+  "679": {
+    "id": 679,
+    "name": "sprays_crownfall_tusk_v_bristle",
+    "image": "sprays/crownfall_tusk_v_bristle_spray_icon.png"
+  },
+  "680": {
+    "id": 680,
+    "name": "sprays_crownfall_lil_cm",
+    "image": "sprays/crownfall_lil_cm_spray_icon.png"
+  },
+  "681": {
+    "id": 681,
+    "name": "TI13_Caster_Legacy_1",
+    "all_chat": true,
+    "label": "See You Later Nerds",
+    "message": "See you later nerds",
+    "sound_ext": "wav"
+  },
+  "682": {
+    "id": 682,
+    "name": "TI13_Caster_Legacy_2",
+    "all_chat": true,
+    "label": "毁天灭地, NICE啊！",
+    "message": "毁天灭地, NICE啊！",
+    "sound_ext": "wav"
+  },
+  "683": {
+    "id": 683,
+    "name": "TI13_Caster_Legacy_3",
+    "all_chat": true,
+    "label": "3, 2, 1, aaaadios!",
+    "message": "3, 2, 1, aaaadios!",
+    "sound_ext": "wav"
+  },
+  "684": {
+    "id": 684,
+    "name": "TI13_Caster_Legacy_4",
+    "all_chat": true,
+    "label": "Резать Резать Резать Резать",
+    "message": "Резать Резать Резать Резать",
+    "sound_ext": "wav"
+  },
+  "685": {
+    "id": 685,
+    "name": "TI13_Caster_Legacy_5",
+    "all_chat": true,
+    "label": "哇~哦！",
+    "message": "哇~哦！",
+    "sound_ext": "wav"
+  }
+}

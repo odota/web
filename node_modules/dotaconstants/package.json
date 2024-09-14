@@ -1,0 +1,27 @@
+{
+  "name": "dotaconstants",
+  "version": "8.12.0",
+  "description": "Constant data for Dota 2 applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node tasks/updateconstants",
+    "patch": "node tasks/newpatch",
+    "prettier": "prettier --write tasks"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/odota/dotaconstants.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/odota/dotaconstants/issues"
+  },
+  "homepage": "https://github.com/odota/dotaconstants#readme",
+  "devDependencies": {
+    "axios": "^1.6.3",
+    "prettier": "^3.1.1",
+    "vdf-parser": "^1.2.1"
+  }
+}
