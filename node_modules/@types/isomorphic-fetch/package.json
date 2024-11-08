@@ -1,0 +1,23 @@
+{
+    "name": "@types/isomorphic-fetch",
+    "version": "0.0.35",
+    "description": "TypeScript definitions for isomorphic-fetch",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Todd Lucas",
+            "url": "https://github.com/toddlucas",
+            "githubUsername": "toddlucas"
+        }
+    ],
+    "main": "",
+    "types": "index",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "5ba976c7180436b65447dc6e76eb39c22db9dce42f3485d031c0f6c9698c726e",
+    "typeScriptVersion": "2.2"
+}
