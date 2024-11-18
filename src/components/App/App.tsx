@@ -168,12 +168,6 @@ const App = (props: AppProps) => {
 
   const includeAds = !['/', '/api-keys', '/status'].includes(location.pathname);
 
-  React.useEffect(() => {
-    if (includeAds) {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    }
-  }, []);
-
   return (
     // @ts-ignore
     <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}> {/* muiTheme types are missing here */}
@@ -186,15 +180,6 @@ const App = (props: AppProps) => {
           />
           <Header location={location} />
           <StyledBodyDiv {...props}>
-            <AdBannerDiv>
-              {includeAds && config.VITE_ENABLE_ADSENSE && (
-                <ins
-                  className="adsbygoogle"
-                  style={{ display: 'block', width: 728, height: 90, margin: 'auto' }}
-                  data-ad-client="ca-pub-5591574346816667"
-                  data-ad-slot="9789745633"
-                />)}
-            </AdBannerDiv>
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/matches/:matchId?/:info?" component={Matches} />
@@ -235,14 +220,6 @@ const App = (props: AppProps) => {
                   <a href="https://www.rivalry.com/opendota">Rivalry</a>
                 </div>
               </div>
-            )}
-            {includeAds && config.VITE_ENABLE_ADSENSE && (
-              <ins
-                className="adsbygoogle"
-                style={{ display: 'block', width: 728, height: 90, margin: 'auto' }}
-                data-ad-client="ca-pub-5591574346816667"
-                data-ad-slot="7739169508"
-              />
             )}
           </AdBannerDiv>
           <Footer />
