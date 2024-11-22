@@ -344,9 +344,9 @@ export const getTeamLogoUrl = (logoUrl) => {
     return '';
   }
   // Use proxy layer to serve team logos
-  if (logoUrl.indexOf('/ugc') !== -1) {
-    return `${config.VITE_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}`;
-  }
+  // if (logoUrl.indexOf('/ugc') !== -1) {
+  //   return `${config.VITE_API_HOST}${logoUrl.substr(logoUrl.indexOf('/ugc'))}`;
+  // }
   return logoUrl;
 };
 
