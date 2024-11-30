@@ -1,0 +1,4 @@
+https://opendota.com/* https://www.opendota.com/:splat 301!
+/api/*  https://api.opendota.com/api/:splat  200
+/static/js/* /index.html 404
+/*    /index.html   200
