@@ -37,7 +37,7 @@ class Status extends React.Component {
   }
 
   componentDidMount() {
-    const update = () => fetch(`${config.VITE_API_HOST}/api/status`)
+    const update = () => fetch(`${config.VITE_API_HOST}/status`)
       .then(jsonResponse)
       .then(async (json) => {
         const nextState = { result: json, last: this.state.result };
@@ -73,60 +73,34 @@ class Status extends React.Component {
         </div>
         <button style={{ width: '200px', height: '40px', margin: '8px' }} onClick={() => this.setState({ follow: !this.state.follow })}>{this.state.follow ? 'Stop' : 'Start'}</button>
         <div style={{
-          display: 'flex', flexDirection: 'row', flexWrap: 'wrap', fontSize: '10px',
+          columnCount: window.innerWidth < 600 ? 1 : 3,
         }}
         >
-          <Table
-            style={tableStyle}
-            data={Object.keys(this.state.result)
-              .filter((key) => typeof (this.state.result[key]) !== 'object')
-              .map((key) => ({ key, value: this.state.result[key], start: this.state.last[key] ?? this.state.result[key], end: this.state.result[key] }))}
-            columns={columns}
-          />
-          <div>
-            <Table
-              style={tableStyle}
-              data={Object.keys(this.state.result.health || {})
-                .map((key) => ({
-                  key,
-                  value: `${abbreviateNumber(this.state.result.health[key].metric)}/${abbreviateNumber(this.state.result.health[key].threshold)}`,
-                }))}
-              columns={columns}
-            />
-            <Table
-              style={tableStyle}
-              data={Object.keys(this.state.result.load_times || {})
-                .map((key) => ({ key, value: this.state.result.load_times?.[key], start: this.state.last?.load_times?.[key] ?? this.state.result.load_times?.[key], end: this.state.result.load_times?.[key] }))}
-              columns={columns}
-            />
-            <Table
-              style={tableStyle}
-              data={(this.state.result.api_status || [])
-                .slice()
-                .reverse()
-                .map((row) => ({ key: row.status, value: row.count, start: this.state.last?.api_status?.find(row2 => row2.status === row.status)?.count ?? row.count, end: row.count }))
-              }
-              columns={columns}
-            />
-            <Table
-              style={tableStyle}
-              data={(this.state.result.retriever || [])
-                .slice()
-                .reverse()
-                .map(row => ({ key: row.hostname, value: row.count, start: this.state.last?.retriever?.find(row2 => row2.hostname === row.hostname)?.count ?? row.count, end: row.count }))
-              }
-              columns={columns}
-            />
-          </div>
-          <Table
-            style={tableStyle}
-            data={(this.state.result.api_paths || [])
-              .slice()
-              .reverse()
-              .map((row) => ({ key: row.hostname, value: row.count, start: this.state.last?.api_paths?.find(row2 => row2.hostname === row.hostname)?.count ?? row.count, end: row.count }))
+          {Object.keys(this.state.result).map(propName => {
+            if (typeof this.state.result[propName] !== "object") {
+              return this.state.result[propName];
             }
-            columns={columns}
-          />
+            if (propName === 'health') {
+              return <Table
+                style={tableStyle}
+                data={Object.keys(this.state.result.health || {})
+                  .map((key) => ({
+                    key,
+                    value: `${abbreviateNumber(this.state.result.health[key].metric)}/${abbreviateNumber(this.state.result.health[key].threshold)}`,
+                  }))}
+                columns={columns}
+              />;
+            }
+            return <div>
+              <Table
+              style={tableStyle}
+              data={Object.keys(this.state.result[propName] || {})
+                .map((key) => ({ key, value: this.state.result[propName]?.[key], start: this.state.last?.[propName]?.[key] ?? this.state.result[propName]?.[key], end: this.state.result[propName]?.[key] }))
+                .filter(item => item.value)}
+              columns={columns}
+            />
+            </div>;
+          })}
         </div>
       </>);
   }
