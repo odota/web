@@ -1,0 +1,33 @@
+.bold { font-weight: bold; }
+.underline { text-decoration: underline; }
+.italic { font-style: italic; }
+
+.black { color: #4e4e4e; }
+.red { color: #ff6c60; }
+.green { color: #00aa00; }
+.yellow { color: #ffffb6; }
+.blue { color: #96cbfe; }
+.magenta { color: #ff73fd; }
+.cyan { color: #00aaaa; }
+.white { color: #eeeeee; }
+.grey { color: #969696; }
+
+.blackBold { color: #7c7c7c; }
+.redBold { color: #ff9b93; }
+.greenBold { color: #ceffab }
+.yellowBold { color: #ffffcb; }
+.blueBold { color: #b5dcfe; }
+.magentaBold { color: #ff9cfe; }
+.cyanBold { color: #55ffff; }
+.whiteBold { color: #ffffff; }
+.greyBold { color: #969696; }
+
+.blackBg { background-color: #4e4e4e; }
+.redBg { background-color: #ff6c60; }
+.greenBg { background-color: #00aa00; }
+.yellowBg { background-color: #ffffb6; }
+.blueBg { background-color: #96cbfe; }
+.magentaBg { background-color: #ff73fd; }
+.cyanBg { background-color: #00aaaa; }
+.whiteBg { background-color: #eeeeee; }
+.greyBg { background-color: #969696; }

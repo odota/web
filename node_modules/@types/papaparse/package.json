@@ -1,0 +1,72 @@
+{
+    "name": "@types/papaparse",
+    "version": "5.3.2",
+    "description": "TypeScript definitions for PapaParse",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/papaparse",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Pedro Flemming",
+            "url": "https://github.com/torpedro",
+            "githubUsername": "torpedro"
+        },
+        {
+            "name": "Rain Shen",
+            "url": "https://github.com/rainshen49",
+            "githubUsername": "rainshen49"
+        },
+        {
+            "name": "João Loff",
+            "url": "https://github.com/jfloff",
+            "githubUsername": "jfloff"
+        },
+        {
+            "name": "John Reilly",
+            "url": "https://github.com/johnnyreilly",
+            "githubUsername": "johnnyreilly"
+        },
+        {
+            "name": "Alberto Restifo",
+            "url": "https://github.com/albertorestifo",
+            "githubUsername": "albertorestifo"
+        },
+        {
+            "name": "Janne Liuhtonen",
+            "url": "https://github.com/jliuhtonen",
+            "githubUsername": "jliuhtonen"
+        },
+        {
+            "name": "Raphaël Barbazza",
+            "url": "https://github.com/rbarbazz",
+            "githubUsername": "rbarbazz"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "url": "https://github.com/peterblazejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Emmanuel Gautier",
+            "url": "https://github.com/emmanuelgautier",
+            "githubUsername": "emmanuelgautier"
+        },
+        {
+            "name": "Opportunity Liu",
+            "url": "https://github.com/OpportunityLiu",
+            "githubUsername": "OpportunityLiu"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/papaparse"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "typesPublisherContentHash": "7d517b6ff2398a067bc5c670bc05a3deb6c4ceeae28256e9467a3c78e9f98d29",
+    "typeScriptVersion": "3.8"
+}
