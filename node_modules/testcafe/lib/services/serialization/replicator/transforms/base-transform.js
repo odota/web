@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class BaseTransform {
+    constructor(type) {
+        this.type = type;
+    }
+    toSerializable(value) {
+        return Object.assign({}, value);
+    }
+    fromSerializable(val) {
+        return val;
+    }
+}
+exports.default = BaseTransform;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYmFzZS10cmFuc2Zvcm0uanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi9zcmMvc2VydmljZXMvc2VyaWFsaXphdGlvbi9yZXBsaWNhdG9yL3RyYW5zZm9ybXMvYmFzZS10cmFuc2Zvcm0udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxNQUE4QixhQUFhO0lBR3ZDLFlBQXVCLElBQVk7UUFDL0IsSUFBSSxDQUFDLElBQUksR0FBRyxJQUFJLENBQUM7SUFDckIsQ0FBQztJQUVNLGNBQWMsQ0FBRSxLQUFjO1FBQ2pDLE9BQU8sTUFBTSxDQUFDLE1BQU0sQ0FBQyxFQUFFLEVBQUUsS0FBSyxDQUFDLENBQUM7SUFDcEMsQ0FBQztJQUVNLGdCQUFnQixDQUFFLEdBQVk7UUFDakMsT0FBTyxHQUFHLENBQUM7SUFDZixDQUFDO0NBQ0o7QUFkRCxnQ0FjQyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IGFic3RyYWN0IGNsYXNzIEJhc2VUcmFuc2Zvcm0ge1xuICAgIHB1YmxpYyByZWFkb25seSB0eXBlOiBzdHJpbmc7XG5cbiAgICBwcm90ZWN0ZWQgY29uc3RydWN0b3IgKHR5cGU6IHN0cmluZykge1xuICAgICAgICB0aGlzLnR5cGUgPSB0eXBlO1xuICAgIH1cblxuICAgIHB1YmxpYyB0b1NlcmlhbGl6YWJsZSAodmFsdWU6IHVua25vd24pOiB1bmtub3duIHtcbiAgICAgICAgcmV0dXJuIE9iamVjdC5hc3NpZ24oe30sIHZhbHVlKTtcbiAgICB9XG5cbiAgICBwdWJsaWMgZnJvbVNlcmlhbGl6YWJsZSAodmFsOiB1bmtub3duKTogdW5rbm93biB7XG4gICAgICAgIHJldHVybiB2YWw7XG4gICAgfVxufVxuIl19

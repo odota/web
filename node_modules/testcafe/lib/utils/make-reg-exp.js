@@ -1,0 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = require("lodash");
+function makeRegExp(str) {
+    return typeof str === 'string' ? new RegExp(lodash_1.escapeRegExp(str)) : str;
+}
+exports.default = makeRegExp;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWFrZS1yZWctZXhwLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vc3JjL3V0aWxzL21ha2UtcmVnLWV4cC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLG1DQUFrRDtBQUVsRCxTQUF3QixVQUFVLENBQUUsR0FBRztJQUNuQyxPQUFPLE9BQU8sR0FBRyxLQUFLLFFBQVEsQ0FBQyxDQUFDLENBQUMsSUFBSSxNQUFNLENBQUMscUJBQVEsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxHQUFHLENBQUM7QUFDckUsQ0FBQztBQUZELDZCQUVDIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgZXNjYXBlUmVnRXhwIGFzIGVzY2FwZVJlIH0gZnJvbSAnbG9kYXNoJztcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gbWFrZVJlZ0V4cCAoc3RyKSB7XG4gICAgcmV0dXJuIHR5cGVvZiBzdHIgPT09ICdzdHJpbmcnID8gbmV3IFJlZ0V4cChlc2NhcGVSZShzdHIpKSA6IHN0cjtcbn1cbiJdfQ==

@@ -1,0 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/*global Symbol*/
+exports.default = Symbol('functionBuilder');
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYnVpbGRlci1zeW1ib2wuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvY2xpZW50LWZ1bmN0aW9ucy9idWlsZGVyLXN5bWJvbC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGlCQUFpQjtBQUNqQixrQkFBZSxNQUFNLENBQUMsaUJBQWlCLENBQUMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qZ2xvYmFsIFN5bWJvbCovXG5leHBvcnQgZGVmYXVsdCBTeW1ib2woJ2Z1bmN0aW9uQnVpbGRlcicpO1xuIl19

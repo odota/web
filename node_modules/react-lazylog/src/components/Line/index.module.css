@@ -1,0 +1,16 @@
+.line {
+  margin: 0;
+  user-select: none;
+}
+
+.line:hover {
+  background-color: #444444;
+}
+
+.lineHighlight {
+  background-color: #666666;
+}
+
+.lineSelectable {
+  user-select: text;
+}

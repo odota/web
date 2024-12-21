@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class MethodShouldNotBeCalledError extends Error {
+    constructor() {
+        super('The method should not be called.');
+    }
+}
+exports.default = MethodShouldNotBeCalledError;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWV0aG9kLXNob3VsZC1ub3QtYmUtY2FsbGVkLWVycm9yLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL3NlcnZpY2VzL3V0aWxzL21ldGhvZC1zaG91bGQtbm90LWJlLWNhbGxlZC1lcnJvci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLE1BQXFCLDRCQUE2QixTQUFRLEtBQUs7SUFDM0Q7UUFDSSxLQUFLLENBQUMsa0NBQWtDLENBQUMsQ0FBQztJQUM5QyxDQUFDO0NBQ0o7QUFKRCwrQ0FJQyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IGNsYXNzIE1ldGhvZFNob3VsZE5vdEJlQ2FsbGVkRXJyb3IgZXh0ZW5kcyBFcnJvciB7XG4gICAgcHVibGljIGNvbnN0cnVjdG9yICgpIHtcbiAgICAgICAgc3VwZXIoJ1RoZSBtZXRob2Qgc2hvdWxkIG5vdCBiZSBjYWxsZWQuJyk7XG4gICAgfVxufVxuIl19
