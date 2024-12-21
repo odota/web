@@ -27,7 +27,7 @@ import config from '../../config';
 const playerMapping = {};
 const teamMapping = {};
 
-const defaultMinDate = 14;
+const defaultMinDate = 7;
 
 function jsonResponse(response) {
   return response.json();
