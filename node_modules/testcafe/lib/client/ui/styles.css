@@ -1,0 +1,474 @@
+#root.root {
+  position: absolute;
+  display: block;
+  left: 0px;
+  top: 0px;
+  margin: 0 !important;
+  overflow: visible;
+  transition: none !important;
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transform: none !important;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  /*Mixins*/
+  /*Const*/
+  /*Make z-index context*/
+  z-index: 2147483647;
+  /*Reset*/
+  /* Clear */
+  /* Cursor */
+  /* Modal background and loading text */
+  /*Progress panel*/
+  /* Actions Emulating */
+}
+#root.root fieldset,
+#root.root img {
+  border: 0;
+}
+#root.root ol,
+#root.root ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#root.root h1,
+#root.root h2,
+#root.root h3,
+#root.root h4,
+#root.root h5,
+#root.root h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+#root.root table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 100%;
+  font: inherit;
+}
+#root.root * {
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  vertical-align: baseline;
+  background: transparent;
+  text-align: left !important;
+  line-height: normal;
+  border-radius: 0px;
+  font-variant: normal !important;
+  font-weight: normal;
+  font-size: inherit;
+  cursor: default;
+  font-family: Segoe UI, Helvetica, sans-serif !important;
+  letter-spacing: normal;
+  clear: none;
+  box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  transition: none !important;
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  zoom: 1 !important;
+  text-indent: 0 !important;
+  text-shadow: none;
+  overflow: visible;
+  float: none !important;
+  pointer-events: auto;
+}
+#root.root textarea,
+#root.root input,
+#root.root select,
+#root.root input:focus,
+#root.root input[type="text"],
+#root.root input[type="text"]:hover,
+#root.root input[type="text"]:focus,
+#root.root input[type="text"]:active,
+#root.root input[type="button"],
+#root.root input[type="button"]:hover,
+#root.root input[type="button"]:focus,
+#root.root input[type="button"]:active {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-family: Segoe UI, Helvetica, sans-serif;
+  cursor: text;
+  font-weight: normal;
+  vertical-align: baseline;
+  background-color: white;
+  background-image: none;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  text-align: left !important;
+  line-height: normal;
+  border-radius: 0px;
+  min-height: 0;
+  min-width: 0;
+  box-shadow: none;
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  -moz-user-select: auto;
+  -webkit-user-select: auto;
+  transition: none !important;
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  letter-spacing: normal;
+  text-shadow: none;
+  text-transform: none;
+}
+#root.root ::-ms-clear {
+  display: none;
+}
+#root.root label {
+  display: inline;
+  color: #ffffff !important;
+}
+#root.root button::-moz-focus-inner {
+  margin-top: -1px;
+}
+#root.root .clear {
+  display: block;
+  clear: both;
+  height: 0;
+  width: 0;
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+#root.root.hidden {
+  visibility: hidden;
+}
+#root.root.blind .cursor {
+  opacity: 0.4;
+}
+#root.root .cursor {
+  background-image: url("/testcafe-ui-sprite.png") !important;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  display: block;
+  position: fixed;
+  -webkit-transform: translate3d(0px, 0px, 0px) !important;
+  left: 0;
+  top: 0;
+  width: 35px;
+  height: 57px;
+  background-position: 0 0;
+  z-index: 2147483644;
+}
+#root.root .cursor.l-mouse-down {
+  background-position: -64px 0;
+}
+#root.root .cursor.r-mouse-down {
+  background-position: -130px 0;
+}
+#root.root .cursor.touch {
+  width: 50px;
+  height: 50px;
+  background-position: -190px 0;
+}
+#root.root .cursor.touch.l-mouse-down,
+#root.root .cursor.touch.r-mouse-down {
+  background-position: -264px 0;
+}
+#root.root .modal-background {
+  display: none;
+  position: fixed;
+  -webkit-transform: translate3d(0px, 0px, 0px) !important;
+  top: 0;
+  left: 0;
+  z-index: 2147483645;
+  background-color: #000000;
+}
+#root.root .loading-text {
+  font-family: Segoe UI, Helvetica, sans-serif;
+  font-size: 40px;
+  color: #ffffff;
+  text-shadow: 0 0 10px #000000;
+  display: none;
+  position: fixed;
+  -webkit-transform: translate3d(0px, 0px, 0px) !important;
+  top: 0;
+  left: 0;
+  z-index: 2147483646;
+}
+#root.root .loading-icon {
+  background-image: url("/testcafe-ui-sprite.png") !important;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  display: block;
+  width: 218px;
+  height: 218px;
+  background-position: -465px 0;
+  position: fixed;
+  -webkit-transform: translate3d(0px, 0px, 0px) !important;
+  z-index: 2147483647;
+}
+#root.root .progress-panel {
+  -webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5) !important;
+  -moz-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 7px !important;
+  -webkit-border-radius: 7px !important;
+  -moz-border-radius: 7px !important;
+  -o-border-radius: 7px !important;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 92px 120px 110px;
+  width: 500px;
+  position: fixed;
+  display: none;
+}
+#root.root .progress-panel .title {
+  font-weight: lighter;
+  font-family: 'Segoe UI Light', 'Segoe UI', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+  font-size: 33px;
+  text-align: center !important;
+  margin: 0 25px 31px;
+  color: white;
+}
+#root.root .progress-panel .content {
+  max-width: 498px;
+  height: 17px;
+}
+#root.root .progress-bar {
+  width: 100%;
+  height: 15px;
+  background-color: transparent;
+  border: 1px solid #df5679;
+  padding: 0;
+  overflow: hidden;
+}
+#root.root .progress-bar .value {
+  background-color: #df5679;
+  height: 15px;
+}
+#root.root .progress-bar.success {
+  border-color: #6ab779;
+}
+#root.root .progress-bar.success .value {
+  background-color: #6ab779;
+}
+#root.root .tcOptionList {
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #7F9DB9;
+  z-index: 2147483643;
+}
+#root.root .tcOptionList .tcOptionGroup {
+  font-weight: bolder;
+}
+#root.root .tcOptionList .tcOptionGroup .tcOption {
+  margin: 1px 20px;
+}
+#root.root .tcOptionList .tcOption {
+  margin: 1px 5px;
+}
+#root.root .status-bar {
+  position: fixed;
+  -webkit-transform: translate3d(0px, 0px, 0px) !important;
+  bottom: 0 !important;
+  background-color: rgba(24, 40, 57, 0.85);
+  z-index: 2147483644;
+  left: 0;
+  width: 100%;
+  display: flex;
+  color: rgba(255, 255, 255, 0.8);
+  flex-wrap: nowrap;
+  font-family: '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji';
+  /* Views */
+  /* --- */
+}
+#root.root .status-bar .icon {
+  background-image: url("/testcafe-ui-sprite.svg#logo-icon");
+  background-color: rgba(42, 61, 82, 0.95);
+  display: inline-block;
+  flex-shrink: 0;
+  width: 72px;
+  height: 52px;
+  background-origin: content-box;
+  background-repeat: no-repeat;
+  background-position: 16px 11px;
+  background-attachment: local;
+}
+#root.root .status-bar .info-container {
+  font-style: normal;
+  font-size: 12px;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  height: 52px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#root.root .status-bar .info-container .info-text-container {
+  margin: 7px 0 4px 16px;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  white-space: nowrap;
+  flex: 1;
+}
+#root.root .status-bar .info-container .info-text-container .status-container {
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+}
+#root.root .status-bar .info-container .info-text-container .status-container .info {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+#root.root .status-bar .info-container .info-text-container .status-container .status {
+  font-weight: bold;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#root.root .status-bar .info-container .info-text-container .user-agent {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  margin-right: 20px;
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+#root.root .status-bar .info-container .progress-bar {
+  width: 100%;
+  height: 3px;
+  background-color: #345B69;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+#root.root .status-bar .info-container .progress-bar.determinate .value {
+  background-color: #36B6E5;
+  height: 3px;
+  width: 0;
+}
+#root.root .status-bar .info-container .progress-bar.indeterminate .value-container {
+  background-color: #36B6E5;
+  position: relative;
+}
+#root.root .status-bar .info-container .progress-bar.indeterminate .value-container .value {
+  position: absolute;
+  background-color: inherit;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+#root.root .status-bar .buttons,
+#root.root .status-bar .button {
+  display: flex;
+}
+#root.root .status-bar .actions-container {
+  text-align: right;
+  font-size: 12px;
+  align-items: center;
+  right: 0;
+}
+#root.root .status-bar .actions-container .buttons {
+  background-color: rgba(42, 61, 82, 0.85);
+  flex-wrap: nowrap;
+}
+#root.root .status-bar .actions-container .buttons .button {
+  height: 52px;
+  min-width: 52px;
+  align-items: center;
+  justify-content: center;
+}
+#root.root .status-bar .actions-container .buttons .button:hover {
+  background-color: #36B6E5;
+}
+#root.root .status-bar .actions-container .buttons .button:active {
+  background-color: #1797CA;
+}
+#root.root .status-bar .actions-container .buttons .button > span {
+  margin-right: 20px;
+  margin-left: -10px;
+  white-space: nowrap;
+}
+#root.root .status-bar .actions-container .buttons .button .button-icon {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+#root.root .status-bar .actions-container .buttons .button.locked .button-icon {
+  background-image: url("/testcafe-ui-sprite.svg#locked");
+}
+#root.root .status-bar .actions-container .buttons .button.unlocked {
+  background-color: #60A96E;
+}
+#root.root .status-bar .actions-container .buttons .button.unlocked .button-icon {
+  background-image: url("/testcafe-ui-sprite.svg#unlocked");
+}
+#root.root .status-bar .actions-container .buttons .button.resume .button-icon {
+  background-image: url("/testcafe-ui-sprite.svg#resume");
+}
+#root.root .status-bar .actions-container .buttons .button.finish .button-icon {
+  background-image: url("/testcafe-ui-sprite.svg#finish");
+}
+#root.root .status-bar .actions-container .buttons .button.step .button-icon {
+  background-image: url("/testcafe-ui-sprite.svg#step");
+}
+#root.root .status-bar.waiting-element-success {
+  background-color: transparent;
+}
+#root.root .status-bar.waiting-element-success .info-container {
+  background-color: rgba(116, 183, 129, 0.9);
+}
+#root.root .status-bar.waiting-element-success .progress-bar.determinate .value {
+  background-color: #3F884D;
+}
+#root.root .status-bar.waiting-element-failed .info-container {
+  background-color: rgba(223, 86, 121, 0.9);
+}
+#root.root .status-bar.waiting-element-failed .progress-bar.determinate .value {
+  background-color: #BA4A67;
+}
+@media (max-width: 992px) {
+  #root.root .status-bar .info-container .user-agent {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  #root.root .status-bar .icon,
+  #root.root .status-bar .button > span {
+    display: none;
+  }
+}
+@media (max-width: 768px) and screen and (-ms-high-contrast: active), (max-width: 768px) and (-ms-high-contrast: none) {
+  #root.root .status-bar .actions-container {
+    min-width: 156px;
+  }
+}
+@media (max-width: 576px) {
+  #root.root .status-bar {
+    flex-wrap: wrap;
+  }
+  #root.root .status-bar .actions-container,
+  #root.root .status-bar .buttons {
+    width: 100%;
+    justify-content: space-around;
+  }
+  #root.root .status-bar .actions-container .buttons .button {
+    height: 30px;
+    flex-grow: 1;
+  }
+}
+#root.root .screenshot-mark {
+  bottom: 0;
+  right: 0;
+  position: fixed;
+}

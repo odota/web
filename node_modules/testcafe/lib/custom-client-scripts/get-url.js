@@ -1,0 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function default_1(script) {
+    return `/custom-client-scripts/${script.url}`;
+}
+exports.default = default_1;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZ2V0LXVybC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9jdXN0b20tY2xpZW50LXNjcmlwdHMvZ2V0LXVybC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUVBLG1CQUF5QixNQUFvQjtJQUN6QyxPQUFPLDBCQUEwQixNQUFNLENBQUMsR0FBRyxFQUFFLENBQUM7QUFDbEQsQ0FBQztBQUZELDRCQUVDIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IENsaWVudFNjcmlwdCBmcm9tICcuL2NsaWVudC1zY3JpcHQnO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiAoc2NyaXB0OiBDbGllbnRTY3JpcHQpOiBzdHJpbmcge1xuICAgIHJldHVybiBgL2N1c3RvbS1jbGllbnQtc2NyaXB0cy8ke3NjcmlwdC51cmx9YDtcbn1cbiJdfQ==
