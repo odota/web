@@ -1,0 +1,7 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const path_1 = require("path");
+const EXPORTABLE_LIB_PATH = path_1.join(__dirname, '../../api/exportable-lib');
+exports.default = EXPORTABLE_LIB_PATH;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZXhwb3J0YmxlLWxpYi1wYXRoLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL2NvbXBpbGVyL3Rlc3QtZmlsZS9leHBvcnRibGUtbGliLXBhdGgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSwrQkFBNEI7QUFFNUIsTUFBTSxtQkFBbUIsR0FBRyxXQUFJLENBQUMsU0FBUyxFQUFFLDBCQUEwQixDQUFDLENBQUM7QUFFeEUsa0JBQWUsbUJBQW1CLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBqb2luIH0gZnJvbSAncGF0aCc7XG5cbmNvbnN0IEVYUE9SVEFCTEVfTElCX1BBVEggPSBqb2luKF9fZGlybmFtZSwgJy4uLy4uL2FwaS9leHBvcnRhYmxlLWxpYicpO1xuXG5leHBvcnQgZGVmYXVsdCBFWFBPUlRBQkxFX0xJQl9QQVRIO1xuIl19
