@@ -1,0 +1,8 @@
+{
+    "include": ["index.ts"],
+    "compilerOptions": {
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+    },
+    "exclude": ["node_modules"]
+}
