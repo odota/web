@@ -111,7 +111,21 @@ const HeroStatsWrapper = styled.div`
   flex: 1 1 100%;
 `;
 
-const Header = ({ hero }) => (
+const HeroWR = styled.div`
+  font-size: 30px;
+  font-weight: ${constants.fontWeightMedium};
+  color:${props => (props?.wr >= 50) ? constants.green : constants.red  };
+
+  @media screen and (max-width: ${constants.wrapTablet}){
+    font-size: 20px;
+  }
+`
+
+
+const Header = ({ hero, win_rate }) => {
+  const pub_wr = (hero.pub_win / hero.pub_pick * 100).toFixed(2) 
+
+  return(
   <HeroDescription>
     <HeroProfile>
       <HeroProfileBackground
@@ -122,6 +136,7 @@ const Header = ({ hero }) => (
         <HeroAvatar alt={hero.localized_name} src={getHeroImgSrc(hero.img)} />
         <HeroDetails>
           <HeroName>{hero.localized_name}</HeroName>
+          <HeroWR wr={pub_wr}> {win_rate} {pub_wr}% </HeroWR>
           <HeroRoleInformations>
             {hero.attack_type} - <HeroRoles>{hero.roles.join(', ')}</HeroRoles>
           </HeroRoleInformations>
@@ -133,7 +148,7 @@ const Header = ({ hero }) => (
       </HeroProfileContent>
     </HeroProfile>
   </HeroDescription>
-);
+)}
 
 Header.propTypes = {
   hero: shape({}),
