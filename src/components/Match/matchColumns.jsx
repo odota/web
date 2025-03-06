@@ -470,7 +470,7 @@ export default (strings) => {
                 {row.item_neutral
                   ? inflictorWithValue(
                     itemIds[row.item_neutral],
-                    null,
+                    itemIds[row.item_neutral2],
                     'neutral'
                   )
                   : null}

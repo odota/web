@@ -34,10 +34,9 @@ const Wrapper = styled.div`
   background: linear-gradient(#16232B, #10171D);
   color: #7a80a7;
   overflow: hidden;
-  border: 2px solid #27292b;
 
   hr {
-    border-color: #29353b;
+    border: 1px solid #29353b;
     margin: 0 9px;
   }
 `;
@@ -53,6 +52,26 @@ const Header = styled.div`
     padding: 13px;
     white-space: nowrap;
     display: flex;
+  }
+
+  & .neutral_tier_bg_1 {
+    background: linear-gradient(to right, rgba(190, 190, 190, 0.5), rgba(139, 139, 139, 0.5));
+  }
+
+  & .neutral_tier_bg_2 {
+    background: linear-gradient(to right, rgba(146, 228, 126, 0.5), rgba(95, 177, 75, 0.5));
+  }
+
+  & .neutral_tier_bg_3 {
+    background: linear-gradient(to right, rgba(127, 147, 252, 0.5), rgba(76, 96, 201, 0.5));
+  }
+
+  & .neutral_tier_bg_4 {
+    background: linear-gradient(to right, rgba(213, 123, 255, 0.5), rgba(162, 72, 204, 0.5));
+  }
+
+  & .neutral_tier_bg_5 {
+    background: linear-gradient(to right, rgba(255, 225, 149, 0.5), rgba(204, 174, 98, 0.5));
   }
 
   #item-img {
@@ -95,7 +114,7 @@ const HeaderText = styled.div`
   }
 
   & .neutral-header {
-    font-weight: normal;
+    font-weight: 550;
     text-transform: none;
     font-size: ${constants.fontSizeSmall};
 
@@ -139,6 +158,44 @@ const Attributes = styled.div`
 
   & #header {
     color: #95a5a6;
+  }
+`;
+
+const Enhancement = styled.div`
+  padding: 0 6px;
+  
+  & .enhancement-header {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    
+    & hr {
+      margin: auto 0;
+      width: 100%;
+    }
+    
+    & span {
+      margin: auto 5px;
+      text-transform: uppercase;
+    }
+    
+    & .enhancement-title {
+      color: gray;
+      font-size: ${constants.fontSizeSmall};
+      font-weight: 500;
+    }
+    
+    & .enhancement-name {
+      color: white;
+      font-size: ${constants.fontSizeMedium};
+      font-weight: 600;
+    }
+  }
+  
+  & #enhancement-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
   }
 `;
 
@@ -328,6 +385,21 @@ const AttributeContainer = ({stats = []}) => (
     </Attributes>
   );
 
+const EnhancementContainer = ({ enhancement }) => (
+  <Enhancement>
+    <div className="enhancement-header">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+        <hr/><span className="enhancement-title">{`Enchantment`}</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <img id="enhancement-img" src={`${config.VITE_IMAGE_CDN}${enhancement.img}`} alt={enhancement.dname} />
+        <span className="enhancement-name">{enhancement.dname}</span>
+      </div>
+    </div>
+    <AttributeContainer stats={itemStats(enhancement)[0]} />
+  </Enhancement>
+);
+
 // How each type should be styled
 const abilityType = {
   active: 'active',
@@ -337,29 +409,35 @@ const abilityType = {
   use: 'use'
 };
 
-const ItemTooltip = ({ item, inflictor }) => {
-  const recentChanges = getRecentChanges(inflictor);
+const itemStats = (item) => {
   const upperCaseStats = [];
-  const stats = item.attrib.filter(a => a.hasOwnProperty('display')).filter(a => {
+  const stats =  item?.attrib.filter(a => a.hasOwnProperty('display')).filter(a => {
     if (!/[a-z]/.test(a.display.replace('{value}', ''))) {
       upperCaseStats.push(a);
       return false;
     }
     return true;
   });
+  return [ stats, upperCaseStats ];
+}
+
+const ItemTooltip = ({ item, inflictor, value }) => {
+  const recentChanges = getRecentChanges(inflictor);
+  const enhancement = items[value] || null;
+  const [ stats, upperCaseStats ] = itemStats(item);
   const abilities = item.abilities || [];
   const hasNonPassive = abilities.some((a) => ['active', 'use'].includes(a.type));
   return (
     <Wrapper>
       <Header>
-        <div className='header-content'>
+        <div className={`header-content neutral_tier_bg_${item.tier}`}>
           <img id='item-img' src={`${config.VITE_IMAGE_CDN}${item.img}`} alt={item.dname} />
           <HeaderText>
             <div>{item.dname}</div>
             {item.tier ? <div className='neutral-header'><span
               className={`neutral_tier_${item.tier}`}
             >{`Tier ${item.tier} `}
-                                                         </span><span>Neutral Item</span>
+                                                         </span><span>Artifact</span>
                          </div>
               : <div id='gold'><img
                   src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`}
@@ -376,6 +454,8 @@ const ItemTooltip = ({ item, inflictor }) => {
       {(stats && stats.length > 0) &&
         <AttributeContainer stats={stats} />}
       {abilities.map(({ type, title, description }) => Ability(item, type, title, description, hasNonPassive))}
+      {enhancement &&
+        <EnhancementContainer enhancement={enhancement} />}
       {item.hint?.map((hint) => <Hint>{hint}</Hint>)}
       {upperCaseStats.length > 0 &&
         <AttributeContainer stats={upperCaseStats} />}
