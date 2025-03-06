@@ -213,7 +213,7 @@ class InflictorWithValue extends React.Component {
         } else {
           image = `${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/${getInflictorImage(resolvedInflictor)}.png`;
         }
-        tooltip = <ItemTooltip item={item} inflictor={resolvedInflictor} />;
+        tooltip = <ItemTooltip item={item} value={value} inflictor={resolvedInflictor} />;
       } else {
         image = '/assets/images/default_attack.png';
       }
