@@ -33,7 +33,7 @@ function updateWordCloud(wordCounts, cloudDomId) {
   const minSize = 8;
 
   // @howardchung implementation of scaling
-  const scale = maxSize / Math.log(max);
+  const scale = maxSize / (Math.log(max) + 1);
   // var scale = max_size/max;
   // take the log of each count and scale them up to top_size
   // use log since words such as "gg" tend to dominate
