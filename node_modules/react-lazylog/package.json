@@ -1,0 +1,50 @@
+{
+  "name": "react-lazylog",
+  "version": "4.5.3",
+  "description": "React Lazy Logviewer",
+  "license": "MPL-2.0",
+  "repository": "mozilla-frontend-infra/react-lazylog",
+  "main": "build/index.js",
+  "files": [
+    "build",
+    "src"
+  ],
+  "keywords": [
+    "react",
+    "log",
+    "viewer",
+    "logviewer",
+    "lazy",
+    "lazylog"
+  ],
+  "scripts": {
+    "build": "neutrino build",
+    "prepare": "neutrino build",
+    "lint": "neutrino lint",
+    "start": "neutrino styleguide:start",
+    "precommit": "neutrino stage",
+    "deploy": "neutrino styleguide:build && gh-pages --remote upstream -d styleguide"
+  },
+  "devDependencies": {
+    "babel-polyfill": "^6.26.0",
+    "gh-pages": "^1.1.0",
+    "neutrino": "^8.2.1",
+    "neutrino-preset-mozilla-frontend-infra": "^4.1.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
+  },
+  "dependencies": {
+    "@mattiasbuelens/web-streams-polyfill": "^0.2.0",
+    "fetch-readablestream": "^0.2.0",
+    "immutable": "^3.8.2",
+    "mitt": "^1.1.2",
+    "prop-types": "^15.6.1",
+    "react-string-replace": "^0.4.1",
+    "react-virtualized": "^9.21.0",
+    "text-encoding-utf-8": "^1.0.1",
+    "whatwg-fetch": "^2.0.4"
+  },
+  "peerDependencies": {
+    "react": ">=16.3.0"
+  }
+}
