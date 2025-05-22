@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const PRODUCTION_TESTCAFE_DASHBOARD_URL = 'https://dashboard.testcafe.io';
+function default_1() {
+    return process.env.TESTCAFE_DASHBOARD_URL ||
+        PRODUCTION_TESTCAFE_DASHBOARD_URL;
+}
+exports.default = default_1;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZ2V0LWRhc2hib2FyZC11cmwuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvZGFzaGJvYXJkL2dldC1kYXNoYm9hcmQtdXJsLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsTUFBTSxpQ0FBaUMsR0FBRywrQkFBK0IsQ0FBQztBQUUxRTtJQUNJLE9BQU8sT0FBTyxDQUFDLEdBQUcsQ0FBQyxzQkFBc0I7UUFDckMsaUNBQWlDLENBQUM7QUFDMUMsQ0FBQztBQUhELDRCQUdDIiwic291cmNlc0NvbnRlbnQiOlsiY29uc3QgUFJPRFVDVElPTl9URVNUQ0FGRV9EQVNIQk9BUkRfVVJMID0gJ2h0dHBzOi8vZGFzaGJvYXJkLnRlc3RjYWZlLmlvJztcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gKCk6IHN0cmluZyB7XG4gICAgcmV0dXJuIHByb2Nlc3MuZW52LlRFU1RDQUZFX0RBU0hCT0FSRF9VUkwgfHxcbiAgICAgICAgUFJPRFVDVElPTl9URVNUQ0FGRV9EQVNIQk9BUkRfVVJMO1xufVxuIl19
