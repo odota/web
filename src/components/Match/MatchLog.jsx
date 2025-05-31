@@ -549,6 +549,18 @@ function EntryMessage({ entry, strings }) {
           </>
         );
       }
+      if (entry.alt_key === 'CHAT_MESSAGE_AEGIS_STOLEN') {
+        return (
+          <>
+            <img
+              src="/assets/images/dota2/aegis_icon.png"
+              alt="Aegis of Immortality"
+              className="detailIcon"
+            />
+            <span className="smallBoldText">{strings.CHAT_MESSAGE_AEGIS_STOLEN}</span>
+          </>
+        );
+      }
       if (entry.alt_key === 'CHAT_MESSAGE_ROSHAN_KILL') {
         return (
           <>
