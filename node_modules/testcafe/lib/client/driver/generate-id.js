@@ -1,0 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const hammerhead_1 = require("./deps/hammerhead");
+function default_1() {
+    return hammerhead_1.nativeMethods.performanceNow().toString();
+}
+exports.default = default_1;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZ2VuZXJhdGUtaWQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvY2xpZW50L2RyaXZlci9nZW5lcmF0ZS1pZC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGtEQUFrRDtBQUVsRDtJQUNJLE9BQU8sMEJBQWEsQ0FBQyxjQUFjLEVBQUUsQ0FBQyxRQUFRLEVBQUUsQ0FBQztBQUNyRCxDQUFDO0FBRkQsNEJBRUMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBuYXRpdmVNZXRob2RzIH0gZnJvbSAnLi9kZXBzL2hhbW1lcmhlYWQnO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiAoKSB7XG4gICAgcmV0dXJuIG5hdGl2ZU1ldGhvZHMucGVyZm9ybWFuY2VOb3coKS50b1N0cmluZygpO1xufVxuIl19

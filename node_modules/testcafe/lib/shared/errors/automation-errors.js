@@ -1,0 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = {
+    elementIsInvisibleError: 'elementIsInvisibleError',
+    foundElementIsNotTarget: 'foundElementIsNotTarget',
+};
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXV0b21hdGlvbi1lcnJvcnMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvc2hhcmVkL2Vycm9ycy9hdXRvbWF0aW9uLWVycm9ycy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGtCQUFlO0lBQ1gsdUJBQXVCLEVBQUUseUJBQXlCO0lBQ2xELHVCQUF1QixFQUFFLHlCQUF5QjtDQUNyRCxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGRlZmF1bHQge1xuICAgIGVsZW1lbnRJc0ludmlzaWJsZUVycm9yOiAnZWxlbWVudElzSW52aXNpYmxlRXJyb3InLFxuICAgIGZvdW5kRWxlbWVudElzTm90VGFyZ2V0OiAnZm91bmRFbGVtZW50SXNOb3RUYXJnZXQnLFxufTtcbiJdfQ==
