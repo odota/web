@@ -27,8 +27,6 @@ import config from '../../config';
 const playerMapping = {};
 const teamMapping = {};
 
-const defaultMinDate = 7;
-
 function jsonResponse(response) {
   return response.json();
 }
@@ -74,10 +72,6 @@ class Explorer extends React.Component {
       result: {},
       builder: urlState,
     };
-
-    if (!('minDate' in this.state.builder)) {
-      this.state.builder.minDate = new Date(new Date().setDate(new Date().getDate() - defaultMinDate)).toISOString();
-    }
   }
   async componentDidMount() {
     this.props.dispatchProPlayers();
