@@ -216,7 +216,7 @@ ${validateArray(groupArray) ? 'GROUP BY' : ''}${(validateArray(groupArray) && gr
 ${validateArray(groupArray) ? `HAVING count(distinct matches.match_id) >= ${(having && having.value) || '1'}` : ''}
 ORDER BY ${
   [`${(validateArray(groupArray) && validateArray(selectArray) && selectArray.map(x => `"AVG ${x.text}" ${order ? order.value : 'DESC'}`)) ||
-    (validateArray(selectArray) && selectArray.map(x => `${x.value} ${order ? order.value : 'DESC'}`).join(',')) || 'matches.match_id'}`,
+    (validateArray(selectArray) && selectArray.map(x => `${x.value} ${order ? order.value : 'DESC'}`).join(',')) || 'matches.match_id DESC'}`,
   validateArray(groupArray) ? 'count DESC' : '',
   ].filter(Boolean).join(',')} NULLS LAST
 LIMIT ${limit ? limit.value : 200}`;
