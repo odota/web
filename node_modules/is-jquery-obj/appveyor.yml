@@ -1,0 +1,13 @@
+environment:
+  NODEJS_VERSION: "stable"
+
+install:
+- ps: >-
+    Install-Product node $env:NODEJS_VERSION
+- cmd: >-
+    npm install
+build: off
+
+test_script:
+- cmd: >-
+    npm test

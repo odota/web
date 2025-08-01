@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function default_1(options) {
+    if (!options)
+        return false;
+    return options.counterMode || options.getVisibleValueMode;
+}
+exports.default = default_1;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmV0dXJuLXNpbmdsZS1wcm9wLW1vZGUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvY2xpZW50LWZ1bmN0aW9ucy9yZXR1cm4tc2luZ2xlLXByb3AtbW9kZS5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLG1CQUF5QixPQUFPO0lBQzVCLElBQUksQ0FBQyxPQUFPO1FBQ1IsT0FBTyxLQUFLLENBQUM7SUFFakIsT0FBTyxPQUFPLENBQUMsV0FBVyxJQUFJLE9BQU8sQ0FBQyxtQkFBbUIsQ0FBQztBQUM5RCxDQUFDO0FBTEQsNEJBS0MiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiAob3B0aW9ucykge1xuICAgIGlmICghb3B0aW9ucylcbiAgICAgICAgcmV0dXJuIGZhbHNlO1xuXG4gICAgcmV0dXJuIG9wdGlvbnMuY291bnRlck1vZGUgfHwgb3B0aW9ucy5nZXRWaXNpYmxlVmFsdWVNb2RlO1xufVxuIl19

@@ -1,0 +1,37 @@
+.searchBar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: "Monaco", monospace;
+  font-size: 12px;
+  background-color: #222222;
+  color: #d6d6d6;
+  padding: 10px;
+}
+
+.searchInput {
+  background-color: #464646;
+  color: #d6d6d6;
+  height: 20px;
+  min-width: 200px;
+  font-size: 12px;
+  padding: 2px 5px;
+  border: 1px solid #4e4e4e;
+  margin-right: 10px;
+}
+
+.active {
+  color: #d6d6d6;
+  fill: #d6d6d6;
+}
+
+.inactive {
+  color: #464646;
+  fill: #464646;
+}
+
+.button {
+  background: none;
+  border: none;
+  margin-right: 10px;
+}
