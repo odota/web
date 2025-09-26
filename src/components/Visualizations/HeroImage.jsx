@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import heroes from 'dotaconstants/build/heroes.json';
+import { heroes } from 'dotaconstants';
 import { IMAGESIZE_ENUM } from '../../utility';
 import config from '../../config';
 

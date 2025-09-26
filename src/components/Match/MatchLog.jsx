@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 import { Tooltip } from '@material-ui/core';
-import heroes from 'dotaconstants/build/heroes.json';
+import { heroes } from 'dotaconstants';
 import {
   formatSeconds,
   getHeroesById,

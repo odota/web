@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import heroes from 'dotaconstants/build/heroes.json';
+import { heroes } from 'dotaconstants';
 import ReactTooltip from 'react-tooltip';
 import { abbreviateNumber } from '../../utility';
 import { IconRadiant, IconDire } from '../Icons';

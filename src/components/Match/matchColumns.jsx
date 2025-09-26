@@ -1,10 +1,7 @@
 import React from 'react';
 import findLast from 'lodash/fp/findLast';
 import { Tooltip } from '@material-ui/core';
-import heroes from 'dotaconstants/build/heroes.json';
-import orderTypes from 'dotaconstants/build/order_types.json';
-import itemIds from 'dotaconstants/build/item_ids.json';
-import buffs from 'dotaconstants/build/permanent_buffs.json';
+import { heroes, order_types as orderTypes, item_ids as itemIds, permanent_buffs as buffs } from 'dotaconstants';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
@@ -41,7 +38,7 @@ import HeroImage from './../Visualizations/HeroImage';
 import ItemTooltip from '../ItemTooltip';
 import config from '../../config';
 
-const items = (await import('dotaconstants/build/items.json')).default;
+const items = (await import(`../../../node_modules/dotaconstants/build/items.json`)).default;
 const heroNames = getHeroesById();
 const parsedBenchmarkCols = ['lhten', 'stuns_per_min'];
 

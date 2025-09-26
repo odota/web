@@ -1,6 +1,6 @@
 import React from 'react';
 import { RaisedButton, RadioButton, RadioButtonGroup } from 'material-ui';
-import heroes from 'dotaconstants/build/heroes.json';
+import { heroes } from 'dotaconstants';
 import querystring from 'querystring';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

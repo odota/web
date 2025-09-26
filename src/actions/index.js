@@ -82,8 +82,8 @@ export const getStrings = () => async (dispatch) => {
   const defaultLang = langs[0];
   const lang = getLang(savedLang) || getLang(userLang) || defaultLang;
 
-  const defData = await import(/* webpackChunkName: 'i18n-[request]' */`../lang/${defaultLang.value}.json`);
-  const selData = await import(/* webpackChunkName: 'i18n-[request]' */`../lang/${lang.value}.json`);
+  const defData = await import(`../lang/${defaultLang.value}.json`);
+  const selData = await import(`../lang/${lang.value}.json`);
 
   dispatch({ type: 'strings', payload: { ...defData, ...selData } });
 };

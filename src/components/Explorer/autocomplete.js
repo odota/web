@@ -1,8 +1,8 @@
-import heroes from 'dotaconstants/build/heroes.json';
+import { heroes } from 'dotaconstants';
 import store from '../../store';
 // import fields from './fields';
 
-const items = (await import('dotaconstants/build/items.json')).default;
+const items = await import(`../../../node_modules/dotaconstants/build/items.json`);
 
 const sqlfs = ['SELECT', 'WHERE', 'GROUP BY', 'ORDER BY'];
 const sqlts = ['FROM', 'JOIN', 'LEFT JOIN'];

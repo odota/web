@@ -12,7 +12,7 @@ import {
   Label,
   ResponsiveContainer,
 } from 'recharts';
-import heroes from 'dotaconstants/build/heroes.json';
+import { heroes } from 'dotaconstants';
 import styled from 'styled-components';
 import { formatSeconds, fromNow, formatGraphValueData } from '../../../utility';
 import constants from '../../constants';

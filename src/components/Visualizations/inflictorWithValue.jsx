@@ -8,11 +8,11 @@ import ItemTooltip from './../ItemTooltip/index';
 import constants from '../constants';
 import AbilityTooltip from '../AbilityTooltip';
 import config from '../../config';
+import { neutral_abilities as neutralAbilities } from 'dotaconstants';
 
-const abilityIds = (await import('dotaconstants/build/ability_ids.json')).default;
-const abilities = (await import('dotaconstants/build/abilities.json')).default;
-const neutralAbilities = (await import('dotaconstants/build/neutral_abilities.json')).default;
-const items = (await import('dotaconstants/build/items.json')).default;
+const abilities = (await import('../../../node_modules/dotaconstants/build/abilities.json')).default;
+const abilityIds = (await import('../../../node_modules/dotaconstants/build/ability_ids.json')).default;
+const items = (await import('../../../node_modules/dotaconstants/build/items.json')).default;
 
 const getInflictorImage = (inflictor) => {
   if (inflictor.includes('recipe')) {

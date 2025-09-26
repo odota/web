@@ -1,4 +1,4 @@
-import skillshots from 'dotaconstants/build/skillshots.json';
+import { skillshots } from 'dotaconstants';
 import {
   isSupport,
   getObsWardsPlaced,

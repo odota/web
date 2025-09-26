@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import heroes from 'dotaconstants/build/heroes.json';
+import { heroes } from 'dotaconstants';
 import Heading from '../Heading';
 import Table from '../Table';
 import TeamfightMap from '../Match/TeamfightMap';

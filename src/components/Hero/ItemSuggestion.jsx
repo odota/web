@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import itemIds from 'dotaconstants/build/item_ids.json';
+import { item_ids as itemIds } from 'dotaconstants';
 import PropTypes from 'prop-types';
 import Table from '../Table';
 import inflictorWithValue from '../Visualizations/inflictorWithValue';

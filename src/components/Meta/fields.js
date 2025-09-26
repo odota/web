@@ -1,7 +1,4 @@
-import heroData from 'dotaconstants/build/heroes.json';
-import gameModeData from 'dotaconstants/build/game_mode.json';
-import lobbyTypeData from 'dotaconstants/build/lobby_type.json';
-// import patchData from 'dotaconstants/build/patch.json';
+import { heroes as heroData, game_mode as gameModeData, lobby_type as lobbyTypeData } from 'dotaconstants';
 import store from '../../store';
 import { formatTemplateToString } from '../../utility';
 

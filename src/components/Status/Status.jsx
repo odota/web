@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import CountUp from 'react-countup';
-import { LazyLog } from 'react-lazylog';
 import { abbreviateNumber } from '../../utility';
 import Table from '../Table';
 import config from '../../config';
+
+const { LazyLog } = await import('react-lazylog');
 
 function jsonResponse(response) {
   return response.json();

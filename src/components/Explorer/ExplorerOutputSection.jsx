@@ -10,7 +10,6 @@ import {
   from '../../utility';
 import Table from '../Table';
 import { IconRadiant, IconDire, IconTrophy } from '../Icons';
-// import heroes from 'dotaconstants/build/heroes.json';
 import {
   TablePercent,
   inflictorWithValue,
@@ -22,7 +21,7 @@ import { StyledTeamIconContainer } from '../Match/StyledMatch';
 import HeroImage from './../Visualizations/HeroImage';
 import { WinnerSpan } from '../Matches';
 
-const items = (await import('dotaconstants/build/items.json')).default;
+const items = await import(`../../../node_modules/dotaconstants/build/items.json`);
 
 /*
 function resolveId(key, value, mappings) {

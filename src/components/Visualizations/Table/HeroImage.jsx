@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { Tooltip } from '@material-ui/core';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
-import playerColors from 'dotaconstants/build/player_colors.json';
+import { player_colors as playerColors } from 'dotaconstants';
 import SocialPerson from 'material-ui/svg-icons/social/person';
 import NotificationSync from 'material-ui/svg-icons/notification/sync';
 import styled from 'styled-components';

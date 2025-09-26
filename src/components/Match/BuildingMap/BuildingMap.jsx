@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import playerColors from 'dotaconstants/build/player_colors.json';
-import heroes from 'dotaconstants/build/heroes.json';
+import { player_colors as playerColors } from 'dotaconstants';
+import { heroes } from 'dotaconstants';
 import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 import {

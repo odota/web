@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import aghsDesc from 'dotaconstants/build/aghs_desc.json';
 import propTypes from 'prop-types';
 import AghsTooltip from '../AghsTooltip';
 import constants from '../constants';
+
+const aghsDesc = (await import('../../../node_modules/dotaconstants/build/aghs_desc.json')).default;
 
 const Wrapper = styled.div`
   background: linear-gradient(to bottom, ${constants.colorBlueMuted}, ${constants.primarySurfaceColor});

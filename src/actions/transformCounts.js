@@ -1,5 +1,5 @@
-import patch from 'dotaconstants/build/patch.json';
-import region from 'dotaconstants/build/region.json';
+import { patch } from 'dotaconstants';
+import { region } from 'dotaconstants';
 import { getPercentWin } from '../utility';
 import store from '../store';
 

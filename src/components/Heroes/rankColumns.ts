@@ -1,4 +1,4 @@
-import heroes from 'dotaconstants/build/heroes.json';
+import { heroes } from 'dotaconstants';
 import constants from '../constants';
 import { abbreviateNumber, displayHeroId } from '../../utility';
 import { GlobalString } from 'src/types/common/GlobalString';

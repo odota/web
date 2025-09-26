@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Tooltip } from '@material-ui/core';
-import heroes from 'dotaconstants/build/heroes.json';
-import itemColors from 'dotaconstants/build/item_colors.json';
+import { heroes, item_colors as itemColors } from 'dotaconstants';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
 import { IconRadiant, IconDire } from '../Icons';
 import HeroImage from "../Visualizations/HeroImage";
@@ -18,7 +17,7 @@ import constants from '../constants';
 import store from '../../store';
 import config from '../../config';
 
-const items = (await import('dotaconstants/build/items.json')).default;
+const items = (await import(`../../../node_modules/dotaconstants/build/items.json`)).default;
 
 const heroesArr = jsonFn(heroes);
 

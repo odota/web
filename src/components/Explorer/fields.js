@@ -1,12 +1,12 @@
-import heroData from 'dotaconstants/build/heroes.json';
-import patchData from 'dotaconstants/build/patch.json';
-import regionData from 'dotaconstants/build/region.json';
-import clusterData from 'dotaconstants/build/cluster.json';
+import { heroes as heroData } from 'dotaconstants';
+import { patch as patchData } from 'dotaconstants';
+import { region as regionData }  from 'dotaconstants';
+import { cluster as clusterData } from 'dotaconstants';
 import store from '../../store';
 import { formatTemplateToString } from '../../utility';
 // import { isActiveItem } from '../../utility';
 
-const items = (await import('dotaconstants/build/items.json')).default;
+const items = (await import(`../../../node_modules/dotaconstants/build/items.json`)).default;
 
 const getItemSuffix = itemKey => (['_2', '_3', '_4', '_5'].some(suffix => itemKey.indexOf(suffix) !== -1) ? itemKey[itemKey.length - 1] : '');
 

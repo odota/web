@@ -1,5 +1,4 @@
-import heroes from 'dotaconstants/build/heroes.json';
-import playerColors from 'dotaconstants/build/player_colors.json';
+import { heroes, player_colors as playerColors } from 'dotaconstants';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';

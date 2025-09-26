@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
-import heroes from 'dotaconstants/build/heroes.json';
-import heroAbilities from 'dotaconstants/build/hero_abilities.json';
+import { heroes } from 'dotaconstants';
 import config from '../../../config';
+
+const heroAbilities = (await import('../../../../node_modules/dotaconstants/build/hero_abilities.json')).default;
 
 const Facet = styled.div`
   .facet {

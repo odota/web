@@ -1,4 +1,4 @@
-import heroes from 'dotaconstants/build/heroes.json';
+import { heroes } from 'dotaconstants';
 import immutable from 'seamless-immutable';
 import flatten from 'lodash/fp/flatten';
 import {
@@ -10,7 +10,7 @@ import {
 import analyzeMatch from './analyzeMatch';
 import store from '../store';
 
-const abilityIds = (await import('dotaconstants/build/ability_ids.json')).default;
+const abilityIds = (await import('../../node_modules/dotaconstants/build/ability_ids.json')).default;
 
 let expandedUnitNames = null;
 

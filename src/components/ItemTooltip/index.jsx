@@ -6,8 +6,8 @@ import { styleValues } from '../../utility';
 import config from '../../config';
 import AbilityBehaviour from '../AbilityTooltip/AbilityBehaviour';
 
-const items = (await import('dotaconstants/build/items.json')).default;
-const patchnotes = (await import('dotaconstants/build/patchnotes.json')).default;
+const items = (await import(`../../../node_modules/dotaconstants/build/items.json`)).default;
+const patchnotes = (await import(`../../../node_modules/dotaconstants/build/patchnotes.json`)).default;
 
 // Get patchnotes from up to two last letter patches
 function getRecentChanges(item) {

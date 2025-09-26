@@ -6,8 +6,8 @@ import Ability from './Ability';
 import Talents from './Talents';
 import AghanimUpgrades from './AghanimUpgrades';
 
-const abilities = (await import('dotaconstants/build/abilities.json')).default;
-const heroAbilities = (await import('dotaconstants/build/hero_abilities.json')).default;
+const heroAbilities = (await import('../../../node_modules/dotaconstants/build/hero_abilities.json')).default;
+const abilities = (await import('../../../node_modules/dotaconstants/build/abilities.json')).default;
 
 const Wrapper = styled.div`
   align-items: center;

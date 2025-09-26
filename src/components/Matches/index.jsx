@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import heroes from 'dotaconstants/build/heroes.json';
+import { heroes } from 'dotaconstants';
 import styled from 'styled-components';
 import { transformations, subTextStyle, rankTierToString } from '../../utility';
 import { getProMatches, getPublicMatches } from '../../actions';

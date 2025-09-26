@@ -6,15 +6,15 @@ import AvVolumeUp from 'material-ui/svg-icons/av/volume-up';
 import Checkbox from 'material-ui/Checkbox';
 import Visibility from 'material-ui/svg-icons/action/visibility';
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
-import heroes from 'dotaconstants/build/heroes.json';
-import playerColors from 'dotaconstants/build/player_colors.json';
-import chatWheelMessages from 'dotaconstants/build/chat_wheel.json';
+import { heroes, player_colors as playerColors } from 'dotaconstants';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
 import styled from 'styled-components';
 import { isRadiant, formatSeconds } from '../../../utility';
 import { IconRadiant, IconDire } from '../../Icons';
 import constants from '../../constants';
 import HeroImage from './../../Visualizations/HeroImage';
+
+const chatWheelMessages = (await import('../../../../node_modules/dotaconstants/build/chat_wheel.json')).default;
 
 const StyledDiv = styled.div`
   padding-left: 32px;

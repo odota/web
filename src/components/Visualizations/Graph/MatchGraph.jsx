@@ -13,8 +13,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import heroes from 'dotaconstants/build/heroes.json';
-import playerColors from 'dotaconstants/build/player_colors.json';
+import { heroes, player_colors as playerColors } from 'dotaconstants';
 import Heading from '../../Heading';
 import constants from '../../constants';
 import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHolder, GoldSpan, XpSpan, StyledTooltipGold, StyledCustomizedTooltip } from './Styled';

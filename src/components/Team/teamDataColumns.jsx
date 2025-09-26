@@ -1,5 +1,5 @@
 import React from 'react';
-import heroes from 'dotaconstants/build/heroes.json';
+import { heroes } from 'dotaconstants';
 import { transformations, displayHeroId, subTextStyle, getTeamLogoUrl } from '../../utility';
 import { TableLink } from '../Table';
 import constants from '../constants';
