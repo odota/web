@@ -7,7 +7,7 @@ import TabbedContent from '../TabbedContent';
 import { getMatch } from '../../actions';
 import MatchHeader from './MatchHeader';
 import matchPages from './matchPages';
-import FourOhFour from '../../components/FourOhFour';
+import FourOhFour from '../../components/FourOhFour/FourOhFour';
 
 class RequestLayer extends React.Component {
   static propTypes = {

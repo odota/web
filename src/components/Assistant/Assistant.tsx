@@ -176,28 +176,31 @@ const responses = [
 // RTZ Sven gets sprouted
 ];
 
-let recognition;
-let synth;
+let recognition: any;
+let synth: any;
 
-class Assistant extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
+class Assistant extends React.Component<{}, {listening: boolean, recognizedSpeech?: string, responseSpeech?: string}> {
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      listening: false,
+    };
   }
   componentDidMount() {
+    //@ts-expect-error
     recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
     recognition.lang = 'en-US';
     recognition.interimResults = false;
     recognition.maxAlternatives = 5;
     synth = window.speechSynthesis;
-    recognition.onresult = function (event) {
+    recognition.onresult = (event: any) => {
       this.setState({ ...this.state, recognizedSpeech: event.results[0][0].transcript });
-    }.bind(this);
+    }
   }
 
   render() {
     return (<div>
-      <Heading title="Voice Assistant" subtitle="Your personal voice assistant to the world of Dota 2. Click the microphone and start speaking." />
+      <Heading title="Voice Assistant" className="" subtitle="Your personal voice assistant to the world of Dota 2. Click the microphone and start speaking." />
       <div style={{ textAlign: 'center' }}>
         <div>
           <IconButton

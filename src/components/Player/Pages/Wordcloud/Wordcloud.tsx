@@ -1,31 +1,32 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getPlayerWordcloud } from '../../../../actions';
 import Container from '../../../Container';
-import Wordcloud from '../../../Wordcloud';
+import Wordcloud from '../../../Wordcloud/Wordcloud';
 
-const getData = (props) => {
+type Props = {
+  playerId: string;
+  location: {key: string, search: any};
+  error: boolean;
+  loading: boolean;
+  data: {
+    my_word_counts: Record<string, number>,
+    all_word_counts: Record<string, number>,
+  };
+  strings: Strings;
+  getPlayerWordcloud: (playerId: string, params: any) => void;
+};
+
+const getData = (props: Props) => {
   props.getPlayerWordcloud(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    playerId: PropTypes.string,
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    error: PropTypes.string,
-    loading: PropTypes.bool,
-    data: PropTypes.shape({}),
-    strings: PropTypes.shape({}),
-  }
-
+class RequestLayer extends React.Component<Props> {
   componentDidMount() {
     getData(this.props);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
       getData(this.props);
     }
@@ -48,15 +49,15 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   data: state.app.playerWordcloud.data,
   loading: state.app.playerWordcloud.loading,
   error: state.app.playerWordcloud.error,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getPlayerWordcloud: (playerId, options) => dispatch(getPlayerWordcloud(playerId, options)),
+const mapDispatchToProps = (dispatch: Function) => ({
+  getPlayerWordcloud: (playerId: string, options: any) => dispatch(getPlayerWordcloud(playerId, options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

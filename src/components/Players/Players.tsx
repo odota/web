@@ -7,7 +7,7 @@ import Heading from '../Heading';
 import Table, { TableLink } from '../Table';
 import { getRankTierMedal } from '../Player/Header/PlayerHeader';
 
-const columns = (strings: GlobalString) => [
+const columns = (strings: Strings) => [
   {
     displayName: strings.th_rank,
     displayFn: (row: any, col: number, field: any, index: number) => getOrdinal(index + 1),

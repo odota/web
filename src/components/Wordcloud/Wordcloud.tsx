@@ -1,22 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import wordcloud from 'wordcloud';
 import nanoid from 'nanoid';
 
 const stopWords = 'a,am,an,and,are,as,at,be,by,for,from,how,i,im,in,is,it,not,of,on,or,that,the,this,to,was,what,when,where,who,will,with';
 
-function isStopWord(word) {
+function isStopWord(word: string) {
   const regex = new RegExp(`\\b${word}\\b`, 'i');
   return !(stopWords.search(regex) < 0);
 }
 
-function getBaseLog(x, y) {
+function getBaseLog(x: number, y: number) {
   return Math.log(x) / Math.log(y);
 }
 
-function updateWordCloud(wordCounts, cloudDomId) {
-  let wordList = [];
+function updateWordCloud(wordCounts: Record<string, number>, cloudDomId: string) {
+  let wordList: [key:string, count:number][] = [];
   let max = 0;
   const width = window.innerWidth * 0.8;
 
@@ -52,6 +51,7 @@ function updateWordCloud(wordCounts, cloudDomId) {
 
   // sort the list to ensure most frequent words get displayed
   wordList = wordList.sort((a, b) => b[1] - a[1]);
+  //@ts-expect-error
   wordcloud(document.getElementById(cloudDomId), {
     list: wordList,
     backgroundColor: 'transparent',
@@ -60,19 +60,14 @@ function updateWordCloud(wordCounts, cloudDomId) {
   });
 }
 
-const { string } = PropTypes;
+type WordcloudProps = {counts: Record<string, number>};
 
-class Wordcloud extends React.Component {
+class Wordcloud extends React.Component<WordcloudProps> {
   id = `a-${nanoid()}`;
-
-  static propTypes = {
-    counts: string,
-  }
-
   componentDidMount() {
     updateWordCloud(this.props.counts, this.id);
   }
-  componentDidUpdate(nextProps) {
+  componentDidUpdate(nextProps: WordcloudProps) {
     updateWordCloud(nextProps.counts, this.id);
   }
 
@@ -89,8 +84,5 @@ class Wordcloud extends React.Component {
     );
   }
 }
-Wordcloud.defaultProps = {
-  counts: {},
-};
 
 export default connect()(Wordcloud);

@@ -1,1 +1,1 @@
-type GlobalString = typeof import('./lang/en-US.json');
+type Strings = typeof import('./lang/en-US.json');

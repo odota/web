@@ -1,9 +1,8 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import constants from '../constants';
+import useStrings from '../../hooks/useStrings.hook';
 
 const Styled = styled.div`
   .container {
@@ -42,8 +41,9 @@ const imageList = ['sad', 'bawl', 'charm-cry'];
 
 const randomImage = imageList[Math.floor(Math.random() * imageList.length)];
 
-const FourOhFour = ({ strings, msg }) => (
-  <Styled>
+const FourOhFour = ({ msg }: { msg: string }) => {
+  const strings = useStrings();
+  return (<Styled>
     <div className="container">
       <Helmet title={`${strings.error} 404`} />
       <img
@@ -60,16 +60,8 @@ const FourOhFour = ({ strings, msg }) => (
         {strings.error} 404
       </div>
     </div>
-  </Styled>
-);
-
-const mapStateToProps = state => ({
-  strings: state.app.strings,
-});
-
-FourOhFour.propTypes = {
-  strings: PropTypes.shape({}),
-  msg: PropTypes.string,
+  </Styled>);
 };
 
-export default connect(mapStateToProps, null)(FourOhFour);
+
+export default FourOhFour;

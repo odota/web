@@ -6,7 +6,7 @@ import React from 'react';
 
 type Props = {
   tabType: HeroesTab;
-  strings: GlobalString;
+  strings: Strings;
 };
 
 enum HeroesTab {
@@ -62,7 +62,7 @@ export const rankColumns = (props: Props) => {
   return columns[props.tabType];
 };
 
-const generateTurboTabColumns = (strings: GlobalString) => {
+const generateTurboTabColumns = (strings: Strings) => {
   const heroColumn = generateHeroColumn(strings);
 
   const combinedColumns = [
@@ -90,7 +90,7 @@ const generateTurboTabColumns = (strings: GlobalString) => {
   return combinedColumns;
 };
 
-const generateProTabColumns = (strings: GlobalString) => {
+const generateProTabColumns = (strings: Strings) => {
   const heroColumn = generateHeroColumn(strings);
 
   const combinedColumns = [
@@ -128,7 +128,7 @@ const generateProTabColumns = (strings: GlobalString) => {
   return combinedColumns;
 };
 
-const generateHeroColumn = (strings: GlobalString): HeroColumn => {
+const generateHeroColumn = (strings: Strings): HeroColumn => {
   return {
     displayName: strings.th_hero_id,
     tooltip: strings.tooltip_hero_id,
@@ -150,7 +150,7 @@ const decimalToCount = (decimal: number, matchTotal: number) => {
   return 0;
 };
 
-const generatePublicTabColumns = (strings: GlobalString) => {
+const generatePublicTabColumns = (strings: Strings) => {
   const columns = [
     {
       displayName: `${strings.rank_tier_overall  } ${  strings.abbr_pick  }%`,
@@ -239,7 +239,7 @@ const generatePublicTabColumns = (strings: GlobalString) => {
 const getRankIcon = (number: number) =>
   `/assets/images/dota2/rank_icons/rank_icon_${number}.png`;
 
-const prepareColumns = (columns: Column[], strings: GlobalString) => {
+const prepareColumns = (columns: Column[], strings: Strings) => {
   return columns.map((column) => {
     const preparedColumn: PreparedColumn = {
       ...column,
@@ -252,7 +252,7 @@ const prepareColumns = (columns: Column[], strings: GlobalString) => {
   });
 };
 
-const prepareHeroColumn = (strings: GlobalString): PreparedColumn[] => {
+const prepareHeroColumn = (strings: Strings): PreparedColumn[] => {
   const columns = [generateHeroColumn(strings)];
 
   return prepareColumns(columns, strings);

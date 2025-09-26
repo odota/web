@@ -244,7 +244,7 @@ const predColumns = [
   {
     displayName: 'Explore',
     field: 'link',
-    displayFn: (row, col, field) =>
+    displayFn: (row: any, col: any, field: any) =>
       field ? (
         <a href={field} target="_blank" rel="noopener noreferrer">
           View in Explorer
@@ -254,7 +254,7 @@ const predColumns = [
   {
     displayName: 'Notes',
     field: 'notes',
-    displayFn: (row, col, field) => <pre>{field}</pre>,
+    displayFn: (row: any, col: any, field: any) => <pre>{field}</pre>,
   },
 ];
 

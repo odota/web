@@ -12,7 +12,7 @@ import {
   sum,
   abbreviateNumber,
 } from '../../utility';
-import { rankColumns } from './rankColumns.ts';
+import { rankColumns } from './rankColumns';
 
 class RequestLayer extends React.Component {
   static propTypes = {

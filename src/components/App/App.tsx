@@ -13,7 +13,7 @@ import Subscription from '../Subscription';
 import constants from '../constants';
 import Distributions from '../Distributions';
 import Footer from '../Footer';
-import FourOhFour from '../FourOhFour';
+import FourOhFour from '../FourOhFour/FourOhFour';
 import Header from '../Header';
 import Home from '../Home';
 import Matches from '../Matches';

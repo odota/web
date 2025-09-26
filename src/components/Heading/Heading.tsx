@@ -1,14 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Tooltip } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import RaisedButton from 'material-ui/RaisedButton';
 import { StyledDiv, TwoLineDiv } from './Styled';
+import RaisedButton from 'material-ui/RaisedButton';
+import useStrings from '../../hooks/useStrings.hook';
 
 const Heading = ({
-  title = '', titleTo, icon, subtitle, buttonLabel, buttonTo, buttonIcon, twoLine, info, winner, strings, className
-}) => {
+  title = '', titleTo, icon, subtitle, buttonLabel, buttonTo, buttonIcon, twoLine, info = '', winner, className
+}: { title?: string, titleTo?: string, icon?: React.ReactNode, subtitle?: string, buttonLabel?: string, buttonTo?: string, buttonIcon?: string, twoLine?: boolean, info?: string, winner?: boolean, className?: string}) => {
+  const strings = useStrings();
   const DivToUse = twoLine ? TwoLineDiv : StyledDiv;
   return (
     <DivToUse className={className}>
@@ -42,6 +42,7 @@ const Heading = ({
             icon={<img src={buttonIcon} alt="" />}
             href={buttonTo}
             target="_blank"
+            //@ts-expect-error
             rel="noopener noreferrer"
             primary
           />
@@ -51,32 +52,4 @@ const Heading = ({
     </DivToUse>);
 };
 
-const {
-  string, element, oneOfType, bool, shape,
-} = PropTypes;
-
-Heading.propTypes = {
-  title: string,
-  titleTo: string,
-  icon: oneOfType([
-    string,
-    element,
-  ]),
-  subtitle: oneOfType([
-    shape({}),
-    string,
-  ]),
-  twoLine: bool,
-  info: string,
-  buttonLabel: string,
-  buttonTo: string,
-  buttonIcon: string,
-  winner: bool,
-  strings: shape({}),
-};
-
-const mapStateToProps = state => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(Heading);
+export default Heading;

@@ -71,7 +71,7 @@ export const getPlayerTrends = (accountId: number, params: any, field: string) =
 export const getPlayerCounts = (accountId: number, params: any) => action('playerCounts', config.VITE_API_HOST, `api/players/${accountId}/counts`, paramsWithTurbo(params), transformCounts);
 export const getPlayerItems = (accountId: number, params: any) => action('playerItems', config.VITE_API_HOST, `api/players/${accountId}/items`, paramsWithTurbo(params));
 export const getPlayerWardmap = (accountId: number, params: any) => action('playerWardmap', config.VITE_API_HOST, `api/players/${accountId}/wardmap`, paramsWithTurbo(params));
-export const getPlayerWordcloud = (accountId: number, params: any) => action('playerWordcloud', config.VITE_API_HOST, `api/players/${accountId}/wordcloud`, { ...paramsWithTurbo(params), date: 365 });
+export const getPlayerWordcloud = (accountId: string, params: any) => action('playerWordcloud', config.VITE_API_HOST, `api/players/${accountId}/wordcloud`, { ...paramsWithTurbo(params), date: 365 });
 export const getPlayerTotals = (accountId: number, params: any) => action('playerTotals', config.VITE_API_HOST, `api/players/${accountId}/totals`, paramsWithTurbo(params));
 export const getPlayerMmr = (accountId: number, params: any) => action('playerMmr', config.VITE_API_HOST, `api/players/${accountId}/ratings`, paramsWithTurbo(params));
 export const getPlayerRankings = (accountId: number, params: any) => action('playerRankings', config.VITE_API_HOST, `api/players/${accountId}/rankings`, paramsWithTurbo(params), transformRankings);
