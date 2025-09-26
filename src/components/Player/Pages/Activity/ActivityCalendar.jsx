@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import constants from '../../../constants';
-import { getDOY, getLocalizedWeekdayStrings, getLocalizedMonthStrings } from './../../../../utility/index';
+import { getDOY, getLocalizedWeekdayStrings, getLocalizedMonthStrings } from './../../../../utility';
 import Table from './../../../Table/Table';
 import playerMatchesColumns from '../Matches/playerMatchesColumns';
 import { WeeksContainer, DayContainer, Week, Styled, Content, WeekDayLabels } from './Styled';

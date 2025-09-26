@@ -10,15 +10,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
-import constants from '../components/constants';
-import { TableLink } from '../components/Table';
+import constants from './components/constants';
+import { TableLink } from './components/Table';
 import {
   FromNowTooltip,
   KDA,
   TableHeroImage,
-} from '../components/Visualizations';
-import store from '../store';
-import config from '../config';
+} from './components/Visualizations';
+import store from './store';
+import config from './config';
 import { items } from 'dotaconstants';
 
 const second = 1;

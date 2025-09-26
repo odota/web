@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import { ExpandMore, ExpandLess, Translate } from '@material-ui/icons';
 import styled from 'styled-components';
-import { langs } from '../../lang/index';
+import { langs } from '../../lang';
 import constants from '../constants';
 import { useStrings } from '../../hooks/useStrings.hook';
 
