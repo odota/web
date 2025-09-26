@@ -4,7 +4,7 @@ const initialFormState = {
   show: false,
 };
 
-export default (state = initialFormState, action) => {
+export default (state = initialFormState, action: { type: string }) => {
   switch (action.type) {
     case formActions.TOGGLE_SHOW_FORM:
       return {

@@ -1,11 +1,11 @@
-export default function transformBenchmarks(data) {
+export default function transformBenchmarks(data: any) {
   const { result } = data;
   const listStats = Object.keys(data.result);
-  const listPercentiles = result[listStats[0]].map(i => i.percentile);
+  const listPercentiles = result[listStats[0]].map((i: any) => i.percentile);
   const benchmarks = [];
 
   for (let i = 0; i < listPercentiles.length; i += 1) {
-    const percentilePerStat = {
+    const percentilePerStat: Record<string, number> = {
       percentile: listPercentiles[i],
     };
 

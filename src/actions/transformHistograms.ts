@@ -1,4 +1,4 @@
-const reduceArray = backwards => (array, val) => {
+const reduceArray = (backwards: boolean) => (array: any[], val: any) => {
   if (array.length !== 0 || val.games !== 0) {
     if (backwards) {
       array.unshift(val);
@@ -9,6 +9,6 @@ const reduceArray = backwards => (array, val) => {
   return array;
 };
 
-export default function transformHistograms(data) {
+export default function transformHistograms(data: any[]) {
   return data.reduceRight(reduceArray(true), []);
 }

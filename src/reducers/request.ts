@@ -6,7 +6,7 @@ const initialState = {
   loading: false,
 };
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: { type: string, error: string, progress: number }) => {
   switch (action.type) {
     case requestActions.START:
       return {

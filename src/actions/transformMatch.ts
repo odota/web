@@ -12,25 +12,25 @@ import store from '../store';
 
 const abilityIds = (await import('../../node_modules/dotaconstants/build/ability_ids.json')).default;
 
-let expandedUnitNames = null;
+let expandedUnitNames: Record<string, string> | null = null;
 
-function generateExpandedUnitNames(strings) {
-  const expanded = {};
+function generateExpandedUnitNames(strings: any) {
+  const expanded: Record<string, string> = {};
   Object.keys(strings)
     .filter(str => str.indexOf('npc_dota_') === 0)
     .forEach((key) => {
       // Currently, no unit goes up higher than 4
       for (let i = 1; i < 5; i += 1) {
-        expanded[key.replace('#', i)] = strings[key];
+        expanded[key.replace('#', String(i))] = strings[key];
       }
     });
   return expanded;
 }
 
-const getMaxKeyOfObject = field => Number(Object.keys(field || {}).sort((a, b) => Number(b) - Number(a))[0]) || 0;
+const getMaxKeyOfObject = (field: any) => Number(Object.keys(field || {}).sort((a, b) => Number(b) - Number(a))[0]) || 0;
 
-function generateTeamfights({ players, teamfights = [] }) {
-  const computeTfData = (tf) => {
+function generateTeamfights({ players, teamfights = [] }: { players: any[], teamfights: any[] }) {
+  const computeTfData = (tf: any) => {
     const newtf = {
       ...tf,
       deaths_pos: [],
@@ -63,7 +63,7 @@ function generateTeamfights({ players, teamfights = [] }) {
         newtf.dire_deaths += tfplayer.deaths ? 1 : 0;
       }
       const playerDeathsPos = unpackPositionData(tfplayer.deaths_pos)
-        .map(deathPos => ({
+        .map((deathPos: any) => ({
           ...deathPos,
           isRadiant: isRadiant(player.player_slot),
           player,
@@ -82,13 +82,13 @@ function generateTeamfights({ players, teamfights = [] }) {
     // We have to do this after we process the stuff so that we will have the player in
     // the data instead of just the 'teamfight player' which doesn't have enough data.
     newtf.deaths_pos = newtf.deaths_pos
-      .map(death => ([{
+      .map((death: any) => ([{
         ...death,
         killer: newtf.players
-          .find(killer => heroes[death.player.hero_id] && killer.killed[heroes[death.player.hero_id].name]),
+          .find((killer: any) => heroes[death.player.hero_id as keyof typeof heroes] && killer.killed[heroes[death.player.hero_id as keyof typeof heroes].name]),
       }]))
       .reduce(
-        (newDeathsPos, death) => {
+        (newDeathsPos: any, death: any) => {
           const copy = [...newDeathsPos];
           const samePosition = copy
             .findIndex((deathPos) => {
@@ -110,8 +110,8 @@ function generateTeamfights({ players, teamfights = [] }) {
 }
 
 // create a detailed history of each wards
-function generateVisionLog(match) {
-  const computeWardData = (player, i) => {
+function generateVisionLog(match: any) {
+  const computeWardData = (player: any, i: number) => {
     // let's coerce some value to be sure the structure is what we expect.
     const safePlayer = {
       ...player,
@@ -122,7 +122,7 @@ function generateVisionLog(match) {
     };
 
     // let's zip the *_log and the *_left log in a 2-tuples
-    const extractVisionLog = (type, enteredLog, leftLog) =>
+    const extractVisionLog = (type: string, enteredLog: any[], leftLog: any[]) =>
       enteredLog.map((e) => {
         const wards = [e, leftLog.find(l => l.ehandle === e.ehandle)];
         return {
@@ -138,18 +138,18 @@ function generateVisionLog(match) {
     return observers.concat(sentries);
   };
 
-  const temp = flatten((match.players || []).map(computeWardData));
+  const temp: any[] = flatten((match.players || []).map(computeWardData));
   temp.sort((a, b) => a.entered.time - b.entered.time);
   const result2 = temp.map((x, i) => ({ ...x, key: i }));
 
   return result2;
 }
 
-function transformMatch(m) {
+function transformMatch(m: any) {
   const { strings } = store.getState().app;
 
   // lane winning
-  const lineResults = m.players.reduce((res, pl) => {
+  const lineResults = m.players.reduce((res: any[], pl: any) => {
     res[pl.isRadiant] = res[pl.isRadiant] || [];
     res[pl.isRadiant][pl.lane] = res[pl.isRadiant][pl.lane] || 0;
 
@@ -157,7 +157,7 @@ function transformMatch(m) {
     return res;
   }, {});
 
-  const newPlayers = m.players.map((player) => {
+  const newPlayers = m.players.map((player: any) => {
     const newPlayer = {
       ...player,
       desc: [strings[`lane_role_${player.lane_role}`], isSupport(player) ? 'Support' : 'Core'].join('/'),
@@ -165,6 +165,7 @@ function transformMatch(m) {
       kill_streaks_max: getMaxKeyOfObject(player.kill_streaks),
       lh_ten: (player.lh_t || [])[10],
       dn_ten: (player.dn_t || [])[10],
+      //@ts-expect-error
       line_win: lineResults[player.isRadiant]?.[player.lane] > lineResults[!player.isRadiant]?.[player.lane],
       analysis: analyzeMatch(m, player),
     };
@@ -173,12 +174,12 @@ function transformMatch(m) {
     if (player.times) {
       const intervals = ['lh_t', 'gold_t', 'xp_t', 'times'];
       intervals.forEach((key) => {
-        newPlayer[key] = player[key].filter((el, i) => player.times[i] >= 0);
+        newPlayer[key] = player[key].filter((el: number, i: number) => player.times[i] >= 0);
       });
 
       // compute a cs_t as a sum of lh_t & dn_t
-      const csT = (player.lh_t || []).map((v, i) => v + ((player.dn_t || [])[i] || 0));
-      newPlayer.cs_t = csT.filter((el, i) => player.times[i] >= 0);
+      const csT = (player.lh_t || []).map((v: number, i: number) => v + ((player.dn_t || [])[i] || 0));
+      newPlayer.cs_t = csT.filter((el: number, i: number) => player.times[i] >= 0);
     }
 
 
@@ -207,9 +208,11 @@ function transformMatch(m) {
         if (key.indexOf('healers') !== -1) {
           identifier = 'shrine';
         }
-        newPlayer.objective_damage[identifier] = newPlayer.objective_damage[identifier] ?
-          newPlayer.objective_damage[identifier] + player.damage[key] :
-          player.damage[key];
+        if (identifier) {
+          newPlayer.objective_damage[identifier] = newPlayer.objective_damage[identifier] ?
+            newPlayer.objective_damage[identifier] + player.damage[key] :
+            player.damage[key];
+        }
       });
     }
     if (player.killed) {
@@ -222,7 +225,7 @@ function transformMatch(m) {
         expandedUnitNames = generateExpandedUnitNames(strings);
       }
       Object.keys(player.killed).forEach((key) => {
-        if (key in expandedUnitNames) {
+        if (expandedUnitNames && key in expandedUnitNames) {
           const name = expandedUnitNames[key];
           newPlayer.specific[name] = newPlayer.specific[name] ? newPlayer.specific[name] + newPlayer.killed[key] : newPlayer.killed[key];
         }
@@ -239,9 +242,9 @@ function transformMatch(m) {
     newPlayer.buybacks = (player.buyback_log || []).length;
     newPlayer.total_gold = (player.gold_per_min * m.duration) / 60;
     if (m.game_mode === 18 && Object.prototype.hasOwnProperty.call(player, 'ability_upgrades_arr')) {
-      const arr = [];
+      const arr: any[] = [];
       if (player.ability_upgrades_arr) {
-        player.ability_upgrades_arr.forEach((ability) => {
+        player.ability_upgrades_arr.forEach((ability: keyof typeof abilityIds) => {
           if (!arr.includes(ability) && abilityIds[ability] && abilityIds[ability].indexOf('special_bonus') === -1) {
             arr.push(ability);
           }
@@ -249,12 +252,12 @@ function transformMatch(m) {
       }
       newPlayer.abilities = arr;
     }
-    newPlayer.hero_name = heroes[player.hero_id] && heroes[player.hero_id].name;
+    newPlayer.hero_name = heroes[player.hero_id as keyof typeof heroes] && heroes[player.hero_id as keyof typeof heroes].name;
 
     return newPlayer;
   });
 
-  const newObjectives = (m.objectives || []).map((obj) => {
+  const newObjectives = (m.objectives || []).map((obj: any) => {
     if (obj.slot > 0) {
       return {
         ...obj,

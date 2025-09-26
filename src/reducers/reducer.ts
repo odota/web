@@ -1,7 +1,7 @@
-export default (type, initialData) => (state = {
+export default (type: string, initialData?: any) => (state = {
   loading: true,
   data: initialData || [],
-}, action) => {
+}, action: { payload: any, error: string, query: string, type: string }) => {
   switch (action.type) {
     case `REQUEST/${type}`:
       return {

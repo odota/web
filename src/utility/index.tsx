@@ -19,9 +19,8 @@ import {
 } from '../components/Visualizations';
 import store from '../store';
 import config from '../config';
-import { AnyAaaaRecord } from 'dns';
 
-const items = (await import(`dotaconstants/build/items.json`)).default;
+const items = (await import(`../../node_modules/dotaconstants/build/items.json`)).default;
 
 const second = 1;
 const minute = second * 60;

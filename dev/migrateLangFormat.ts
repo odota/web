@@ -1,6 +1,6 @@
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
 
 const langsPath = path.resolve(__dirname, '../src/lang');
 const oldLangsPath = path.resolve(__dirname, '../src/lang/old');
@@ -18,7 +18,7 @@ langs.forEach((langFile) => {
   }
 
 
-  const lang = JSON.parse(fs.readFileSync(path.resolve(langsPath, langFile)));
+  const lang = JSON.parse(fs.readFileSync(path.resolve(langsPath, langFile).toString()));
   const pattern = /(%[^\s^%]+)/g;
   const updatedLang = {};
   Object.entries(lang).map(([langKey, string]) => {

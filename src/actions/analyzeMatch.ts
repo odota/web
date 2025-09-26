@@ -6,13 +6,13 @@ import {
 } from '../utility';
 import store from '../store';
 
-export default function analyzeMatch(match, _pm) {
+export default function analyzeMatch(match: any, _pm: any) {
   const { strings } = store.getState().app;
   // define condition check for each advice point
-  const advice = {};
+  const advice: Record<string, any> = {};
   const checks = {
     // EFF@10
-    eff(m, pm) {
+    eff(m: any, pm: any) {
       const eff = pm.lane_efficiency ? pm.lane_efficiency : undefined;
       let top = 0.6;
       if (pm.lane_role === 3) {
@@ -27,13 +27,13 @@ export default function analyzeMatch(match, _pm) {
         value: eff,
         top,
         valid: eff !== undefined,
-        score(raw) {
+        score(raw: number) {
           return raw;
         },
       };
     },
     // farming drought (low gold earned delta over an interval)
-    farm_drought(m, pm) {
+    farm_drought(m: any, pm: any) {
       let delta = Number.MAX_VALUE;
       const interval = 5;
       let start = 0;
@@ -53,13 +53,13 @@ export default function analyzeMatch(match, _pm) {
         value: delta / interval,
         top: isSupport(pm) ? 150 : 300,
         valid: Boolean(start),
-        score(raw) {
+        score(raw: number) {
           return raw;
         },
       };
     },
     // low ability accuracy (custom list of skillshots)
-    skillshot(m, pm) {
+    skillshot(m: any, pm: any) {
       let acc;
       if (pm.ability_uses && pm.hero_hits) {
         Object.keys(pm.ability_uses).forEach((key) => {
@@ -73,14 +73,14 @@ export default function analyzeMatch(match, _pm) {
         name: strings.analysis_skillshot,
         value: acc,
         valid: acc !== undefined,
-        score(raw) {
+        score(raw: number) {
           return raw || 0;
         },
         top: 0.5,
       };
     },
     // courier buy delay (3 minute flying)
-    late_courier(m, pm) {
+    late_courier(m: any, pm: any) {
       const flyingAvailable = 180;
       let time;
       if (pm.purchase && pm.first_purchase_time && pm.first_purchase_time.flying_courier) {
@@ -91,14 +91,14 @@ export default function analyzeMatch(match, _pm) {
         name: strings.analysis_late_courier,
         value: time - flyingAvailable,
         valid: time !== undefined,
-        score(raw) {
+        score(raw: number) {
           return 180 - raw;
         },
         top: 30,
       };
     },
     // low obs wards/min
-    wards(m, pm) {
+    wards(m: any, pm: any) {
       const wardCooldown = 60 * 7;
       const wards = getObsWardsPlaced(pm);
       // divide game length by ward cooldown
@@ -110,14 +110,14 @@ export default function analyzeMatch(match, _pm) {
         name: strings.analysis_wards,
         value: wards,
         valid: isSupport(pm),
-        score(raw) {
+        score(raw: number) {
           return raw / maxPlaced;
         },
         top: maxPlaced,
       };
     },
     // roshan opportunities (specific heroes)
-    roshan(m, pm) {
+    roshan(m: any, pm: any) {
       let roshTaken = 0;
       if (isRoshHero(pm) && pm.killed) {
         roshTaken = pm.killed.npc_dota_roshan || 0;
@@ -126,15 +126,15 @@ export default function analyzeMatch(match, _pm) {
         name: strings.analysis_roshan,
         value: roshTaken,
         valid: isRoshHero(pm),
-        score(raw) {
+        score(raw: number) {
           return raw;
         },
         top: 1,
       };
     },
     // rune control (mid player)
-    rune_control(m, pm) {
-      let runes;
+    rune_control(m: any, pm: any) {
+      let runes: number | undefined = undefined;
       if (pm.runes) {
         runes = 0;
         Object.keys(pm.runes).forEach((key) => {
@@ -147,7 +147,7 @@ export default function analyzeMatch(match, _pm) {
         name: strings.analysis_rune_control,
         value: runes,
         valid: runes !== undefined && pm.lane_role === 2,
-        score(raw) {
+        score(raw: number) {
           return raw / target;
         },
         top: target,
@@ -155,7 +155,7 @@ export default function analyzeMatch(match, _pm) {
     },
   };
   Object.keys(checks).forEach((key) => {
-    advice[key] = checks[key](match, _pm);
+    advice[key] = checks[key as keyof typeof checks](match, _pm);
   });
   return advice;
 }

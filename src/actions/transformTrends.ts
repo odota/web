@@ -1,5 +1,5 @@
-export default function transformTrends(fieldName) {
-  return (response) => {
+export default function transformTrends(fieldName: string) {
+  return (response: any[]) => {
     let cumulativeSum = 0;
     const chunkSize = 20;
 

@@ -1,5 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, no-console */
-const fs = require('fs');
+import fs from 'fs';
 
 process.chdir(__dirname);
 

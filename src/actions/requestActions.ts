@@ -18,7 +18,7 @@ const requestStart = () => ({
   type: START,
 });
 
-const requestError = error => ({
+const requestError = (error: string) => ({
   type: ERROR,
   error,
 });
@@ -27,12 +27,12 @@ const requestOk = () => ({
   type: OK,
 });
 
-const requestProgress = progress => ({
+const requestProgress = (progress: number) => ({
   type: PROGRESS,
   progress,
 });
 
-function poll(dispatch, json, matchId) {
+function poll(dispatch: Function, json: any, matchId: number) {
   fetch(`${config.VITE_API_HOST}${url}/${json.job.jobId}`)
     .then(res => res.json())
     .then((_json) => {
@@ -48,7 +48,7 @@ function poll(dispatch, json, matchId) {
     });
 }
 
-export const postRequest = matchId => (dispatch) => {
+export const postRequest = (matchId: number) => (dispatch: Function) => {
   dispatch(requestStart());
   return fetch(`${config.VITE_API_HOST}${url}/${matchId}`, { method: 'post' })
     .then(res => res.json())

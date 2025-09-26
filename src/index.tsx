@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { createBrowserHistory } from 'history';
 import { render, hydrate } from 'react-dom';
@@ -12,8 +11,10 @@ import App from './components/App';
 import './index.css';
 
 // Fetch metadata (used on all pages)
+//@ts-expect-error
 store.dispatch(getMetadata());
 // Fetch strings
+//@ts-expect-error
 store.dispatch(getStrings());
 
 const history = createBrowserHistory();
@@ -31,13 +32,15 @@ const rootElement = document.getElementById('root');
 
 const app = (
   <Provider store={store}>
-    <BrowserRouter history={history}>
+    <BrowserRouter 
+    //@ts-expect-error
+    history={history}>
       <App />
     </BrowserRouter>
   </Provider>
 );
 
-if (rootElement.hasChildNodes()) {
+if (rootElement?.hasChildNodes()) {
   hydrate(app, rootElement);
 } else {
   render(app, rootElement);
