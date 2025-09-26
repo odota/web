@@ -138,7 +138,7 @@ const SettingsGroup = ({ children }) => {
   const buttonRef = useRef();
 
   const handleClose = useCallback(() => {
-    setAnchorEl(undefined);
+    setAnchorEl(null);
   }, [setAnchorEl]);
 
   return (
@@ -263,6 +263,11 @@ const Header = ({ location, disableSearch }) => {
       to: '/teams',
       label: strings.header_teams,
     },
+    // {
+    //   key: 'header_players',
+    //   to: '/players',
+    //   label: strings.header_players,
+    // },
     {
       key: 'header_explorer',
       to: '/explorer',

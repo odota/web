@@ -9,6 +9,7 @@ import store from './store';
 import { getMetadata, getStrings } from './actions';
 import App from './components/App';
 // import { unregister } from './common/serviceWorker';
+import './index.css';
 
 // Fetch metadata (used on all pages)
 store.dispatch(getMetadata());

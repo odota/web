@@ -106,12 +106,6 @@ grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
   }
 }
 
-.rankTierContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .dotaPlusMedal {
   position: relative;
   display: flex;
@@ -143,50 +137,6 @@ grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
     height: 75px;
   }
 }
-
-.rankMedal {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0 25px;
-  -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
-  drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
-  filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
-  drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
-
-  &[data-hint-position="top"] {
-    &::after {
-      margin-bottom: 3px;
-      margin-left: 52px;
-    }
-
-    &::before {
-      top: -3px;
-      margin-left: 57px;
-    }
-  }
-  & img {
-    width: 124px;
-    height: 124px;
-  }
-  &-icon {
-
-  }
-  &-board {
-    position: absolute;
-    align-self: center;
-    margin-top: 80px;
-    margin-left: 1px;
-    font-size: 22px;
-    color: #ECD9C8;
-    text-shadow: 2px 2px 2px black;
-  }
-  &-star {
-    position: absolute;
-  }
-}
-
 `;
 
 const LARGE_IMAGE_SIZE = 124;
@@ -212,7 +162,7 @@ const getDotaPlusBadge = (plus, strings) => plus && (
   </div>
 );
 
-const getRankTierMedal = (rankTier, leaderboardRank) => {
+export const getRankTierMedal = (rankTier, leaderboardRank) => {
   let medalElement = null;
   const imgDescription = rankTierToString(rankTier);
   if (rankTier) { // if the players ranktier is 0 they are uncalibrated

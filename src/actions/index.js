@@ -38,6 +38,7 @@ export const getSearchResultAndPros = query => dispatch => Promise.all([
 export const getDistributions = () => action('distributions', config.VITE_API_HOST, 'api/distributions');
 export const getHeroStats = params => action('heroStats', config.VITE_API_HOST, 'api/heroStats', params);
 export const getLeagues = () => action('leagues', config.VITE_API_HOST, 'api/leagues');
+export const getPlayers = () => action('players', config.VITE_API_HOST, 'api/topPlayers');
 export const getTeams = () => action('teams', config.VITE_API_HOST, 'api/teams');
 export const getTeam = teamId => action('team', config.VITE_API_HOST, `api/teams/${teamId}`);
 export const getTeamMatches = teamId => action('teamMatches', config.VITE_API_HOST, `api/teams/${teamId}/matches`);

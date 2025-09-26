@@ -42,6 +42,7 @@ export default combineReducers({
   teamHeroes: reducer('teamHeroes'),
   teamMatches: reducer('teamMatches'),
   teamPlayers: reducer('teamPlayers'),
+  players: reducer('players'),
   records: reducer('records'),
   ghPulls: reducer('ghPulls'),
   strings: (state = {}, action) => ((action && action.type === 'strings') ? action.payload : state),

@@ -27,6 +27,7 @@ import GlobalStyle from './GlobalStyle';
 import muiTheme from './muiTheme';
 import config from '../../config';
 import Spinner from '../Spinner';
+import Players from '../Players/Players';
 
 const Status = React.lazy(() => import('../Status'));
 const Explorer = React.lazy(() => import('../Explorer'));
@@ -190,6 +191,7 @@ const App = (props: AppProps) => {
               />
               <Route exact path="/heroes/:heroId?/:info?" component={Heroes} />
               <Route exact path="/teams/:teamId?/:info?" component={Teams} />
+              <Route exact path="/players" component={Players} />
               <Route
                 exact
                 path="/distributions/:info?"

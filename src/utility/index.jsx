@@ -837,7 +837,7 @@ export const transformations = {
   player: row => (
     <TableHeroImage
       image={row.avatar || row.avatarfull}
-      title={row.name || row.personaname}
+      title={row.name || row.personaname || row.account_id}
       subtitle={row.subtitle || (row.last_played && <FromNowTooltip timestamp={row.last_played} />)}
       registered={row.last_login}
       confirmed={row.account_id && row.name}

@@ -2,7 +2,6 @@ import {
   RequestMock,
   RequestLogger,
 } from 'testcafe';
-import fetch from 'isomorphic-fetch';
 import fs from 'fs';
 import sanitize from 'sanitize-filename';
 import {
