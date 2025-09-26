@@ -1,7 +1,6 @@
 import { heroes } from 'dotaconstants';
 import constants from '../constants';
 import { abbreviateNumber, displayHeroId } from '../../utility';
-import { GlobalString } from 'src/types/common/GlobalString';
 import { Heroes } from '../../types/Hero/Heroes';
 import React from 'react';
 

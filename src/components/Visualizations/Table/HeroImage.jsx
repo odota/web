@@ -613,41 +613,6 @@ class TableHeroImage extends React.Component {
               )}
             </div>
           )}
-          {Boolean(showGuide) && guideType && guideUrl && heroName && (
-            <div className="guideContainer" data-tip data-for={heroName}>
-              <a href={guideUrl}>
-                {guideType === 'PVGNA' ? (
-                  <img
-                    className="guideIcon"
-                    src="/assets/images/pvgna-guide-icon.png"
-                    alt={`Learn ${heroName} on Pvgna`}
-                  />
-                ) : (
-                  <div />
-                )}
-                {guideType === 'MOREMMR' ? (
-                  <img
-                    className="moremmr-icon"
-                    style={{ maxWidth: '60px' }}
-                    src="/assets/images/moremmr-icon2.svg"
-                    alt={`Learn ${heroName} on MoreMMR`}
-                  />
-                ) : (
-                  <div />
-                )}
-              </a>
-              <ReactTooltip
-                id={heroName}
-                place="top"
-                type="light"
-                effect="solid"
-                offset="{'top': 1, 'right': 3}"
-              >
-                {guideType === 'PVGNA' ? `Learn ${heroName} on Pvgna` : ''}
-                {guideType === 'MOREMMR' ? `Learn ${heroName} on MoreMMR` : ''}
-              </ReactTooltip>
-            </div>
-          )}
           {tooltipVisible && (
             <div className="hero-tooltip">
               <ReactTooltip id={heroName} effect="solid" place="right">
@@ -785,9 +750,6 @@ TableHeroImage.propTypes = {
   party: node,
   confirmed: bool,
   heroName: string,
-  showGuide: oneOfType([bool, number]),
-  guideUrl: string,
-  guideType: string,
   randomed: bool,
   repicked: string,
   predictedVictory: bool,

@@ -19,8 +19,9 @@ import {
 } from '../components/Visualizations';
 import store from '../store';
 import config from '../config';
+import { AnyAaaaRecord } from 'dns';
 
-const items = (await import(`../../node_modules/dotaconstants/build/items.json`)).default;
+const items = (await import(`dotaconstants/build/items.json`)).default;
 
 const second = 1;
 const minute = second * 60;
@@ -46,15 +47,15 @@ export const subTextStyle = {
 };
 
 // TODO - add in the relevant text invocations of TableHeroImage
-export const isRadiant = playerSlot => playerSlot < 128;
+export const isRadiant = (playerSlot: number) => playerSlot < 128;
 
-export function pad(n, width, z = '0') {
+export function pad(n: string | number, width: number, z = '0') {
   const str = `${n}`;
   return str.length >= width ? str : new Array((width - str.length) + 1).join(z) + n;
 }
 
-export function formatSeconds(input) {
-  if (!Number.isNaN(parseFloat(input)) && Number.isFinite(Number(input))) {
+export function formatSeconds(input: number) {
+  if (!Number.isNaN(parseFloat(String(input))) && Number.isFinite(Number(input))) {
     const absTime = Math.abs(input);
     const minutes = Math.floor(absTime / 60);
     const seconds = pad(Math.floor(absTime % 60), 2);
@@ -68,14 +69,14 @@ export function formatSeconds(input) {
   return null;
 }
 
-export function formatSkillOrAttributeValues(values) {
+export function formatSkillOrAttributeValues(values: string[]) {
   if (Array.isArray(values)) {
     return values.filter(value => value).join(' / ');
   }
   return values;
 }
 
-export function getLevelFromXp(xp) {
+export function getLevelFromXp(xp: number) {
   for (let i = 0; i < xpLevel.length; i += 1) {
     if (xpLevel[i] > xp) {
       return i;
@@ -85,10 +86,10 @@ export function getLevelFromXp(xp) {
   return xpLevel.length;
 }
 
-export const calculateDistance = (x1, y1, x2, y2) =>
+export const calculateDistance = (x1: number, y1: number, x2: number, y2: number): number =>
   (((x2 - x1) ** 2) + ((y2 - y1) ** 2)) ** 0.5;
 
-export const calculateRelativeXY = ({ clientX, clientY, currentTarget }) => {
+export const calculateRelativeXY = ({ clientX, clientY, currentTarget }: { clientX: number, clientY: number, currentTarget: any }) => {
   // const bounds = target.getBoundingClientRect();
   // const x = clientX - bounds.left;
   // const y = clientY - bounds.top;
@@ -108,24 +109,25 @@ export const calculateRelativeXY = ({ clientX, clientY, currentTarget }) => {
   return { x, y };
 };
 
-export const getPercentWin = (wins, games) => (games ? Number(((wins * 100) / games).toFixed(2)) : 0);
+export const getPercentWin = (wins: number, games: number) => (games ? Number(((wins * 100) / games).toFixed(2)) : 0);
 
-export const camelToSnake = str =>
+export const camelToSnake = (str: string) =>
   str.replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`).replace(/^_/, '');
 
-export const getOrdinal = (n) => {
+export const getOrdinal = (n: number) => {
   // TODO localize
   const s = ['th', 'st', 'nd', 'rd'];
   const v = n % 100;
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
 
-export const jsonFn = json =>
-  arrayFn =>
-    fn =>
+export const jsonFn = (json: any) =>
+  (arrayFn: any) =>
+    (fn: any) =>
+      //@ts-expect-error
       json[Object.keys(json)[arrayFn]((key, index) => fn(json[key], index))];
 
-export const percentile = (pct) => {
+export const percentile = (pct: number) => {
   if (pct >= 0.8) {
     return {
       color: 'green',
@@ -179,20 +181,21 @@ export const IMAGESIZE_ENUM = {
   // https://api.opendota.com/apps/dota2/images/dota_react/heroes/abaddon_full.png
 };
 
-const getTitle = (row, col, heroName) => {
+const getTitle = (row: any, col: any, heroName: string) => {
   if (row.match_id && row.player_slot !== undefined) {
     return <TableLink to={`/matches/${row.match_id}`}>{heroName}</TableLink>;
   }
   return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
 };
 
-export const getHeroImageUrl = (heroId, _) => {
+export const getHeroImageUrl = (heroId: keyof typeof heroes, _: any) => {
   const imageUrl = heroes[heroId] && config.VITE_IMAGE_CDN + heroes[heroId].img;
   return imageUrl;
 };
 
-export const getHeroIconUrlFromHeroKey = (heroKey) => {
-  const heroId = Object.keys(heroes).find(k => heroes[k].name === heroKey);
+export const getHeroIconUrlFromHeroKey = (heroKey: string) => {
+  const heroId = Object.keys(heroes).find(k => heroes[k as keyof typeof heroes].name === heroKey) as keyof typeof heroes;
+  //@ts-expect-error
   if (heroId && heroId[0] && heroes[heroId[0]]) {
     return `${config.VITE_IMAGE_CDN}${heroes[heroId].icon}`;
   }
@@ -211,7 +214,7 @@ export const getHeroIconUrlFromHeroKey = (heroKey) => {
 // returns [ "My", " name is ", "Gaben" ]
 // formatTemplate("{person} name is {name}", { name: <font color={styles.golden}>{"Gaben"}</font> });
 // returns [ "{person} name is ", <font color={styles.golden}>{"Gaben"}</font> ]
-export const formatTemplate = (template, dict, ...rest) => {
+export const formatTemplate = (template: string, dict: any, ...rest: any[]) => {
   if (!template) {
     return ['(invalid template)'];
   }
@@ -233,9 +236,9 @@ export const formatTemplate = (template, dict, ...rest) => {
   return result;
 };
 
-export const formatTemplateToString = (template, dict, ...rest) => formatTemplate(template, dict, ...rest).join('');
+export const formatTemplateToString = (template: string, dict: any, ...rest: any[]) => formatTemplate(template, dict, ...rest).join('');
 
-export const defaultSort = (array, sortState, sortField, sortFn) =>
+export const defaultSort = (array: any[], sortState: string, sortField: string, sortFn: Function) =>
   array.sort((a, b) => {
     const sortFnExists = typeof sortFn === 'function';
     const aVal = (sortFnExists ? sortFn(a) : a[sortField]) || 0;
@@ -250,45 +253,35 @@ export const SORT_ENUM = {
   1: 'asc',
   asc: 1,
   desc: 0,
+  //@ts-expect-error
   next: state => SORT_ENUM[(state >= 1 ? 0 : state + 1)],
 };
 
-export function getObsWardsPlaced(pm) {
+export function getObsWardsPlaced(pm: any) {
   if (!pm.obs_log) {
     return 0;
   }
 
-  return pm.obs_log.filter(l => !l.entityleft).length;
+  return pm.obs_log.filter((l: any) => !l.entityleft).length;
 }
 
-export function isSupport(pm) {
+export function isSupport(pm: any) {
   return getObsWardsPlaced(pm) >= 2 && pm.lh_t && pm.lh_t[10] < 20;
 }
 
-export function isRoshHero(pm) {
+export function isRoshHero(pm: any) {
   const roshHeroes = {
     npc_dota_hero_lycan: 1,
     npc_dota_hero_ursa: 1,
     npc_dota_hero_troll_warlord: 1,
   };
 
-  return heroes[pm.hero_id] && (heroes[pm.hero_id].name in roshHeroes);
+  return heroes[pm.hero_id as keyof typeof heroes] && (heroes[pm.hero_id as keyof typeof heroes].name in roshHeroes);
 }
 
-export function isActiveItem(key) {
-  const whitelist = {
-    branches: 1,
-    bloodstone: 1,
-    radiance: 1,
-  };
+export const sum = (a: number, b: number) => a + b;
 
-  // TODO this will only work for english data files
-  return (items[key].active && !(key in whitelist));
-}
-
-export const sum = (a, b) => a + b;
-
-export const extractTransitionClasses = _styles => name => ({
+export const extractTransitionClasses = (_styles: any) => (name: string) => ({
   enter: _styles[`${name}-enter`],
   enterActive: _styles[`${name}-enter-active`],
   leave: _styles[`${name}-leave`],
@@ -297,7 +290,7 @@ export const extractTransitionClasses = _styles => name => ({
   appearActive: _styles[`${name}-appear-active`],
 });
 
-export const gameCoordToUV = (x, y) => ({
+export const gameCoordToUV = (x: string, y: string) => ({
   x: Number(x) - 64,
   y: 127 - (Number(y) - 64),
 });
@@ -308,9 +301,9 @@ export const gameCoordToUV = (x, y) => ({
  * 64 is the offset of x and y values
  * subtracting y from 127 inverts from bottom/left origin to top/left origin
  * */
-export function unpackPositionData(input) {
+export function unpackPositionData(input: any) {
   if (typeof input === 'object' && !Array.isArray(input)) {
-    const result = [];
+    const result: { x: number, y: number, value: number }[] = [];
 
     Object.keys(input).forEach((x) => {
       Object.keys(input[x]).forEach((y) => {
@@ -327,16 +320,16 @@ export function unpackPositionData(input) {
   return input;
 }
 
-export const threshold = curry((start, limits, values, value) => {
+export const threshold = curry((start: number, limits: any[], values: any[], value: any) => {
   if (limits.length !== values.length) throw new Error('Limits must be the same as functions.');
 
   const limitsWithStart = limits.slice(0);
   limitsWithStart.unshift(start);
 
-  return findLast((v, i) => inRange(limitsWithStart[i], limitsWithStart[i + 1], value), values);
+  return findLast((v: any, i: number) => inRange(limitsWithStart[i], limitsWithStart[i + 1], value), values);
 });
 
-export const getTeamLogoUrl = (logoUrl) => {
+export const getTeamLogoUrl = (logoUrl: string) => {
   if (!logoUrl) {
     return '';
   }
@@ -358,7 +351,7 @@ export const getTeamLogoUrl = (logoUrl) => {
  * @param   Number  v       The value
  * @return  Array           The RGB representation
  */
-export const hsvToRgb = (h, s, v) => {
+export const hsvToRgb = (h: number, s: number, v: number) => {
   let r;
   let g;
   let b;
@@ -382,18 +375,18 @@ export const hsvToRgb = (h, s, v) => {
   return [r * 255, g * 255, b * 255];
 };
 
-export const bindWidth = (width, maxWidth) => Math.min(width, maxWidth);
+export const bindWidth = (width: number, maxWidth: number) => Math.min(width, maxWidth);
 
 export const getHeroesById = () => {
-  const obj = {};
+  const obj: any = {};
   Object.keys(heroes).forEach((hero) => {
-    obj[heroes[hero].name] = heroes[hero];
+    obj[heroes[hero as keyof typeof heroes].name] = heroes[hero as keyof typeof heroes];
   });
   return obj;
 };
 
 // https://www.evanmiller.org/how-not-to-sort-by-average-rating.html
-export const wilsonScore = (up, down) => {
+export const wilsonScore = (up: number, down: number) => {
   if (!up) return 0;
   const n = up + down;
   const z = 1.64485; // 1.0 = 85%, 1.6 = 95%
@@ -405,16 +398,16 @@ export const wilsonScore = (up, down) => {
     );
 };
 
-export const groupBy = (xs, key) =>
+export const groupBy = (xs: any[], key: string) =>
   xs.reduce((rv, x) => {
     (rv[x[key]] = rv[x[key]] || []).push(x); // eslint-disable-line no-param-reassign
     return rv;
   }, {});
 
-export function groupByArray(xs, key) {
+export function groupByArray(xs: any[], key: string | Function) {
   return xs.reduce((rv, x) => {
     const v = key instanceof Function ? key(x) : x[key];
-    const el = rv.find(r => r && r.key === v);
+    const el = rv.find((r: any) => r && r.key === v);
     if (el) {
       el.values.push(x);
     } else {
@@ -427,16 +420,17 @@ export function groupByArray(xs, key) {
   }, []);
 }
 
-export const sumValues = f => Object.values(f).reduce((a, b) => a + b);
+//@ts-expect-error
+export const sumValues = (f: any) => Object.values(f).reduce((a, b) => a + b);
 
 /* eslint-disable camelcase */
 // https://dota2.gamepedia.com/Attributes
-export function compileLevelOneStats(hero) {
+export function compileLevelOneStats(hero: any) {
   if (!hero) {
     return {};
   }
 
-  const statsBonuses = {
+  const statsBonuses: any = {
     str: {
       attackDamage: 1,
       armor: 0.16,
@@ -485,7 +479,7 @@ export function compileLevelOneStats(hero) {
     },
   };
 
-  const round = value => Math.round(value * 100) / 100;
+  const round = (value: number) => Math.round(value * 100) / 100;
 
   const {
     primary_attr,
@@ -521,7 +515,7 @@ export function compileLevelOneStats(hero) {
 }
 /* eslint-enable camelcase */
 
-export const getTeamName = (team, _isRadiant) => {
+export const getTeamName = (team: { name: string }, _isRadiant: boolean) => {
   const { strings } = store.getState().app;
   if (_isRadiant) {
     return (team && team.name) ? team.name : strings.general_radiant;
@@ -530,7 +524,7 @@ export const getTeamName = (team, _isRadiant) => {
   return (team && team.name) ? team.name : strings.general_dire;
 };
 
-export function abbreviateNumber(num) {
+export function abbreviateNumber(num: number) {
   const { strings } = store.getState().app;
   if (!num) {
     return '-';
@@ -547,20 +541,23 @@ export function abbreviateNumber(num) {
   return num.toFixed(0);
 }
 
-export function rankTierToString(rankTier) {
+export function rankTierToString(rankTier: string) {
   const { strings } = store.getState().app;
+  // @ts-expect-error
   if (rankTier !== parseInt(rankTier, 10)) {
     return strings.general_unknown;
   }
   const intRankTier = parseInt(rankTier, 10);
+  // @ts-expect-error
   let rank = strings[`rank_tier_${parseInt(intRankTier / 10, 10)}`];
   if (intRankTier > 9 && intRankTier !== 80) {
+    // @ts-expect-error
     rank += ` [${parseInt(intRankTier % 10, 10)}]`;
   }
   return rank;
 }
 
-export function fromNow(time) {
+export function fromNow(time: number) {
   const { strings } = store.getState().app;
 
   const units = [{
@@ -595,6 +592,7 @@ export function fromNow(time) {
     in_seconds: year,
   }];
 
+  // @ts-expect-error
   const diff = (new Date() - new Date(time * 1000)) / 1000;
 
   if (diff < 5) {
@@ -604,6 +602,7 @@ export function fromNow(time) {
   for (let i = 0; i < units.length; i += 1) {
     const unit = units[i];
 
+    // @ts-expect-error
     if (diff < unit.limit || !unit.limit) {
       const val = Math.floor(diff / unit.in_seconds);
       return formatTemplateToString(strings.time_past, val > 1 ? formatTemplateToString(unit.plural, val) : unit.name);
@@ -613,11 +612,11 @@ export function fromNow(time) {
   return '';
 }
 
-export function displayHeroId(row, col, field, showGuide = false, guideUrl, guideType) {
+export function displayHeroId(row?: any, col?: any, field?: string, showGuide = false) {
   const { strings } = store.getState().app;
   const heroId = row[col.field];
-  const heroName = heroes[row[col.field]] ? heroes[row[col.field]].localized_name : strings.general_no_hero;
-  const getSubtitle = (row) => {
+  const heroName = heroes[row[col.field] as keyof typeof heroes] ? heroes[row[col.field] as keyof typeof heroes].localized_name : strings.general_no_hero;
+  const getSubtitle = (row: any) => {
     if (row.match_id && row.player_slot !== undefined) {
       let lane;
       let tooltip;
@@ -642,6 +641,7 @@ export function displayHeroId(row, col, field, showGuide = false, guideUrl, guid
               <img
                 src={`/assets/images/dota2/lane_${lane}.svg`}
                 alt=""
+                //@ts-expect-error
                 style={roleIconStyle}
               />
             </span>
@@ -660,31 +660,15 @@ export function displayHeroId(row, col, field, showGuide = false, guideUrl, guid
     <TableHeroImage
       parsed={row.version}
       heroID={heroId}
+      //@ts-expect-error
       facet={row.hero_variant}
       title={getTitle(row, col, heroName)}
       subtitle={getSubtitle(row)}
       heroName={heroName}
-      showGuide={showGuide}
-      guideUrl={guideUrl}
-      guideType={guideType}
       leaverStatus={row.leaver_status}
-      hero={compileLevelOneStats(heroes[row.hero_id])}
+      hero={compileLevelOneStats(heroes[row.hero_id as keyof typeof heroes])}
     />
   );
-}
-
-export function displayHeroIdWithPvgna(row, col, field) {
-  return displayHeroId(row, col, field, true, row.pvgnaGuide && row.pvgnaGuide.url, 'PVGNA');
-}
-
-export function displayHeroIdWithMoreMmr(row, col, field) {
-  let url = 'https://moremmr.com/en/heroes/';
-  if (heroes[row[col.field]] && heroes[row[col.field]].localized_name) {
-    const heroName = heroes[row[col.field]].localized_name.toLowerCase().replace(' ', '-');
-    url = `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`;
-  }
-
-  return displayHeroId(row, col, field, true, url, 'MOREMMR');
 }
 
 /**
@@ -694,25 +678,27 @@ export function displayHeroIdWithMoreMmr(row, col, field) {
  * */
 // TODO - these more complicated ones should be factored out into components
 export const transformations = {
-  match_id: (row, col, field) => <Link to={`/matches/${field}`}>{field}</Link>,
-  match_id_with_time: (row, col, field) => (
+  match_id: (row: any, col: any, field: any) => <Link to={`/matches/${field}`}>{field}</Link>,
+  match_id_with_time: (row: any, col: any, field: any) => (
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+      <span 
+      //@ts-expect-error
+      style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
         {fromNow(row.start_time)}
       </span>
     </div>),
-  radiant_win_and_game_mode: (row, col, field) => {
+  radiant_win_and_game_mode: (row: any, col: any, field: any) => {
     const matchId = row.match_id;
     const { strings } = store.getState().app;
     const won = field === isRadiant(row.player_slot);
-    const getColor = (result) => {
+    const getColor = (result: any) => {
       if (result === null || result === undefined) {
         return constants.colorMuted;
       }
       return won ? constants.colorGreen : constants.colorRed;
     };
-    const getString = (result) => {
+    const getString = (result: any) => {
       if (result === null || result === undefined) {
         return strings.td_no_result;
       }
@@ -727,16 +713,24 @@ export const transformations = {
       fontFamily: 'Tahoma',
     };
 
-    const partySize = (_partySize) => {
+    const partySize = (_partySize: number) => {
       if (_partySize === 1) {
+        //@ts-expect-error
         return <SocialPerson color="rgb(179, 179, 179)" style={{ ...iconStyle, float: 'right' }} />;
       } else if (_partySize === null || _partySize === undefined) {
         return null;
       }
       return (
         <div style={{ float: 'right', marginTop: '-3px', marginRight: '2px' }}>
-          <SocialPeople color="rgb(179, 179, 179)" style={iconStyle} />
-          <div style={partyTextStyle}>{`x${row.party_size}`}</div>
+          <SocialPeople
+            color="rgb(179, 179, 179)"
+            //@ts-expect-error
+            style={iconStyle} />
+          <div 
+          //@ts-expect-error
+          style={partyTextStyle}>
+            {`x${row.party_size}`}
+          </div>
         </div>
       );
     };
@@ -746,7 +740,7 @@ export const transformations = {
       marginRight: '-14px',
     };
 
-    const sameTeam = (_sameTeam) => {
+    const sameTeam = (_sameTeam: any) => {
       if (_sameTeam == null) {
         return null;
       }
@@ -765,10 +759,13 @@ export const transformations = {
           </span>
         </TableLink>
         <div>
-          <span style={{ ...subTextStyle, marginTop: 1, display: 'inline' }}>
+          <span
+            //@ts-expect-error
+            style={{ ...subTextStyle, marginTop: 1, display: 'inline' }}>
             {row.league_name ? row.league_name : strings[`lobby_type_${row.lobby_type}`]}
           </span>
           <span
+            //@ts-expect-error
             style={partyStyle}
             data-hint={`${strings.filter_party_size} ${row.party_size || strings.game_mode_0}`}
             data-hint-position="top"
@@ -781,7 +778,7 @@ export const transformations = {
         </div>
       </div>);
   },
-  mode: (row, col, field) => {
+  mode: (row: any, col: any, field: any) => {
     const { strings } = store.getState().app;
 
     const skillStyle = {
@@ -795,7 +792,9 @@ export const transformations = {
       <div>
         {strings[`game_mode_${field}`] && (`${strings[`game_mode_${field}`]}`)}
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <span style={skillStyle}>
+          <span
+            //@ts-expect-error
+            style={skillStyle}>
             {rankTierToString(row.average_rank)}
           </span>
         </div>
@@ -803,9 +802,9 @@ export const transformations = {
       </div>
     );
   },
-  start_time: (row, col, field) => <FromNowTooltip timestamp={field} />,
-  last_played: (row, col, field) => <FromNowTooltip timestamp={field} />,
-  duration: (row, col, field) => {
+  start_time: (row: any, col: any, field: any) => <FromNowTooltip timestamp={field} />,
+  last_played: (row: any, col: any, field: any) => <FromNowTooltip timestamp={field} />,
+  duration: (row: any, col: any, field: any) => {
     const { strings } = store.getState().app;
     const playerSideExists = row && typeof row.player_slot !== 'undefined';
     const playerIsRadiant = playerSideExists && isRadiant(row.player_slot);
@@ -818,20 +817,22 @@ export const transformations = {
         <span>
           {formatSeconds(field)}
         </span>
-        {displaySide && <span style={{ ...subTextStyle }}>{playerIsRadiant || teamIsRadiant ? strings.general_radiant : strings.general_dire}</span>}
+        {displaySide && <span
+          //@ts-expect-error
+          style={{ ...subTextStyle }}>{playerIsRadiant || teamIsRadiant ? strings.general_radiant : strings.general_dire}</span>}
       </div>
     );
   },
-  patch: (row, col, field) => (patch[field] ? patch[field].name : field),
-  winPercent: (row, col, field) => `${(field * 100).toFixed(2)}%`,
-  kda: (row, col, field) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
-  rank: (row, col, field) => getOrdinal(field),
-  rank_percentile: row => (
-    <span style={{ color: constants[percentile(row.rank / row.card).color] }}>
+  patch: (row: any, col: any, field: any) => (patch[field] ? patch[field].name : field),
+  winPercent: (row: any, col: any, field: any) => `${(field * 100).toFixed(2)}%`,
+  kda: (row: any, col: any, field: any) => <KDA kills={field} deaths={row.deaths} assists={row.assists} />,
+  rank: (row: any, col: any, field: any) => getOrdinal(field),
+  rank_percentile: (row: any) => (
+    <span style={{ color: constants[percentile(row.rank / row.card).color as keyof typeof constants] as string }}>
       {getPercentWin(row.rank, row.card).toFixed(2)}%
     </span>
   ),
-  player: row => (
+  player: (row: any) => (
     <TableHeroImage
       image={row.avatar || row.avatarfull}
       title={row.name || row.personaname || row.account_id}
@@ -854,18 +855,19 @@ export const transformations = {
 
 const transformMatchItem = ({
   field,
-}) => {
+}: { field: number }) => {
   if (field === 0) {
     return false;
   }
-  return `${config.VITE_IMAGE_CDN}${items[itemIds[field]].img}`;
+  return `${config.VITE_IMAGE_CDN}${items[itemIds[String(field) as keyof typeof itemIds] as keyof typeof items].img}`;
 };
 
 for (let i = 0; i < 6; i += 1) {
+  //@ts-expect-error
   transformations[`item_${i}`] = transformMatchItem;
 }
 
-export function isLeapYear(date) {
+export function isLeapYear(date: Date) {
   const year = date.getFullYear();
   if ((year & 3) !== 0) { // eslint-disable-line no-bitwise
     return false;
@@ -874,7 +876,7 @@ export function isLeapYear(date) {
 }
 
 // Get Day of Year
-export function getDOY(date) {
+export function getDOY(date: Date) {
   const dayCount = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
   const mn = date.getMonth();
   const dn = date.getDate();
@@ -886,7 +888,7 @@ export function getDOY(date) {
 }
 
 // find and style/highlight number values in tooltip descriptions
-export function styleValues(el, style = 'font-weight:500;color:#F5F5F5') {
+export function styleValues(el: HTMLElement, style = 'font-weight:500;color:#F5F5F5') {
   if (el) {
     const element = el;
     element.innerHTML = el.innerHTML
@@ -896,7 +898,7 @@ export function styleValues(el, style = 'font-weight:500;color:#F5F5F5') {
   return null;
 }
 
-export function formatValues(values) {
+export function formatValues(values: any[]) {
   if (Array.isArray(values)) {
     return values.filter(value => value).join(' / ');
   }
@@ -904,7 +906,7 @@ export function formatValues(values) {
 }
 
 // handles table cell custom and default styling
-export function getColStyle(column) {
+export function getColStyle(column: any) {
   return {
     textAlign: column.textAlign || 'initial',
     paddingRight: column.paddingRight !== undefined ? column.paddingRight : 8,
@@ -930,7 +932,7 @@ export function getLocalizedMonthStrings() {
   return [...Array(12)].map((_, i) => new Date(d.setMonth(i)).toLocaleDateString(langCode, { month: 'short' }));
 }
 
-export function formatGraphValueData(data, histogramName) {
+export function formatGraphValueData(data: number, histogramName: string) {
   if (data !== 0 && !data) return '';
 
   switch (histogramName) {
@@ -942,7 +944,7 @@ export function formatGraphValueData(data, histogramName) {
   }
 }
 
-export function escapeRegExp(stringToGoIntoTheRegex) {
+export function escapeRegExp(stringToGoIntoTheRegex: string) {
   return stringToGoIntoTheRegex.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'); // eslint-disable-line no-useless-escape
 }
 
@@ -950,7 +952,7 @@ export function escapeRegExp(stringToGoIntoTheRegex) {
  * Takes a string of URL query params, converts it into an object, and adds the turbo filter params if localstorage setting is set
  * @param params A string of URL query params
  */
-export function paramsWithTurbo(params) {
+export function paramsWithTurbo(params: any) {
   const isTurboMode = window.localStorage.getItem('modeFilter') === 'turbo';
   let objParams = params ?? {};
   if (typeof params === 'string' && params) {
@@ -962,12 +964,12 @@ export function paramsWithTurbo(params) {
   return { ...objParams, significant: 0, game_mode: 23 };
 }
 
-export const patchDate = {};
+export const patchDate: Record<string, number> = {};
 patch.forEach((patchElement) => {
   patchDate[patchElement.name] = new Date(patchElement.date).getTime() / 1000;
 });
 
-export function getWardSize(type, mapSize) {
+export function getWardSize(type: string, mapSize: number) {
   const originMapSize = 12000;
 
   if (type === 'observer') {

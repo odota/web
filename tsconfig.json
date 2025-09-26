@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "baseUrl": ".",
-    "target": "es6",
+    "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
