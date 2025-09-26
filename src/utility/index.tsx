@@ -19,8 +19,7 @@ import {
 } from '../components/Visualizations';
 import store from '../store';
 import config from '../config';
-
-const items = (await import(`../../node_modules/dotaconstants/build/items.json`)).default;
+import { items } from 'dotaconstants';
 
 const second = 1;
 const minute = second * 60;
@@ -887,7 +886,7 @@ export function getDOY(date: Date) {
 }
 
 // find and style/highlight number values in tooltip descriptions
-export function styleValues(el: HTMLElement, style = 'font-weight:500;color:#F5F5F5') {
+export function styleValues(el: HTMLElement | null, style = 'font-weight:500;color:#F5F5F5') {
   if (el) {
     const element = el;
     element.innerHTML = el.innerHTML

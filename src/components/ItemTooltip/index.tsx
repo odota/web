@@ -1,25 +1,26 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import styled from 'styled-components';
 import constants from '../constants';
 import { styleValues } from '../../utility';
 import config from '../../config';
 import AbilityBehaviour from '../AbilityTooltip/AbilityBehaviour';
-
-const items = (await import(`../../../node_modules/dotaconstants/build/items.json`)).default;
-const patchnotes = (await import(`../../../node_modules/dotaconstants/build/patchnotes.json`)).default;
+import { usePatchnotes } from '../../hooks/usePatchnotes.hook';
+import { items } from 'dotaconstants';
 
 // Get patchnotes from up to two last letter patches
-function getRecentChanges(item) {
+function getRecentChanges(item: keyof typeof items, patchnotes: PatchNotes) {
+  const changes: { patch: any, note: string }[] = [];
+  if (!patchnotes) {
+    return changes;
+  }
   const patches = Object.keys(patchnotes);
   const latest = patches[patches.length - 1];
   const previous = patches[patches.length - 2];
-  const changes = [];
   // Latest patch wasn't a major patch e.g. 7_35b, return more entries
   if (latest.length > 4) {
-    patchnotes[previous].items[item]?.forEach(note => changes.push({ patch: previous, note }));
+    patchnotes[previous].items?.[item]?.forEach((note: string) => changes.push({ patch: previous, note }));
   }
-  patchnotes[latest].items[item]?.forEach(note => changes.push({ patch: latest, note }));
+  patchnotes[latest].items?.[item]?.forEach((note: string) => changes.push({ patch: latest, note }));
   return changes;
 }
 
@@ -333,12 +334,12 @@ const AbilityComponent = styled.div`
   }
 `;
 
-function capitalizeFirstLetter(string) {
+function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-const Ability = (item, type, title, description, hasNonPassive) => {
-  const styleType = abilityType[type] || 'passive';
+const Ability = (item: any, type: keyof typeof abilityType, title: string, description: string, hasNonPassive: boolean) => {
+  const styleType: keyof typeof textHighlightColors = abilityType[type] || 'passive';
   const highlightStyle = `font-weight:500;color:${textHighlightColors[styleType]};text-shadow:2px 2px 0 #00000090;`;
   return (
     <AbilityComponent>
@@ -373,9 +374,9 @@ const Ability = (item, type, title, description, hasNonPassive) => {
   );
 };
 
-const AttributeContainer = ({stats = []}) => (
+const AttributeContainer = ({stats = []}: any) => (
     <Attributes>
-      {stats?.map((attrib) => (
+      {stats?.map((attrib: any) => (
         <div key={attrib.key}>
           <div id='header' ref={el => styleValues(el)}>
             {attrib.display.replace('{value}', attrib.value)}
@@ -385,7 +386,7 @@ const AttributeContainer = ({stats = []}) => (
     </Attributes>
   );
 
-const EnhancementContainer = ({ enhancement }) => (
+const EnhancementContainer = ({ enhancement }: any) => (
   <Enhancement>
     <div className="enhancement-header">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
@@ -401,7 +402,7 @@ const EnhancementContainer = ({ enhancement }) => (
 );
 
 // How each type should be styled
-const abilityType = {
+const abilityType: Record<string, keyof typeof textHighlightColors> = {
   active: 'active',
   toggle: 'active',
   passive: 'passive',
@@ -409,9 +410,9 @@ const abilityType = {
   use: 'use'
 };
 
-const itemStats = (item) => {
-  const upperCaseStats = [];
-  const stats =  item?.attrib.filter(a => a.hasOwnProperty('display')).filter(a => {
+const itemStats = (item: any) => {
+  const upperCaseStats: string[] = [];
+  const stats =  item?.attrib.filter((a: any) => a.hasOwnProperty('display')).filter((a: any) => {
     if (!/[a-z]/.test(a.display.replace('{value}', ''))) {
       upperCaseStats.push(a);
       return false;
@@ -421,12 +422,13 @@ const itemStats = (item) => {
   return [ stats, upperCaseStats ];
 }
 
-const ItemTooltip = ({ item, inflictor, value }) => {
-  const recentChanges = getRecentChanges(inflictor);
+const ItemTooltip = ({ item, inflictor, value }: { item: any, inflictor: keyof typeof items, value: keyof typeof items }) => {
+  const patchnotes = usePatchnotes();
+  const recentChanges = getRecentChanges(inflictor, patchnotes);
   const enhancement = items[value] || null;
   const [ stats, upperCaseStats ] = itemStats(item);
   const abilities = item.abilities || [];
-  const hasNonPassive = abilities.some((a) => ['active', 'use'].includes(a.type));
+  const hasNonPassive = abilities.some((a: { type: string }) => ['active', 'use'].includes(a.type));
   return (
     <Wrapper>
       <Header>
@@ -453,10 +455,10 @@ const ItemTooltip = ({ item, inflictor, value }) => {
         </div>}
       {(stats && stats.length > 0) &&
         <AttributeContainer stats={stats} />}
-      {abilities.map(({ type, title, description }) => Ability(item, type, title, description, hasNonPassive))}
+      {abilities.map(({ type, title, description }: { type: keyof typeof abilityType, title: string, description: string }) => Ability(item, type, title, description, hasNonPassive))}
       {enhancement &&
         <EnhancementContainer enhancement={enhancement} />}
-      {item.hint?.map((hint) => <Hint>{hint}</Hint>)}
+      {item.hint?.map((hint: React.ReactNode) => <Hint>{hint}</Hint>)}
       {upperCaseStats.length > 0 &&
         <AttributeContainer stats={upperCaseStats} />}
       {item.lore && <Lore>{item.lore}</Lore>}
@@ -471,7 +473,7 @@ const ItemTooltip = ({ item, inflictor, value }) => {
       {item.components &&
         <Components>
           <div id='header'>Components:</div>
-          {item.components.concat((items[`recipe_${inflictor}`] && [`recipe_${inflictor}`]) || []).filter(Boolean).map(component =>
+          {item.components.concat((items[`recipe_${inflictor}` as keyof typeof items] && [`recipe_${inflictor}`]) || []).filter(Boolean).map((component: keyof typeof items) =>
             items[component] &&
             (
               <div className='component'>
@@ -484,11 +486,6 @@ const ItemTooltip = ({ item, inflictor, value }) => {
       }
     </Wrapper>
   );
-};
-
-ItemTooltip.propTypes = {
-  item: propTypes.shape({}).isRequired,
-  inflictor: propTypes.string.isRequired
 };
 
 export default ItemTooltip;

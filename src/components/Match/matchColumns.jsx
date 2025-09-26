@@ -37,8 +37,8 @@ import TargetsBreakdown from './TargetsBreakdown';
 import HeroImage from './../Visualizations/HeroImage';
 import ItemTooltip from '../ItemTooltip';
 import config from '../../config';
+import { items } from 'dotaconstants';
 
-const items = (await import(`../../../node_modules/dotaconstants/build/items.json`)).default;
 const heroNames = getHeroesById();
 const parsedBenchmarkCols = ['lhten', 'stuns_per_min'];
 

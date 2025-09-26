@@ -9,8 +9,7 @@ import {
 } from '../utility';
 import analyzeMatch from './analyzeMatch';
 import store from '../store';
-
-const abilityIds = (await import('../../node_modules/dotaconstants/build/ability_ids.json')).default;
+import { ability_ids as abilityIds } from 'dotaconstants';
 
 let expandedUnitNames: Record<string, string> | null = null;
 

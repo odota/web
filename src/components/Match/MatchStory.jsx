@@ -16,8 +16,7 @@ import { StyledEmote, StyledStoryNetWorthBar, StyledStoryNetWorthText, StyledSto
 import constants from '../constants';
 import store from '../../store';
 import config from '../../config';
-
-const items = (await import(`../../../node_modules/dotaconstants/build/items.json`)).default;
+import { items } from 'dotaconstants';
 
 const heroesArr = jsonFn(heroes);
 

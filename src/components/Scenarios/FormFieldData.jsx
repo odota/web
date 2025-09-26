@@ -1,10 +1,8 @@
 import React from 'react';
 import MenuItem from 'material-ui/MenuItem';
-import { heroes } from 'dotaconstants';
+import { heroes, items } from 'dotaconstants';
 import { getTimeRange } from './ScenariosColumns';
 import config from '../../config';
-
-const items = (await import(`../../../node_modules/dotaconstants/build/items.json`)).default;
 
 export default function getFormFieldData(metadata, strings) {
   const {

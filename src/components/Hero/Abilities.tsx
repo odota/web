@@ -1,13 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
-import propTypes from 'prop-types';
 import Ability from './Ability';
 import Talents from './Talents';
 import AghanimUpgrades from './AghanimUpgrades';
-
-const heroAbilities = (await import('../../../node_modules/dotaconstants/build/hero_abilities.json')).default;
-const abilities = (await import('../../../node_modules/dotaconstants/build/abilities.json')).default;
+import { useAbilities } from '../../hooks/useAbilities.hook';
+import { useHeroAbilities } from '../../hooks/useHeroAbilities.hook';
 
 const Wrapper = styled.div`
   align-items: center;
@@ -27,20 +24,25 @@ const AbilityItem = styled.div`
   padding-right: 4px;
 `;
 
-const renderAbilities = abilities => abilities.map(ability => (
+const renderAbilities = (abilities: any[]) => abilities.map(ability => (
   <AbilityItem key={ability.key}>
     <Ability {...ability.data} abilityID={ability.key} />
   </AbilityItem>
 ));
 
-const Abilities = ({ hero }) => {
-  const filterAbilities = (toFilterAbs) =>
+const Abilities = ({ hero }: any) => {
+  const abilities = useAbilities();
+  const heroAbilities = useHeroAbilities();
+  if (!abilities) {
+    return null;
+  }
+  const filterAbilities = (toFilterAbs: any[]) =>
     toFilterAbs.filter((ability) => ability !== 'generic_hidden' && abilities[ability].behavior !== 'Hidden');
-  const mapAbilities = toFilterAbs => toFilterAbs.map((ability, id) => ({ data: abilities[ability], key: id }));
-  const mapTalents = talents => talents.map(talent => ({ ...abilities[talent.name], ...talent }));
+  const mapAbilities = (toFilterAbs: any[]) => toFilterAbs.map((ability, id) => ({ data: abilities[ability], key: id }));
+  const mapTalents = (talents: any[]) => talents.map(talent => ({ ...abilities[talent.name], ...talent }));
 
-  const mapTalentsToLevel = (talents) => {
-    const talentMap = [];
+  const mapTalentsToLevel = (talents: any[]) => {
+    const talentMap: any[] = [];
 
     talents.forEach((talent, i) => {
       if (!talentMap[Math.floor(i / 2)]) {
@@ -55,13 +57,13 @@ const Abilities = ({ hero }) => {
     return talentMap;
   };
 
-  const mapAbilitiesAndTalents = (toMapHeroAbsTals) => {
+  const mapAbilitiesAndTalents = (toMapHeroAbsTals: any) => {
     const talsMap = {
-      skills: [],
-      talents: [],
+      skills: [] as any[],
+      talents: [] as any[],
     };
 
-    const heroNpcName = toMapHeroAbsTals.name;
+    const heroNpcName = toMapHeroAbsTals.name as keyof typeof heroAbilities;
     const heroAbs = heroAbilities[heroNpcName];
 
     // Filter out generic_hidden skills from skill list
@@ -89,11 +91,4 @@ const Abilities = ({ hero }) => {
   );
 };
 
-Abilities.propTypes = {
-  hero: propTypes.shape({}).isRequired,
-};
-
-const mapStateToProps = state => ({
-});
-
-export default connect(mapStateToProps)(Abilities);
+export default Abilities;

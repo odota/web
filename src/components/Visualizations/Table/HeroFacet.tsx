@@ -3,8 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 import { heroes } from 'dotaconstants';
 import config from '../../../config';
-
-const heroAbilities = (await import('../../../../node_modules/dotaconstants/build/hero_abilities.json')).default;
+import { useHeroAbilities } from '../../../hooks/useHeroAbilities.hook';
 
 const Facet = styled.div`
   .facet {
@@ -145,52 +144,52 @@ const Facet = styled.div`
   }
 `;
 
-class HeroFacet extends React.Component {
-  render() {
-    const {
-      heroID,
-      facet
-    } = this.props;
+const HeroFacet = ({ heroID, facet }: { heroID: keyof typeof heroes, facet: number }) => {
+  const heroAbilities = useHeroAbilities();
 
-    if (!(heroID && facet)) return null;
-
-    const selectedFacet = heroAbilities[heroes[heroID].name]?.facets[facet - 1] ?? {};
-    const { color, gradient_id, icon, name } = selectedFacet;
-
-    const imageURL = `${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/icons/facets/${icon}.png`;
-    const colorClass = `color_${color}_${gradient_id}`;
-
-    return (
-      <Facet>
-        <div className={`facet ${colorClass}`} data-tip data-for={name}>
-          <img src={imageURL} alt="" />
-          <div className='hero-tooltip'>
-            <ReactTooltip id={name} effect='solid' place='right'>
-              <div
-                className={`facetTooltip ${colorClass}`}
-                style={{
-                  height: '100%',
-                  width: '100%'
-                }}>
-                <div className='facetHeader'>
-                  <div style={{
-                    padding: '10px',
-                    background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1))'
-                  }}>
-                    <img src={imageURL} alt="" />
-                  </div>
-                  <span>{selectedFacet.title}</span>
-                </div>
-                <div className="description">
-                  <span>{selectedFacet.description}</span>
-                </div>
-              </div>
-            </ReactTooltip>
-          </div>
-        </div>
-      </Facet>
-    );
+  if (!(heroID && facet)) {
+    return null;
   }
+  if (!heroAbilities) {
+    return null;
+  }
+
+  const selectedFacet = heroAbilities[heroes[heroID].name]?.facets[facet - 1] ?? {};
+  const { color, gradient_id, icon, name } = selectedFacet;
+
+  const imageURL = `${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/icons/facets/${icon}.png`;
+  const colorClass = `color_${color}_${gradient_id}`;
+
+  return (
+    <Facet>
+      <div className={`facet ${colorClass}`} data-tip data-for={name}>
+        <img src={imageURL} alt="" />
+        <div className='hero-tooltip'>
+          <ReactTooltip id={name} effect='solid' place='right'>
+            <div
+              className={`facetTooltip ${colorClass}`}
+              style={{
+                height: '100%',
+                width: '100%'
+              }}>
+              <div className='facetHeader'>
+                <div style={{
+                  padding: '10px',
+                  background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1))'
+                }}>
+                  <img src={imageURL} alt="" />
+                </div>
+                <span>{selectedFacet.title}</span>
+              </div>
+              <div className="description">
+                <span>{selectedFacet.description}</span>
+              </div>
+            </div>
+          </ReactTooltip>
+        </div>
+      </div>
+    </Facet>
+  );
 }
 
 export default HeroFacet;

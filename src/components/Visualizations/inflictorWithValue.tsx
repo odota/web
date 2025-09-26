@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import nanoid from 'nanoid';
 import styled from 'styled-components';
@@ -8,13 +6,12 @@ import ItemTooltip from './../ItemTooltip/index';
 import constants from '../constants';
 import AbilityTooltip from '../AbilityTooltip';
 import config from '../../config';
-import { neutral_abilities as neutralAbilities } from 'dotaconstants';
+import useStrings from '../../hooks/useStrings.hook';
+import { useAbilities } from '../../hooks/useAbilities.hook';
+import { ability_ids as abilityIds } from 'dotaconstants';
+import { items } from 'dotaconstants';
 
-const abilities = (await import('../../../node_modules/dotaconstants/build/abilities.json')).default;
-const abilityIds = (await import('../../../node_modules/dotaconstants/build/ability_ids.json')).default;
-const items = (await import('../../../node_modules/dotaconstants/build/items.json')).default;
-
-const getInflictorImage = (inflictor) => {
+const getInflictorImage = (inflictor: string) => {
   if (inflictor.includes('recipe')) {
     return 'recipe';
   }
@@ -156,27 +153,31 @@ display: inline-block;
 }
 `;
 
-class InflictorWithValue extends React.Component {
-  static propTypes = {
-    inflictor: PropTypes.string,
-    value: PropTypes.string,
-    type: PropTypes.string,
-    ptooltip: PropTypes.shape({}),
-    abilityId: PropTypes.number,
-    strings: PropTypes.shape({}),
-    charges: PropTypes.number,
-  }
+type Props = {
+  inflictor: string;
+  value: keyof typeof items;
+  type: string;
+  ptooltip: {};
+  abilityId: keyof typeof abilityIds;
+  strings: Strings;
+  charges: number;
+  abilities: Record<string, any>;
+}
 
-  constructor(props) {
+class InflictorWithValue extends React.Component<Props> {
+  state = {
+    showTooltip: false,
+    imageError: false,
+  }
+  constructor(props: Props) {
     super(props);
-    this.state = { showTooltip: false, imageError: false };
   }
   setShowTooltip = () => {
     if (!this.state.showTooltip) {
       this.setState({ showTooltip: true });
     }
   };
-  setImageError = (state) => {
+  setImageError = (state: boolean) => {
     this.setState({ imageError: state });
   }
 
@@ -187,13 +188,14 @@ class InflictorWithValue extends React.Component {
 
     const { imageError } = this.state;
 
-    const resolvedInflictor = (abilityId && abilityIds && abilityIds[abilityId]) || String(inflictor);
+    const resolvedInflictor = ((abilityId && abilityIds && abilityIds[abilityId]) || String(inflictor)) as keyof typeof items;
     if (resolvedInflictor) {
+      const abilities = this.props.abilities;
       const ability = abilities && abilities[resolvedInflictor];
-      const neutralAbility = neutralAbilities && neutralAbilities[resolvedInflictor];
+      // const neutralAbility = neutralAbilities && neutralAbilities[resolvedInflictor];
       const item = items[resolvedInflictor];
       let image;
-      let tooltip = strings.tooltip_autoattack_other;
+      let tooltip: string | React.ReactNode = strings.tooltip_autoattack_other;
       const ttId = nanoid();
 
       if (ability) {
@@ -237,6 +239,7 @@ class InflictorWithValue extends React.Component {
                 alt={imageError ? "Dota 2 Logo" : ""}
                 height="27px"
                 style={{
+                  //@ts-expect-error
                   filter: imageError ? 'grayscale(60%)' : null
                 }}
                 width={(ability || imageError) ? '27px' : '37px'}
@@ -254,7 +257,7 @@ class InflictorWithValue extends React.Component {
             {!type && <div className="overlay">{value}</div>}
             {type === 'buff' &&
               <div className="buffOverlay">
-                {value > 0 && value}
+                {Number(value) > 0 && value}
               </div>
             }
             {charges &&
@@ -283,19 +286,23 @@ class InflictorWithValue extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  strings: state.app.strings,
-});
+function withHooks(Component: any) {
+  return (props: any) => {
+    const strings = useStrings();
+    const abilities = useAbilities();
+    return <Component {...props} strings={strings} abilities={abilities} />;
+  };
+}
 
-const InflictorWithValueCont = connect(mapStateToProps)(InflictorWithValue);
+const InflictorWithValueAndHooks = withHooks(InflictorWithValue);
 
-export default (inflictor, value, type, ptooltip, abilityId, charges) => (
-  <InflictorWithValueCont
+export default (inflictor: string, value: keyof typeof items, type: string, ptooltip: string, abilityId: keyof typeof abilityIds, charges: number) => {
+  return <InflictorWithValueAndHooks
     inflictor={inflictor}
     value={value}
     type={type}
     ptooltip={ptooltip}
     abilityId={abilityId}
     charges={charges}
-  />
-);
+  />;
+};

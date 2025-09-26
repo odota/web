@@ -20,8 +20,7 @@ import constants from '../constants';
 import { StyledTeamIconContainer } from '../Match/StyledMatch';
 import HeroImage from './../Visualizations/HeroImage';
 import { WinnerSpan } from '../Matches';
-
-const items = await import(`../../../node_modules/dotaconstants/build/items.json`);
+import { items } from 'dotaconstants';
 
 /*
 function resolveId(key, value, mappings) {

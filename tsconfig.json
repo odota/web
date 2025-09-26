@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "baseUrl": ".",
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
@@ -18,7 +16,7 @@
       "es2017"
     ],
     "strict": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "types": ["vite/client"]
   },
   "include": [
