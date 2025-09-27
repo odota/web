@@ -13,7 +13,7 @@ function jsonResponse(response: any) {
 
 const columns = [
   { displayName: 'key', field: 'key' },
-  { displayName: 'value', field: 'value', displayFn: (row: any) => row.end != null ? <CountUp start={row.start} end={row.end} duration={10} delay={0} useEasing={false} enableScrollSpy /> : row.value },
+  { displayName: 'value', field: 'value', displayFn: (row: any) => row.end != null ? <CountUp start={row.start} end={row.end} duration={10} delay={0} useEasing={false} /> : row.value },
 ];
 
 const tableStyle = {
