@@ -28,10 +28,10 @@ import muiTheme from './muiTheme';
 import config from '../../config';
 import Spinner from '../Spinner';
 import Players from '../Players/Players';
+import Heroes from '../Heroes';
 
-const Status = React.lazy(() => import('../Status'));
+const Status = React.lazy(() => import('../Status/Status'));
 const Explorer = React.lazy(() => import('../Explorer'));
-const Heroes = React.lazy(() => import('../Heroes'));
 
 type AppStylesProps = {
   open?: boolean;

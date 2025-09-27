@@ -1,21 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import CountUp from 'react-countup';
 import { abbreviateNumber } from '../../utility';
 import Table from '../Table';
 import config from '../../config';
+import { LazyLog, ScrollFollow } from '@melloware/react-logviewer';
 
-const { LazyLog } = await import('react-lazylog');
-
-function jsonResponse(response) {
+function jsonResponse(response: any) {
   return response.json();
 }
 
 const columns = [
   { displayName: 'key', field: 'key' },
-  { displayName: 'value', field: 'value', displayFn: (row) => row.end != null ? <CountUp start={row.start} end={row.end} duration={10} delay={0} useEasing={false} /> : row.value },
+  { displayName: 'value', field: 'value', displayFn: (row: any) => row.end != null ? <CountUp start={row.start} end={row.end} duration={10} delay={0} useEasing={false} /> : row.value },
 ];
 
 const tableStyle = {
@@ -25,16 +23,12 @@ const tableStyle = {
   padding: '15px',
 };
 
-class Status extends React.Component {
-  static propTypes = {
-    strings: PropTypes.shape({}),
-  }
-
+class Status extends React.Component<{ strings: Strings }> {
   state = {
-    result: {},
-    last: {},
+    result: {} as Record<string, any>,
+    last: {} as Record<string, any>,
     ts: new Date(),
-    follow: true,
+    // follow: true,
   }
 
   componentDidMount() {
@@ -57,12 +51,17 @@ class Status extends React.Component {
       <>
         <Helmet title={strings.title_status} />
         <div style={{ minWidth: '300px', width: '80vw', height: '300px' }}>
+          {
+            <ScrollFollow
+        startFollowing={true}
+        render={({ follow, onScroll }) => (
           <LazyLog
             key={Number(this.state.ts)}
             stream
             url={`${config.VITE_API_HOST.replace('http', 'ws')}`}
             websocket
-            follow={this.state.follow}
+            follow={follow}
+            onScroll={onScroll}
             enableSearch
             selectableLines
             onLoad={() => {
@@ -70,9 +69,10 @@ class Status extends React.Component {
               this.setState({ ts: new Date() });
             }
             }
-          />
+          />)}
+          />}
         </div>
-        <button style={{ width: '200px', height: '40px', margin: '8px' }} onClick={() => this.setState({ follow: !this.state.follow })}>{this.state.follow ? 'Stop' : 'Start'}</button>
+        {/* <button style={{ width: '200px', height: '40px', margin: '8px' }} onClick={() => this.setState({ follow: !this.state.follow })}>{this.state.follow ? 'Stop' : 'Start'}</button> */}
         <div style={{
           columnCount: window.innerWidth < 600 ? 1 : 3,
         }}
@@ -107,7 +107,7 @@ class Status extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 

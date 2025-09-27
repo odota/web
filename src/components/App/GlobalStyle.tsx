@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import constants from '../constants';
 
+//@ts-expect-error
 const GlobalStyle = createGlobalStyle([
   `
 body {
