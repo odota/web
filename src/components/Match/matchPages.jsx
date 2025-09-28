@@ -17,7 +17,7 @@ import MatchStory from './MatchStory';
 import mcs from './matchColumns';
 import Overview from './Overview';
 import TeamTable from './TeamTable';
-import Chat from './Chat';
+import Chat from './Chat/Chat';
 import { StyledFlexContainer, StyledFlexElement } from './StyledMatch';
 import { getHeroImageUrl, IMAGESIZE_ENUM } from '../../utility';
 import config from '../../config';

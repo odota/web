@@ -13,7 +13,7 @@ import { isRadiant, formatSeconds } from '../../../utility';
 import { IconRadiant, IconDire } from '../../Icons';
 import constants from '../../constants';
 import HeroImage from './../../Visualizations/HeroImage';
-import { chat_wheel as chatwheelMessages } from 'dotaconstants';
+import { chat_wheel as chatWheelMessages } from 'dotaconstants';
 
 const StyledDiv = styled.div`
   padding-left: 32px;
