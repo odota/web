@@ -7,26 +7,15 @@ OpenDota Web UI: A web interface for viewing Dota 2 data. This utilizes the [Ope
 ## Quickstart
 
 - Clone the repo using `git clone git@github.com:odota/web.git`
-
-### With Docker
-
-```
-$ docker-compose up
-```
-
-- Visit port 3000 on your development machine.
-
-### Without Docker
-
 - Install Node.js (v16 or greater) (download [installer](https://nodejs.org/en/download/) or [install via package manager](https://nodejs.org/en/download/package-manager/))
 - `npm install`
 - `npm start`
-- Visit port 3000 on your development machine.
+- Visit port 5173 on your development machine.
 
 ## Contributing
 
 - Make some changes.
-- `npm run lint` to check your code for linting errors.
+- `npm run typecheck` to check your code for typing errors.
 - `npm test` to check all app routes for uncaught JavaScript errors.
 - Submit a pull request. Wait for review and merge.
 - Congratulations! You're a contributor.
