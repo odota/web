@@ -11,6 +11,7 @@ const setMapSizeStyle = (width, maxWidth) => ({
 });
 
 const dotaMaps = [
+  { patch: '7.38', images: { jpg: '/assets/images/dota2/map/detailed_738.jpg', webp: '/assets/images/dota2/map/detailed_738.webp' } },
   { patch: '7.33', images: { jpg: '/assets/images/dota2/map/detailed_733.jpg', webp: '/assets/images/dota2/map/detailed_733.webp' } },
   { patch: '7.32', images: { jpg: '/assets/images/dota2/map/detailed_732.jpg', webp: '/assets/images/dota2/map/detailed_732.webp' } },
   { patch: '7.23', images: { jpg: '/assets/images/dota2/map/detailed_723.jpg', webp: '/assets/images/dota2/map/detailed_723.webp' } },
