@@ -569,6 +569,18 @@ function EntryMessage({ entry, strings }) {
           </>
         );
       }
+      if (entry.alt_key === 'CHAT_MESSAGE_MINIBOSS_KILL') {
+        return (
+          <>
+            <img
+              src="/assets/images/dota2/shard_1.png"
+              alt="Aghanim's Shard"
+              className="detailIcon"
+            />
+            <span className="smallBoldText">{strings.destroyed_tormentor}</span>
+          </>
+        )
+      }
       if (entry.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
         const team =
           entry.team === 2 ? strings.general_radiant : strings.general_dire;
