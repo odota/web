@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import querystring from 'querystring';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
 import config from '../../../config';
+import { paramsWithTurbo } from '../../../utility.js';
 
 const shouldShow = props => props.loggedInId && props.loggedInId !== props.playerId;
 
 const getData = (props, context) => {
   if (shouldShow(props)) {
-    fetch(`${config.VITE_API_HOST}/api/players/${props.loggedInId}/wl?included_account_id=${props.playerId}`)
+    const params = { included_account_id: props.playerId };
+    fetch(`${config.VITE_API_HOST}/api/players/${props.loggedInId}/wl?${querystring.stringify(paramsWithTurbo(params))}`)
       .then(resp => resp.json())
       .then(json => context.setState({ ...context.state, ...json }));
   }
