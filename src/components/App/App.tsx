@@ -14,7 +14,7 @@ import constants from '../constants';
 import Distributions from '../Distributions';
 import Footer from '../Footer';
 import FourOhFour from '../FourOhFour/FourOhFour';
-import Header from '../Header';
+import Header from '../Header/Header';
 import Home from '../Home';
 import Matches from '../Matches';
 import Player from '../Player';

@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import config from '../../config';
-import AccountWidget from '../AccountWidget';
+import AccountWidget from '../AccountWidget/AccountWidget';
 import AppLogo from '../App/AppLogo';
 import constants from '../constants';
 import LocalizationMenu from '../Localization';
