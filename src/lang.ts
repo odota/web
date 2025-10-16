@@ -8,58 +8,74 @@ export const langs = [
   }, {
     value: 'cs-CZ',
     native: 'Čeština',
-  }, */ {
-    value: 'de-DE',
-    native: 'Deutsch',
-  }, {
-    value: 'es-ES',
-    native: 'Español',
-  }, /* {
-    value: 'es-PE',
-    native: 'Español (América Latina)',
-  }, {
-    value: 'fi-FI',
-    native: 'Suomi',
-  },  {
-    value: 'fr-FR',
-    native: 'Français',
-  }, */ {
-    value: 'it-IT',
-    native: 'Italiano',
-  }, {
-    value: 'hu-HU',
-    native: 'Magyar',
-  }, {
-    value: 'ja-JP',
-    native: '日本語',
-  }, /* {
+  }, */ 
+  // {
+  //   value: 'de-DE',
+  //   native: 'Deutsch',
+  // }, 
+  // {
+  //   value: 'es-ES',
+  //   native: 'Español',
+  // },
+  // {
+  //   value: 'es-PE',
+  //   native: 'Español (América Latina)',
+  // }, {
+  //   value: 'fi-FI',
+  //   native: 'Suomi',
+  // }, 
+  // {
+  //   value: 'fr-FR',
+  //   native: 'Français',
+  // }, 
+  // {
+  //   value: 'it-IT',
+  //   native: 'Italiano',
+  // }, 
+  // {
+  //   value: 'hu-HU',
+  //   native: 'Magyar',
+  // }, 
+  // {
+  //   value: 'ja-JP',
+  //   native: '日本語',
+  // }, 
+  /* {
     value: 'ko-KR',
     native: '한국어',
-  }, */ {
-    value: 'ms-MY',
-    native: 'Bahasa Melayu',
-  }, /* {
+  }, */ 
+  // {
+  //   value: 'ms-MY',
+  //   native: 'Bahasa Melayu',
+  // }, 
+  /* {
     value: 'nl-NL',
     native: 'Nederlands',
-  }, */ {
-    value: 'pl-PL',
-    native: 'Polski',
-  }, {
+  }, */ 
+  // {
+  //   value: 'pl-PL',
+  //   native: 'Polski',
+  // }, 
+  {
     value: 'pt-BR',
     native: 'Português Brasileiro',
-  }, {
-    value: 'ro-RO',
-    native: 'Română',
-  }, {
+  }, 
+  // {
+  //   value: 'ro-RO',
+  //   native: 'Română',
+  // }, 
+  {
     value: 'ru-RU',
     native: 'Русский',
   }, /* {
     value: 'sv-SE',
     native: 'Svenska',
-  }, */ {
-    value: 'th-TH',
-    native: 'ไทย',
-  }, /* {
+  }, */ 
+  // {
+  //   value: 'th-TH',
+  //   native: 'ไทย',
+  // }, 
+  /* {
     value: 'tr-TR',
     native: 'Türkçe',
   },  {
