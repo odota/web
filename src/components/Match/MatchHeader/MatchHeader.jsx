@@ -10,7 +10,7 @@ import FileFileDownload from 'material-ui/svg-icons/file/file-download';
 import ContentCopy from 'material-ui/svg-icons/content/content-copy';
 import { transformations, isRadiant, sum } from '../../../utility';
 import { IconRadiant, IconDire } from '../../Icons';
-import Warning from '../../Alerts';
+import Warning from '../../Alerts/Warning';
 import constants from '../../constants';
 import config from '../../../config';
 

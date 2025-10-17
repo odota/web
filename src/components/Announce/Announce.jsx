@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-redeclare
-/* global localStorage */
 import React from 'react';
 import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';

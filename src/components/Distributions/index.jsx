@@ -12,7 +12,7 @@ import {
 } from '../../utility';
 import { getDistributions } from '../../actions';
 import Table from '../Table';
-// import Warning from '../Alerts';
+// import Warning from '../Alerts/Warning';
 import TabBar from '../TabBar';
 import Heading from '../Heading';
 import { DistributionGraph } from '../Visualizations';

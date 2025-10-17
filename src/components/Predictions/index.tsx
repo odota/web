@@ -2,7 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import Table from '../Table';
 import Heading from '../Heading';
-import Warning from '../Alerts';
+import Warning from '../Alerts/Warning';
 // import RaisedButton from 'material-ui/RaisedButton';
 
 // 60 days before

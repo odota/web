@@ -244,7 +244,7 @@ const Header = ({ location, disableSearch }) => {
   const strings = useSelector((state) => state.app.strings);
 
   useEffect(() => {
-    import('../Announce').then((ann) => setAnnounce(ann.default));
+    import('../Announce/Announce').then((ann) => setAnnounce(ann.default));
   }, []);
 
   const navbarPages = [

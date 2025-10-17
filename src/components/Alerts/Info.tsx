@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import styled from 'styled-components';
 import constants from '../constants';
@@ -19,7 +18,7 @@ const StyledDiv = styled.div`
   }
 `;
 
-const Info = ({ children, className, msg }) => (
+const Info = ({ children, className, msg }: { children: React.ReactNode, className: string, msg: string }) => (
   <StyledDiv className={`${className}`}>
     <ActionInfo />
     <span>
@@ -28,11 +27,5 @@ const Info = ({ children, className, msg }) => (
     </span>
   </StyledDiv>
 );
-
-Info.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  msg: PropTypes.string,
-};
 
 export default Info;
