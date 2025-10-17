@@ -19,11 +19,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 24.x
-    #   - run: npm ci
-    #   - run: npm run build --if-present
-    #     env:
-    #       CI: true
-    #       NODE_ENV: production
+      - run: npm ci
+      - run: npm run build --if-present
+        env:
+          CI: true
+          NODE_ENV: production
     #   - run: cp build/index.html build/404.html
     #   - name: Push to remote
     #     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
