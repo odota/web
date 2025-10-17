@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
-import PropTypes from 'prop-types';
 import constants from '../constants';
 import AghanimsTooltipHeader from './AghsTooltipHeader';
 import AghsTooltipBody from './AghsTooltipBody';
@@ -22,11 +21,11 @@ const CombinedWrapper = styled.div`
   margin: 0 -20px;
 `;
 
-const AghanimsToolTip = ({ upgrades, skills }) => {
+const AghanimsToolTip = ({ upgrades, skills }: { upgrades: any, skills: any[], type: string }) => {
   let newScepterAbility = null;
   let newShardAbility = null;
 
-  const getAghsSkillObject = (skillName) => {
+  const getAghsSkillObject = (skillName: string) => {
     if(!skillName || skillName === "") return null;
     const ability = skills.find(skill =>
       skill.data.dname === skillName
@@ -102,7 +101,7 @@ align-items: center;
   padding: 0px !important;
 }
 `
-const AghsTooltipWrapper = ({ upgrades, skills }) => (
+const AghsTooltipWrapper = ({ upgrades, skills }: { upgrades: any, skills: any[], heroName: string }) => (
   <TtWrapper>
     <StyledAghanimsBuffs>
       <ReactTooltip id="aghanim" effect="solid" place="bottom" >
@@ -111,10 +110,5 @@ const AghsTooltipWrapper = ({ upgrades, skills }) => (
     </StyledAghanimsBuffs>
   </TtWrapper>
 );
-
-AghsTooltipWrapper.propTypes = {
-  upgrades:  PropTypes.shape({}).isRequired,
-  skills: PropTypes.array.isRequired,
-}
 
 export default AghsTooltipWrapper;

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import constants from '../constants';
 
 const Header = styled.div`
@@ -44,7 +43,7 @@ const HeaderText = styled.div`
   letter-spacing: 1px;
 `;
 
-const AghanimsTooltipHeader = ({ image, type, children }) => (
+const AghanimsTooltipHeader = ({ image, type, children }: { image: string, type: string, children: React.ReactNode }) => (
   <Header>
     <div className="header-content">
       <img id={`${type}-img`} src={image} alt="" />
@@ -54,14 +53,5 @@ const AghanimsTooltipHeader = ({ image, type, children }) => (
     </div>
   </Header>
 );
-
-AghanimsTooltipHeader.propTypes = {
-  image: PropTypes.string,
-  type: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]),
-}
 
 export default AghanimsTooltipHeader;

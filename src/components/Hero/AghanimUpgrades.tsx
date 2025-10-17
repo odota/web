@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
-import AghsTooltip from '../AghsTooltip';
+import AghsTooltip from '../AghsTooltip/AghsTooltip';
 import constants from '../constants';
 import { aghs_desc as aghsDesc } from 'dotaconstants';
 
@@ -33,12 +33,12 @@ export const Icon = styled.img`
   }
 `;
 
-const getAghsUpgrades = (heroName) => {
+const getAghsUpgrades = (heroName: string) => {
   const hero = (aghsDesc.filter(a => a.hero_name === heroName))[0];
   return hero || {};
 }
 
-const AghanimUpgrades = ({ heroName, skills }) => (
+const AghanimUpgrades = ({ heroName, skills }: { heroName: string, skills: any[] }) => (
   <Wrapper>
     <AghsTooltip heroName={heroName} upgrades={getAghsUpgrades(heroName)} skills={skills} />
     <StyledAghanimsBuffs data-for="aghanim" data-tip="aghanim">

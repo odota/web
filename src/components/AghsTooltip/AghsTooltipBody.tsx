@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import constants from '../constants';
 import { formatSkillOrAttributeValues } from '../../utility';
 
@@ -92,8 +91,8 @@ const NewAbility = styled.div`
   margin: 4px 0px;
 `;
 
-const getAghsAttributes = (skillObject) => {
-  const skills = (skillObject.attrib || [])
+const getAghsAttributes = (skillObject: any) => {
+  const skills: any[] = (skillObject.attrib || [])
   const attributes = skills.map(attrib => (
     <div className="attribute" key={attrib.key}>
       <span id="header">{attrib.header} </span>
@@ -109,7 +108,7 @@ const getAghsAttributes = (skillObject) => {
   )
 }
 
-const AghsTooltipBody = ({ icon, skillName, isNewSkill, aghsDescription, skillObject, hasUpgrade }) => (
+const AghsTooltipBody = ({ icon, skillName, isNewSkill, aghsDescription, skillObject, hasUpgrade }: { icon: string, skillName: string, isNewSkill: boolean, aghsDescription: string, skillObject: any, hasUpgrade: boolean }) => (
   <Body>
     {hasUpgrade ? (
       <>
@@ -140,14 +139,5 @@ const AghsTooltipBody = ({ icon, skillName, isNewSkill, aghsDescription, skillOb
 
   </Body>
 )
-
-AghsTooltipBody.propTypes = {
-  icon: PropTypes.string,
-  skillName: PropTypes.string,
-  isNewSkill: PropTypes.bool,
-  aghsDescription: PropTypes.string,
-  skillObject: PropTypes.shape({}),
-  hasUpgrade: PropTypes.bool,
-}
 
 export default AghsTooltipBody;
