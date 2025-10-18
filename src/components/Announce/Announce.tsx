@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { MouseEventHandler } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -71,7 +70,7 @@ const StyledDiv = styled.div`
 `;
 const Announce = ({
   title, body, onClick, link, strings,
-}) => (
+}: { title: string, body: string, onClick: MouseEventHandler<{}>, link: string, strings: Strings}) => (
   <StyledDiv>
     <main>
       <h4>{title}</h4>
@@ -95,46 +94,25 @@ const Announce = ({
   </StyledDiv>
 );
 
-Announce.propTypes = {
-  title: PropTypes.string,
-  body: PropTypes.string,
-  onClick: PropTypes.func,
-  link: PropTypes.string,
-  strings: PropTypes.shape({}),
-};
-
-class RequestLayer extends React.Component {
-  static propTypes = {
-    getPulls: PropTypes.func,
-    error: PropTypes.string,
-    loading: PropTypes.bool,
-    data: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.array,
-    ]),
-    strings: PropTypes.shape({}),
-  };
-
-  constructor() {
-    super();
+class RequestLayer extends React.Component<{ error: string, getPulls: Function, loading: boolean, data: any, strings: Strings}, { dismissed?: boolean }> {
+  constructor(props: any) {
+    super(props);
 
     this.state = {};
-
-    this.dismiss = (value) => {
-      if (localStorage) {
-        localStorage.setItem('dismiss', value);
-      }
-      this.setState({ dismissed: true });
-    };
-
-    this.getDate = (days) => {
-      const msPerDay = 24 * 60 * 60 * 1000;
-
-      const date = new Date(new Date() - (msPerDay * days));
-
-      return date.toISOString().split('T')[0];
-    };
   }
+
+  dismiss = (value: string) => {
+    if (localStorage) {
+      localStorage.setItem('dismiss', value);
+    }
+    this.setState({ dismissed: true });
+  };
+
+  getDate = (days: number) => {
+    const msPerDay = 24 * 60 * 60 * 1000;
+    const date = new Date(Number(new Date()) - (msPerDay * days));
+    return date.toISOString().split('T')[0];
+  };
 
   componentDidMount() {
     this.props.getPulls(this.getDate(5));
@@ -155,7 +133,7 @@ class RequestLayer extends React.Component {
         } = data.items[0];
 
         if (localStorage && !this.state.dismissed && Number(localStorage.getItem('dismiss')) < number) {
-          return <Announce title={title} body={body} onClick={() => this.dismiss(number)} link={link} location={window.location} strings={strings} />;
+          return <Announce title={title} body={body} onClick={() => this.dismiss(number)} link={link} strings={strings} />;
         }
       }
     }
@@ -164,7 +142,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
   const { error, loading, data } = state.app.ghPulls;
 
   return {
@@ -175,8 +153,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  getPulls: repo => dispatch(getGithubPulls(repo)),
+const mapDispatchToProps = (dispatch: any) => ({
+  getPulls: (repo: string) => dispatch(getGithubPulls(repo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
