@@ -21,9 +21,6 @@ const PageLinks = ({ strings }) => {
   }, {
     name: strings.app_netlify,
     path: '//www.netlify.com',
-  }, {
-    name: strings.app_gravitech,
-    path: '//www.gravitech.io',
   }];
   return links.map(link => (
     <a href={link.path} key={link.name} target="_blank" rel="noopener noreferrer">{link.name}</a>
