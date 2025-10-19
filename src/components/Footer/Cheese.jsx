@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import CheeseCircle from '../Cheese';
+import CheeseCircle from '../Cheese/CheeseCircle';
 
 const Cheese = ({ strings }) => (
   <div className="cheese">

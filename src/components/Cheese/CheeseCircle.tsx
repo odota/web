@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 import styled from 'styled-components';
@@ -58,9 +57,9 @@ const PercentP = styled.p`
   }
 `;
 
-const Cheese = ({ donations = {}, error, loading }) => {
+const Cheese = ({ donations = {}, error, loading }: { donations: { goal?: number, cheese?: number }, error: string, loading: boolean }) => {
   const { goal, cheese } = donations;
-  const percent = ((cheese / goal) * 100) || 0;
+  const percent = (cheese && goal) ? ((cheese / goal) * 100) : 0;
 
   return (
     <div>
@@ -82,13 +81,7 @@ const Cheese = ({ donations = {}, error, loading }) => {
   );
 };
 
-Cheese.propTypes = {
-  donations: PropTypes.shape({}),
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-};
-
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
   const { loading, error } = state.app.metadata;
   return {
     loading,
