@@ -53,7 +53,7 @@ export const StyledInputFilter = styled.div`
 `;
 
 export const StyledHeroSelector = styled.div`
-  ${(props) =>
+  ${(props: { isFiltered: boolean, selected: boolean }) =>
     (props.isFiltered || props.selected) &&
     `pointer-events: none; 
     filter: grayscale(1) brightness(0.4);

@@ -28,8 +28,8 @@ function resolveId(key, value, mappings) {
 
 class ExplorerOutputSection extends React.Component {
   static propTypes = {
-    rows: PropTypes.string,
-    fields: PropTypes.string,
+    rows: PropTypes.array,
+    fields: PropTypes.array,
     expandedBuilder: PropTypes.string,
     // teamMapping: PropTypes.string,
     playerMapping: PropTypes.string,

@@ -2,7 +2,6 @@ import React from 'react';
 import { RaisedButton, RadioButton, RadioButtonGroup } from 'material-ui';
 import { heroes } from 'dotaconstants';
 import querystring from 'querystring';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextField from 'material-ui/TextField';
 import ActionSearch from 'material-ui/svg-icons/action/search';
@@ -23,6 +22,7 @@ import {
   IMAGESIZE_ENUM,
 } from '../../utility';
 import config from '../../config';
+import useStrings from '../../hooks/useStrings.hook';
 
 const styles = {
   radioButton: {
@@ -44,7 +44,7 @@ const InputFilter = ({
   setInputRef,
   reset,
   filterText,
-}) => (
+}: { handleChange: (e: React.FormEvent<{}>, newValue: string) => void, value: string, setInputRef: any, reset: any, filterText: string }) => (
   <StyledInputFilter>
     <div className="container">
       <ActionSearch
@@ -64,7 +64,7 @@ const InputFilter = ({
         onClick={reset}
         onKeyPress={reset}
         role="button"
-        tabIndex="0"
+        tabIndex={0}
       >
         x
       </div>
@@ -73,7 +73,7 @@ const InputFilter = ({
 );
 
 const heroesArray = Object.keys(heroes)
-  .map((id) => heroes[id])
+  .map((id) => heroes[id as keyof typeof heroes])
   .sort((a, b) => a.localized_name.localeCompare(b.localized_name));
 
 const HeroSelector = ({
@@ -84,6 +84,14 @@ const HeroSelector = ({
   teamBFull,
   isFiltered,
   heroName,
+}: {
+  id: number,
+  handleHeroSelection: Function,
+  selected: boolean,
+  teamAFull: boolean,
+  teamBFull: boolean,
+  isFiltered: boolean,
+  heroName: string
 }) => (
   <StyledHeroSelector selected={selected} isFiltered={isFiltered}>
     <HeroImage
@@ -109,7 +117,7 @@ const HeroSelector = ({
         onClick={handleHeroSelection(id, 'teamA')}
         onKeyPress={handleHeroSelection(id, 'teamA')}
         role="button"
-        tabIndex="0"
+        tabIndex={0}
       >
         A
       </div>
@@ -119,7 +127,7 @@ const HeroSelector = ({
         onClick={handleHeroSelection(id, 'teamB')}
         onKeyPress={handleHeroSelection(id, 'teamB')}
         role="button"
-        tabIndex="0"
+        tabIndex={0}
       >
         B
       </div>
@@ -127,17 +135,9 @@ const HeroSelector = ({
   </StyledHeroSelector>
 );
 
-HeroSelector.propTypes = {
-  id: PropTypes.number,
-  handleHeroSelection: PropTypes.func,
-  selected: PropTypes.bool,
-  teamAFull: PropTypes.bool,
-  teamBFull: PropTypes.bool,
-  strings: PropTypes.shape({}),
-};
-
-const SelectedHeroes = ({ teamA, teamB, handleHeroDeSelection, strings }) => (
-  <StyledSelectedHeroes>
+const SelectedHeroes = ({ teamA, teamB, handleHeroDeSelection }: { teamA: number[], teamB: number[], handleHeroDeSelection: Function }) => {
+  const strings = useStrings();
+  return <StyledSelectedHeroes>
     <div className="team-container left">
       <div className="team-title team-a">
         {formatTemplateToString(strings.team, 'A')}
@@ -175,35 +175,24 @@ const SelectedHeroes = ({ teamA, teamB, handleHeroDeSelection, strings }) => (
         )}
       </div>
     </div>
-  </StyledSelectedHeroes>
-);
-
-SelectedHeroes.propTypes = {
-  handleHeroDeSelection: PropTypes.func,
-  strings: PropTypes.shape({}),
-  teamA: PropTypes.arrayOf(PropTypes.number),
-  teamB: PropTypes.arrayOf(PropTypes.number),
+  </StyledSelectedHeroes>;
 };
 
-function asArray(value) {
+function asArray(value: any) {
   if (Array.isArray(value)) {
     return value;
   }
   return value ? [value] : [];
 }
 
-class Combos extends React.Component {
-  static propTypes = {
-    strings: PropTypes.shape({}),
-  };
-
+class Combos extends React.Component<{ strings: Strings }> {
   parsedUrlQuery = querystring.parse(window.location.search.substring(1)); // eslint-disable-line react/sort-comp
 
   state = {
     queryType: this.parsedUrlQuery.queryType || 'public',
     teamA: asArray(this.parsedUrlQuery.teamA).map(Number),
     teamB: asArray(this.parsedUrlQuery.teamB).map(Number),
-    queryResult: {},
+    queryResult: {} as { rows: any[], fields: any[], err: string },
     loading: false,
     searchValue: '',
   };
@@ -214,20 +203,22 @@ class Combos extends React.Component {
     }
   }
 
-  setInputRef = (input) => {
+  setInputRef = (input: any) => {
+    //@ts-expect-error
     this.inputRef = input;
   };
 
   resetSearchValue = () => {
     if (this.state.searchValue.length > 0) {
+      //@ts-expect-error
       this.inputRef.focus();
     }
     this.setState({ searchValue: '' });
   };
 
-  handleChange = (e) => this.setState({ searchValue: e.target.value });
+  handleChange = (e: any) => this.setState({ searchValue: e.target.value });
 
-  handleHeroSelection = (resetSearchValue) => (heroID, team) => () => {
+  handleHeroSelection = (resetSearchValue: any) => (heroID: number, team: 'teamA' | 'teamB') => () => {
     if (this.state.loading) {
       return;
     }
@@ -242,7 +233,7 @@ class Combos extends React.Component {
     }
   };
 
-  handleHeroDeSelection = (index, team) => () => {
+  handleHeroDeSelection = (index: number, team: 'teamA' | 'teamB') => () => {
     if (this.state.loading) {
       return;
     }
@@ -259,24 +250,24 @@ class Combos extends React.Component {
     return getQueryString(teamA, teamB);
   };
 
-  handleResponse = (json) => {
+  handleResponse = (json: any) => {
     let data = json;
     const { teamA, teamB } = this.state;
 
     // rearrange order of heroes so the results are displayed in the same order as selection
-    data.forEach((row) => {
+    data.forEach((row: any) => {
       if (!row.teama.includes(teamA[0]) && !row.teamb.includes(teamB[0])) {
         const temp = row.teama;
         row.teama = row.teamb;
         row.teamb = temp;
         row.teamawin = !row.teamawin;
       }
-      row.teama.sort((a, b) => teamA.indexOf(b) - teamA.indexOf(a));
+      row.teama.sort((a: number, b: number) => teamA.indexOf(b) - teamA.indexOf(a));
       row.teama = [
         ...row.teama.slice(teamA.length, 5),
         ...row.teama.slice(0, teamA.length),
       ];
-      row.teamb.sort((a, b) => teamB.indexOf(a) - teamB.indexOf(b));
+      row.teamb.sort((a: number, b: number) => teamB.indexOf(a) - teamB.indexOf(b));
       row.teamb = [
         ...row.teamb.slice(5 - teamB.length, 5),
         ...row.teamb.slice(0, 5 - teamB.length),
@@ -286,7 +277,7 @@ class Combos extends React.Component {
     if (this.state.queryType === 'public') {
       // adapt json format so ExplorerOutputSection can process it
       data = {};
-      data.rows = json.map((el) => ({
+      data.rows = json.map((el: any) => ({
         ...el,
         team_a_win: el.teamawin,
         team_a_composition: el.teama,
@@ -337,11 +328,11 @@ class Combos extends React.Component {
     window.stop();
   };
 
-  handleRadioButtonChange = (_, value) => {
+  handleRadioButtonChange = (_: any, value: any) => {
     this.setState({ queryType: value });
   };
 
-  filterAndRenderElements = (searchValue, resetSearchValue) =>
+  filterAndRenderElements = (searchValue: any, resetSearchValue: any) =>
     heroesArray.map((hero) => (
       <HeroSelector
         id={hero.id}
@@ -350,7 +341,6 @@ class Combos extends React.Component {
         selected={[...this.state.teamA, ...this.state.teamB].includes(hero.id)}
         teamAFull={this.state.teamA.length > 4}
         teamBFull={this.state.teamB.length > 4}
-        strings={this.props.strings}
         isFiltered={
           !new RegExp(escapeRegExp(searchValue), 'i').test(hero.localized_name)
         }
@@ -386,7 +376,6 @@ class Combos extends React.Component {
             teamA={teamA}
             teamB={teamB}
             handleHeroDeSelection={this.handleHeroDeSelection}
-            strings={strings}
           />
           <div className="submit-section">
             <RadioButtonGroup
@@ -397,12 +386,14 @@ class Combos extends React.Component {
               <RadioButton
                 value="public"
                 label={strings.public_matches}
+                //@ts-expect-error
                 style={styles.radioButton.root}
                 iconStyle={styles.radioButton.icon}
               />
               <RadioButton
                 value="pro"
                 label={strings.pro_matches}
+                //@ts-expect-error
                 style={{ ...styles.radioButton.root, marginRight: 0 }}
                 iconStyle={styles.radioButton.icon}
               />
@@ -453,7 +444,7 @@ class Combos extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 
