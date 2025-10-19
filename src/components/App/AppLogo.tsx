@@ -16,13 +16,17 @@ const StyledLink = styled(Link)`
 `;
 
 interface AppLogoProps {
-  size: string
-  strings: { [key: string]: string }
-  onClick: () => void
+  size: string;
+  strings: { [key: string]: string };
+  onClick: () => void;
 }
 
 const AppLogo = ({ size, strings, onClick }: AppLogoProps) => (
-  <StyledLink aria-label="Go to the Open Dota homepage" to="/" onClick={onClick}>
+  <StyledLink
+    aria-label="Go to the Open Dota homepage"
+    to="/"
+    onClick={onClick}
+  >
     <span style={{ fontSize: size }}>
       {strings.app_name && `<${strings.app_name}/>`}
     </span>

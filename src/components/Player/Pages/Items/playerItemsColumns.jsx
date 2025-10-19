@@ -1,9 +1,11 @@
-const playerItemsColumns = strings => ([{
-  displayName: 'Name',
-  tooltip: strings.items_name,
-  field: 'name',
-  width: 1,
-}]);
+const playerItemsColumns = (strings) => [
+  {
+    displayName: 'Name',
+    tooltip: strings.items_name,
+    field: 'name',
+    width: 1,
+  },
+];
 
 export default playerItemsColumns;
 

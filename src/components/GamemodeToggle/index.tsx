@@ -6,7 +6,9 @@ import { useStrings } from '../../hooks/useStrings.hook';
 
 const GamemodeToggle = () => {
   const strings = useStrings();
-  const [modeFilter, setModeFilter] = React.useState(window.localStorage.getItem('modeFilter'));
+  const [modeFilter, setModeFilter] = React.useState(
+    window.localStorage.getItem('modeFilter'),
+  );
 
   const handleToggle = React.useCallback(() => {
     if (modeFilter === 'turbo') {

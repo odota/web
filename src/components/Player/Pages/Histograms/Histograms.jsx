@@ -15,30 +15,43 @@ const getMedian = (columns, midpoint) => {
   let sum = 0;
   const medianCol = columns.find((col) => {
     sum += col.games;
-    return (sum >= midpoint);
+    return sum >= midpoint;
   });
   return medianCol && medianCol.x;
 };
 
 const getSubtitleStats = (columns, strings, histogramName) => {
-  const total = columns.reduce((sum, col) => (sum + col.games), 0);
+  const total = columns.reduce((sum, col) => sum + col.games, 0);
   let median = getMedian(columns, total / 2);
   median = formatGraphValueData(median, histogramName);
-  return `(${strings.heading_total_matches}: ${total}${(median !== undefined) ? `, ${strings.heading_median}: ${median})` : ''}`;
+  return `(${strings.heading_total_matches}: ${total}${median !== undefined ? `, ${strings.heading_median}: ${median})` : ''}`;
 };
 
-const getSubtitleDescription = (histogramName, strings) => (strings[`histograms_${histogramName}_description`] || '');
+const getSubtitleDescription = (histogramName, strings) =>
+  strings[`histograms_${histogramName}_description`] || '';
 
-const histogramNames = dataColumns.filter(col => col !== 'win_rate');
+const histogramNames = dataColumns.filter((col) => col !== 'win_rate');
 
 const Histogram = ({
-  routeParams, columns, playerId, error, loading, histogramName, history, strings,
+  routeParams,
+  columns,
+  playerId,
+  error,
+  loading,
+  histogramName,
+  history,
+  strings,
 }) => (
   <div>
-    <Heading title={strings.histograms_name} subtitle={strings.histograms_description} />
+    <Heading
+      title={strings.histograms_name}
+      subtitle={strings.histograms_description}
+    />
     <ButtonGarden
       onClick={(buttonName) => {
-        history.push(`/players/${playerId}/histograms/${buttonName}${window.location.search}`);
+        history.push(
+          `/players/${playerId}/histograms/${buttonName}${window.location.search}`,
+        );
       }}
       buttonNames={histogramNames}
       selectedButton={routeParams.subInfo || histogramNames[0]}
@@ -47,7 +60,16 @@ const Histogram = ({
       <div>
         <Heading
           title={strings[`heading_${histogramName}`]}
-          subtitle={loading ? '' : [getSubtitleDescription(histogramName, strings), getSubtitleStats(columns, strings, histogramName)].filter(Boolean).join(' ')}
+          subtitle={
+            loading
+              ? ''
+              : [
+                  getSubtitleDescription(histogramName, strings),
+                  getSubtitleStats(columns, strings, histogramName),
+                ]
+                  .filter(Boolean)
+                  .join(' ')
+          }
         />
         <HistogramGraph columns={columns || []} histogramName={histogramName} />
       </div>
@@ -67,7 +89,11 @@ Histogram.propTypes = {
 };
 
 const getData = (props) => {
-  props.getPlayerHistograms(props.playerId, props.location.search, props.routeParams.subInfo || histogramNames[0]);
+  props.getPlayerHistograms(
+    props.playerId,
+    props.location.search,
+    props.routeParams.subInfo || histogramNames[0],
+  );
 };
 
 class RequestLayer extends React.Component {
@@ -77,15 +103,17 @@ class RequestLayer extends React.Component {
       key: PropTypes.string,
     }),
     strings: PropTypes.shape({}),
-  }
+  };
 
   componentDidMount() {
     getData(this.props);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.playerId !== prevProps.playerId
-      || this.props.location.key !== prevProps.location.key) {
+    if (
+      this.props.playerId !== prevProps.playerId ||
+      this.props.location.key !== prevProps.location.key
+    ) {
       getData(this.props);
     }
   }
@@ -103,4 +131,6 @@ const mapStateToProps = (state, { histogramName = histogramNames[0] }) => ({
   strings: state.app.strings,
 });
 
-export default withRouter(connect(mapStateToProps, { getPlayerHistograms })(RequestLayer));
+export default withRouter(
+  connect(mapStateToProps, { getPlayerHistograms })(RequestLayer),
+);

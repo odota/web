@@ -7,13 +7,9 @@ const Cheese = ({ strings }) => (
   <div className="cheese">
     <CheeseCircle />
     <section>
-      <span style={{ fontSize: 'larger' }} >
-        {strings.app_donation_goal}
-      </span>
+      <span style={{ fontSize: 'larger' }}>{strings.app_donation_goal}</span>
       <p style={{ marginTop: 5 }}>
-        <a href="//carry.opendota.com">
-          {strings.app_sponsorship}
-        </a>
+        <a href="//carry.opendota.com">{strings.app_sponsorship}</a>
       </p>
     </section>
   </div>
@@ -23,7 +19,7 @@ Cheese.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

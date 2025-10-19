@@ -15,34 +15,42 @@ const Wrapper = styled.div`
 
 const CombinedWrapper = styled.div`
   display: flex;
-  background-color: rgba(0,0,255,0.01);
+  background-color: rgba(0, 0, 255, 0.01);
   flex-direction: column;
   gap: 10px;
   margin: 0 -20px;
 `;
 
-const AghanimsToolTip = ({ upgrades, skills }: { upgrades: any, skills: any[], type: string }) => {
+const AghanimsToolTip = ({
+  upgrades,
+  skills,
+}: {
+  upgrades: any;
+  skills: any[];
+  type: string;
+}) => {
   let newScepterAbility = null;
   let newShardAbility = null;
 
   const getAghsSkillObject = (skillName: string) => {
-    if(!skillName || skillName === "") return null;
-    const ability = skills.find(skill =>
-      skill.data.dname === skillName
-    )
+    if (!skillName || skillName === '') return null;
+    const ability = skills.find((skill) => skill.data.dname === skillName);
     return ability.data;
-  }
+  };
 
   if (skills && upgrades) {
     const newShardSkillName = upgrades.shard_skill_name;
-    const newShardSkillObject = getAghsSkillObject(newShardSkillName)
+    const newShardSkillObject = getAghsSkillObject(newShardSkillName);
     newShardAbility = (
       <Wrapper>
-        <AghanimsTooltipHeader image="/assets/images/dota2/shard_0.png" type="shard">
+        <AghanimsTooltipHeader
+          image="/assets/images/dota2/shard_0.png"
+          type="shard"
+        >
           <span>Aghanim&lsquo;s Shard</span>
         </AghanimsTooltipHeader>
         <AghsTooltipBody
-          icon={`${config.VITE_IMAGE_CDN}${newShardSkillObject ? newShardSkillObject.img : ""}`}
+          icon={`${config.VITE_IMAGE_CDN}${newShardSkillObject ? newShardSkillObject.img : ''}`}
           skillName={upgrades.shard_skill_name}
           hasUpgrade={upgrades.has_shard}
           isNewSkill={upgrades.shard_new_skill}
@@ -50,17 +58,20 @@ const AghanimsToolTip = ({ upgrades, skills }: { upgrades: any, skills: any[], t
           skillObject={newShardSkillObject}
         />
       </Wrapper>
-    )
+    );
 
     const newScepterSkillName = upgrades.scepter_skill_name;
     const newScepterSkillObject = getAghsSkillObject(newScepterSkillName);
     newScepterAbility = (
       <Wrapper>
-        <AghanimsTooltipHeader image="/assets/images/dota2/scepter_0.png" type="scepter">
+        <AghanimsTooltipHeader
+          image="/assets/images/dota2/scepter_0.png"
+          type="scepter"
+        >
           <span>Aghanim&lsquo;s Scepter</span>
         </AghanimsTooltipHeader>
         <AghsTooltipBody
-          icon={`${config.VITE_IMAGE_CDN}${newScepterSkillObject ? newScepterSkillObject.img : ""}`}
+          icon={`${config.VITE_IMAGE_CDN}${newScepterSkillObject ? newScepterSkillObject.img : ''}`}
           skillName={upgrades.scepter_skill_name}
           hasUpgrade={upgrades.has_scepter}
           isNewSkill={upgrades.scepter_new_skill}
@@ -68,7 +79,7 @@ const AghanimsToolTip = ({ upgrades, skills }: { upgrades: any, skills: any[], t
           skillObject={newScepterSkillObject}
         />
       </Wrapper>
-    )
+    );
   }
 
   return (
@@ -76,35 +87,46 @@ const AghanimsToolTip = ({ upgrades, skills }: { upgrades: any, skills: any[], t
       {newScepterAbility}
       {newShardAbility}
     </CombinedWrapper>
-  )
-}
+  );
+};
 
 const TtWrapper = styled.div`
-  background: linear-gradient(to bottom, ${constants.colorBlueMuted}, ${constants.primarySurfaceColor});
+  background: linear-gradient(
+    to bottom,
+    ${constants.colorBlueMuted},
+    ${constants.primarySurfaceColor}
+  );
   border-radius: 4px;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, .3);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
   position: relative;
 `;
 
 export const StyledAghanimsBuffs = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-> img {
-  width: 65%;
-}
+  > img {
+    width: 65%;
+  }
 
-.__react_component_tooltip {
-  opacity: 1 !important;
-  padding: 0px !important;
-}
-`
-const AghsTooltipWrapper = ({ upgrades, skills }: { upgrades: any, skills: any[], heroName: string }) => (
+  .__react_component_tooltip {
+    opacity: 1 !important;
+    padding: 0px !important;
+  }
+`;
+const AghsTooltipWrapper = ({
+  upgrades,
+  skills,
+}: {
+  upgrades: any;
+  skills: any[];
+  heroName: string;
+}) => (
   <TtWrapper>
     <StyledAghanimsBuffs>
-      <ReactTooltip id="aghanim" effect="solid" place="bottom" >
+      <ReactTooltip id="aghanim" effect="solid" place="bottom">
         <AghanimsToolTip type="scepter" upgrades={upgrades} skills={skills} />
       </ReactTooltip>
     </StyledAghanimsBuffs>

@@ -20,14 +20,19 @@ const StyledTableContainer = styled.div`
   padding: 5px;
 `;
 
-const Counts = ({
-  counts, error, loading, strings,
-}) => (
+const Counts = ({ counts, error, loading, strings }) => (
   <StyledContainer>
-    {Object.keys(counts).map(key => (
+    {Object.keys(counts).map((key) => (
       <StyledTableContainer key={key}>
-        <Container title={strings[`heading_${key}`]} error={error} loading={loading}>
-          <Table columns={playerCountsColumns(strings)} data={counts[key].list} />
+        <Container
+          title={strings[`heading_${key}`]}
+          error={error}
+          loading={loading}
+        >
+          <Table
+            columns={playerCountsColumns(strings)}
+            data={counts[key].list}
+          />
         </Container>
       </StyledTableContainer>
     ))}
@@ -35,10 +40,7 @@ const Counts = ({
 );
 
 Counts.propTypes = {
-  counts: PropTypes.oneOfType([
-    PropTypes.shape({}),
-    PropTypes.array,
-  ]),
+  counts: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.array]),
   error: PropTypes.string,
   loading: PropTypes.bool,
   strings: PropTypes.shape({}),
@@ -55,34 +57,36 @@ class RequestLayer extends React.Component {
       key: PropTypes.string,
     }),
     strings: PropTypes.shape({}),
-  }
+  };
 
   componentDidMount() {
     getData(this.props);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
+    if (
+      this.props.playerId !== prevProps.playerId ||
+      this.props.location.key !== prevProps.location.key
+    ) {
       getData(this.props);
     }
   }
 
   render() {
-    return (
-      <Counts {...this.props} />
-    );
+    return <Counts {...this.props} />;
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   counts: state.app.playerCounts.data,
   error: state.app.playerCounts.error,
   loading: state.app.playerCounts.loading,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getPlayerCounts: (playerId, options) => dispatch(getPlayerCounts(playerId, options)),
+const mapDispatchToProps = (dispatch) => ({
+  getPlayerCounts: (playerId, options) =>
+    dispatch(getPlayerCounts(playerId, options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

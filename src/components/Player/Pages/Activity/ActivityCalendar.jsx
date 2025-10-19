@@ -2,10 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import constants from '../../../constants';
-import { getDOY, getLocalizedWeekdayStrings, getLocalizedMonthStrings } from './../../../../utility';
+import {
+  getDOY,
+  getLocalizedWeekdayStrings,
+  getLocalizedMonthStrings,
+} from './../../../../utility';
 import Table from './../../../Table/Table';
 import playerMatchesColumns from '../Matches/playerMatchesColumns';
-import { WeeksContainer, DayContainer, Week, Styled, Content, WeekDayLabels } from './Styled';
+import {
+  WeeksContainer,
+  DayContainer,
+  Week,
+  Styled,
+  Content,
+  WeekDayLabels,
+} from './Styled';
 
 const langCode = window.localStorage.getItem('localization') || 'en-US';
 const weekDayStrings = getLocalizedWeekdayStrings();
@@ -80,9 +91,7 @@ const Day = ({
   handleDayClick,
   clickedDay,
 }) => {
-  const {
-    month, date, data, firstDayOfMonth,
-  } = day;
+  const { month, date, data, firstDayOfMonth } = day;
   const radius = circleRadius(data, normalizationRatio);
   const fillColor = circleColor(data);
   const tooltip = getTooltip(date, data, strings);
@@ -144,7 +153,7 @@ const mapDays2Weeks = (year, data) => {
   for (let i = 1; i <= 53 * 7; i += 1) {
     if (
       i >= firstDay + 1 &&
-      i <= (53 * 7) - 6 + lastDay &&
+      i <= 53 * 7 - 6 + lastDay &&
       (year < todayYear || i <= todayDays + 1)
     ) {
       const date = new Date(year, 0, i - firstDay);
@@ -175,7 +184,7 @@ class Weeks extends React.Component {
 
   state = { hoveredMonth: null, clickedDay: null };
 
-  handleMonthHoverOn = month => () => {
+  handleMonthHoverOn = (month) => () => {
     this.setState({ hoveredMonth: month });
   };
 
@@ -183,7 +192,7 @@ class Weeks extends React.Component {
     this.setState({ hoveredMonth: null });
   };
 
-  handleDayClick = clickedDay => () => {
+  handleDayClick = (clickedDay) => () => {
     this.setState({
       clickedDay: clickedDay === this.state.clickedDay ? null : clickedDay,
     });
@@ -200,7 +209,7 @@ class Weeks extends React.Component {
 
     return (
       <React.Fragment>
-        {mapDays2Weeks(year, data).map(week => (
+        {mapDays2Weeks(year, data).map((week) => (
           <Week>
             {week.map((day) => {
               const { firstDayOfMonth, month } = day;
@@ -245,7 +254,7 @@ class Weeks extends React.Component {
             transition: 'height 300ms ease-in-out',
             height:
               clickedDay !== null
-                ? `${(data[clickedDay].matches.length * 48) + 48}px`
+                ? `${data[clickedDay].matches.length * 48 + 48}px`
                 : 0,
             width: 940,
             marginLeft: 44,
@@ -276,7 +285,7 @@ const aggregateByYear = (matches) => {
       data[year] = data[year] || [];
       data[year][doy] = data[year][doy] || { win: 0, loss: 0, matches: [] };
       data[year][doy].matches.push(match);
-      data[year][doy][radiantWin === (playerSlot < 5) ? 'win' : 'loss'] += 1;
+      data[year][doy][radiantWin === playerSlot < 5 ? 'win' : 'loss'] += 1;
     }
   });
 
@@ -294,7 +303,7 @@ const ActivityCalendar = ({ strings, data }) => {
       />
       {Object.keys(aggregatedData)
         .reverse()
-        .map(year => (
+        .map((year) => (
           <Content>
             <WeeksContainer>
               <WeekDayLabels>

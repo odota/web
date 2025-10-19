@@ -45,7 +45,10 @@ const Sponsors = ({ strings }: HomePageProps) => (
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src="/assets/images/dotaCoachLogo.svg" alt="Logo for sponsor, Dota-Coach.com" />
+          <img
+            src="/assets/images/dotaCoachLogo.svg"
+            alt="Logo for sponsor, Dota-Coach.com"
+          />
         </a>
       )}
       <a
@@ -61,7 +64,10 @@ const Sponsors = ({ strings }: HomePageProps) => (
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src="/assets/images/rivalry-logo.png" alt="Logo for sponsor, Rivalry.com" />
+          <img
+            src="/assets/images/rivalry-logo.png"
+            alt="Logo for sponsor, Rivalry.com"
+          />
         </a>
       )}
       {config.VITE_ENABLE_GOSUAI && (
@@ -70,7 +76,10 @@ const Sponsors = ({ strings }: HomePageProps) => (
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src="/assets/images/gosu-logo.png" alt="Logo for sponsor, Gosu.ai" />
+          <img
+            src="/assets/images/gosu-logo.png"
+            alt="Logo for sponsor, Gosu.ai"
+          />
         </a>
       )}
     </div>

@@ -10,11 +10,11 @@ export const TeamStatsCard = styled(CardTitle)`
   margin-top: 15px;
 
   .textSuccess {
-    color: ${constants.colorGreen}
+    color: ${constants.colorGreen};
   }
 
   .textDanger {
-    color: ${constants.colorRed}
+    color: ${constants.colorRed};
   }
 
   & span:last-child {
@@ -51,7 +51,7 @@ export const TeamName = styled.span`
   color: rgba(245, 245, 245, 0.870588);
   font-size: 28px;
   @media only screen and (max-width: 768px) {
-    text-align:center;
+    text-align: center;
   }
 `;
 

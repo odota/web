@@ -25,25 +25,17 @@ class Benchmark extends Component {
     isLoading: bool,
     isError: bool,
     hero: shape({}),
-    result: oneOfType([
-      arrayOf(shape({})),
-      shape({}),
-    ]),
-  }
+    result: oneOfType([arrayOf(shape({})), shape({})]),
+  };
 
   componentDidMount() {
-    if (
-      this.props.match.params &&
-      this.props.match.params.heroId
-    ) {
+    if (this.props.match.params && this.props.match.params.heroId) {
       this.props.getBenchmark(this.props.match.params.heroId);
     }
   }
 
   render() {
-    const {
-      isLoading, isError, hero, result,
-    } = this.props;
+    const { isLoading, isError, hero, result } = this.props;
 
     return (
       <div>
@@ -84,14 +76,14 @@ HISTOGRAM API
 
 */
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isLoading: state.app.heroBenchmark.loading,
   isError: state.app.heroBenchmark.error,
   result: state.app.heroBenchmark.data.result,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getBenchmark: heroId => dispatch(getBenchmark(heroId)),
+const mapDispatchToProps = (dispatch) => ({
+  getBenchmark: (heroId) => dispatch(getBenchmark(heroId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Benchmark);

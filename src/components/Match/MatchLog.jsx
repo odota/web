@@ -137,7 +137,7 @@ const StyledLogContainer = styled.div`
   }
 `;
 
-const  DIVIDER_SECONDS = 30; // insert a divider if two consecutive entries are X seconds apart
+const DIVIDER_SECONDS = 30; // insert a divider if two consecutive entries are X seconds apart
 
 const isRadiant = (entry) => {
   if (entry.isRadiant) {
@@ -202,7 +202,10 @@ const generateLog = (match, { types, players }, strings) => {
             objective.killer = (team === 2 ? 123 : 0) + objective.team;
             objective.team = team;
           }
-          const killer = match.players.find(player => player.player_slot === objective.killer)?.hero_id || -1;
+          const killer =
+            match.players.find(
+              (player) => player.player_slot === objective.killer,
+            )?.hero_id || -1;
           if (killer !== -1) {
             objective.hero_id = killer;
           }
@@ -214,7 +217,7 @@ const generateLog = (match, { types, players }, strings) => {
           alt_key: objective.type,
           detail: `${getObjectiveDesc(objective, strings)} ${getObjectiveBase(
             objective,
-            strings
+            strings,
           )}`,
         });
       }
@@ -230,7 +233,7 @@ const generateLog = (match, { types, players }, strings) => {
           ...player,
           type: 'kills',
           detail: `${entry.key}`,
-        }))
+        })),
       );
     }
 
@@ -241,7 +244,7 @@ const generateLog = (match, { types, players }, strings) => {
           ...player,
           type: 'runes',
           detail: `${entry.key}`,
-        }))
+        })),
       );
     }
     /*
@@ -348,7 +351,7 @@ class MatchLog extends React.Component {
 
             if (
               index === logData.length - 1 ||
-              nextEntry.player_slot !== entry.player_slot ||  //  group consecutive log entries by the same player together
+              nextEntry.player_slot !== entry.player_slot || //  group consecutive log entries by the same player together
               nextEntry.time - entry.time > DIVIDER_SECONDS // unless they're more than DIVIDER_SECONDS seconds apart
             ) {
               const renderEntries = [...groupedEntries];
@@ -367,7 +370,7 @@ class MatchLog extends React.Component {
                 );
               } else {
                 renderFirst = (
-                  <HeroImage id={entry.hero_id} className="heroImage"/>
+                  <HeroImage id={entry.hero_id} className="heroImage" />
                 );
               }
 
@@ -515,9 +518,7 @@ function EntryMessage({ entry, strings }) {
         return (
           <>
             <IconBloodDrop className="dropIcon icon" />
-            <span className="smallBoldText">
-              {strings.drew_first_blood}
-            </span>
+            <span className="smallBoldText">{strings.drew_first_blood}</span>
           </>
         );
       }
@@ -525,10 +526,20 @@ function EntryMessage({ entry, strings }) {
         return (
           <>
             {/* #e5cf11 */}
-            <img src={lightning} className="icon" style={{ filter: 'invert(87%) sepia(98%) saturate(4073%) hue-rotate(341deg) brightness(90%) contrast(100%)'}} />
+            <img
+              src={lightning}
+              className="icon"
+              style={{
+                filter:
+                  'invert(87%) sepia(98%) saturate(4073%) hue-rotate(341deg) brightness(90%) contrast(100%)',
+              }}
+            />
             <span className="smallMutedText">{strings.destroyed}&nbsp;</span>
             <span className="smallBoldText">
-              {translateBuildings(entry.key.indexOf('goodguys') !== -1, entry.key)}{' '}
+              {translateBuildings(
+                entry.key.indexOf('goodguys') !== -1,
+                entry.key,
+              )}{' '}
               {(isRadiant(entry) && entry.key.indexOf('goodguys') !== -1) ||
               (!isRadiant(entry) && entry.key.indexOf('badguys') !== -1)
                 ? `(${strings.building_denied})`
@@ -557,7 +568,9 @@ function EntryMessage({ entry, strings }) {
               alt="Aegis of Immortality"
               className="detailIcon"
             />
-            <span className="smallBoldText">{strings.CHAT_MESSAGE_AEGIS_STOLEN}</span>
+            <span className="smallBoldText">
+              {strings.CHAT_MESSAGE_AEGIS_STOLEN}
+            </span>
           </>
         );
       }
@@ -579,7 +592,7 @@ function EntryMessage({ entry, strings }) {
             />
             <span className="smallBoldText">{strings.destroyed_tormentor}</span>
           </>
-        )
+        );
       }
       if (entry.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
         const team =

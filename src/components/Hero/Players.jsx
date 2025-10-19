@@ -10,11 +10,13 @@ import { proPlayersSelector } from '../../reducers/selectors';
 class Players extends React.Component {
   static propTypes = {
     isLoading: bool,
-    data: arrayOf(shape({
-      account_id: number,
-      games_played: number,
-      wins: number,
-    })),
+    data: arrayOf(
+      shape({
+        account_id: number,
+        games_played: number,
+        wins: number,
+      }),
+    ),
     match: shape({
       params: shape({
         heroId: string,
@@ -34,15 +36,15 @@ class Players extends React.Component {
   }
 
   render() {
-    const {
-      data, isLoading, proPlayers, strings,
-    } = this.props;
+    const { data, isLoading, proPlayers, strings } = this.props;
 
     const playersColumns = [
       {
         field: 'account_id',
         displayName: strings.th_account_id,
-        displayFn: (row, col, field) => <TableLink to={`/players/${field}`}>{row.name || field}</TableLink>,
+        displayFn: (row, col, field) => (
+          <TableLink to={`/players/${field}`}>{row.name || field}</TableLink>
+        ),
       },
       {
         field: 'games_played',
@@ -73,8 +75,13 @@ class Players extends React.Component {
 
     const preparedData = data
       .map((item) => {
-        const wins = Math.max(0, Math.min(100, (item.wins / item.games_played * 100).toFixed(2)));
-        const advantage = Math.round(wilsonScore(item.wins, item.games_played - item.wins) * 100);
+        const wins = Math.max(
+          0,
+          Math.min(100, ((item.wins / item.games_played) * 100).toFixed(2)),
+        );
+        const advantage = Math.round(
+          wilsonScore(item.wins, item.games_played - item.wins) * 100,
+        );
         const proPlayer = proPlayers[item.account_id];
         const name = proPlayer ? proPlayer.name : undefined;
 
@@ -91,7 +98,7 @@ class Players extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isLoading: state.app.heroPlayers.loading,
   data: Object.values(state.app.heroPlayers.data),
   proPlayers: proPlayersSelector(state),

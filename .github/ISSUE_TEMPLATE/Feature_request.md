@@ -1,7 +1,6 @@
 ---
 name: 🚀 Feature Request
 about: I have a suggestion (and might want to implement 🙂)!
-
 ---
 
 **Is your feature request related to a problem? Please describe.**

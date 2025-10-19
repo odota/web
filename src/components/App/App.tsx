@@ -38,19 +38,19 @@ type AppStylesProps = {
   location: {
     pathname?: string;
   };
-}
+};
 
 type Back2TopStylesProps = {
   open?: boolean;
   location: {
     pathname: string;
   };
-}
+};
 
 type AppProps = {
-  location: Record<string, string>
-  strings: Record<string, string>
-}
+  location: Record<string, string>;
+  strings: Record<string, string>;
+};
 
 const StyledDiv = styled.div<AppStylesProps>`
   transition: ${constants.normalTransition};
@@ -69,7 +69,6 @@ const StyledDiv = styled.div<AppStylesProps>`
   background-repeat: ${(props) =>
     props.location.pathname === '/' ? 'no-repeat' : ''};
 `;
-
 
 const Back2Top = styled.button<Back2TopStylesProps>`
   position: fixed;
@@ -127,7 +126,7 @@ const AdBannerDiv = styled.div`
   }
 `;
 
-declare let window: Window & { adsbygoogle: any }
+declare let window: Window & { adsbygoogle: any };
 
 const App = (props: AppProps) => {
   const { strings, location } = props;
@@ -171,7 +170,9 @@ const App = (props: AppProps) => {
 
   return (
     // @ts-ignore
-    <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}> {/* muiTheme types are missing here */}
+    <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
+      {' '}
+      {/* muiTheme types are missing here */}
       <Suspense fallback={<Spinner />}>
         <GlobalStyle />
         <StyledDiv {...props}>
@@ -183,7 +184,11 @@ const App = (props: AppProps) => {
           <StyledBodyDiv {...props}>
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path="/matches/:matchId?/:info?" component={Matches} />
+              <Route
+                exact
+                path="/matches/:matchId?/:info?"
+                component={Matches}
+              />
               <Route
                 exact
                 path="/players/:playerId/:info?/:subInfo?"
@@ -215,7 +220,10 @@ const App = (props: AppProps) => {
             {includeAds && config.VITE_ENABLE_RIVALRY && (
               <div style={{ fontSize: '12px' }}>
                 <a href="https://www.rivalry.com/opendota">
-                  <img src="/assets/images/rivalry-banner.gif" alt="Logo for Rivalry.com" />
+                  <img
+                    src="/assets/images/rivalry-banner.gif"
+                    alt="Logo for Rivalry.com"
+                  />
                 </a>
                 <div>
                   {strings.home_sponsored_by}{' '}
@@ -227,7 +235,7 @@ const App = (props: AppProps) => {
           <Footer />
           <Back2Top
             // @ts-ignore
-            ref={back2Top} // type 'undefined' is not assignable to type 'HTMLButtonElement | null' 
+            ref={back2Top} // type 'undefined' is not assignable to type 'HTMLButtonElement | null'
             id="back2Top"
             title={strings.back2Top}
             onClick={() => {

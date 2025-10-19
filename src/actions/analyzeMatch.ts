@@ -1,9 +1,5 @@
 import { skillshots } from 'dotaconstants';
-import {
-  isSupport,
-  getObsWardsPlaced,
-  isRoshHero,
-} from '../utility';
+import { isSupport, getObsWardsPlaced, isRoshHero } from '../utility';
 import store from '../store';
 
 export default function analyzeMatch(match: any, _pm: any) {
@@ -83,7 +79,11 @@ export default function analyzeMatch(match: any, _pm: any) {
     late_courier(m: any, pm: any) {
       const flyingAvailable = 180;
       let time;
-      if (pm.purchase && pm.first_purchase_time && pm.first_purchase_time.flying_courier) {
+      if (
+        pm.purchase &&
+        pm.first_purchase_time &&
+        pm.first_purchase_time.flying_courier
+      ) {
         time = pm.first_purchase_time.flying_courier;
       }
       return {

@@ -31,7 +31,7 @@ const AttributeBlock = styled.div`
 `;
 
 const Label = styled.span`
-  color: rgba(255, 255, 255, .5);
+  color: rgba(255, 255, 255, 0.5);
   flex-grow: 1;
   font-size: ${constants.fontSizeSmall};
   margin-right: 5px;
@@ -39,7 +39,8 @@ const Label = styled.span`
 `;
 
 // Damage multiplier https://dota2.gamepedia.com/Armor#Damage_multiplier
-const calcArmorPercent = hero => Math.round(0.06 * hero / (1 + (0.06 * hero)) * 100);
+const calcArmorPercent = (hero) =>
+  Math.round(((0.06 * hero) / (1 + 0.06 * hero)) * 100);
 
 const HeroAttributes = ({ hero, strings }) => {
   const h = compileLevelOneStats(hero);
@@ -48,7 +49,8 @@ const HeroAttributes = ({ hero, strings }) => {
     <AttributesWrapper>
       <AttributeBlock>
         <Attribute>
-          <Label>{strings.heading_attack}:</Label> {`${h.base_attack_min} - ${h.base_attack_max}`}
+          <Label>{strings.heading_attack}:</Label>{' '}
+          {`${h.base_attack_min} - ${h.base_attack_max}`}
         </Attribute>
         <Attribute>
           <Label>{strings.heading_attack_range}:</Label> {h.attack_range}
@@ -58,7 +60,8 @@ const HeroAttributes = ({ hero, strings }) => {
         </Attribute>
         {h.projectile_speed !== 0 && (
           <Attribute>
-            <Label>{strings.heading_projectile_speed}:</Label> {h.projectile_speed}
+            <Label>{strings.heading_projectile_speed}:</Label>{' '}
+            {h.projectile_speed}
           </Attribute>
         )}
       </AttributeBlock>
@@ -67,7 +70,8 @@ const HeroAttributes = ({ hero, strings }) => {
           <Label>{strings.heading_base_health}:</Label> {h.base_health}
         </Attribute>
         <Attribute>
-          <Label>{strings.heading_base_health_regen}:</Label> {h.base_health_regen}
+          <Label>{strings.heading_base_health_regen}:</Label>{' '}
+          {h.base_health_regen}
         </Attribute>
         <Attribute>
           <Label>{strings.heading_base_mana}:</Label> {h.base_mana}
@@ -78,7 +82,8 @@ const HeroAttributes = ({ hero, strings }) => {
       </AttributeBlock>
       <AttributeBlock>
         <Attribute>
-          <Label>{strings.heading_base_armor}:</Label> {`${h.base_armor} (${calcArmorPercent(h.base_armor)}%)`}
+          <Label>{strings.heading_base_armor}:</Label>{' '}
+          {`${h.base_armor} (${calcArmorPercent(h.base_armor)}%)`}
         </Attribute>
         <Attribute>
           <Label>{strings.heading_base_mr}:</Label> {`${h.base_mr}%`}
@@ -95,7 +100,8 @@ const HeroAttributes = ({ hero, strings }) => {
           <Label>{strings.heading_legs}:</Label> {h.legs}
         </Attribute>
         <Attribute>
-          <Label>{strings.heading_cm_enabled}:</Label> {h.cm_enabled ? strings.yes : strings.no}
+          <Label>{strings.heading_cm_enabled}:</Label>{' '}
+          {h.cm_enabled ? strings.yes : strings.no}
         </Attribute>
       </AttributeBlock>
     </AttributesWrapper>
@@ -130,7 +136,7 @@ HeroAttributes.propTypes = {
   strings: shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

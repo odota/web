@@ -1,4 +1,4 @@
-export default ({
+export default {
   100317750: true,
   100471531: true,
   101356886: true,
@@ -233,4 +233,4 @@ export default ({
   98878010: true,
   98887913: true,
   99796146: true,
-});
+};

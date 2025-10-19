@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect }
-  from 'react-redux';
+import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
@@ -23,7 +22,9 @@ function expandBuilderState(builder, fields) {
   const expandedBuilder = {};
   Object.keys(builder).forEach((key) => {
     if (builder[key]) {
-      expandedBuilder[key] = (fields[key] || []).find(element => element.key === builder[key]) || { value: builder[key] };
+      expandedBuilder[key] = (fields[key] || []).find(
+        (element) => element.key === builder[key],
+      ) || { value: builder[key] };
     }
   });
   return expandedBuilder;
@@ -32,7 +33,7 @@ function expandBuilderState(builder, fields) {
 class Explorer extends React.Component {
   static propTypes = {
     strings: PropTypes.shape({}),
-  }
+  };
 
   constructor() {
     super();
@@ -64,13 +65,16 @@ class Explorer extends React.Component {
   };
 
   handleFieldUpdate = (builderField, value) => {
-    this.setState({
-      ...this.state,
-      builder: {
-        ...this.state.builder,
-        [builderField]: value,
+    this.setState(
+      {
+        ...this.state,
+        builder: {
+          ...this.state.builder,
+          [builderField]: value,
+        },
       },
-    }, this.buildQuery);
+      this.buildQuery,
+    );
   };
 
   handleQuery = () => {
@@ -80,7 +84,11 @@ class Explorer extends React.Component {
     });
     this.syncWindowHistory();
     const sqlString = this.state.sql;
-    return fetch(`${config.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`).then(jsonResponse).then(this.handleResponse);
+    return fetch(
+      `${config.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`,
+    )
+      .then(jsonResponse)
+      .then(this.handleResponse);
   };
 
   handleResponse = (json) => {
@@ -101,23 +109,90 @@ class Explorer extends React.Component {
     const { builder } = this.state;
     const { strings } = this.props;
     const expandedFields = getFields();
-    const expandedBuilder = expandBuilderState(this.state.builder, expandedFields);
+    const expandedBuilder = expandBuilderState(
+      this.state.builder,
+      expandedFields,
+    );
     const { handleQuery, handleCancel, handleFieldUpdate } = this;
     return (
       <div>
         <Helmet title={`${strings.title_meta}`} />
-        <Heading title={strings.meta_title} subtitle={strings.meta_description} className="top-heading"/>
+        <Heading
+          title={strings.meta_title}
+          subtitle={strings.meta_description}
+          className="top-heading"
+        />
         <ExplorerControlSection>
-          <ExplorerFormField label={strings.explorer_group_by} fields={expandedFields} builderField="group" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label={strings.explorer_min_rank_tier} fields={expandedFields} builderField="minRankTier" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label={strings.explorer_max_rank_tier} fields={expandedFields} builderField="maxRankTier" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label={strings.explorer_hero} fields={expandedFields} builderField="hero" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label={strings.explorer_side} fields={expandedFields} builderField="side" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label={strings.th_result} fields={expandedFields} builderField="result" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label={strings.explorer_min_duration} fields={expandedFields} builderField="minDuration" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label={strings.explorer_max_duration} fields={expandedFields} builderField="maxDuration" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label={strings.filter_game_mode} fields={expandedFields} builderField="gameMode" handleFieldUpdate={handleFieldUpdate} builder={builder} />
-          <ExplorerFormField label={strings.filter_lobby_type} fields={expandedFields} builderField="lobbyType" handleFieldUpdate={handleFieldUpdate} builder={builder} />
+          <ExplorerFormField
+            label={strings.explorer_group_by}
+            fields={expandedFields}
+            builderField="group"
+            handleFieldUpdate={handleFieldUpdate}
+            builder={builder}
+          />
+          <ExplorerFormField
+            label={strings.explorer_min_rank_tier}
+            fields={expandedFields}
+            builderField="minRankTier"
+            handleFieldUpdate={handleFieldUpdate}
+            builder={builder}
+          />
+          <ExplorerFormField
+            label={strings.explorer_max_rank_tier}
+            fields={expandedFields}
+            builderField="maxRankTier"
+            handleFieldUpdate={handleFieldUpdate}
+            builder={builder}
+          />
+          <ExplorerFormField
+            label={strings.explorer_hero}
+            fields={expandedFields}
+            builderField="hero"
+            handleFieldUpdate={handleFieldUpdate}
+            builder={builder}
+          />
+          <ExplorerFormField
+            label={strings.explorer_side}
+            fields={expandedFields}
+            builderField="side"
+            handleFieldUpdate={handleFieldUpdate}
+            builder={builder}
+          />
+          <ExplorerFormField
+            label={strings.th_result}
+            fields={expandedFields}
+            builderField="result"
+            handleFieldUpdate={handleFieldUpdate}
+            builder={builder}
+          />
+          <ExplorerFormField
+            label={strings.explorer_min_duration}
+            fields={expandedFields}
+            builderField="minDuration"
+            handleFieldUpdate={handleFieldUpdate}
+            builder={builder}
+          />
+          <ExplorerFormField
+            label={strings.explorer_max_duration}
+            fields={expandedFields}
+            builderField="maxDuration"
+            handleFieldUpdate={handleFieldUpdate}
+            builder={builder}
+          />
+          <ExplorerFormField
+            label={strings.filter_game_mode}
+            fields={expandedFields}
+            builderField="gameMode"
+            handleFieldUpdate={handleFieldUpdate}
+            builder={builder}
+          />
+          <ExplorerFormField
+            label={strings.filter_lobby_type}
+            fields={expandedFields}
+            builderField="lobbyType"
+            handleFieldUpdate={handleFieldUpdate}
+            builder={builder}
+          />
           {/* <ExplorerFormField label={strings.explorer_min_mmr} fields={expandedFields} builderField="minMmr" handleFieldUpdate={handleFieldUpdate} builder={builder} /> */}
           {/* <ExplorerFormField label={strings.explorer_max_mmr} fields={expandedFields} builderField="maxMmr" handleFieldUpdate={handleFieldUpdate} builder={builder} /> */}
           {/* <ExplorerFormField label={strings.explorer_min_date} builderField="minDate" handleFieldUpdate={handleFieldUpdate} builder={builder} isDateField /> */}
@@ -132,11 +207,18 @@ class Explorer extends React.Component {
             secondary={this.state.loading}
             style={{ margin: '5px' }}
             icon={!this.state.loading ? <ActionSearch /> : null}
-            label={this.state.loading ? strings.explorer_cancel_button : strings.explorer_query_button}
+            label={
+              this.state.loading
+                ? strings.explorer_cancel_button
+                : strings.explorer_query_button
+            }
             onClick={this.state.loading ? handleCancel : handleQuery}
           />
         </div>
-        <Heading title={strings.explorer_results} subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`} />
+        <Heading
+          title={strings.explorer_results}
+          subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`}
+        />
         <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
         {this.state.loading ? <TableSkeleton /> : null}
         <ExplorerOutputSection
@@ -145,15 +227,15 @@ class Explorer extends React.Component {
           expandedBuilder={expandedBuilder}
           format={this.state.builder.format}
         />
-      </div>);
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = () => ({
-});
+const mapDispatchToProps = () => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Explorer);

@@ -1,7 +1,12 @@
 import React from 'react';
 import findLast from 'lodash/fp/findLast';
 import { Tooltip } from '@material-ui/core';
-import { heroes, order_types as orderTypes, item_ids as itemIds, permanent_buffs as buffs } from 'dotaconstants';
+import {
+  heroes,
+  order_types as orderTypes,
+  item_ids as itemIds,
+  permanent_buffs as buffs,
+} from 'dotaconstants';
 import ReactTooltip from 'react-tooltip';
 import { RadioButton } from 'material-ui/RadioButton';
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
@@ -56,7 +61,7 @@ export default (strings) => {
     hideName,
     party,
     showGuide = false,
-    guideType
+    guideType,
   ) => {
     const heroName =
       heroes[row.hero_id] &&
@@ -162,7 +167,7 @@ export default (strings) => {
       const { itemSkipCount, purchaseEvent } = findBuyTime(
         row.purchase_log,
         itemKey,
-        visitedItemsCount[itemKey]
+        visitedItemsCount[itemKey],
       );
       visitedItemsCount[itemKey] = itemSkipCount;
 
@@ -170,8 +175,8 @@ export default (strings) => {
         itemArray.push(
           inflictorWithValue(
             itemKey,
-            formatSeconds(purchaseEvent && purchaseEvent.time)
-          )
+            formatSeconds(purchaseEvent && purchaseEvent.time),
+          ),
         );
       }
 
@@ -185,8 +190,8 @@ export default (strings) => {
           additionalItemArray.push(
             inflictorWithValue(
               additionalItemKey,
-              formatSeconds(additionalFirstPurchase)
-            )
+              formatSeconds(additionalFirstPurchase),
+            ),
           );
         }
       }
@@ -200,8 +205,8 @@ export default (strings) => {
           inflictorWithValue(
             backpackItemKey,
             formatSeconds(backpackfirstPurchase),
-            'backpack'
-          )
+            'backpack',
+          ),
         );
       }
     }
@@ -239,7 +244,7 @@ export default (strings) => {
             false,
             partyStyles(row, match),
             false,
-            null
+            null,
           ),
         sortFn: true,
         width: 170,
@@ -260,8 +265,9 @@ export default (strings) => {
             <svg viewBox="0 0 36 36" className="circular_chart">
               <path
                 className="circle"
-                strokeDasharray={`${(field / constants.dotaMaxLevel) * 100
-                  }, 100`}
+                strokeDasharray={`${
+                  (field / constants.dotaMaxLevel) * 100
+                }, 100`}
                 d="M18 2.0845
                 a 15.9155 15.9155 0 0 1 0 31.831
                 a 15.9155 15.9155 0 0 1 0 -31.831"
@@ -451,30 +457,30 @@ export default (strings) => {
       .concat(
         match.players.map((player) => player.item_neutral).reduce(sum, 0) > 0
           ? {
-            field: 'item_neutral',
-            width: 20,
-            paddingRight: 23,
-            paddingLeft: 5,
-            displayFn: (row) => (
-              <div
-                style={{
-                  height: 30,
-                  width: 30,
-                  backgroundColor: 'rgba(38, 71, 90, 0.29)',
-                  borderRadius: '15px',
-                }}
-              >
-                {row.item_neutral
-                  ? inflictorWithValue(
-                    itemIds[row.item_neutral],
-                    itemIds[row.item_neutral2],
-                    'neutral'
-                  )
-                  : null}
-              </div>
-            ),
-          }
-          : []
+              field: 'item_neutral',
+              width: 20,
+              paddingRight: 23,
+              paddingLeft: 5,
+              displayFn: (row) => (
+                <div
+                  style={{
+                    height: 30,
+                    width: 30,
+                    backgroundColor: 'rgba(38, 71, 90, 0.29)',
+                    borderRadius: '15px',
+                  }}
+                >
+                  {row.item_neutral
+                    ? inflictorWithValue(
+                        itemIds[row.item_neutral],
+                        itemIds[row.item_neutral2],
+                        'neutral',
+                      )
+                    : null}
+                </div>
+              ),
+            }
+          : [],
       )
       .concat({
         paddingLeft: 5,
@@ -489,25 +495,27 @@ export default (strings) => {
               {shardTooltip}
             </ReactTooltip>
             <img
-              src={`/assets/images/dota2/scepter_${row.permanent_buffs &&
+              src={`/assets/images/dota2/scepter_${
+                row.permanent_buffs &&
                 row.permanent_buffs.some(
-                  (b) => b.permanent_buff === AGHANIMS_SCEPTER
+                  (b) => b.permanent_buff === AGHANIMS_SCEPTER,
                 )
-                ? '1'
-                : '0'
-                }.png`}
+                  ? '1'
+                  : '0'
+              }.png`}
               alt="Aghanim's Scepter"
               data-tip={scepterTooltip}
               data-for="scepter"
             />
             <img
-              src={`/assets/images/dota2/shard_${row.permanent_buffs &&
+              src={`/assets/images/dota2/shard_${
+                row.permanent_buffs &&
                 row.permanent_buffs.some(
-                  (b) => b.permanent_buff === AGHANIMS_SHARD
+                  (b) => b.permanent_buff === AGHANIMS_SHARD,
                 )
-                ? '1'
-                : '0'
-                }.png`}
+                  ? '1'
+                  : '0'
+              }.png`}
               alt="Aghanim's Shard"
               data-tip={shardTooltip}
               data-for="shard"
@@ -518,32 +526,32 @@ export default (strings) => {
       .concat(
         match.players
           .map(
-            (player) => player.permanent_buffs && player.permanent_buffs.length
+            (player) => player.permanent_buffs && player.permanent_buffs.length,
           )
           .reduce(sum, 0) > 0
           ? {
-            displayName: strings.th_permanent_buffs,
-            tooltip: strings.tooltip_permanent_buffs,
-            field: 'permanent_buffs',
-            width: 60,
-            displayFn: (row) =>
-              row.permanent_buffs && row.permanent_buffs.length > 0
-                ? row.permanent_buffs
-                  .filter(
-                    (b) =>
-                      b.permanent_buff !== AGHANIMS_SCEPTER &&
-                      b.permanent_buff !== AGHANIMS_SHARD
-                  )
-                  .map((buff) =>
-                    inflictorWithValue(
-                      buffs[buff.permanent_buff],
-                      buff.stack_count,
-                      'buff'
-                    )
-                  )
-                : '-',
-          }
-          : []
+              displayName: strings.th_permanent_buffs,
+              tooltip: strings.tooltip_permanent_buffs,
+              field: 'permanent_buffs',
+              width: 60,
+              displayFn: (row) =>
+                row.permanent_buffs && row.permanent_buffs.length > 0
+                  ? row.permanent_buffs
+                      .filter(
+                        (b) =>
+                          b.permanent_buff !== AGHANIMS_SCEPTER &&
+                          b.permanent_buff !== AGHANIMS_SHARD,
+                      )
+                      .map((buff) =>
+                        inflictorWithValue(
+                          buffs[buff.permanent_buff],
+                          buff.stack_count,
+                          'buff',
+                        ),
+                      )
+                  : '-',
+            }
+          : [],
       );
 
     return cols;
@@ -608,7 +616,7 @@ export default (strings) => {
               null,
               null,
               null,
-              row.abilities?.[index - 1]
+              row.abilities?.[index - 1],
             ) || <div className="placeholder" />}
           </div>
         </StyledAbilityUpgrades>
@@ -657,7 +665,7 @@ export default (strings) => {
                         strings.benchmarks_description,
                         value,
                         strings[`th_${key}`],
-                        percent
+                        percent,
                       )}
                     </ReactTooltip>
                   </div>
@@ -703,7 +711,7 @@ export default (strings) => {
       displayName: strings.th_deaths,
       field: 'deaths',
       tooltip: strings.tooltip_deaths,
-      fantasyFn: (v) => 3 - (0.3 * v),
+      fantasyFn: (v) => 3 - 0.3 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -833,38 +841,38 @@ export default (strings) => {
           <div>
             {field
               ? field
-                .filter(
-                  (purchase) =>
-                    purchase.time >= curTime - bucket &&
-                    purchase.time < curTime
-                )
-                .sort((p1, p2) => {
-                  const item1 = items[p1.key];
-                  const item2 = items[p2.key];
-                  if (item1 && item2 && p1.time === p2.time) {
-                    // We're only concerned with sorting by value
-                    // if items are bought at the same time, time is presorted
-                    return item1.cost - item2.cost;
-                  }
-                  return 0;
-                })
-                .map((purchase) => {
-                  if (
-                    items[purchase.key] &&
-                    (showConsumables ||
-                      items[purchase.key].qual !== 'consumable')
-                  ) {
-                    return inflictorWithValue(
-                      purchase.key,
-                      formatSeconds(purchase.time),
-                      null,
-                      null,
-                      null,
-                      purchase.charges
-                    );
-                  }
-                  return null;
-                })
+                  .filter(
+                    (purchase) =>
+                      purchase.time >= curTime - bucket &&
+                      purchase.time < curTime,
+                  )
+                  .sort((p1, p2) => {
+                    const item1 = items[p1.key];
+                    const item2 = items[p2.key];
+                    if (item1 && item2 && p1.time === p2.time) {
+                      // We're only concerned with sorting by value
+                      // if items are bought at the same time, time is presorted
+                      return item1.cost - item2.cost;
+                    }
+                    return 0;
+                  })
+                  .map((purchase) => {
+                    if (
+                      items[purchase.key] &&
+                      (showConsumables ||
+                        items[purchase.key].qual !== 'consumable')
+                    ) {
+                      return inflictorWithValue(
+                        purchase.key,
+                        formatSeconds(purchase.time),
+                        null,
+                        null,
+                        null,
+                        purchase.charges,
+                      );
+                    }
+                    return null;
+                  })
               : ''}
           </div>
         ),
@@ -884,7 +892,8 @@ export default (strings) => {
         field: i,
         sortFn: (row) => row.lh_t && row.lh_t[minutes],
         displayFn: (row) =>
-          `${row.lh_t[minutes]} (+${row.lh_t[minutes] - row.lh_t[minutes - (bucket / 60)]
+          `${row.lh_t[minutes]} (+${
+            row.lh_t[minutes] - row.lh_t[minutes - bucket / 60]
           })`,
         relativeBars: true,
         sumFn: (acc, row) =>
@@ -973,7 +982,7 @@ export default (strings) => {
             <div>
               {inflictorWithValue(
                 field.inflictor,
-                abbreviateNumber(field.value)
+                abbreviateNumber(field.value),
               )}
               <HeroImage id={hero.id} style={{ height: '30px' }} />
             </div>
@@ -999,8 +1008,8 @@ export default (strings) => {
                 'bounty_hunter_track',
                 abbreviateNumber(field.tracked_deaths),
                 '',
-                tooltip.join('\n')
-              )
+                tooltip.join('\n'),
+              ),
             );
           }
           if (field.greevils_greed_gold) {
@@ -1010,8 +1019,8 @@ export default (strings) => {
                 'alchemist_goblins_greed',
                 abbreviateNumber(field.greevils_greed_gold),
                 '',
-                tooltip
-              )
+                tooltip,
+              ),
             );
           }
           return comp;
@@ -1062,9 +1071,12 @@ export default (strings) => {
       tooltip: strings.tooltip_win_lane,
       field: 'line_win',
       sortFn: true,
-      displayFn: (row, col, field) => (
-        field && <StyledLineWinnerSpan><IconTrophy /></StyledLineWinnerSpan>
-      ),
+      displayFn: (row, col, field) =>
+        field && (
+          <StyledLineWinnerSpan>
+            <IconTrophy />
+          </StyledLineWinnerSpan>
+        ),
     },
     {
       displayName: strings.cs_over_time,
@@ -1236,7 +1248,7 @@ export default (strings) => {
         sortFn: (row) => (row.actions ? row.actions[orderType] : 0),
         displayFn: (row, column, value) => value || '-',
         relativeBars: true,
-      }))
+      })),
   );
 
   const runesColumns = [heroTdColumn].concat(
@@ -1247,7 +1259,10 @@ export default (strings) => {
         displayName: (
           <StyledRunes data-tip data-for={`rune_${runeType}`}>
             <Tooltip title={strings[`rune_${runeType}`]}>
-              <img src={`/assets/images/dota2/runes/${runeType}.png`} alt={strings[`rune_${runeType}`]} />
+              <img
+                src={`/assets/images/dota2/runes/${runeType}.png`}
+                alt={strings[`rune_${runeType}`]}
+              />
             </Tooltip>
           </StyledRunes>
         ),
@@ -1255,7 +1270,7 @@ export default (strings) => {
         displayFn: (row, col, value) => value || '-',
         sortFn: (row) => row.runes && row.runes[runeType],
         relativeBars: true,
-      }))
+      })),
   );
 
   const cosmeticsRarity = {
@@ -1289,10 +1304,11 @@ export default (strings) => {
                 src={`${config.VITE_IMAGE_CDN}/apps/570/${cosmetic.image_path}`}
                 alt={cosmetic.name}
                 style={{
-                  borderBottom: `2px solid ${cosmetic.item_rarity
-                    ? cosmeticsRarity[cosmetic.item_rarity]
-                    : constants.colorMuted
-                    }`,
+                  borderBottom: `2px solid ${
+                    cosmetic.item_rarity
+                      ? cosmeticsRarity[cosmetic.item_rarity]
+                      : constants.colorMuted
+                  }`,
                 }}
               />
               <ActionOpenInNew />
@@ -1331,7 +1347,7 @@ export default (strings) => {
           (row.gold_reasons
             ? row.gold_reasons[gr.substring('gold_reasons_'.length)] || 0
             : 0),
-      }))
+      })),
   );
 
   const xpReasonsColumns = [heroTdColumn].concat(
@@ -1351,7 +1367,7 @@ export default (strings) => {
           (row.xp_reasons
             ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] || 0
             : 0),
-      }))
+      })),
   );
 
   const objectiveDamageColumns = [heroTdColumn].concat(
@@ -1366,7 +1382,7 @@ export default (strings) => {
           row.objective_damage[obj.substring('objective_'.length)],
         displayFn: (row, col, value) => value || '-',
         relativeBars: true,
-      }))
+      })),
   );
 
   const inflictorsColumns = [
@@ -1386,8 +1402,8 @@ export default (strings) => {
             .map((inflictor) =>
               inflictorWithValue(
                 inflictor,
-                abbreviateNumber(row.damage_inflictor[inflictor])
-              )
+                abbreviateNumber(row.damage_inflictor[inflictor]),
+              ),
             );
         }
         return null;
@@ -1400,13 +1416,13 @@ export default (strings) => {
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {field
             ? Object.keys(field)
-              .sort((a, b) => field[b] - field[a])
-              .map((inflictor) =>
-                inflictorWithValue(
-                  inflictor,
-                  abbreviateNumber(field[inflictor])
+                .sort((a, b) => field[b] - field[a])
+                .map((inflictor) =>
+                  inflictorWithValue(
+                    inflictor,
+                    abbreviateNumber(field[inflictor]),
+                  ),
                 )
-              )
             : ''}
         </div>
       ),
@@ -1431,8 +1447,8 @@ export default (strings) => {
           .map((inflictor) =>
             inflictorWithValue(
               inflictor,
-              abbreviateNumber(row.ability_uses[inflictor])
-            )
+              abbreviateNumber(row.ability_uses[inflictor]),
+            ),
           );
       },
     },
@@ -1444,13 +1460,13 @@ export default (strings) => {
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {field
             ? Object.keys(field)
-              .sort((a, b) => field[b] - field[a])
-              .map((inflictor) =>
-                inflictorWithValue(
-                  inflictor,
-                  abbreviateNumber(field[inflictor])
+                .sort((a, b) => field[b] - field[a])
+                .map((inflictor) =>
+                  inflictorWithValue(
+                    inflictor,
+                    abbreviateNumber(field[inflictor]),
+                  ),
                 )
-              )
             : ''}
         </div>
       ),
@@ -1463,13 +1479,13 @@ export default (strings) => {
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {field
             ? Object.keys(field)
-              .sort((a, b) => field[b] - field[a])
-              .map((inflictor) =>
-                inflictorWithValue(
-                  inflictor,
-                  abbreviateNumber(field[inflictor])
+                .sort((a, b) => field[b] - field[a])
+                .map((inflictor) =>
+                  inflictorWithValue(
+                    inflictor,
+                    abbreviateNumber(field[inflictor]),
+                  ),
                 )
-              )
             : ''}
         </div>
       ),
@@ -1485,7 +1501,7 @@ export default (strings) => {
         Object.keys(field || {}).map((key) => {
           const val = field[key];
           val.display = `${val.name}: ${Number(
-            val.value ? val.value.toFixed(2) : ''
+            val.value ? val.value.toFixed(2) : '',
           )} / ${Number(val.top.toFixed(2))}`;
           val.pct = val.score(val.value) / val.score(val.top);
           if (val.valid) {
@@ -1518,7 +1534,12 @@ export default (strings) => {
   const playerDeaths = (row, col, field) => {
     const deaths = [];
     for (let i = 0; i < field; i += 1) {
-      deaths.push(<img src="/assets/images/player_death.png" alt="Player death icon, a skull with a glowing red outline" />);
+      deaths.push(
+        <img
+          src="/assets/images/player_death.png"
+          alt="Player death icon, a skull with a glowing red outline"
+        />,
+      );
     }
     return field > 0 && <StyledPlayersDeath>{deaths}</StyledPlayersDeath>;
   };
@@ -1527,7 +1548,7 @@ export default (strings) => {
     field ? (
       <div style={{ maxWidth: '100px' }}>
         {Object.keys(field).map((inflictor) =>
-          inflictorWithValue(inflictor, field[inflictor])
+          inflictorWithValue(inflictor, field[inflictor]),
         )}
       </div>
     ) : (
@@ -1593,7 +1614,7 @@ export default (strings) => {
         // exclude wards that did not expire before game ended from average time
         const duration = Math.min(
           Math.max(leftTime - ward.time, 0),
-          maxDuration
+          maxDuration,
         );
         totalDuration.push(duration);
       }

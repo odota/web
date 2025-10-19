@@ -7,31 +7,49 @@ export const StyledBody = styled.div`
     font-family: ${constants.tableFontFamily} !important;
     box-sizing: border-box;
 
-    ${props => (props.customWidth ? `
+    ${(props) =>
+      props.customWidth
+        ? `
       table-layout: fixed !important;
       `
-    : '')}
-          
+        : ''}
+
     thead {
       border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-         
+
       & tr {
         background: rgba(46, 160, 214, 0.26);
-        background: -moz-linear-gradient(90deg, rgba(20,255,212,0.09) 2%, rgba(46,160,214,0.26) 27%, rgba(5,181,249,0.04) 80%);
-        background: -webkit-linear-gradient(90deg, rgba(20,255,212,0.09) 2%, rgba(46,160,214,0.26) 27%, rgba(5,181,249,0.04) 80%); 
-        background: linear-gradient(90deg, rgba(20,255,212,0.09) 2%, rgba(46,160,214,0.26) 27%, rgba(5,181,249,0.04) 80%);
+        background: -moz-linear-gradient(
+          90deg,
+          rgba(20, 255, 212, 0.09) 2%,
+          rgba(46, 160, 214, 0.26) 27%,
+          rgba(5, 181, 249, 0.04) 80%
+        );
+        background: -webkit-linear-gradient(
+          90deg,
+          rgba(20, 255, 212, 0.09) 2%,
+          rgba(46, 160, 214, 0.26) 27%,
+          rgba(5, 181, 249, 0.04) 80%
+        );
+        background: linear-gradient(
+          90deg,
+          rgba(20, 255, 212, 0.09) 2%,
+          rgba(46, 160, 214, 0.26) 27%,
+          rgba(5, 181, 249, 0.04) 80%
+        );
 
         /* Safari */
-        @media not all and (min-resolution:.001dpcm)
-        { @supports (-webkit-appearance:none) {
-          background: rgba(46, 160, 214, 0.26);
-        }}
+        @media not all and (min-resolution: 0.001dpcm) {
+          @supports (-webkit-appearance: none) {
+            background: rgba(46, 160, 214, 0.26);
+          }
+        }
       }
     }
 
     tr {
       &:not(:last-child) {
-        border-bottom: 1px solid rgba(255, 255, 255, .05) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
       }
     }
 
@@ -60,19 +78,17 @@ export const StyledBody = styled.div`
       }
     }
 
-
     & tbody tr {
-      
       & td {
         border-bottom-width: 0px !important;
         border-top-width: 0px !important;
-        
-        & img, object {
-            opacity: 0.9;
+
+        & img,
+        object {
+          opacity: 0.9;
         }
       }
     }
-
 
     & th,
     & td {
@@ -89,17 +105,16 @@ export const StyledBody = styled.div`
   }
   /* Override material-ui style */
 
-
   .innerContainer {
     margin-bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 3px;
   }
 
   .innerContainer {
     overflow-y: hidden !important;
     overflow-x: auto !important;
-    @media only screen and (min-width: 1200px) { 
+    @media only screen and (min-width: 1200px) {
       overflow-x: hidden !important;
     }
   }
@@ -110,7 +125,9 @@ export const StyledBody = styled.div`
 
   @media only screen and (max-width: 960px) {
   }
-  ${props => (props.hoverRowColumn ? `
+  ${(props) =>
+    props.hoverRowColumn
+      ? `
   & tr {
     :hover {
       background: rgba(190, 190, 140, 0.07) !important;
@@ -121,7 +138,8 @@ export const StyledBody = styled.div`
      background: rgba(190, 190, 190, 0.07) !important;
      color: ${constants.textColorPrimary} !important;
   }
-  ` : '')};
+  `
+      : ''};
 
   /* -- scrolling behavior -- */
   .scrolled.shrink .textContainer {
@@ -171,7 +189,8 @@ export const StyledBody = styled.div`
     }
   }
 
-  .scrolled th:first-child, .scrolled td:first-child {
+  .scrolled th:first-child,
+  .scrolled td:first-child {
     position: sticky !important;
     left: 0px !important;
   }

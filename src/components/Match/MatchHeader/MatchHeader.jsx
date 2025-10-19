@@ -325,7 +325,7 @@ const MatchHeader = ({ match, strings }) => {
               {transformations.start_time(
                 null,
                 null,
-                match.start_time + match.duration
+                match.start_time + match.duration,
               )}
             </span>
           </div>
@@ -346,9 +346,14 @@ const MatchHeader = ({ match, strings }) => {
               <span>{strings.match_id}</span>
               <FlatButton
                 label={match.match_id}
-                className='copy-match-id'
+                className="copy-match-id"
                 onClick={copyMatchId}
-                icon={<ContentCopy viewBox='0 -3 30 30' style={{ height: 18, width: 18 }} />}
+                icon={
+                  <ContentCopy
+                    viewBox="0 -3 30 30"
+                    style={{ height: 18, width: 18 }}
+                  />
+                }
               />
             </li>
             <li>
@@ -399,7 +404,11 @@ const MatchHeader = ({ match, strings }) => {
           <FlatButton
             label={strings.app_rivalry}
             icon={
-              <img src="/assets/images/rivalry-icon.png" alt="Sponsor icon rivalry.com" height="24px" />
+              <img
+                src="/assets/images/rivalry-icon.png"
+                alt="Sponsor icon rivalry.com"
+                height="24px"
+              />
             }
             href="https://www.rivalry.com/opendota"
             target="_blank"

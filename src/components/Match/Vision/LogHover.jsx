@@ -15,49 +15,50 @@ const hoverMapStyle = {
 };
 
 const Styled = styled.div`
-.tooltipContainer {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  padding: 10px;
-  margin: -8px -12px;
+  .tooltipContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 10px;
+    margin: -8px -12px;
 
-  & > * {
-    margin: 0 5px;
+    & > * {
+      margin: 0 5px;
 
-    &:first-child {
-      margin-left: 0;
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
     }
 
-    &:last-child {
-      margin-right: 0;
+    & > div {
+      margin: 0;
+      color: ${constants.colorMutedLight};
     }
   }
 
-  & > div {
-    margin: 0;
-    color: ${constants.colorMutedLight};
+  .radiantWardTooltip {
+    border-width: 2px !important;
+    border-color: ${constants.colorSuccess} !important;
   }
-}
 
-.radiantWardTooltip {
-  border-width: 2px !important;
-  border-color: ${constants.colorSuccess} !important;
-}
+  .direWardTooltip {
+    border-width: 2px !important;
+    border-color: ${constants.colorDanger} !important;
+  }
 
-.direWardTooltip {
-  border-width: 2px !important;
-  border-color: ${constants.colorDanger} !important;
-}
-
-div > img {
-  width: 18px;
-}
+  div > img {
+    width: 18px;
+  }
 `;
 
 const wardStyle = (width, log) => {
   const gamePos = gameCoordToUV(log.entered.x, log.entered.y);
-  const stroke = log.entered.player_slot < 5 ? constants.colorGreen : constants.colorRed;
+  const stroke =
+    log.entered.player_slot < 5 ? constants.colorGreen : constants.colorRed;
 
   let fill;
   let strokeWidth;
@@ -76,8 +77,8 @@ const wardStyle = (width, log) => {
     position: 'absolute',
     width: wardSize,
     height: wardSize,
-    top: ((width / 127) * gamePos.y) - (wardSize / 2),
-    left: ((width / 127) * gamePos.x) - (wardSize / 2),
+    top: (width / 127) * gamePos.y - wardSize / 2,
+    left: (width / 127) * gamePos.x - wardSize / 2,
     background: fill,
     borderRadius: '50%',
     border: `${strokeWidth}px solid ${stroke}`,
@@ -96,15 +97,8 @@ export const WardPin = ({ width, log }) => {
   const id = `ward-${log.entered.player_slot}-${log.entered.time}`;
   return (
     <Styled>
-      <div
-        style={wardStyle(width, log)}
-        data-tip
-        data-for={id}
-      >
-        <img
-          src={wardIcon(log)}
-          alt={log.type === 'observer' ? 'O' : 'S'}
-        />
+      <div style={wardStyle(width, log)} data-tip data-for={id}>
+        <img src={wardIcon(log)} alt={log.type === 'observer' ? 'O' : 'S'} />
       </div>
     </Styled>
   );
@@ -112,16 +106,12 @@ export const WardPin = ({ width, log }) => {
 
 WardPin.propTypes = {
   width: PropTypes.number,
-  log: PropTypes.shape({})
+  log: PropTypes.shape({}),
 };
 
 const LogHover = (ward, startTime) => (
   <div style={hoverMapStyle}>
-    <DotaMap
-      maxWidth={300}
-      width={300}
-      startTime={startTime}
-    >
+    <DotaMap maxWidth={300} width={300} startTime={startTime}>
       <WardPin key={ward.key} width={300} log={ward} />
     </DotaMap>
   </div>

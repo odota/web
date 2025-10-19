@@ -2,59 +2,56 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
-import {
-  gameCoordToUV,
-  formatSeconds,
-  getWardSize
-} from '../../../utility';
+import { gameCoordToUV, formatSeconds, getWardSize } from '../../../utility';
 import PlayerThumb from '../PlayerThumb';
 import DotaMap from '../../DotaMap';
 import constants from '../../constants';
 
 const Styled = styled.div`
-.tooltipContainer {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  padding: 10px;
-  margin: -8px -12px;
+  .tooltipContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 10px;
+    margin: -8px -12px;
 
-  & > * {
-    margin: 0 5px;
+    & > * {
+      margin: 0 5px;
 
-    &:first-child {
-      margin-left: 0;
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
     }
 
-    &:last-child {
-      margin-right: 0;
+    & > div {
+      margin: 0;
+      color: ${constants.colorMutedLight};
     }
   }
 
-  & > div {
-    margin: 0;
-    color: ${constants.colorMutedLight};
+  .radiantWardTooltip {
+    border-width: 2px !important;
+    border-color: ${constants.colorSuccess} !important;
   }
-}
 
-.radiantWardTooltip {
-  border-width: 2px !important;
-  border-color: ${constants.colorSuccess} !important;
-}
+  .direWardTooltip {
+    border-width: 2px !important;
+    border-color: ${constants.colorDanger} !important;
+  }
 
-.direWardTooltip {
-  border-width: 2px !important;
-  border-color: ${constants.colorDanger} !important;
-}
-
-div > img {
-  width: 18px;
-}
+  div > img {
+    width: 18px;
+  }
 `;
 
 const wardStyle = (width, log) => {
   const gamePos = gameCoordToUV(log.entered.x, log.entered.y);
-  const stroke = log.entered.player_slot < 5 ? constants.colorGreen : constants.colorRed;
+  const stroke =
+    log.entered.player_slot < 5 ? constants.colorGreen : constants.colorRed;
 
   let fill;
   let strokeWidth;
@@ -73,8 +70,8 @@ const wardStyle = (width, log) => {
     position: 'absolute',
     width: wardSize,
     height: wardSize,
-    top: ((width / 127) * gamePos.y) - (wardSize / 2),
-    left: ((width / 127) * gamePos.x) - (wardSize / 2),
+    top: (width / 127) * gamePos.y - wardSize / 2,
+    left: (width / 127) * gamePos.x - wardSize / 2,
     background: fill,
     borderRadius: '50%',
     border: `${strokeWidth}px solid ${stroke}`,
@@ -92,7 +89,11 @@ const wardIcon = (log) => {
 const WardTooltipEnter = ({ player, log, strings }) => (
   <div className="tooltipContainer">
     <PlayerThumb {...player} />
-    <div>{log.type === 'observer' ? strings.vision_placed_observer : strings.vision_placed_sentry}</div>
+    <div>
+      {log.type === 'observer'
+        ? strings.vision_placed_observer
+        : strings.vision_placed_sentry}
+    </div>
     <div>{` ${formatSeconds(log.entered.time)}`}</div>
   </div>
 );
@@ -126,23 +127,14 @@ WardTooltipLeft.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const WardPin = ({
-  match, width, log, strings,
-}) => {
+const WardPin = ({ match, width, log, strings }) => {
   const id = `ward-${log.entered.player_slot}-${log.entered.time}`;
   const sideName = log.entered.player_slot < 5 ? 'radiant' : 'dire';
 
   return (
     <Styled>
-      <div
-        style={wardStyle(width, log)}
-        data-tip
-        data-for={id}
-      >
-        <img
-          src={wardIcon(log)}
-          alt={log.type === 'observer' ? 'O' : 'S'}
-        />
+      <div style={wardStyle(width, log)} data-tip data-for={id}>
+        <img src={wardIcon(log)} alt={log.type === 'observer' ? 'O' : 'S'} />
       </div>
       <ReactTooltip
         id={id}
@@ -150,7 +142,11 @@ const WardPin = ({
         border
         class={`${sideName}WardTooltip`}
       >
-        <WardTooltipEnter player={match.players[log.player]} log={log} strings={strings} />
+        <WardTooltipEnter
+          player={match.players[log.player]}
+          log={log}
+          strings={strings}
+        />
         {log.left && <WardTooltipLeft log={log} strings={strings} />}
       </ReactTooltip>
     </Styled>
@@ -164,7 +160,6 @@ WardPin.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-
 class VisionMap extends React.Component {
   static propTypes = {
     match: PropTypes.shape({
@@ -172,7 +167,7 @@ class VisionMap extends React.Component {
     }),
     wards: PropTypes.arrayOf({}),
     strings: PropTypes.shape({}),
-  }
+  };
 
   shouldComponentUpdate(newProps) {
     return newProps.wards.length !== this.props.wards.length;
@@ -188,7 +183,15 @@ class VisionMap extends React.Component {
           maxWidth={width}
           width={width}
         >
-          {this.props.wards.map(w => <WardPin match={this.props.match} key={w.key} width={width} log={w} strings={strings} />)}
+          {this.props.wards.map((w) => (
+            <WardPin
+              match={this.props.match}
+              key={w.key}
+              width={width}
+              log={w}
+              strings={strings}
+            />
+          ))}
         </DotaMap>
       </div>
     );

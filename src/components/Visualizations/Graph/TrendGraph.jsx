@@ -137,7 +137,9 @@ const TrendGraph = ({ columns, name, strings }) => (
       <YAxis domain={['auto', 'auto']} />
       <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
 
-      <Tooltip content={<TrendTooltipContent name={name} strings={strings} />} />
+      <Tooltip
+        content={<TrendTooltipContent name={name} strings={strings} />}
+      />
       <Line
         dot={false}
         dataKey="value"
@@ -156,7 +158,7 @@ TrendGraph.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

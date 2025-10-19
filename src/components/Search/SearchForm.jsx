@@ -90,14 +90,16 @@ class SearchForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
   small: state.browser.greaterThan.small,
 });
 
-const mapDispatchToProps = dispatch => ({
-  dispatchSearch: query => dispatch(getSearchResultAndPros(query)),
-  dispatchSetQuery: query => dispatch(setSearchQuery(query)),
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSearch: (query) => dispatch(getSearchResultAndPros(query)),
+  dispatchSetQuery: (query) => dispatch(setSearchQuery(query)),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchForm));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SearchForm),
+);

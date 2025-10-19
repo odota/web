@@ -22,11 +22,8 @@ class Dropdown extends Component {
     Button: PropTypes.func,
     buttonProps: PropTypes.shape({}),
     className: PropTypes.string,
-    children: PropTypes.oneOfType([
-      PropTypes.arrayOf({}),
-      PropTypes.node,
-    ]),
-  }
+    children: PropTypes.oneOfType([PropTypes.arrayOf({}), PropTypes.node]),
+  };
 
   constructor() {
     super();
@@ -50,17 +47,11 @@ class Dropdown extends Component {
   };
 
   render() {
-    const {
-      Button, buttonProps, className, children,
-    } = this.props;
+    const { Button, buttonProps, className, children } = this.props;
     const { open } = this.state;
     return (
       <div className={className}>
-        <Button
-          onClick={this.handleTouchTap}
-          open={open}
-          {...buttonProps}
-        />
+        <Button onClick={this.handleTouchTap} open={open} {...buttonProps} />
         <Popover
           autoCloseWhenOffScreen={false}
           open={open}
@@ -71,11 +62,9 @@ class Dropdown extends Component {
           // className={styles.popoverContainer}
         >
           <Menu>
-            {React.Children.map(children, child => (child ? (
-              <MenuItem>
-                {child}
-              </MenuItem>
-            ) : null))}
+            {React.Children.map(children, (child) =>
+              child ? <MenuItem>{child}</MenuItem> : null,
+            )}
           </Menu>
         </Popover>
       </div>

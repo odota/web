@@ -34,7 +34,8 @@ const StyledTab = styled(Tab)`
   min-width: 0 !important;
 `;
 
-const TabTooltip = ({ title, children }) => (title ? <Tooltip title={title}>{children}</Tooltip> : children);
+const TabTooltip = ({ title, children }) =>
+  title ? <Tooltip title={title}>{children}</Tooltip> : children;
 
 TabTooltip.propTypes = {
   title: PropTypes.string,
@@ -44,18 +45,27 @@ TabTooltip.propTypes = {
 const TabBar = ({ tabs, match }) => {
   const [tabValue, setTabValue] = useState(0);
   const { history, location } = useReactRouter();
-  const visibleTabs = useMemo(() => tabs.filter(tab => (!tab.hidden || (tab.hidden && !tab.hidden(match)))), [match, tabs]);
+  const visibleTabs = useMemo(
+    () =>
+      tabs.filter((tab) => !tab.hidden || (tab.hidden && !tab.hidden(match))),
+    [match, tabs],
+  );
 
   useEffect(() => {
-    const newTabIndex = visibleTabs.findIndex(tab => location.pathname === tab.route);
+    const newTabIndex = visibleTabs.findIndex(
+      (tab) => location.pathname === tab.route,
+    );
     setTabValue(newTabIndex !== -1 ? newTabIndex : 0);
   }, [visibleTabs, history, location.pathname]);
 
-  const handleTabClick = useCallback((e, tab, index) => {
-    e.preventDefault();
-    history.push(e.currentTarget.getAttribute('href'));
-    setTabValue(index);
-  }, [history]);
+  const handleTabClick = useCallback(
+    (e, tab, index) => {
+      e.preventDefault();
+      history.push(e.currentTarget.getAttribute('href'));
+      setTabValue(index);
+    },
+    [history],
+  );
 
   return (
     <StyledMain>
@@ -66,11 +76,14 @@ const TabBar = ({ tabs, match }) => {
         indicatorColor="primary"
       >
         {visibleTabs.map((tab, i) => (
-          <TabTooltip title={tab.tooltip} key={`${tab.name}_${tab.route}_${tab.key}`}>
+          <TabTooltip
+            title={tab.tooltip}
+            key={`${tab.name}_${tab.route}_${tab.key}`}
+          >
             <StyledTab
               component="a"
               href={tab.route + window.location.search}
-              onClick={e => handleTabClick(e, tab, i)}
+              onClick={(e) => handleTabClick(e, tab, i)}
               label={tab.name}
               disabled={tab.disabled}
             />

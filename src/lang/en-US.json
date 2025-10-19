@@ -1207,7 +1207,7 @@
   "slain_roshan": "Have slain Roshan",
   "destroyed_tormentor": "Have destroyed the Tormentor",
   "drew_first_blood": "Drew First Blood",
-  "player_profile_private_title": "This profile is private" ,
+  "player_profile_private_title": "This profile is private",
   "player_profile_private_description": "If this is you, sign in to view your own statistics. Or, enable Expose Public Match Data in the Dota client to make your profile public.",
   "sign_in_with_steam": "Sign in with Steam"
 }

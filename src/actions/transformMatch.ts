@@ -16,7 +16,7 @@ let expandedUnitNames: Record<string, string> | null = null;
 function generateExpandedUnitNames(strings: any) {
   const expanded: Record<string, string> = {};
   Object.keys(strings)
-    .filter(str => str.indexOf('npc_dota_') === 0)
+    .filter((str) => str.indexOf('npc_dota_') === 0)
     .forEach((key) => {
       // Currently, no unit goes up higher than 4
       for (let i = 1; i < 5; i += 1) {
@@ -26,9 +26,17 @@ function generateExpandedUnitNames(strings: any) {
   return expanded;
 }
 
-const getMaxKeyOfObject = (field: any) => Number(Object.keys(field || {}).sort((a, b) => Number(b) - Number(a))[0]) || 0;
+const getMaxKeyOfObject = (field: any) =>
+  Number(Object.keys(field || {}).sort((a, b) => Number(b) - Number(a))[0]) ||
+  0;
 
-function generateTeamfights({ players, teamfights = [] }: { players: any[], teamfights: any[] }) {
+function generateTeamfights({
+  players,
+  teamfights = [],
+}: {
+  players: any[];
+  teamfights: any[];
+}) {
   const computeTfData = (tf: any) => {
     const newtf = {
       ...tf,
@@ -42,67 +50,73 @@ function generateTeamfights({ players, teamfights = [] }: { players: any[], team
       dire_participation: 0,
       dire_deaths: 0,
     };
-    newtf.players = players.map((player) => {
-      const tfplayer = tf.players[player.player_slot % (128 - 5)];
-      if (!tfplayer) {
-        return null;
-      }
-      // compute team gold/xp deltas
-      if (isRadiant(player.player_slot)) {
-        newtf.radiant_gold_advantage_delta += tfplayer.gold_delta;
-        newtf.radiant_gold_delta += tfplayer.gold_delta;
-        newtf.radiant_xp_delta += tfplayer.xp_delta;
-        newtf.radiant_participation += tfplayer.participate ? 1 : 0;
-        newtf.radiant_deaths += tfplayer.deaths ? 1 : 0;
-      } else {
-        newtf.radiant_gold_advantage_delta -= tfplayer.gold_delta;
-        newtf.dire_gold_delta -= tfplayer.gold_delta;
-        newtf.radiant_xp_delta -= tfplayer.xp_delta;
-        newtf.dire_participation += tfplayer.participate ? 1 : 0;
-        newtf.dire_deaths += tfplayer.deaths ? 1 : 0;
-      }
-      const playerDeathsPos = unpackPositionData(tfplayer.deaths_pos)
-        .map((deathPos: any) => ({
-          ...deathPos,
-          isRadiant: isRadiant(player.player_slot),
-          player,
-        }));
-      newtf.deaths_pos = newtf.deaths_pos.concat(playerDeathsPos);
-      return {
-        ...player,
-        ...tfplayer,
-        participate: tfplayer.deaths > 0 || tfplayer.damage > 0, // || tfplayer.healing > 0,
-        level_start: getLevelFromXp(tfplayer.xp_start),
-        level_end: getLevelFromXp(tfplayer.xp_end),
-        deaths_pos: playerDeathsPos,
-      };
-    }).filter(player => (player !== null));
+    newtf.players = players
+      .map((player) => {
+        const tfplayer = tf.players[player.player_slot % (128 - 5)];
+        if (!tfplayer) {
+          return null;
+        }
+        // compute team gold/xp deltas
+        if (isRadiant(player.player_slot)) {
+          newtf.radiant_gold_advantage_delta += tfplayer.gold_delta;
+          newtf.radiant_gold_delta += tfplayer.gold_delta;
+          newtf.radiant_xp_delta += tfplayer.xp_delta;
+          newtf.radiant_participation += tfplayer.participate ? 1 : 0;
+          newtf.radiant_deaths += tfplayer.deaths ? 1 : 0;
+        } else {
+          newtf.radiant_gold_advantage_delta -= tfplayer.gold_delta;
+          newtf.dire_gold_delta -= tfplayer.gold_delta;
+          newtf.radiant_xp_delta -= tfplayer.xp_delta;
+          newtf.dire_participation += tfplayer.participate ? 1 : 0;
+          newtf.dire_deaths += tfplayer.deaths ? 1 : 0;
+        }
+        const playerDeathsPos = unpackPositionData(tfplayer.deaths_pos).map(
+          (deathPos: any) => ({
+            ...deathPos,
+            isRadiant: isRadiant(player.player_slot),
+            player,
+          }),
+        );
+        newtf.deaths_pos = newtf.deaths_pos.concat(playerDeathsPos);
+        return {
+          ...player,
+          ...tfplayer,
+          participate: tfplayer.deaths > 0 || tfplayer.damage > 0, // || tfplayer.healing > 0,
+          level_start: getLevelFromXp(tfplayer.xp_start),
+          level_end: getLevelFromXp(tfplayer.xp_end),
+          deaths_pos: playerDeathsPos,
+        };
+      })
+      .filter((player) => player !== null);
 
     // We have to do this after we process the stuff so that we will have the player in
     // the data instead of just the 'teamfight player' which doesn't have enough data.
     newtf.deaths_pos = newtf.deaths_pos
-      .map((death: any) => ([{
-        ...death,
-        killer: newtf.players
-          .find((killer: any) => heroes[death.player.hero_id as keyof typeof heroes] && killer.killed[heroes[death.player.hero_id as keyof typeof heroes].name]),
-      }]))
-      .reduce(
-        (newDeathsPos: any, death: any) => {
-          const copy = [...newDeathsPos];
-          const samePosition = copy
-            .findIndex((deathPos) => {
-              const cursor = deathPos[0];
-              return cursor.x === death[0].x && cursor.y === death[0].y;
-            });
-          if (samePosition !== -1) {
-            copy[samePosition] = copy[samePosition].concat(death);
-          } else {
-            copy.push(death);
-          }
-          return copy;
+      .map((death: any) => [
+        {
+          ...death,
+          killer: newtf.players.find(
+            (killer: any) =>
+              heroes[death.player.hero_id as keyof typeof heroes] &&
+              killer.killed[
+                heroes[death.player.hero_id as keyof typeof heroes].name
+              ],
+          ),
         },
-        [],
-      );
+      ])
+      .reduce((newDeathsPos: any, death: any) => {
+        const copy = [...newDeathsPos];
+        const samePosition = copy.findIndex((deathPos) => {
+          const cursor = deathPos[0];
+          return cursor.x === death[0].x && cursor.y === death[0].y;
+        });
+        if (samePosition !== -1) {
+          copy[samePosition] = copy[samePosition].concat(death);
+        } else {
+          copy.push(death);
+        }
+        return copy;
+      }, []);
     return newtf;
   };
   return (teamfights || []).map(computeTfData);
@@ -121,9 +135,13 @@ function generateVisionLog(match: any) {
     };
 
     // let's zip the *_log and the *_left log in a 2-tuples
-    const extractVisionLog = (type: string, enteredLog: any[], leftLog: any[]) =>
+    const extractVisionLog = (
+      type: string,
+      enteredLog: any[],
+      leftLog: any[],
+    ) =>
       enteredLog.map((e) => {
-        const wards = [e, leftLog.find(l => l.ehandle === e.ehandle)];
+        const wards = [e, leftLog.find((l) => l.ehandle === e.ehandle)];
         return {
           player: i,
           key: wards[0].ehandle,
@@ -132,8 +150,16 @@ function generateVisionLog(match: any) {
           left: wards[1],
         };
       });
-    const observers = extractVisionLog('observer', safePlayer.obs_log, safePlayer.obs_left_log);
-    const sentries = extractVisionLog('sentry', safePlayer.sen_log, safePlayer.sen_left_log);
+    const observers = extractVisionLog(
+      'observer',
+      safePlayer.obs_log,
+      safePlayer.obs_left_log,
+    );
+    const sentries = extractVisionLog(
+      'sentry',
+      safePlayer.sen_log,
+      safePlayer.sen_left_log,
+    );
     return observers.concat(sentries);
   };
 
@@ -152,20 +178,25 @@ function transformMatch(m: any) {
     res[pl.isRadiant] = res[pl.isRadiant] || [];
     res[pl.isRadiant][pl.lane] = res[pl.isRadiant][pl.lane] || 0;
 
-    res[pl.isRadiant][pl.lane] += (pl.gold_t || [])[10]
+    res[pl.isRadiant][pl.lane] += (pl.gold_t || [])[10];
     return res;
   }, {});
 
   const newPlayers = m.players.map((player: any) => {
     const newPlayer = {
       ...player,
-      desc: [strings[`lane_role_${player.lane_role}`], isSupport(player) ? 'Support' : 'Core'].join('/'),
+      desc: [
+        strings[`lane_role_${player.lane_role}`],
+        isSupport(player) ? 'Support' : 'Core',
+      ].join('/'),
       multi_kills_max: getMaxKeyOfObject(player.multi_kills),
       kill_streaks_max: getMaxKeyOfObject(player.kill_streaks),
       lh_ten: (player.lh_t || [])[10],
       dn_ten: (player.dn_t || [])[10],
       //@ts-expect-error
-      line_win: lineResults[player.isRadiant]?.[player.lane] > lineResults[!player.isRadiant]?.[player.lane],
+      line_win:
+        lineResults[player.isRadiant]?.[player.lane] >
+        lineResults[!player.isRadiant]?.[player.lane],
       analysis: analyzeMatch(m, player),
     };
 
@@ -173,14 +204,19 @@ function transformMatch(m: any) {
     if (player.times) {
       const intervals = ['lh_t', 'gold_t', 'xp_t', 'times'];
       intervals.forEach((key) => {
-        newPlayer[key] = player[key].filter((el: number, i: number) => player.times[i] >= 0);
+        newPlayer[key] = player[key].filter(
+          (el: number, i: number) => player.times[i] >= 0,
+        );
       });
 
       // compute a cs_t as a sum of lh_t & dn_t
-      const csT = (player.lh_t || []).map((v: number, i: number) => v + ((player.dn_t || [])[i] || 0));
-      newPlayer.cs_t = csT.filter((el: number, i: number) => player.times[i] >= 0);
+      const csT = (player.lh_t || []).map(
+        (v: number, i: number) => v + ((player.dn_t || [])[i] || 0),
+      );
+      newPlayer.cs_t = csT.filter(
+        (el: number, i: number) => player.times[i] >= 0,
+      );
     }
-
 
     // compute damage to towers/rax/roshan
     if (player.damage) {
@@ -208,9 +244,11 @@ function transformMatch(m: any) {
           identifier = 'shrine';
         }
         if (identifier) {
-          newPlayer.objective_damage[identifier] = newPlayer.objective_damage[identifier] ?
-            newPlayer.objective_damage[identifier] + player.damage[key] :
-            player.damage[key];
+          newPlayer.objective_damage[identifier] = newPlayer.objective_damage[
+            identifier
+          ]
+            ? newPlayer.objective_damage[identifier] + player.damage[key]
+            : player.damage[key];
         }
       });
     }
@@ -226,7 +264,9 @@ function transformMatch(m: any) {
       Object.keys(player.killed).forEach((key) => {
         if (expandedUnitNames && key in expandedUnitNames) {
           const name = expandedUnitNames[key];
-          newPlayer.specific[name] = newPlayer.specific[name] ? newPlayer.specific[name] + newPlayer.killed[key] : newPlayer.killed[key];
+          newPlayer.specific[name] = newPlayer.specific[name]
+            ? newPlayer.specific[name] + newPlayer.killed[key]
+            : newPlayer.killed[key];
         }
       });
     }
@@ -240,18 +280,29 @@ function transformMatch(m: any) {
     }
     newPlayer.buybacks = (player.buyback_log || []).length;
     newPlayer.total_gold = (player.gold_per_min * m.duration) / 60;
-    if (m.game_mode === 18 && Object.prototype.hasOwnProperty.call(player, 'ability_upgrades_arr')) {
+    if (
+      m.game_mode === 18 &&
+      Object.prototype.hasOwnProperty.call(player, 'ability_upgrades_arr')
+    ) {
       const arr: any[] = [];
       if (player.ability_upgrades_arr) {
-        player.ability_upgrades_arr.forEach((ability: keyof typeof abilityIds) => {
-          if (!arr.includes(ability) && abilityIds[ability] && abilityIds[ability].indexOf('special_bonus') === -1) {
-            arr.push(ability);
-          }
-        });
+        player.ability_upgrades_arr.forEach(
+          (ability: keyof typeof abilityIds) => {
+            if (
+              !arr.includes(ability) &&
+              abilityIds[ability] &&
+              abilityIds[ability].indexOf('special_bonus') === -1
+            ) {
+              arr.push(ability);
+            }
+          },
+        );
       }
       newPlayer.abilities = arr;
     }
-    newPlayer.hero_name = heroes[player.hero_id as keyof typeof heroes] && heroes[player.hero_id as keyof typeof heroes].name;
+    newPlayer.hero_name =
+      heroes[player.hero_id as keyof typeof heroes] &&
+      heroes[player.hero_id as keyof typeof heroes].name;
 
     return newPlayer;
   });

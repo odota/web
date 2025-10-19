@@ -23,7 +23,7 @@ class Recent extends React.Component {
       name: string,
     }),
     strings: shape({}),
-  }
+  };
 
   componentDidMount() {
     const { onGetRecentMatches, match } = this.props;
@@ -34,9 +34,7 @@ class Recent extends React.Component {
   }
 
   render() {
-    const {
-      isLoading, isError, result, proPlayers, strings,
-    } = this.props;
+    const { isLoading, isError, result, proPlayers, strings } = this.props;
 
     const matchesColumns = [
       {
@@ -44,7 +42,9 @@ class Recent extends React.Component {
         field: 'account_id',
         displayFn: (row, col, field) => (
           <div>
-            <TableLink to={`/players/${field}`}>{row.name ? row.name : field}</TableLink>
+            <TableLink to={`/players/${field}`}>
+              {row.name ? row.name : field}
+            </TableLink>
           </div>
         ),
       },
@@ -114,9 +114,10 @@ Recent.defaultProps = {
   isLoading: false,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isLoading: state.app.heroRecentGames.loading,
-  isError: state.app.heroRecentGames.error || !!state.app.heroRecentGames.data.error,
+  isError:
+    state.app.heroRecentGames.error || !!state.app.heroRecentGames.data.error,
   result: state.app.heroRecentGames.data,
   proPlayers: proPlayersSelector(state),
   strings: state.app.strings,

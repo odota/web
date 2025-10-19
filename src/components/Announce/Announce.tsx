@@ -69,8 +69,18 @@ const StyledDiv = styled.div`
   }
 `;
 const Announce = ({
-  title, body, onClick, link, strings,
-}: { title: string, body: string, onClick: MouseEventHandler<{}>, link: string, strings: Strings}) => (
+  title,
+  body,
+  onClick,
+  link,
+  strings,
+}: {
+  title: string;
+  body: string;
+  onClick: MouseEventHandler<{}>;
+  link: string;
+  strings: Strings;
+}) => (
   <StyledDiv>
     <main>
       <h4>{title}</h4>
@@ -94,7 +104,16 @@ const Announce = ({
   </StyledDiv>
 );
 
-class RequestLayer extends React.Component<{ error: string, getPulls: Function, loading: boolean, data: any, strings: Strings}, { dismissed?: boolean }> {
+class RequestLayer extends React.Component<
+  {
+    error: string;
+    getPulls: Function;
+    loading: boolean;
+    data: any;
+    strings: Strings;
+  },
+  { dismissed?: boolean }
+> {
   constructor(props: any) {
     super(props);
 
@@ -110,7 +129,7 @@ class RequestLayer extends React.Component<{ error: string, getPulls: Function, 
 
   getDate = (days: number) => {
     const msPerDay = 24 * 60 * 60 * 1000;
-    const date = new Date(Number(new Date()) - (msPerDay * days));
+    const date = new Date(Number(new Date()) - msPerDay * days);
     return date.toISOString().split('T')[0];
   };
 
@@ -119,21 +138,26 @@ class RequestLayer extends React.Component<{ error: string, getPulls: Function, 
   }
 
   render() {
-    const {
-      error, loading, data, strings,
-    } = this.props;
+    const { error, loading, data, strings } = this.props;
 
     if (!error && !loading && data) {
       if (data.items && data.items[0]) {
-        const {
-          title,
-          body,
-          number,
-          html_url: link,
-        } = data.items[0];
+        const { title, body, number, html_url: link } = data.items[0];
 
-        if (localStorage && !this.state.dismissed && Number(localStorage.getItem('dismiss')) < number) {
-          return <Announce title={title} body={body} onClick={() => this.dismiss(number)} link={link} strings={strings} />;
+        if (
+          localStorage &&
+          !this.state.dismissed &&
+          Number(localStorage.getItem('dismiss')) < number
+        ) {
+          return (
+            <Announce
+              title={title}
+              body={body}
+              onClick={() => this.dismiss(number)}
+              link={link}
+              strings={strings}
+            />
+          );
         }
       }
     }

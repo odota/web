@@ -13,163 +13,165 @@ import PlayerButtons from './PlayerButtons';
 import constants from '../../constants';
 
 const Styled = styled.div`
-width: 100vw;
-margin: 0px -50vw;
-position: relative;
-left: 50%;
-right: 50%;
-display: grid;
-padding-top: 35px;
-background-color: rgba(14,84,113,37%);
-grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
-
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-bottom: 10px;
-  grid-column: 2;
-}
-
-.playerName {
-  color: rgba(245, 245, 245, 0.870588);
-  font-size: 28px;
-  text-align: center;
-}
-
-.titleNameButtons {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-
-  @media only screen and (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-.imageContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.overviewAvatar {
-  box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.4);
-
-  @media only screen and (max-width: 768px) {
-    margin-left: 0 !important;
-  }
-}
-
-.icon {
-  fill: ${constants.colorMutedLight} !important;
-}
-
-.topContainer {
-  display: flex;
-  flex-direction: row;
-
-  @media only screen and (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-.topButtons {
-  margin-left: auto;
-}
-
-.playerInfo {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.registered {
-  width: 18px;
-  height: 18px;
+  width: 100vw;
+  margin: 0px -50vw;
   position: relative;
+  left: 50%;
+  right: 50%;
+  display: grid;
+  padding-top: 35px;
+  background-color: rgba(14, 84, 113, 37%);
+  grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
 
-  &[data-hint-position="top"] {
-    &::before {
-      top: -7px;
-      margin-left: 3px;
-    }
-
-    &::after {
-      margin-bottom: 7px;
-      margin-left: -7px;
-    }
-  }
-}
-
-.dotaPlusMedal {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
-  drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
-  filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
-  drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
-
-  @media only screen and (max-width: 768px) {
-    flex-wrap: nowrap;
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 10px;
+    grid-column: 2;
   }
 
-  &[data-hint-position="top"] {
-    &::after {
-      margin-bottom: 3px;
-      margin-left: 52px;
-    }
+  .playerName {
+    color: rgba(245, 245, 245, 0.870588);
+    font-size: 28px;
+    text-align: center;
+  }
 
-    &::before {
-      top: -3px;
-      margin-left: 57px;
+  .titleNameButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
     }
   }
 
-  & img {
-    width: 65px;
-    height: 75px;
+  .imageContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
-}
+
+  .overviewAvatar {
+    box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.4);
+
+    @media only screen and (max-width: 768px) {
+      margin-left: 0 !important;
+    }
+  }
+
+  .icon {
+    fill: ${constants.colorMutedLight} !important;
+  }
+
+  .topContainer {
+    display: flex;
+    flex-direction: row;
+
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .topButtons {
+    margin-left: auto;
+  }
+
+  .playerInfo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .registered {
+    width: 18px;
+    height: 18px;
+    position: relative;
+
+    &[data-hint-position='top'] {
+      &::before {
+        top: -7px;
+        margin-left: 3px;
+      }
+
+      &::after {
+        margin-bottom: 7px;
+        margin-left: -7px;
+      }
+    }
+  }
+
+  .dotaPlusMedal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
+      drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
+      drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
+
+    @media only screen and (max-width: 768px) {
+      flex-wrap: nowrap;
+    }
+
+    &[data-hint-position='top'] {
+      &::after {
+        margin-bottom: 3px;
+        margin-left: 52px;
+      }
+
+      &::before {
+        top: -3px;
+        margin-left: 57px;
+      }
+    }
+
+    & img {
+      width: 65px;
+      height: 75px;
+    }
+  }
 `;
 
 const LARGE_IMAGE_SIZE = 124;
 
-const getRegistrationBadge = (registered, strings) => registered && (
-  <div
-    className="registered"
-    data-hint={strings.tooltip_registered_user}
-    data-hint-position="top"
-  />
-);
-
-const getDotaPlusBadge = (plus, strings) => plus && (
-  <div
-    className="dotaPlusMedal"
-    data-hint={strings.tooltip_dotaplus}
-    data-hint-position="top"
-  >
-    <img
-      src="/assets/images/dota2/dota_plus_icon.png"
-      alt="Dota Plus icon"
+const getRegistrationBadge = (registered, strings) =>
+  registered && (
+    <div
+      className="registered"
+      data-hint={strings.tooltip_registered_user}
+      data-hint-position="top"
     />
-  </div>
-);
+  );
+
+const getDotaPlusBadge = (plus, strings) =>
+  plus && (
+    <div
+      className="dotaPlusMedal"
+      data-hint={strings.tooltip_dotaplus}
+      data-hint-position="top"
+    >
+      <img src="/assets/images/dota2/dota_plus_icon.png" alt="Dota Plus icon" />
+    </div>
+  );
 
 export const getRankTierMedal = (rankTier, leaderboardRank) => {
   let medalElement = null;
   const imgDescription = rankTierToString(rankTier);
-  if (rankTier) { // if the players ranktier is 0 they are uncalibrated
+  if (rankTier) {
+    // if the players ranktier is 0 they are uncalibrated
     let iconPath;
 
-    if (leaderboardRank) { // if the player is on leaderboard ie. immortal
-      if (leaderboardRank <= 10) { // top 10 and top 100 positions have different icons
+    if (leaderboardRank) {
+      // if the player is on leaderboard ie. immortal
+      if (leaderboardRank <= 10) {
+        // top 10 and top 100 positions have different icons
         iconPath = '/assets/images/dota2/rank_icons/rank_icon_8c.png';
       } else if (leaderboardRank <= 100) {
         iconPath = '/assets/images/dota2/rank_icons/rank_icon_8b.png';
@@ -178,17 +180,29 @@ export const getRankTierMedal = (rankTier, leaderboardRank) => {
       }
       medalElement = (
         <div className="rankTierContainer">
-          <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
-            <img className="rankMedal-icon" src={iconPath} alt="Immortal medal icon" />
-            {leaderboardRank && <span className="rankMedal-board">{leaderboardRank}</span>}
+          <div
+            className="rankMedal"
+            data-hint={imgDescription}
+            data-hint-position="top"
+          >
+            <img
+              className="rankMedal-icon"
+              src={iconPath}
+              alt="Immortal medal icon"
+            />
+            {leaderboardRank && (
+              <span className="rankMedal-board">{leaderboardRank}</span>
+            )}
           </div>
         </div>
       );
-    } else { // everyone who isn't immortal has an icon and some number of stars
+    } else {
+      // everyone who isn't immortal has an icon and some number of stars
       const intRankTier = parseInt(rankTier, 10);
       let star = intRankTier % 10;
 
-      if (star < 1) { // I'm not sure if ranktier can give a number outside this range but better safe than sorry
+      if (star < 1) {
+        // I'm not sure if ranktier can give a number outside this range but better safe than sorry
         star = 1;
       } else if (star > 7) {
         star = 7;
@@ -198,20 +212,47 @@ export const getRankTierMedal = (rankTier, leaderboardRank) => {
       iconPath = `/assets/images/dota2/rank_icons/rank_icon_${Math.floor(intRankTier / 10)}.png`;
       medalElement = (
         <div className="rankTierContainer">
-          <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
-            <img className="rankMedal-icon" src={iconPath} alt="Ranked medal icon" />
-            {(star !== 0) ? <img className="rankMedal-star" src={starPath} alt="Ranked medal stars " /> : ''}
-            {leaderboardRank && <span className="rankMedal-board">{leaderboardRank}</span>}
+          <div
+            className="rankMedal"
+            data-hint={imgDescription}
+            data-hint-position="top"
+          >
+            <img
+              className="rankMedal-icon"
+              src={iconPath}
+              alt="Ranked medal icon"
+            />
+            {star !== 0 ? (
+              <img
+                className="rankMedal-star"
+                src={starPath}
+                alt="Ranked medal stars "
+              />
+            ) : (
+              ''
+            )}
+            {leaderboardRank && (
+              <span className="rankMedal-board">{leaderboardRank}</span>
+            )}
           </div>
         </div>
       );
     }
-  } else { // uncalibrated players
+  } else {
+    // uncalibrated players
     const iconPath = '/assets/images/dota2/rank_icons/rank_icon_0.png';
     medalElement = (
       <div className="rankTierContainer">
-        <div className="rankMedal" data-hint={imgDescription} data-hint-position="top">
-          <img className="rankMedal-icon" src={iconPath} alt="Uncalibrated medal" />
+        <div
+          className="rankMedal"
+          data-hint={imgDescription}
+          data-hint-position="top"
+        >
+          <img
+            className="rankMedal-icon"
+            src={iconPath}
+            alt="Uncalibrated medal"
+          />
         </div>
       </div>
     );
@@ -239,7 +280,15 @@ const PlayerHeader = ({
     return <Error />;
   }
   if (loading) {
-    return <Facebook primaryColor="#666" secondaryColor="#ecebeb" width={400} height={60} animate />;
+    return (
+      <Facebook
+        primaryColor="#666"
+        secondaryColor="#ecebeb"
+        width={400}
+        height={60}
+        animate
+      />
+    );
   }
 
   let badgeStyle = {
@@ -286,11 +335,21 @@ const PlayerHeader = ({
           </div>
           <div className="playerInfo">
             <div className="titleNameButtons">
-              <span className="playerName">{officialPlayerName || playerName}</span>
+              <span className="playerName">
+                {officialPlayerName || playerName}
+              </span>
               <PlayerBadges playerId={playerId} />
             </div>
-            <PlayerStats playerId={playerId} loggedInId={loggedInUser && String(loggedInUser.account_id)} compact={!small} />
-            <PlayerButtons playerId={playerId} playerSoloCompetitiveRank={playerSoloCompetitiveRank} compact={!small} />
+            <PlayerStats
+              playerId={playerId}
+              loggedInId={loggedInUser && String(loggedInUser.account_id)}
+              compact={!small}
+            />
+            <PlayerButtons
+              playerId={playerId}
+              playerSoloCompetitiveRank={playerSoloCompetitiveRank}
+              compact={!small}
+            />
           </div>
           <div style={{ display: 'flex' }}>
             {getDotaPlusBadge(plus, strings)}
@@ -319,7 +378,7 @@ PlayerHeader.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loading: state.app.player.loading,
   error: state.app.player.error,
   playerName: (state.app.player.data.profile || {}).personaname,

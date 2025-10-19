@@ -3,8 +3,8 @@ export default {
     outDir: 'build',
   },
   server: {
-      // https: true,
-      allowedHosts: true,
+    // https: true,
+    allowedHosts: true,
   },
   // plugins: [ reactVirtualized() ],
-}
+};

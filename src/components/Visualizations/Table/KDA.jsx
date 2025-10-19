@@ -4,23 +4,34 @@ import { connect } from 'react-redux';
 import { KDAContainer, TitleContainer, KDAPercentContainer } from './Styled';
 import constants from '../../constants';
 
-const KDA = ({
-  kills, deaths, assists, strings,
-}) => {
+const KDA = ({ kills, deaths, assists, strings }) => {
   const kdaSum = kills + deaths + assists;
 
   return (
     <KDAContainer>
-      <TitleContainer style={{ marginLeft: '10px' }}>
-        {kills}
-      </TitleContainer>
+      <TitleContainer style={{ marginLeft: '10px' }}>{kills}</TitleContainer>
       <KDAPercentContainer
         data-hint={`${strings.th_kda}: ${Number(((kills + assists) / (deaths + 1)).toFixed(2))}`}
         data-hint-position="top"
       >
-        <div style={{ width: `${(kills * 100) / kdaSum}%`, backgroundColor: constants.colorGreen }} />
-        <div style={{ width: `${(deaths * 100) / kdaSum}%`, backgroundColor: constants.colorRed }} />
-        <div style={{ width: `${(assists * 100) / kdaSum}%`, backgroundColor: constants.colorBlueGray }} />
+        <div
+          style={{
+            width: `${(kills * 100) / kdaSum}%`,
+            backgroundColor: constants.colorGreen,
+          }}
+        />
+        <div
+          style={{
+            width: `${(deaths * 100) / kdaSum}%`,
+            backgroundColor: constants.colorRed,
+          }}
+        />
+        <div
+          style={{
+            width: `${(assists * 100) / kdaSum}%`,
+            backgroundColor: constants.colorBlueGray,
+          }}
+        />
       </KDAPercentContainer>
     </KDAContainer>
   );
@@ -35,7 +46,7 @@ KDA.propTypes = {
   strings: shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

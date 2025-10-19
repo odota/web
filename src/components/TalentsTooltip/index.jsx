@@ -7,8 +7,8 @@ import LevelGroup from './LevelGroup';
 
 const Wrapper = styled.div`
   .__react_component_tooltip {
-  opacity: 1 !important;
-  padding: 0px !important;
+    opacity: 1 !important;
+    padding: 0px !important;
   }
 `;
 
@@ -47,10 +47,7 @@ const TalentsTooltip = ({ talents, ttId }) => (
 );
 
 TalentsTooltip.propTypes = {
-  talents: propTypes.oneOfType([
-    propTypes.object,
-    propTypes.array,
-  ]).isRequired,
+  talents: propTypes.oneOfType([propTypes.object, propTypes.array]).isRequired,
   ttId: propTypes.string.isRequired,
 };
 

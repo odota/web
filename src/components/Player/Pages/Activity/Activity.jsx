@@ -9,10 +9,13 @@ const defaultOptions = {
   limit: null,
 };
 
-const Activity = ({
-  error, loading, strings, data,
-}) => (
-  <Container title={strings.tab_activity} subtitle={strings.activity_subtitle} error={error} loading={loading}>
+const Activity = ({ error, loading, strings, data }) => (
+  <Container
+    title={strings.tab_activity}
+    subtitle={strings.activity_subtitle}
+    error={error}
+    loading={loading}
+  >
     <ActivityCalendar strings={strings} data={data} />
   </Container>
 );
@@ -55,19 +58,16 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.app.playerMatches.data,
   loading: state.app.playerMatches.loading,
   error: state.app.playerMatches.error,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getPlayerMatches: (playerId, options = defaultOptions) =>
     dispatch(getPlayerMatches(playerId, options)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

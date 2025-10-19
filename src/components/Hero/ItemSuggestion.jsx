@@ -8,7 +8,8 @@ import { getHeroItemSuggestions } from '../../actions';
 import TableSkeleton from '../Skeletons/TableSkeleton';
 
 function ItemsSuggestion(props) {
-  const displayFn = (row, col, i) => Object.keys(i).map(itemId => inflictorWithValue(itemIds[itemId]));
+  const displayFn = (row, col, i) =>
+    Object.keys(i).map((itemId) => inflictorWithValue(itemIds[itemId]));
 
   const { onGetHeroItemSuggestions, match } = props;
   useEffect(() => {
@@ -40,7 +41,11 @@ function ItemsSuggestion(props) {
     },
   ];
   const itemsPopularityData = props.data;
-  return props.isLoading ? <TableSkeleton /> : <Table data={itemsPopularityData} columns={itemSuggestionColumns} />;
+  return props.isLoading ? (
+    <TableSkeleton />
+  ) : (
+    <Table data={itemsPopularityData} columns={itemSuggestionColumns} />
+  );
 }
 
 ItemsSuggestion.propTypes = {
@@ -53,11 +58,9 @@ ItemsSuggestion.propTypes = {
 };
 
 const mapStateToProps = ({ app }) => ({
-    isLoading: app.heroItemSuggestions.loading,
-    data: Object.values(app.heroItemSuggestions.data),
-  }
-);
-
+  isLoading: app.heroItemSuggestions.loading,
+  data: Object.values(app.heroItemSuggestions.data),
+});
 
 const mapDispatchToProps = {
   onGetHeroItemSuggestions: getHeroItemSuggestions,

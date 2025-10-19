@@ -21,16 +21,17 @@ const StyledDiv = styled.div`
     }
 `;
 
-const isBestValueInMatch = players => (field, row, underline) => {
-  const values = players.map(player => player[field]);
-  const bestValue = underline === 'max' ? Math.max(...values) : Math.min(...values);
+const isBestValueInMatch = (players) => (field, row, underline) => {
+  const values = players.map((player) => player[field]);
+  const bestValue =
+    underline === 'max' ? Math.max(...values) : Math.min(...values);
 
   return bestValue === row[field];
 };
 
-const keyFn = row => row && row.player_slot + 1;
+const keyFn = (row) => row && row.player_slot + 1;
 
-const getHighlightFn = loggedInId => (row) => {
+const getHighlightFn = (loggedInId) => (row) => {
   const s = { style: {} };
   if (loggedInId && row.account_id === loggedInId) {
     if (row.player_slot < 5) {
@@ -43,8 +44,14 @@ const getHighlightFn = loggedInId => (row) => {
 };
 
 const filterMatchPlayers = (players, team = '') =>
-  players.filter(player =>
-    ((team === 'radiant' && isRadiant(player.player_slot)) || (team === 'dire' && !isRadiant(player.player_slot)) || team === '')).sort((a, b) => a.player_slot - b.player_slot);
+  players
+    .filter(
+      (player) =>
+        (team === 'radiant' && isRadiant(player.player_slot)) ||
+        (team === 'dire' && !isRadiant(player.player_slot)) ||
+        team === '',
+    )
+    .sort((a, b) => a.player_slot - b.player_slot);
 
 class TeamTable extends React.Component {
   static propTypes = {
@@ -81,15 +88,19 @@ class TeamTable extends React.Component {
 
   setTeamTableRef = (node) => {
     this.teamTableRef = node;
-  }
+  };
 
   addListeners() {
-    const tableCells = this.teamTableRef.querySelectorAll('td:not(.no-col-hover), th:not(.no-col-hover)');
+    const tableCells = this.teamTableRef.querySelectorAll(
+      'td:not(.no-col-hover), th:not(.no-col-hover)',
+    );
 
     for (let i = 0; i < tableCells.length; i += 1) {
       tableCells[i].onmouseenter = () => {
         const { cellIndex } = tableCells[i];
-        const rowCells = this.teamTableRef.querySelectorAll(`td:nth-child(${cellIndex + 1}), th:nth-child(${cellIndex + 1})`);
+        const rowCells = this.teamTableRef.querySelectorAll(
+          `td:nth-child(${cellIndex + 1}), th:nth-child(${cellIndex + 1})`,
+        );
         for (let j = 0; j < rowCells.length; j += 1) {
           rowCells[j].classList.add('col_highlight');
         }
@@ -97,7 +108,9 @@ class TeamTable extends React.Component {
 
       tableCells[i].onmouseleave = () => {
         const { cellIndex } = tableCells[i];
-        const rowCells = this.teamTableRef.querySelectorAll(`td:nth-child(${cellIndex + 1}), th:nth-child(${cellIndex + 1})`);
+        const rowCells = this.teamTableRef.querySelectorAll(
+          `td:nth-child(${cellIndex + 1}), th:nth-child(${cellIndex + 1})`,
+        );
         for (let j = 0; j < rowCells.length; j += 1) {
           rowCells[j].classList.remove('col_highlight');
         }
@@ -138,7 +151,7 @@ class TeamTable extends React.Component {
     };
 
     return (
-      <StyledDiv ref={this.setTeamTableRef} >
+      <StyledDiv ref={this.setTeamTableRef}>
         <Heading
           title={`${getTeamName(radiantTeam, true)} - ${heading}`}
           buttonLabel={buttonLabel || ''}
@@ -147,15 +160,42 @@ class TeamTable extends React.Component {
           winner={!hideWinnerTag && radiantWin}
         />
         <div className="teamtable teamtable-radiant">
-          <Table data={filterMatchPlayers(players, 'radiant')} {...tableProps} />
+          <Table
+            data={filterMatchPlayers(players, 'radiant')}
+            {...tableProps}
+          />
         </div>
         {
-          gameMode === 22 ?
+          gameMode === 22 ? (
             <>
-              {picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 0 && pb.is_pick)} /> /* team 0 - radiant */}
-              {picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 0 && !pb.is_pick)} /> /* team 0 - radiant */}
+              {
+                picksBans && picksBans.length > 0 && (
+                  <PicksBans
+                    gameMode={gameMode}
+                    data={picksBans.filter((pb) => pb.team === 0 && pb.is_pick)}
+                  />
+                ) /* team 0 - radiant */
+              }
+              {
+                picksBans && picksBans.length > 0 && (
+                  <PicksBans
+                    gameMode={gameMode}
+                    data={picksBans.filter(
+                      (pb) => pb.team === 0 && !pb.is_pick,
+                    )}
+                  />
+                ) /* team 0 - radiant */
+              }
             </>
-            : picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 0)} /> /* team 0 - radiant */
+          ) : (
+            picksBans &&
+            picksBans.length > 0 && (
+              <PicksBans
+                gameMode={gameMode}
+                data={picksBans.filter((pb) => pb.team === 0)}
+              />
+            )
+          ) /* team 0 - radiant */
         }
         <Heading
           title={`${getTeamName(direTeam, false)} - ${heading}`}
@@ -165,21 +205,46 @@ class TeamTable extends React.Component {
           <Table data={filterMatchPlayers(players, 'dire')} {...tableProps} />
         </div>
         {
-          gameMode === 22 ?
+          gameMode === 22 ? (
             <>
-              {picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 1 && pb.is_pick)} /> /* team 1 - dire */}
-              {picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 1 && !pb.is_pick)} /> /* team 1 - dire */}
+              {
+                picksBans && picksBans.length > 0 && (
+                  <PicksBans
+                    gameMode={gameMode}
+                    data={picksBans.filter((pb) => pb.team === 1 && pb.is_pick)}
+                  />
+                ) /* team 1 - dire */
+              }
+              {
+                picksBans && picksBans.length > 0 && (
+                  <PicksBans
+                    gameMode={gameMode}
+                    data={picksBans.filter(
+                      (pb) => pb.team === 1 && !pb.is_pick,
+                    )}
+                  />
+                ) /* team 1 - dire */
+              }
             </>
-            : picksBans && picksBans.length > 0 && <PicksBans gameMode={gameMode} data={picksBans.filter(pb => pb.team === 1)} /> /* team 1 - dire */
+          ) : (
+            picksBans &&
+            picksBans.length > 0 && (
+              <PicksBans
+                gameMode={gameMode}
+                data={picksBans.filter((pb) => pb.team === 1)}
+              />
+            )
+          ) /* team 1 - dire */
         }
       </StyledDiv>
     );
   }
 }
 
-
-const mapStateToProps = state => ({
-  loggedInId: state.app.metadata.data.user ? state.app.metadata.data.user.account_id : null,
+const mapStateToProps = (state) => ({
+  loggedInId: state.app.metadata.data.user
+    ? state.app.metadata.data.user.account_id
+    : null,
 });
 
 export default connect(mapStateToProps)(TeamTable);

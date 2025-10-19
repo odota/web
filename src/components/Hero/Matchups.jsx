@@ -21,7 +21,7 @@ const HeroWrapper = styled.div`
 const getMatchupsColumns = (heroes, strings) => {
   // Optimization from O(n^2) to O(n + 1);
   const heroMap = new Map();
-  heroes.forEach(hero => heroMap.set(hero.id, hero));
+  heroes.forEach((hero) => heroMap.set(hero.id, hero));
 
   return [
     {
@@ -32,7 +32,11 @@ const getMatchupsColumns = (heroes, strings) => {
 
         return (
           <HeroWrapper>
-            <HeroImage key={field} alt={hero.localized_name} src={config.VITE_IMAGE_CDN + hero.img} />
+            <HeroImage
+              key={field}
+              alt={hero.localized_name}
+              src={config.VITE_IMAGE_CDN + hero.img}
+            />
             <TableLink to={`/heroes/${field}`}>{hero.localized_name}</TableLink>
           </HeroWrapper>
         );
@@ -69,15 +73,19 @@ class Matchups extends React.Component {
         heroId: string,
       }),
     }),
-    data: arrayOf(shape({
-      hero_id: number,
-      games_played: number,
-      wins: number,
-    })),
-    heroes: arrayOf(shape({
-      localized_name: string,
-      img: string,
-    })),
+    data: arrayOf(
+      shape({
+        hero_id: number,
+        games_played: number,
+        wins: number,
+      }),
+    ),
+    heroes: arrayOf(
+      shape({
+        localized_name: string,
+        img: string,
+      }),
+    ),
     onGetHeroMatchups: func,
     strings: shape({}),
   };
@@ -93,13 +101,25 @@ class Matchups extends React.Component {
   renderTable() {
     const { heroes, data, strings } = this.props;
 
-    const preparedData = data.map(item => ({
-      ...item,
-      win_rate: Math.max(0, Math.min(100, (item.wins / item.games_played * 100).toFixed(2))),
-      advantage: Math.round(wilsonScore(item.wins, item.games_played - item.wins) * 100),
-    })).sort((a, b) => b.games_played - a.games_played);
+    const preparedData = data
+      .map((item) => ({
+        ...item,
+        win_rate: Math.max(
+          0,
+          Math.min(100, ((item.wins / item.games_played) * 100).toFixed(2)),
+        ),
+        advantage: Math.round(
+          wilsonScore(item.wins, item.games_played - item.wins) * 100,
+        ),
+      }))
+      .sort((a, b) => b.games_played - a.games_played);
 
-    return <Table data={preparedData} columns={getMatchupsColumns(heroes, strings)} />;
+    return (
+      <Table
+        data={preparedData}
+        columns={getMatchupsColumns(heroes, strings)}
+      />
+    );
   }
 
   render() {

@@ -4,20 +4,34 @@ import Heading from '../Heading';
 import Error from '../Error';
 import ContainerSkeleton from '../Skeletons/ContainerSkeleton';
 
-const {
-  bool, node, string, shape, number,
-} = PropTypes;
+const { bool, node, string, shape, number } = PropTypes;
 
 const Container = ({
-  title, subtitle, style, className, children, error, loading, hide, titleTo, loaderWidth, loaderHeight,
-}) => (!hide ? (
-  <div className={className} style={{ ...style }}>
-    {title && <Heading title={title} subtitle={subtitle} titleTo={titleTo} />}
-    {error && <Error />}
-    {!error && loading && <ContainerSkeleton width={loaderWidth || 400} height={loaderHeight || 160} />}
-    {!error && !loading && children}
-  </div>
-) : null);
+  title,
+  subtitle,
+  style,
+  className,
+  children,
+  error,
+  loading,
+  hide,
+  titleTo,
+  loaderWidth,
+  loaderHeight,
+}) =>
+  !hide ? (
+    <div className={className} style={{ ...style }}>
+      {title && <Heading title={title} subtitle={subtitle} titleTo={titleTo} />}
+      {error && <Error />}
+      {!error && loading && (
+        <ContainerSkeleton
+          width={loaderWidth || 400}
+          height={loaderHeight || 160}
+        />
+      )}
+      {!error && !loading && children}
+    </div>
+  ) : null;
 
 Container.propTypes = {
   title: string,

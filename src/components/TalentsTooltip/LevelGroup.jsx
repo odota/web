@@ -9,7 +9,12 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  background: linear-gradient(to right,rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.05));
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.05),
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.05)
+  );
   border-radius: 2px;
   min-height: 40px;
 
@@ -23,7 +28,7 @@ const Level = styled.div`
   border-radius: 50%;
   color: ${constants.colorGolden};
   text-shadow: 0 0 5px ${constants.colorGolden};
-  background-color: #080D15;
+  background-color: #080d15;
   box-shadow: 0 0 10px #b79a00;
   display: flex;
   flex: 0 0 24px;
@@ -63,10 +68,7 @@ const LevelGroup = ({ talents, level }) => (
 
 LevelGroup.propTypes = {
   level: propTypes.string.isRequired,
-  talents: propTypes.oneOfType([
-    propTypes.object,
-    propTypes.array,
-  ]).isRequired,
+  talents: propTypes.oneOfType([propTypes.object, propTypes.array]).isRequired,
 };
 
 export default LevelGroup;

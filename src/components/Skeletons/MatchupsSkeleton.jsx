@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const MatchupsSkeleton = props => (
+const MatchupsSkeleton = (props) => (
   <ContentLoader
     primaryColor="#666"
     secondaryColor="#ecebeb"

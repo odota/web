@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import TableHeaderColumn from './TableHeaderColumn';
 
 const TableHeader = ({
-  columns, sortState, sortField, sortClick, totalWidth, setHighlightedCol,
+  columns,
+  sortState,
+  sortField,
+  sortClick,
+  totalWidth,
+  setHighlightedCol,
 }) => (
   <tr>
     {columns.map((column, index) => (

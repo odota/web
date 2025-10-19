@@ -6,14 +6,13 @@ import Table from '../../../Table';
 import Container from '../../../Container';
 import playerMatchesColumns from './playerMatchesColumns';
 
-const Matches = ({
-  data,
-  error,
-  loading,
-  strings,
-}) => (
+const Matches = ({ data, error, loading, strings }) => (
   <Container title={strings.heading_matches} error={error} loading={loading}>
-    <Table paginated columns={playerMatchesColumns(strings, true)} data={data} />
+    <Table
+      paginated
+      columns={playerMatchesColumns(strings, true)}
+      data={data}
+    />
   </Container>
 );
 Matches.propTypes = {
@@ -34,14 +33,17 @@ class RequestLayer extends React.Component {
     }),
     playerId: PropTypes.string,
     strings: PropTypes.shape({}),
-  }
+  };
 
   componentDidMount() {
     getData(this.props);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
+    if (
+      this.props.playerId !== prevProps.playerId ||
+      this.props.location.key !== prevProps.location.key
+    ) {
       getData(this.props);
     }
   }
@@ -55,15 +57,16 @@ const defaultOptions = {
   limit: null,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.app.playerMatches.data,
   loading: state.app.playerMatches.loading,
   error: state.app.playerMatches.error,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getPlayerMatches: (playerId, options = defaultOptions) => dispatch(getPlayerMatches(playerId, options)),
+const mapDispatchToProps = (dispatch) => ({
+  getPlayerMatches: (playerId, options = defaultOptions) =>
+    dispatch(getPlayerMatches(playerId, options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

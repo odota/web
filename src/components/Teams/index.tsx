@@ -3,7 +3,12 @@ import Helmet from 'react-helmet';
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
-import { getOrdinal, getTeamLogoUrl, fromNow, subTextStyle } from '../../utility';
+import {
+  getOrdinal,
+  getTeamLogoUrl,
+  fromNow,
+  subTextStyle,
+} from '../../utility';
 import { getTeams } from '../../actions';
 import Heading from '../Heading';
 import Team from '../Team';
@@ -63,7 +68,8 @@ interface RequestLayerProps {
 const columns = (strings: Strings) => [
   {
     displayName: strings.th_rank,
-    displayFn: (row: TeamRow, col: number, field: any, index: number) => getOrdinal(index + 1),
+    displayFn: (row: TeamRow, col: number, field: any, index: number) =>
+      getOrdinal(index + 1),
   },
   {
     displayName: strings.th_name,
@@ -76,7 +82,7 @@ const columns = (strings: Strings) => [
         />
         <div>
           <TableLink to={`/teams/${row.team_id}`}>{field}</TableLink>
-          <span style={{ display: "block", marginTop: 1 }}>
+          <span style={{ display: 'block', marginTop: 1 }}>
             {fromNow(row.last_match_time)}
           </span>
         </div>
@@ -128,21 +134,39 @@ class RequestLayer extends React.Component<RequestLayerProps> {
               href="https://rivalry.com/opendota"
               target="_blank"
               rel="noopener noreferrer"
-              startIcon={<img src="/assets/images/rivalry-icon.png" alt="" height="24px" />}
+              startIcon={
+                <img
+                  src="/assets/images/rivalry-icon.png"
+                  alt=""
+                  height="24px"
+                />
+              }
             >
               {strings.app_rivalry}
             </Button>
           )}
         </div>
-        <Heading title={strings.heading_team_elo_rankings} subtitle={strings.subheading_team_elo_rankings} className="top-heading" />
-        <Table columns={columns(strings)} data={data.slice(0, 100)} loading={loading} />
+        <Heading
+          title={strings.heading_team_elo_rankings}
+          subtitle={strings.subheading_team_elo_rankings}
+          className="top-heading"
+        />
+        <Table
+          columns={columns(strings)}
+          data={data.slice(0, 100)}
+          loading={loading}
+        />
       </div>
     );
   }
 }
 
 const mapStateToProps = (state: any) => ({
-  data: state.app.teams.data.filter((team: TeamRow) => team.last_match_time > ((new Date().getTime() / 1000) - (60 * 60 * 24 * 30 * 6))),
+  data: state.app.teams.data.filter(
+    (team: TeamRow) =>
+      team.last_match_time >
+      new Date().getTime() / 1000 - 60 * 60 * 24 * 30 * 6,
+  ),
   loading: state.app.teams.loading,
   strings: state.app.strings,
 });

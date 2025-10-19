@@ -6,18 +6,26 @@ import { getPlayerMmr } from '../../../../actions';
 import Container from '../../../Container';
 import Info from '../../../Alerts/Info';
 
-const MMRInfo = strings => (
+const MMRInfo = (strings) => (
   <Info>
-    <a href="https://blog.opendota.com/2016/01/13/opendota-mmr-and-you/" target="_blank" rel="noopener noreferrer">
+    <a
+      href="https://blog.opendota.com/2016/01/13/opendota-mmr-and-you/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       {strings.mmr_not_up_to_date}
     </a>
-  </Info>);
+  </Info>
+);
 
-const MMR = ({
-  columns, error, loading, strings,
-}) => (
+const MMR = ({ columns, error, loading, strings }) => (
   <div>
-    <Container title={strings.heading_mmr} subtitle={MMRInfo(strings)} error={error} loading={loading}>
+    <Container
+      title={strings.heading_mmr}
+      subtitle={MMRInfo(strings)}
+      error={error}
+      loading={loading}
+    >
       <MMRGraph columns={columns} />
     </Container>
   </div>
@@ -30,7 +38,6 @@ MMR.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-
 const getData = (props) => {
   props.getPlayerMmr(props.playerId, props.location.search);
 };
@@ -42,14 +49,17 @@ class RequestLayer extends React.Component {
     }),
     playerId: PropTypes.string,
     strings: PropTypes.shape({}),
-  }
+  };
 
   componentDidMount() {
     getData(this.props);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
+    if (
+      this.props.playerId !== prevProps.playerId ||
+      this.props.location.key !== prevProps.location.key
+    ) {
       getData(this.props);
     }
   }
@@ -59,8 +69,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   columns: state.app.playerMmr.data,
   loading: state.app.playerMmr.loading,
   error: state.app.playerMmr.error,

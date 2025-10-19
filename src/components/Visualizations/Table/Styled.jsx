@@ -41,13 +41,12 @@ export const PercentContainer = styled.div`
 export const SparklineContainer = styled.div`
   overflow: visible !important;
   pointer-events: auto !important;
-
 `;
 
 export const KDAPercentContainer = styled(PercentContainer)`
   display: flex;
 
-  &[data-hint-position="top"] {
+  &[data-hint-position='top'] {
     &::before {
       top: -8px;
       margin-left: 10px;

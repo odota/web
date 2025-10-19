@@ -23,7 +23,7 @@ class RequestLayer extends React.Component {
     getMatch: PropTypes.func,
     matchId: PropTypes.string,
     strings: PropTypes.shape({}),
-  }
+  };
 
   componentDidMount() {
     this.props.getMatch(this.props.matchId);
@@ -36,35 +36,35 @@ class RequestLayer extends React.Component {
   }
 
   render() {
-    const {
-      loading, matchId, matchData, error, strings, match, user,
-    } = this.props;
+    const { loading, matchId, matchData, error, strings, match, user } =
+      this.props;
     const info = match.params.info || 'overview';
-    const page = matchPages(matchId, null, strings).find(_page => _page.key.toLowerCase() === info);
+    const page = matchPages(matchId, null, strings).find(
+      (_page) => _page.key.toLowerCase() === info,
+    );
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
     if (error && !loading) {
       return <FourOhFour msg={strings.request_invalid_match_id} />;
     }
-    return loading ? <List primaryColor="#666" width={250} height={120} /> :
-      (
-        <div>
-          <Helmet title={pageTitle} />
-          <MatchHeader
-            match={matchData}
-            user={user}
-          />
-          <TabbedContent
-            info={info}
-            tabs={matchPages(matchId, matchData, strings)}
-            match={matchData}
-            content={page && page.content(matchData)}
-            skeleton={page && page.skeleton}
-          />
-        </div>);
+    return loading ? (
+      <List primaryColor="#666" width={250} height={120} />
+    ) : (
+      <div>
+        <Helmet title={pageTitle} />
+        <MatchHeader match={matchData} user={user} />
+        <TabbedContent
+          info={info}
+          tabs={matchPages(matchId, matchData, strings)}
+          match={matchData}
+          content={page && page.content(matchData)}
+          skeleton={page && page.skeleton}
+        />
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   matchData: state.app.match.data,
   loading: state.app.match.loading,
   error: state.app.match.error,
@@ -72,8 +72,8 @@ const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getMatch: matchId => dispatch(getMatch(matchId)),
+const mapDispatchToProps = (dispatch) => ({
+  getMatch: (matchId) => dispatch(getMatch(matchId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

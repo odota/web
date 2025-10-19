@@ -1,41 +1,41 @@
 import React from 'react';
 
-export default props => (
+export default (props) => (
   // Generated with vectorizer.ai
-  <svg viewBox='0.00 0.00 46.00 46.00' {...props}>
-    <g strokeWidth='2.00' fill='none' strokeLinecap='butt'>
+  <svg viewBox="0.00 0.00 46.00 46.00" {...props}>
+    <g strokeWidth="2.00" fill="none" strokeLinecap="butt">
       <path
-        stroke='#898f1b'
-        vectorEffect='non-scaling-stroke'
-        d='
+        stroke="#898f1b"
+        vectorEffect="non-scaling-stroke"
+        d="
 M 43.94 24.25
-L 40.55 21.73'
+L 40.55 21.73"
       />
       <path
-        stroke='#898f1b'
-        vectorEffect='non-scaling-stroke'
-        d='
+        stroke="#898f1b"
+        vectorEffect="non-scaling-stroke"
+        d="
 M 23.35 22.02
-L 23.27 22.55'
+L 23.27 22.55"
       />
       <path
-        stroke='#13dd8e'
-        vectorEffect='non-scaling-stroke'
-        d='
+        stroke="#13dd8e"
+        vectorEffect="non-scaling-stroke"
+        d="
 M 13.16 8.28
-Q 13.58 5.86 12.88 4.62'
+Q 13.58 5.86 12.88 4.62"
       />
       <path
-        stroke='#768b79'
-        vectorEffect='non-scaling-stroke'
-        d='
+        stroke="#768b79"
+        vectorEffect="non-scaling-stroke"
+        d="
 M 15.31 38.70
-L 11.52 40.56'
+L 11.52 40.56"
       />
     </g>
     <path
-      fill='#26e030'
-      d='
+      fill="#26e030"
+      d="
   M 43.94 24.25
   L 40.55 21.73
   Q 39.61 13.59 33.10 8.64
@@ -70,11 +70,11 @@ L 11.52 40.56'
   A 20.98 20.95 35.9 0 1 26.91 2.39
   A 21.03 21.01 77.7 0 1 40.12 10.87
   A 21.00 20.99 29.1 0 1 43.94 24.25
-  Z'
+  Z"
     />
     <path
-      fill='#00d9ec'
-      d='
+      fill="#00d9ec"
+      d="
   M 12.88 4.62
   Q 13.58 5.86 13.16 8.28
   C 8.81 12.28 6.26 15.31 5.58 21.08
@@ -108,11 +108,11 @@ L 11.52 40.56'
   L 11.52 40.56
   A 20.98 20.97 -61.3 0 1 3.88 14.38
   A 20.98 20.96 -2.3 0 1 12.88 4.62
-  Z'
+  Z"
     />
     <path
-      fill='#ec3d06'
-      d='
+      fill="#ec3d06"
+      d="
   M 40.55 21.73
   L 43.94 24.25
   A 20.98 20.98 0.0 0 1 27.95 43.39
@@ -143,7 +143,7 @@ L 11.52 40.56'
   L 23.35 22.02
   C 24.84 21.83 26.10 20.87 27.32 20.51
   Q 34.09 18.50 40.55 21.73
-  Z'
+  Z"
     />
   </svg>
 );

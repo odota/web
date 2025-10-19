@@ -10,7 +10,7 @@ import constants from '../constants';
 import HeroImage from '../Visualizations/HeroImage';
 
 const Dummy = styled.div`
-  height:30px;
+  height: 30px;
   width: 150px;
   background: linear-gradient(to right, rgba(255, 255, 255, 0.1), transparent);
 `;
@@ -45,13 +45,13 @@ const arrowStyle = {
 
 const processCasts = (uses, targets) => {
   const field = {};
-  Object.keys(uses).forEach(((ability) => {
+  Object.keys(uses).forEach((ability) => {
     if (targets[ability]) {
       field[ability] = { ...targets[ability], totalCasts: uses[ability] };
     } else {
       field[ability] = { null: uses[ability] };
     }
-  }));
+  });
   return field;
 };
 
@@ -71,7 +71,10 @@ const damageTargetIcons = (t) => {
           data-tip
           data-for={`${hero.localized_name}`}
         >
-          <span id="targetvalue" style={dmgTargetValueStyle}>{`${abbreviateNumber(t[target])}`}</span>
+          <span
+            id="targetvalue"
+            style={dmgTargetValueStyle}
+          >{`${abbreviateNumber(t[target])}`}</span>
           <HeroImage
             id={hero.id}
             isIcon
@@ -95,8 +98,9 @@ const damageTargetIcons = (t) => {
         flexWrap: 'wrap',
       }}
     >
-      {targets.sort((a, b) => b[1] - a[1]).map(x => x[0])}
-    </div>);
+      {targets.sort((a, b) => b[1] - a[1]).map((x) => x[0])}
+    </div>
+  );
 };
 
 const TargetsBreakdown = ({ field, abilityUses = null }) => {
@@ -113,23 +117,27 @@ const TargetsBreakdown = ({ field, abilityUses = null }) => {
     }
     const r = [];
     Object.keys(f).forEach((inflictor) => {
-      const valueOverall = f[inflictor].totalCasts ? f[inflictor].totalCasts : sumValues(f[inflictor]);
-      r.push((
+      const valueOverall = f[inflictor].totalCasts
+        ? f[inflictor].totalCasts
+        : sumValues(f[inflictor]);
+      r.push(
         <div style={{ display: 'flex' }}>
           <StyledDmgTargetInflictor id="target">
-              {inflictorWithValue(inflictor, abbreviateNumber(valueOverall))}
+            {inflictorWithValue(inflictor, abbreviateNumber(valueOverall))}
           </StyledDmgTargetInflictor>
           <NavigationArrowForward style={arrowStyle} />
-          {!f[inflictor].null ?
-            damageTargetIcons(f[inflictor]) : <Dummy />
-          }
-        </div>
-      ));
+          {!f[inflictor].null ? damageTargetIcons(f[inflictor]) : <Dummy />}
+        </div>,
+      );
     });
     return (
       <StyledDmgTargetRow>
         <div>
-          {r.map(row => <div style={{ display: 'flex', flexDirection: 'column' }} id="row">{row}</div>)}
+          {r.map((row) => (
+            <div style={{ display: 'flex', flexDirection: 'column' }} id="row">
+              {row}
+            </div>
+          ))}
         </div>
       </StyledDmgTargetRow>
     );

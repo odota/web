@@ -10,48 +10,48 @@ import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
 
 const Styled = styled.div`
-.container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.textSuccess {
-  color: ${constants.colorGreen}
-}
-
-.textDanger {
-  color: ${constants.colorRed}
-}
-
-.icon {
-  fill: ${constants.colorMutedLight} !important;
-}
-
-.estimateHelp {
-  display: inline-block;
-  position: relative;
-
-  & svg {
-    width: 16px !important;
-    height: 16px !important;
-    margin-left: 5px;
-    position: absolute;
-    margin-top: -13px;
+  .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
-  &[data-hint-position="top"] {
-    &::after {
-      margin-bottom: 19px;
-      margin-left: -2px;
+  .textSuccess {
+    color: ${constants.colorGreen};
+  }
+
+  .textDanger {
+    color: ${constants.colorRed};
+  }
+
+  .icon {
+    fill: ${constants.colorMutedLight} !important;
+  }
+
+  .estimateHelp {
+    display: inline-block;
+    position: relative;
+
+    & svg {
+      width: 16px !important;
+      height: 16px !important;
+      margin-left: 5px;
+      position: absolute;
+      margin-top: -13px;
     }
 
-    &::before {
-      top: -19px;
-      margin-left: 7px;
+    &[data-hint-position='top'] {
+      &::after {
+        margin-bottom: 19px;
+        margin-left: -2px;
+      }
+
+      &::before {
+        top: -19px;
+        margin-left: 7px;
+      }
     }
   }
-}
 `;
 
 export const PlayerStatsCards = ({
@@ -83,7 +83,11 @@ export const PlayerStatsCards = ({
             title={strings.th_losses}
           />
           <PlayerStatsCard
-            subtitle={wins + losses ? `${((wins / (wins + losses)) * 100).toFixed(2)}%` : strings.abbr_not_available}
+            subtitle={
+              wins + losses
+                ? `${((wins / (wins + losses)) * 100).toFixed(2)}%`
+                : strings.abbr_not_available
+            }
             title={strings.th_winrate}
           />
           <PlayedWith loggedInId={loggedInId} playerId={playerId} />
@@ -93,9 +97,7 @@ export const PlayerStatsCards = ({
   );
 };
 
-const {
-  number, bool, shape, string,
-} = PropTypes;
+const { number, bool, shape, string } = PropTypes;
 
 PlayerStatsCards.propTypes = {
   loading: bool,
@@ -108,7 +110,7 @@ PlayerStatsCards.propTypes = {
   strings: shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loading: state.app.playerWinLoss.loading,
   error: state.app.player.error,
   wins: state.app.playerWinLoss.data.win,

@@ -147,4 +147,5 @@ export default [
   {
     id: 'ad',
     style: { top: '9%', left: '84%' },
-  }];
+  },
+];

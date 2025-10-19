@@ -6,11 +6,13 @@ import Table from '../../../Table';
 import Container from '../../../Container';
 import playerProsColumns from './playerProsColumns';
 
-const Pros = ({
-  data, playerId, error, loading, strings,
-}) => (
+const Pros = ({ data, playerId, error, loading, strings }) => (
   <Container title={strings.heading_pros} error={error} loading={loading}>
-    <Table paginated columns={playerProsColumns(playerId, strings)} data={data} />
+    <Table
+      paginated
+      columns={playerProsColumns(playerId, strings)}
+      data={data}
+    />
   </Container>
 );
 
@@ -33,14 +35,17 @@ class RequestLayer extends React.Component {
     }),
     playerId: PropTypes.string,
     strings: PropTypes.shape({}),
-  }
+  };
 
   componentDidMount() {
     getData(this.props);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
+    if (
+      this.props.playerId !== prevProps.playerId ||
+      this.props.location.key !== prevProps.location.key
+    ) {
       getData(this.props);
     }
   }
@@ -50,11 +55,12 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  getPlayerPros: (playerId, options) => dispatch(getPlayerPros(playerId, options)),
+const mapDispatchToProps = (dispatch) => ({
+  getPlayerPros: (playerId, options) =>
+    dispatch(getPlayerPros(playerId, options)),
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.app.playerPros.data,
   error: state.app.playerPros.error,
   loading: state.app.playerPros.loading,

@@ -15,78 +15,78 @@ import Heading from '../../Heading';
 import config from '../../../config';
 
 const Styled = styled.div`
-.visionLog {
-  margin-top: 30px;
-}
+  .visionLog {
+    margin-top: 30px;
+  }
 
-.visionSliderText {
-  text-align: center;
-  width: 200px;
-  margin: 5px auto;
-  text-transform: uppercase;
-  color: ${constants.colorMutedLight};
-}
+  .visionSliderText {
+    text-align: center;
+    width: 200px;
+    margin: 5px auto;
+    text-transform: uppercase;
+    color: ${constants.colorMutedLight};
+  }
 
-.sliderTicks {
-  position: relative;
-  height: 30px;
-  margin-top: 33px;
-  margin-bottom: -33px;
-  font-size: ${constants.fontSizeTiny};
-  border-color: ${constants.sliderTicksColor};
-  color: ${constants.sliderTicksColor};
+  .sliderTicks {
+    position: relative;
+    height: 30px;
+    margin-top: 33px;
+    margin-bottom: -33px;
+    font-size: ${constants.fontSizeTiny};
+    border-color: ${constants.sliderTicksColor};
+    color: ${constants.sliderTicksColor};
 
-  & .sliderTick {
-    position: absolute;
-    display: inline-block;
-    height: 100%;
-    padding: 0 0.4em;
-    border-width: 0;
-    border-color: inherit;
-    border-style: solid;
-    border-left-width: 1px;
-    cursor: pointer;
-    transition: color 150ms ease, border-color 150ms ease;
+    & .sliderTick {
+      position: absolute;
+      display: inline-block;
+      height: 100%;
+      padding: 0 0.4em;
+      border-width: 0;
+      border-color: inherit;
+      border-style: solid;
+      border-left-width: 1px;
+      cursor: pointer;
+      transition:
+        color 150ms ease,
+        border-color 150ms ease;
 
-    &.active {
-      border-color: ${constants.sliderTicksColorActive};
-      color: ${constants.sliderTicksColorActive};
+      &.active {
+        border-color: ${constants.sliderTicksColorActive};
+        color: ${constants.sliderTicksColorActive};
+      }
     }
   }
-}
 
-.visionFilter {
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 50px -0.5rem 0;
-
-  & .tableWrapper {
+  .visionFilter {
     box-sizing: border-box;
-    flex-basis: 50%;
-    max-width: 50%;
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 50px -0.5rem 0;
 
-    @media only screen and (max-width: 1024px) {
-      flex-basis: 100%;
-      max-width: 100%;
+    & .tableWrapper {
+      box-sizing: border-box;
+      flex-basis: 50%;
+      max-width: 50%;
+      padding-right: 0.5rem;
+      padding-left: 0.5rem;
+
+      @media only screen and (max-width: 1024px) {
+        flex-basis: 100%;
+        max-width: 100%;
+      }
+    }
+
+    & table th > div {
+      text-align: left !important;
+    }
+
+    & table td > img {
+      margin-left: -2px;
     }
   }
-
-  & table th > div {
-    text-align: left !important;
-  }
-
-  & table td > img {
-    margin-left: -2px;
-  }
-}
 `;
 /* eslint-disable jsx-a11y/anchor-is-valid */
-const SliderTicks = ({
-  ticks, onTickClick, value, min, max,
-}) => (
+const SliderTicks = ({ ticks, onTickClick, value, min, max }) => (
   <Styled>
     <div className="sliderTicks">
       {ticks.map((tick) => {
@@ -123,7 +123,9 @@ SliderTicks.propTypes = {
   max: PropTypes.number,
 };
 
-const alive = (ward, time) => time === -90 || (time > ward.entered.time && (!ward.left || time < ward.left.time));
+const alive = (ward, time) =>
+  time === -90 ||
+  (time > ward.entered.time && (!ward.left || time < ward.left.time));
 // const team = (ward, teams) => (teams.radiant && ward.player < 5) || (teams.dire && ward.player > 4);
 // Currently always return true for team since we're just using it as a mass select-deselect
 // const isTeam = () => true;
@@ -164,7 +166,9 @@ class Vision extends React.Component {
   onCheckAllWardsTeam(index, end) {
     const { players } = this.state;
     const [observer, sentry] = ['observer', 'sentry'];
-    const allWardsTeam = players[observer].slice(index, end).concat(players[sentry].slice(index, end));
+    const allWardsTeam = players[observer]
+      .slice(index, end)
+      .concat(players[sentry].slice(index, end));
     return !(allWardsTeam.indexOf(true) === -1);
   }
 
@@ -175,7 +179,14 @@ class Vision extends React.Component {
     const index = player < 5 ? 0 : 5;
     const end = index + 5;
     const newTeam = this.onCheckAllWardsTeam(index, end);
-    this.setState({ ...this.state, teams: { ...this.state.teams, [index === 0 ? 'radiant' : 'dire']: newTeam }, players: { ...this.state.players, [type]: newArray } });
+    this.setState({
+      ...this.state,
+      teams: {
+        ...this.state.teams,
+        [index === 0 ? 'radiant' : 'dire']: newTeam,
+      },
+      players: { ...this.state.players, [type]: newArray },
+    });
   }
 
   setTeam(team, value) {
@@ -187,24 +198,37 @@ class Vision extends React.Component {
       newPlayerObs[i] = value;
       newPlayerSentry[i] = value;
     }
-    const newState = { ...this.state, teams: { ...this.state.teams, [team]: value }, players: { observer: newPlayerObs, sentry: newPlayerSentry } };
+    const newState = {
+      ...this.state,
+      teams: { ...this.state.teams, [team]: value },
+      players: { observer: newPlayerObs, sentry: newPlayerSentry },
+    };
     this.setState(newState);
   }
 
   setTypeWard(index, ward) {
     const { players } = this.state;
     const end = index + 5;
-    const checked = (players[ward].slice(index, end).indexOf(true) !== -1);
+    const checked = players[ward].slice(index, end).indexOf(true) !== -1;
     for (let i = index; i < end; i += 1) {
       players[ward][i] = !checked;
     }
     const newTeam = this.onCheckAllWardsTeam(index, end);
-    const newState = { ...this.state, teams: { ...this.state.teams, [index === 0 ? 'radiant' : 'dire']: newTeam }, players };
+    const newState = {
+      ...this.state,
+      teams: {
+        ...this.state.teams,
+        [index === 0 ? 'radiant' : 'dire']: newTeam,
+      },
+      players,
+    };
     this.setState(newState);
   }
 
   checkedTypeWard(index, ward) {
-    return (this.state.players[ward].slice(index, index + 5).indexOf(true) !== -1);
+    return (
+      this.state.players[ward].slice(index, index + 5).indexOf(true) !== -1
+    );
   }
 
   computeTick() {
@@ -218,16 +242,16 @@ class Vision extends React.Component {
 
   visibleData() {
     const self = this;
-    const filter = ward => alive(ward, self.state.currentTick) && self.state.players[ward.type][ward.player];
+    const filter = (ward) =>
+      alive(ward, self.state.currentTick) &&
+      self.state.players[ward.type][ward.player];
 
     return this.props.match.wards_log.filter(filter);
   }
 
   render() {
     const visibleWards = this.visibleData();
-    const {
-      match, strings, sponsorIcon, sponsorURL,
-    } = this.props;
+    const { match, strings, sponsorIcon, sponsorURL } = this.props;
 
     return (
       <div>
@@ -237,18 +261,22 @@ class Vision extends React.Component {
           </div>
           <div style={{ flexGrow: '2' }}>
             <Heading
-              buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_vision : null}
+              buttonLabel={
+                config.VITE_ENABLE_GOSUAI ? strings.gosu_vision : null
+              }
               buttonTo={`${sponsorURL}Vision`}
               buttonIcon={sponsorIcon}
             />
             <div className="visionSliderText">
-              {this.state.currentTick === -90 ? strings.vision_all_time : formatSeconds(this.state.currentTick)}
+              {this.state.currentTick === -90
+                ? strings.vision_all_time
+                : formatSeconds(this.state.currentTick)}
             </div>
             <SliderTicks
               value={this.state.currentTick}
               min={this.sliderMin}
               max={this.sliderMax}
-              onTickClick={tick => this.handleViewportChange(tick)}
+              onTickClick={(tick) => this.handleViewportChange(tick)}
               ticks={this.ticks}
             />
             <Slider
@@ -269,7 +297,7 @@ class Vision extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

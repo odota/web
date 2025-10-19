@@ -6,22 +6,22 @@ import Spinner from '../Spinner';
 import useStrings from '../../hooks/useStrings.hook';
 
 const StyledFlatButton = styled(FlatButton)`
- min-width: 30px !important;
- & > div > span {
-   display: inline-block;
-   max-width: 90px;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   text-transform: none !important;
-   white-space: nowrap;
-   font-size: 16px !important;
-   padding-right: 10px !important;
-   padding-left: 0 !important;
- }
- display: flex;
+  min-width: 30px !important;
+  & > div > span {
+    display: inline-block;
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: none !important;
+    white-space: nowrap;
+    font-size: 16px !important;
+    padding-right: 10px !important;
+    padding-left: 0 !important;
+  }
+  display: flex;
 `;
 
-const LoggedIn = ({ playerId, style }: { playerId: number, style: any }) => {
+const LoggedIn = ({ playerId, style }: { playerId: number; style: any }) => {
   const strings = useStrings();
   if (!playerId) {
     return <Spinner color="#fff" size={0.5} />;

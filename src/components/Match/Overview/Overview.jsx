@@ -36,11 +36,11 @@ const Styled = styled.div`
 
 const Overview = (strings, gosuUrl, gosuIcon) => {
   const { overviewColumns, abilityColumns, abilityDraftColumns } = mcs(strings);
-  return ({
+  return {
     name: strings.tab_overview,
     key: 'overview',
     skeleton: true,
-    content: match => (
+    content: (match) => (
       <div>
         <TeamTable
           gameMode={match.game_mode}
@@ -58,16 +58,17 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
           customWidth={960}
           radiantWin={match.radiant_win}
         />
-        {match.game_mode === 18 &&
-        <AbilityDraftTable
-          players={match.players}
-          columns={abilityDraftColumns()}
-          heading={strings.heading_ability_draft}
-          picksBans={match.picks_bans}
-          radiantTeam={match.radiant_team}
-          direTeam={match.dire_team}
-          summable
-        />}
+        {match.game_mode === 18 && (
+          <AbilityDraftTable
+            players={match.players}
+            columns={abilityDraftColumns()}
+            heading={strings.heading_ability_draft}
+            picksBans={match.picks_bans}
+            radiantTeam={match.radiant_team}
+            direTeam={match.dire_team}
+            summable
+          />
+        )}
         <DeferredContainer>
           <Collapsible name="abilityBuilds" initialMaxHeight={800}>
             <AbilityBuildTable
@@ -91,7 +92,7 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
         </DeferredContainer>
       </div>
     ),
-  });
+  };
 };
 
 export default Overview;

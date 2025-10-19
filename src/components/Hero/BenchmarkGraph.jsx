@@ -33,7 +33,7 @@ const Title = styled.div`
   letter-spacing: 1px;
   margin: 24px 0;
   text-align: right;
-  text-shadow: 0 0 2px rgba(0, 0, 0, .3);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   text-transform: uppercase;
 `;
 
@@ -68,7 +68,13 @@ const BenchmarkGraph = ({ data }) => {
           }}
         >
           <defs>
-            <linearGradient id={`colorGraph-${graphId}`} x1="0" y1="0" x2="0" y2="1">
+            <linearGradient
+              id={`colorGraph-${graphId}`}
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="1"
+            >
               <stop offset="50%" stopColor={data.color} stopOpacity=".95" />
               <stop offset="100%" stopColor={data.color} stopOpacity="0" />
             </linearGradient>
@@ -76,8 +82,18 @@ const BenchmarkGraph = ({ data }) => {
           <CartesianGrid stroke="rgba(255, 255, 255, .1)" strokeDasharray="0" />
           <XAxis dataKey="Percentage" />
           <YAxis />
-          <Area dataKey="Value" name={data.title} stroke={data.color} strokeWidth="3" fill={`url(#colorGraph-${graphId})`} />
-          <Tooltip wrapperStyle={tooltipWrapperStyle} contentStyle={tooltipContentStyle} cursor={tooltipCursorStyle} />
+          <Area
+            dataKey="Value"
+            name={data.title}
+            stroke={data.color}
+            strokeWidth="3"
+            fill={`url(#colorGraph-${graphId})`}
+          />
+          <Tooltip
+            wrapperStyle={tooltipWrapperStyle}
+            contentStyle={tooltipContentStyle}
+            cursor={tooltipCursorStyle}
+          />
         </AreaChart>
       </ResponsiveContainer>
       <Title>{data.title}</Title>

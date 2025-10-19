@@ -39,10 +39,10 @@ const Facet = styled.div`
         padding: 15px;
       }
     }
-    
+
     & .description {
       padding: 15px;
-      background-color: #10171D;
+      background-color: #10171d;
     }
 
     & img {
@@ -52,7 +52,7 @@ const Facet = styled.div`
   }
 
   .color_Red_0 {
-    background: linear-gradient(to right, #9F3C3C, #4A2040);
+    background: linear-gradient(to right, #9f3c3c, #4a2040);
   }
 
   .color_Red_1 {
@@ -60,91 +60,97 @@ const Facet = styled.div`
   }
 
   .color_Red_2 {
-    background: linear-gradient(to right, #A3735E, #4F2A25);
+    background: linear-gradient(to right, #a3735e, #4f2a25);
   }
 
   .color_Yellow_0 {
-    background: linear-gradient(to right, #C8A45C, #6F3D21);
+    background: linear-gradient(to right, #c8a45c, #6f3d21);
   }
 
   .color_Yellow_1 {
-    background: linear-gradient(to right, #C6A158, #604928);
+    background: linear-gradient(to right, #c6a158, #604928);
   }
 
   .color_Yellow_2 {
-    background: linear-gradient(to right, #CAC194, #433828);
+    background: linear-gradient(to right, #cac194, #433828);
   }
 
   .color_Yellow_3 {
-    background: linear-gradient(to right, #C3A99A, #4D352B);
+    background: linear-gradient(to right, #c3a99a, #4d352b);
   }
 
   .color_Purple_0 {
-    background: linear-gradient(to right, #B57789, #412755);
+    background: linear-gradient(to right, #b57789, #412755);
   }
 
   .color_Purple_1 {
-    background: linear-gradient(to right, #9C70A4, #282752);
+    background: linear-gradient(to right, #9c70a4, #282752);
   }
 
   .color_Purple_2 {
-    background: linear-gradient(to right, #675CAE, #261C44);
+    background: linear-gradient(to right, #675cae, #261c44);
   }
 
   .color_Blue_0 {
-    background: linear-gradient(to right, #727CB2, #342D5B);
+    background: linear-gradient(to right, #727cb2, #342d5b);
   }
 
   .color_Blue_1 {
-    background: linear-gradient(to right, #547EA6, #2A385E);
+    background: linear-gradient(to right, #547ea6, #2a385e);
   }
 
   .color_Blue_2 {
-    background: linear-gradient(to right, #6BAEBC, #135459);
+    background: linear-gradient(to right, #6baebc, #135459);
   }
 
   .color_Blue_3 {
-    background: linear-gradient(to right, #94B5BA, #385B59);
+    background: linear-gradient(to right, #94b5ba, #385b59);
   }
 
   .color_Green_0 {
-    background: linear-gradient(to right, #A2B23E, #2D5A18);
+    background: linear-gradient(to right, #a2b23e, #2d5a18);
   }
 
   .color_Green_1 {
-    background: linear-gradient(to right, #7EC2B2, #29493A);
+    background: linear-gradient(to right, #7ec2b2, #29493a);
   }
 
   .color_Green_2 {
-    background: linear-gradient(to right, #A2B23E, #2D5A18);
+    background: linear-gradient(to right, #a2b23e, #2d5a18);
   }
 
   .color_Green_3 {
-    background: linear-gradient(to right, #9A9F6A, #223824);
+    background: linear-gradient(to right, #9a9f6a, #223824);
   }
 
   .color_Green_4 {
-    background: linear-gradient(to right, #9FAD8E, #3F4129);
+    background: linear-gradient(to right, #9fad8e, #3f4129);
   }
 
   .color_Gray_0 {
-    background: linear-gradient(to right, #565C61, #1B1B21);
+    background: linear-gradient(to right, #565c61, #1b1b21);
   }
 
   .color_Gray_1 {
-    background: linear-gradient(to right, #6A6D73, #29272C);
+    background: linear-gradient(to right, #6a6d73, #29272c);
   }
 
   .color_Gray_2 {
-    background: linear-gradient(to right, #95A9B1, #3E464F);
+    background: linear-gradient(to right, #95a9b1, #3e464f);
   }
 
   .color_Gray_3 {
-    background: linear-gradient(to right, #ADB6BE, #4E5557);
+    background: linear-gradient(to right, #adb6be, #4e5557);
   }
 `;
 
-const HeroFacet = ({ heroID, facet }: { heroID: keyof typeof heroes, facet: number }) => {
+const HeroFacet = ({
+  heroID,
+  facet,
+}: {
+  heroID: keyof typeof heroes;
+  facet: number;
+}) => {
   const heroAbilities = useHeroAbilities();
 
   if (!(heroID && facet)) {
@@ -154,7 +160,8 @@ const HeroFacet = ({ heroID, facet }: { heroID: keyof typeof heroes, facet: numb
     return null;
   }
 
-  const selectedFacet = heroAbilities[heroes[heroID].name]?.facets[facet - 1] ?? {};
+  const selectedFacet =
+    heroAbilities[heroes[heroID].name]?.facets[facet - 1] ?? {};
   const { color, gradient_id, icon, name } = selectedFacet;
 
   const imageURL = `${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/icons/facets/${icon}.png`;
@@ -164,19 +171,23 @@ const HeroFacet = ({ heroID, facet }: { heroID: keyof typeof heroes, facet: numb
     <Facet>
       <div className={`facet ${colorClass}`} data-tip data-for={name}>
         <img src={imageURL} alt="" />
-        <div className='hero-tooltip'>
-          <ReactTooltip id={name} effect='solid' place='right'>
+        <div className="hero-tooltip">
+          <ReactTooltip id={name} effect="solid" place="right">
             <div
               className={`facetTooltip ${colorClass}`}
               style={{
                 height: '100%',
-                width: '100%'
-              }}>
-              <div className='facetHeader'>
-                <div style={{
-                  padding: '10px',
-                  background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1))'
-                }}>
+                width: '100%',
+              }}
+            >
+              <div className="facetHeader">
+                <div
+                  style={{
+                    padding: '10px',
+                    background:
+                      'linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1))',
+                  }}
+                >
                   <img src={imageURL} alt="" />
                 </div>
                 <span>{selectedFacet.title}</span>
@@ -190,6 +201,6 @@ const HeroFacet = ({ heroID, facet }: { heroID: keyof typeof heroes, facet: numb
       </div>
     </Facet>
   );
-}
+};
 
 export default HeroFacet;

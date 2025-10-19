@@ -8,14 +8,17 @@ import constants from '../../constants';
 import config from '../../../config';
 import { paramsWithTurbo } from '../../../utility.js';
 
-const shouldShow = props => props.loggedInId && props.loggedInId !== props.playerId;
+const shouldShow = (props) =>
+  props.loggedInId && props.loggedInId !== props.playerId;
 
 const getData = (props, context) => {
   if (shouldShow(props)) {
     const params = { included_account_id: props.playerId };
-    fetch(`${config.VITE_API_HOST}/api/players/${props.loggedInId}/wl?${querystring.stringify(paramsWithTurbo(params))}`)
-      .then(resp => resp.json())
-      .then(json => context.setState({ ...context.state, ...json }));
+    fetch(
+      `${config.VITE_API_HOST}/api/players/${props.loggedInId}/wl?${querystring.stringify(paramsWithTurbo(params))}`,
+    )
+      .then((resp) => resp.json())
+      .then((json) => context.setState({ ...context.state, ...json }));
   }
 };
 
@@ -26,7 +29,7 @@ class PlayedWith extends React.Component {
     playerId: PropTypes.string,
     loggedInId: PropTypes.string,
     strings: PropTypes.shape({}),
-  }
+  };
 
   constructor() {
     super();
@@ -44,22 +47,38 @@ class PlayedWith extends React.Component {
   render() {
     const { strings } = this.props;
     return (
-      <div style={{ display: shouldShow(this.props) ? 'inline' : 'none', marginLeft: '10px' }}>
+      <div
+        style={{
+          display: shouldShow(this.props) ? 'inline' : 'none',
+          marginLeft: '10px',
+        }}
+      >
         <PlayerStatsCard
           subtitle={
             <div>
-              <div style={{ ...inlineStyle, color: constants.colorGreen }}>{this.state.win}</div>
+              <div style={{ ...inlineStyle, color: constants.colorGreen }}>
+                {this.state.win}
+              </div>
               <div style={inlineStyle}> - </div>
-              <div style={{ ...inlineStyle, color: constants.colorRed }}>{this.state.lose}</div>
+              <div style={{ ...inlineStyle, color: constants.colorRed }}>
+                {this.state.lose}
+              </div>
             </div>
-        }
-          title={<Link to={`/players/${this.props.loggedInId}/matches?included_account_id=${this.props.playerId}`}>{strings.th_played_with}</Link>}
+          }
+          title={
+            <Link
+              to={`/players/${this.props.loggedInId}/matches?included_account_id=${this.props.playerId}`}
+            >
+              {strings.th_played_with}
+            </Link>
+          }
         />
-      </div>);
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

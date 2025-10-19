@@ -24,7 +24,7 @@ class RenderContent extends React.Component {
     const { render } = this.state;
 
     const PlaceHolder = () =>
-      (skeleton ? <List primaryColor="#666" width={250} height={120} /> : null);
+      skeleton ? <List primaryColor="#666" width={250} height={120} /> : null;
 
     return render && content ? (
       content
@@ -36,9 +36,7 @@ class RenderContent extends React.Component {
   }
 }
 
-const TabbedContent = ({
-  info, tabs, match, content, skeleton,
-}) => (
+const TabbedContent = ({ info, tabs, match, content, skeleton }) => (
   <React.Fragment>
     <TabBar info={info} tabs={tabs} match={match} />
     <RenderContent content={content} skeleton={skeleton} key={info} />

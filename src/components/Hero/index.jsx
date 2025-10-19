@@ -28,7 +28,7 @@ const HeroFooter = styled.div`
 `;
 
 const HeroDetailsButton = styled(FlatButton)`
-  border: 1px solid rgba(0, 0, 0, .35) !important;
+  border: 1px solid rgba(0, 0, 0, 0.35) !important;
   margin: 8px auto !important;
   padding: 0 12px !important;
 `;
@@ -70,13 +70,16 @@ class Hero extends React.Component {
       return <ErrorBox text={errorText} />;
     }
 
-    const tabs = tabsHeroId => [
+    const tabs = (tabsHeroId) => [
       {
         name: strings.tab_rankings,
         key: 'rankings',
-        content: props => (
+        content: (props) => (
           <div>
-            <Heading title={strings.tab_rankings} subtitle={strings.rankings_description} />
+            <Heading
+              title={strings.tab_rankings}
+              subtitle={strings.rankings_description}
+            />
             <Ranking {...props} />
           </div>
         ),
@@ -85,9 +88,12 @@ class Hero extends React.Component {
       {
         name: strings.tab_benchmarks,
         key: 'benchmarks',
-        content: props => (
+        content: (props) => (
           <div>
-            <Heading title={strings.tab_benchmarks} subtitle={strings.hero_disclaimer_public} />
+            <Heading
+              title={strings.tab_benchmarks}
+              subtitle={strings.hero_disclaimer_public}
+            />
             <Benchmark {...props} />
           </div>
         ),
@@ -96,9 +102,12 @@ class Hero extends React.Component {
       {
         name: strings.tab_recent,
         key: 'recent',
-        content: props => (
+        content: (props) => (
           <div>
-            <Heading title={strings.tab_recent} subtitle={strings.hero_disclaimer_pro} />
+            <Heading
+              title={strings.tab_recent}
+              subtitle={strings.hero_disclaimer_pro}
+            />
             <Recent {...props} />
           </div>
         ),
@@ -107,9 +116,12 @@ class Hero extends React.Component {
       {
         name: strings.tab_matchups,
         key: 'matchups',
-        content: props => (
+        content: (props) => (
           <div>
-            <Heading title={strings.tab_matchups} subtitle={strings.hero_disclaimer_pro} />
+            <Heading
+              title={strings.tab_matchups}
+              subtitle={strings.hero_disclaimer_pro}
+            />
             <Matchups {...props} />
           </div>
         ),
@@ -118,9 +130,12 @@ class Hero extends React.Component {
       {
         name: strings.tab_durations,
         key: 'durations',
-        content: props => (
+        content: (props) => (
           <div>
-            <Heading title={strings.tab_durations} subtitle={strings.hero_disclaimer_pro} />
+            <Heading
+              title={strings.tab_durations}
+              subtitle={strings.hero_disclaimer_pro}
+            />
             <Durations {...props} />
           </div>
         ),
@@ -129,9 +144,12 @@ class Hero extends React.Component {
       {
         name: strings.tab_players,
         key: 'players',
-        content: props => (
+        content: (props) => (
           <div>
-            <Heading title={strings.tab_players} subtitle={strings.hero_disclaimer_pro} />
+            <Heading
+              title={strings.tab_players}
+              subtitle={strings.hero_disclaimer_pro}
+            />
             <Players {...props} />
           </div>
         ),
@@ -142,24 +160,31 @@ class Hero extends React.Component {
         key: 'items',
         content: (props) => (
           <>
-            <Heading title='Suggested Items' subtitle={strings.hero_disclaimer_pro} />
+            <Heading
+              title="Suggested Items"
+              subtitle={strings.hero_disclaimer_pro}
+            />
             <ItemsSuggestion {...props} />
           </>
-        )
-        ,
+        ),
         route: `/heroes/${tabsHeroId}/items`,
       },
     ];
 
-    const currentTab = tabs(heroId).find(tab => tab.key === route);
+    const currentTab = tabs(heroId).find((tab) => tab.key === route);
     return (
       <div>
         <Helmet title={hero.localized_name} />
         <HeroBlock>
           <Header hero={hero} />
           <HeroFooter>
-            <HeroDetailsButton type='button' onClick={this.toggleDetailVisibility}>
-              {this.state.detailsOpen ? strings.hide_details : strings.show_details}
+            <HeroDetailsButton
+              type="button"
+              onClick={this.toggleDetailVisibility}
+            >
+              {this.state.detailsOpen
+                ? strings.hide_details
+                : strings.show_details}
             </HeroDetailsButton>
           </HeroFooter>
           {this.state.detailsOpen && <AttributesBlock hero={hero} />}
@@ -190,7 +215,7 @@ Hero.defaultProps = {
   heroes: [],
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isLoading: state.app.heroStats.loading,
   isError: state.app.heroStats.error,
   heroes: state.app.heroStats.data,

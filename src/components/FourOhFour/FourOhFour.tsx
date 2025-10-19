@@ -43,25 +43,20 @@ const randomImage = imageList[Math.floor(Math.random() * imageList.length)];
 
 const FourOhFour = ({ msg }: { msg: string }) => {
   const strings = useStrings();
-  return (<Styled>
-    <div className="container">
-      <Helmet title={`${strings.error} 404`} />
-      <img
-        src={`/assets/images/${randomImage}.gif`}
-        alt="A gif of a pixelized Dota hero crying"
-      />
-      <div className="message">
-        {strings.error_four_oh_four_message}
+  return (
+    <Styled>
+      <div className="container">
+        <Helmet title={`${strings.error} 404`} />
+        <img
+          src={`/assets/images/${randomImage}.gif`}
+          alt="A gif of a pixelized Dota hero crying"
+        />
+        <div className="message">{strings.error_four_oh_four_message}</div>
+        <div className="msg">{msg}</div>
+        <div className="FourOhFour">{strings.error} 404</div>
       </div>
-      <div className="msg">
-        {msg}
-      </div>
-      <div className="FourOhFour">
-        {strings.error} 404
-      </div>
-    </div>
-  </Styled>);
+    </Styled>
+  );
 };
-
 
 export default FourOhFour;

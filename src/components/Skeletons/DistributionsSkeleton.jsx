@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLoader from 'react-content-loader';
 
-const DistributionsSkeleton = props => (
+const DistributionsSkeleton = (props) => (
   <ContentLoader
     height={200}
     width={500}

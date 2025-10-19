@@ -7,14 +7,17 @@ import { withRouter } from 'react-router-dom';
 import { getSearchResultAndPros } from '../../actions';
 import SearchResult from './SearchResult';
 
-const extract = item => `${item.name}${item.team_name}`;
+const extract = (item) => `${item.name}${item.team_name}`;
 
-const Search = ({
-  data, pros, query, matchData, strings, ...rest
-}) => (
+const Search = ({ data, pros, query, matchData, strings, ...rest }) => (
   <div>
     <Helmet title={`${query} - ${strings.title_search}`} />
-    <SearchResult {...rest} players={data || []} pros={pros || []} matchData={matchData} />
+    <SearchResult
+      {...rest}
+      players={data || []}
+      pros={pros || []}
+      matchData={matchData}
+    />
   </div>
 );
 
@@ -28,16 +31,16 @@ Search.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const {
-    error, loading, done, data, query,
-  } = state.app.search;
+  const { error, loading, done, data, query } = state.app.search;
   return {
     playersLoading: loading,
     playersError: error,
     done,
     data,
     query,
-    pros: fuzzy.filter(query, state.app.proPlayers.data, { extract }).map(item => ({ ...item.original })),
+    pros: fuzzy
+      .filter(query, state.app.proPlayers.data, { extract })
+      .map((item) => ({ ...item.original })),
     prosLoading: state.app.proPlayers.loading,
     prosError: state.app.proPlayers.error,
     matchData: state.app.match.data,
@@ -47,8 +50,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  dispatchSearch: query => dispatch(getSearchResultAndPros(query)),
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSearch: (query) => dispatch(getSearchResultAndPros(query)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Search));

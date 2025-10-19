@@ -1,7 +1,6 @@
 ---
 name: 🐛 Bug Report
 about: If something isn't working as expected 🤔.
-
 ---
 
 **Current Behavior**
@@ -18,10 +17,12 @@ please paste console output in here
 ```
 
 **Environment**
+
 - Browser Version: [e.g. Chrome 64.0, Firefox 57, Edge 17]
 - OS: [e.g. OSX 10.13.4, Windows 10 or Linux Distribution]
 
 **Possible Solution**
+
 <!--- Only if you have suggestions on a fix/reason for the bug -->
 
 **Additional context/Screenshots**

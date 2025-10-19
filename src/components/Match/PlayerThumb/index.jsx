@@ -20,20 +20,16 @@ const StyledImg = styled.img`
 `;
 
 const PlayerThumb = (props) => {
-  const {
-    name,
-    personaname,
-    hideText,
-    strings,
-  } = props;
+  const { name, personaname, hideText, strings } = props;
   const playerSlot = props.player_slot;
   const heroId = props.hero_id;
   return (
     <StyledAside style={{ color: playerColors[playerSlot] }}>
       <StyledImg
-        src={heroes[heroId]
-          ? `${config.VITE_IMAGE_CDN}${heroes[heroId].icon}`
-          : '/assets/images/blank-1x1.gif'
+        src={
+          heroes[heroId]
+            ? `${config.VITE_IMAGE_CDN}${heroes[heroId].icon}`
+            : '/assets/images/blank-1x1.gif'
         }
         alt=""
       />
@@ -51,7 +47,7 @@ PlayerThumb.propTypes = {
   strings: shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

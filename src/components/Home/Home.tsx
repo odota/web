@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import Buttons from './Buttons';
 import Why from './Why';
 import Sponsors from './Sponsors';
-import { HeadContainerDiv, HeadlineDiv, DescriptionDiv, BottomTextDiv } from './Styled';
+import {
+  HeadContainerDiv,
+  HeadlineDiv,
+  DescriptionDiv,
+  BottomTextDiv,
+} from './Styled';
 
 export interface HomePageProps {
   user?: string;
@@ -31,7 +36,9 @@ const Home = ({ strings }: HomePageProps) => (
         rel="noopener noreferrer"
         aria-describedby="bg-image-description"
         aria-label="Mike Azevedo on artstation.com"
-      > Mike Azevedo
+      >
+        {' '}
+        Mike Azevedo
       </a>
     </BottomTextDiv>
   </div>

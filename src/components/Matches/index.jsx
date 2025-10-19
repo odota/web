@@ -27,45 +27,74 @@ export const WinnerSpan = styled.span`
   }
 `;
 
-const matchesColumns = strings => [
+const matchesColumns = (strings) => [
   {
     field: 'version',
-    displayFn: (row, col, field) => <div>{field ? '☆' : ''}</div>
+    displayFn: (row, col, field) => <div>{field ? '☆' : ''}</div>,
   },
   {
-  displayName: strings.th_match_id,
-  field: 'match_id',
-  sortFn: true,
-  displayFn: (row, col, field) => (
-    <div>
-      <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <div style={{ ...subTextStyle }}>
-        <div style={{ float: 'left' }}>
-          <FromNowTooltip timestamp={row.start_time + row.duration} />
+    displayName: strings.th_match_id,
+    field: 'match_id',
+    sortFn: true,
+    displayFn: (row, col, field) => (
+      <div>
+        <TableLink to={`/matches/${field}`}>{field}</TableLink>
+        <div style={{ ...subTextStyle }}>
+          <div style={{ float: 'left' }}>
+            <FromNowTooltip timestamp={row.start_time + row.duration} />
+          </div>
+          <span style={{ marginLeft: 1, marginRight: 1 }}>/</span>
+          {row.league_name}
         </div>
-        <span style={{ marginLeft: 1, marginRight: 1 }}>/</span>
-        {row.league_name}
       </div>
-    </div>),
-}, {
-  displayName: strings.th_duration,
-  tooltip: strings.tooltip_duration,
-  field: 'duration',
-  sortFn: true,
-  displayFn: transformations.duration,
-}, {
-  displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
-  field: 'radiant_name',
-  color: constants.colorGreen,
-  displayFn: (row, col, field) => <div>{row.radiant_win && <WinnerSpan><IconTrophy /></WinnerSpan>}{field}</div>,
-}, {
-  displayName: <StyledTeamIconContainer>{strings.general_dire}</StyledTeamIconContainer>,
-  field: 'dire_name',
-  color: constants.colorRed,
-  displayFn: (row, col, field) => <div>{!row.radiant_win && <WinnerSpan><IconTrophy /></WinnerSpan>}{field}</div>,
-}];
+    ),
+  },
+  {
+    displayName: strings.th_duration,
+    tooltip: strings.tooltip_duration,
+    field: 'duration',
+    sortFn: true,
+    displayFn: transformations.duration,
+  },
+  {
+    displayName: (
+      <StyledTeamIconContainer>
+        {strings.general_radiant}
+      </StyledTeamIconContainer>
+    ),
+    field: 'radiant_name',
+    color: constants.colorGreen,
+    displayFn: (row, col, field) => (
+      <div>
+        {row.radiant_win && (
+          <WinnerSpan>
+            <IconTrophy />
+          </WinnerSpan>
+        )}
+        {field}
+      </div>
+    ),
+  },
+  {
+    displayName: (
+      <StyledTeamIconContainer>{strings.general_dire}</StyledTeamIconContainer>
+    ),
+    field: 'dire_name',
+    color: constants.colorRed,
+    displayFn: (row, col, field) => (
+      <div>
+        {!row.radiant_win && (
+          <WinnerSpan>
+            <IconTrophy />
+          </WinnerSpan>
+        )}
+        {field}
+      </div>
+    ),
+  },
+];
 
-const publicMatchesColumns = strings => [
+const publicMatchesColumns = (strings) => [
   {
     displayName: strings.th_match_id,
     field: 'match_id',
@@ -80,8 +109,10 @@ const publicMatchesColumns = strings => [
           <span style={{ marginLeft: 1, marginRight: 1 }}>/</span>
           {rankTierToString(row.avg_rank_tier)}
         </div>
-      </div>),
-  }, {
+      </div>
+    ),
+  },
+  {
     displayName: strings.th_duration,
     tooltip: strings.tooltip_duration,
     field: 'duration',
@@ -89,36 +120,73 @@ const publicMatchesColumns = strings => [
     displayFn: transformations.duration,
   },
   {
-    displayName: <StyledTeamIconContainer>{strings.general_radiant}</StyledTeamIconContainer>,
+    displayName: (
+      <StyledTeamIconContainer>
+        {strings.general_radiant}
+      </StyledTeamIconContainer>
+    ),
     field: 'radiant_team',
-    displayFn: (row, col, field) => field?.map(heroId =>
-      (heroes[heroId] ? <HeroImage id={heroId} key={heroId} style={{ width: '50px' }} alt="" /> : null)),
+    displayFn: (row, col, field) =>
+      field?.map((heroId) =>
+        heroes[heroId] ? (
+          <HeroImage
+            id={heroId}
+            key={heroId}
+            style={{ width: '50px' }}
+            alt=""
+          />
+        ) : null,
+      ),
   },
   {
-    displayName: <StyledTeamIconContainer >{strings.general_dire}</StyledTeamIconContainer>,
+    displayName: (
+      <StyledTeamIconContainer>{strings.general_dire}</StyledTeamIconContainer>
+    ),
     field: 'dire_team',
-    displayFn: (row, col, field) => field?.map(heroId =>
-      (heroes[heroId] ? <HeroImage id={heroId} key={heroId} style={{ width: '50px' }} alt="" /> : null)),
+    displayFn: (row, col, field) =>
+      field?.map((heroId) =>
+        heroes[heroId] ? (
+          <HeroImage
+            id={heroId}
+            key={heroId}
+            style={{ width: '50px' }}
+            alt=""
+          />
+        ) : null,
+      ),
   },
 ];
 
-const matchTabs = strings => [{
-  name: strings.hero_pro_tab,
-  key: 'pro',
-  content: propsPar => (
-    <div>
-      <Table data={propsPar.proData} columns={matchesColumns(strings)} loading={propsPar.loading} />
-    </div>),
-  route: '/matches/pro',
-}, {
-  name: strings.matches_highest_mmr,
-  key: 'highMmr',
-  content: propsPar => (
-    <div>
-      <Table data={propsPar.publicData} columns={publicMatchesColumns(strings)} loading={propsPar.loading} />
-    </div>),
-  route: '/matches/highMmr',
-}];
+const matchTabs = (strings) => [
+  {
+    name: strings.hero_pro_tab,
+    key: 'pro',
+    content: (propsPar) => (
+      <div>
+        <Table
+          data={propsPar.proData}
+          columns={matchesColumns(strings)}
+          loading={propsPar.loading}
+        />
+      </div>
+    ),
+    route: '/matches/pro',
+  },
+  {
+    name: strings.matches_highest_mmr,
+    key: 'highMmr',
+    content: (propsPar) => (
+      <div>
+        <Table
+          data={propsPar.publicData}
+          columns={publicMatchesColumns(strings)}
+          loading={propsPar.loading}
+        />
+      </div>
+    ),
+    route: '/matches/highMmr',
+  },
+];
 
 const getData = (props) => {
   const route = props.match.params.matchId || 'pro';
@@ -138,7 +206,7 @@ class RequestLayer extends React.Component {
     strings: PropTypes.shape({}),
     // proData: PropTypes.array,
     // publicData: PropTypes.array,
-  }
+  };
 
   componentDidMount() {
     getData(this.props);
@@ -157,31 +225,29 @@ class RequestLayer extends React.Component {
       return <Match {...this.props} matchId={route} />;
     }
 
-    const tab = matchTabs(strings).find(_tab => _tab.key === route);
+    const tab = matchTabs(strings).find((_tab) => _tab.key === route);
     return (
       <div>
         <Helmet title={strings.title_matches} />
         <div>
-          <TabBar
-            info={route}
-            tabs={matchTabs(strings)}
-          />
+          <TabBar info={route} tabs={matchTabs(strings)} />
           {tab && tab.content(this.props)}
         </div>
-      </div>);
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   proData: state.app.proMatches.data,
   publicData: state.app.publicMatches.data,
   loading: state.app.proMatches.loading,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   dispatchProMatches: () => dispatch(getProMatches()),
-  dispatchPublicMatches: options => dispatch(getPublicMatches(options)),
+  dispatchPublicMatches: (options) => dispatch(getPublicMatches(options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

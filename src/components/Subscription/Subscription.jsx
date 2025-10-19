@@ -128,8 +128,14 @@ const Subscription = ({ user, isSubscriber }) => {
         <h1>{strings.subscriptions_h1}</h1>
         <h2>{strings.subscriptions_h2}</h2>
         <Attribution>
-          Picture by {" "}
-          <a href="http://entroz.deviantart.com/" target="_blank" rel="noreferrer">Eric Geusz</a>
+          Picture by{' '}
+          <a
+            href="http://entroz.deviantart.com/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Eric Geusz
+          </a>
         </Attribution>
       </SubHeader>
       <p>{strings.subscriptions_body1}</p>

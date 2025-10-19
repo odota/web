@@ -17,7 +17,11 @@ import {
   StyledCombos,
   StyledInputFilter,
 } from './Styles';
-import { formatTemplateToString, escapeRegExp, IMAGESIZE_ENUM } from '../../utility';
+import {
+  formatTemplateToString,
+  escapeRegExp,
+  IMAGESIZE_ENUM,
+} from '../../utility';
 import config from '../../config';
 
 const styles = {
@@ -43,7 +47,9 @@ const InputFilter = ({
 }) => (
   <StyledInputFilter>
     <div className="container">
-      <ActionSearch style={{ marginRight: 6, opacity: '.6', verticalAlign: 'middle' }} />
+      <ActionSearch
+        style={{ marginRight: 6, opacity: '.6', verticalAlign: 'middle' }}
+      />
       <TextField
         aria-label={filterText}
         ref={setInputRef}
@@ -66,7 +72,9 @@ const InputFilter = ({
   </StyledInputFilter>
 );
 
-const heroesArray = Object.keys(heroes).map(id => heroes[id]).sort((a, b) => a.localized_name.localeCompare(b.localized_name));
+const heroesArray = Object.keys(heroes)
+  .map((id) => heroes[id])
+  .sort((a, b) => a.localized_name.localeCompare(b.localized_name));
 
 const HeroSelector = ({
   id,
@@ -75,15 +83,25 @@ const HeroSelector = ({
   teamAFull,
   teamBFull,
   isFiltered,
-  heroName
+  heroName,
 }) => (
   <StyledHeroSelector selected={selected} isFiltered={isFiltered}>
     <HeroImage
-      id={id} 
-      imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix} 
-      style={{position: 'absolute', width: 200, left: -30, opacity: .5, filter: 'blur(5px)'}}
+      id={id}
+      imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
+      style={{
+        position: 'absolute',
+        width: 200,
+        left: -30,
+        opacity: 0.5,
+        filter: 'blur(5px)',
+      }}
     />
-    <HeroImage id={id} imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix} style={{width: 'auto', height: 40, zIndex: 2}}/>
+    <HeroImage
+      id={id}
+      imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
+      style={{ width: 'auto', height: 40, zIndex: 2 }}
+    />
     <div className={`ts-container ${selected ? 'selected' : ''}`}>
       <div
         aria-label={`${heroName} team A`}
@@ -118,15 +136,15 @@ HeroSelector.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const SelectedHeroes = ({
-  teamA, teamB, handleHeroDeSelection, strings
-}) => (
+const SelectedHeroes = ({ teamA, teamB, handleHeroDeSelection, strings }) => (
   <StyledSelectedHeroes>
     <div className="team-container left">
-      <div className="team-title team-a">{formatTemplateToString(strings.team, 'A')}</div>
+      <div className="team-title team-a">
+        {formatTemplateToString(strings.team, 'A')}
+      </div>
       <div>
-        {[4, 3, 2, 1, 0].map(i =>
-          (teamA[i] ? (
+        {[4, 3, 2, 1, 0].map((i) =>
+          teamA[i] ? (
             <HeroImage
               id={teamA[i]}
               className="hero-img"
@@ -134,15 +152,18 @@ const SelectedHeroes = ({
             />
           ) : (
             <div className="hero-placeholder hero-img" />
-          )))}
+          ),
+        )}
       </div>
     </div>
-    <div className="seperator"/>
+    <div className="seperator" />
     <div className="team-container right">
-      <div className="team-title team-b">{formatTemplateToString(strings.team, 'B')}</div>
+      <div className="team-title team-b">
+        {formatTemplateToString(strings.team, 'B')}
+      </div>
       <div>
-        {[0, 1, 2, 3, 4].map(i =>
-          (teamB[i] ? (
+        {[0, 1, 2, 3, 4].map((i) =>
+          teamB[i] ? (
             <HeroImage
               id={teamB[i]}
               className="hero-img"
@@ -150,7 +171,8 @@ const SelectedHeroes = ({
             />
           ) : (
             <div className="hero-placeholder hero-img" />
-          )))}
+          ),
+        )}
       </div>
     </div>
   </StyledSelectedHeroes>
@@ -203,10 +225,10 @@ class Combos extends React.Component {
     this.setState({ searchValue: '' });
   };
 
-  handleChange = e => this.setState({ searchValue: e.target.value });
-  
-  handleHeroSelection = resetSearchValue => (heroID, team) => () => {
-    if(this.state.loading) {
+  handleChange = (e) => this.setState({ searchValue: e.target.value });
+
+  handleHeroSelection = (resetSearchValue) => (heroID, team) => () => {
+    if (this.state.loading) {
       return;
     }
     const { teamA, teamB } = this.state;
@@ -221,7 +243,7 @@ class Combos extends React.Component {
   };
 
   handleHeroDeSelection = (index, team) => () => {
-    if(this.state.loading) {
+    if (this.state.loading) {
       return;
     }
     this.setState({
@@ -242,30 +264,41 @@ class Combos extends React.Component {
     const { teamA, teamB } = this.state;
 
     // rearrange order of heroes so the results are displayed in the same order as selection
-    data.forEach(row => {
-      if(!row.teama.includes(teamA[0]) && !row.teamb.includes(teamB[0])) {
+    data.forEach((row) => {
+      if (!row.teama.includes(teamA[0]) && !row.teamb.includes(teamB[0])) {
         const temp = row.teama;
-        row.teama = row.teamb
+        row.teama = row.teamb;
         row.teamb = temp;
         row.teamawin = !row.teamawin;
-      }  
-      row.teama.sort((a, b) =>  teamA.indexOf(b) - teamA.indexOf(a))
-      row.teama = [...row.teama.slice(teamA.length, 5), ...row.teama.slice(0, teamA.length)]
-      row.teamb.sort((a, b) =>  teamB.indexOf(a) - teamB.indexOf(b))
-      row.teamb = [...row.teamb.slice(5 - teamB.length, 5), ...row.teamb.slice(0, 5 - teamB.length)]
-    })
+      }
+      row.teama.sort((a, b) => teamA.indexOf(b) - teamA.indexOf(a));
+      row.teama = [
+        ...row.teama.slice(teamA.length, 5),
+        ...row.teama.slice(0, teamA.length),
+      ];
+      row.teamb.sort((a, b) => teamB.indexOf(a) - teamB.indexOf(b));
+      row.teamb = [
+        ...row.teamb.slice(5 - teamB.length, 5),
+        ...row.teamb.slice(0, 5 - teamB.length),
+      ];
+    });
 
     if (this.state.queryType === 'public') {
       // adapt json format so ExplorerOutputSection can process it
       data = {};
-      data.rows = json.map(el => ({
+      data.rows = json.map((el) => ({
         ...el,
         team_a_win: el.teamawin,
         team_a_composition: el.teama,
         team_b_composition: el.teamb,
       }));
       data.rowCount = json.length;
-      data.fields = ['match_id', 'start_time', 'team_a_composition', 'team_b_composition'].map(el => ({
+      data.fields = [
+        'match_id',
+        'start_time',
+        'team_a_composition',
+        'team_b_composition',
+      ].map((el) => ({
         name: el,
       }));
     }
@@ -276,14 +309,17 @@ class Combos extends React.Component {
     const { teamA, teamB } = this.state;
 
     this.setState({ loading: true }, () =>
-      fetch(`${config.VITE_API_HOST}/api/` +
-
-      `${this.state.queryType === 'pro' ?
-        `explorer?sql=${encodeURIComponent(this.buildQueryString())}` :
-        `findMatches?${querystring.stringify({ teamA, teamB })}`}`)
-
-        .then(res => res.json())
-        .then(this.handleResponse));
+      fetch(
+        `${config.VITE_API_HOST}/api/` +
+          `${
+            this.state.queryType === 'pro'
+              ? `explorer?sql=${encodeURIComponent(this.buildQueryString())}`
+              : `findMatches?${querystring.stringify({ teamA, teamB })}`
+          }`,
+      )
+        .then((res) => res.json())
+        .then(this.handleResponse),
+    );
   };
 
   handleSubmit = () => {
@@ -299,23 +335,26 @@ class Combos extends React.Component {
   handleCancel = () => {
     this.setState({ loading: false });
     window.stop();
-  }
+  };
 
   handleRadioButtonChange = (_, value) => {
     this.setState({ queryType: value });
-  }
+  };
 
-  filterAndRenderElements = (searchValue, resetSearchValue) => heroesArray.map(hero => (
-    <HeroSelector
-      id={hero.id}
-      heroName={hero.localized_name}
-      handleHeroSelection={this.handleHeroSelection(resetSearchValue)}
-      selected={[...this.state.teamA, ...this.state.teamB].includes(hero.id)}
-      teamAFull={this.state.teamA.length > 4}
-      teamBFull={this.state.teamB.length > 4}
-      strings={this.props.strings}
-      isFiltered={!new RegExp(escapeRegExp(searchValue), 'i').test(hero.localized_name)}
-    />
+  filterAndRenderElements = (searchValue, resetSearchValue) =>
+    heroesArray.map((hero) => (
+      <HeroSelector
+        id={hero.id}
+        heroName={hero.localized_name}
+        handleHeroSelection={this.handleHeroSelection(resetSearchValue)}
+        selected={[...this.state.teamA, ...this.state.teamB].includes(hero.id)}
+        teamAFull={this.state.teamA.length > 4}
+        teamBFull={this.state.teamB.length > 4}
+        strings={this.props.strings}
+        isFiltered={
+          !new RegExp(escapeRegExp(searchValue), 'i').test(hero.localized_name)
+        }
+      />
     ));
 
   render() {
@@ -324,7 +363,11 @@ class Combos extends React.Component {
     const noHeroesSelected = !teamA.length && !teamB.length;
     return (
       <StyledCombos>
-        <Heading title={strings.combos_title} subtitle={strings.combos_description} className="top-heading"/>
+        <Heading
+          title={strings.combos_title}
+          subtitle={strings.combos_description}
+          className="top-heading"
+        />
         <div className="main-section">
           <InputFilter
             handleChange={this.handleChange}
@@ -334,7 +377,10 @@ class Combos extends React.Component {
             filterText={strings.placeholder_filter_heroes}
           />
           <div className="hero-overview">
-            {this.filterAndRenderElements(this.state.searchValue, this.resetSearchValue)}
+            {this.filterAndRenderElements(
+              this.state.searchValue,
+              this.resetSearchValue,
+            )}
           </div>
           <SelectedHeroes
             teamA={teamA}
@@ -362,15 +408,27 @@ class Combos extends React.Component {
               />
             </RadioButtonGroup>
             <RaisedButton
-              label={this.state.loading ? strings.explorer_cancel_button : strings.request_submit}
-              onClick={this.state.loading ? this.handleCancel : this.handleSubmit}
-              buttonStyle={{ backgroundColor: this.state.loading ? '#822e2e' : 'rgba(23, 59, 90, 0.8)' }}
+              label={
+                this.state.loading
+                  ? strings.explorer_cancel_button
+                  : strings.request_submit
+              }
+              onClick={
+                this.state.loading ? this.handleCancel : this.handleSubmit
+              }
+              buttonStyle={{
+                backgroundColor: this.state.loading
+                  ? '#822e2e'
+                  : 'rgba(23, 59, 90, 0.8)',
+              }}
               style={{ display: 'block', marginTop: 5 }}
               disabled={noHeroesSelected}
             />
           </div>
         </div>
-        <pre style={{ color: 'red' }}>{this.state.queryResult && this.state.queryResult.err}</pre>
+        <pre style={{ color: 'red' }}>
+          {this.state.queryResult && this.state.queryResult.err}
+        </pre>
         <Heading
           title={strings.explorer_results}
           subtitle={`${
@@ -382,7 +440,12 @@ class Combos extends React.Component {
         ) : (
           <ExplorerOutputSection
             rows={this.state.queryResult.rows}
-            fields={this.state.queryResult.fields && this.state.queryResult.fields.filter(field => field.name !== 'team_a_win')}
+            fields={
+              this.state.queryResult.fields &&
+              this.state.queryResult.fields.filter(
+                (field) => field.name !== 'team_a_win',
+              )
+            }
           />
         )}
       </StyledCombos>
@@ -390,7 +453,7 @@ class Combos extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

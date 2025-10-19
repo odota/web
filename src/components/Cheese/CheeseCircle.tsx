@@ -11,7 +11,7 @@ const ProgressDiv = styled.div`
   width: 90px;
   height: 90px;
 
-  & > div[mode="determinate"],
+  & > div[mode='determinate'],
   & div.cheeseDiv {
     position: absolute !important;
   }
@@ -57,26 +57,36 @@ const PercentP = styled.p`
   }
 `;
 
-const Cheese = ({ donations = {}, error, loading }: { donations: { goal?: number, cheese?: number }, error: string, loading: boolean }) => {
+const Cheese = ({
+  donations = {},
+  error,
+  loading,
+}: {
+  donations: { goal?: number; cheese?: number };
+  error: string;
+  loading: boolean;
+}) => {
   const { goal, cheese } = donations;
-  const percent = (cheese && goal) ? ((cheese / goal) * 100) : 0;
+  const percent = cheese && goal ? (cheese / goal) * 100 : 0;
 
   return (
     <div>
       {error && <Error />}
       {loading && <Spinner />}
-      {!error && !loading &&
-      <ProgressDiv data-hint={`${cheese} / ${goal}`}>
-        <FrontProgress mode="determinate" value={Math.min(percent, 100)} size={90} />
-        <BackProgress mode="determinate" value={100} size={90} />
-        <CheeseDiv className="cheeseDiv">
-          <IconCheese />
-          <PercentP>
-            {`${percent.toFixed(0)}%`}
-          </PercentP>
-        </CheeseDiv>
-      </ProgressDiv>
-      }
+      {!error && !loading && (
+        <ProgressDiv data-hint={`${cheese} / ${goal}`}>
+          <FrontProgress
+            mode="determinate"
+            value={Math.min(percent, 100)}
+            size={90}
+          />
+          <BackProgress mode="determinate" value={100} size={90} />
+          <CheeseDiv className="cheeseDiv">
+            <IconCheese />
+            <PercentP>{`${percent.toFixed(0)}%`}</PercentP>
+          </CheeseDiv>
+        </ProgressDiv>
+      )}
     </div>
   );
 };

@@ -24,7 +24,7 @@ class Purchases extends React.Component {
     strings: PropTypes.shape({}),
     sponsorURL: PropTypes.string,
     sponsorIcon: PropTypes.string,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -38,19 +38,29 @@ class Purchases extends React.Component {
   }
 
   render() {
-    const {
-      match, strings, sponsorURL, sponsorIcon,
-    } = this.props;
+    const { match, strings, sponsorURL, sponsorIcon } = this.props;
     const { purchaseTimesColumns } = mcs(strings);
     return (
       <div style={{ position: 'relative' }}>
         <Toggle
           label={strings.show_consumables_items}
-          labelStyle={{ color: '#b3b3b3', lineHeight: '13px', fontSize: '14px' }}
+          labelStyle={{
+            color: '#b3b3b3',
+            lineHeight: '13px',
+            fontSize: '14px',
+          }}
           style={toggleStyle}
           onToggle={this.change}
-          thumbStyle={{ backgroundColor: 'rgb(179, 179, 179)', marginTop: '2px', marginRight: '3px' }}
-          trackStyle={{ position: 'absolute', marginTop: '2px', marginRight: '3px' }}
+          thumbStyle={{
+            backgroundColor: 'rgb(179, 179, 179)',
+            marginTop: '2px',
+            marginRight: '3px',
+          }}
+          trackStyle={{
+            position: 'absolute',
+            marginTop: '2px',
+            marginRight: '3px',
+          }}
         />
         <TeamTable
           players={match.players}
@@ -64,11 +74,12 @@ class Purchases extends React.Component {
           radiantWin={match.radiant_win}
           overflowAuto
         />
-      </div>);
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

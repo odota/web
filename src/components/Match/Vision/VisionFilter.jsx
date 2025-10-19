@@ -10,11 +10,23 @@ import config from '../../../config';
 const data = [
   {
     type: 'observer',
-    image: <img height="24" src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`} alt="Observer ward" />,
+    image: (
+      <img
+        height="24"
+        src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_observer.png`}
+        alt="Observer ward"
+      />
+    ),
   },
   {
     type: 'sentry',
-    image: <img height="24" src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`} alt="Sentry ward" />,
+    image: (
+      <img
+        height="24"
+        src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_sentry.png`}
+        alt="Sentry ward"
+      />
+    ),
   },
 ];
 
@@ -43,14 +55,18 @@ class VisionFilter extends React.Component {
     const { strings } = this.props;
     return [
       {
-        displayName: <Checkbox
-          checked={teams[index === 0 ? 'radiant' : 'dire']}
-          onCheck={(event, checked) => {
-            this.props.parent.setTeam(index === 0 ? 'radiant' : 'dire', checked);
-          }
-          }
-        />,
-        displayFn: row => row.image,
+        displayName: (
+          <Checkbox
+            checked={teams[index === 0 ? 'radiant' : 'dire']}
+            onCheck={(event, checked) => {
+              this.props.parent.setTeam(
+                index === 0 ? 'radiant' : 'dire',
+                checked,
+              );
+            }}
+          />
+        ),
+        displayFn: (row) => row.image,
       },
       this.playerColumn(0 + index),
       this.playerColumn(1 + index),
@@ -59,27 +75,31 @@ class VisionFilter extends React.Component {
       this.playerColumn(4 + index),
       {
         displayName: strings.chat_filter_all,
-        displayFn: row => (<Checkbox
-          checked={this.props.parent.checkedTypeWard(index, row.type)}
-          onCheck={() => {
-            this.props.parent.setTypeWard(index, row.type);
-          }
-          }
-        />),
+        displayFn: (row) => (
+          <Checkbox
+            checked={this.props.parent.checkedTypeWard(index, row.type)}
+            onCheck={() => {
+              this.props.parent.setTypeWard(index, row.type);
+            }}
+          />
+        ),
       },
     ];
   }
 
   playerColumn(playerNumber) {
     return {
-      displayName: <PlayerThumb {...this.props.match.players[playerNumber]} hideText />,
-      displayFn: row => (<Checkbox
-        checked={this.props.parent.state.players[row.type][playerNumber]}
-        onCheck={(event, checked) => {
-          this.props.parent.setPlayer(playerNumber, row.type, checked);
-        }
-        }
-      />),
+      displayName: (
+        <PlayerThumb {...this.props.match.players[playerNumber]} hideText />
+      ),
+      displayFn: (row) => (
+        <Checkbox
+          checked={this.props.parent.state.players[row.type][playerNumber]}
+          onCheck={(event, checked) => {
+            this.props.parent.setPlayer(playerNumber, row.type, checked);
+          }}
+        />
+      ),
     };
   }
 

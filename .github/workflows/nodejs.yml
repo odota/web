@@ -28,10 +28,10 @@ jobs:
     #   - name: Push to remote
     #     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
     #     run: |
-    #       git config --global user.name "github-actions[bot]"	
-    #       git config --global user.email "opendota+github-actions[bot]@users.noreply.github.com"	
-    #       rm .gitignore	
+    #       git config --global user.name "github-actions[bot]"
+    #       git config --global user.email "opendota+github-actions[bot]@users.noreply.github.com"
+    #       rm .gitignore
     #       git checkout -b release
     #       git add --all
-    #       git commit --quiet -m "Built from ${{ github.sha }}" 	
+    #       git commit --quiet -m "Built from ${{ github.sha }}"
     #       git push origin release -f

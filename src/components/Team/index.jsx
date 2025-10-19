@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { getTeam, getTeamHeroes, getTeamMatches, getTeamPlayers } from '../../actions';
+import {
+  getTeam,
+  getTeamHeroes,
+  getTeamMatches,
+  getTeamPlayers,
+} from '../../actions';
 import Spinner from '../Spinner';
 import TabBar from '../TabBar';
 import teamPages from './teamPages';
@@ -55,7 +60,7 @@ class Team extends React.Component {
       }),
     }),
     strings: PropTypes.shape({}),
-  }
+  };
 
   componentDidMount() {
     getData(this.props);
@@ -71,7 +76,7 @@ class Team extends React.Component {
     const { strings } = this.props;
     const { teamId } = this.props.match.params;
     const info = this.props.match.params.info || 'overview';
-    const page = teamPages(teamId, strings).find(_page => _page.key === info);
+    const page = teamPages(teamId, strings).find((_page) => _page.key === info);
     const teamName = this.props.generalData.data.name;
     const title = page ? `${teamName} - ${page.name}` : teamName;
     return (
@@ -80,14 +85,23 @@ class Team extends React.Component {
         <Column>
           {getTeamHeader(this.props.generalData, strings)}
           <TabBar info={info} tabs={teamPages(teamId, strings)} />
-          {page ? page.content(this.props.generalData, this.props.matchData, this.props.heroData, this.props.playerData) : <Spinner />}
+          {page ? (
+            page.content(
+              this.props.generalData,
+              this.props.matchData,
+              this.props.heroData,
+              this.props.playerData,
+            )
+          ) : (
+            <Spinner />
+          )}
         </Column>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   generalData: state.app.team,
   heroData: state.app.teamHeroes,
   matchData: state.app.teamMatches,
@@ -95,11 +109,11 @@ const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
-  dispatchTeam: teamId => dispatch(getTeam(teamId)),
-  dispatchTeamHeroes: teamId => dispatch(getTeamHeroes(teamId)),
-  dispatchTeamMatches: teamId => dispatch(getTeamMatches(teamId)),
-  dispatchTeamPlayers: teamId => dispatch(getTeamPlayers(teamId)),
+const mapDispatchToProps = (dispatch) => ({
+  dispatchTeam: (teamId) => dispatch(getTeam(teamId)),
+  dispatchTeamHeroes: (teamId) => dispatch(getTeamHeroes(teamId)),
+  dispatchTeamMatches: (teamId) => dispatch(getTeamMatches(teamId)),
+  dispatchTeamPlayers: (teamId) => dispatch(getTeamPlayers(teamId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Team);

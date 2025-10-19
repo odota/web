@@ -10,21 +10,31 @@ import Heading from '../../../Heading';
 import Container from '../../../Container';
 
 const Trend = ({
-  routeParams, columns, playerId, error, loading, history, strings,
+  routeParams,
+  columns,
+  playerId,
+  error,
+  loading,
+  history,
+  strings,
 }) => {
   const selectedTrend = routeParams.subInfo || trendNames[0];
   return (
     <div>
-      <Heading title={strings.trends_name} subtitle={strings.trends_description} />
+      <Heading
+        title={strings.trends_name}
+        subtitle={strings.trends_description}
+      />
       <ButtonGarden
-        onClick={buttonName => history.push(`/players/${playerId}/trends/${buttonName}${window.location.search}`)}
+        onClick={(buttonName) =>
+          history.push(
+            `/players/${playerId}/trends/${buttonName}${window.location.search}`,
+          )
+        }
         buttonNames={trendNames}
         selectedButton={selectedTrend}
       />
-      <Container
-        error={error}
-        loading={loading}
-      >
+      <Container error={error} loading={loading}>
         <TrendGraph
           columns={columns}
           name={selectedTrend}
@@ -60,15 +70,17 @@ class RequestLayer extends React.Component {
       key: PropTypes.string,
     }),
     strings: PropTypes.shape({}),
-  }
+  };
 
   componentDidMount() {
     getData(this.props);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.playerId !== prevProps.playerId
-      || this.props.location.key !== prevProps.location.key) {
+    if (
+      this.props.playerId !== prevProps.playerId ||
+      this.props.location.key !== prevProps.location.key
+    ) {
       getData(this.props);
     }
   }
@@ -78,11 +90,13 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   columns: state.app.playerTrends.data,
   loading: state.app.playerTrends.loading,
   error: state.app.playerTrends.error,
   strings: state.app.strings,
 });
 
-export default withRouter(connect(mapStateToProps, { getPlayerTrends })(RequestLayer));
+export default withRouter(
+  connect(mapStateToProps, { getPlayerTrends })(RequestLayer),
+);

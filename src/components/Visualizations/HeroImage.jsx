@@ -5,7 +5,11 @@ import { IMAGESIZE_ENUM } from '../../utility';
 import config from '../../config';
 
 const HeroImage = ({
-  id, isIcon, imageSizeSuffix = IMAGESIZE_ENUM.LARGE.suffix, heroImageEventProps, ...rest
+  id,
+  isIcon,
+  imageSizeSuffix = IMAGESIZE_ENUM.LARGE.suffix,
+  heroImageEventProps,
+  ...rest
 }) => {
   let imageUrl = heroes[id] && config.VITE_IMAGE_CDN + heroes[id].img;
 
@@ -16,12 +20,10 @@ const HeroImage = ({
   return <img src={imageUrl} alt="" {...rest} {...heroImageEventProps} />;
 };
 
-
 HeroImage.propTypes = {
   id: PropTypes.number,
   isIcon: PropTypes.bool,
   imageSizeSuffix: PropTypes.string,
 };
-
 
 export default HeroImage;

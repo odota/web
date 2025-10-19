@@ -9,7 +9,7 @@ import { items } from 'dotaconstants';
 
 // Get patchnotes from up to two last letter patches
 function getRecentChanges(item: keyof typeof items, patchnotes: PatchNotes) {
-  const changes: { patch: any, note: string }[] = [];
+  const changes: { patch: any; note: string }[] = [];
   if (!patchnotes) {
     return changes;
   }
@@ -18,21 +18,25 @@ function getRecentChanges(item: keyof typeof items, patchnotes: PatchNotes) {
   const previous = patches[patches.length - 2];
   // Latest patch wasn't a major patch e.g. 7_35b, return more entries
   if (latest.length > 4) {
-    patchnotes[previous].items?.[item]?.forEach((note: string) => changes.push({ patch: previous, note }));
+    patchnotes[previous].items?.[item]?.forEach((note: string) =>
+      changes.push({ patch: previous, note }),
+    );
   }
-  patchnotes[latest].items?.[item]?.forEach((note: string) => changes.push({ patch: latest, note }));
+  patchnotes[latest].items?.[item]?.forEach((note: string) =>
+    changes.push({ patch: latest, note }),
+  );
   return changes;
 }
 
 const textHighlightColors = {
   use: '#95c07a',
   active: '#9f9fcf',
-  passive: '#7e8c9d'
+  passive: '#7e8c9d',
 };
 
 const Wrapper = styled.div`
   width: 300px;
-  background: linear-gradient(#16232B, #10171D);
+  background: linear-gradient(#16232b, #10171d);
   color: #7a80a7;
   overflow: hidden;
 
@@ -46,7 +50,7 @@ const Header = styled.div`
   font-size: ${constants.fontSizeCommon};
   text-transform: uppercase;
   color: ${constants.colorBlue};
-  background-color: #222C35;
+  background-color: #222c35;
 
   .header-content {
     height: 50px;
@@ -56,30 +60,50 @@ const Header = styled.div`
   }
 
   & .neutral_tier_bg_1 {
-    background: linear-gradient(to right, rgba(190, 190, 190, 0.5), rgba(139, 139, 139, 0.5));
+    background: linear-gradient(
+      to right,
+      rgba(190, 190, 190, 0.5),
+      rgba(139, 139, 139, 0.5)
+    );
   }
 
   & .neutral_tier_bg_2 {
-    background: linear-gradient(to right, rgba(146, 228, 126, 0.5), rgba(95, 177, 75, 0.5));
+    background: linear-gradient(
+      to right,
+      rgba(146, 228, 126, 0.5),
+      rgba(95, 177, 75, 0.5)
+    );
   }
 
   & .neutral_tier_bg_3 {
-    background: linear-gradient(to right, rgba(127, 147, 252, 0.5), rgba(76, 96, 201, 0.5));
+    background: linear-gradient(
+      to right,
+      rgba(127, 147, 252, 0.5),
+      rgba(76, 96, 201, 0.5)
+    );
   }
 
   & .neutral_tier_bg_4 {
-    background: linear-gradient(to right, rgba(213, 123, 255, 0.5), rgba(162, 72, 204, 0.5));
+    background: linear-gradient(
+      to right,
+      rgba(213, 123, 255, 0.5),
+      rgba(162, 72, 204, 0.5)
+    );
   }
 
   & .neutral_tier_bg_5 {
-    background: linear-gradient(to right, rgba(255, 225, 149, 0.5), rgba(204, 174, 98, 0.5));
+    background: linear-gradient(
+      to right,
+      rgba(255, 225, 149, 0.5),
+      rgba(204, 174, 98, 0.5)
+    );
   }
 
   #item-img {
     display: inline-block;
     height: 100%;
     width: 100%;
-    border: 1px solid #080D15;
+    border: 1px solid #080d15;
     box-sizing: border-box;
   }
 `;
@@ -135,7 +159,6 @@ const HeaderText = styled.div`
       color: ${constants.colorNeutralTier5};
     }
   }
-
 `;
 
 const ResourceIcon = styled.img`
@@ -164,35 +187,35 @@ const Attributes = styled.div`
 
 const Enhancement = styled.div`
   padding: 0 6px;
-  
+
   & .enhancement-header {
     margin: 5px;
     display: flex;
     flex-direction: column;
-    
+
     & hr {
       margin: auto 0;
       width: 100%;
     }
-    
+
     & span {
       margin: auto 5px;
       text-transform: uppercase;
     }
-    
+
     & .enhancement-title {
       color: gray;
       font-size: ${constants.fontSizeSmall};
       font-weight: 500;
     }
-    
+
     & .enhancement-name {
       color: white;
       font-size: ${constants.fontSizeMedium};
       font-weight: 600;
     }
   }
-  
+
   & #enhancement-img {
     width: 32px;
     height: 32px;
@@ -222,19 +245,19 @@ const GameplayChange = styled.div`
 `;
 
 const Lore = styled.div`
-  background-color: #0D1118;
+  background-color: #0d1118;
   margin: 10px 9px 10px 9px;
   font-size: ${constants.fontSizeSmall};
   font-style: italic;
-  color: #51565F;
+  color: #51565f;
   padding: 6px;
 `;
 
 const Hint = styled.div`
   margin: 10px 9px;
   padding: 6px;
-  background-color: #51565F;
-  color: #080D15;
+  background-color: #51565f;
+  color: #080d15;
 `;
 
 const Components = styled.div`
@@ -243,7 +266,7 @@ const Components = styled.div`
 
   #header {
     font-size: 10px;
-    color: #51565F;
+    color: #51565f;
   }
 
   .component {
@@ -299,11 +322,11 @@ const AbilityComponent = styled.div`
 
     & .header {
       color: ${textHighlightColors.active};
-      background: linear-gradient(to right, #373B7F, #181E30);
+      background: linear-gradient(to right, #373b7f, #181e30);
     }
 
     & .content {
-      background-color: #181E30;
+      background-color: #181e30;
     }
   }
 
@@ -312,11 +335,11 @@ const AbilityComponent = styled.div`
 
     & .header {
       color: ${textHighlightColors.passive};
-      background: linear-gradient(to right, #263540, #1C2630);
+      background: linear-gradient(to right, #263540, #1c2630);
     }
 
     & .content {
-      background-color: #1C2630;
+      background-color: #1c2630;
     }
   }
 
@@ -325,11 +348,11 @@ const AbilityComponent = styled.div`
 
     & .header {
       color: ${textHighlightColors.use};
-      background: linear-gradient(to right, #273F27, #17231F);
+      background: linear-gradient(to right, #273f27, #17231f);
     }
 
     & .content {
-      background-color: #17231F;
+      background-color: #17231f;
     }
   }
 `;
@@ -338,34 +361,58 @@ function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-const Ability = (item: any, type: keyof typeof abilityType, title: string, description: string, hasNonPassive: boolean) => {
-  const styleType: keyof typeof textHighlightColors = abilityType[type] || 'passive';
+const Ability = (
+  item: any,
+  type: keyof typeof abilityType,
+  title: string,
+  description: string,
+  hasNonPassive: boolean,
+) => {
+  const styleType: keyof typeof textHighlightColors =
+    abilityType[type] || 'passive';
   const highlightStyle = `font-weight:500;color:${textHighlightColors[styleType]};text-shadow:2px 2px 0 #00000090;`;
   return (
     <AbilityComponent>
       <div className={styleType}>
-        <div className='header'>
-          <span className='ability-name'>{`${capitalizeFirstLetter(type)}: ${title}`}</span>
+        <div className="header">
+          <span className="ability-name">{`${capitalizeFirstLetter(type)}: ${title}`}</span>
           <div>
-            {item.mc && styleType !== 'passive' &&
-              <span className='entry'>
-                <ResourceIcon src='/assets/images/dota2/ability_manacost.png' alt='Mana icon' />
-                <span className='values'>{item.mc}</span>
-              </span>}
-            {item.hc && styleType !== 'passive' &&
-              <span className='entry'>
-                <ResourceIcon src='/assets/images/dota2/ability_healthcost.png' alt='Health icon' />
-                <span className='values'>{item.hc}</span>
-              </span>}
-            {item.cd && ((!hasNonPassive && styleType === 'passive') || styleType !== 'passive') &&
-              <span className='entry'>
-                <ResourceIcon src='/assets/images/dota2/ability_cooldown.png' alt='Cooldown icon' />
-                <span className='values'>{item.cd}</span>
-              </span>}
+            {item.mc && styleType !== 'passive' && (
+              <span className="entry">
+                <ResourceIcon
+                  src="/assets/images/dota2/ability_manacost.png"
+                  alt="Mana icon"
+                />
+                <span className="values">{item.mc}</span>
+              </span>
+            )}
+            {item.hc && styleType !== 'passive' && (
+              <span className="entry">
+                <ResourceIcon
+                  src="/assets/images/dota2/ability_healthcost.png"
+                  alt="Health icon"
+                />
+                <span className="values">{item.hc}</span>
+              </span>
+            )}
+            {item.cd &&
+              ((!hasNonPassive && styleType === 'passive') ||
+                styleType !== 'passive') && (
+                <span className="entry">
+                  <ResourceIcon
+                    src="/assets/images/dota2/ability_cooldown.png"
+                    alt="Cooldown icon"
+                  />
+                  <span className="values">{item.cd}</span>
+                </span>
+              )}
           </div>
         </div>
-        <div className='content'>
-          <div className='ability-text' ref={el => styleValues(el, highlightStyle)}>
+        <div className="content">
+          <div
+            className="ability-text"
+            ref={(el) => styleValues(el, highlightStyle)}
+          >
             {description}
           </div>
         </div>
@@ -374,26 +421,37 @@ const Ability = (item: any, type: keyof typeof abilityType, title: string, descr
   );
 };
 
-const AttributeContainer = ({stats = []}: any) => (
-    <Attributes>
-      {stats?.map((attrib: any) => (
-        <div key={attrib.key}>
-          <div id='header' ref={el => styleValues(el)}>
-            {attrib.display.replace('{value}', attrib.value)}
-          </div>
+const AttributeContainer = ({ stats = [] }: any) => (
+  <Attributes>
+    {stats?.map((attrib: any) => (
+      <div key={attrib.key}>
+        <div id="header" ref={(el) => styleValues(el)}>
+          {attrib.display.replace('{value}', attrib.value)}
         </div>
-      ))}
-    </Attributes>
-  );
+      </div>
+    ))}
+  </Attributes>
+);
 
 const EnhancementContainer = ({ enhancement }: any) => (
   <Enhancement>
     <div className="enhancement-header">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <hr/><span className="enhancement-title">{`Enchantment`}</span>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'baseline',
+        }}
+      >
+        <hr />
+        <span className="enhancement-title">{`Enchantment`}</span>
       </div>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <img id="enhancement-img" src={`${config.VITE_IMAGE_CDN}${enhancement.img}`} alt={enhancement.dname} />
+        <img
+          id="enhancement-img"
+          src={`${config.VITE_IMAGE_CDN}${enhancement.img}`}
+          alt={enhancement.dname}
+        />
         <span className="enhancement-name">{enhancement.dname}</span>
       </div>
     </div>
@@ -407,83 +465,134 @@ const abilityType: Record<string, keyof typeof textHighlightColors> = {
   toggle: 'active',
   passive: 'passive',
   upgrade: 'passive',
-  use: 'use'
+  use: 'use',
 };
 
 const itemStats = (item: any) => {
   const upperCaseStats: string[] = [];
-  const stats =  item?.attrib.filter((a: any) => a.hasOwnProperty('display')).filter((a: any) => {
-    if (!/[a-z]/.test(a.display.replace('{value}', ''))) {
-      upperCaseStats.push(a);
-      return false;
-    }
-    return true;
-  });
-  return [ stats, upperCaseStats ];
-}
+  const stats = item?.attrib
+    .filter((a: any) => a.hasOwnProperty('display'))
+    .filter((a: any) => {
+      if (!/[a-z]/.test(a.display.replace('{value}', ''))) {
+        upperCaseStats.push(a);
+        return false;
+      }
+      return true;
+    });
+  return [stats, upperCaseStats];
+};
 
-const ItemTooltip = ({ item, inflictor, value }: { item: any, inflictor: keyof typeof items, value: keyof typeof items }) => {
+const ItemTooltip = ({
+  item,
+  inflictor,
+  value,
+}: {
+  item: any;
+  inflictor: keyof typeof items;
+  value: keyof typeof items;
+}) => {
   const patchnotes = usePatchnotes();
   const recentChanges = getRecentChanges(inflictor, patchnotes);
   const enhancement = items[value] || null;
-  const [ stats, upperCaseStats ] = itemStats(item);
+  const [stats, upperCaseStats] = itemStats(item);
   const abilities = item.abilities || [];
-  const hasNonPassive = abilities.some((a: { type: string }) => ['active', 'use'].includes(a.type));
+  const hasNonPassive = abilities.some((a: { type: string }) =>
+    ['active', 'use'].includes(a.type),
+  );
   return (
     <Wrapper>
       <Header>
         <div className={`header-content neutral_tier_bg_${item.tier}`}>
-          <img id='item-img' src={`${config.VITE_IMAGE_CDN}${item.img}`} alt={item.dname} />
+          <img
+            id="item-img"
+            src={`${config.VITE_IMAGE_CDN}${item.img}`}
+            alt={item.dname}
+          />
           <HeaderText>
             <div>{item.dname}</div>
-            {item.tier ? <div className='neutral-header'><span
-              className={`neutral_tier_${item.tier}`}
-            >{`Tier ${item.tier} `}
-                                                         </span><span>Artifact</span>
-                         </div>
-              : <div id='gold'><img
+            {item.tier ? (
+              <div className="neutral-header">
+                <span className={`neutral_tier_${item.tier}`}>
+                  {`Tier ${item.tier} `}
+                </span>
+                <span>Artifact</span>
+              </div>
+            ) : (
+              <div id="gold">
+                <img
                   src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`}
-                  alt='Gold'
-              />{item.cost}
-                </div>}
+                  alt="Gold"
+                />
+                {item.cost}
+              </div>
+            )}
           </HeaderText>
         </div>
       </Header>
-      {(item.behavior || item.dmg_type || item.bkbpierce || item.dispellable) &&
-        <div><AbilityBehaviour ability={item} />
+      {(item.behavior ||
+        item.dmg_type ||
+        item.bkbpierce ||
+        item.dispellable) && (
+        <div>
+          <AbilityBehaviour ability={item} />
           <hr />
-        </div>}
-      {(stats && stats.length > 0) &&
-        <AttributeContainer stats={stats} />}
-      {abilities.map(({ type, title, description }: { type: keyof typeof abilityType, title: string, description: string }) => Ability(item, type, title, description, hasNonPassive))}
-      {enhancement &&
-        <EnhancementContainer enhancement={enhancement} />}
-      {item.hint?.map((hint: React.ReactNode) => <Hint>{hint}</Hint>)}
-      {upperCaseStats.length > 0 &&
-        <AttributeContainer stats={upperCaseStats} />}
+        </div>
+      )}
+      {stats && stats.length > 0 && <AttributeContainer stats={stats} />}
+      {abilities.map(
+        ({
+          type,
+          title,
+          description,
+        }: {
+          type: keyof typeof abilityType;
+          title: string;
+          description: string;
+        }) => Ability(item, type, title, description, hasNonPassive),
+      )}
+      {enhancement && <EnhancementContainer enhancement={enhancement} />}
+      {item.hint?.map((hint: React.ReactNode) => (
+        <Hint>{hint}</Hint>
+      ))}
+      {upperCaseStats.length > 0 && (
+        <AttributeContainer stats={upperCaseStats} />
+      )}
       {item.lore && <Lore>{item.lore}</Lore>}
-      {recentChanges.length > 0 &&
+      {recentChanges.length > 0 && (
         <GameplayChanges>
           {recentChanges.map(({ patch, note }) => (
             <GameplayChange>
-              <span className='patch'>{`${patch.replace('_', '.')}:`}</span><span className='note'>{note}</span>
+              <span className="patch">{`${patch.replace('_', '.')}:`}</span>
+              <span className="note">{note}</span>
             </GameplayChange>
           ))}
-        </GameplayChanges>}
-      {item.components &&
+        </GameplayChanges>
+      )}
+      {item.components && (
         <Components>
-          <div id='header'>Components:</div>
-          {item.components.concat((items[`recipe_${inflictor}` as keyof typeof items] && [`recipe_${inflictor}`]) || []).filter(Boolean).map((component: keyof typeof items) =>
-            items[component] &&
-            (
-              <div className='component'>
-                <img src={`${config.VITE_IMAGE_CDN}${items[component].img}`} alt='' />
-                <div id='cost'>{items[component].cost}</div>
-              </div>
-            ))
-          }
+          <div id="header">Components:</div>
+          {item.components
+            .concat(
+              (items[`recipe_${inflictor}` as keyof typeof items] && [
+                `recipe_${inflictor}`,
+              ]) ||
+                [],
+            )
+            .filter(Boolean)
+            .map(
+              (component: keyof typeof items) =>
+                items[component] && (
+                  <div className="component">
+                    <img
+                      src={`${config.VITE_IMAGE_CDN}${items[component].img}`}
+                      alt=""
+                    />
+                    <div id="cost">{items[component].cost}</div>
+                  </div>
+                ),
+            )}
         </Components>
-      }
+      )}
     </Wrapper>
   );
 };

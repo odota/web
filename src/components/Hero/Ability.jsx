@@ -9,29 +9,36 @@ import AbilityTooltip from '../AbilityTooltip';
 import config from '../../config';
 
 const Wrapper = styled.div`
-  background: linear-gradient(to bottom, ${constants.colorBlueMuted}, ${constants.primarySurfaceColor});
+  background: linear-gradient(
+    to bottom,
+    ${constants.colorBlueMuted},
+    ${constants.primarySurfaceColor}
+  );
   border-radius: 4px;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, .3);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
   position: relative;
 
   .__react_component_tooltip {
-  opacity: 1 !important;
-  padding: 0px !important;
-}
+    opacity: 1 !important;
+    padding: 0px !important;
+  }
 `;
 
 const AbilityIcon = styled.img`
   border-radius: 4px;
   display: block;
   height: auto;
-  opacity: .7;
+  opacity: 0.7;
   overflow: hidden;
-  transition: opacity .2s, box-shadow .4s, transform .2s;
+  transition:
+    opacity 0.2s,
+    box-shadow 0.4s,
+    transform 0.2s;
   width: 100%;
 
   &:hover {
     opacity: 1;
-    box-shadow: 0 0 150px rgba(255, 255, 255, .4);
+    box-shadow: 0 0 150px rgba(255, 255, 255, 0.4);
     transform: scale(1.1);
   }
 `;
@@ -51,17 +58,19 @@ const AbilityManaComsumption = styled.div`
 
 const Ability = (props) => {
   const ttId = nanoid();
-  const showMana = (props.mc && parseInt(props.mc, 0) > 0);
+  const showMana = props.mc && parseInt(props.mc, 0) > 0;
   let manaString = false;
 
   if (showMana) {
-    manaString = ((typeof props.mc === 'object') ? props.mc[0] : props.mc);
+    manaString = typeof props.mc === 'object' ? props.mc[0] : props.mc;
   }
 
   return (
     <Wrapper data-tip data-for={ttId}>
       <AbilityIcon src={config.VITE_IMAGE_CDN + props.img} />
-      {(showMana) && <AbilityManaComsumption>{manaString}</AbilityManaComsumption>}
+      {showMana && (
+        <AbilityManaComsumption>{manaString}</AbilityManaComsumption>
+      )}
       <ReactTooltip id={ttId} effect="solid" place="bottom">
         <AbilityTooltip ability={props} />
       </ReactTooltip>

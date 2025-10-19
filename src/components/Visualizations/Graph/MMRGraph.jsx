@@ -9,16 +9,18 @@ import {
   LineChart,
   CartesianGrid,
   Legend,
-  Label, ResponsiveContainer, Brush,
+  Label,
+  ResponsiveContainer,
+  Brush,
 } from 'recharts';
 import styled from 'styled-components';
 import constants from '../../constants';
 
 const StyledGraphArea = styled.div`
-user-select: none;
+  user-select: none;
 `;
 
-const filterZeroValues = column => ({
+const filterZeroValues = (column) => ({
   ...column,
   solo_competitive_rank: column.solo_competitive_rank || null,
   competitive_rank: column.competitive_rank || null,
@@ -39,21 +41,23 @@ const MMRGraph = ({ columns, strings }) => (
       <LineChart
         data={columns.map(filterZeroValues)}
         margin={{
-          top: 5, right: 30, left: 30, bottom: 5,
+          top: 5,
+          right: 30,
+          left: 30,
+          bottom: 5,
         }}
       >
         <XAxis dataKey="time" interval={49} tickFormatter={formatXTick}>
           <Label value={strings.th_time} position="insideTopRight" />
         </XAxis>
         <YAxis type="number" domain={['dataMin - 100', 'dataMax + 100']} />
-        <CartesianGrid
-          stroke="#505050"
-          strokeWidth={1}
-          opacity={0.5}
-        />
+        <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
 
         <Tooltip
-          wrapperStyle={{ backgroundColor: constants.darkPrimaryColor, border: 'none' }}
+          wrapperStyle={{
+            backgroundColor: constants.darkPrimaryColor,
+            border: 'none',
+          }}
           labelFormatter={formatXTickDetailed}
         />
         <Line
@@ -71,7 +75,13 @@ const MMRGraph = ({ columns, strings }) => (
           name={strings.th_party_mmr}
         />
         <Legend verticalAlign="top" />
-        <Brush dataKey="time" height={40} stroke={constants.primaryLinkColor} fill={constants.darkPrimaryColor} tickFormatter={formatXTick} />
+        <Brush
+          dataKey="time"
+          height={40}
+          stroke={constants.primaryLinkColor}
+          fill={constants.darkPrimaryColor}
+          tickFormatter={formatXTick}
+        />
       </LineChart>
     </ResponsiveContainer>
   </StyledGraphArea>
@@ -82,7 +92,7 @@ MMRGraph.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

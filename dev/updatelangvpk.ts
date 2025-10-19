@@ -69,7 +69,6 @@ try {
   process.exit(1);
 }
 
-
 const updateLang = (langTag, langName) => {
   if (!langName) {
     return; // Means dota doesn't have this lang file
@@ -94,7 +93,10 @@ const updateLang = (langTag, langName) => {
     }
 
     Object.keys(replacements).forEach((key) => {
-      if ((!lang[key] || lang[key] === englishLang[key]) && (replacements[key] in strings)) {
+      if (
+        (!lang[key] || lang[key] === englishLang[key]) &&
+        replacements[key] in strings
+      ) {
         let result = strings[replacements[key]];
         if (['chatwheel_71', 'chatwheel_72'].indexOf(key) >= 0) {
           result = result.replace(/%s1/, strings.DOTA_Shared_Unit_Control_Hero);
@@ -117,40 +119,54 @@ for (let i = 0; `game_mode_${i}` in englishLang; i += 1) {
   replacements[`game_mode_${i}`] = `game_mode_lobby_name_${i}`;
 }
 // npc_dota_(unitstrings)
-Object.keys(englishLang).filter(k => k.match(/^npc_dota_/)).forEach((key) => {
-  replacements[key] = key.replace('#', '1');
-});
+Object.keys(englishLang)
+  .filter((k) => k.match(/^npc_dota_/))
+  .forEach((key) => {
+    replacements[key] = key.replace('#', '1');
+  });
 replacements.npc_dota_phoenix_sun = 'DOTA_Tooltip_ability_phoenix_supernova';
 replacements.npc_dota_weaver_swarm = 'DOTA_Tooltip_ability_weaver_the_swarm';
 // regions, chat wheel, & call update
-request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/regions.json', (err, resp, body) => {
-  if (err || resp.statusCode !== 200) {
-    console.log('Error getting regions info from d2vpkr');
-    process.exit(1);
-  }
-  const { regions } = JSON.parse(body);
-
-  Object.keys(regions).forEach((key) => {
-    replacements[`region_${regions[key].region}`] = regions[key].display_name.replace(/^#/, '');
-  });
-  request('https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/chat_wheel.txt', (_err, _resp, _body) => {
-    if (_err || _resp.statusCode !== 200) {
-      console.log('Error getting chat wheel info from d2vpkr');
+request(
+  'https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/regions.json',
+  (err, resp, body) => {
+    if (err || resp.statusCode !== 200) {
+      console.log('Error getting regions info from d2vpkr');
       process.exit(1);
     }
-    const chatWheel = vdf.parse(_body).chat_wheel.messages;
+    const { regions } = JSON.parse(body);
 
-    Object.keys(chatWheel).forEach((key) => {
-      if (chatWheel[key].message[0] === '#') {
-        replacements[`chatwheel_${chatWheel[key].message_id}`] = chatWheel[key].message.replace(/^#/, '');
-      }
+    Object.keys(regions).forEach((key) => {
+      replacements[`region_${regions[key].region}`] = regions[
+        key
+      ].display_name.replace(/^#/, '');
     });
+    request(
+      'https://raw.githubusercontent.com/dotabuff/d2vpkr/master/dota/scripts/chat_wheel.txt',
+      (_err, _resp, _body) => {
+        if (_err || _resp.statusCode !== 200) {
+          console.log('Error getting chat wheel info from d2vpkr');
+          process.exit(1);
+        }
+        const chatWheel = vdf.parse(_body).chat_wheel.messages;
 
-    // Remove ones we don't want to replace
-    dontReplace.forEach((key) => {
-      delete replacements[key];
-    });
-    console.log('Updating lang files...');
-    Object.keys(langTagNames).forEach(tag => updateLang(tag, langTagNames[tag]));
-  });
-});
+        Object.keys(chatWheel).forEach((key) => {
+          if (chatWheel[key].message[0] === '#') {
+            replacements[`chatwheel_${chatWheel[key].message_id}`] = chatWheel[
+              key
+            ].message.replace(/^#/, '');
+          }
+        });
+
+        // Remove ones we don't want to replace
+        dontReplace.forEach((key) => {
+          delete replacements[key];
+        });
+        console.log('Updating lang files...');
+        Object.keys(langTagNames).forEach((tag) =>
+          updateLang(tag, langTagNames[tag]),
+        );
+      },
+    );
+  },
+);

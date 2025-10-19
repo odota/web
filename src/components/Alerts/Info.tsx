@@ -18,7 +18,15 @@ const StyledDiv = styled.div`
   }
 `;
 
-const Info = ({ children, className, msg }: { children: React.ReactNode, className: string, msg: string }) => (
+const Info = ({
+  children,
+  className,
+  msg,
+}: {
+  children: React.ReactNode;
+  className: string;
+  msg: string;
+}) => (
   <StyledDiv className={`${className}`}>
     <ActionInfo />
     <span>

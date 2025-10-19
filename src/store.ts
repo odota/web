@@ -1,9 +1,4 @@
-import {
-  createStore,
-  applyMiddleware,
-  combineReducers,
-  compose,
-} from 'redux';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import {
   createResponsiveStoreEnhancer,

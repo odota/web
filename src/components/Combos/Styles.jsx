@@ -18,10 +18,10 @@ export const StyledCombos = styled.div`
   .hero-overview {
     display: grid;
     gap: 6px;
-    grid-template-columns: repeat(auto-fill,50px);
+    grid-template-columns: repeat(auto-fill, 50px);
     margin-bottom: 50px;
     @media screen and (max-width: ${constants.wrapMobile}) {
-      grid-template-columns: repeat(auto-fill,60px);
+      grid-template-columns: repeat(auto-fill, 60px);
     }
   }
 `;
@@ -53,17 +53,17 @@ export const StyledInputFilter = styled.div`
 `;
 
 export const StyledHeroSelector = styled.div`
-  ${props => (props.isFiltered || props.selected) && 
+  ${(props) =>
+    (props.isFiltered || props.selected) &&
     `pointer-events: none; 
     filter: grayscale(1) brightness(0.4);
-    opacity: 0.5;`
-  }
+    opacity: 0.5;`}
   height: 60px;
   overflow: hidden;
   border-radius: 4px;
   backface-visibility: hidden;
   box-sizing: border-box;
-  transition: transform .1s ease-in-out;
+  transition: transform 0.1s ease-in-out;
   border: 1px solid transparent;
 
   @media screen and (min-width: ${constants.wrapMobile}) {
@@ -129,7 +129,6 @@ export const StyledHeroSelector = styled.div`
       top: 75%;
     }
 
-
     & .team-indicator {
       position: absolute;
       top: 10px;
@@ -173,10 +172,18 @@ export const StyledHeroSelector = styled.div`
       text-shadow: 1px 1px 1px black;
 
       &.ts-left {
-        background: linear-gradient(to left,rgb(17 84 115 / 74%) 40%, transparent);
+        background: linear-gradient(
+          to left,
+          rgb(17 84 115 / 74%) 40%,
+          transparent
+        );
       }
       &.ts-right {
-        background: linear-gradient(to right,rgb(191 74 26 / 65%) 40%, transparent);
+        background: linear-gradient(
+          to right,
+          rgb(191 74 26 / 65%) 40%,
+          transparent
+        );
       }
     }
   }
@@ -185,7 +192,6 @@ export const StyledHeroSelector = styled.div`
     pointer-events: none;
   }
 `;
-
 
 export const StyledSelectedHeroes = styled.div`
   display: flex;
@@ -258,7 +264,7 @@ export const StyledSelectedHeroes = styled.div`
       opacity: 0.6;
 
       &.team-a {
-        color : #5dfff8;
+        color: #5dfff8;
       }
       &.team-b {
         color: #ff815b;

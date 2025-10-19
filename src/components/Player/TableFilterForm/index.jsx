@@ -161,7 +161,7 @@ class TableFilterForm extends React.Component {
   render() {
     const { currentQueryString, history, strings } = this.props;
     const formSelectionState = querystring.parse(
-      currentQueryString.substring(1)
+      currentQueryString.substring(1),
     );
 
     const heroList = Object.keys(heroes)
@@ -386,7 +386,7 @@ class TableFilterForm extends React.Component {
               strict
               limit={1}
             />
-{/*             <CustomFormField
+            {/*             <CustomFormField
               name="role_id"
               label={strings.heading_lane_role}
               dataSource={roleList}
@@ -505,5 +505,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(TableFilterForm)
+  connect(mapStateToProps, mapDispatchToProps)(TableFilterForm),
 );

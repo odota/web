@@ -48,12 +48,11 @@ class RequestLayer extends React.Component {
       key: PropTypes.string,
     }),
     strings: PropTypes.shape({}),
-  }
+  };
 
   state = {
     clicked: undefined,
-  }
-
+  };
 
   componentDidMount() {
     getData(this.props);
@@ -61,7 +60,10 @@ class RequestLayer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
+    if (
+      this.props.playerId !== prevProps.playerId ||
+      this.props.location.key !== prevProps.location.key
+    ) {
       getData(this.props);
     }
   }
@@ -72,21 +74,22 @@ class RequestLayer extends React.Component {
 
   getClickProperties(mapId) {
     return {
-      className: this.state.clicked && this.state.clicked !== mapId ? 'heatmap-clicked' : 'heatmap',
+      className:
+        this.state.clicked && this.state.clicked !== mapId
+          ? 'heatmap-clicked'
+          : 'heatmap',
       onClick: this.handleClick(mapId),
     };
   }
 
-  handleClick = mapId => () => {
+  handleClick = (mapId) => () => {
     this.setState({
       clicked: !this.state.clicked && mapId,
     });
-  }
+  };
 
   render() {
-    const {
-      error, loading, data, browser, strings,
-    } = this.props;
+    const { error, loading, data, browser, strings } = this.props;
     const heatmapWidth = browser.width - 50;
     return (
       <StyledContainer>
@@ -98,7 +101,10 @@ class RequestLayer extends React.Component {
           >
             <Heatmap
               points={unpackPositionData(data.obs)}
-              width={Math.min(this.state.clicked === 'observers' ? MAX_WIDTH : HALF_WIDTH, heatmapWidth)}
+              width={Math.min(
+                this.state.clicked === 'observers' ? MAX_WIDTH : HALF_WIDTH,
+                heatmapWidth,
+              )}
               key={this.state.clicked} // force update
             />
           </Container>
@@ -111,7 +117,10 @@ class RequestLayer extends React.Component {
           >
             <Heatmap
               points={unpackPositionData(data.sen)}
-              width={Math.min(this.state.clicked === 'sentries' ? MAX_WIDTH : HALF_WIDTH, heatmapWidth)}
+              width={Math.min(
+                this.state.clicked === 'sentries' ? MAX_WIDTH : HALF_WIDTH,
+                heatmapWidth,
+              )}
               key={this.state.clicked}
             />
           </Container>
@@ -121,7 +130,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.app.playerWardmap.data,
   loading: state.app.playerWardmap.loading,
   error: state.app.playerWardmap.data.error,
@@ -129,8 +138,9 @@ const mapStateToProps = state => ({
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getPlayerWardmap: (playerId, options) => dispatch(getPlayerWardmap(playerId, options)),
+const mapDispatchToProps = (dispatch) => ({
+  getPlayerWardmap: (playerId, options) =>
+    dispatch(getPlayerWardmap(playerId, options)),
   updateWindowSize: () => dispatch(calculateResponsiveState(window)),
 });
 

@@ -24,11 +24,12 @@ const AbilityItem = styled.div`
   padding-right: 4px;
 `;
 
-const renderAbilities = (abilities: any[]) => abilities.map(ability => (
-  <AbilityItem key={ability.key}>
-    <Ability {...ability.data} abilityID={ability.key} />
-  </AbilityItem>
-));
+const renderAbilities = (abilities: any[]) =>
+  abilities.map((ability) => (
+    <AbilityItem key={ability.key}>
+      <Ability {...ability.data} abilityID={ability.key} />
+    </AbilityItem>
+  ));
 
 const Abilities = ({ hero }: any) => {
   const abilities = useAbilities();
@@ -37,9 +38,15 @@ const Abilities = ({ hero }: any) => {
     return null;
   }
   const filterAbilities = (toFilterAbs: any[]) =>
-    toFilterAbs.filter((ability) => ability !== 'generic_hidden' && abilities[ability].behavior !== 'Hidden');
-  const mapAbilities = (toFilterAbs: any[]) => toFilterAbs.map((ability, id) => ({ data: abilities[ability], key: id }));
-  const mapTalents = (talents: any[]) => talents.map(talent => ({ ...abilities[talent.name], ...talent }));
+    toFilterAbs.filter(
+      (ability) =>
+        ability !== 'generic_hidden' &&
+        abilities[ability].behavior !== 'Hidden',
+    );
+  const mapAbilities = (toFilterAbs: any[]) =>
+    toFilterAbs.map((ability, id) => ({ data: abilities[ability], key: id }));
+  const mapTalents = (talents: any[]) =>
+    talents.map((talent) => ({ ...abilities[talent.name], ...talent }));
 
   const mapTalentsToLevel = (talents: any[]) => {
     const talentMap: any[] = [];

@@ -6,7 +6,7 @@ import { createSelector } from 'reselect';
  * @param {string|number} heroId
  */
 export const heroSelector = (heroes: any[], heroId: string | number) =>
-  heroes.find(hero => String(hero.id) === String(heroId));
+  heroes.find((hero) => String(hero.id) === String(heroId));
 
 /**
  * Return ProPlayer map, where key account_id
@@ -14,8 +14,12 @@ export const heroSelector = (heroes: any[], heroId: string | number) =>
  */
 //@ts-expect-error
 export const proPlayersSelector = createSelector(
-  state => state.app.proPlayers.data,
-  (data: any[]) => data.reduce((summary, item) => ({ ...summary, [item.account_id]: { ...item } }), {}),
+  (state) => state.app.proPlayers.data,
+  (data: any[]) =>
+    data.reduce(
+      (summary, item) => ({ ...summary, [item.account_id]: { ...item } }),
+      {},
+    ),
 );
 
 export default {

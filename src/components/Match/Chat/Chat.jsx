@@ -152,7 +152,11 @@ const StyledDiv = styled.div`
   & .divider {
     border: 0;
     height: 1px;
-    background: linear-gradient(to right, ${constants.primaryTextColor}, rgba(0, 0, 0, 0));
+    background: linear-gradient(
+      to right,
+      ${constants.primaryTextColor},
+      rgba(0, 0, 0, 0)
+    );
     opacity: 0.1;
     margin: 6px 0 20px 0;
   }
@@ -241,9 +245,9 @@ const StyledDiv = styled.div`
   }
 `;
 
-const isSpectator = slot => slot > 9 && slot < 128;
+const isSpectator = (slot) => slot > 9 && slot < 128;
 
-const getChatWheel = id => chatWheelMessages[id] || {};
+const getChatWheel = (id) => chatWheelMessages[id] || {};
 
 class Chat extends React.Component {
   static propTypes = {
@@ -261,7 +265,7 @@ class Chat extends React.Component {
       const curr = this.raw[i];
       const next = this.raw[i + 1];
       if (curr.player_slot === next.player_slot) {
-        if ((next.time - curr.time) < 15) {
+        if (next.time - curr.time < 15) {
           if (curr.key === next.key) {
             next.spam = true;
           }
@@ -272,7 +276,10 @@ class Chat extends React.Component {
           curr.key = curr.key.trim();
           next.key = next.key.trim();
           // if first and last 2 chars matches, it's spam
-          if (curr.key.slice(0, 2) === next.key.slice(0, 2) && curr.key.slice(-2) === next.key.slice(-2)) {
+          if (
+            curr.key.slice(0, 2) === next.key.slice(0, 2) &&
+            curr.key.slice(-2) === next.key.slice(-2)
+          ) {
             next.spam = true;
           }
         }
@@ -295,42 +302,66 @@ class Chat extends React.Component {
 
     this.filters = {
       radiant: {
-        f: (arr = this.raw) => arr.filter(msg => isRadiant(msg.player_slot) || isSpectator(msg.slot)),
+        f: (arr = this.raw) =>
+          arr.filter(
+            (msg) => isRadiant(msg.player_slot) || isSpectator(msg.slot),
+          ),
         type: 'faction',
         disabled: () => !this.state.dire,
       },
       dire: {
-        f: (arr = this.raw) => arr.filter(msg => !isRadiant(msg.player_slot)),
+        f: (arr = this.raw) => arr.filter((msg) => !isRadiant(msg.player_slot)),
         type: 'faction',
         disabled: () => !this.state.radiant,
       },
       text: {
-        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chat'),
+        f: (arr = this.raw) => arr.filter((msg) => msg.type === 'chat'),
         type: 'type',
-        disabled: () => this.state.phrases === false && this.state.audio === false,
+        disabled: () =>
+          this.state.phrases === false && this.state.audio === false,
       },
       phrases: {
-        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && !getChatWheel(msg.key).sound_ext && !getChatWheel(msg.key).image),
+        f: (arr = this.raw) =>
+          arr.filter(
+            (msg) =>
+              msg.type === 'chatwheel' &&
+              !getChatWheel(msg.key).sound_ext &&
+              !getChatWheel(msg.key).image,
+          ),
         type: 'type',
         disabled: () => this.state.text === false && this.state.audio === false,
       },
       audio: {
-        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && getChatWheel(msg.key).sound_ext),
+        f: (arr = this.raw) =>
+          arr.filter(
+            (msg) =>
+              msg.type === 'chatwheel' && getChatWheel(msg.key).sound_ext,
+          ),
         type: 'type',
-        disabled: () => this.state.phrases === false && this.state.text === false,
+        disabled: () =>
+          this.state.phrases === false && this.state.text === false,
       },
       all: {
-        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chat' || (msg.type === 'chatwheel' && getChatWheel(msg.key).all_chat)),
+        f: (arr = this.raw) =>
+          arr.filter(
+            (msg) =>
+              msg.type === 'chat' ||
+              (msg.type === 'chatwheel' && getChatWheel(msg.key).all_chat),
+          ),
         type: 'target',
         disabled: () => !this.state.allies,
       },
       allies: {
-        f: (arr = this.raw) => arr.filter(msg => msg.type === 'chatwheel' && !getChatWheel(msg.key).all_chat),
+        f: (arr = this.raw) =>
+          arr.filter(
+            (msg) =>
+              msg.type === 'chatwheel' && !getChatWheel(msg.key).all_chat,
+          ),
         type: 'target',
         disabled: () => !this.state.all,
       },
       spam: {
-        f: (arr = this.raw) => arr.filter(msg => msg.spam),
+        f: (arr = this.raw) => arr.filter((msg) => msg.spam),
         type: 'other',
         disabled: () => false,
       },
@@ -340,7 +371,9 @@ class Chat extends React.Component {
   }
 
   audio = (message, index) => {
-    const a = new Audio(`https://odota.github.io/media/chatwheel/dota_chatwheel_${message.id}.${message.sound_ext}`);
+    const a = new Audio(
+      `https://odota.github.io/media/chatwheel/dota_chatwheel_${message.id}.${message.sound_ext}`,
+    );
     a.play();
     this.setState({
       playing: index,
@@ -357,9 +390,14 @@ class Chat extends React.Component {
 
   toggleFilter = (key) => {
     if (key !== undefined) {
-      this.setState((state) => ({[key]: !state[key]}), () => {this.setState({messages: this.filter()})});
+      this.setState(
+        (state) => ({ [key]: !state[key] }),
+        () => {
+          this.setState({ messages: this.filter() });
+        },
+      );
     }
-  }
+  };
 
   filter = () => {
     const messages = this.raw.slice();
@@ -387,7 +425,7 @@ class Chat extends React.Component {
       return timeDiff;
     });
 
-    return messages
+    return messages;
   };
 
   render() {
@@ -404,49 +442,49 @@ class Chat extends React.Component {
             let message = null;
             if (msg.type === 'chatwheel') {
               const messageInfo = getChatWheel(msg.key);
-              message = [
-                (messageInfo.message || '').replace(/%s1/, 'A hero'),
-              ];
+              message = [(messageInfo.message || '').replace(/%s1/, 'A hero')];
               if (messageInfo.sound_ext) {
-                message.unshift(<AvVolumeUp
-                  key={messageInfo.id}
-                  viewBox="-2 -2 28 28"
-                  onClick={() => this.audio(messageInfo, index)}
-                  className={`play ${this.state.playing === index ? 'playing' : ''}`}
-                />);
+                message.unshift(
+                  <AvVolumeUp
+                    key={messageInfo.id}
+                    viewBox="-2 -2 28 28"
+                    onClick={() => this.audio(messageInfo, index)}
+                    className={`play ${this.state.playing === index ? 'playing' : ''}`}
+                  />,
+                );
               } else {
-                message.unshift(<img
-                  key={messageInfo.id}
-                  src="/assets/images/dota2/chat_wheel_icon.png"
-                  alt="Chat Wheel"
-                  className="chatwheel"
-                />);
+                message.unshift(
+                  <img
+                    key={messageInfo.id}
+                    src="/assets/images/dota2/chat_wheel_icon.png"
+                    alt="Chat Wheel"
+                    className="chatwheel"
+                  />,
+                );
               }
             } else if (msg.type === 'chat') {
-              const messageRaw = msg.key
-                .split('')
-                .map((char) => {
-                  const emote = emotes[emoteKeys[emoteKeys.indexOf(char)]];
-                  if (emote) {
-                    return createElement('img', {
-                      alt: emote,
-                      src: `/assets/images/dota2/emoticons/${emote}.gif`,
-                      className: 'emote',
-                    });
-                  }
-                  return char;
-                });
+              const messageRaw = msg.key.split('').map((char) => {
+                const emote = emotes[emoteKeys[emoteKeys.indexOf(char)]];
+                if (emote) {
+                  return createElement('img', {
+                    alt: emote,
+                    src: `/assets/images/dota2/emoticons/${emote}.gif`,
+                    className: 'emote',
+                  });
+                }
+                return char;
+              });
               // Join sequences of characters
               let buffer = [];
               message = [];
               messageRaw.forEach((char) => {
                 if (typeof char === 'object') {
-                  message.push(buffer.join(''), char)
+                  message.push(buffer.join(''), char);
                   buffer = [];
                 } else {
                   buffer.push(char);
                 }
-              })
+              });
               message.push(buffer.join(''));
             }
 
@@ -458,11 +496,13 @@ class Chat extends React.Component {
               target = strings.chat_filter_spectator;
             }
 
-            let icon = (<img
-              src="/assets/images/blank-1x1.gif"
-              alt="???"
-              className="unknown"
-            />);
+            let icon = (
+              <img
+                src="/assets/images/blank-1x1.gif"
+                alt="???"
+                className="unknown"
+              />
+            );
             if (!spec) {
               if (rad) {
                 icon = <IconRadiant className="icon" />;
@@ -483,11 +523,12 @@ class Chat extends React.Component {
                 <time>
                   <a href={`#${index}`}>{formatSeconds(msg.time)}</a>
                 </time>
-                {hero ? <HeroImage id={hero.id} alt={hero && hero.localized_name} />
-                  : <img src="/assets/images/blank-1x1.gif" alt="" />}
-                <span className="target">
-                  [{target.toUpperCase()}]
-                </span>
+                {hero ? (
+                  <HeroImage id={hero.id} alt={hero && hero.localized_name} />
+                ) : (
+                  <img src="/assets/images/blank-1x1.gif" alt="" />
+                )}
+                <span className="target">[{target.toUpperCase()}]</span>
                 <Link
                   to={`/players/${msg.accountID}`}
                   style={{ color: playerColors[msg.player_slot] || 'red' }}
@@ -495,9 +536,7 @@ class Chat extends React.Component {
                 >
                   {msg.name || msg.unit}
                 </Link>
-                <article>
-                  {message}
-                </article>
+                <article>{message}</article>
               </li>
             );
           })}
@@ -522,7 +561,7 @@ class Chat extends React.Component {
 
       return (
         <ul className="Filters">
-          {Object.keys(categories).map(cat => (
+          {Object.keys(categories).map((cat) => (
             <li key={cat}>
               <div>{strings[`chat_category_${cat}`]}</div>
               <ul>
@@ -536,10 +575,16 @@ class Chat extends React.Component {
                         label={
                           <span>
                             <div>
-                              {strings[`chat_filter_${filter.name}`] || strings[`general_${filter.name}`]}
+                              {strings[`chat_filter_${filter.name}`] ||
+                                strings[`general_${filter.name}`]}
                               <b>{len}</b>
                             </div>
-                            {len !== lenFiltered && <small>{strings.chat_filtered.toLowerCase()} <span>{lenFiltered}</span></small>}
+                            {len !== lenFiltered && (
+                              <small>
+                                {strings.chat_filtered.toLowerCase()}{' '}
+                                <span>{lenFiltered}</span>
+                              </small>
+                            )}
                           </span>
                         }
                         checked={this.state[filter.name]}
@@ -568,7 +613,7 @@ class Chat extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

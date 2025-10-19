@@ -16,10 +16,20 @@ import {
 import { heroes, player_colors as playerColors } from 'dotaconstants';
 import Heading from '../../Heading';
 import constants from '../../constants';
-import { StyledTooltip, StyledTooltipTeam, StyledRadiant, StyledDire, StyledHolder, GoldSpan, XpSpan, StyledTooltipGold, StyledCustomizedTooltip } from './Styled';
+import {
+  StyledTooltip,
+  StyledTooltipTeam,
+  StyledRadiant,
+  StyledDire,
+  StyledHolder,
+  GoldSpan,
+  XpSpan,
+  StyledTooltipGold,
+  StyledCustomizedTooltip,
+} from './Styled';
 import config from '../../../config';
 
-const formatGraphTime = minutes => `${minutes}:00`;
+const formatGraphTime = (minutes) => `${minutes}:00`;
 
 const generateDiffData = (match) => {
   const radiantGoldAdv = match.radiant_gold_adv;
@@ -38,11 +48,17 @@ const generateDiffData = (match) => {
 const CustomizedTooltip = ({ label, payload }) => (
   <StyledCustomizedTooltip>
     <div className="label">{label}</div>
-    {payload.map((data, i) => (
-      <div value={data.value} className={`data ${i < 5 && 'isRadiant'}`} style={{ borderLeft: `8px solid ${data.color}` }}>
-        {data.dataKey}: {data.value}
-      </div>)).sort((a, b) => b.props.value - a.props.value)
-    }
+    {payload
+      .map((data, i) => (
+        <div
+          value={data.value}
+          className={`data ${i < 5 && 'isRadiant'}`}
+          style={{ borderLeft: `8px solid ${data.color}` }}
+        >
+          {data.dataKey}: {data.value}
+        </div>
+      ))
+      .sort((a, b) => b.props.value - a.props.value)}
   </StyledCustomizedTooltip>
 );
 CustomizedTooltip.propTypes = {
@@ -62,11 +78,15 @@ const XpTooltipContent = ({ payload, strings }) => {
         <br />
         <StyledTooltipGold>
           <StyledTooltipTeam
-            color={rGoldAdv > 0 ? constants.colorSuccess : constants.colorDanger}
+            color={
+              rGoldAdv > 0 ? constants.colorSuccess : constants.colorDanger
+            }
           >
             {rGoldAdv > 0 ? strings.general_radiant : strings.general_dire}
           </StyledTooltipTeam>
-          <GoldSpan>{Math.abs(rGoldAdv)} {strings.heading_graph_gold}</GoldSpan>
+          <GoldSpan>
+            {Math.abs(rGoldAdv)} {strings.heading_graph_gold}
+          </GoldSpan>
         </StyledTooltipGold>
         <br />
         <StyledTooltipGold>
@@ -75,7 +95,9 @@ const XpTooltipContent = ({ payload, strings }) => {
           >
             {rXpAdv > 0 ? strings.general_radiant : strings.general_dire}
           </StyledTooltipTeam>
-          <XpSpan>{Math.abs(rXpAdv)} {strings.heading_graph_xp}</XpSpan>
+          <XpSpan>
+            {Math.abs(rXpAdv)} {strings.heading_graph_xp}
+          </XpSpan>
         </StyledTooltipGold>
       </StyledTooltip>
     );
@@ -88,17 +110,19 @@ XpTooltipContent.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const XpNetworthGraph = ({
-  match, strings, sponsorURL, sponsorIcon,
-}) => {
+const XpNetworthGraph = ({ match, strings, sponsorURL, sponsorIcon }) => {
   if (!match.radiant_gold_adv || !match.radiant_xp_adv) {
     return null;
   }
   const matchData = generateDiffData(match);
   const maxY =
-      Math.ceil(Math.max(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000) * 5000;
+    Math.ceil(
+      Math.max(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000,
+    ) * 5000;
   const minY =
-      Math.floor(Math.min(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000) * 5000;
+    Math.floor(
+      Math.min(...match.radiant_gold_adv, ...match.radiant_xp_adv) / 5000,
+    ) * 5000;
   return (
     <StyledHolder>
       <StyledRadiant>{strings.general_radiant}</StyledRadiant>
@@ -113,19 +137,22 @@ const XpNetworthGraph = ({
         <LineChart
           data={matchData}
           margin={{
-            top: 5, right: 10, left: 10, bottom: 5,
+            top: 5,
+            right: 10,
+            left: 10,
+            bottom: 5,
           }}
         >
           <ReferenceArea y1={0} y2={maxY} fill="rgba(102, 187, 106, 0.12)" />
           <ReferenceArea y1={0} y2={minY} fill="rgba(255, 76, 76, 0.12)" />
           <XAxis dataKey="time" tickFormatter={formatGraphTime} />
-          <YAxis domain={[minY, maxY]} mirror="true" padding={{ top: 5, bottom: 5 }} />
-          <ReferenceLine y={0} stroke="#505050" strokeWidth={2} opacity={1} />
-          <CartesianGrid
-            stroke="#505050"
-            strokeWidth={1}
-            opacity={0.5}
+          <YAxis
+            domain={[minY, maxY]}
+            mirror="true"
+            padding={{ top: 5, bottom: 5 }}
           />
+          <ReferenceLine y={0} stroke="#505050" strokeWidth={2} opacity={1} />
+          <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
 
           <Tooltip content={<XpTooltipContent strings={strings} />} />
           <Line
@@ -160,7 +187,7 @@ class PlayersGraph extends React.Component {
     match: PropTypes.shape({}),
     type: PropTypes.string,
     strings: PropTypes.shape({}),
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -205,34 +232,40 @@ class PlayersGraph extends React.Component {
             <LineChart
               data={matchData}
               margin={{
-                top: 5, right: 10, left: 10, bottom: 5,
+                top: 5,
+                right: 10,
+                left: 10,
+                bottom: 5,
               }}
             >
               <XAxis dataKey="time" />
               <YAxis mirror="true" />
-              <CartesianGrid
-                stroke="#505050"
-                strokeWidth={1}
-                opacity={0.5}
-              />
+              <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
 
               <Tooltip content={<CustomizedTooltip />} />
               {match.players.map((player) => {
                 const hero = heroes[player.hero_id] || {};
                 const playerColor = playerColors[player.player_slot];
-                const isSelected = heroes[player.hero_id] && (hoverHero === heroes[player.hero_id].localized_name);
-                const opacity = (!hoverHero || isSelected) ? 1 : 0.25;
-                const stroke = (isSelected) ? 4 : 2;
-                return (<Line
-                  dot={false}
-                  dataKey={hero.localized_name}
-                  stroke={playerColor}
-                  strokeWidth={stroke}
-                  strokeOpacity={opacity}
-                  name={hero.localized_name}
-                />);
+                const isSelected =
+                  heroes[player.hero_id] &&
+                  hoverHero === heroes[player.hero_id].localized_name;
+                const opacity = !hoverHero || isSelected ? 1 : 0.25;
+                const stroke = isSelected ? 4 : 2;
+                return (
+                  <Line
+                    dot={false}
+                    dataKey={hero.localized_name}
+                    stroke={playerColor}
+                    strokeWidth={stroke}
+                    strokeOpacity={opacity}
+                    name={hero.localized_name}
+                  />
+                );
               })}
-              <Legend onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} />
+              <Legend
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
+              />
             </LineChart>
           </ResponsiveContainer>
         </StyledHolder>
@@ -244,12 +277,27 @@ class PlayersGraph extends React.Component {
 }
 
 const MatchGraph = ({
-  type, match, width, strings, sponsorURL, sponsorIcon,
+  type,
+  match,
+  width,
+  strings,
+  sponsorURL,
+  sponsorIcon,
 }) => {
   if (type === 'difference') {
-    return <XpNetworthGraph match={match} width={width} strings={strings} sponsorURL={sponsorURL} sponsorIcon={sponsorIcon} />;
+    return (
+      <XpNetworthGraph
+        match={match}
+        width={width}
+        strings={strings}
+        sponsorURL={sponsorURL}
+        sponsorIcon={sponsorIcon}
+      />
+    );
   } else if (type === 'gold' || type === 'xp' || type === 'lh') {
-    return <PlayersGraph type={type} match={match} width={width} strings={strings} />;
+    return (
+      <PlayersGraph type={type} match={match} width={width} strings={strings} />
+    );
   }
   return null;
 };
@@ -265,7 +313,7 @@ MatchGraph.propTypes = {
   sponsorURL: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

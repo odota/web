@@ -7,34 +7,44 @@ import { IconPlusSquare, IconMinusSquare } from '../Icons';
 import constants from '../constants';
 
 const ButtonContainer = styled.div`
-    position: absolute;
-    right: -4px;
-    top: 5px;
-    z-index: 100;
-    cursor: pointer;
-    opacity: 0.4;
-    color: ${constants.colorBlue};
+  position: absolute;
+  right: -4px;
+  top: 5px;
+  z-index: 100;
+  cursor: pointer;
+  opacity: 0.4;
+  color: ${constants.colorBlue};
 
-    &:hover {
-      opacity: 1;
-    }
+  &:hover {
+    opacity: 1;
+  }
 
-    svg {
-      height: 19px;
-      fill: ${constants.colorBlue};
-    }
+  svg {
+    height: 19px;
+    fill: ${constants.colorBlue};
+  }
 
-    span {
-      font-size: 11px;
-      vertical-align: text-top;
-      text-transform: uppercase;
-    }
+  span {
+    font-size: 11px;
+    vertical-align: text-top;
+    text-transform: uppercase;
+  }
 `;
 
 const CollapseButton = ({
-  handleClick, collapsed, strings, buttonStyle, handleHoverOn, handleHoverOff,
+  handleClick,
+  collapsed,
+  strings,
+  buttonStyle,
+  handleHoverOn,
+  handleHoverOff,
 }) => (
-  <ButtonContainer style={buttonStyle} onClick={handleClick} onMouseEnter={handleHoverOn} onMouseLeave={handleHoverOff}>
+  <ButtonContainer
+    style={buttonStyle}
+    onClick={handleClick}
+    onMouseEnter={handleHoverOn}
+    onMouseLeave={handleHoverOff}
+  >
     {collapsed
       ? [<span>{strings.general_show}</span>, <IconPlusSquare />]
       : [<span>{strings.general_hide}</span>, <IconMinusSquare />]}
@@ -64,7 +74,7 @@ class Collapsible extends React.Component {
     strings: PropTypes.shape({}),
     initialMaxHeight: PropTypes.number,
     buttonStyle: PropTypes.shape({}),
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -78,22 +88,27 @@ class Collapsible extends React.Component {
     const { collapsed } = this.state;
     localStorage.setItem(`${this.props.name}Collapsed`, `${!collapsed}`);
     this.setState({ collapsed: !collapsed });
-  }
+  };
 
   handleHoverOn = () => {
     this.setState({ hovered: true });
-  }
+  };
 
   handleHoverOff = () => {
     this.setState({ hovered: false });
-  }
+  };
 
   render() {
     const { collapsed, hovered } = this.state;
     const { initialMaxHeight, strings, buttonStyle } = this.props;
 
     return (
-      <CollapsibleContainer style={{ border: !collapsed && hovered && '1px dashed rgba(255, 255, 255, 0.1)' }}>
+      <CollapsibleContainer
+        style={{
+          border:
+            !collapsed && hovered && '1px dashed rgba(255, 255, 255, 0.1)',
+        }}
+      >
         <CollapseButton
           handleClick={this.handleClick}
           collapsed={collapsed}
@@ -102,13 +117,19 @@ class Collapsible extends React.Component {
           handleHoverOn={this.handleHoverOn}
           handleHoverOff={this.handleHoverOff}
         />
-        <Transition in={!collapsed} timeout={{ enter: 0, exit: 300 }} mountOnEnter>
-          {status => (
-            <div style={{
-              transition: 'max-height 300ms ease-in-out',
-              overflow: 'hidden',
-              maxHeight: status === 'entered' ? (initialMaxHeight || '100%') : 0,
-            }}
+        <Transition
+          in={!collapsed}
+          timeout={{ enter: 0, exit: 300 }}
+          mountOnEnter
+        >
+          {(status) => (
+            <div
+              style={{
+                transition: 'max-height 300ms ease-in-out',
+                overflow: 'hidden',
+                maxHeight:
+                  status === 'entered' ? initialMaxHeight || '100%' : 0,
+              }}
             >
               {this.props.children}
             </div>
@@ -119,7 +140,7 @@ class Collapsible extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

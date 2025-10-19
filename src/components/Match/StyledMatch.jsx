@@ -66,7 +66,7 @@ export const StyledAghanimsBuffs = styled.div`
     opacity: 1 !important;
     padding: 0px !important;
   }
-`
+`;
 
 export const StyledLevel = styled.div`
   display: flex;
@@ -85,7 +85,7 @@ export const StyledLevel = styled.div`
     stroke-width: 2.8;
     stroke-linecap: round;
   }
-`
+`;
 
 export const StyledCosmetic = styled.div`
   display: inline-block;
@@ -232,8 +232,8 @@ export const StyledPlayersDeath = styled.div`
   }
 `;
 export const StyledEmote = styled.img.attrs({
-  alt: props => props.emote,
-  src: props => `/assets/images/dota2/emoticons/${props.emote}.gif`,
+  alt: (props) => props.emote,
+  src: (props) => `/assets/images/dota2/emoticons/${props.emote}.gif`,
 })`
   width: 20px;
   height: 20px;
@@ -242,8 +242,8 @@ export const StyledEmote = styled.img.attrs({
 
 export const StyledStorySpan = styled.span`
   white-space: nowrap;
-  color: ${props =>
-    (props.isRadiant ? constants.colorGreen : constants.colorRed)};
+  color: ${(props) =>
+    props.isRadiant ? constants.colorGreen : constants.colorRed};
   svg,
   img {
     vertical-align: middle;
@@ -295,9 +295,9 @@ export const StyledStoryNetWorthText = styled.div`
   position: relative;
   display: flex;
   text-align: center;
-  ${props => (props.color ? `background-color:${props.color}` : '')};
-  ${props => (props.left ? `left:${props.left}%` : '')};
-  width: ${props => props.width}%;
+  ${(props) => (props.color ? `background-color:${props.color}` : '')};
+  ${(props) => (props.left ? `left:${props.left}%` : '')};
+  width: ${(props) => props.width}%;
 
   > div {
     display: inline-block;
@@ -327,7 +327,6 @@ export const StyledLogFilterForm = styled.div`
   border: 1px solid rgb(255, 255, 255, 0.06);
   background: ${constants.colorBoxBlue};
 
-  
   & > div {
     padding: 10px;
   }
@@ -345,7 +344,7 @@ export const StyledLogFilterForm = styled.div`
 export const StyledDmgTargetInflictor = styled.div`
   .inflictorWithValue {
     object {
-    max-width: 27px !important;
+      max-width: 27px !important;
     }
   }
 `;
@@ -369,9 +368,9 @@ export const StyledDmgTargetRow = styled.div`
 
     #target {
       img {
-      background: rgba(74, 149, 247, 0.5) !important;
-      transition: background 0.2s ease !important;
-      box-shadow: 0px 0px 10px rgba(74, 149, 247, 0.5);
+        background: rgba(74, 149, 247, 0.5) !important;
+        transition: background 0.2s ease !important;
+        box-shadow: 0px 0px 10px rgba(74, 149, 247, 0.5);
       }
     }
 

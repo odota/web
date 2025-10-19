@@ -69,7 +69,7 @@ class ScenarioFormField extends React.Component {
     let searchText = this.dataSources[selectedTab][field].find(
       (el) =>
         (el.altValue !== undefined && el.altValue === formFieldState) ||
-        el.value === formFieldState
+        el.value === formFieldState,
     );
     searchText = searchText ? searchText.text : '';
 

@@ -43,21 +43,28 @@ const drawElement = (element, type) => {
   return null;
 };
 
-const Totals = ({
-  data, error, loading, strings,
-}) => (
+const Totals = ({ data, error, loading, strings }) => (
   <div>
-    <Container title={strings.heading_all_matches} error={error} loading={loading}>
+    <Container
+      title={strings.heading_all_matches}
+      error={error}
+      loading={loading}
+    >
       <CardContainer>
-        {data.map(element => drawElement(element, 1))}
+        {data.map((element) => drawElement(element, 1))}
       </CardContainer>
     </Container>
-    <Container title={strings.heading_parsed_matches} error={error} loading={loading}>
+    <Container
+      title={strings.heading_parsed_matches}
+      error={error}
+      loading={loading}
+    >
       <CardContainer>
-        {data.map(element => drawElement(element, 'parsed'))}
+        {data.map((element) => drawElement(element, 'parsed'))}
       </CardContainer>
     </Container>
-  </div>);
+  </div>
+);
 
 Totals.propTypes = {
   data: PropTypes.arrayOf({}),
@@ -77,14 +84,17 @@ class RequestLayer extends React.Component {
       key: PropTypes.string,
     }),
     strings: PropTypes.shape({}),
-  }
+  };
 
   componentDidMount() {
     getData(this.props);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.playerId !== prevProps.playerId || this.props.location.key !== prevProps.location.key) {
+    if (
+      this.props.playerId !== prevProps.playerId ||
+      this.props.location.key !== prevProps.location.key
+    ) {
       getData(this.props);
     }
   }
@@ -94,15 +104,16 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.app.playerTotals.data,
   error: state.app.playerTotals.error,
   loading: state.app.playerTotals.loading,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getPlayerTotals: (playerId, options) => dispatch(getPlayerTotals(playerId, options)),
+const mapDispatchToProps = (dispatch) => ({
+  getPlayerTotals: (playerId, options) =>
+    dispatch(getPlayerTotals(playerId, options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

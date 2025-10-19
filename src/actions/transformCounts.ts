@@ -18,18 +18,26 @@ export default function transformCounts(data: any) {
       1: strings.general_radiant,
     },
   };
-  const result: Record<string, { name: string, list: any[]}>= {};
+  const result: Record<string, { name: string; list: any[] }> = {};
   Object.keys(data).forEach((key) => {
     // Translate each ID to a string
     result[key] = {
       name: key,
       list: Object.keys(data[key])
-        .map(innerKey => ({
+        .map((innerKey) => ({
           //@ts-expect-error
-          category: strings[`${key}_${innerKey}`] || (countTypes[key as keyof typeof countTypes] && countTypes[key as keyof typeof countTypes][innerKey]) || innerKey,
+          category:
+            strings[`${key}_${innerKey}`] ||
+            (countTypes[key as keyof typeof countTypes] &&
+              countTypes[key as keyof typeof countTypes][innerKey]) ||
+            innerKey,
           matches: data[key][innerKey].games,
-          winPercent: getPercentWin(data[key][innerKey].win, data[key][innerKey].games),
-        })).sort((a, b) => b.category - a.category),
+          winPercent: getPercentWin(
+            data[key][innerKey].win,
+            data[key][innerKey].games,
+          ),
+        }))
+        .sort((a, b) => b.category - a.category),
     };
   });
   return result;

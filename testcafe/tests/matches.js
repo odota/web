@@ -1,6 +1,4 @@
-import {
-  Selector,
-} from 'testcafe';
+import { Selector } from 'testcafe';
 import {
   fixtureBeforeHook,
   fixtureBeforeEachHook,
@@ -32,7 +30,6 @@ const pathSuffixes = [
   'story',
 ];
 
-
 fixture`matches/ paths`
   .requestHooks(fixtureRequestHooks)
   .before(fixtureBeforeHook)
@@ -40,8 +37,7 @@ fixture`matches/ paths`
   .after(fixtureAfterHook);
 
 pathSuffixes.forEach((suffix) => {
-  test
-    .page`${host}/matches/4080856812/${suffix}`(suffix, async (t) => {
+  test.page`${host}/matches/4080856812/${suffix}`(suffix, async (t) => {
     await t.hover(Selector('#root'));
   });
 });
@@ -53,8 +49,7 @@ fixture`matches/ paths (legacy)`
   .after(fixtureAfterHook);
 
 pathSuffixes.forEach((suffix) => {
-  test
-    .page`${host}/matches/2472899185/${suffix}`(suffix, async (t) => {
+  test.page`${host}/matches/2472899185/${suffix}`(suffix, async (t) => {
     await t.hover(Selector('#root'));
   });
 });

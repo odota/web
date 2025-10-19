@@ -50,7 +50,7 @@ const SummOfRecMatches = ({ matchesData, strings }) => {
     if (key !== 'wins') {
       const avg = data[key].reduce(sum, 0) / numRows;
       const max = Math.max(...data[key]);
-      const maxMatch = matchesData.find(match => match[key] === max) || {};
+      const maxMatch = matchesData.find((match) => match[key] === max) || {};
 
       let color;
 
@@ -85,22 +85,20 @@ const SummOfRecMatches = ({ matchesData, strings }) => {
     return null;
   });
 
-  winrate = Number((data.wins
-    .filter(Boolean)
-    .reduce(sum, 0) * 100 / numRows)
-    .toFixed(2));
+  winrate = Number(
+    ((data.wins.filter(Boolean).reduce(sum, 0) * 100) / numRows).toFixed(2),
+  );
 
   return (
     <div>
       <ul>
-        {winrate
-          ?
-            <li>
-              <span>{strings.th_winrate}</span>
-              <p>{winrate}%</p>
-            </li>
-          : null
-        } {Object.keys(computed).map((key) => {
+        {winrate ? (
+          <li>
+            <span>{strings.th_winrate}</span>
+            <p>{winrate}%</p>
+          </li>
+        ) : null}{' '}
+        {Object.keys(computed).map((key) => {
           const c = computed[key];
 
           if (c.avg) {
@@ -110,10 +108,19 @@ const SummOfRecMatches = ({ matchesData, strings }) => {
                 <span>{strings[`heading_${key}`]}</span>
                 <Link to={`/matches/${c.max.matchId}`}>
                   <p style={{ color: constants[c.color] }}>
-                    {key === 'duration' ? formatSeconds(c.avg) : abbreviateNumber(c.avg)}
-                  &nbsp;
-                    <span>{key === 'duration' ? formatSeconds(c.max.value) : abbreviateNumber(c.max.value)}
-                      <HeroImage id={hero.id} isIcon alt={hero.localized_name} />
+                    {key === 'duration'
+                      ? formatSeconds(c.avg)
+                      : abbreviateNumber(c.avg)}
+                    &nbsp;
+                    <span>
+                      {key === 'duration'
+                        ? formatSeconds(c.max.value)
+                        : abbreviateNumber(c.max.value)}
+                      <HeroImage
+                        id={hero.id}
+                        isIcon
+                        alt={hero.localized_name}
+                      />
                     </span>
                   </p>
                 </Link>
@@ -128,7 +135,7 @@ const SummOfRecMatches = ({ matchesData, strings }) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

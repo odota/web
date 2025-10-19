@@ -13,7 +13,7 @@ const Styled = styled.div`
   display: inline-block;
 
   .minimap {
-  } 
+  }
 
   .minimap:hover > img {
     border: 1px solid ${constants.colorMutedLight};
@@ -22,18 +22,26 @@ const Styled = styled.div`
   .placement {
     position: absolute;
     transform: scale(0);
-    transition: .1s ease;
+    transition: 0.1s ease;
     pointer-events: none;
     filter: brightness(110%);
   }
 
   .minimap:hover .placement {
-    transform: scale(1)
+    transform: scale(1);
   }
 `;
 
-const durationObserverColor = threshold(0, [121, 241, 371], [constants.colorRed, constants.colorYelor, constants.colorGreen]);
-const durationSentryColor = threshold(0, [81, 161, 251], [constants.colorRed, constants.colorYelor, constants.colorGreen]);
+const durationObserverColor = threshold(
+  0,
+  [121, 241, 371],
+  [constants.colorRed, constants.colorYelor, constants.colorGreen],
+);
+const durationSentryColor = threshold(
+  0,
+  [81, 161, 251],
+  [constants.colorRed, constants.colorYelor, constants.colorGreen],
+);
 
 const columns = (strings) => {
   const { heroTdColumn } = mcs(strings);
@@ -76,17 +84,17 @@ const columns = (strings) => {
   ];
 };
 
-
 function logWard(log, startTime) {
   return (
     <Styled>
-      <div className="minimap"><img
-        src="/assets/images/dota2/map/minimap2.jpg"
-        style={{ height: '30px' }}
-        alt="Minimap"
-      /><div className="placement">{LogHover(log, startTime)}</div>
+      <div className="minimap">
+        <img
+          src="/assets/images/dota2/map/minimap2.jpg"
+          style={{ height: '30px' }}
+          alt="Minimap"
+        />
+        <div className="placement">{LogHover(log, startTime)}</div>
       </div>
-
     </Styled>
   );
 }
@@ -94,22 +102,43 @@ function logWard(log, startTime) {
 const generateData = (match, strings) => (log) => {
   const { heroTd } = mcs(strings);
 
-  const duration = (log.left && log.left.time - log.entered.time) || (match && match.duration - log.entered.time);
+  const duration =
+    (log.left && log.left.time - log.entered.time) ||
+    (match && match.duration - log.entered.time);
 
   // necessary until https://github.com/odota/parser/pull/3 is implemented
   const lifetime = log.type === 'observer' ? 360 : 420;
   const discrepancy = duration - Math.min(lifetime, duration);
 
-  const durationColor = log.type === 'observer' ? durationObserverColor(duration) : durationSentryColor(duration);
+  const durationColor =
+    log.type === 'observer'
+      ? durationObserverColor(duration)
+      : durationSentryColor(duration);
 
-  const wardKiller = match.players.find(p => log.left && p.hero_name === log.left.attackername);
+  const wardKiller = match.players.find(
+    (p) => log.left && p.hero_name === log.left.attackername,
+  );
 
   return {
     ...match.players[log.player],
-    type: <img height="29" src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_${log.type}.png`} alt="" />,
+    type: (
+      <img
+        height="29"
+        src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/ward_${log.type}.png`}
+        alt=""
+      />
+    ),
     enter_time: formatSeconds(log.entered.time),
-    left_time: formatSeconds(((log.left && log.left.time) || (match && match.duration)) - discrepancy) || '-',
-    duration: <span style={{ color: durationColor }}>{formatSeconds(duration - discrepancy)}</span>,
+    left_time:
+      formatSeconds(
+        ((log.left && log.left.time) || (match && match.duration)) -
+          discrepancy,
+      ) || '-',
+    duration: (
+      <span style={{ color: durationColor }}>
+        {formatSeconds(duration - discrepancy)}
+      </span>
+    ),
     killer: wardKiller && heroTd(wardKiller),
     placement: logWard(log, match.start_time),
   };
@@ -118,7 +147,10 @@ const generateData = (match, strings) => (log) => {
 const VisionLog = ({ match, wards, strings }) => (
   <div>
     <Heading title={strings.vision_ward_log} />
-    <Table data={wards.map(generateData(match, strings))} columns={columns(strings)} />
+    <Table
+      data={wards.map(generateData(match, strings))}
+      columns={columns(strings)}
+    />
   </div>
 );
 

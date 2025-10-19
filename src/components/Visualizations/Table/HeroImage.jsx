@@ -26,10 +26,10 @@ import HeroFacet from './HeroFacet';
 
 // hero to use as background image in tooltip
 const backgroundMapping = {
-  str: 2,   // Axe
-  agi: 47,  // Viper
-  int: 10,  // Morphling
-  all: 91,  // Io
+  str: 2, // Axe
+  agi: 47, // Viper
+  int: 10, // Morphling
+  all: 91, // Io
 };
 
 const Styled = styled.div`
@@ -83,7 +83,7 @@ const Styled = styled.div`
     height: 29px;
     box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
   }
-  
+
   .abandoned {
     position: absolute;
     bottom: 8px;
@@ -496,7 +496,7 @@ class TableHeroImage extends React.Component {
                   className="image"
                   data-tip={hero.id === undefined && null}
                   data-for={heroName}
-                  style={{ marginRight: facet ? '12px': '7px' }}
+                  style={{ marginRight: facet ? '12px' : '7px' }}
                   {...heroImageEventProps}
                 />
               ) : (
@@ -505,7 +505,7 @@ class TableHeroImage extends React.Component {
                   className="image"
                   data-tip={hero.id === undefined && null}
                   data-for={heroName !== undefined && heroName}
-                  style={{ marginRight: facet ? '12px': '7px' }}
+                  style={{ marginRight: facet ? '12px' : '7px' }}
                   heroImageEventProps={heroImageEventProps}
                 />
               )}
@@ -523,7 +523,10 @@ class TableHeroImage extends React.Component {
               {playerSlot !== undefined && (
                 <div
                   className="playerSlot"
-                  style={{ backgroundColor: playerColors[playerSlot], right: facet ? '12px' : '7px' }}
+                  style={{
+                    backgroundColor: playerColors[playerSlot],
+                    right: facet ? '12px' : '7px',
+                  }}
                 />
               )}
             </div>

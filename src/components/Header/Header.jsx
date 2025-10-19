@@ -107,14 +107,12 @@ const MenuLogoWrapper = styled.div`
   padding: 24px 0;
 `;
 
-
-
 const DrawerLink = styled(Link)`
   color: ${constants.textColorPrimary};
 
-   & li:hover {
-      background-color: rgba(0, 0, 0, 0.08);
-      transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  & li:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
 `;
 
@@ -123,7 +121,20 @@ const LinkGroup = ({ navbarPages }) => (
     {navbarPages.map((page) => (
       <TabContainer key={page.key}>
         <Link to={page.to}>{page.label}</Link>
-        {Boolean(page.feature) && <div style={{ position: 'absolute', textTransform: 'uppercase', fontSize: '10px', top: '-10px', right: '0', color: 'lightblue' }}>{page.feature}</div>}
+        {Boolean(page.feature) && (
+          <div
+            style={{
+              position: 'absolute',
+              textTransform: 'uppercase',
+              fontSize: '10px',
+              top: '-10px',
+              right: '0',
+              color: 'lightblue',
+            }}
+          >
+            {page.feature}
+          </div>
+        )}
       </TabContainer>
     ))}
   </VerticalAlignToolbar>
@@ -177,7 +188,12 @@ const LogoGroup = ({ onMenuClick }) => (
   <div style={{ marginRight: 16 }}>
     <VerticalAlignToolbar>
       <MenuButtonWrapper>
-        <IconButton aria-label="main menu" edge="start" color="inherit" onClick={onMenuClick}>
+        <IconButton
+          aria-label="main menu"
+          edge="start"
+          color="inherit"
+          onClick={onMenuClick}
+        >
           <MenuIcon />
         </IconButton>
       </MenuButtonWrapper>
@@ -310,9 +326,7 @@ const Header = ({ location, disableSearch }) => {
     // },
   ];
 
-  const drawerPages = [
-    ...navbarPages,
-  ];
+  const drawerPages = [...navbarPages];
 
   return (
     <>
@@ -362,20 +376,14 @@ const Header = ({ location, disableSearch }) => {
                       <ListItemText primary={strings.app_my_profile} />
                     </ListItem>
                   </DrawerLink>
-                  <DrawerLink
-                    as="a"
-                    href={`${config.VITE_API_HOST}/logout`}
-                  >
+                  <DrawerLink as="a" href={`${config.VITE_API_HOST}/logout`}>
                     <ListItem button onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_logout} />
                     </ListItem>
                   </DrawerLink>
                 </>
               ) : (
-                <DrawerLink
-                  as="a"
-                  href={`${config.VITE_API_HOST}/login`}
-                >
+                <DrawerLink as="a" href={`${config.VITE_API_HOST}/login`}>
                   <ListItem button onClick={() => setMenuState(false)}>
                     <ListItemText primary={strings.app_login} />
                   </ListItem>

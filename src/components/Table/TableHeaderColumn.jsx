@@ -25,7 +25,12 @@ const HeaderCellSortIconWrapper = styled.div`
 `;
 
 const TableHeaderColumn = ({
-  column, sortClick, sortState, sortField, index, setHighlightedCol,
+  column,
+  sortClick,
+  sortState,
+  sortField,
+  index,
+  setHighlightedCol,
 }) => {
   const style = {
     justifyContent: column.center ? 'center' : null,
@@ -40,34 +45,42 @@ const TableHeaderColumn = ({
       className={column.className}
     >
       <StyledHeaderCell
-        onClick={() => column.sortFn && sortClick(column.field, sortState, column.sortFn)}
+        onClick={() =>
+          column.sortFn && sortClick(column.field, sortState, column.sortFn)
+        }
         style={style}
       >
         <div
-          style={{ color: column.color, width: '100%', textAlign: getColStyle(column).textAlign }}
+          style={{
+            color: column.color,
+            width: '100%',
+            textAlign: getColStyle(column).textAlign,
+          }}
         >
-          { !column.tooltip ? column.displayName : (
+          {!column.tooltip ? (
+            column.displayName
+          ) : (
             <Tooltip title={column.tooltip}>
               <HeaderCellContent>
-                {column.displayIcon
-                  ?
-                    <React.Fragment>
-                      <span> {column.displayName} </span>
-                      <HeaderCellImageContent src={column.displayIcon} />
-                    </React.Fragment>
-                  :
-                    <span>
-                      {column.displayName}
-                    </span>
-                }
+                {column.displayIcon ? (
+                  <React.Fragment>
+                    <span> {column.displayName} </span>
+                    <HeaderCellImageContent src={column.displayIcon} />
+                  </React.Fragment>
+                ) : (
+                  <span>{column.displayName}</span>
+                )}
                 {column.sortFn && (
                   <HeaderCellSortIconWrapper>
-                    {getSortIcon(sortState, sortField, column.field, { height: 12, width: 12 })}
+                    {getSortIcon(sortState, sortField, column.field, {
+                      height: 12,
+                      width: 12,
+                    })}
                   </HeaderCellSortIconWrapper>
                 )}
               </HeaderCellContent>
             </Tooltip>
-          ) }
+          )}
         </div>
       </StyledHeaderCell>
     </th>

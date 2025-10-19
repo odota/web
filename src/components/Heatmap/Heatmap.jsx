@@ -10,12 +10,12 @@ import DotaMap from '../DotaMap';
  * Returns the adjusted heatmap data.
  */
 function scaleAndExtrema(points, scalef, max) {
-  const newPoints = points.map(p => ({
+  const newPoints = points.map((p) => ({
     x: Math.floor(p.x * scalef),
     y: Math.floor(p.y * scalef),
     value: Math.sqrt(p.value),
   }));
-  const vals = newPoints.map(p => p.value);
+  const vals = newPoints.map((p) => p.value);
   const localMax = Math.max(...vals);
   return {
     min: 0,
@@ -24,10 +24,7 @@ function scaleAndExtrema(points, scalef, max) {
   };
 }
 
-const drawHeatmap = ({
-  points = [],
-  width,
-}, heatmap) => {
+const drawHeatmap = ({ points = [], width }, heatmap) => {
   // scale points by width/127 units to fit to size of map
   const adjustedData = scaleAndExtrema(points, width / 127, null);
   heatmap.setData(adjustedData);
@@ -38,8 +35,8 @@ class Heatmap extends Component {
 
   static propTypes = {
     width: PropTypes.number,
-    startTime: PropTypes.instanceOf(Date)
-  }
+    startTime: PropTypes.instanceOf(Date),
+  };
 
   componentDidMount() {
     this.heatmap = h337.create({
@@ -61,14 +58,19 @@ class Heatmap extends Component {
         }}
         id={this.id}
       >
-        <DotaMap width={this.props.width} maxWidth={this.props.width} startTime={this.props.startTime} />
-      </div>);
+        <DotaMap
+          width={this.props.width}
+          maxWidth={this.props.width}
+          startTime={this.props.startTime}
+        />
+      </div>
+    );
   }
 }
 
 Heatmap.defaultProps = {
   width: 600,
-  startTime: null
+  startTime: null,
 };
 
 export default Heatmap;

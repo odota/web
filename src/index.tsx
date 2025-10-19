@@ -32,9 +32,10 @@ const rootElement = document.getElementById('root');
 
 const app = (
   <Provider store={store}>
-    <BrowserRouter 
-    //@ts-expect-error
-    history={history}>
+    <BrowserRouter
+      //@ts-expect-error
+      history={history}
+    >
       <App />
     </BrowserRouter>
   </Provider>

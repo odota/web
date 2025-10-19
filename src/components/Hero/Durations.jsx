@@ -14,13 +14,15 @@ class Durations extends React.Component {
     }),
     onGetHeroDurations: func,
     isLoading: bool,
-    data: arrayOf(shape({
-      duration_bin: number,
-      gamed_played: number,
-      wins: number,
-    })),
+    data: arrayOf(
+      shape({
+        duration_bin: number,
+        gamed_played: number,
+        wins: number,
+      }),
+    ),
     strings: shape({}),
-  }
+  };
 
   componentDidMount() {
     const { onGetHeroDurations, match } = this.props;
@@ -37,15 +39,20 @@ class Durations extends React.Component {
       return <DurationsSkeleton />;
     }
 
-    const result = data.map(item => ({
-      win: item.wins,
-      games: item.games_played,
-      x: (item.duration_bin / 60),
-    })).sort((a, b) => a.x - b.x);
+    const result = data
+      .map((item) => ({
+        win: item.wins,
+        games: item.games_played,
+        x: item.duration_bin / 60,
+      }))
+      .sort((a, b) => a.x - b.x);
 
     return (
       <div>
-        <HistogramGraph columns={result} xAxisLabel={strings.hero_duration_x_axis} />
+        <HistogramGraph
+          columns={result}
+          xAxisLabel={strings.hero_duration_x_axis}
+        />
       </div>
     );
   }

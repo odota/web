@@ -6,7 +6,11 @@ import Heatmap from '../../Heatmap';
 import Table from '../../Table';
 import { unpackPositionData } from '../../../utility';
 import mcs from '../matchColumns';
-import { StyledFlexContainer, StyledFlexElement, StyledFlexElementFullWidth } from '../StyledMatch';
+import {
+  StyledFlexContainer,
+  StyledFlexElement,
+  StyledFlexElementFullWidth,
+} from '../StyledMatch';
 import Graph from './Graph';
 import config from '../../../config';
 
@@ -16,7 +20,7 @@ class Laning extends React.Component {
     strings: PropTypes.shape({}),
     sponsorURL: PropTypes.string,
     sponsorIcon: PropTypes.string,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -35,12 +39,10 @@ class Laning extends React.Component {
     }
 
     return r1.lane - r2.lane;
-  }
+  };
 
   render() {
-    const {
-      match, strings, sponsorURL, sponsorIcon,
-    } = this.props;
+    const { match, strings, sponsorURL, sponsorIcon } = this.props;
     const { laningColumns } = mcs(strings);
 
     const tableData = [...match.players].sort(this.defaultSort);
@@ -61,16 +63,31 @@ class Laning extends React.Component {
             buttonTo={`${sponsorURL}Laning`}
             buttonIcon={sponsorIcon}
           />
-          <Heatmap width={400} startTime={match.start_time} points={unpackPositionData((match.players.find(player => player.player_slot === this.state.selectedPlayer) || {}).lane_pos)} />
+          <Heatmap
+            width={400}
+            startTime={match.start_time}
+            points={unpackPositionData(
+              (
+                match.players.find(
+                  (player) => player.player_slot === this.state.selectedPlayer,
+                ) || {}
+              ).lane_pos,
+            )}
+          />
         </StyledFlexElement>
         <StyledFlexElement>
-          <Graph match={match} strings={strings} selectedPlayer={this.state.selectedPlayer} />
+          <Graph
+            match={match}
+            strings={strings}
+            selectedPlayer={this.state.selectedPlayer}
+          />
         </StyledFlexElement>
-      </StyledFlexContainer>);
+      </StyledFlexContainer>
+    );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

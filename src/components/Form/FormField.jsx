@@ -16,7 +16,9 @@ const addChipDefault = (name, input, limit, history) => {
       ...query,
       [name]: field,
     };
-    history.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
+    history.push(
+      `${window.location.pathname}?${querystring.stringify(newQuery)}`,
+    );
   }
 };
 
@@ -26,15 +28,14 @@ const deleteChipDefault = (name, index, history) => {
     const field = [].concat(query[name] || []);
     const newQuery = {
       ...query,
-      [name]: [
-        ...field.slice(0, index),
-        ...field.slice(index + 1),
-      ],
+      [name]: [...field.slice(0, index), ...field.slice(index + 1)],
     };
     if (!newQuery[name].length) {
       delete newQuery[name];
     }
-    history.push(`${window.location.pathname}?${querystring.stringify(newQuery)}`);
+    history.push(
+      `${window.location.pathname}?${querystring.stringify(newQuery)}`,
+    );
   }
 };
 
@@ -55,12 +56,18 @@ class FormField extends React.Component {
     strings: PropTypes.shape({}),
     resetField: PropTypes.func,
     textFieldStyle: PropTypes.shape({}),
-  }
+  };
 
   constructor(props) {
     super(props);
     const { formSelectionState, name } = this.props;
-    const initialState = formSelectionState[name] && this.findFromSource(Array.isArray(formSelectionState[name]) ? formSelectionState[name][0] : formSelectionState[name]);
+    const initialState =
+      formSelectionState[name] &&
+      this.findFromSource(
+        Array.isArray(formSelectionState[name])
+          ? formSelectionState[name][0]
+          : formSelectionState[name],
+      );
 
     this.state = {
       searchText: '',
@@ -84,9 +91,10 @@ class FormField extends React.Component {
 
     const selectedElements = formSelectionState[name];
     if (selectedElements && Array.isArray(selectedElements)) {
-      const isSelected = index > -1
-        ? selectedElements.includes(value.value)
-        : selectedElements.includes(value);
+      const isSelected =
+        index > -1
+          ? selectedElements.includes(value.value)
+          : selectedElements.includes(value);
       if (isSelected) {
         // Handle inputs that are already selected
         this.handleUpdateInput('');
@@ -114,7 +122,10 @@ class FormField extends React.Component {
       return;
     }
 
-    this.setState({ selectedBundle: value.bundle, singleSelection: value.singleSelection });
+    this.setState({
+      selectedBundle: value.bundle,
+      singleSelection: value.singleSelection,
+    });
     this.handleUpdateInput('');
     addChip(name, input, limit, history);
   };
@@ -127,21 +138,25 @@ class FormField extends React.Component {
   };
 
   findFromSource = (element) => {
-    let fromSource = this.props.dataSource.find(data => Number(data.value) === Number(element));
-    fromSource = fromSource || this.props.dataSource.find(data => data.key === element);
+    let fromSource = this.props.dataSource.find(
+      (data) => Number(data.value) === Number(element),
+    );
+    fromSource =
+      fromSource || this.props.dataSource.find((data) => data.key === element);
     return fromSource || { text: element, value: element };
-  }
+  };
 
-  bundleFilter = field =>
+  bundleFilter = (field) =>
     !this.state.selectedBundle ||
-    (!this.props.formSelectionState[this.props.name] || this.props.formSelectionState[this.props.name].length < 1) ||
-    field.bundle === this.state.selectedBundle
+    !this.props.formSelectionState[this.props.name] ||
+    this.props.formSelectionState[this.props.name].length < 1 ||
+    field.bundle === this.state.selectedBundle;
 
   handleClick = () => {
     if (this.state.singleSelection) {
       this.props.resetField();
     }
-  }
+  };
 
   render() {
     const {
@@ -156,22 +171,18 @@ class FormField extends React.Component {
       filter,
       textFieldStyle,
     } = this.props;
-    const {
-      searchText,
-      errorText,
-    } = this.state;
+    const { searchText, errorText } = this.state;
 
     const selectedElements = [].concat(formSelectionState[name] || []);
     // Use dataSource on selectedElements to hydrate the chipList
     const chipList = selectedElements.map(this.findFromSource);
     return (
-      <div
-        className={className}
-        data-hint-position="left"
-        data-hint={label}
-      >
+      <div className={className} data-hint-position="left" data-hint={label}>
         <AutoComplete
-          ref={(ref) => { this.autocomplete = ref; return null; }}
+          ref={(ref) => {
+            this.autocomplete = ref;
+            return null;
+          }}
           openOnFocus
           dataSource={dataSource.filter(this.bundleFilter)}
           floatingLabelText={label}
@@ -190,12 +201,18 @@ class FormField extends React.Component {
           onClick={this.handleClick}
           textFieldStyle={textFieldStyle}
         />
-        <ChipList name={name} chipList={chipList} deleteChip={deleteChip} history={history} />
-      </div>);
+        <ChipList
+          name={name}
+          chipList={chipList}
+          deleteChip={deleteChip}
+          history={history}
+        />
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 

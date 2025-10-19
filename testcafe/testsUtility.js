@@ -1,12 +1,7 @@
-import {
-  RequestMock,
-  RequestLogger,
-} from 'testcafe';
+import { RequestMock, RequestLogger } from 'testcafe';
 import fs from 'fs';
 import sanitize from 'sanitize-filename';
-import {
-  waitForReact,
-} from 'testcafe-react-selectors';
+import { waitForReact } from 'testcafe-react-selectors';
 
 export const host = 'http://localhost:5000';
 
@@ -15,11 +10,15 @@ async function fetchFromAPI(requestURL) {
   const jsonData = await response.json();
 
   console.log(`writing ./testcafe/cachedAjax/${path2file(requestURL)}.json`);
-  fs.writeFileSync(`./testcafe/cachedAjax/${path2file(requestURL)}.json`, JSON.stringify(jsonData, null, '\t'), (err) => {
-    if (err) {
-      console.log(err);
-    }
-  });
+  fs.writeFileSync(
+    `./testcafe/cachedAjax/${path2file(requestURL)}.json`,
+    JSON.stringify(jsonData, null, '\t'),
+    (err) => {
+      if (err) {
+        console.log(err);
+      }
+    },
+  );
 }
 
 const logger = RequestLogger(/api.opendota.com\/api/);
@@ -40,19 +39,26 @@ export const fixtureBeforeEachHook = async () => {
 
 export const fixtureAfterHook = async (ctx) => {
   for (const request of logger.requests) {
-    if (fs.existsSync(`./testcafe/cachedAjax/${path2file(request.request.url)}.json`)) {
+    if (
+      fs.existsSync(
+        `./testcafe/cachedAjax/${path2file(request.request.url)}.json`,
+      )
+    ) {
       continue;
     }
 
     await fetchFromAPI(request.request.url);
-    await new Promise(res => setTimeout(res, 3000));
+    await new Promise((res) => setTimeout(res, 3000));
   }
 };
 
-
 const mock = RequestMock()
-  .onRequestTo(/api.opendota.com\/api/).respond((req, res) => {
-    const data = fs.readFileSync(`./testcafe/cachedAjax/${path2file(req.url)}.json`, 'utf8');
+  .onRequestTo(/api.opendota.com\/api/)
+  .respond((req, res) => {
+    const data = fs.readFileSync(
+      `./testcafe/cachedAjax/${path2file(req.url)}.json`,
+      'utf8',
+    );
 
     res.headers['Access-Control-Allow-Origin'] = '*';
     res.statusCode = 200;

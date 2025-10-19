@@ -18,7 +18,7 @@ const Ability = styled.div`
 
 const AbilityDescription = styled.p`
   line-height: 16px;
-  color: #c8dade;  
+  color: #c8dade;
   margin: 0px;
   padding: 0px;
   font-weight: normal;
@@ -29,15 +29,18 @@ const AbilityIcon = styled.img`
   flex-grow: 0;
   flex-shrink: 0;
   flex-basis: 15%;
-  opacity: .7;
+  opacity: 0.7;
   overflow: hidden;
   border: 1px black solid;
   height: 42px;
-  transition: opacity .2s, box-shadow .4s, transform .2s;
+  transition:
+    opacity 0.2s,
+    box-shadow 0.4s,
+    transform 0.2s;
 
   &:hover {
     opacity: 1;
-    box-shadow: 0 0 150px rgba(255, 255, 255, .4);
+    box-shadow: 0 0 150px rgba(255, 255, 255, 0.4);
     transform: scale(1.1);
   }
 `;
@@ -51,7 +54,7 @@ const AbilityTitle = styled.span`
 const Attributes = styled.div`
   margin-top: 4px;
   line-height: 16px;
-  
+
   & #footer {
     color: #95a5a6;
   }
@@ -60,24 +63,24 @@ const Attributes = styled.div`
     font-weight: 500;
   }
 
-  & #header{
-    color: #95a5a6; 
+  & #header {
+    color: #95a5a6;
   }
 `;
 
 const Body = styled.div`
-display: flex;
-margin: 10px 9px 10px 9px;
-padding: 6px;
-font-weight: bold;
-color: ${constants.colorBlueGray};
+  display: flex;
+  margin: 10px 9px 10px 9px;
+  padding: 6px;
+  font-weight: bold;
+  color: ${constants.colorBlueGray};
 `;
 
 const Break = styled.div`
   margin-left: 13px;
   margin-right: 13px;
   height: 1px;
-  background-color: #080D15;
+  background-color: #080d15;
 `;
 
 const NewAbility = styled.div`
@@ -92,52 +95,70 @@ const NewAbility = styled.div`
 `;
 
 const getAghsAttributes = (skillObject: any) => {
-  const skills: any[] = (skillObject.attrib || [])
-  const attributes = skills.map(attrib => (
+  const skills: any[] = skillObject.attrib || [];
+  const attributes = skills.map((attrib) => (
     <div className="attribute" key={attrib.key}>
       <span id="header">{attrib.header} </span>
       <span id="value">{formatSkillOrAttributeValues(attrib.value)}</span>
       <span id="footer"> {attrib.footer || ''}</span>
     </div>
-  ))
+  ));
   return (
     <>
       {attributes}
-      {skillObject.dmg ? <div className="attribute">DAMAGE: <span id="value">{formatSkillOrAttributeValues(skillObject.dmg)}</span></div> : ''}
+      {skillObject.dmg ? (
+        <div className="attribute">
+          DAMAGE:{' '}
+          <span id="value">
+            {formatSkillOrAttributeValues(skillObject.dmg)}
+          </span>
+        </div>
+      ) : (
+        ''
+      )}
     </>
-  )
-}
+  );
+};
 
-const AghsTooltipBody = ({ icon, skillName, isNewSkill, aghsDescription, skillObject, hasUpgrade }: { icon: string, skillName: string, isNewSkill: boolean, aghsDescription: string, skillObject: any, hasUpgrade: boolean }) => (
+const AghsTooltipBody = ({
+  icon,
+  skillName,
+  isNewSkill,
+  aghsDescription,
+  skillObject,
+  hasUpgrade,
+}: {
+  icon: string;
+  skillName: string;
+  isNewSkill: boolean;
+  aghsDescription: string;
+  skillObject: any;
+  hasUpgrade: boolean;
+}) => (
   <Body>
     {hasUpgrade ? (
       <>
         <AbilityIcon src={icon} />
         <Ability>
-          <AbilityTitle>
-            {skillName}
-          </AbilityTitle>
+          <AbilityTitle>{skillName}</AbilityTitle>
           <NewAbility>
-            {isNewSkill ? (<span>New ability</span>) : (<span>Upgrade</span>)}
+            {isNewSkill ? <span>New ability</span> : <span>Upgrade</span>}
           </NewAbility>
           <AbilityDescription>
             {aghsDescription}
-            {skillObject.attrib && skillObject.attrib.length > 0 &&
+            {skillObject.attrib && skillObject.attrib.length > 0 && (
               <div>
                 <Break />
-                <Attributes>
-                  {getAghsAttributes(skillObject)}
-                </Attributes>
+                <Attributes>{getAghsAttributes(skillObject)}</Attributes>
               </div>
-            }
+            )}
           </AbilityDescription>
         </Ability>
       </>
     ) : (
       <span>No Aghanim&apos;s upgrade found</span>
     )}
-
   </Body>
-)
+);
 
 export default AghsTooltipBody;

@@ -14,7 +14,7 @@ class Request extends React.Component {
     error: PropTypes.string,
     loading: PropTypes.bool,
     strings: PropTypes.shape({}),
-  }
+  };
 
   constructor() {
     super();
@@ -33,12 +33,12 @@ class Request extends React.Component {
   };
 
   render() {
-    const {
-      progress, error, loading, strings,
-    } = this.props;
-    const progressIndicator = (progress ?
-      <CircularProgress value={progress} mode="determinate" /> :
-      <CircularProgress value={progress} mode="indeterminate" />);
+    const { progress, error, loading, strings } = this.props;
+    const progressIndicator = progress ? (
+      <CircularProgress value={progress} mode="determinate" />
+    ) : (
+      <CircularProgress value={progress} mode="indeterminate" />
+    );
     return (
       <div style={{ textAlign: 'center' }}>
         <Helmet title={strings.title_request} />
@@ -48,9 +48,18 @@ class Request extends React.Component {
           floatingLabelText={strings.request_match_id}
           errorText={error && !loading ? strings.request_error : false}
           value={this.state.matchId}
-          onChange={e => this.setState({ matchId: e.target.value })}
+          onChange={(e) => this.setState({ matchId: e.target.value })}
         />
-        <div>{loading ? progressIndicator : <RaisedButton label={strings.request_submit} onClick={this.handleSubmit} />}</div>
+        <div>
+          {loading ? (
+            progressIndicator
+          ) : (
+            <RaisedButton
+              label={strings.request_submit}
+              onClick={this.handleSubmit}
+            />
+          )}
+        </div>
       </div>
     );
   }
@@ -66,8 +75,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  dispatchPostRequest: matchId => dispatch(postRequest(matchId)),
+const mapDispatchToProps = (dispatch) => ({
+  dispatchPostRequest: (matchId) => dispatch(postRequest(matchId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Request);

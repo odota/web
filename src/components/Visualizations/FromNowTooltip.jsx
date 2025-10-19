@@ -7,7 +7,7 @@ const StyledDiv = styled.div`
   position: relative;
   cursor: default;
 
-  &[data-hint-position="top"]::after {
+  &[data-hint-position='top']::after {
     margin-left: -10px;
     left: 0;
   }

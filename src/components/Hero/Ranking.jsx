@@ -20,27 +20,19 @@ class Ranking extends Component {
     }),
     isLoading: bool,
     isError: bool,
-    rankings: oneOfType([
-      arrayOf(shape({})),
-      shape({}),
-    ]),
+    rankings: oneOfType([arrayOf(shape({})), shape({})]),
     hero: string,
     getRanking: func,
-  }
+  };
 
   componentDidMount() {
-    if (
-      this.props.match.params &&
-      this.props.match.params.heroId
-    ) {
+    if (this.props.match.params && this.props.match.params.heroId) {
       this.props.getRanking(this.props.match.params.heroId);
     }
   }
 
   render() {
-    const {
-      isLoading, isError, rankings, hero,
-    } = this.props;
+    const { isLoading, isError, rankings, hero } = this.props;
 
     return (
       <div>
@@ -54,14 +46,14 @@ class Ranking extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   rankings: state.app.heroRanking.data.rankings,
   isLoading: state.app.heroRanking.loading,
   isError: state.app.heroRanking.error,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getRanking: heroId => dispatch(getRanking(heroId)),
+const mapDispatchToProps = (dispatch) => ({
+  getRanking: (heroId) => dispatch(getRanking(heroId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ranking);

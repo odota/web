@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import wordcloud from 'wordcloud';
 import nanoid from 'nanoid';
 
-const stopWords = 'a,am,an,and,are,as,at,be,by,for,from,how,i,im,in,is,it,not,of,on,or,that,the,this,to,was,what,when,where,who,will,with';
+const stopWords =
+  'a,am,an,and,are,as,at,be,by,for,from,how,i,im,in,is,it,not,of,on,or,that,the,this,to,was,what,when,where,who,will,with';
 
 function isStopWord(word: string) {
   const regex = new RegExp(`\\b${word}\\b`, 'i');
@@ -14,8 +15,11 @@ function getBaseLog(x: number, y: number) {
   return Math.log(x) / Math.log(y);
 }
 
-function updateWordCloud(wordCounts: Record<string, number>, cloudDomId: string) {
-  let wordList: [key:string, count:number][] = [];
+function updateWordCloud(
+  wordCounts: Record<string, number>,
+  cloudDomId: string,
+) {
+  let wordList: [key: string, count: number][] = [];
   let max = 0;
   const width = window.innerWidth * 0.8;
 
@@ -37,7 +41,10 @@ function updateWordCloud(wordCounts: Record<string, number>, cloudDomId: string)
   // take the log of each count and scale them up to top_size
   // use log since words such as "gg" tend to dominate
   // w[1] = Math.max(w[1]*scale, min_size);
-  wordList = wordList.map(w => [w[0], Math.max(getBaseLog(w[1], 6) * scale, minSize)]);
+  wordList = wordList.map((w) => [
+    w[0],
+    Math.max(getBaseLog(w[1], 6) * scale, minSize),
+  ]);
 
   /*
     //@albertcui implementation of scaling
@@ -60,7 +67,7 @@ function updateWordCloud(wordCounts: Record<string, number>, cloudDomId: string)
   });
 }
 
-type WordcloudProps = {counts: Record<string, number>};
+type WordcloudProps = { counts: Record<string, number> };
 
 class Wordcloud extends React.Component<WordcloudProps> {
   id = `a-${nanoid()}`;

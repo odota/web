@@ -9,9 +9,7 @@ const StyledDiv = styled.div`
   flex-wrap: wrap;
 `;
 
-const ChipList = ({
-  chipList, deleteChip, name, history,
-}) => (
+const ChipList = ({ chipList, deleteChip, name, history }) => (
   <StyledDiv className="chip">
     {chipList.map((chip, index) => (
       <Chip

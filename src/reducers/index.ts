@@ -45,7 +45,8 @@ export default combineReducers({
   players: reducer('players'),
   records: reducer('records'),
   ghPulls: reducer('ghPulls'),
-  strings: (state = {}, action) => ((action && action.type === 'strings') ? action.payload : state),
+  strings: (state = {}, action) =>
+    action && action.type === 'strings' ? action.payload : state,
   form,
   request,
   scenariosItemTimings: reducer('scenariosItemTimings'),

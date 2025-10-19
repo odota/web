@@ -6,13 +6,14 @@ export default function transformTrends(fieldName: string) {
     // Compute sum of data (to act as in integral over data field)
     // trends[i].value = sum(0 -> i, attribute)
     const trends = response.reverse().reduce((dataList, match) => {
-      const win = (match.player_slot < 128) === match.radiant_win;
-      const currentValue = fieldName === 'win_rate'
-        ? Number(win) * 100 // true -> 100 false -> 0
-        : match[fieldName];
+      const win = match.player_slot < 128 === match.radiant_win;
+      const currentValue =
+        fieldName === 'win_rate'
+          ? Number(win) * 100 // true -> 100 false -> 0
+          : match[fieldName];
 
       if (currentValue === undefined || currentValue === null) {
-      // filter
+        // filter
         return dataList;
       }
 
@@ -35,7 +36,8 @@ export default function transformTrends(fieldName: string) {
 
     // Compute in reverse order so that first n can be discarded
     for (let i = trends.length - 1; i > chunkSize - 1; i -= 1) {
-      trends[i].value = (trends[i].value - trends[i - chunkSize].value) / chunkSize;
+      trends[i].value =
+        (trends[i].value - trends[i - chunkSize].value) / chunkSize;
 
       // Update graph index so it starts at 1 (since we only display 480 at a time)
       trends[i].x -= chunkSize;

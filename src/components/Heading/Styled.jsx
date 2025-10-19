@@ -19,7 +19,7 @@ export const StyledDiv = styled.div`
     justify-content: left;
     align-items: baseline;
     letter-spacing: 10px;
-    font-weight: bold; 
+    font-weight: bold;
     background-color: rgba(14, 84, 113, 37%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
@@ -46,7 +46,7 @@ export const StyledDiv = styled.div`
     right: 100%;
     top: 50%;
     border: solid transparent;
-    content: " ";
+    content: ' ';
     height: 0;
     width: 0;
     position: absolute;
@@ -88,7 +88,7 @@ export const StyledDiv = styled.div`
     margin-left: 52px;
 
     &::before {
-      content: "▶";
+      content: '▶';
       margin-right: 4px;
     }
   }
@@ -102,7 +102,7 @@ export const StyledDiv = styled.div`
   &.top-heading .subtitle {
     margin-left: 10px;
     font-size: 14px;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255, 255, 255, 0.6);
     letter-spacing: normal;
     font-weight: normal;
     margin-left: 51px;
@@ -110,12 +110,12 @@ export const StyledDiv = styled.div`
 
   .sponsor-button {
     margin: 0px 5px;
-    
+
     /* Material-ui buttons */
     @media only screen and (max-width: 620px) {
       & a {
         min-width: 24px !important;
-  
+
         & span {
           font-size: 0 !important;
           padding-left: 0 !important;
@@ -124,7 +124,7 @@ export const StyledDiv = styled.div`
       }
     }
   }
-  
+
   & .info {
     margin-left: 5px;
     font-size: ${constants.fontSizeMedium};

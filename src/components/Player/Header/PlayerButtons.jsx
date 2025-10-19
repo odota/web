@@ -52,10 +52,9 @@ class PlayerButtons extends React.Component {
             icon={<ActionUpdate />}
             disabled={this.state.disableRefresh}
             onClick={() => {
-              fetch(
-                `${config.VITE_API_HOST}/api/players/${playerId}/refresh`,
-                { method: 'POST' },
-              );
+              fetch(`${config.VITE_API_HOST}/api/players/${playerId}/refresh`, {
+                method: 'POST',
+              });
               this.setState({ disableRefresh: true });
             }}
             label={strings.app_refresh_label}
@@ -69,12 +68,12 @@ class PlayerButtons extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   showForm: state.app.form.show,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   toggleShowForm: () => dispatch(toggleShowFormAction('tableFilter')),
 });
 
