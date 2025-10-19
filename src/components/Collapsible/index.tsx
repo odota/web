@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Transition from 'react-transition-group/Transition';
-import { connect } from 'react-redux';
 import { IconPlusSquare, IconMinusSquare } from '../Icons';
 import constants from '../constants';
+import useStrings from '../../hooks/useStrings.hook';
 
 const ButtonContainer = styled.div`
   position: absolute;
@@ -34,12 +33,18 @@ const ButtonContainer = styled.div`
 const CollapseButton = ({
   handleClick,
   collapsed,
-  strings,
   buttonStyle,
   handleHoverOn,
   handleHoverOff,
-}) => (
-  <ButtonContainer
+}: {
+  handleClick: React.MouseEventHandler<HTMLDivElement>,
+  collapsed: boolean,
+  buttonStyle: any,
+  handleHoverOn: React.MouseEventHandler<HTMLDivElement>,
+  handleHoverOff: React.MouseEventHandler<HTMLDivElement>,
+}) => {
+  const strings = useStrings();
+  return <ButtonContainer
     style={buttonStyle}
     onClick={handleClick}
     onMouseEnter={handleHoverOn}
@@ -48,16 +53,7 @@ const CollapseButton = ({
     {collapsed
       ? [<span>{strings.general_show}</span>, <IconPlusSquare />]
       : [<span>{strings.general_hide}</span>, <IconMinusSquare />]}
-  </ButtonContainer>
-);
-
-CollapseButton.propTypes = {
-  handleClick: PropTypes.func,
-  collapsed: PropTypes.bool,
-  strings: PropTypes.shape({}),
-  buttonStyle: PropTypes.shape({}),
-  handleHoverOn: PropTypes.func,
-  handleHoverOff: PropTypes.func,
+  </ButtonContainer>;
 };
 
 const CollapsibleContainer = styled.div`
@@ -67,16 +63,8 @@ const CollapsibleContainer = styled.div`
   box-sizing: border-box;
 `;
 
-class Collapsible extends React.Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired,
-    children: PropTypes.arrayOf(PropTypes.node),
-    strings: PropTypes.shape({}),
-    initialMaxHeight: PropTypes.number,
-    buttonStyle: PropTypes.shape({}),
-  };
-
-  constructor(props) {
+class Collapsible extends React.Component<{ name: string, children: React.ReactNode, initialMaxHeight: number, buttonStyle: any}, { collapsed: boolean, hovered: boolean }> {
+  constructor(props: any) {
     super(props);
     this.state = {
       collapsed: localStorage.getItem(`${props.name}Collapsed`) === 'true',
@@ -100,19 +88,18 @@ class Collapsible extends React.Component {
 
   render() {
     const { collapsed, hovered } = this.state;
-    const { initialMaxHeight, strings, buttonStyle } = this.props;
+    const { initialMaxHeight, buttonStyle } = this.props;
 
     return (
       <CollapsibleContainer
         style={{
           border:
-            !collapsed && hovered && '1px dashed rgba(255, 255, 255, 0.1)',
+            (!collapsed && hovered) ? '1px dashed rgba(255, 255, 255, 0.1)' : undefined,
         }}
       >
         <CollapseButton
           handleClick={this.handleClick}
           collapsed={collapsed}
-          strings={strings}
           buttonStyle={buttonStyle}
           handleHoverOn={this.handleHoverOn}
           handleHoverOff={this.handleHoverOff}
@@ -140,8 +127,4 @@ class Collapsible extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(Collapsible);
+export default Collapsible;
