@@ -8,7 +8,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Combos from '../Combos/Combos';
-import Api from '../Api';
+import Api from '../Api/Api';
 import Subscription from '../Subscription';
 import constants from '../constants';
 import Distributions from '../Distributions';

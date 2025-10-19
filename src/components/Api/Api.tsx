@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import styled from 'styled-components';
-import StripeCheckout from 'react-stripe-checkout';
+import StripeCheckout, { Token } from 'react-stripe-checkout';
 import config from '../../config';
 
 const path = '/keys';
@@ -63,14 +62,8 @@ const DetailsContainer = styled.div`
   }
 `;
 
-class KeyManagement extends React.Component {
-  static propTypes = {
-    loading: PropTypes.bool,
-    user: PropTypes.shape({}),
-    strings: PropTypes.shape({}),
-  };
-
-  constructor(props) {
+class KeyManagement extends React.Component<{loading: boolean, user: any, strings: Strings}, { error: boolean, loading: boolean, usage?: any[], customer?: { api_key: string, current_period_end: number, credit_brand: string, credit_last4: string } }> {
+  constructor(props: any) {
     super(props);
 
     this.state = {
@@ -102,7 +95,7 @@ class KeyManagement extends React.Component {
       .catch(() => this.setState({ error: true }));
   }
 
-  handleSubmit(token) {
+  handleSubmit(token: Token) {
     this.setState({ loading: true });
     fetch(`${config.VITE_API_HOST}${path}`, {
       credentials: 'include',
@@ -117,7 +110,7 @@ class KeyManagement extends React.Component {
     })
       .then((res) => {
         if (res.ok) {
-          window.location.reload(false);
+          window.location.reload();
         } else {
           throw Error();
         }
@@ -133,7 +126,7 @@ class KeyManagement extends React.Component {
     })
       .then((res) => {
         if (res.ok) {
-          window.location.reload(false);
+          window.location.reload();
         } else {
           throw Error();
         }
@@ -141,7 +134,7 @@ class KeyManagement extends React.Component {
       .catch(() => this.setState({ error: true }));
   }
 
-  handleUpdate(token) {
+  handleUpdate(token: Token) {
     this.setState({ loading: true });
     fetch(`${config.VITE_API_HOST}${path}`, {
       credentials: 'include',
@@ -156,7 +149,7 @@ class KeyManagement extends React.Component {
     })
       .then((res) => {
         if (res.ok) {
-          window.location.reload(false);
+          window.location.reload();
         } else {
           throw Error();
         }
@@ -219,7 +212,7 @@ class KeyManagement extends React.Component {
                     )
                     : <span />
                 }
-                  <RaisedButton href="//docs.opendota.com" target="_blank" rel="noopener noreferrer" label={strings.api_docs} style={{ margin: '5px 5px' }} />
+                  <RaisedButton href="//docs.opendota.com" target="_blank" label={strings.api_docs} style={{ margin: '5px 5px' }} />
                   { this.state.customer
                     ? (
                       <div>
@@ -266,19 +259,14 @@ class KeyManagement extends React.Component {
                             <h4>{strings.api_header_usage}</h4>
                             <TableContainer>
                               <table>
-                                <thead
-                                  displaySelectAll={false}
-                                  adjustForCheckbox={false}
-                                >
+                                <thead>
                                   <tr>
                                     <th>{strings.api_month}</th>
                                     <th>{strings.api_usage_calls}</th>
                                     <th>{strings.api_usage_fees}</th>
                                   </tr>
                                 </thead>
-                                <tbody
-                                  displayRowCheckbox={false}
-                                >
+                                <tbody>
                                   { this.state.usage.map((e) => (
                                     <tr key={e.month}>
                                       <td>{e.month}</td>
@@ -299,10 +287,7 @@ class KeyManagement extends React.Component {
                   <h2>{strings.api_header_table}</h2>
                   <TableContainer>
                     <table>
-                      <thead
-                        displaySelectAll={false}
-                        adjustForCheckbox={false}
-                      >
+                      <thead>
                         <tr>
                           {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                           <th aria-hidden="true"/>
@@ -310,13 +295,11 @@ class KeyManagement extends React.Component {
                           <th>{strings.api_details_premium_tier}</th>
                         </tr>
                       </thead>
-                      <tbody
-                        displayRowCheckbox={false}
-                      >
+                      <tbody>
                         <tr>
                           <th>{strings.api_details_price}</th>
                           <td>{strings.api_details_price_free}</td>
-                          <td>{strings.api_details_price_prem.replace('price', premPrice).replace('$unit', premUnit)}</td>
+                          <td>{strings.api_details_price_prem.replace('price', String(premPrice)).replace('$unit', String(premUnit))}</td>
                         </tr>
                         <tr>
                           <th>{strings.api_details_key_required}</th>
@@ -325,13 +308,13 @@ class KeyManagement extends React.Component {
                         </tr>
                         <tr>
                           <th>{strings.api_details_call_limit}</th>
-                          <td>{strings.api_details_call_limit_free_day.replace('$limit', freeCallLimit)}</td>
+                          <td>{strings.api_details_call_limit_free_day.replace('$limit', String(freeCallLimit))}</td>
                           <td>{strings.api_details_call_limit_prem}</td>
                         </tr>
                         <tr>
                           <th>{strings.api_details_rate_limit}</th>
-                          <td>{strings.api_details_rate_limit_val.replace('$num', freeRateLimit)}</td>
-                          <td>{strings.api_details_rate_limit_val.replace('$num', premRateLimit)}</td>
+                          <td>{strings.api_details_rate_limit_val.replace('$num', String(freeRateLimit))}</td>
+                          <td>{strings.api_details_rate_limit_val.replace('$num', String(premRateLimit))}</td>
                         </tr>
                         <tr>
                           <th>{strings.api_details_support}</th>
@@ -360,7 +343,7 @@ class KeyManagement extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
   const { error, loading, data } = state.app.metadata;
   return {
     loading,
