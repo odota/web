@@ -2,13 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const icon = (props) => {
+const icon = (props: any) => {
   const { color } = props.style;
   return (
     <svg {...props} viewBox="0 0 24 24">
       <line
-        strokeLinecap="undefined"
-        strokeLinejoin="undefined"
         id="svg_24"
         y2="2"
         x2="2"
@@ -21,8 +19,6 @@ const icon = (props) => {
         fill="none"
       />
       <line
-        strokeLinecap="undefined"
-        strokeLinejoin="undefined"
         id="svg_26"
         y2="22.062643"
         x2="22"
@@ -35,8 +31,6 @@ const icon = (props) => {
         fill="none"
       />
       <line
-        strokeLinecap="undefined"
-        strokeLinejoin="undefined"
         id="svg_27"
         y2="22"
         x2="12"
@@ -49,8 +43,6 @@ const icon = (props) => {
         fill="none"
       />
       <line
-        strokeLinecap="undefined"
-        strokeLinejoin="undefined"
         id="svg_28"
         y2="2"
         x2="12"
@@ -64,8 +56,6 @@ const icon = (props) => {
       />
       <line
         transform="rotate(-45 11.999999999999998,12.015661239624022) "
-        strokeLinecap="undefined"
-        strokeLinejoin="undefined"
         id="svg_33"
         y2="12.031322"
         x2="18"

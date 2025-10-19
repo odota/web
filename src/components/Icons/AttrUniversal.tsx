@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default (props) => (
+export default (props: any) => (
   // Generated with vectorizer.ai
   <svg viewBox="0.00 0.00 46.00 46.00" {...props}>
     <g strokeWidth="2.00" fill="none" strokeLinecap="butt">

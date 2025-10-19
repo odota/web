@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const Contributor = ({ dColor, oColor, ...props }) => (
+const Contributor = ({ dColor, oColor, ...props }: { dColor: string, oColor: string }) => (
   <svg
     {...props}
     version="1"
@@ -18,10 +17,5 @@ const Contributor = ({ dColor, oColor, ...props }) => (
     />
   </svg>
 );
-
-Contributor.propTypes = {
-  oColor: PropTypes.string,
-  dColor: PropTypes.string,
-};
 
 export default Contributor;
