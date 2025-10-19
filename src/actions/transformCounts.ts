@@ -25,10 +25,10 @@ export default function transformCounts(data: any) {
       name: key,
       list: Object.keys(data[key])
         .map((innerKey) => ({
-          //@ts-expect-error
           category:
             strings[`${key}_${innerKey}`] ||
             (countTypes[key as keyof typeof countTypes] &&
+              //@ts-expect-error
               countTypes[key as keyof typeof countTypes][innerKey]) ||
             innerKey,
           matches: data[key][innerKey].games,

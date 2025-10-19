@@ -192,8 +192,11 @@ class Assistant extends React.Component<
   componentDidMount() {
     //@ts-expect-error
     recognition = new (window.SpeechRecognition ||
+      //@ts-expect-error
       window.webkitSpeechRecognition ||
+      //@ts-expect-error
       window.mozSpeechRecognition ||
+      //@ts-expect-error
       window.msSpeechRecognition)();
     recognition.lang = 'en-US';
     recognition.interimResults = false;

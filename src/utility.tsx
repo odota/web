@@ -853,10 +853,10 @@ export const transformations = {
 
     const partySize = (_partySize: number) => {
       if (_partySize === 1) {
-        //@ts-expect-error
         return (
           <SocialPerson
             color="rgb(179, 179, 179)"
+            //@ts-expect-error
             style={{ ...iconStyle, float: 'right' }}
           />
         );

@@ -193,9 +193,9 @@ function transformMatch(m: any) {
       kill_streaks_max: getMaxKeyOfObject(player.kill_streaks),
       lh_ten: (player.lh_t || [])[10],
       dn_ten: (player.dn_t || [])[10],
-      //@ts-expect-error
       line_win:
         lineResults[player.isRadiant]?.[player.lane] >
+        //@ts-expect-error
         lineResults[!player.isRadiant]?.[player.lane],
       analysis: analyzeMatch(m, player),
     };
