@@ -6,7 +6,7 @@ import Badge from 'material-ui/Badge';
 import styled from 'styled-components';
 import { Facebook } from 'react-content-loader';
 import { rankTierToString } from '../../../utility';
-import Error from '../../Error';
+import Error from '../../Error/Error';
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';

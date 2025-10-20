@@ -17,7 +17,7 @@ import {
   getScenariosLaneRoles,
 } from '../../actions/index';
 import Table from '../Table';
-import Error from '../Error';
+import Error from '../Error/Error';
 import Heading from '../Heading';
 import ScenariosSkeleton from '../Skeletons/ScenariosSkeleton';
 import { formatTemplateToString, groupByArray } from '../../utility';

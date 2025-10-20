@@ -1,6 +1,6 @@
 import React from 'react';
 import Heading from '../Heading';
-import Error from '../Error';
+import Error from '../Error/Error';
 import ContainerSkeleton from '../Skeletons/ContainerSkeleton';
 
 type ContainerProps = {

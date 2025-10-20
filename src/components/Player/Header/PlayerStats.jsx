@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // import ActionHelp from 'material-ui/svg-icons/action/help';
 import styled from 'styled-components';
 import Spinner from '../../Spinner';
-import Error from '../../Error';
+import Error from '../../Error/Error';
 import PlayedWith from './PlayedWith';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';

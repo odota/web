@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import config from '../../config';
-import Error from '../Error';
+import Error from '../Error/Error';
 import { IconSteam } from '../Icons';
 import LoggedIn from './LoggedIn';
 import useStrings from '../../hooks/useStrings.hook';

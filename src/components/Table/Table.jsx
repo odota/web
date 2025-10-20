@@ -9,7 +9,7 @@ import {
 import { TablePercent, TableSparkline } from '../Visualizations';
 import Pagination from '../Table/PaginatedTable/Pagination';
 import TableHeader from './TableHeader';
-import Error from '../Error';
+import Error from '../Error/Error';
 import TableSkeleton from '../Skeletons/TableSkeleton';
 import { StyledBody, StyledContainer } from './Styled';
 

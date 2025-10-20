@@ -9,7 +9,7 @@ import TabBar from '../TabBar';
 import Spinner from '../Spinner';
 import TableFilterForm from './TableFilterForm';
 import PlayerHeader from './Header/PlayerHeader';
-// import Error from '../Error';
+// import Error from '../Error/Error';
 import playerPages from './playerPages';
 import PlayerProfilePrivate from './PlayerProfilePrivate';
 
