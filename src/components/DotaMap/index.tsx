@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { patchDate } from '../../utility';
 
-const setMapSizeStyle = (width, maxWidth) => ({
+const setMapSizeStyle = (width: number, maxWidth: number) => ({
   width,
   height: width,
   maxWidth,
@@ -83,7 +82,7 @@ const dotaMaps = [
   },
 ];
 
-const getPatchMap = (startTime) => {
+const getPatchMap = (startTime: number | null) => {
   if (!startTime) return dotaMaps[0];
 
   const patchMap = dotaMaps.find(
@@ -120,7 +119,7 @@ const DotaMap = ({
   maxWidth = 400,
   width = 400,
   children,
-}) => {
+}: { startTime: number | null, maxWidth: number, width: number, children: React.ReactNode }) => {
   const mapData = getPatchMap(startTime);
 
   return (
@@ -133,15 +132,6 @@ const DotaMap = ({
       <MapContent>{children}</MapContent>
     </MapContainer>
   );
-};
-
-const { number, node, string, oneOfType } = PropTypes;
-
-DotaMap.propTypes = {
-  startTime: number,
-  maxWidth: oneOfType([number, string]),
-  width: oneOfType([number, string]),
-  children: oneOfType([node, string]),
 };
 
 export default DotaMap;
