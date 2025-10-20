@@ -1,11 +1,6 @@
 import { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 
 export default class DeferredContainer extends PureComponent {
-  static propTypes = {
-    children: PropTypes.arrayOf(PropTypes.node),
-  };
-
   state = { shouldRender: false };
 
   componentDidMount() {
