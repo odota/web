@@ -1,6 +1,5 @@
 /* eslint-disable import/no-dynamic-require,global-require */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
@@ -34,19 +33,7 @@ const CountryDiv = styled.div`
   }
 `;
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    loading: PropTypes.bool,
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        info: PropTypes.string,
-      }),
-    }),
-    dispatchDistributions: PropTypes.func,
-    data: PropTypes.shape({}),
-    strings: PropTypes.shape({}),
-  };
-
+class RequestLayer extends React.Component<{ loading: boolean, match: { params: { info: string } }, dispatchDistributions: Function, data: any, strings: Strings }> {
   componentDidMount() {
     this.props.dispatchDistributions();
   }
@@ -56,13 +43,13 @@ class RequestLayer extends React.Component {
       {
         displayName: strings.th_rank,
         field: '',
-        displayFn: (row, col, field, i) => getOrdinal(i + 1),
+        displayFn: (row: any, col: any, field: string, i: number) => getOrdinal(i + 1),
       },
       {
         displayName: strings.th_country,
         field: 'common',
         sortFn: true,
-        displayFn: (row) => {
+        displayFn: (row: any) => {
           const code = row.loccountrycode.toLowerCase();
           const image = `/assets/images/flags/${code}.svg`;
           let name = row.common;
@@ -102,11 +89,11 @@ class RequestLayer extends React.Component {
       },
     ];
 
-    const getPage = (data, key) => {
+    const getPage = (data: any, key: string) => {
       let rows = data && data[key] && data[key].rows;
       if (key === 'ranks') {
         // Translate the rank integers into names
-        rows = rows.map((r) => ({
+        rows = rows.map((r: any) => ({
           ...r,
           bin_name: rankTierToString(r.bin_name),
         }));
@@ -115,9 +102,9 @@ class RequestLayer extends React.Component {
         <div>
           <Heading
             className="top-heading with-tabbar"
-            title={strings[`distributions_heading_${key}`]}
+            title={strings[`distributions_heading_${key}` as keyof typeof strings]}
             subtitle={`
-            ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map((row) => row.count).reduce(sum, 0))} ${strings.th_players}
+            ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map((row: any) => row.count).reduce(sum, 0))} ${strings.th_players}
           `}
             icon=" "
             twoLine
@@ -154,20 +141,20 @@ class RequestLayer extends React.Component {
     ) : (
       <div>
         <Helmet title={page ? page.name : strings.distributions_tab_ranks} />
-        <TabBar info={info} tabs={distributionsPages} />
+        <TabBar tabs={distributionsPages} />
         {page && page.content(this.props.data, info)}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   data: state.app.distributions.data,
   loading: state.app.distributions.loading,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: any) => ({
   dispatchDistributions: () => dispatch(getDistributions()),
 });
 
