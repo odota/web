@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import wordcloud from 'wordcloud';
 import nanoid from 'nanoid';
 
@@ -92,4 +91,4 @@ class Wordcloud extends React.Component<WordcloudProps> {
   }
 }
 
-export default connect()(Wordcloud);
+export default Wordcloud;

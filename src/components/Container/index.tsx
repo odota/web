@@ -5,16 +5,16 @@ import ContainerSkeleton from '../Skeletons/ContainerSkeleton';
 
 type ContainerProps = {
   title: string,
-  subtitle: string,
-  style: any,
-  className: string,
+  subtitle?: string,
+  style?: any,
+  className?: string,
   loading: Boolean,
   error: Boolean,
-  children: React.ReactNode,
-  hide: Boolean,
-  titleTo: string,
-  loaderWidth: number,
-  loaderHeight: number,
+  children?: React.ReactNode,
+  hide?: Boolean,
+  titleTo?: string,
+  loaderWidth?: number,
+  loaderHeight?: number,
 };
 
 const Container = ({
