@@ -1,10 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Heading from '../Heading';
 import Error from '../Error';
 import ContainerSkeleton from '../Skeletons/ContainerSkeleton';
 
-const { bool, node, string, shape, number } = PropTypes;
+type ContainerProps = {
+  title: string,
+  subtitle: string,
+  style: any,
+  className: string,
+  loading: Boolean,
+  error: Boolean,
+  children: React.ReactNode,
+  hide: Boolean,
+  titleTo: string,
+  loaderWidth: number,
+  loaderHeight: number,
+};
 
 const Container = ({
   title,
@@ -18,7 +29,7 @@ const Container = ({
   titleTo,
   loaderWidth,
   loaderHeight,
-}) =>
+}: ContainerProps) =>
   !hide ? (
     <div className={className} style={{ ...style }}>
       {title && <Heading title={title} subtitle={subtitle} titleTo={titleTo} />}
@@ -32,19 +43,5 @@ const Container = ({
       {!error && !loading && children}
     </div>
   ) : null;
-
-Container.propTypes = {
-  title: string,
-  subtitle: string,
-  style: shape({}),
-  className: string,
-  loading: bool,
-  error: bool,
-  children: node,
-  hide: bool,
-  titleTo: string,
-  loaderWidth: number,
-  loaderHeight: number,
-};
 
 export default Container;
