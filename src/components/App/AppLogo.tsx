@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import constants from '../constants';
+import useStrings from '../../hooks/useStrings.hook';
 
 const StyledLink = styled(Link)`
   font-weight: ${constants.fontWeightMedium};
@@ -16,13 +16,13 @@ const StyledLink = styled(Link)`
 `;
 
 interface AppLogoProps {
-  size: string;
-  strings: { [key: string]: string };
-  onClick: () => void;
+  size?: string;
+  onClick?: () => void;
 }
 
-const AppLogo = ({ size, strings, onClick }: AppLogoProps) => (
-  <StyledLink
+const AppLogo = ({ size, onClick }: AppLogoProps) => {
+  const strings = useStrings();
+  return <StyledLink
     aria-label="Go to the Open Dota homepage"
     to="/"
     onClick={onClick}
@@ -30,11 +30,7 @@ const AppLogo = ({ size, strings, onClick }: AppLogoProps) => (
     <span style={{ fontSize: size }}>
       {strings.app_name && `<${strings.app_name}/>`}
     </span>
-  </StyledLink>
-);
+  </StyledLink>;
+};
 
-const mapStateToProps = (state: any) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(AppLogo);
+export default AppLogo;

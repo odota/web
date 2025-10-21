@@ -3,7 +3,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React, { Suspense } from 'react';
 import Helmet from 'react-helmet';
-import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -12,7 +11,7 @@ import Api from '../Api/Api';
 import Subscription from '../Subscription';
 import constants from '../constants';
 import Distributions from '../Distributions';
-import Footer from '../Footer';
+import Footer from '../Footer/Footer';
 import FourOhFour from '../FourOhFour/FourOhFour';
 import Header from '../Header/Header';
 import Home from '../Home';
@@ -29,27 +28,27 @@ import config from '../../config';
 import Spinner from '../Spinner';
 import Players from '../Players/Players';
 import Heroes from '../Heroes';
+import useStrings from '../../hooks/useStrings.hook';
 
 const Status = React.lazy(() => import('../Status/Status'));
 const Explorer = React.lazy(() => import('../Explorer'));
 
 type AppStylesProps = {
   open?: boolean;
-  location: {
+  location?: {
     pathname?: string;
   };
 };
 
 type Back2TopStylesProps = {
   open?: boolean;
-  location: {
+  location?: {
     pathname: string;
   };
 };
 
 type AppProps = {
-  location: Record<string, string>;
-  strings: Record<string, string>;
+  location?: any;
 };
 
 const StyledDiv = styled.div<AppStylesProps>`
@@ -62,12 +61,12 @@ const StyledDiv = styled.div<AppStylesProps>`
   margin-top: 0px;
 
   background-image: ${(props) =>
-    props.location.pathname === '/'
+    props.location?.pathname === '/'
       ? `url("/assets/images/home-background.png")`
       : ''};
   background-position: center top -56px;
   background-repeat: ${(props) =>
-    props.location.pathname === '/' ? 'no-repeat' : ''};
+    props.location?.pathname === '/' ? 'no-repeat' : ''};
 `;
 
 const Back2Top = styled.button<Back2TopStylesProps>`
@@ -129,7 +128,8 @@ const AdBannerDiv = styled.div`
 declare let window: Window & { adsbygoogle: any };
 
 const App = (props: AppProps) => {
-  const { strings, location } = props;
+  const strings = useStrings();
+  const { location } = props;
 
   const back2Top = React.useRef<HTMLButtonElement>();
 
@@ -252,9 +252,4 @@ const App = (props: AppProps) => {
   );
 };
 
-const mapStateToProps = (state: any) => ({
-  strings: state.app.strings,
-});
-
-// @ts-ignore
-export default connect(mapStateToProps)(withRouter(App)); // property 'strings' is missing in type
+export default withRouter(App);

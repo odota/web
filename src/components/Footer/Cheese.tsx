@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import CheeseCircle from '../Cheese/CheeseCircle';
+import useStrings from '../../hooks/useStrings.hook';
 
-const Cheese = ({ strings }) => (
-  <div className="cheese">
+const Cheese = () => {
+  const strings = useStrings();
+  return <div className="cheese">
     <CheeseCircle />
     <section>
       <span style={{ fontSize: 'larger' }}>{strings.app_donation_goal}</span>
@@ -13,14 +13,6 @@ const Cheese = ({ strings }) => (
       </p>
     </section>
   </div>
-);
-
-Cheese.propTypes = {
-  strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(Cheese);
+export default Cheese;

@@ -1,8 +1,10 @@
 import React from 'react';
 import { IconGithub, IconDiscord } from '../Icons';
 import config from '../../config';
+import useStrings from '../../hooks/useStrings.hook';
 
-export default ({ strings }) => {
+export default () => {
+  const strings = useStrings();
   const links = [
     {
       tooltip: strings.app_github,
@@ -19,7 +21,7 @@ export default ({ strings }) => {
     });
   }
 
-  return links.map((link) => (
+  return <div>{links.map((link) => (
     <a
       key={link.path}
       target="_blank"
@@ -31,5 +33,5 @@ export default ({ strings }) => {
     >
       {link.icon}
     </a>
-  ));
+  ))}</div>;
 };

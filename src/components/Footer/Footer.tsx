@@ -1,13 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import AppLogo from '../App/AppLogo';
 import PageLinks from './PageLinks';
-// import Cheese from './Cheese';
 import SocialLinks from './SocialLinks';
 import { IconSteam } from '../Icons';
 import constants from '../constants';
+import useStrings from '../../hooks/useStrings.hook';
 
 const StyledFooter = styled.footer`
   padding: 0px 50px 15px;
@@ -155,12 +153,13 @@ const StyledHr = styled.hr`
   );
 `;
 
-const Footer = ({ strings }) => (
-  <StyledFooter>
+const Footer = () => {
+  const strings = useStrings();
+  return <StyledFooter>
     <div className="links">
       <div className="logoNsocial">
         <AppLogo />
-        <SocialLinks strings={strings} />
+        <SocialLinks />
       </div>
       <small className="about">
         <span id="app-description">{strings.app_description}</span>
@@ -181,15 +180,7 @@ const Footer = ({ strings }) => (
       </div>
     </div>
     {/* <Cheese /> */}
-  </StyledFooter>
-);
-
-Footer.propTypes = {
-  strings: PropTypes.shape({}),
+  </StyledFooter>;
 };
 
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(Footer);
+export default Footer;

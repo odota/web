@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import useStrings from '../../hooks/useStrings.hook';
 
-const PageLinks = ({ strings }) => {
+const PageLinks = () => {
+  const strings = useStrings();
   const links = [
     {
       name: strings.app_about,
@@ -29,7 +29,7 @@ const PageLinks = ({ strings }) => {
       path: '//www.netlify.com',
     },
   ];
-  return links.map((link) => (
+  return <div>{links.map((link) => (
     <a
       href={link.path}
       key={link.name}
@@ -38,15 +38,7 @@ const PageLinks = ({ strings }) => {
     >
       {link.name}
     </a>
-  ));
+  ))}</div>;
 };
 
-PageLinks.propTypes = {
-  strings: PropTypes.shape({}),
-};
-
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(PageLinks);
+export default PageLinks;

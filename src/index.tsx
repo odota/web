@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import ReactGA from 'react-ga';
 import store from './store';
 import { getMetadata, getStrings } from './actions';
-import App from './components/App';
+import App from './components/App/App';
 // import { unregister } from './common/serviceWorker';
 import './index.css';
 
