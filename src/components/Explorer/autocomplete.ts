@@ -24,7 +24,7 @@ const sqlfuncs = [
   'using()',
 ];
 
-const autocomplete = (cols, proPlayers = [], teams = [], leagues = []) => {
+const autocomplete = (cols: any[], proPlayers: any[] = [], teams: any[] = [], leagues: any[] = []) => {
   const { strings } = store.getState().app;
   const filteredPros = proPlayers
     .filter((p) => p.name)
@@ -50,14 +50,14 @@ const autocomplete = (cols, proPlayers = [], teams = [], leagues = []) => {
       meta: `${l.leagueid.toString()} (${strings.explorer_league})`,
     }));
   return {
-    getCompletions(editor, session, pos, prefix, callback) {
+    getCompletions(editor: any, session: any, pos: number, prefix: string, callback: Function) {
       callback(
         null,
-        []
+        ([] as any[])
           .concat(
             Object.keys(heroes).map((k) => ({
-              caption: heroes[k].localized_name,
-              value: heroes[k].name,
+              caption: heroes[k as keyof typeof heroes].localized_name,
+              value: heroes[k as keyof typeof heroes].name,
               snippet: k,
               meta: `${k} (${strings.explorer_hero})`,
             })),
@@ -66,7 +66,8 @@ const autocomplete = (cols, proPlayers = [], teams = [], leagues = []) => {
             Object.keys(items)
               .filter((k) => k.indexOf('recipe_') !== 0)
               .map((k) => ({
-                caption: items[k].dname,
+                //@ts-expect-error
+                caption: items[k as keyof typeof items].dname,
                 value: k,
                 snippet: `'${k}'`,
                 meta: `${k} (${strings.scenarios_item})`,

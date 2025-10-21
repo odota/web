@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const ExplorerOutputButton = ({
@@ -10,6 +9,14 @@ const ExplorerOutputButton = ({
   download,
   onClick,
   context,
+}: {
+  defaultSelected?: boolean,
+  label: string,
+  format?: string,
+  href?: string,
+  download?: string,
+  onClick?: (e: React.MouseEvent) => void,
+  context: any,
 }) => {
   let clickFn;
   if (onClick) {
@@ -22,32 +29,23 @@ const ExplorerOutputButton = ({
       );
     };
   } else {
-    clickFn = (noOp) => noOp;
+    clickFn = (noOp: any) => noOp;
   }
   return (
     <RaisedButton
       secondary={
-        format &&
+        Boolean(format &&
         ((defaultSelected && !context.state.builder.format) ||
-          context.state.builder.format === format)
+          context.state.builder.format === format))
       }
       style={{ margin: '5px' }}
       label={label}
       href={href}
+      //@ts-expect-error
       download={download}
       onClick={clickFn}
     />
   );
-};
-
-ExplorerOutputButton.propTypes = {
-  defaultSelected: PropTypes.string,
-  label: PropTypes.string,
-  format: PropTypes.string,
-  href: PropTypes.string,
-  download: PropTypes.string,
-  onClick: PropTypes.func,
-  context: PropTypes.shape({}),
 };
 
 export default ExplorerOutputButton;

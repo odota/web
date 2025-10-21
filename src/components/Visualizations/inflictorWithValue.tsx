@@ -316,11 +316,11 @@ const InflictorWithValueAndHooks = withHooks(InflictorWithValue);
 
 export default (
   inflictor: string,
-  value: keyof typeof items,
-  type: string,
-  ptooltip: string,
-  abilityId: keyof typeof abilityIds,
-  charges: number,
+  value?: keyof typeof items,
+  type?: string,
+  ptooltip?: string,
+  abilityId?: keyof typeof abilityIds,
+  charges?: number,
 ) => {
   return (
     <InflictorWithValueAndHooks

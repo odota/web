@@ -1,4 +1,4 @@
-function conjoin(strings, value) {
+function conjoin(strings: TemplateStringsArray, value: { value: any}[] | { value: any } | string) {
   if (!value) {
     return '';
   }
@@ -6,7 +6,7 @@ function conjoin(strings, value) {
   const str1 = strings[1];
   if (Array.isArray(value)) {
     const o = value.map((x) => x.value);
-    const r = [];
+    const r: any[] = [];
     if (!value.length) {
       return '';
     }
@@ -15,10 +15,11 @@ function conjoin(strings, value) {
     });
     return `AND (${r.join(' OR ')})`;
   }
+  //@ts-expect-error
   return `AND ${str0}${value.value !== undefined ? value.value : value}${str1}`;
 }
 
-function validateArray(p) {
+function validateArray(p: any) {
   return Array.isArray(p) && p.length > 0;
 }
 
@@ -28,7 +29,7 @@ const tiTeams = [
   2163, 1838315, 15,
 ];
 
-const queryTemplate = (props) => {
+const queryTemplate = (props: any) => {
   const {
     select,
     group,
@@ -148,8 +149,8 @@ ${minGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant
 GROUP BY hero_id
 ORDER BY total ${(order && order.value) || 'DESC'}`;
   } else {
-    const selectVal = {};
-    const groupVal = {};
+    const selectVal: any = {};
+    const groupVal: any = {};
     if (validateArray(groupArray)) {
       groupArray.forEach((x) => {
         groupVal[x.key] =

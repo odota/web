@@ -1,36 +1,39 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { JSXElementConstructor } from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 import FormField from '../Form/FormField';
 
-class ExplorerFormField extends React.Component {
-  static propTypes = {
-    fields: PropTypes.arrayOf({}),
-    label: PropTypes.string,
-    builderField: PropTypes.func,
-    handleFieldUpdate: PropTypes.func,
-    isDateField: PropTypes.bool,
-    builder: PropTypes.func,
-    chipLimit: PropTypes.number,
-    multipleSelect: PropTypes.bool,
-  };
+type ExplorerFormFieldProps = {
+  fields?: Record<string, any>,
+  label: string,
+  builderField: string,
+  handleFieldUpdate: Function,
+  isDateField?: boolean,
+  builder: Record<string, any>,
+  chipLimit?: number,
+  multipleSelect?: boolean,
+};
 
-  constructor() {
-    super();
-    this.state = {};
+class ExplorerFormField extends React.Component<ExplorerFormFieldProps> {
+  autocomplete: any = undefined;
+  datepicker: any = undefined;
+  state = {
+    DatePicker: undefined,
+  };
+  constructor(props: ExplorerFormFieldProps) {
+    super(props);
     import('material-ui/DatePicker').then((dp) =>
       this.setState({ DatePicker: dp.default }),
     );
   }
 
-  componentDidUpdate(newProps) {
+  componentDidUpdate(newProps: ExplorerFormFieldProps) {
     if (this.autocomplete && this.autocomplete.state) {
       const { builderField, builder, fields } = newProps;
       const dataSource = fields && fields[builderField];
       const searchText = builder[builderField]
         ? (
             dataSource.find(
-              (element) => element.key === builder[builderField],
+              (element: any) => element.key === builder[builderField],
             ) || {}
           ).text
         : '';
@@ -42,15 +45,15 @@ class ExplorerFormField extends React.Component {
     }
   }
 
-  addChip = (name, input, limit) => {
-    const currentChips = [].concat(this.props.builder[name] || []);
+  addChip = (name: string, input: any, limit: number) => {
+    const currentChips: any[] = [].concat(this.props.builder[name] || []);
     const newChips = currentChips.includes(input.key)
       ? currentChips
       : [input.key].concat(currentChips).slice(0, limit);
     this.props.handleFieldUpdate(name, newChips);
   };
 
-  deleteChip = (name, index) => {
+  deleteChip = (name: string, index: number) => {
     const currentChips = [].concat(this.props.builder[name] || []);
     const newChips = [
       ...currentChips.slice(0, index),
@@ -91,8 +94,9 @@ class ExplorerFormField extends React.Component {
       return (
         <span style={{ width: fieldWidth }}>
           {DatePicker && (
+            //@ts-expect-error
             <DatePicker
-              ref={(ref) => {
+              ref={(ref: any) => {
                 this.datepicker = ref;
                 return null;
               }}
@@ -105,7 +109,7 @@ class ExplorerFormField extends React.Component {
                   : undefined
               }
               onShow={this.resetField}
-              onChange={(event, date) => {
+              onChange={(event: any, date: Date) => {
                 handleFieldUpdate(builderField, date.toISOString());
               }}
             />
@@ -141,6 +145,7 @@ class ExplorerFormField extends React.Component {
             floatingLabelText={label}
             dataSource={dataSource}
             maxSearchResults={100}
+            //@ts-expect-error
             onClick={this.resetField}
             onNewRequest={(value, index) => {
               handleFieldUpdate(builderField, index > -1 ? value.key : '');

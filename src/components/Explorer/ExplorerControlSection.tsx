@@ -1,13 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import Toggle from 'material-ui/Toggle';
 import styled from 'styled-components';
+import useStrings from '../../hooks/useStrings.hook';
 
 const StyledDiv = styled.div`
   padding: 0 15px;
   box-sizing: border-box;
-  display: ${(props) => (props.showEditor ? 'none' : 'flex')};
+  display: ${(props: { showEditor: boolean }) => (props.showEditor ? 'none' : 'flex')};
   flex-direction: row;
   flex-wrap: wrap;
 `;
@@ -17,9 +16,9 @@ const ExplorerControlSection = ({
   showEditor,
   toggleEditor,
   children,
-  strings,
-}) => (
-  <div>
+}: { showToggle: boolean, showEditor: boolean, toggleEditor: (e: React.MouseEvent) => void, children: React.ReactNode }) => {
+  const strings = useStrings();
+  return <div>
     <div style={{ width: '180px', margin: '10px' }}>
       <div>{/* drawOmnibox(this, expandedFields) */}</div>
       {showToggle && (
@@ -41,18 +40,6 @@ const ExplorerControlSection = ({
       />
     </div>
   </div>
-);
-
-ExplorerControlSection.propTypes = {
-  showToggle: PropTypes.bool,
-  showEditor: PropTypes.bool,
-  toggleEditor: PropTypes.func,
-  children: PropTypes.arrayOf(PropTypes.node),
-  strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(ExplorerControlSection);
+export default ExplorerControlSection;

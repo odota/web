@@ -3,19 +3,20 @@ import TextField from 'material-ui/TextField';
 import debounce from 'lodash/fp/debounce';
 import editDistance from './editDistance';
 
-const ExplorerOmnibox = (context, expandedFields) => (
+const ExplorerOmnibox = (context: any, expandedFields: any) => (
   <TextField
     style={{ display: 'none' }}
     floatingLabelText="Omnibox"
-    onChange={debounce((event, value) => {
+    //@ts-expect-error
+    onChange={debounce((event: any, value: string) => {
       // Sample input 'dendi antimage'
       // Iterate over the fields and phrase tokens
       // Keep track of the best match for each field + token
       // TODO handle multi-word phrases like 'evil geniuses', 'gold per min'
-      const result = [];
+      const result: any[] = [];
       Object.keys(expandedFields).forEach((field) => {
         value.split(' ').forEach((token) => {
-          const distances = expandedFields[field].map((element) => ({
+          const distances = expandedFields[field].map((element: any) => ({
             field,
             token,
             searchText: element.searchText,
@@ -25,7 +26,7 @@ const ExplorerOmnibox = (context, expandedFields) => (
               (element.searchText || element.text).toLowerCase(),
             ),
           }));
-          distances.sort((a, b) => a.editDistance - b.editDistance);
+          distances.sort((a: any, b: any) => a.editDistance - b.editDistance);
           const bestMatch = distances[0];
           result.push(bestMatch);
         });
@@ -35,9 +36,9 @@ const ExplorerOmnibox = (context, expandedFields) => (
       // For each field, pick the best token. A token can't be used more than once.
       // Minimizing the total is N*M time where N is the number of fields and M is the number of words
       // Apply state update with best fit (matchedBuilder)
-      const alreadyUsedTokens = {};
-      const alreadyUsedFields = {};
-      const matchedBuilder = {};
+      const alreadyUsedTokens: Record<string, any> = {};
+      const alreadyUsedFields: Record<string, any> = {};
+      const matchedBuilder: Record<string, any> = {};
       Object.keys(expandedFields).forEach(() => {
         for (let i = 0; i < result.length; i += 1) {
           const element = result[i];

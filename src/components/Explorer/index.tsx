@@ -1,6 +1,5 @@
 /* global ace */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
@@ -20,46 +19,48 @@ import TableSkeleton from '../Skeletons/TableSkeleton';
 import { formatTemplateToString } from '../../utility';
 import config from '../../config';
 
-const playerMapping = {};
-const teamMapping = {};
+const playerMapping: Record<string, string> = {};
+const teamMapping: Record<string, string> = {};
 
-function jsonResponse(response) {
+function jsonResponse(response: Response) {
   return response.json();
 }
 
-function expandBuilderState(builder, _fields) {
-  const expandedBuilder = {};
+function expandBuilderState(builder: any, _fields: any) {
+  const expandedBuilder: any = {};
   Object.keys(builder).forEach((key) => {
     if (Array.isArray(builder[key])) {
       expandedBuilder[key] = builder[key].map(
         (x) =>
-          (_fields[key] || []).find((element) => element.key === x) || {
+          (_fields[key] || []).find((element: any) => element.key === x) || {
             value: x,
           },
       );
     } else if (builder[key]) {
       expandedBuilder[key] = (_fields[key] || []).find(
-        (element) => element.key === builder[key],
+        (element: any) => element.key === builder[key],
       ) || { value: builder[key] };
     }
   });
   return expandedBuilder;
 }
 
-class Explorer extends React.Component {
-  static propTypes = {
-    proPlayers: PropTypes.arrayOf({}),
-    teams: PropTypes.arrayOf({}),
-    leagues: PropTypes.shape({}),
-    dispatchProPlayers: PropTypes.func,
-    dispatchLeagues: PropTypes.func,
-    dispatchTeams: PropTypes.func,
-    strings: PropTypes.shape({}),
-  };
+type ExplorerProps = {
+  proPlayers: any[],
+  teams: any[],
+  leagues: any[],
+  dispatchProPlayers: Function,
+  dispatchLeagues: Function,
+  dispatchTeams: Function,
+  strings: Strings
+};
 
-  constructor() {
-    super();
-    let urlState = {};
+class Explorer extends React.Component<ExplorerProps, { builder: any, loading: boolean, loadingEditor: boolean, showEditor: boolean, result: any }> {
+  editor: any = undefined;
+  completersSet = false;
+  constructor(props: ExplorerProps) {
+    super(props);
+    let urlState: any = {};
     let sqlState = '';
     try {
       urlState = querystring.parse(window.location.search.substring(1));
@@ -89,7 +90,7 @@ class Explorer extends React.Component {
     this.instantiateEditor();
   }
 
-  componentDidUpdate(nextProps) {
+  componentDidUpdate(nextProps: ExplorerProps) {
     if (
       this.editor &&
       !this.completersSet &&
@@ -130,7 +131,7 @@ class Explorer extends React.Component {
     window.stop();
   };
 
-  handleFieldUpdate = (builderField, value) => {
+  handleFieldUpdate = (builderField: string, value: string) => {
     this.setState(
       {
         builder: {
@@ -180,7 +181,7 @@ class Explorer extends React.Component {
     }
   };
 
-  handleResponse = (json) => {
+  handleResponse = (json: any) => {
     this.setState({
       loading: false,
       result: json,
@@ -188,6 +189,7 @@ class Explorer extends React.Component {
   };
 
   instantiateEditor = () => {
+    //@ts-expect-error
     const editor = ace.edit('editor');
     editor.setTheme('ace/theme/monokai');
     editor.getSession().setMode('ace/mode/sql');
@@ -200,7 +202,7 @@ class Explorer extends React.Component {
     this.editor = editor;
     const { sql } = querystring.parse(window.location.search.substring(1));
     if (sql) {
-      editor.setValue(decodeURIComponent(sql));
+      editor.setValue(decodeURIComponent(sql as string));
     } else {
       this.buildQuery();
     }
@@ -398,7 +400,6 @@ class Explorer extends React.Component {
             handleFieldUpdate={handleFieldUpdate}
             builder={builder}
             isDateField
-            minDate
           />
           <ExplorerFormField
             label={strings.explorer_max_date}
@@ -495,7 +496,7 @@ class Explorer extends React.Component {
                 Papa.unparse({
                   data: this.state.result.rows || [],
                   fields: (this.state.result.fields || []).map(
-                    (field) => field.name,
+                    (field: any) => field.name,
                   ),
                 }),
               )}`}
@@ -541,14 +542,14 @@ class Explorer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   proPlayers: state.app.proPlayers.data,
   leagues: state.app.leagues.data,
   teams: state.app.teams.data,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: any) => ({
   dispatchProPlayers: () => dispatch(getProPlayers()),
   dispatchLeagues: () => dispatch(getLeagues()),
   dispatchTeams: () => dispatch(getTeams()),

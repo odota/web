@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { displayHeroId, formatSeconds, IMAGESIZE_ENUM } from '../../utility';
 import Table from '../Table';
@@ -26,18 +25,18 @@ function resolveId(key, value, mappings) {
 }
 */
 
-class ExplorerOutputSection extends React.Component {
-  static propTypes = {
-    rows: PropTypes.array,
-    fields: PropTypes.array,
-    expandedBuilder: PropTypes.string,
-    // teamMapping: PropTypes.string,
-    playerMapping: PropTypes.string,
-    format: PropTypes.string,
-    strings: PropTypes.shape({}),
-  };
+type ExplorerOutputSectionProps = {
+  rows: any[],
+  fields: any[],
+  expandedBuilder?: any,
+  playerMapping?: any,
+  teamMapping?: any,
+  format?: string,
+  strings: Strings,
+};
 
-  shouldComponentUpdate(nextProps) {
+class ExplorerOutputSection extends React.Component<ExplorerOutputSectionProps> {
+  shouldComponentUpdate(nextProps: ExplorerOutputSectionProps) {
     return (
       nextProps.rows !== this.props.rows ||
       nextProps.format !== this.props.format
@@ -79,7 +78,7 @@ class ExplorerOutputSection extends React.Component {
           }))
           .map((column) => ({
             ...column,
-            displayFn: (row, col, field) => {
+            displayFn: (row: any, col: any, field: any) => {
               if (column.field === 'match_id') {
                 return <Link to={`/matches/${field}`}>{field}</Link>;
               } else if (column.field.indexOf('hero_id') === 0) {
@@ -99,7 +98,7 @@ class ExplorerOutputSection extends React.Component {
                         />
                       </WinnerSpan>
                     )}
-                    {field.map((id) => (
+                    {field.map((id: number) => (
                       <HeroImage
                         id={id}
                         imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
@@ -123,9 +122,10 @@ class ExplorerOutputSection extends React.Component {
                   <TablePercent percent={Number((field * 100).toFixed(2))} />
                 ) : null;
               } else if (column.field === 'rune_id') {
-                return strings[`rune_${field}`];
+                return strings[`rune_${field}` as keyof typeof strings];
               } else if (column.field === 'item_name') {
-                return items[field] ? items[field].dname : field;
+                //@ts-expect-error
+                return items[field as keyof typeof items] ? items[field as keyof typeof items].dname : field;
               } else if (
                 column.field === 'time' ||
                 (column.field === 'avg' &&
@@ -170,16 +170,16 @@ class ExplorerOutputSection extends React.Component {
                   year: 'numeric',
                 });
               } else if (column.field === 'game_mode') {
-                return strings[`game_mode_${field}`];
+                return strings[`game_mode_${field}` as keyof typeof strings];
               } else if (column.field === 'lobby_type') {
-                return strings[`lobby_type_${field}`];
+                return strings[`lobby_type_${field}` as keyof typeof strings];
               }
               if (typeof field === 'string') {
                 return field;
               }
               return JSON.stringify(field);
             },
-            sortFn: (row) => {
+            sortFn: (row: any) => {
               if (
                 row[column.field] === null ||
                 typeof row[column.field] === 'boolean' ||
@@ -195,7 +195,7 @@ class ExplorerOutputSection extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 
