@@ -46,9 +46,7 @@ type ColumnAddition = {
   tooltip: string;
 };
 
-type Row = {
-  [key in string]: number;
-};
+type Row = Record<string, any>;
 
 type Column = ProColumn | PublicColumn | HeroColumn;
 
@@ -134,8 +132,7 @@ const generateHeroColumn = (strings: Strings): HeroColumn => {
     field: 'hero_id',
     displayFn: displayHeroId,
     sortFn: (row: Row) => {
-      const typedHeroes: Heroes = heroes;
-      return typedHeroes[row.hero_id]?.localized_name;
+      return heroes[row.hero_id as keyof typeof heroes]?.localized_name;
     },
   };
 };

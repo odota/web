@@ -4,6 +4,7 @@ declare module 'ace-builds/src-noconflict/theme-monokai';
 declare module 'ace-builds/src-noconflict/mode-sql';
 
 type Strings = typeof import('./lang/en-US.json');
+type Heroes = typeof import('dotaconstants/build/heroes.json');
 type PatchNotes =
   | Record<
       string,
@@ -47,3 +48,25 @@ type Hero = {
 };
 
 type Heroes = Record<string, Hero>;
+
+type Match = {
+  players: {
+    hero_id: keyof Heroes,
+    account_id: number,
+    killed: Record<string, any>,
+    player_slot: number,
+    damage: Record<string, any>,
+    name: string,
+    personaname: string,
+    isRadiant: boolean,
+    is_roaming: boolean,
+    desc: string,
+    lane: number,
+  }[],
+  radiant_win: boolean,
+  tower_status_radiant: number,
+  barracks_status_radiant: number,
+  barracks_status_dire: number,
+  tower_status_dire: number,
+  start_time: number,
+};

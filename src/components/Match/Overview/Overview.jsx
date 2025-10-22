@@ -4,7 +4,7 @@ import MatchGraph from '../../Visualizations/Graph/MatchGraph';
 import TeamTable from '../TeamTable';
 import AbilityDraftTable from '../AbilityDraftTable';
 import mcs from '../matchColumns';
-import BuildingMap from '../BuildingMap';
+import BuildingMap from '../BuildingMap/BuildingMap';
 import Collapsible from './../../Collapsible/index';
 import AbilityBuildTable from '../AbilityBuildTable';
 import DeferredContainer from './../../DeferredContainer/index';

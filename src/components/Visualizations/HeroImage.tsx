@@ -10,7 +10,7 @@ const HeroImage = ({
   heroImageEventProps,
   ...rest
 }: {
-  id: number,
+  id: string,
   isIcon?: boolean,
   imageSizeSuffix?: string,
   heroImageEventProps?: any,

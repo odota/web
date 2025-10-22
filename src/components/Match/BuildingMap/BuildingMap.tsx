@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { player_colors as playerColors } from 'dotaconstants';
 import { heroes } from 'dotaconstants';
 import ReactTooltip from 'react-tooltip';
@@ -13,20 +11,21 @@ import buildingDataOld from './buildingData';
 import buildingData733 from './buildingData733';
 import constants from '../../constants';
 import config from '../../../config';
+import useStrings from '../../../hooks/useStrings.hook';
 
 const buildingDataByPatch = [
   { patch: '7.33', data: buildingData733 },
   { patch: '6.70', data: buildingDataOld },
 ];
 
-const getBuildingData = (startTime) => {
+const getBuildingData = (startTime: number) => {
   if (!startTime) return buildingDataByPatch[0].data;
 
   const buildingData = buildingDataByPatch.find(
     (buildingData) => startTime >= patchDate[buildingData.patch],
   );
 
-  return buildingData.data || buildingDataByPatch[0].data;
+  return buildingData?.data || buildingDataByPatch[0].data;
 };
 
 const StyledDiv = styled.div`
@@ -268,12 +267,13 @@ const buildingsHealth = {
   fort: 4200,
 };
 
-const BuildingMap = ({ match, strings }) => {
+const BuildingMap = ({ match }: { match: Match }) => {
+  const strings = useStrings();
   if (!match || match.tower_status_radiant === undefined) {
     return <div />;
   }
 
-  const buildingData = getBuildingData(match.startTime);
+  const buildingData = getBuildingData(match.start_time);
 
   // see https://wiki.teamfortress.com/wiki/WebAPI/GetMatchDetails
   let bits = pad(match.tower_status_radiant.toString(2), 16).slice(5);
@@ -287,7 +287,8 @@ const BuildingMap = ({ match, strings }) => {
   // building data in correct order
   // determine ancient display by match winner
   for (let i = 0; i < bits.length; i += 1) {
-    let type = buildingData[i].id.slice(0, 1);
+    let type: string = buildingData[i].id.slice(0, 1);
+    //@ts-expect-error
     type =
       (type === 't' && 'tower') ||
       (type === 'b' &&
@@ -307,7 +308,7 @@ const BuildingMap = ({ match, strings }) => {
     const key = `npc_dota_${side}guys_${type}${tier}${lane && `_${lane}`}`;
     const title =
       strings[
-        `${type.includes('rax') ? 'building_' : 'objective_'}${type}${tier}${type.includes('rax') ? '' : lane && `_${lane}`}`
+        `${type.includes('rax') ? 'building_' : 'objective_'}${type}${tier}${type.includes('rax') ? '' : lane && `_${lane}`}` as keyof typeof strings
       ];
 
     const destroyedBy = match.players
@@ -325,6 +326,7 @@ const BuildingMap = ({ match, strings }) => {
       }));
     let damageByCreeps = damage.map((player) => player.damage).reduce(sum, 0);
     damageByCreeps =
+      //@ts-expect-error
       buildingsHealth[type === 'tower' ? `tower${tier}` : type] -
       damageByCreeps;
 
@@ -357,8 +359,10 @@ const BuildingMap = ({ match, strings }) => {
         key={props.key}
         data-tip
         data-for={props.key}
+        //@ts-expect-error
         style={props.style.span}
       >
+        {/*@ts-expect-error*/}
         <img src={props.src} alt="" style={props.style.img} />
         <ReactTooltip id={props.key} effect="solid">
           {title}
@@ -380,8 +384,9 @@ const BuildingMap = ({ match, strings }) => {
                     <div
                       key={player.hero_id}
                       style={{
+                        //@ts-expect-error
                         width: `${(Number(player.damage) * 100) / buildingsHealth[type === 'tower' ? `tower${tier}` : type]}%`,
-                        backgroundColor: playerColors[player.player_slot],
+                        backgroundColor: playerColors[player.player_slot as unknown as keyof typeof playerColors],
                       }}
                     />
                   ))}
@@ -398,7 +403,7 @@ const BuildingMap = ({ match, strings }) => {
                       />
                       <span className="damageValue">{player.damage}</span>
                       <span
-                        style={{ color: playerColors[player.player_slot] }}
+                        style={{ color: playerColors[player.player_slot as unknown as keyof typeof playerColors] }}
                         className="playerName"
                       >
                         {player.name}
@@ -550,7 +555,7 @@ const BuildingMap = ({ match, strings }) => {
   return (
     <StyledDiv>
       <Heading title={strings.heading_buildings} />
-      <DotaMap startTime={match.start_time} maxWidth={300} className="map">
+      <DotaMap startTime={match.start_time} maxWidth={300}>
         {icons}
         <div className="hero-icons radiant-safe">{radiantSafe}</div>
         <div className="hero-icons radiant-mid">{radiantMid}</div>
@@ -579,19 +584,4 @@ const BuildingMap = ({ match, strings }) => {
   );
 };
 
-BuildingMap.propTypes = {
-  match: PropTypes.shape({}),
-  key: PropTypes.string,
-  style: PropTypes.shape({
-    span: PropTypes.string,
-    img: PropTypes.string,
-  }),
-  src: PropTypes.string,
-  strings: PropTypes.shape({}),
-};
-
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(BuildingMap);
+export default BuildingMap;

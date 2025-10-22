@@ -119,7 +119,7 @@ const DotaMap = ({
   maxWidth = 400,
   width = 400,
   children,
-}: { startTime: number | null, maxWidth: number, width: number, children?: React.ReactNode }) => {
+}: { startTime: number | null, maxWidth?: number, width?: number, children?: React.ReactNode }) => {
   const mapData = getPatchMap(startTime);
 
   return (

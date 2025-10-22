@@ -85,7 +85,7 @@ const HeroSelector = ({
   isFiltered,
   heroName,
 }: {
-  id: number,
+  id: string,
   handleHeroSelection: Function,
   selected: boolean,
   teamAFull: boolean,
@@ -146,7 +146,7 @@ const SelectedHeroes = ({ teamA, teamB, handleHeroDeSelection }: { teamA: number
         {[4, 3, 2, 1, 0].map((i) =>
           teamA[i] ? (
             <HeroImage
-              id={teamA[i]}
+              id={String(teamA[i])}
               className="hero-img"
               onClick={handleHeroDeSelection(i, 'teamA')}
             />
@@ -165,7 +165,7 @@ const SelectedHeroes = ({ teamA, teamB, handleHeroDeSelection }: { teamA: number
         {[0, 1, 2, 3, 4].map((i) =>
           teamB[i] ? (
             <HeroImage
-              id={teamB[i]}
+              id={String(teamB[i])}
               className="hero-img"
               onClick={handleHeroDeSelection(i, 'teamB')}
             />
@@ -335,7 +335,7 @@ class Combos extends React.Component<{ strings: Strings }> {
   filterAndRenderElements = (searchValue: any, resetSearchValue: any) =>
     heroesArray.map((hero) => (
       <HeroSelector
-        id={hero.id}
+        id={String(hero.id)}
         heroName={hero.localized_name}
         handleHeroSelection={this.handleHeroSelection(resetSearchValue)}
         selected={[...this.state.teamA, ...this.state.teamB].includes(hero.id)}

@@ -98,7 +98,7 @@ class ExplorerOutputSection extends React.Component<ExplorerOutputSectionProps> 
                         />
                       </WinnerSpan>
                     )}
-                    {field.map((id: number) => (
+                    {field.map((id: string) => (
                       <HeroImage
                         id={id}
                         imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
