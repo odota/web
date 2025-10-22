@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import HeroImage from '../Visualizations/HeroImage';
 import TableSkeleton from '../Skeletons/TableSkeleton';
-import Heading from '../Heading/Heading';
+import Heading from '../Heading';
 import ExplorerOutputSection from './../Explorer/ExplorerOutputSection';
 import getQueryString from './getQueryString';
 import {
