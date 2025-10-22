@@ -1,32 +1,22 @@
 import React, { Component } from 'react';
-import { shape, func, bool, arrayOf, oneOfType, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { getBenchmark } from '../../actions';
 import BenchmarkTable from './BenchmarkTable';
 import BenchmarkGraphs from './BenchmarkGraphs';
 import BenchmarkSkeleton from '../Skeletons/BenchmarkSkeleton';
 
-const renderBenchmark = (hero, data, strings) => (
-  <div>
-    <BenchmarkGraphs data={data} strings={strings} />
-    <BenchmarkTable data={data} />
-  </div>
-);
-
-class Benchmark extends Component {
-  static propTypes = {
-    match: shape({
-      params: shape({
-        heroId: string,
-      }),
-    }),
-    strings: shape({}),
-    getBenchmark: func,
-    isLoading: bool,
-    isError: bool,
-    hero: shape({}),
-    result: oneOfType([arrayOf(shape({})), shape({})]),
-  };
+class Benchmark extends Component<{
+    match: {
+      params: {
+        heroId: number,
+      },
+    },
+    strings: Strings,
+    getBenchmark: Function,
+    isLoading: boolean,
+    isError: boolean,
+    result: any[],
+  }> {
 
   componentDidMount() {
     if (this.props.match.params && this.props.match.params.heroId) {
@@ -35,14 +25,17 @@ class Benchmark extends Component {
   }
 
   render() {
-    const { isLoading, isError, hero, result } = this.props;
+    const { isLoading, isError, result } = this.props;
 
     return (
       <div>
         {isLoading || isError || result === null ? (
           <BenchmarkSkeleton />
         ) : (
-          renderBenchmark(hero, result, this.props.strings)
+          <div>
+            <BenchmarkGraphs data={result} strings={this.props.strings} />
+            <BenchmarkTable data={result} />
+          </div>
         )}
       </div>
     );
@@ -76,14 +69,15 @@ HISTOGRAM API
 
 */
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   isLoading: state.app.heroBenchmark.loading,
   isError: state.app.heroBenchmark.error,
   result: state.app.heroBenchmark.data.result,
+  strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getBenchmark: (heroId) => dispatch(getBenchmark(heroId)),
+const mapDispatchToProps = (dispatch: any) => ({
+  getBenchmark: (heroId: number) => dispatch(getBenchmark(heroId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Benchmark);

@@ -42,7 +42,7 @@ TabTooltip.propTypes = {
   children: PropTypes.node,
 };
 
-const TabBar = ({ tabs, match }) => {
+const TabBar = ({ tabs, match, info }) => {
   const [tabValue, setTabValue] = useState(0);
   const { history, location } = useReactRouter();
   const visibleTabs = useMemo(
@@ -98,6 +98,7 @@ const { shape, arrayOf } = PropTypes;
 TabBar.propTypes = {
   tabs: arrayOf(shape({})),
   match: shape({}),
+  info: string,
 };
 
 export default TabBar;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { shape, number, string } from 'prop-types';
 import styled from 'styled-components';
 import AttributeMain from './AttributeMain';
 import constants from '../constants';
@@ -21,7 +20,7 @@ const MainAttributesBlock = styled.div`
   }
 `;
 
-const HeroAttributes = ({ hero }) => (
+const HeroAttributes = ({ hero }: { hero: Hero }) => (
   <AttributesWrapper>
     <MainAttributesBlock>
       <AttributeMain
@@ -45,17 +44,5 @@ const HeroAttributes = ({ hero }) => (
     </MainAttributesBlock>
   </AttributesWrapper>
 );
-
-HeroAttributes.propTypes = {
-  hero: shape({
-    primary_attr: string,
-    base_str: number,
-    base_agi: number,
-    base_int: number,
-    str_gain: number,
-    agi_gain: number,
-    int_gain: number,
-  }),
-};
 
 export default HeroAttributes;

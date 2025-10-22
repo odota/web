@@ -1,5 +1,4 @@
 import React from 'react';
-import { bool, func, arrayOf, shape, number, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { getHeroPlayers } from '../../actions';
 import Table, { TableLink } from '../Table';
@@ -7,26 +6,22 @@ import PlayersSkeleton from '../Skeletons/PlayersSkeleton';
 import { wilsonScore } from '../../utility';
 import { proPlayersSelector } from '../../reducers/selectors';
 
-class Players extends React.Component {
-  static propTypes = {
-    isLoading: bool,
-    data: arrayOf(
-      shape({
+class Players extends React.Component<{
+    isLoading: boolean,
+    data: {
         account_id: number,
         games_played: number,
         wins: number,
-      }),
-    ),
-    match: shape({
-      params: shape({
-        heroId: string,
-      }),
-    }),
-    onGetHeroPlayers: func,
-    proPlayers: shape({}),
-    strings: shape({}),
-  };
-
+      }[],
+    match: {
+      params: {
+        heroId: number,
+      },
+    },
+    onGetHeroPlayers: Function,
+    proPlayers: any,
+    strings: Strings,
+  }> {
   componentDidMount() {
     const { onGetHeroPlayers, match } = this.props;
 
@@ -42,7 +37,7 @@ class Players extends React.Component {
       {
         field: 'account_id',
         displayName: strings.th_account_id,
-        displayFn: (row, col, field) => (
+        displayFn: (row: any, col: any, field: string) => (
           <TableLink to={`/players/${field}`}>{row.name || field}</TableLink>
         ),
       },
@@ -57,7 +52,7 @@ class Players extends React.Component {
         displayName: strings.th_win,
         relativeBars: true,
         sortFn: true,
-        displayFn: (row, col, field) => `${field}`,
+        displayFn: (row: any, col: any, field: string) => `${field}`,
       },
       {
         tooltip: strings.tooltip_advantage,
@@ -65,7 +60,7 @@ class Players extends React.Component {
         displayName: strings.th_advantage,
         relativeBars: true,
         sortFn: true,
-        displayFn: (row, col, field) => `${field}`,
+        displayFn: (row: any, col: any, field: string) => `${field}`,
       },
     ];
 
@@ -77,7 +72,7 @@ class Players extends React.Component {
       .map((item) => {
         const wins = Math.max(
           0,
-          Math.min(100, ((item.wins / item.games_played) * 100).toFixed(2)),
+          Math.min(100, Number(((item.wins / item.games_played) * 100).toFixed(2))),
         );
         const advantage = Math.round(
           wilsonScore(item.wins, item.games_played - item.wins) * 100,
@@ -98,9 +93,9 @@ class Players extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   isLoading: state.app.heroPlayers.loading,
-  data: Object.values(state.app.heroPlayers.data),
+  data: Object.values(state.app.heroPlayers.data) as any[],
   proPlayers: proPlayersSelector(state),
   strings: state.app.strings,
 });

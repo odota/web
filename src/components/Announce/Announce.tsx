@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import { getGithubPulls } from '../../actions';
 import constants from '../constants';
+import useStrings from '../../hooks/useStrings.hook';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -73,15 +74,14 @@ const Announce = ({
   body,
   onClick,
   link,
-  strings,
 }: {
   title: string;
   body: string;
   onClick: MouseEventHandler<{}>;
   link: string;
-  strings: Strings;
-}) => (
-  <StyledDiv>
+}) => {
+  const strings = useStrings();
+  return <StyledDiv>
     <main>
       <h4>{title}</h4>
       {body && <ReactMarkdown source={body} />}
@@ -101,8 +101,8 @@ const Announce = ({
         label={strings.announce_dismiss}
       />
     </aside>
-  </StyledDiv>
-);
+  </StyledDiv>;
+};
 
 class RequestLayer extends React.Component<
   {
@@ -110,7 +110,6 @@ class RequestLayer extends React.Component<
     getPulls: Function;
     loading: boolean;
     data: any;
-    strings: Strings;
   },
   { dismissed?: boolean }
 > {
@@ -138,7 +137,7 @@ class RequestLayer extends React.Component<
   }
 
   render() {
-    const { error, loading, data, strings } = this.props;
+    const { error, loading, data } = this.props;
 
     if (!error && !loading && data) {
       if (data.items && data.items[0]) {
@@ -155,7 +154,6 @@ class RequestLayer extends React.Component<
               body={body}
               onClick={() => this.dismiss(number)}
               link={link}
-              strings={strings}
             />
           );
         }
@@ -173,7 +171,6 @@ const mapStateToProps = (state: any) => {
     error,
     loading,
     data,
-    strings: state.app.strings,
   };
 };
 

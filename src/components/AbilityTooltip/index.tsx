@@ -1,5 +1,4 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import styled from 'styled-components';
 import constants from '../constants';
 import { styleValues, formatValues } from '../../utility';
@@ -119,7 +118,7 @@ const Break = styled.div`
   background-color: #080d15;
 `;
 
-const AbilityTooltip = ({ ability, inflictor }: any) => (
+const AbilityTooltip = ({ ability, inflictor }: { ability: { img?: string, dname?: string, behavior?: string, dmg_type?: string, bkbpierce?: boolean, desc?: string, attrib?: any[], dmg?: any, mc?: string[], cd?: number[] }, inflictor?: string }) => (
   <Wrapper>
     <Header>
       {/*@ts-ignore*/}
@@ -202,10 +201,5 @@ const AbilityTooltip = ({ ability, inflictor }: any) => (
     )}
   </Wrapper>
 );
-
-AbilityTooltip.propTypes = {
-  ability: propTypes.shape({}).isRequired,
-  inflictor: propTypes.string,
-};
 
 export default AbilityTooltip;

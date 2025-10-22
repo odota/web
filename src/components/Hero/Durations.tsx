@@ -1,28 +1,24 @@
 import React from 'react';
-import { string, shape, func, bool, arrayOf, number } from 'prop-types';
 import { connect } from 'react-redux';
 import { getHeroDurations } from '../../actions';
 import { HistogramGraph } from '../Visualizations';
 import DurationsSkeleton from '../Skeletons/DurationsSkeleton';
 
-class Durations extends React.Component {
-  static propTypes = {
-    match: shape({
-      params: shape({
-        heroId: string,
-      }),
-    }),
-    onGetHeroDurations: func,
-    isLoading: bool,
-    data: arrayOf(
-      shape({
-        duration_bin: number,
-        gamed_played: number,
-        wins: number,
-      }),
-    ),
-    strings: shape({}),
-  };
+class Durations extends React.Component<{
+    match: {
+      params: {
+        heroId: number,
+      },
+    },
+    onGetHeroDurations: (heroId: number) => Promise<any>,
+    isLoading: boolean,
+    data: {
+      duration_bin: number,
+      games_played: number,
+      wins: number,
+    }[],
+    strings: Strings,
+  }> {
 
   componentDidMount() {
     const { onGetHeroDurations, match } = this.props;
@@ -62,9 +58,9 @@ const mapDispatchToProps = {
   onGetHeroDurations: getHeroDurations,
 };
 
-const mapStateToProps = ({ app }) => ({
+const mapStateToProps = ({ app }: any) => ({
   isLoading: app.heroDurations.loading,
-  data: Object.values(app.heroDurations.data),
+  data: Object.values(app.heroDurations.data) as any[],
   strings: app.strings,
 });
 

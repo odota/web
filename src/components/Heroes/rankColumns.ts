@@ -8,7 +8,7 @@ type Props = {
   strings: Strings;
 };
 
-enum HeroesTab {
+export enum HeroesTab {
   PRO = 'pro',
   PUBLIC = 'public',
   TURBO = 'turbo',

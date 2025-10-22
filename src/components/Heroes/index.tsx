@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { heroes } from 'dotaconstants';
@@ -9,54 +8,53 @@ import Table from '../Table';
 import TabBar from '../TabBar';
 import Hero from '../Hero';
 import { sum, abbreviateNumber } from '../../utility';
-import { rankColumns } from './rankColumns';
+import { HeroesTab, rankColumns } from './rankColumns';
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    dispatchHeroStats: PropTypes.func,
-    onGetProPlayers: PropTypes.func,
-    data: PropTypes.oneOfType([
-      PropTypes.shape({}),
-      PropTypes.arrayOf(PropTypes.shape({})),
-    ]),
-    loading: PropTypes.bool,
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        info: PropTypes.string,
-        heroId: PropTypes.string,
-      }),
-    }),
-    strings: PropTypes.shape({}),
-  };
+type HeroesProps = {
+  dispatchHeroStats: Function,
+  onGetProPlayers: Function,
+  data: any | any[],
+  loading: boolean,
+  match: {
+    params: {
+      info: string,
+      heroId: number,
+    }
+  },
+  strings: Strings,
+};
 
+class RequestLayer extends React.Component<HeroesProps> {
   componentDidMount() {
     this.props.dispatchHeroStats();
     this.props.onGetProPlayers();
   }
 
-  getMatchCountByRank = (json, rank) =>
-    json.map((heroStat) => heroStat[rank] || 0).reduce(sum, 0) / 10;
+  getMatchCountByRank = (json: any, rank: string) =>
+    json.map((heroStat: any) => heroStat[rank] || 0).reduce(sum, 0) / 10;
 
-  createTab = (key, matchCount) => {
+  createTab = (key: 'pro' | 'public' | 'turbo', matchCount: number) => {
     const { strings } = this.props;
 
     const names = {
       public: strings.hero_public_tab,
       turbo: strings.hero_turbo_tab,
+      pro: strings.hero_pro_tab,
     };
 
     const titles = {
       public: strings.hero_public_heading,
       turbo: strings.hero_turbo_heading,
+      pro: strings.hero_pro_heading,
     };
 
-    const name = names[key] ?? strings.hero_pro_tab;
-    const title = titles[key] ?? strings.hero_pro_heading;
+    const name = names[key ?? 'pro'];
+    const title = titles[key ?? 'pro'];
 
     return {
       name,
       key,
-      content: (data, _columns, loading) => (
+      content: (data: any, _columns: any[], loading: boolean) => (
         <div>
           <Heading
             className="top-heading with-tabbar"
@@ -83,7 +81,7 @@ class RequestLayer extends React.Component {
 
     // Assemble the result data array
     const matchCountPro =
-      json.map((heroStat) => heroStat.pro_pick || 0).reduce(sum, 0) / 10;
+      json.map((heroStat: any) => heroStat.pro_pick || 0).reduce(sum, 0) / 10;
     const matchCount8 = this.getMatchCountByRank(json, '8_pick');
     const matchCount7 = this.getMatchCountByRank(json, '7_pick');
     const matchCount6 = this.getMatchCountByRank(json, '6_pick');
@@ -102,9 +100,9 @@ class RequestLayer extends React.Component {
       matchCount2 +
       matchCount1;
     const matchCountTurbo =
-      json.map((heroStat) => heroStat.turbo_picks || 0).reduce(sum, 0) / 10;
+      json.map((heroStat: any) => heroStat.turbo_picks || 0).reduce(sum, 0) / 10;
 
-    const processedData = json.map((heroStat) => {
+    const processedData = json.map((heroStat: any) => {
       const pickRatePro = (heroStat.pro_pick || 0) / matchCountPro;
       const banRatePro = (heroStat.pro_ban || 0) / matchCountPro;
 
@@ -145,7 +143,7 @@ class RequestLayer extends React.Component {
         ...heroStat,
         hero_id: heroStat.id,
         heroName:
-          (heroes[heroStat.id] && heroes[heroStat.id].localized_name) || '',
+          (heroes[heroStat.id as keyof typeof heroes] && heroes[heroStat.id as keyof typeof heroes].localized_name) || '',
         matchCountPro,
         pickBanRatePro: pickRatePro + banRatePro,
         pickRatePro,
@@ -179,7 +177,7 @@ class RequestLayer extends React.Component {
       };
     });
     processedData.sort(
-      (a, b) => a.heroName && a.heroName.localeCompare(b.heroName),
+      (a: any, b: any) => a.heroName && a.heroName.localeCompare(b.heroName),
     );
 
     const heroTabs = [
@@ -199,7 +197,7 @@ class RequestLayer extends React.Component {
           {selectedTab &&
             selectedTab.content(
               processedData,
-              rankColumns({ tabType: route, strings }),
+              rankColumns({ tabType: route as HeroesTab, strings }),
               loading,
             )}
         </div>
@@ -208,7 +206,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   data: state.app.heroStats.data,
   loading: state.app.heroStats.loading,
   strings: state.app.strings,

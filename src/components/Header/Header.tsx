@@ -11,7 +11,6 @@ import { BugReport, Menu as MenuIcon, Settings } from '@material-ui/icons';
 import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
-import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -201,10 +200,6 @@ const LogoGroup = ({ onMenuClick }: { onMenuClick: (e: React.MouseEvent) => void
     </VerticalAlignToolbar>
   </div>
 );
-
-LogoGroup.propTypes = {
-  onMenuClick: PropTypes.func,
-};
 
 const SearchGroup = () => (
   <VerticalAlignToolbar style={{ marginLeft: 'auto' }}>

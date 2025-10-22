@@ -1,15 +1,25 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { item_ids as itemIds } from 'dotaconstants';
-import PropTypes from 'prop-types';
 import Table from '../Table';
 import inflictorWithValue from '../Visualizations/inflictorWithValue';
 import { getHeroItemSuggestions } from '../../actions';
 import TableSkeleton from '../Skeletons/TableSkeleton';
 
-function ItemsSuggestion(props) {
-  const displayFn = (row, col, i) =>
-    Object.keys(i).map((itemId) => inflictorWithValue(itemIds[itemId]));
+type ItemSuggestionProps = {
+   match: {
+    params: {
+      heroId: number,
+    },
+  },
+  isLoading: boolean,
+  onGetHeroItemSuggestions: (heroId: number) => Promise<any>,
+  data: any[],
+};
+
+function ItemSuggestion(props: ItemSuggestionProps) {
+  const displayFn = (row: any, col: any, i: number) =>
+    Object.keys(i).map((itemId) => inflictorWithValue(itemIds[itemId as keyof typeof itemIds]));
 
   const { onGetHeroItemSuggestions, match } = props;
   useEffect(() => {
@@ -48,16 +58,7 @@ function ItemsSuggestion(props) {
   );
 }
 
-ItemsSuggestion.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      heroId: PropTypes.string,
-    }),
-  }),
-  isLoading: PropTypes.bool,
-};
-
-const mapStateToProps = ({ app }) => ({
+const mapStateToProps = ({ app }: any) => ({
   isLoading: app.heroItemSuggestions.loading,
   data: Object.values(app.heroItemSuggestions.data),
 });
@@ -66,4 +67,4 @@ const mapDispatchToProps = {
   onGetHeroItemSuggestions: getHeroItemSuggestions,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ItemsSuggestion);
+export default connect(mapStateToProps, mapDispatchToProps)(ItemSuggestion);

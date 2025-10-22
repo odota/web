@@ -1,5 +1,4 @@
 import React from 'react';
-import { shape, string, bool, number, func, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { getHeroMatchups } from '../../actions';
@@ -18,7 +17,7 @@ const HeroWrapper = styled.div`
   align-items: center;
 `;
 
-const getMatchupsColumns = (heroes, strings) => {
+const getMatchupsColumns = (heroes: Hero[], strings: Strings) => {
   // Optimization from O(n^2) to O(n + 1);
   const heroMap = new Map();
   heroes.forEach((hero) => heroMap.set(hero.id, hero));
@@ -27,7 +26,7 @@ const getMatchupsColumns = (heroes, strings) => {
     {
       field: 'hero_id',
       displayName: strings.th_hero_id,
-      displayFn: (row, col, field) => {
+      displayFn: (row: any, col: any, field: string) => {
         const hero = heroMap.get(field) || {};
 
         return (
@@ -60,36 +59,27 @@ const getMatchupsColumns = (heroes, strings) => {
       displayName: strings.th_advantage,
       relativeBars: true,
       sortFn: true,
-      displayFn: (row, col, field) => `${field}`,
+      displayFn: (row: any, col: any, field: string) => `${field}`,
     },
   ];
 };
 
-class Matchups extends React.Component {
-  static propTypes = {
-    isLoading: bool,
-    match: shape({
-      params: shape({
-        heroId: string,
-      }),
-    }),
-    data: arrayOf(
-      shape({
+class Matchups extends React.Component<{
+  isLoading: boolean,
+  match: {
+    params: {
+      heroId: number,
+    },
+  },
+    data: {
         hero_id: number,
         games_played: number,
         wins: number,
-      }),
-    ),
-    heroes: arrayOf(
-      shape({
-        localized_name: string,
-        img: string,
-      }),
-    ),
-    onGetHeroMatchups: func,
-    strings: shape({}),
-  };
-
+      }[],
+    heroes: Hero[],
+    onGetHeroMatchups: Function,
+    strings: Strings,
+}> {
   componentDidMount() {
     const { onGetHeroMatchups, match } = this.props;
 
@@ -106,7 +96,7 @@ class Matchups extends React.Component {
         ...item,
         win_rate: Math.max(
           0,
-          Math.min(100, ((item.wins / item.games_played) * 100).toFixed(2)),
+          Math.min(100, Number(((item.wins / item.games_played) * 100).toFixed(2))),
         ),
         advantage: Math.round(
           wilsonScore(item.wins, item.games_played - item.wins) * 100,
@@ -133,7 +123,7 @@ class Matchups extends React.Component {
   }
 }
 
-const mapStateToProps = ({ app }) => ({
+const mapStateToProps = ({ app }: any) => ({
   isLoading: app.heroMatchups.loading,
   data: app.heroMatchups.data,
   heroes: app.heroStats.data,

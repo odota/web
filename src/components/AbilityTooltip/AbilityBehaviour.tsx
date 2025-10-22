@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import constants from '../constants';
 import { formatValues } from '../../utility';
 import React from 'react';
-import propTypes from 'prop-types';
 
 const Behavior = styled.div`
   position: relative;
@@ -35,7 +34,7 @@ const Behavior = styled.div`
   }
 `;
 
-const AbilityBehaviour = ({ ability }: any) => (
+const AbilityBehaviour = ({ ability }: { ability: { behavior?: any, dmg_type?: any, bkbpierce?: any } }) => (
   <Behavior>
     {ability.behavior ? (
       <div>
@@ -77,7 +76,3 @@ const AbilityBehaviour = ({ ability }: any) => (
 );
 
 export default AbilityBehaviour;
-
-AbilityBehaviour.propTypes = {
-  ability: propTypes.shape({}).isRequired,
-};

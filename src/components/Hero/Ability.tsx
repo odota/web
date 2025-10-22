@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import nanoid from 'nanoid';
-import propTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
 import constants from '../constants';
@@ -56,10 +55,11 @@ const AbilityManaComsumption = styled.div`
   right: 0;
 `;
 
-const Ability = (props) => {
+const Ability = (props: { mc: string[], img: string }) => {
   const ttId = nanoid();
+  //@ts-expect-error
   const showMana = props.mc && parseInt(props.mc, 0) > 0;
-  let manaString = false;
+  let manaString: boolean | string = false;
 
   if (showMana) {
     manaString = typeof props.mc === 'object' ? props.mc[0] : props.mc;
@@ -76,15 +76,6 @@ const Ability = (props) => {
       </ReactTooltip>
     </Wrapper>
   );
-};
-
-Ability.propTypes = {
-  mc: propTypes.oneOfType([
-    propTypes.object,
-    propTypes.array,
-    propTypes.string,
-  ]),
-  img: propTypes.string.isRequired,
 };
 
 export default Ability;

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import Helmet from 'react-helmet';
@@ -37,8 +36,23 @@ const TabsBlock = styled.div`
   width: 100%;
 `;
 
-class Hero extends React.Component {
-  constructor(props) {
+type HeroProps = {
+  match: {
+    params: {
+      info: string,
+      heroId: number,
+    },
+  },
+  heroes: Hero[],
+  strings: Strings,
+};
+
+class Hero extends React.Component<HeroProps> {
+  static defaultProps = {
+    heroes: [],
+  };
+
+  constructor(props: HeroProps) {
     super(props);
     this.toggleDetailVisibility = this.toggleDetailVisibility.bind(this);
   }
@@ -47,7 +61,7 @@ class Hero extends React.Component {
     detailsOpen: false,
   };
 
-  toggleDetailVisibility(e) {
+  toggleDetailVisibility(e: any) {
     e.preventDefault();
 
     this.setState({
@@ -70,11 +84,11 @@ class Hero extends React.Component {
       return <ErrorBox text={errorText} />;
     }
 
-    const tabs = (tabsHeroId) => [
+    const tabs = (tabsHeroId: number) => [
       {
         name: strings.tab_rankings,
         key: 'rankings',
-        content: (props) => (
+        content: (props: HeroProps) => (
           <div>
             <Heading
               title={strings.tab_rankings}
@@ -88,7 +102,7 @@ class Hero extends React.Component {
       {
         name: strings.tab_benchmarks,
         key: 'benchmarks',
-        content: (props) => (
+        content: (props: HeroProps) => (
           <div>
             <Heading
               title={strings.tab_benchmarks}
@@ -102,7 +116,7 @@ class Hero extends React.Component {
       {
         name: strings.tab_recent,
         key: 'recent',
-        content: (props) => (
+        content: (props: HeroProps) => (
           <div>
             <Heading
               title={strings.tab_recent}
@@ -116,7 +130,7 @@ class Hero extends React.Component {
       {
         name: strings.tab_matchups,
         key: 'matchups',
-        content: (props) => (
+        content: (props: HeroProps) => (
           <div>
             <Heading
               title={strings.tab_matchups}
@@ -130,7 +144,7 @@ class Hero extends React.Component {
       {
         name: strings.tab_durations,
         key: 'durations',
-        content: (props) => (
+        content: (props: HeroProps) => (
           <div>
             <Heading
               title={strings.tab_durations}
@@ -144,7 +158,7 @@ class Hero extends React.Component {
       {
         name: strings.tab_players,
         key: 'players',
-        content: (props) => (
+        content: (props: HeroProps) => (
           <div>
             <Heading
               title={strings.tab_players}
@@ -158,7 +172,7 @@ class Hero extends React.Component {
       {
         name: strings.tab_items,
         key: 'items',
-        content: (props) => (
+        content: (props: HeroProps) => (
           <>
             <Heading
               title="Suggested Items"
@@ -198,24 +212,7 @@ class Hero extends React.Component {
   }
 }
 
-const { shape, string, arrayOf } = PropTypes;
-
-Hero.propTypes = {
-  match: shape({
-    params: shape({
-      info: string,
-      heroId: string,
-    }),
-  }),
-  heroes: arrayOf(shape({})),
-  strings: shape({}),
-};
-
-Hero.defaultProps = {
-  heroes: [],
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   isLoading: state.app.heroStats.loading,
   isError: state.app.heroStats.error,
   heroes: state.app.heroStats.data,

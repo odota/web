@@ -1,5 +1,4 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import nanoid from 'nanoid';
 import styled from 'styled-components';
 import {
@@ -52,7 +51,7 @@ const tooltipContentStyle = {
   border: 0,
 };
 
-const BenchmarkGraph = ({ data }) => {
+const BenchmarkGraph = ({ data }: { data: any }) => {
   const graphId = nanoid();
 
   return (
@@ -99,10 +98,6 @@ const BenchmarkGraph = ({ data }) => {
       <Title>{data.title}</Title>
     </Wrapper>
   );
-};
-
-BenchmarkGraph.propTypes = {
-  data: propTypes.shape({}).isRequired,
 };
 
 export default BenchmarkGraph;

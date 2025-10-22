@@ -1,5 +1,4 @@
 import React from 'react';
-import { arrayOf, shape, bool, func, string, oneOfType } from 'prop-types';
 import { connect } from 'react-redux';
 import Table, { TableLink } from '../Table';
 import RecentSkeleton from '../Skeletons/RecentSkeleton';
@@ -8,23 +7,26 @@ import { getHeroRecentGames } from '../../actions';
 import { transformations } from '../../utility';
 import { proPlayersSelector } from '../../reducers/selectors';
 
-class Recent extends React.Component {
-  static propTypes = {
-    isLoading: bool,
-    isError: bool,
-    result: oneOfType([arrayOf(shape({})), shape({})]),
-    onGetRecentMatches: func,
-    match: shape({
-      params: shape({
-        heroId: string,
-      }),
-    }),
-    proPlayers: shape({
+class Recent extends React.Component<{
+    isLoading: boolean,
+    isError: boolean,
+    result: any,
+    onGetRecentMatches: Function,
+    match: {
+      params: {
+        heroId: number,
+      },
+    },
+    proPlayers: {
       name: string,
-    }),
-    strings: shape({}),
+    }[],
+    strings: Strings,
+  }> {
+  static defaultProps = {
+    result: null,
+    isError: false,
+    isLoading: false,
   };
-
   componentDidMount() {
     const { onGetRecentMatches, match } = this.props;
 
@@ -40,7 +42,7 @@ class Recent extends React.Component {
       {
         displayName: strings.th_account_id,
         field: 'account_id',
-        displayFn: (row, col, field) => (
+        displayFn: (row: any, col: any, field: string) => (
           <div>
             <TableLink to={`/players/${field}`}>
               {row.name ? row.name : field}
@@ -83,11 +85,11 @@ class Recent extends React.Component {
     ];
 
     if (isError || (result && result.error)) {
-      return <ErrorBox />;
+      return <ErrorBox text={result.error ?? strings.error } />;
     }
 
     // Merge recent matches with ProPlayer names
-    const mergedResult = result.map((match) => {
+    const mergedResult = result.map((match: any) => {
       const proPlayer = proPlayers[match.account_id];
 
       return {
@@ -108,13 +110,7 @@ class Recent extends React.Component {
   }
 }
 
-Recent.defaultProps = {
-  result: null,
-  isError: false,
-  isLoading: false,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   isLoading: state.app.heroRecentGames.loading,
   isError:
     state.app.heroRecentGames.error || !!state.app.heroRecentGames.data.error,

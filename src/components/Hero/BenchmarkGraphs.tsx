@@ -1,5 +1,4 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import styled from 'styled-components';
 
 import BenchmarkGraph from './BenchmarkGraph';
@@ -17,13 +16,13 @@ const Wrapper = styled.div`
   }
 `;
 
-const mapData = (data, key) =>
+const mapData = (data: any[], key: string) =>
   data.map((item) => ({
     Percentage: `${item.percentile * 100}%`,
     Value: typeof item[key] === 'number' && Number(item[key].toFixed(2)),
   }));
 
-const getData = (data, strings) => [
+const getData = (data: any[], strings: Strings) => [
   {
     title: strings.tooltip_gold_per_min,
     data: mapData(data, 'gold_per_min'),
@@ -66,20 +65,15 @@ const getData = (data, strings) => [
   },
 ];
 
-const renderGraphs = (data) =>
-  data.map((graphData) => (
+const renderGraphs = (data: any[]) =>
+  data.map((graphData: any) => (
     <BenchmarkGraph key={graphData.title} data={graphData} />
   ));
 
-const BenchmarkGraphs = ({ data, strings }) => {
+const BenchmarkGraphs = ({ data, strings }: { data: any[], strings: Strings }) => {
   const mappedData = getData(data, strings);
 
   return <Wrapper>{renderGraphs(mappedData)}</Wrapper>;
-};
-
-BenchmarkGraphs.propTypes = {
-  data: propTypes.arrayOf(propTypes.shape({})),
-  strings: propTypes.shape({}),
 };
 
 export default BenchmarkGraphs;

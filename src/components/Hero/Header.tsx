@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { shape } from 'prop-types';
 import constants from '../constants';
 import AttributesMain from './AttributesMain';
 import Abilities from './Abilities';
 import config from '../../config';
 
-const getHeroImgSrc = (src) => config.VITE_IMAGE_CDN + src;
+const getHeroImgSrc = (src: string) => config.VITE_IMAGE_CDN + src;
 
 const HeroProfile = styled.div`
   background: ${constants.almostBlack};
@@ -111,7 +110,7 @@ const HeroStatsWrapper = styled.div`
   flex: 1 1 100%;
 `;
 
-const Header = ({ hero }) => (
+const Header = ({ hero }: { hero: Hero }) => (
   <HeroDescription>
     <HeroProfile>
       <HeroProfileBackground
@@ -134,9 +133,5 @@ const Header = ({ hero }) => (
     </HeroProfile>
   </HeroDescription>
 );
-
-Header.propTypes = {
-  hero: shape({}),
-};
 
 export default Header;

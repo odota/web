@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import nanoid from 'nanoid';
-import propTypes from 'prop-types';
 
 import TalentsTooltip from '../TalentsTooltip';
 import constants from '../constants';
@@ -36,7 +35,7 @@ const Icon = styled.img`
   }
 `;
 
-const Talents = ({ talents }) => {
+const Talents = ({ talents }: { talents: any[] }) => {
   const ttId = nanoid();
 
   return (
@@ -45,10 +44,6 @@ const Talents = ({ talents }) => {
       <TalentsTooltip talents={talents} ttId={ttId} />
     </Wrapper>
   );
-};
-
-Talents.propTypes = {
-  talents: propTypes.oneOfType([propTypes.object, propTypes.array]).isRequired,
 };
 
 export default Talents;

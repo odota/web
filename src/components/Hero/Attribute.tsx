@@ -1,5 +1,4 @@
 import React from 'react';
-import { shape, bool, node } from 'prop-types';
 import styled from 'styled-components';
 
 const Wrapper = styled.span`
@@ -14,16 +13,10 @@ const Wrapper = styled.span`
   }
 `;
 
-const Attribute = ({ style, primary, children }) => (
-  <Wrapper style={style} primary={primary}>
+const Attribute = ({ style, children }: { style?: any, children: React.ReactNode }) => (
+  <Wrapper style={style}>
     {children}
   </Wrapper>
 );
-
-Attribute.propTypes = {
-  style: shape({}),
-  primary: bool,
-  children: node,
-};
 
 export default Attribute;

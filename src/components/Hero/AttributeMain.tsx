@@ -1,5 +1,4 @@
 import React from 'react';
-import { shape, bool, string, number } from 'prop-types';
 import styled from 'styled-components';
 
 import constants from '../constants';
@@ -43,10 +42,7 @@ const AttributeDot = styled.div`
 `;
 
 const AttributeValue = styled.div`
-  color: ${(props) =>
-    props.isPrimary
-      ? constants.colorAttributes[props.attribute]
-      : constants.primaryTextColor};
+  color: ${(props: { isPrimary?: boolean }) => constants.primaryTextColor};
   flex-shrink: 0;
   font-size: 12px;
   font-weight: 600;
@@ -58,7 +54,7 @@ const AttributeValue = styled.div`
   }
 `;
 
-const AttributeMain = ({ style, attribute, isPrimary, base, gain }) => {
+const AttributeMain = ({ style, attribute, isPrimary, base, gain }: { style?: any, attribute: string, isPrimary: boolean, base: number, gain: number }) => {
   const attributeDotStyle = {
     background: constants.primaryTextColor,
   };
@@ -92,20 +88,12 @@ const AttributeMain = ({ style, attribute, isPrimary, base, gain }) => {
 
   return (
     <Wrapper style={style}>
-      <AttributeDot attribute={attribute} style={attributeDotStyle} />
-      <AttributeValue attribute={attribute} style={attributeValueStyle}>
+      <AttributeDot style={attributeDotStyle} />
+      <AttributeValue style={attributeValueStyle}>
         {base} + {gain}
       </AttributeValue>
     </Wrapper>
   );
-};
-
-AttributeMain.propTypes = {
-  style: shape({}),
-  attribute: string,
-  isPrimary: bool,
-  base: number,
-  gain: number,
 };
 
 export default AttributeMain;

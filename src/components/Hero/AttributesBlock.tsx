@@ -1,10 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { shape, number, string, bool } from 'prop-types';
 import styled from 'styled-components';
 import constants from '../constants';
 import Attribute from './Attribute';
 import { compileLevelOneStats } from '../../utility';
+import useStrings from '../../hooks/useStrings.hook';
 
 const AttributesWrapper = styled.div`
   display: flex;
@@ -39,11 +38,12 @@ const Label = styled.span`
 `;
 
 // Damage multiplier https://dota2.gamepedia.com/Armor#Damage_multiplier
-const calcArmorPercent = (hero) =>
+const calcArmorPercent = (hero: number) =>
   Math.round(((0.06 * hero) / (1 + 0.06 * hero)) * 100);
 
-const HeroAttributes = ({ hero, strings }) => {
+const HeroAttributes = ({ hero }: { hero: Hero}) => {
   const h = compileLevelOneStats(hero);
+  const strings = useStrings();
 
   return (
     <AttributesWrapper>
@@ -108,36 +108,4 @@ const HeroAttributes = ({ hero, strings }) => {
   );
 };
 
-HeroAttributes.propTypes = {
-  hero: shape({
-    primary_attr: string,
-    base_health: number,
-    base_health_regen: number,
-    base_mana: number,
-    base_mana_regen: number,
-    base_armor: number,
-    base_mr: number,
-    base_attack_min: number,
-    base_attack_max: number,
-    base_str: number,
-    base_agi: number,
-    base_int: number,
-    str_gain: number,
-    agi_gain: number,
-    int_gain: number,
-    attack_range: number,
-    projectile_speed: number,
-    attack_rate: number,
-    move_speed: number,
-    turn_rate: number,
-    cm_enabled: bool,
-    legs: number,
-  }),
-  strings: shape({}),
-};
-
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(HeroAttributes);
+export default HeroAttributes;
