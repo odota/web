@@ -102,7 +102,7 @@ class RequestLayer extends React.Component<{ loading: boolean, match: { params: 
         <div>
           <Heading
             className="top-heading with-tabbar"
-            title={strings[`distributions_heading_${key}` as keyof typeof strings]}
+            title={strings[`distributions_heading_${key}` as keyof Strings]}
             subtitle={`
             ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map((row: any) => row.count).reduce(sum, 0))} ${strings.th_players}
           `}

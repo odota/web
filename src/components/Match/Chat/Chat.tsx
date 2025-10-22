@@ -1,6 +1,5 @@
 import React, { createElement } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AvVolumeUp from 'material-ui/svg-icons/av/volume-up';
 import Checkbox from 'material-ui/Checkbox';
@@ -245,48 +244,20 @@ const StyledDiv = styled.div`
   }
 `;
 
-const isSpectator = (slot) => slot > 9 && slot < 128;
+const isSpectator = (slot: number) => slot > 9 && slot < 128;
 
-const getChatWheel = (id) => chatWheelMessages[id] || {};
+const getChatWheel = (id: string): { id: number, name: string, label?: string, message?: string, all_chat?: any, sound_ext?: string, image?: string } => chatWheelMessages[id as keyof typeof chatWheelMessages] || {};
 
-class Chat extends React.Component {
-  static propTypes = {
-    data: PropTypes.shape({}),
-    strings: PropTypes.shape({}),
-  };
+type ChatProps = {
+  data: any[],
+  strings: Strings,
+};
 
-  constructor(props) {
-    super(props);
+type ChatState = { radiant?: boolean, dire?: boolean, text?: boolean, phrases?: boolean, audio?: boolean, all?: boolean, allies?: boolean, spam?: boolean, playing?: any, messages?: any[] | null };
 
-    this.raw = this.props.data;
-
-    // detect spam
-    for (let i = 0; i < this.raw.length - 1; i += 1) {
-      const curr = this.raw[i];
-      const next = this.raw[i + 1];
-      if (curr.player_slot === next.player_slot) {
-        if (next.time - curr.time < 15) {
-          if (curr.key === next.key) {
-            next.spam = true;
-          }
-        }
-        // ex: 3334005345
-        if (curr.type === 'chat' && next.type === 'chat') {
-          // for some reason some strings have trailing space
-          curr.key = curr.key.trim();
-          next.key = next.key.trim();
-          // if first and last 2 chars matches, it's spam
-          if (
-            curr.key.slice(0, 2) === next.key.slice(0, 2) &&
-            curr.key.slice(-2) === next.key.slice(-2)
-          ) {
-            next.spam = true;
-          }
-        }
-      }
-    }
-
-    this.state = {
+class Chat extends React.Component<ChatProps, ChatState> {
+  raw = undefined as unknown as any[];
+  state: ChatState = {
       radiant: true,
       dire: true,
       text: true,
@@ -298,9 +269,8 @@ class Chat extends React.Component {
 
       playing: null,
       messages: null,
-    };
-
-    this.filters = {
+    }
+    filters = {
       radiant: {
         f: (arr = this.raw) =>
           arr.filter(
@@ -366,11 +336,41 @@ class Chat extends React.Component {
         disabled: () => false,
       },
     };
+  constructor(props: ChatProps) {
+    super(props);
+
+    this.raw = this.props.data;
+
+    // detect spam
+    for (let i = 0; i < this.raw.length - 1; i += 1) {
+      const curr = this.raw[i];
+      const next = this.raw[i + 1];
+      if (curr.player_slot === next.player_slot) {
+        if (next.time - curr.time < 15) {
+          if (curr.key === next.key) {
+            next.spam = true;
+          }
+        }
+        // ex: 3334005345
+        if (curr.type === 'chat' && next.type === 'chat') {
+          // for some reason some strings have trailing space
+          curr.key = curr.key.trim();
+          next.key = next.key.trim();
+          // if first and last 2 chars matches, it's spam
+          if (
+            curr.key.slice(0, 2) === next.key.slice(0, 2) &&
+            curr.key.slice(-2) === next.key.slice(-2)
+          ) {
+            next.spam = true;
+          }
+        }
+      }
+    }
 
     this.state.messages = this.filter();
   }
 
-  audio = (message, index) => {
+  audio = (message: any, index: number) => {
     const a = new Audio(
       `https://odota.github.io/media/chatwheel/dota_chatwheel_${message.id}.${message.sound_ext}`,
     );
@@ -388,10 +388,10 @@ class Chat extends React.Component {
     }, 500);
   };
 
-  toggleFilter = (key) => {
+  toggleFilter = (key: keyof typeof this.state) => {
     if (key !== undefined) {
       this.setState(
-        (state) => ({ [key]: !state[key] }),
+        (state: ChatState) => ({ [key]: !state[key] }),
         () => {
           this.setState({ messages: this.filter() });
         },
@@ -403,8 +403,9 @@ class Chat extends React.Component {
     const messages = this.raw.slice();
 
     Object.keys(this.filters).forEach((k) => {
-      if (!this.state[k]) {
-        this.filters[k].f().forEach((obj) => {
+      if (!this.state[k as keyof ChatState]) {
+        //@ts-expect-error
+        this.filters[k].f().forEach((obj: any) => {
           const index = messages.indexOf(obj);
           if (index >= 0) {
             messages.splice(index, 1);
@@ -431,15 +432,15 @@ class Chat extends React.Component {
   render() {
     const emoteKeys = Object.keys(emotes);
 
-    const Messages = ({ strings }) => (
+    const Messages = ({ strings }: { strings: Strings }) => (
       <div>
         <ul className="Chat">
-          {this.state.messages.map((msg, index) => {
-            const hero = heroes[msg.heroID];
+          {this.state.messages?.map((msg, index) => {
+            const hero = heroes[msg.heroID as keyof typeof heroes];
             const rad = isRadiant(msg.player_slot);
             const spec = isSpectator(msg.slot);
 
-            let message = null;
+            let message: any[] = null as unknown as any[];
             if (msg.type === 'chatwheel') {
               const messageInfo = getChatWheel(msg.key);
               message = [(messageInfo.message || '').replace(/%s1/, 'A hero')];
@@ -463,7 +464,8 @@ class Chat extends React.Component {
                 );
               }
             } else if (msg.type === 'chat') {
-              const messageRaw = msg.key.split('').map((char) => {
+              const messageRaw = msg.key.split('').map((char: any) => {
+                //@ts-expect-error
                 const emote = emotes[emoteKeys[emoteKeys.indexOf(char)]];
                 if (emote) {
                   return createElement('img', {
@@ -475,9 +477,9 @@ class Chat extends React.Component {
                 return char;
               });
               // Join sequences of characters
-              let buffer = [];
+              let buffer: any[] = [];
               message = [];
-              messageRaw.forEach((char) => {
+              messageRaw.forEach((char: any) => {
                 if (typeof char === 'object') {
                   message.push(buffer.join(''), char);
                   buffer = [];
@@ -513,7 +515,7 @@ class Chat extends React.Component {
 
             return (
               <li
-                id={index}
+                id={String(index)}
                 className={`
                   ${rad ? 'radiant' : 'dire'}
                   ${msg.spam ? 'spam' : ''}
@@ -524,14 +526,14 @@ class Chat extends React.Component {
                   <a href={`#${index}`}>{formatSeconds(msg.time)}</a>
                 </time>
                 {hero ? (
-                  <HeroImage id={hero.id} alt={hero && hero.localized_name} />
+                  <HeroImage id={String(hero.id)} />
                 ) : (
                   <img src="/assets/images/blank-1x1.gif" alt="" />
                 )}
                 <span className="target">[{target.toUpperCase()}]</span>
                 <Link
                   to={`/players/${msg.accountID}`}
-                  style={{ color: playerColors[msg.player_slot] || 'red' }}
+                  style={{ color: playerColors[msg.player_slot as keyof typeof playerColors] || 'red' }}
                   className={`author ${msg.accountID ? '' : 'disabled'}`}
                 >
                   {msg.name || msg.unit}
@@ -544,16 +546,16 @@ class Chat extends React.Component {
       </div>
     );
 
-    const Filters = ({ strings }) => {
-      const categories = Object.keys(this.filters).reduce((cats, name) => {
-        const c = cats;
+    const Filters = ({ strings }: { strings: Strings }) => {
+      const categories: Record<string, any> = Object.keys(this.filters).reduce((cats, name) => {
+        const c: Record<string, any[]> = cats;
         const f = this.filters;
-        if (f[name].f().length > 0) {
-          c[f[name].type] = c[f[name].type] || [];
-          c[f[name].type].push({
+        if (f[name as keyof typeof f].f().length > 0) {
+          c[f[name as keyof typeof f].type] = c[f[name as keyof typeof f].type] || [];
+          c[f[name as keyof typeof f].type].push({
             name,
-            f: f[name].f,
-            disabled: f[name].disabled,
+            f: f[name as keyof typeof f].f,
+            disabled: f[name as keyof typeof f].disabled,
           });
         }
         return c;
@@ -563,9 +565,9 @@ class Chat extends React.Component {
         <ul className="Filters">
           {Object.keys(categories).map((cat) => (
             <li key={cat}>
-              <div>{strings[`chat_category_${cat}`]}</div>
+              <div>{strings[`chat_category_${cat}` as keyof Strings]}</div>
               <ul>
-                {categories[cat].map((filter) => {
+                {categories[cat as keyof typeof categories].map((filter: any) => {
                   const len = filter.f().length;
                   const lenFiltered = filter.f(this.state.messages).length;
 
@@ -575,8 +577,8 @@ class Chat extends React.Component {
                         label={
                           <span>
                             <div>
-                              {strings[`chat_filter_${filter.name}`] ||
-                                strings[`general_${filter.name}`]}
+                              {strings[`chat_filter_${filter.name}` as keyof Strings] ||
+                                strings[`general_${filter.name}` as keyof Strings]}
                               <b>{len}</b>
                             </div>
                             {len !== lenFiltered && (
@@ -587,7 +589,7 @@ class Chat extends React.Component {
                             )}
                           </span>
                         }
-                        checked={this.state[filter.name]}
+                        checked={this.state[filter.name as keyof ChatState]}
                         onCheck={() => this.toggleFilter(filter.name)}
                         checkedIcon={<Visibility />}
                         uncheckedIcon={<VisibilityOff />}
@@ -613,7 +615,7 @@ class Chat extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 

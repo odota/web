@@ -6,8 +6,8 @@ const BenchmarkTable = ({ data }: { data: any[] }) => {
   const strings = useStrings();
   const columns = (d: any[]) =>
     Object.keys(d[0] || {}).map((stat) => ({
-      displayName: strings[`th_${stat}` as keyof typeof strings],
-      tooltip: strings[`tooltip_${stat}` as keyof typeof strings],
+      displayName: strings[`th_${stat}` as keyof Strings],
+      tooltip: strings[`tooltip_${stat}` as keyof Strings],
       field: stat,
       displayFn: (row: any, col: any, field: any) =>
         stat === 'percentile'

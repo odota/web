@@ -23,7 +23,7 @@ const ButtonGarden = ({
         <MenuItem
           value={buttonName}
           key={buttonName}
-          primaryText={strings[`heading_${buttonName}` as keyof typeof strings]}
+          primaryText={strings[`heading_${buttonName}` as keyof Strings]}
         />
       ))}
     </SelectField>

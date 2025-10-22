@@ -122,7 +122,7 @@ class ExplorerOutputSection extends React.Component<ExplorerOutputSectionProps> 
                   <TablePercent percent={Number((field * 100).toFixed(2))} />
                 ) : null;
               } else if (column.field === 'rune_id') {
-                return strings[`rune_${field}` as keyof typeof strings];
+                return strings[`rune_${field}` as keyof Strings];
               } else if (column.field === 'item_name') {
                 //@ts-expect-error
                 return items[field as keyof typeof items] ? items[field as keyof typeof items].dname : field;
@@ -170,9 +170,9 @@ class ExplorerOutputSection extends React.Component<ExplorerOutputSectionProps> 
                   year: 'numeric',
                 });
               } else if (column.field === 'game_mode') {
-                return strings[`game_mode_${field}` as keyof typeof strings];
+                return strings[`game_mode_${field}` as keyof Strings];
               } else if (column.field === 'lobby_type') {
-                return strings[`lobby_type_${field}` as keyof typeof strings];
+                return strings[`lobby_type_${field}` as keyof Strings];
               }
               if (typeof field === 'string') {
                 return field;

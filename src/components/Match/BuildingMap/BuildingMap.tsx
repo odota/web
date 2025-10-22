@@ -308,7 +308,7 @@ const BuildingMap = ({ match }: { match: Match }) => {
     const key = `npc_dota_${side}guys_${type}${tier}${lane && `_${lane}`}`;
     const title =
       strings[
-        `${type.includes('rax') ? 'building_' : 'objective_'}${type}${tier}${type.includes('rax') ? '' : lane && `_${lane}`}` as keyof typeof strings
+        `${type.includes('rax') ? 'building_' : 'objective_'}${type}${tier}${type.includes('rax') ? '' : lane && `_${lane}`}` as keyof Strings
       ];
 
     const destroyedBy = match.players
