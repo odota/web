@@ -1,5 +1,4 @@
 import { Tab, Tabs, Tooltip } from '@material-ui/core';
-import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import useReactRouter from 'use-react-router';
@@ -34,15 +33,10 @@ const StyledTab = styled(Tab)`
   min-width: 0 !important;
 `;
 
-const TabTooltip = ({ title, children }) =>
+const TabTooltip = ({ title, children }: { title: string, children: React.ReactElement<any, any> }) =>
   title ? <Tooltip title={title}>{children}</Tooltip> : children;
 
-TabTooltip.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.node,
-};
-
-const TabBar = ({ tabs, match, info }) => {
+const TabBar = ({ tabs, match }: { tabs: any[], match?: any, info?: string }) => {
   const [tabValue, setTabValue] = useState(0);
   const { history, location } = useReactRouter();
   const visibleTabs = useMemo(
@@ -81,6 +75,7 @@ const TabBar = ({ tabs, match, info }) => {
             key={`${tab.name}_${tab.route}_${tab.key}`}
           >
             <StyledTab
+              //@ts-expect-error
               component="a"
               href={tab.route + window.location.search}
               onClick={(e) => handleTabClick(e, tab, i)}
@@ -92,13 +87,6 @@ const TabBar = ({ tabs, match, info }) => {
       </StyledTabs>
     </StyledMain>
   );
-};
-
-const { shape, arrayOf } = PropTypes;
-TabBar.propTypes = {
-  tabs: arrayOf(shape({})),
-  match: shape({}),
-  info: string,
 };
 
 export default TabBar;
