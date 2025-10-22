@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import querystring from 'querystring';
 import ChipList from './ChipList';
@@ -8,7 +7,7 @@ import constants from '../constants';
 
 const { colorRed, colorBlue } = constants;
 
-const addChipDefault = (name, input, limit, history) => {
+const addChipDefault = (name: string, input: { value: string }, limit: number, history: any) => {
   if (history) {
     const query = querystring.parse(window.location.search.substring(1));
     const field = [input.value].concat(query[name] || []).slice(0, limit);
@@ -22,15 +21,15 @@ const addChipDefault = (name, input, limit, history) => {
   }
 };
 
-const deleteChipDefault = (name, index, history) => {
+const deleteChipDefault = (name: string, index: number, history: any) => {
   if (history) {
     const query = querystring.parse(window.location.search.substring(1));
-    const field = [].concat(query[name] || []);
+    const field = ([] as any[]).concat(query[name] || []);
     const newQuery = {
       ...query,
       [name]: [...field.slice(0, index), ...field.slice(index + 1)],
     };
-    if (!newQuery[name].length) {
+    if (!newQuery[name]?.length) {
       delete newQuery[name];
     }
     history.push(
@@ -39,26 +38,33 @@ const deleteChipDefault = (name, index, history) => {
   }
 };
 
-class FormField extends React.Component {
-  static propTypes = {
-    name: PropTypes.string,
-    dataSource: PropTypes.arrayOf({}),
-    strict: PropTypes.bool,
-    limit: PropTypes.number,
-    formSelectionState: PropTypes.shape({}),
-    addChip: PropTypes.func,
-    history: PropTypes.shape({}),
-    label: PropTypes.string,
-    filter: PropTypes.func,
-    className: PropTypes.string,
-    maxSearchResults: PropTypes.string,
-    deleteChip: PropTypes.func,
-    strings: PropTypes.shape({}),
-    resetField: PropTypes.func,
-    textFieldStyle: PropTypes.shape({}),
-  };
+type FormFieldProps = {
+    name: string,
+    dataSource: any[],
+    strict: boolean,
+    limit?: number,
+    formSelectionState: any,
+    addChip: Function,
+    history?: any,
+    label: string,
+    filter: (searchText: string, key: string) => boolean,
+    className?: string,
+    maxSearchResults?: number,
+    deleteChip: Function,
+    strings: Strings,
+    resetField: Function,
+    textFieldStyle?: any,
+};
 
-  constructor(props) {
+class FormField extends React.Component<FormFieldProps> {
+  state = {
+    searchText: '',
+    errorText: '',
+    selectedBundle: undefined,
+    singleSelection: undefined,
+  };
+  autocomplete: AutoComplete | null = null;
+  constructor(props: FormFieldProps) {
     super(props);
     const { formSelectionState, name } = this.props;
     const initialState =
@@ -77,7 +83,7 @@ class FormField extends React.Component {
     };
   }
 
-  handleSelect = (value, index) => {
+  handleSelect = (value: { value: string, bundle: any, singleSelection: any }, index: number) => {
     const {
       name,
       dataSource,
@@ -130,14 +136,14 @@ class FormField extends React.Component {
     addChip(name, input, limit, history);
   };
 
-  handleUpdateInput = (searchText) => {
+  handleUpdateInput = (searchText: string) => {
     this.setState({
       searchText,
       errorText: '', // clear error when user types
     });
   };
 
-  findFromSource = (element) => {
+  findFromSource = (element: any) => {
     let fromSource = this.props.dataSource.find(
       (data) => Number(data.value) === Number(element),
     );
@@ -146,7 +152,7 @@ class FormField extends React.Component {
     return fromSource || { text: element, value: element };
   };
 
-  bundleFilter = (field) =>
+  bundleFilter = (field: any) =>
     !this.state.selectedBundle ||
     !this.props.formSelectionState[this.props.name] ||
     this.props.formSelectionState[this.props.name].length < 1 ||
@@ -197,6 +203,7 @@ class FormField extends React.Component {
           floatingLabelFocusStyle={{ color: errorText ? colorRed : colorBlue }}
           underlineFocusStyle={{ borderColor: colorBlue }}
           errorStyle={{ color: colorRed }}
+          //@ts-expect-error
           onClose={() => this.setState({ errorText: '' })}
           onClick={this.handleClick}
           textFieldStyle={textFieldStyle}
@@ -212,7 +219,7 @@ class FormField extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 

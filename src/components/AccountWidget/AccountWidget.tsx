@@ -22,7 +22,7 @@ const AccountWidget = ({
   loading: boolean;
   error: string;
   user: any;
-  style: any;
+  style?: any;
 }) => {
   const strings = useStrings();
   if (loading) return null;
@@ -56,4 +56,4 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-export default connect(mapStateToProps, null)(AccountWidget);
+export default connect(mapStateToProps)(AccountWidget);

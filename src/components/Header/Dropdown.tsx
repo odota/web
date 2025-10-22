@@ -17,19 +17,17 @@ const StyledButton = styled(Button)`
 `;
 */
 
-class Dropdown extends Component {
-  static propTypes = {
-    Button: PropTypes.func,
-    buttonProps: PropTypes.shape({}),
-    className: PropTypes.string,
-    children: PropTypes.oneOfType([PropTypes.arrayOf({}), PropTypes.node]),
-  };
+type DropdownProps = {
+  Button: Function,
+  buttonProps: any,
+  className: string,
+  children: React.ReactNode,
+};
 
-  constructor() {
-    super();
-    this.state = {
-      open: false,
-    };
+class Dropdown extends Component<DropdownProps> {
+  state = { open: false, anchorEl: undefined };
+  constructor(props: DropdownProps) {
+    super(props);
   }
 
   handleRequestClose = () => {
@@ -38,7 +36,7 @@ class Dropdown extends Component {
     });
   };
 
-  handleTouchTap = (event) => {
+  handleTouchTap = (event: any) => {
     event.preventDefault();
     this.setState({
       open: true,

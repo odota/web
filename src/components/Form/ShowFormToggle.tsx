@@ -1,11 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import Clear from 'material-ui/svg-icons/content/clear';
 import Filter from 'material-ui/svg-icons/content/filter-list';
 import FlatButton from 'material-ui/FlatButton';
 import styled from 'styled-components';
 import constants from '../constants';
+import useStrings from '../../hooks/useStrings.hook';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -21,15 +20,16 @@ const StyledDiv = styled.div`
   }
 `;
 
-const getIcon = (show) => {
+const getIcon = (show: boolean) => {
   if (!show) {
     return <Filter style={{ fill: constants.colorBlue }} />;
   }
   return <Clear style={{ fill: constants.colorDanger }} />;
 };
 
-const ShowFormToggle = ({ toggleShowForm, showForm, strings }) => (
-  <FlatButton onClick={() => toggleShowForm()}>
+const ShowFormToggle = ({ toggleShowForm, showForm }: { toggleShowForm: Function, showForm: boolean }) => {
+  const strings = useStrings();
+  return <FlatButton onClick={() => toggleShowForm()}>
     <StyledDiv>
       {getIcon(showForm)}
       <span>
@@ -39,16 +39,6 @@ const ShowFormToggle = ({ toggleShowForm, showForm, strings }) => (
       </span>
     </StyledDiv>
   </FlatButton>
-);
-
-ShowFormToggle.propTypes = {
-  toggleShowForm: PropTypes.func,
-  showForm: PropTypes.bool,
-  strings: PropTypes.shape({}),
 };
 
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(ShowFormToggle);
+export default ShowFormToggle;

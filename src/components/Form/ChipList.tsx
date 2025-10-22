@@ -9,7 +9,7 @@ const StyledDiv = styled.div`
   flex-wrap: wrap;
 `;
 
-const ChipList = ({ chipList, deleteChip, name, history }) => (
+const ChipList = ({ chipList, deleteChip, name, history }: { chipList: any[], deleteChip: Function, name: string, history: any }) => (
   <StyledDiv className="chip">
     {chipList.map((chip, index) => (
       <Chip
@@ -22,12 +22,5 @@ const ChipList = ({ chipList, deleteChip, name, history }) => (
     ))}
   </StyledDiv>
 );
-
-ChipList.propTypes = {
-  chipList: PropTypes.arrayOf({}),
-  deleteChip: PropTypes.func,
-  name: PropTypes.string,
-  history: PropTypes.shape({}),
-};
 
 export default ChipList;

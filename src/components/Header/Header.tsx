@@ -23,6 +23,7 @@ import AppLogo from '../App/AppLogo';
 import constants from '../constants';
 import LocalizationMenu from '../Localization';
 import SearchForm from '../Search/SearchForm';
+import useStrings from '../../hooks/useStrings.hook';
 
 const REPORT_BUG_PATH = `//github.com/${config.GITHUB_REPO}/issues`;
 
@@ -116,9 +117,9 @@ const DrawerLink = styled(Link)`
   }
 `;
 
-const LinkGroup = ({ navbarPages }) => (
+const LinkGroup = ({ navbarPages }: { navbarPages: any[] }) => (
   <VerticalAlignToolbar>
-    {navbarPages.map((page) => (
+    {navbarPages.map((page: any) => (
       <TabContainer key={page.key}>
         <Link to={page.to}>{page.label}</Link>
         {Boolean(page.feature) && (
@@ -140,12 +141,8 @@ const LinkGroup = ({ navbarPages }) => (
   </VerticalAlignToolbar>
 );
 
-LinkGroup.propTypes = {
-  navbarPages: PropTypes.shape([{}]),
-};
-
-const SettingsGroup = ({ children }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
+const SettingsGroup = ({ children }: { children: React.ReactNode }) => {
+  const [anchorEl, setAnchorEl] = useState<HTMLAnchorElement | null>(null);
   const buttonRef = useRef();
 
   const handleClose = useCallback(() => {
@@ -154,6 +151,7 @@ const SettingsGroup = ({ children }) => {
 
   return (
     <>
+      {/*@ts-expect-error*/}
       <IconButton
         ref={buttonRef}
         aria-label="settings menu"
@@ -184,7 +182,7 @@ const MenuButtonWrapper = styled.div`
   }
 `;
 
-const LogoGroup = ({ onMenuClick }) => (
+const LogoGroup = ({ onMenuClick }: { onMenuClick: (e: React.MouseEvent) => void }) => (
   <div style={{ marginRight: 16 }}>
     <VerticalAlignToolbar>
       <MenuButtonWrapper>
@@ -221,8 +219,10 @@ const AccountGroup = () => (
   </VerticalAlignToolbar>
 );
 
-const ReportBug = ({ strings }) => (
-  <DropdownMenuItem
+const ReportBug = () => {
+  const strings = useStrings();
+  return <DropdownMenuItem
+    //@ts-expect-error
     component="a"
     href={REPORT_BUG_PATH}
     target="_blank"
@@ -230,37 +230,31 @@ const ReportBug = ({ strings }) => (
   >
     <BugReport style={{ marginRight: 32, width: 24, height: 24 }} />
     {strings.app_report_bug}
-  </DropdownMenuItem>
-);
-
-ReportBug.propTypes = {
-  strings: PropTypes.shape({}),
+  </DropdownMenuItem>;
 };
 
-const LogOut = ({ strings }) => (
-  <DropdownMenuItem
+const LogOut = () => {
+  const strings = useStrings();
+  return <DropdownMenuItem
+  //@ts-expect-error
     component="a"
     href={`${config.VITE_API_HOST}/logout`}
     rel="noopener noreferrer"
   >
     <LogOutButton style={{ marginRight: 32, width: 24, height: 24 }} />
     {strings.app_logout}
-  </DropdownMenuItem>
-);
-
-LogOut.propTypes = {
-  strings: PropTypes.shape({}),
+  </DropdownMenuItem>;
 };
 
-const Header = ({ location, disableSearch }) => {
-  const [Announce, setAnnounce] = useState(null);
+const Header = ({ location, disableSearch }: { location: any, disableSearch?: boolean }) => {
+  const [Announce, setAnnounce] = useState<React.JSXElementConstructor<any> | null>(null);
   const [menuIsOpen, setMenuState] = useState(false);
-  const small = useSelector((state) => state.browser.greaterThan.small);
-  const user = useSelector((state) => state.app.metadata.data.user);
-  const strings = useSelector((state) => state.app.strings);
+  const small = useSelector((state: any) => state.browser.greaterThan.small);
+  const user = useSelector((state: any) => state.app.metadata.data.user);
+  const strings = useStrings();
 
   useEffect(() => {
-    import('../Announce/Announce').then((ann) => setAnnounce(ann.default));
+    import('../Announce/Announce').then((ann: any) => setAnnounce(ann.default));
   }, []);
 
   const navbarPages = [
@@ -340,8 +334,8 @@ const Header = ({ location, disableSearch }) => {
           {small && <AccountGroup />}
           <SettingsGroup>
             <LocalizationMenu />
-            <ReportBug strings={strings} />
-            {user ? <LogOut strings={strings} /> : null}
+            <ReportBug />
+            {user ? <LogOut /> : null}
           </SettingsGroup>
         </VerticalAlignDiv>
         <SwipeableDrawer
@@ -376,6 +370,7 @@ const Header = ({ location, disableSearch }) => {
                       <ListItemText primary={strings.app_my_profile} />
                     </ListItem>
                   </DrawerLink>
+                  {/*@ts-expect-error*/}
                   <DrawerLink as="a" href={`${config.VITE_API_HOST}/logout`}>
                     <ListItem button onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_logout} />
@@ -383,6 +378,7 @@ const Header = ({ location, disableSearch }) => {
                   </DrawerLink>
                 </>
               ) : (
+                //@ts-expect-error*
                 <DrawerLink as="a" href={`${config.VITE_API_HOST}/login`}>
                   <ListItem button onClick={() => setMenuState(false)}>
                     <ListItemText primary={strings.app_login} />
@@ -396,13 +392,6 @@ const Header = ({ location, disableSearch }) => {
       {location.pathname !== '/' && Announce && <Announce />}
     </>
   );
-};
-
-Header.propTypes = {
-  location: PropTypes.shape({}),
-  disableSearch: PropTypes.bool,
-  navbarPages: PropTypes.shape([{}]),
-  drawerPages: PropTypes.shape([{}]),
 };
 
 export default Header;

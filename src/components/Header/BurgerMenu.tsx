@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Drawer from 'material-ui/Drawer';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import styled from 'styled-components';
-import constants from '../../constants';
+import constants from '../constants';
 
 const StyledDrawer = styled(Drawer)`
   background-color: ${constants.defaultPrimaryColor} !important;
@@ -16,16 +15,14 @@ const StyledMenuItem = styled(MenuItem)`
   display: block;
 `;
 
-export default class BurgerMenu extends React.Component {
-  static propTypes = {
-    menuItems: PropTypes.arrayOf({}),
-  };
+type BurgerMenuProps = { menuItems: any[] };
 
-  constructor() {
-    super();
-    this.state = { open: false };
-    this.handleToggle = () => this.setState({ open: !this.state.open });
-    this.handleClose = () => this.setState({ open: false });
+export default class BurgerMenu extends React.Component<BurgerMenuProps> {
+  state = { open: false };
+  handleToggle = () => this.setState({ open: !this.state.open });
+  handleClose = () => this.setState({ open: false });
+  constructor(props: BurgerMenuProps) {
+    super(props);
   }
 
   render() {
