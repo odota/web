@@ -5,7 +5,7 @@ import { calculateResponsiveState } from 'redux-responsive';
 import styled from 'styled-components';
 import { unpackPositionData } from '../../../../utility';
 import { getPlayerWardmap } from '../../../../actions';
-import Heatmap from '../../../Heatmap';
+import Heatmap from '../../../Heatmap/Heatmap';
 import Container from '../../../Container';
 import constants from '../../../constants';
 

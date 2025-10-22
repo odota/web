@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import nanoid from 'nanoid';
 import h337 from 'heatmap.js';
 import DotaMap from '../DotaMap';
 
+type PointArray = { x: number, y: number, value: number }[];
 /**
  * Adjust each x/y coordinate by the provided scale factor.
  * If max is provided, use that, otherwise, use local max of data.
  * Returns the adjusted heatmap data.
  */
-function scaleAndExtrema(points, scalef, max) {
+function scaleAndExtrema(points: PointArray, scalef: number, max: number | null) {
   const newPoints = points.map((p) => ({
     x: Math.floor(p.x * scalef),
     y: Math.floor(p.y * scalef),
@@ -24,23 +24,23 @@ function scaleAndExtrema(points, scalef, max) {
   };
 }
 
-const drawHeatmap = ({ points = [], width }, heatmap) => {
+const drawHeatmap = ({ points = [], width }: { points: PointArray, width: number }, heatmap: any) => {
   // scale points by width/127 units to fit to size of map
   const adjustedData = scaleAndExtrema(points, width / 127, null);
   heatmap.setData(adjustedData);
 };
 
-class Heatmap extends Component {
+class Heatmap extends Component<{ points: PointArray, width: number, startTime: number}> {
   id = `a-${nanoid()}`;
-
-  static propTypes = {
-    width: PropTypes.number,
-    startTime: PropTypes.instanceOf(Date),
+  heatmap: h337.Heatmap<string, string, string> | undefined = undefined;
+  static defaultProps = {
+    width: 600,
+    startTime: null,
   };
 
   componentDidMount() {
     this.heatmap = h337.create({
-      container: document.getElementById(this.id),
+      container: document.getElementById(this.id)!,
       radius: 15 * (this.props.width / 600),
     });
     drawHeatmap(this.props, this.heatmap);
@@ -67,10 +67,5 @@ class Heatmap extends Component {
     );
   }
 }
-
-Heatmap.defaultProps = {
-  width: 600,
-  startTime: null,
-};
 
 export default Heatmap;

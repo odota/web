@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Heading from '../../Heading';
-import Heatmap from '../../Heatmap';
+import Heatmap from '../../Heatmap/Heatmap';
 import Table from '../../Table';
 import { unpackPositionData } from '../../../utility';
 import mcs from '../matchColumns';
