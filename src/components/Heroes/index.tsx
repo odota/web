@@ -143,7 +143,7 @@ class RequestLayer extends React.Component<HeroesProps> {
         ...heroStat,
         hero_id: heroStat.id,
         heroName:
-          (heroes[heroStat.id as keyof typeof heroes] && heroes[heroStat.id as keyof typeof heroes].localized_name) || '',
+          (heroes[heroStat.id as keyof Heroes] && heroes[heroStat.id as keyof Heroes].localized_name) || '',
         matchCountPro,
         pickBanRatePro: pickRatePro + banRatePro,
         pickRatePro,

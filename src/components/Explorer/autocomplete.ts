@@ -56,8 +56,8 @@ const autocomplete = (cols: any[], proPlayers: any[] = [], teams: any[] = [], le
         ([] as any[])
           .concat(
             Object.keys(heroes).map((k) => ({
-              caption: heroes[k as keyof typeof heroes].localized_name,
-              value: heroes[k as keyof typeof heroes].name,
+              caption: heroes[k as keyof Heroes].localized_name,
+              value: heroes[k as keyof Heroes].name,
               snippet: k,
               meta: `${k} (${strings.explorer_hero})`,
             })),

@@ -213,15 +213,15 @@ const getTitle = (row: any, col: any, heroName: string) => {
   return <TableLink to={`/heroes/${row[col.field]}`}>{heroName}</TableLink>;
 };
 
-export const getHeroImageUrl = (heroId: keyof typeof heroes, _: any) => {
+export const getHeroImageUrl = (heroId: keyof Heroes, _: any) => {
   const imageUrl = heroes[heroId] && config.VITE_IMAGE_CDN + heroes[heroId].img;
   return imageUrl;
 };
 
 export const getHeroIconUrlFromHeroKey = (heroKey: string) => {
   const heroId = Object.keys(heroes).find(
-    (k) => heroes[k as keyof typeof heroes].name === heroKey,
-  ) as keyof typeof heroes;
+    (k) => heroes[k as keyof Heroes].name === heroKey,
+  ) as keyof Heroes;
   //@ts-expect-error
   if (heroId && heroId[0] && heroes[heroId[0]]) {
     return `${config.VITE_IMAGE_CDN}${heroes[heroId].icon}`;
@@ -312,8 +312,8 @@ export function isRoshHero(pm: any) {
   };
 
   return (
-    heroes[pm.hero_id as keyof typeof heroes] &&
-    heroes[pm.hero_id as keyof typeof heroes].name in roshHeroes
+    heroes[pm.hero_id as keyof Heroes] &&
+    heroes[pm.hero_id as keyof Heroes].name in roshHeroes
   );
 }
 
@@ -453,8 +453,8 @@ export const bindWidth = (width: number, maxWidth: number) =>
 export const getHeroesById = () => {
   const obj: any = {};
   Object.keys(heroes).forEach((hero) => {
-    obj[heroes[hero as keyof typeof heroes].name] =
-      heroes[hero as keyof typeof heroes];
+    obj[heroes[hero as keyof Heroes].name] =
+      heroes[hero as keyof Heroes];
   });
   return obj;
 };
@@ -736,8 +736,8 @@ export function displayHeroId(
 ) {
   const { strings } = store.getState().app;
   const heroId = row[col.field];
-  const heroName = heroes[row[col.field] as keyof typeof heroes]
-    ? heroes[row[col.field] as keyof typeof heroes].localized_name
+  const heroName = heroes[row[col.field] as keyof Heroes]
+    ? heroes[row[col.field] as keyof Heroes].localized_name
     : strings.general_no_hero;
   const getSubtitle = (row: any) => {
     if (row.match_id && row.player_slot !== undefined) {
@@ -800,7 +800,7 @@ export function displayHeroId(
       subtitle={getSubtitle(row)}
       heroName={heroName}
       leaverStatus={row.leaver_status}
-      hero={compileLevelOneStats(heroes[row.hero_id as keyof typeof heroes])}
+      hero={compileLevelOneStats(heroes[row.hero_id as keyof Heroes])}
     />
   );
 }

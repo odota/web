@@ -148,7 +148,7 @@ const HeroFacet = ({
   heroID,
   facet,
 }: {
-  heroID: keyof typeof heroes;
+  heroID: keyof Heroes;
   facet: number;
 }) => {
   const heroAbilities = useHeroAbilities();

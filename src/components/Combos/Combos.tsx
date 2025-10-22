@@ -73,7 +73,7 @@ const InputFilter = ({
 );
 
 const heroesArray = Object.keys(heroes)
-  .map((id) => heroes[id as keyof typeof heroes])
+  .map((id) => heroes[id as keyof Heroes])
   .sort((a, b) => a.localized_name.localeCompare(b.localized_name));
 
 const HeroSelector = ({

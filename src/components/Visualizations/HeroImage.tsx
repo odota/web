@@ -18,10 +18,10 @@ const HeroImage = ({
   className?: string,
   onClick?: Function,
 }) => {
-  let imageUrl = heroes[id as unknown as keyof typeof heroes] && config.VITE_IMAGE_CDN + heroes[id as unknown as keyof typeof heroes].img;
+  let imageUrl = heroes[id as unknown as keyof Heroes] && config.VITE_IMAGE_CDN + heroes[id as unknown as keyof Heroes].img;
 
   if (isIcon) {
-    imageUrl = heroes[id as unknown as keyof typeof heroes] && config.VITE_IMAGE_CDN + heroes[id as unknown as keyof typeof heroes].icon;
+    imageUrl = heroes[id as unknown as keyof Heroes] && config.VITE_IMAGE_CDN + heroes[id as unknown as keyof Heroes].icon;
   }
 
   return <img src={imageUrl} alt="" {...rest} {...heroImageEventProps} />;

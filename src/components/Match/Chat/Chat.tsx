@@ -436,7 +436,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
       <div>
         <ul className="Chat">
           {this.state.messages?.map((msg, index) => {
-            const hero = heroes[msg.heroID as keyof typeof heroes];
+            const hero = heroes[msg.heroID as keyof Heroes];
             const rad = isRadiant(msg.player_slot);
             const spec = isSpectator(msg.slot);
 

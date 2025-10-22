@@ -2,13 +2,13 @@ import React from 'react';
 import { heroes } from 'dotaconstants';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Heading from '../../Heading';
 import { IconRadiant, IconDire } from '../../Icons';
 import { getTeamName } from '../../../utility';
 import constants from '../../constants';
 import config from '../../../config';
+import useStrings from '../../../hooks/useStrings.hook';
 
 const Styled = styled.div`
   max-width: 800px;
@@ -54,15 +54,15 @@ const Ban = styled(PickBan)`
 const DraftCell = styled.div`
   display: flex;
   width: fit-content;
-  margin-left: ${(props) => (props.radiant ? '0' : 'auto')};
-  justify-content: ${(props) => (props.radiant ? 'flex-start' : 'flex-end')};
+  margin-left: ${(props: { radiant: boolean }) => (props.radiant ? '0' : 'auto')};
+  justify-content: ${(props: { radiant: boolean }) => (props.radiant ? 'flex-start' : 'flex-end')};
 
   .time-tracker {
     display: flex;
     flex-direction: column;
-    align-items: ${(props) => (props.radiant ? 'flex-start' : 'flex-end')};
+    align-items: ${(props: { radiant: boolean }) => (props.radiant ? 'flex-start' : 'flex-end')};
     justify-content: space-around;
-    order: ${(props) => (props.radiant ? '1' : '-1')};
+    order: ${(props: { radiant: boolean }) => (props.radiant ? '1' : '-1')};
     padding: 8px;
   }
 
@@ -115,14 +115,14 @@ const HeroIcon = styled.div`
 `;
 
 const LeftArrow = styled(Prev)`
-  visibility: ${(props) => (props.visible === 'true' ? 'visible' : 'hidden')};
+  visibility: ${(props: { visible: string }) => (props.visible === 'true' ? 'visible' : 'hidden')};
 `;
 
 const RightArrow = styled(Next)`
-  visibility: ${(props) => (props.visible === 'true' ? 'visible' : 'hidden')};
+  visibility: ${(props: { visible: string }) => (props.visible === 'true' ? 'visible' : 'hidden')};
 `;
 
-const TimeTracker = ({ pb, extraTime, isCaptains }) => (
+const TimeTracker = ({ pb, extraTime, isCaptains }: { pb: any, extraTime: number, isCaptains: boolean }) => (
   <div className="time-tracker">
     <span className="taken">
       <span className={pb.total_time_taken > 30 ? 'extra-used' : ''}>
@@ -142,23 +142,18 @@ const TimeTracker = ({ pb, extraTime, isCaptains }) => (
     )}
   </div>
 );
-TimeTracker.propTypes = {
-  pb: PropTypes.shape({}),
-  extraTime: PropTypes.number,
-  isCaptains: PropTypes.bool,
-};
 
-const DraftHero = ({ pb, radiant, calcExtraTime, picks, isCaptains }) => (
+const DraftHero = ({ pb, radiant, calcExtraTime, picks, isCaptains }: { pb: any, radiant: boolean, calcExtraTime: Function, picks: number[], isCaptains: boolean }) => (
   <DraftCell radiant={radiant}>
     <TimeTracker
       pb={pb}
       extraTime={calcExtraTime(radiant, pb.total_time_taken)}
       isCaptains={isCaptains}
     />
-    <HeroIcon radiant={radiant}>
+    <HeroIcon>
       <img
         src={
-          heroes[pb.hero_id] && config.VITE_IMAGE_CDN + heroes[pb.hero_id].img
+          heroes[pb.hero_id as keyof Heroes] && config.VITE_IMAGE_CDN + heroes[pb.hero_id as keyof Heroes].img
         }
         alt=""
         data-ispick={picks.includes(pb.order)}
@@ -167,13 +162,6 @@ const DraftHero = ({ pb, radiant, calcExtraTime, picks, isCaptains }) => (
     </HeroIcon>
   </DraftCell>
 );
-DraftHero.propTypes = {
-  pb: PropTypes.shape({}),
-  radiant: PropTypes.bool,
-  calcExtraTime: PropTypes.func,
-  picks: PropTypes.arrayOf(PropTypes.number),
-  isCaptains: PropTypes.bool,
-};
 
 const Draft = ({
   gameMode,
@@ -183,8 +171,16 @@ const Draft = ({
   startTime,
   sponsorURL,
   sponsorIcon,
-  strings,
+}: {
+  gameMode: number,
+  radiantTeam: any,
+  direTeam: any,
+  draft: any[],
+  startTime: number,
+  sponsorURL: string,
+  sponsorIcon: string,
 }) => {
+  const strings = useStrings();
   // one-based indexing (since draft[i].order starts at 1)
   let orderOne = [];
   let orderTwo = [];
@@ -226,10 +222,10 @@ const Draft = ({
     draft[draft.length - 1] &&
     draft[draft.length - 1].active_team === 3;
   const radiantOrder = lastIsDire ? orderOne : orderTwo;
-  const radiantPick = (pb) => radiantOrder.includes(pb.order);
+  const radiantPick = (pb: any) => radiantOrder.includes(pb.order);
   let radiantTimeLeft = 130;
   let direTimeLeft = 130;
-  const calcExtraTime = (isRadiantTeam, timeTaken) => {
+  const calcExtraTime = (isRadiantTeam: boolean, timeTaken: number) => {
     if (isRadiantTeam) {
       if (timeTaken > 30) radiantTimeLeft -= timeTaken - 30;
       return radiantTimeLeft;
@@ -246,7 +242,7 @@ const Draft = ({
             <Heading
               title={`${getTeamName(radiantTeam, true)}`}
               buttonLabel={
-                config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null
+                config.VITE_ENABLE_GOSUAI ? strings.gosu_default : undefined
               }
               buttonTo={`${sponsorURL}Draft`}
               buttonIcon={sponsorIcon}
@@ -353,17 +349,6 @@ const Draft = ({
       )}
     </Styled>
   );
-};
-
-Draft.propTypes = {
-  gameMode: PropTypes.number,
-  radiantTeam: PropTypes.shape({}),
-  direTeam: PropTypes.shape({}),
-  draft: PropTypes.arrayOf(PropTypes.shape({})),
-  startTime: PropTypes.number,
-  sponsorURL: PropTypes.string,
-  sponsorIcon: PropTypes.string,
-  strings: PropTypes.shape({}),
 };
 
 export default Draft;

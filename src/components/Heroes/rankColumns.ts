@@ -132,7 +132,7 @@ const generateHeroColumn = (strings: Strings): HeroColumn => {
     field: 'hero_id',
     displayFn: displayHeroId,
     sortFn: (row: Row) => {
-      return heroes[row.hero_id as keyof typeof heroes]?.localized_name;
+      return heroes[row.hero_id as keyof Heroes]?.localized_name;
     },
   };
 };

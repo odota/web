@@ -8,7 +8,7 @@ import Purchases from '../Match/Purchases';
 import Timeline from '../Match/Overview/Timeline';
 import MatchGraph from '../Visualizations/Graph/MatchGraph';
 import StackedBarGraph from '../Visualizations/Graph/StackedBarGraph';
-import Draft from './Draft';
+import Draft from './Draft/Draft';
 import Vision from './Vision';
 import Laning from './Laning';
 import CrossTable from './CrossTable';

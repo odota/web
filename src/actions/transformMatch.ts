@@ -97,9 +97,9 @@ function generateTeamfights({
           ...death,
           killer: newtf.players.find(
             (killer: any) =>
-              heroes[death.player.hero_id as keyof typeof heroes] &&
+              heroes[death.player.hero_id as keyof Heroes] &&
               killer.killed[
-                heroes[death.player.hero_id as keyof typeof heroes].name
+                heroes[death.player.hero_id as keyof Heroes].name
               ],
           ),
         },
@@ -301,8 +301,8 @@ function transformMatch(m: any) {
       newPlayer.abilities = arr;
     }
     newPlayer.hero_name =
-      heroes[player.hero_id as keyof typeof heroes] &&
-      heroes[player.hero_id as keyof typeof heroes].name;
+      heroes[player.hero_id as keyof Heroes] &&
+      heroes[player.hero_id as keyof Heroes].name;
 
     return newPlayer;
   });
