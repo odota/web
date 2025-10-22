@@ -20,7 +20,7 @@ const StyledListItemIcon = styled(ListItemIcon)`
   color: ${constants.primaryTextColor} !important;
 `;
 
-const setLocalization = (event, key, payload) => {
+const setLocalization = (event: any, key: string | null, payload: { value: any }) => {
   window.localStorage.setItem('localization', payload.value);
   window.location.reload();
 };
