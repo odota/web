@@ -18,7 +18,7 @@ type HeroesProps = {
   match: {
     params: {
       info: string,
-      heroId: number,
+      heroId: string,
     }
   },
   strings: Strings,

@@ -8,7 +8,7 @@ import BenchmarkSkeleton from '../Skeletons/BenchmarkSkeleton';
 class Benchmark extends Component<{
     match: {
       params: {
-        heroId: number,
+        heroId: string,
       },
     },
     strings: Strings,
@@ -77,7 +77,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  getBenchmark: (heroId: number) => dispatch(getBenchmark(heroId)),
+  getBenchmark: (heroId: string) => dispatch(getBenchmark(heroId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Benchmark);

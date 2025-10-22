@@ -7,10 +7,10 @@ import DurationsSkeleton from '../Skeletons/DurationsSkeleton';
 class Durations extends React.Component<{
     match: {
       params: {
-        heroId: number,
+        heroId: string,
       },
     },
-    onGetHeroDurations: (heroId: number) => Promise<any>,
+    onGetHeroDurations: (heroId: string) => Promise<any>,
     isLoading: boolean,
     data: {
       duration_bin: number,

@@ -14,7 +14,7 @@ import transformHeroItemSuggestion from './transformHeroItemSuggestion';
 
 export const getMetadata = () =>
   action('metadata', config.VITE_API_HOST, 'api/metadata');
-export const getMatch = (matchId: number | string) =>
+export const getMatch = (matchId: string) =>
   action(
     'match',
     config.VITE_API_HOST,
@@ -22,11 +22,11 @@ export const getMatch = (matchId: number | string) =>
     {},
     transformMatch,
   );
-export const getRanking = (heroId: number) =>
+export const getRanking = (heroId: string) =>
   action('heroRanking', config.VITE_API_HOST, 'api/rankings', {
     hero_id: heroId,
   });
-export const getBenchmark = (heroId: number) =>
+export const getBenchmark = (heroId: string) =>
   action(
     'heroBenchmark',
     config.VITE_API_HOST,
@@ -34,23 +34,23 @@ export const getBenchmark = (heroId: number) =>
     { hero_id: heroId },
     transformBenchmarks,
   );
-export const getHeroRecentGames = (heroId: number) =>
+export const getHeroRecentGames = (heroId: string) =>
   action(
     'heroRecentGames',
     config.VITE_API_HOST,
     `api/heroes/${heroId}/matches`,
   );
-export const getHeroMatchups = (heroId: number) =>
+export const getHeroMatchups = (heroId: string) =>
   action('heroMatchups', config.VITE_API_HOST, `api/heroes/${heroId}/matchups`);
-export const getHeroDurations = (heroId: number) =>
+export const getHeroDurations = (heroId: string) =>
   action(
     'heroDurations',
     config.VITE_API_HOST,
     `api/heroes/${heroId}/durations`,
   );
-export const getHeroPlayers = (heroId: number) =>
+export const getHeroPlayers = (heroId: string) =>
   action('heroPlayers', config.VITE_API_HOST, `api/heroes/${heroId}/players`);
-export const getHeroItemSuggestions = (heroId: number) =>
+export const getHeroItemSuggestions = (heroId: string) =>
   action(
     'heroItemSuggestions',
     config.VITE_API_HOST,
@@ -88,13 +88,13 @@ export const getPlayers = () =>
   action('players', config.VITE_API_HOST, 'api/topPlayers');
 export const getTeams = () =>
   action('teams', config.VITE_API_HOST, 'api/teams');
-export const getTeam = (teamId: number) =>
+export const getTeam = (teamId: string) =>
   action('team', config.VITE_API_HOST, `api/teams/${teamId}`);
-export const getTeamMatches = (teamId: number) =>
+export const getTeamMatches = (teamId: string) =>
   action('teamMatches', config.VITE_API_HOST, `api/teams/${teamId}/matches`);
-export const getTeamPlayers = (teamId: number) =>
+export const getTeamPlayers = (teamId: string) =>
   action('teamPlayers', config.VITE_API_HOST, `api/teams/${teamId}/players`);
-export const getTeamHeroes = (teamId: number) =>
+export const getTeamHeroes = (teamId: string) =>
   action('teamHeroes', config.VITE_API_HOST, `api/teams/${teamId}/heroes`);
 export const getRecords = (field: string) =>
   action('records', config.VITE_API_HOST, `api/records/${field}`);
@@ -105,23 +105,23 @@ export const getGithubPulls = (merged: string) =>
     page: 1,
     per_page: 1,
   });
-export const getPlayer = (accountId: number) =>
+export const getPlayer = (accountId: string) =>
   action('player', config.VITE_API_HOST, `api/players/${accountId}`);
-export const getPlayerWinLoss = (accountId: number, params: any) =>
+export const getPlayerWinLoss = (accountId: string, params: any) =>
   action(
     'playerWinLoss',
     config.VITE_API_HOST,
     `api/players/${accountId}/wl`,
     paramsWithTurbo(params),
   );
-export const getPlayerRecentMatches = (accountId: number, params: any) =>
+export const getPlayerRecentMatches = (accountId: string, params: any) =>
   action(
     'playerRecentMatches',
     config.VITE_API_HOST,
     `api/players/${accountId}/recentMatches`,
     paramsWithTurbo(params),
   );
-export const getPlayerMatches = (accountId: number, params: any) =>
+export const getPlayerMatches = (accountId: string, params: any) =>
   action(
     'playerMatches',
     config.VITE_API_HOST,
@@ -153,21 +153,21 @@ export const getPlayerMatches = (accountId: number, params: any) =>
     },
     transformPlayerMatches({ ...querystring.parse(params.substring(1)) }),
   );
-export const getPlayerPeers = (accountId: number, params: any) =>
+export const getPlayerPeers = (accountId: string, params: any) =>
   action(
     'playerPeers',
     config.VITE_API_HOST,
     `api/players/${accountId}/peers`,
     paramsWithTurbo(params),
   );
-export const getPlayerHeroes = (accountId: number, params: any) =>
+export const getPlayerHeroes = (accountId: string, params: any) =>
   action(
     'playerHeroes',
     config.VITE_API_HOST,
     `api/players/${accountId}/heroes`,
     paramsWithTurbo(params),
   );
-export const getPlayerPros = (accountId: number, params: any) =>
+export const getPlayerPros = (accountId: string, params: any) =>
   action(
     'playerPros',
     config.VITE_API_HOST,
@@ -175,7 +175,7 @@ export const getPlayerPros = (accountId: number, params: any) =>
     paramsWithTurbo(params),
   );
 export const getPlayerHistograms = (
-  accountId: number,
+  accountId: string,
   params: any,
   field: string,
 ) =>
@@ -187,7 +187,7 @@ export const getPlayerHistograms = (
     transformHistograms,
   );
 export const getPlayerRecords = (
-  accountId: number,
+  accountId: string,
   params: any,
   field: string,
 ) =>
@@ -198,7 +198,7 @@ export const getPlayerRecords = (
     { ...paramsWithTurbo(params), sort: field, limit: 20 },
   );
 export const getPlayerTrends = (
-  accountId: number,
+  accountId: string,
   params: any,
   field: string,
 ) =>
@@ -213,7 +213,7 @@ export const getPlayerTrends = (
     },
     transformTrends(field),
   );
-export const getPlayerCounts = (accountId: number, params: any) =>
+export const getPlayerCounts = (accountId: string, params: any) =>
   action(
     'playerCounts',
     config.VITE_API_HOST,
@@ -221,14 +221,14 @@ export const getPlayerCounts = (accountId: number, params: any) =>
     paramsWithTurbo(params),
     transformCounts,
   );
-export const getPlayerItems = (accountId: number, params: any) =>
+export const getPlayerItems = (accountId: string, params: any) =>
   action(
     'playerItems',
     config.VITE_API_HOST,
     `api/players/${accountId}/items`,
     paramsWithTurbo(params),
   );
-export const getPlayerWardmap = (accountId: number, params: any) =>
+export const getPlayerWardmap = (accountId: string, params: any) =>
   action(
     'playerWardmap',
     config.VITE_API_HOST,
@@ -242,21 +242,21 @@ export const getPlayerWordcloud = (accountId: string, params: any) =>
     `api/players/${accountId}/wordcloud`,
     { ...paramsWithTurbo(params), date: 365 },
   );
-export const getPlayerTotals = (accountId: number, params: any) =>
+export const getPlayerTotals = (accountId: string, params: any) =>
   action(
     'playerTotals',
     config.VITE_API_HOST,
     `api/players/${accountId}/totals`,
     paramsWithTurbo(params),
   );
-export const getPlayerMmr = (accountId: number, params: any) =>
+export const getPlayerMmr = (accountId: string, params: any) =>
   action(
     'playerMmr',
     config.VITE_API_HOST,
     `api/players/${accountId}/ratings`,
     paramsWithTurbo(params),
   );
-export const getPlayerRankings = (accountId: number, params: any) =>
+export const getPlayerRankings = (accountId: string, params: any) =>
   action(
     'playerRankings',
     config.VITE_API_HOST,

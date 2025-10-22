@@ -759,7 +759,7 @@ TableHeroImage.propTypes = {
   leaverStatus: number,
   strings: shape({}),
   hero: shape({}),
-  heroID: number,
+  heroID: string,
 };
 
 // If need party or estimated, just add new prop with default val = solo and change icons depending what needs

@@ -14,7 +14,7 @@ class Recent extends React.Component<{
     onGetRecentMatches: Function,
     match: {
       params: {
-        heroId: number,
+        heroId: string,
       },
     },
     proPlayers: {

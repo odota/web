@@ -9,11 +9,11 @@ import TableSkeleton from '../Skeletons/TableSkeleton';
 type ItemSuggestionProps = {
    match: {
     params: {
-      heroId: number,
+      heroId: string,
     },
   },
   isLoading: boolean,
-  onGetHeroItemSuggestions: (heroId: number) => Promise<any>,
+  onGetHeroItemSuggestions: (heroId: string) => Promise<any>,
   data: any[],
 };
 

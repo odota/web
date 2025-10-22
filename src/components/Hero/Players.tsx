@@ -15,7 +15,7 @@ class Players extends React.Component<{
       }[],
     match: {
       params: {
-        heroId: number,
+        heroId: string,
       },
     },
     onGetHeroPlayers: Function,

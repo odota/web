@@ -68,7 +68,7 @@ class Matchups extends React.Component<{
   isLoading: boolean,
   match: {
     params: {
-      heroId: number,
+      heroId: string,
     },
   },
     data: {

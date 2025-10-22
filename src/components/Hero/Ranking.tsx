@@ -13,7 +13,7 @@ const renderRanking = (hero: Hero | undefined, rankings: any[]) => (
 class Ranking extends Component<{
     match: {
       params: {
-        heroId: number,
+        heroId: string,
       },
     },
     isLoading: boolean,
@@ -50,7 +50,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  getRanking: (heroId: number) => dispatch(getRanking(heroId)),
+  getRanking: (heroId: string) => dispatch(getRanking(heroId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ranking);

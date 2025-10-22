@@ -40,7 +40,7 @@ type HeroProps = {
   match: {
     params: {
       info: string,
-      heroId: number,
+      heroId: string,
     },
   },
   heroes: Hero[],
@@ -84,7 +84,7 @@ class Hero extends React.Component<HeroProps> {
       return <ErrorBox text={errorText} />;
     }
 
-    const tabs = (tabsHeroId: number) => [
+    const tabs = (tabsHeroId: string) => [
       {
         name: strings.tab_rankings,
         key: 'rankings',
