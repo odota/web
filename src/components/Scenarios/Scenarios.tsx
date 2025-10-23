@@ -211,7 +211,6 @@ class Scenarios extends React.Component<ScenariosProps, { selectedTab: Scenarios
               ))}
             </Tabs>
             <div 
-              //@ts-expect-error
               style={formFieldStyle}>
               {[...(queryForms || []), ...(filterForms || [])].map(
                 (field, index) => (

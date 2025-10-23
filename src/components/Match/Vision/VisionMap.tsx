@@ -48,7 +48,7 @@ const Styled = styled.div`
   }
 `;
 
-const wardStyle = (width: number, log: any) => {
+const wardStyle = (width: number, log: any): React.CSSProperties => {
   const gamePos = gameCoordToUV(log.entered.x, log.entered.y);
   const stroke =
     log.entered.player_slot < 5 ? constants.colorGreen : constants.colorRed;
@@ -125,7 +125,6 @@ const WardPin = ({ match, width, log }: { match: Match, width: number, log: any 
 
   return (
     <Styled>
-      {/*@ts-expect-error*/}
       <div style={wardStyle(width, log)} data-tip data-for={id}>
         <img src={wardIcon(log)} alt={log.type === 'observer' ? 'O' : 'S'} />
       </div>

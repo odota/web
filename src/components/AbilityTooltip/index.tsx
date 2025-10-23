@@ -56,7 +56,7 @@ const HeaderContent = styled.div`
   }
 `;
 
-const HeaderBgImg = styled.div`
+const HeaderBgImg = styled.div<{ img?: string }>`
   position: absolute;
   left: -20px;
   height: 100%;
@@ -121,7 +121,6 @@ const Break = styled.div`
 const AbilityTooltip = ({ ability, inflictor }: { ability: { img?: string, dname?: string, behavior?: string, dmg_type?: string, bkbpierce?: boolean, desc?: string, attrib?: any[], dmg?: any, mc?: string[], cd?: number[] }, inflictor?: string }) => (
   <Wrapper>
     <Header>
-      {/*@ts-ignore*/}
       <HeaderBgImg img={ability.img} />
       <HeaderContent>
         {inflictor && inflictor.startsWith('special_') ? (
@@ -148,7 +147,6 @@ const AbilityTooltip = ({ ability, inflictor }: { ability: { img?: string, dname
     )}
     {ability.desc && (
       <Description
-        //@ts-ignore
         ref={(el: any) => styleValues(el)}
       >
         {ability.desc}

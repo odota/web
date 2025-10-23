@@ -38,7 +38,6 @@ const matchesColumns = (strings: Strings) => [
     displayFn: (row: any, col: any, field: any) => (
       <div>
         <TableLink to={`/matches/${field}`}>{field}</TableLink>
-        {/*@ts-expect-error*/}
         <div style={{ ...subTextStyle }}>
           <div style={{ float: 'left' }}>
             <FromNowTooltip timestamp={row.start_time + row.duration} />
@@ -102,7 +101,6 @@ const publicMatchesColumns = (strings: Strings) => [
     displayFn: (row: any, col: any, field: any) => (
       <div>
         <TableLink to={`/matches/${field}`}>{field}</TableLink>
-        {/*@ts-expect-error*/}
         <div style={{ ...subTextStyle }}>
           <div style={{ float: 'left' }}>
             <FromNowTooltip timestamp={row.start_time + row.duration} />

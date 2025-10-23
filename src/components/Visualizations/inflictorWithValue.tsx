@@ -262,8 +262,7 @@ class InflictorWithValue extends React.Component<Props> {
                 alt={imageError ? 'Dota 2 Logo' : ''}
                 height="27px"
                 style={{
-                  //@ts-expect-error
-                  filter: imageError ? 'grayscale(60%)' : null,
+                  filter: imageError ? 'grayscale(60%)' : undefined,
                 }}
                 width={ability || imageError ? '27px' : '37px'}
                 onError={() => this.setImageError(true)}

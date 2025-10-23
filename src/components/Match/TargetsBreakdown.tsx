@@ -14,7 +14,7 @@ const Dummy = styled.div`
   background: linear-gradient(to right, rgba(255, 255, 255, 0.1), transparent);
 `;
 
-const dmgTargetValueStyle = {
+const dmgTargetValueStyle: React.CSSProperties = {
   position: 'absolute',
   left: '0px',
   width: '30px',
@@ -34,7 +34,7 @@ const dmgTargetIconStyle = {
   backgroundColor: 'rgba(255, 255, 255, 0.1)',
 };
 
-const arrowStyle = {
+const arrowStyle: React.CSSProperties = {
   position: 'relative',
   top: '4px',
   height: '20px',
@@ -72,7 +72,6 @@ const damageTargetIcons = (t: any) => {
         >
           <span
             id="targetvalue"
-            //@ts-expect-error
             style={dmgTargetValueStyle}
           >{`${abbreviateNumber(t[target])}`}</span>
           <HeroImage
@@ -112,7 +111,6 @@ const TargetsBreakdown = ({ field, abilityUses = null }: { field: string, abilit
         .reduce((obj, [k, v]) => Object.assign(obj, { [k]: v }), {});
     } else {
       f = Object.entries(field)
-        //@ts-expect-error
         .sort((a, b) => sumValues(b[1]) - sumValues(a[1]))
         .reduce((obj, [k, v]) => Object.assign(obj, { [k]: v }), {});
     }
@@ -126,7 +124,6 @@ const TargetsBreakdown = ({ field, abilityUses = null }: { field: string, abilit
           <StyledDmgTargetInflictor id="target">
             {inflictorWithValue(inflictor, abbreviateNumber(valueOverall))}
           </StyledDmgTargetInflictor>
-          {/*@ts-expect-error*/}
           <NavigationArrowForward style={arrowStyle} />
           {!f[inflictor].null ? damageTargetIcons(f[inflictor]) : <Dummy />}
         </div>,

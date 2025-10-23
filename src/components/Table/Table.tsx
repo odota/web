@@ -62,6 +62,7 @@ type TableProps = {
   isBestValueInMatch?: Function,
   overflowAuto?: boolean,
   className?: string,
+  style?: React.CSSProperties,
 };
 
 type TableState = { currentPage: number, sortState: string, sortField: string, sortFn: Function, scrolled?: boolean };
@@ -85,7 +86,6 @@ class Table extends React.Component<TableProps, TableState> {
             <td
               className={column.className}
               key={`${colIndex}_sum`}
-              //@ts-expect-error
               style={{
                 paddingTop: 10,
                 paddingBottom: 10,
@@ -269,7 +269,6 @@ class Table extends React.Component<TableProps, TableState> {
                           return (
                             <td
                               key={`${index}_${colIndex}`}
-                              //@ts-expect-error
                               style={style}
                               className={column.className}
                             />
@@ -360,7 +359,6 @@ class Table extends React.Component<TableProps, TableState> {
                           (underline === 'max' || underline === 'min') &&
                           typeof isBestValueInMatch === 'function'
                         ) {
-                          //@ts-expect-error
                           style.textDecoration = isBestValueInMatch(
                             field,
                             row,

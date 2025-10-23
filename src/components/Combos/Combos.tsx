@@ -187,7 +187,8 @@ function asArray(value: any) {
 
 class Combos extends React.Component<{ strings: Strings }> {
   parsedUrlQuery = querystring.parse(window.location.search.substring(1)); // eslint-disable-line react/sort-comp
-
+  inputRef: any;
+  
   state = {
     queryType: this.parsedUrlQuery.queryType || 'public',
     teamA: asArray(this.parsedUrlQuery.teamA).map(Number),
@@ -204,13 +205,11 @@ class Combos extends React.Component<{ strings: Strings }> {
   }
 
   setInputRef = (input: any) => {
-    //@ts-expect-error
     this.inputRef = input;
   };
 
   resetSearchValue = () => {
     if (this.state.searchValue.length > 0) {
-      //@ts-expect-error
       this.inputRef.focus();
     }
     this.setState({ searchValue: '' });

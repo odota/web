@@ -339,7 +339,7 @@ const BuildingMap = ({ match }: { match: Match }) => {
           position: 'absolute',
           width: 0,
           height: 0,
-        },
+        } as React.CSSProperties,
         img: {
           // TODO scale based on client width
           // d.style += 'zoom: ' + document.getElementById(map').clientWidth / 600 + ';';
@@ -351,7 +351,7 @@ const BuildingMap = ({ match }: { match: Match }) => {
             bits[i] === '1'
               ? 'contrast(150%)'
               : 'grayscale(100%) brightness(70%)',
-        },
+        } as React.CSSProperties,
       },
     };
     const icon = (
@@ -359,10 +359,8 @@ const BuildingMap = ({ match }: { match: Match }) => {
         key={props.key}
         data-tip
         data-for={props.key}
-        //@ts-expect-error
         style={props.style.span}
       >
-        {/*@ts-expect-error*/}
         <img src={props.src} alt="" style={props.style.img} />
         <ReactTooltip id={props.key} effect="solid">
           {title}
@@ -384,8 +382,7 @@ const BuildingMap = ({ match }: { match: Match }) => {
                     <div
                       key={player.hero_id}
                       style={{
-                        //@ts-expect-error
-                        width: `${(Number(player.damage) * 100) / buildingsHealth[type === 'tower' ? `tower${tier}` : type]}%`,
+                        width: `${(Number(player.damage) * 100) / buildingsHealth[(type === 'tower' ? `tower${tier}` : type) as keyof typeof buildingsHealth]}%`,
                         backgroundColor: playerColors[player.player_slot as unknown as keyof typeof playerColors],
                       }}
                     />

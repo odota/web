@@ -423,7 +423,7 @@ const Trim = styled.hr`
   background-color: ${constants.colorMuted};
 `;
 
-const expand = {
+const expand: React.CSSProperties = {
   display: 'flex',
   position: 'relative',
   height: '100%',
@@ -504,7 +504,6 @@ class TableHeroImage extends React.Component<TableHeroImageProps, { tooltipVisib
     };
 
     return (
-      //@ts-expect-error
       <Styled style={expand}>
         <HeroImageContainer>
           {parsed !== undefined && (
@@ -610,7 +609,6 @@ class TableHeroImage extends React.Component<TableHeroImageProps, { tooltipVisib
                 )}
               </span>
               {subtitle && (
-                //@ts-expect-error
                 <span style={subTextStyle} className="subTextContainer">
                   {subtitle}
                   <span>

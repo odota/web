@@ -30,23 +30,23 @@ export const StyledDiv = styled.div`
 }
 `;
 
-export const buttonStyle = {
+export const buttonStyle: React.CSSProperties = {
   marginTop: '20px',
   marginBottom: '20px',
 };
 
-export const formFieldStyle = {
+export const formFieldStyle: React.CSSProperties = {
   display: 'flex',
   flexWrap: 'wrap',
 };
 
-export const tabsStyle = {
+export const tabsStyle: React.CSSProperties = {
   marginBottom: '50px',
   marginTop: '10px',
   borderBottom: `1px solid ${constants.dividerColor}`,
 };
 
-export const listStyle = {
+export const listStyle: React.CSSProperties = {
   backgroundColor: 'rgba(0, 0, 0, 0.35)',
   maxHeight: 400,
   overflow: 'auto',

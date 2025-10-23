@@ -32,14 +32,14 @@ const day = hour * 24;
 const month = day * 30;
 const year = month * 12;
 
-export const iconStyle = {
+export const iconStyle: React.CSSProperties = {
   position: 'relative',
   width: 16,
   height: 16,
   verticalAlign: 'bottom',
 };
 
-export const subTextStyle = {
+export const subTextStyle: React.CSSProperties = {
   position: 'relative',
   fontSize: '12px',
   color: constants.colorMutedLight,
@@ -495,8 +495,7 @@ export function groupByArray(xs: any[], key: string | Function) {
   }, []);
 }
 
-//@ts-expect-error
-export const sumValues = (f: any) => Object.values(f).reduce((a, b) => a + b);
+export const sumValues = (f: any): number => Object.values(f).reduce((a: any, b: any) => a + b) as number;
 
 /* eslint-disable camelcase */
 // https://dota2.gamepedia.com/Attributes
@@ -747,7 +746,7 @@ export function displayHeroId(
         tooltip = strings[`lane_role_${row.lane_role}`];
         lane = row.lane_role;
       }
-      const roleIconStyle = {
+      const roleIconStyle: React.CSSProperties = {
         float: 'right',
         marginTop: '2px',
         height: '14px',
@@ -769,7 +768,6 @@ export function displayHeroId(
               <img
                 src={`/assets/images/dota2/lane_${lane}.svg`}
                 alt=""
-                //@ts-expect-error
                 style={roleIconStyle}
               />
             </span>
@@ -815,7 +813,6 @@ export const transformations = {
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
       <span
-        //@ts-expect-error
         style={{ ...subTextStyle, display: 'block', marginTop: 1 }}
       >
         {fromNow(row.start_time)}
@@ -838,7 +835,7 @@ export const transformations = {
       }
       return won ? strings.td_win : strings.td_loss;
     };
-    const partyTextStyle = {
+    const partyTextStyle: React.CSSProperties = {
       fontSize: '9px',
       position: 'absolute',
       lineHeight: '3px',
@@ -851,7 +848,6 @@ export const transformations = {
       if (_partySize === 1) {
         return (
           <SocialPerson
-            //@ts-expect-error
             style={iconStyle}
           />
         );
@@ -861,11 +857,9 @@ export const transformations = {
       return (
         <div style={{ float: 'right', marginTop: '-3px', marginRight: '2px' }}>
           <SocialPeople
-            //@ts-expect-error
             style={iconStyle}
           />
           <div
-            //@ts-expect-error
             style={partyTextStyle}
           >
             {`x${row.party_size}`}
@@ -873,7 +867,7 @@ export const transformations = {
         </div>
       );
     };
-    const partyStyle = {
+    const partyStyle: React.CSSProperties = {
       ...subTextStyle,
       float: 'right',
       marginRight: '-14px',
@@ -897,7 +891,6 @@ export const transformations = {
         </TableLink>
         <div>
           <span
-            //@ts-expect-error
             style={{ ...subTextStyle, marginTop: 1, display: 'inline' }}
           >
             {row.league_name
@@ -905,7 +898,6 @@ export const transformations = {
               : strings[`lobby_type_${row.lobby_type}`]}
           </span>
           <span
-            //@ts-expect-error
             style={partyStyle}
             data-hint={`${strings.filter_party_size} ${row.party_size || strings.game_mode_0}`}
             data-hint-position="top"
@@ -920,7 +912,7 @@ export const transformations = {
   mode: (row: any, col: any, field: any) => {
     const { strings } = store.getState().app;
 
-    const skillStyle = {
+    const skillStyle: React.CSSProperties = {
       ...subTextStyle,
       display: 'inline',
       float: 'left',
@@ -932,7 +924,6 @@ export const transformations = {
         {strings[`game_mode_${field}`] && `${strings[`game_mode_${field}`]}`}
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span
-            //@ts-expect-error
             style={skillStyle}
           >
             {rankTierToString(row.average_rank)}
@@ -961,7 +952,6 @@ export const transformations = {
         <span>{formatSeconds(field)}</span>
         {displaySide && (
           <span
-            //@ts-expect-error
             style={{ ...subTextStyle }}
           >
             {playerIsRadiant || teamIsRadiant
@@ -1070,7 +1060,7 @@ export function formatValues(values: any[]) {
 }
 
 // handles table cell custom and default styling
-export function getColStyle(column: any) {
+export function getColStyle(column: any): React.CSSProperties {
   return {
     textAlign: column.textAlign || 'initial',
     paddingRight: column.paddingRight !== undefined ? column.paddingRight : 8,
@@ -1079,7 +1069,7 @@ export function getColStyle(column: any) {
     borderLeft: column.borderLeft,
     borderRight: column.borderRight,
     backgroundColor: column.colColor,
-    direction: column.textAlign === 'right' && 'rtl',
+    direction: column.textAlign === 'right' ? 'rtl' : undefined,
     color: column.color || constants.secondaryTextColor,
   };
 }

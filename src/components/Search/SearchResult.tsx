@@ -57,7 +57,6 @@ const matchColumns = (strings: Strings) => [
     displayFn: (row: any, col: any, field: any) => (
       <div>
         <TableLink to={`/matches/${field}`}>{field}</TableLink>
-        {/*@ts-expect-error*/}
         <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
           {row.skill && strings[`skill_${row.skill}` as keyof Strings]}
         </span>

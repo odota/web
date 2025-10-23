@@ -38,8 +38,8 @@ const TableHeaderColumn = ({
   setHighlightedCol?: Function,
   index: number,
 }) => {
-  const style = {
-    justifyContent: column.center ? 'center' : null,
+  const style: React.CSSProperties = {
+    justifyContent: column.center ? 'center' : undefined,
   };
   return (
     <th
@@ -53,7 +53,6 @@ const TableHeaderColumn = ({
         onClick={() =>
           column.sortFn && sortClick(column.field, sortState, column.sortFn)
         }
-        //@ts-expect-error
         style={style}
       >
         <div

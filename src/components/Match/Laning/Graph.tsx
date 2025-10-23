@@ -38,7 +38,7 @@ const CustomizedTooltip = ({ label, payload }: { label?: string, payload?: any[]
   </StyledCustomizedTooltip>
 );
 
-const CustomizedDot = (props: { cx: number, cy: number, payload?: any, killsLog: any[] }) => {
+const CustomizedDot = (props: { cx?: number, cy?: number, payload?: any, killsLog: any[] }) => {
   const { cx, cy, payload, killsLog } = props;
 
   const kills = killsLog.filter((l) => {
@@ -49,8 +49,8 @@ const CustomizedDot = (props: { cx: number, cy: number, payload?: any, killsLog:
   if (kills.length > 0) {
     return (
       <svg
-        x={cx - 16}
-        y={cy - 16 * kills.length}
+        x={(cx ?? 0) - 16}
+        y={(cy ?? 0) - 16 * kills.length}
         width={32}
         height={32 * kills.length}
       >
@@ -122,7 +122,6 @@ const Graph = (props: GraphProps) => {
                 <Line
                   dot={
                     isSelected ? (
-                      //@ts-expect-error
                       <CustomizedDot killsLog={player.kills_log} />
                     ) : (
                       false

@@ -4,7 +4,7 @@ import { gameCoordToUV, getWardSize } from '../../../utility';
 import DotaMap from '../../DotaMap';
 import constants from '../../constants';
 
-const hoverMapStyle = {
+const hoverMapStyle: React.CSSProperties = {
   height: 300,
   position: 'absolute',
   bottom: '25px',
@@ -54,7 +54,7 @@ const Styled = styled.div`
   }
 `;
 
-const wardStyle = (width: number, log: any) => {
+const wardStyle = (width: number, log: any): React.CSSProperties => {
   const gamePos = gameCoordToUV(log.entered.x, log.entered.y);
   const stroke =
     log.entered.player_slot < 5 ? constants.colorGreen : constants.colorRed;
@@ -96,7 +96,6 @@ export const WardPin = ({ width, log }: { width: number, log: any }) => {
   const id = `ward-${log.entered.player_slot}-${log.entered.time}`;
   return (
     <Styled>
-      {/*@ts-expect-error*/}
       <div style={wardStyle(width, log)} data-tip data-for={id}>
         <img src={wardIcon(log)} alt={log.type === 'observer' ? 'O' : 'S'} />
       </div>
@@ -105,7 +104,6 @@ export const WardPin = ({ width, log }: { width: number, log: any }) => {
 };
 
 const LogHover = (ward: any, startTime: number) => (
-  //@ts-expect-error
   <div style={hoverMapStyle}>
     <DotaMap maxWidth={300} width={300} startTime={startTime}>
       <WardPin key={ward.key} width={300} log={ward} />

@@ -169,7 +169,7 @@ const App = (props: AppProps) => {
   const includeAds = !['/', '/api-keys', '/status'].includes(location.pathname);
 
   return (
-    // @ts-ignore
+    //@ts-expect-error
     <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
       {' '}
       {/* muiTheme types are missing here */}
@@ -234,7 +234,7 @@ const App = (props: AppProps) => {
           </AdBannerDiv>
           <Footer />
           <Back2Top
-            // @ts-ignore
+            //@ts-expect-error
             ref={back2Top} // type 'undefined' is not assignable to type 'HTMLButtonElement | null'
             id="back2Top"
             title={strings.back2Top}

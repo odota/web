@@ -34,7 +34,7 @@ const Behavior = styled.div`
   }
 `;
 
-const AbilityBehaviour = ({ ability }: { ability: { behavior?: any, dmg_type?: any, bkbpierce?: any } }) => (
+const AbilityBehaviour = ({ ability }: { ability: { behavior?: any, dmg_type?: string, bkbpierce?: boolean, dispellable?: boolean } }) => (
   <Behavior>
     {ability.behavior ? (
       <div>
@@ -62,7 +62,6 @@ const AbilityBehaviour = ({ ability }: { ability: { behavior?: any, dmg_type?: a
     ) : (
       ''
     )}
-    {/*@ts-ignore*/}
     {ability.dispellable ? (
       <div>
         <span>DISPELLABLE: </span>

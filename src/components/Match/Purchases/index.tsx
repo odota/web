@@ -5,7 +5,7 @@ import TeamTable from '../TeamTable';
 import mcs from '../matchColumns';
 import config from '../../../config';
 
-const toggleStyle = {
+const toggleStyle: React.CSSProperties = {
   width: '30px',
   float: 'right',
   position: 'absolute',
@@ -47,7 +47,6 @@ class Purchases extends React.Component<PurchasesProps, { showConsumables: boole
             lineHeight: '13px',
             fontSize: '14px',
           }}
-          //@ts-expect-error
           style={toggleStyle}
           onToggle={this.change}
           thumbStyle={{
