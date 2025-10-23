@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import LinearProgress from 'material-ui/LinearProgress';
+// import LinearProgress from 'material-ui/LinearProgress';
 
-const ProgressBar = ({ percent, height }) => (
+const ProgressBar = ({ percent, height }: { percent: number, height: number }) => (
   <div>
     <div
       style={{
@@ -14,18 +13,13 @@ const ProgressBar = ({ percent, height }) => (
     >
       {(percent * 100).toFixed(2)}%
     </div>
-    <LinearProgress
+    {/* <LinearProgress
       style={{ height }}
       mode="determinate"
       value={percent * 100}
       color="#FFD700"
-    />
+    /> */}
   </div>
 );
-
-ProgressBar.propTypes = {
-  percent: PropTypes.number,
-  height: PropTypes.number,
-};
 
 export default ProgressBar;

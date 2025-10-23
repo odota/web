@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import {
@@ -15,17 +14,17 @@ import Heading from '../Heading';
 import Container from '../Container';
 import TabBar from '../TabBar';
 
-const matchesColumns = (field, strings) => [
+const matchesColumns = (field: string, strings: Strings) => [
   {
     displayName: strings.th_rank,
     field: 'rank',
-    displayFn: (row, col, _field) => getOrdinal(_field),
+    displayFn: (row: any, col: any, _field: any) => getOrdinal(_field),
   },
   {
-    displayName: strings[`heading_${field}`],
-    tooltip: strings[`tooltip_${field}`],
+    displayName: strings[`heading_${field}` as keyof Strings],
+    tooltip: strings[`tooltip_${field}` as keyof Strings],
     field: 'score',
-    displayFn: (row, col, _field) =>
+    displayFn: (row: any, col: any, _field: any) =>
       !row.hero_id ? formatSeconds(_field) : Number(_field).toLocaleString(),
   },
   {
@@ -38,7 +37,7 @@ const matchesColumns = (field, strings) => [
     displayName: strings.th_hero_id,
     tooltip: strings.tooltip_hero_id,
     field: 'hero_id',
-    displayFn: (row, col, _field) =>
+    displayFn: (row: any, col: any, _field: any) =>
       !row.hero_id ? null : displayHeroId(row, col, _field),
   },
 ];
@@ -57,12 +56,12 @@ const fields = [
   'hero_healing',
 ];
 
-const tabs = (strings) =>
+const tabs = (strings: Strings) =>
   fields.map((field) => ({
-    name: strings[`heading_${field}`],
+    name: strings[`heading_${field}` as keyof Strings],
     key: field,
-    tooltip: strings[`tooltip_${field}`],
-    content: (propsPar) => (
+    tooltip: strings[`tooltip_${field}` as keyof Strings],
+    content: (propsPar: RecordsProps) => (
       <Container>
         <Table
           data={propsPar.data.map((element, index) => ({
@@ -77,26 +76,25 @@ const tabs = (strings) =>
     route: `/records/${field}`,
   }));
 
-const getData = (props) => {
+const getData = (props: RecordsProps) => {
   const route = props.match.params.info || 'duration';
   props.dispatchRecords(route);
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        info: PropTypes.string,
-      }),
-    }),
-    strings: PropTypes.shape({}),
-  };
+type RecordsProps = {
+  match: { params: { info?: string }},
+  strings: Strings,
+  dispatchRecords: Function,
+  data: any[],
+  loading: boolean,
+}
 
+class RequestLayer extends React.Component<RecordsProps> {
   componentDidMount() {
     getData(this.props);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: RecordsProps) {
     if (this.props.match.params.info !== prevProps.match.params.info) {
       getData(this.props);
     }
@@ -123,14 +121,14 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   data: state.app.records.data,
   loading: state.app.records.loading,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  dispatchRecords: (info) => dispatch(getRecords(info)),
+const mapDispatchToProps = (dispatch: any) => ({
+  dispatchRecords: (info: string) => dispatch(getRecords(info)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

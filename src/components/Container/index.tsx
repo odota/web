@@ -4,12 +4,12 @@ import Error from '../Error/Error';
 import ContainerSkeleton from '../Skeletons/ContainerSkeleton';
 
 type ContainerProps = {
-  title: string,
+  title?: string,
   subtitle?: string,
   style?: any,
   className?: string,
-  loading: Boolean,
-  error: Boolean,
+  loading?: Boolean,
+  error?: Boolean,
   children?: React.ReactNode,
   hide?: Boolean,
   titleTo?: string,
