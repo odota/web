@@ -647,18 +647,15 @@ export function abbreviateNumber(num: number) {
   return num.toFixed(0);
 }
 
-export function rankTierToString(rankTier: string) {
+export function rankTierToString(rankTier: number) {
   const { strings } = store.getState().app;
-  // @ts-expect-error
-  if (rankTier !== parseInt(rankTier, 10)) {
+  if (rankTier !== parseInt(String(rankTier), 10)) {
     return strings.general_unknown;
   }
-  const intRankTier = parseInt(rankTier, 10);
-  // @ts-expect-error
-  let rank = strings[`rank_tier_${parseInt(intRankTier / 10, 10)}`];
+  const intRankTier = parseInt(String(rankTier), 10);
+  let rank = strings[`rank_tier_${parseInt(String(intRankTier / 10), 10)}`];
   if (intRankTier > 9 && intRankTier !== 80) {
-    // @ts-expect-error
-    rank += ` [${parseInt(intRankTier % 10, 10)}]`;
+    rank += ` [${parseInt(String(intRankTier % 10), 10)}]`;
   }
   return rank;
 }

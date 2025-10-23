@@ -10,6 +10,7 @@ import {
   IconCheckCircle,
 } from '../../Icons';
 import constants from '../../constants';
+import useStrings from '../../../hooks/useStrings.hook';
 
 const Styled = styled.div`
   .iconButton {
@@ -133,8 +134,19 @@ export const PlayerBadgesIcons = ({
   tracked,
   steamLink,
   officialPlayerName,
-  strings,
+  playerId,
+}: {
+  loading: boolean,
+  error: string,
+  cheese: number,
+  isContributor: boolean,
+  isSubscriber: boolean,
+  tracked: boolean,
+  steamLink: string,
+  officialPlayerName: string,
+  playerId: string,
 }) => {
+  const strings = useStrings();
   const getPlayerBadges = () => {
     if (error) return <Error />;
     if (loading) return <Spinner />;
@@ -202,7 +214,7 @@ export const PlayerBadgesIcons = ({
   return getPlayerBadges();
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   loading: state.app.player.loading,
   error: state.app.player.error,
   cheese: (state.app.player.data.profile || {}).cheese,
@@ -211,7 +223,6 @@ const mapStateToProps = (state) => ({
   tracked: state.app.player.data.tracked_until,
   steamLink: (state.app.player.data.profile || {}).profileurl,
   officialPlayerName: (state.app.player.data.profile || {}).name,
-  strings: state.app.strings,
 });
 
 export default connect(mapStateToProps)(PlayerBadgesIcons);

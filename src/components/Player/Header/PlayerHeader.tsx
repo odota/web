@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
@@ -11,6 +10,7 @@ import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
 import constants from '../../constants';
+import useStrings from '../../../hooks/useStrings.hook';
 
 const Styled = styled.div`
   width: 100vw;
@@ -141,17 +141,20 @@ const Styled = styled.div`
 
 const LARGE_IMAGE_SIZE = 124;
 
-const getRegistrationBadge = (registered, strings) =>
-  registered && (
+const RegisteredBadge = ({ registered }: { registered : boolean }) => {
+  const strings = useStrings();
+  return registered ? (
     <div
       className="registered"
       data-hint={strings.tooltip_registered_user}
       data-hint-position="top"
     />
-  );
+  ) : null;
+};
 
-const getDotaPlusBadge = (plus, strings) =>
-  plus && (
+const DotaPlusBadge = ({ plus }: { plus: boolean }) => {
+  const strings = useStrings();
+  return plus ? (
     <div
       className="dotaPlusMedal"
       data-hint={strings.tooltip_dotaplus}
@@ -159,9 +162,10 @@ const getDotaPlusBadge = (plus, strings) =>
     >
       <img src="/assets/images/dota2/dota_plus_icon.png" alt="Dota Plus icon" />
     </div>
-  );
+  ) : null;
+};
 
-export const getRankTierMedal = (rankTier, leaderboardRank) => {
+export const RankTierMedal = ( { rankTier, leaderboardRank }: { rankTier: number, leaderboardRank: number}) => {
   let medalElement = null;
   const imgDescription = rankTierToString(rankTier);
   if (rankTier) {
@@ -198,7 +202,7 @@ export const getRankTierMedal = (rankTier, leaderboardRank) => {
       );
     } else {
       // everyone who isn't immortal has an icon and some number of stars
-      const intRankTier = parseInt(rankTier, 10);
+      const intRankTier = parseInt(String(rankTier), 10);
       let star = intRankTier % 10;
 
       if (star < 1) {
@@ -270,11 +274,23 @@ const PlayerHeader = ({
   loading,
   error,
   small,
-  playerSoloCompetitiveRank,
   loggedInUser,
   rankTier,
   leaderboardRank,
-  strings,
+}: {
+  playerName: string,
+  officialPlayerName: string,
+  playerId: string,
+  picture: string,
+  registered: boolean,
+  plus: boolean,
+  loading: boolean,
+  error: string,
+  small: boolean,
+  loggedInUser: any,
+  rankTier: number,
+  leaderboardRank: number,
+  location: any,
 }) => {
   if (error) {
     return <Error />;
@@ -291,7 +307,7 @@ const PlayerHeader = ({
     );
   }
 
-  let badgeStyle = {
+  let badgeStyle: React.CSSProperties = {
     fontSize: 20,
     top: 5,
     left: 40,
@@ -318,7 +334,7 @@ const PlayerHeader = ({
         <div className="topContainer">
           <div className="imageContainer">
             <Badge
-              badgeContent={getRegistrationBadge(registered, strings)}
+              badgeContent={<RegisteredBadge registered={registered} />}
               badgeStyle={badgeStyle}
               style={{
                 margin: 0,
@@ -347,13 +363,11 @@ const PlayerHeader = ({
             />
             <PlayerButtons
               playerId={playerId}
-              playerSoloCompetitiveRank={playerSoloCompetitiveRank}
-              compact={!small}
             />
           </div>
           <div style={{ display: 'flex' }}>
-            {getDotaPlusBadge(plus, strings)}
-            {getRankTierMedal(rankTier, leaderboardRank)}
+            <DotaPlusBadge plus={plus} />
+            <RankTierMedal rankTier={rankTier} leaderboardRank={leaderboardRank} />
           </div>
         </div>
       </div>
@@ -361,25 +375,7 @@ const PlayerHeader = ({
   );
 };
 
-PlayerHeader.propTypes = {
-  playerName: PropTypes.string,
-  officialPlayerName: PropTypes.string,
-  playerId: PropTypes.string,
-  picture: PropTypes.string,
-  registered: PropTypes.string,
-  plus: PropTypes.string,
-  loading: PropTypes.bool,
-  error: PropTypes.string,
-  small: PropTypes.bool,
-  playerSoloCompetitiveRank: PropTypes.number,
-  loggedInUser: PropTypes.shape({}),
-  rankTier: PropTypes.number,
-  leaderboardRank: PropTypes.number,
-  strings: PropTypes.shape({}),
-  location: PropTypes.shape({}),
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   loading: state.app.player.loading,
   error: state.app.player.error,
   playerName: (state.app.player.data.profile || {}).personaname,
@@ -392,7 +388,6 @@ const mapStateToProps = (state) => ({
   loggedInUser: state.app.metadata.data.user,
   rankTier: state.app.player.data.rank_tier,
   leaderboardRank: state.app.player.data.leaderboard_rank,
-  strings: state.app.strings,
 });
 
 export default connect(mapStateToProps)(PlayerHeader);

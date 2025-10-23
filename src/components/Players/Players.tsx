@@ -5,7 +5,7 @@ import { getOrdinal, transformations } from '../../utility';
 import { getPlayers } from '../../actions';
 import Heading from '../Heading';
 import Table, { TableLink } from '../Table';
-import { getRankTierMedal } from '../Player/Header/PlayerHeader';
+import { RankTierMedal } from '../Player/Header/PlayerHeader';
 
 const columns = (strings: Strings) => [
   {
@@ -28,7 +28,7 @@ const columns = (strings: Strings) => [
     field: 'rank_tier',
     sortFn: true,
     displayFn: (row: any, col: number, field: any) => (
-      <div style={{ zoom: 0.5 }}>{getRankTierMedal(field)}</div>
+      <div style={{ zoom: 0.5 }}>{<RankTierMedal rankTier={field} leaderboardRank={row.leaderboard_rank} />}</div>
     ),
   },
   {

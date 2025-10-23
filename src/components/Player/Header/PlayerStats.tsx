@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import ActionHelp from 'material-ui/svg-icons/action/help';
 import styled from 'styled-components';
@@ -8,6 +7,7 @@ import Error from '../../Error/Error';
 import PlayedWith from './PlayedWith';
 import { PlayerStatsCard } from './Styled';
 import constants from '../../constants';
+import useStrings from '../../../hooks/useStrings.hook';
 
 const Styled = styled.div`
   .container {
@@ -62,8 +62,16 @@ export const PlayerStatsCards = ({
   compact,
   playerId,
   loggedInId,
-  strings,
+}: {
+  loading: boolean,
+  error: boolean,
+  wins: number,
+  losses: number,
+  compact: boolean,
+  playerId: string,
+  loggedInId: string,
 }) => {
+  const strings = useStrings();
   if (error) {
     return <Error />;
   }
@@ -73,7 +81,7 @@ export const PlayerStatsCards = ({
   return (
     <Styled>
       <div className="container">
-        <div style={{ textAlign: compact ? 'center' : '' }}>
+        <div style={{ textAlign: compact ? 'center' : '' } as React.CSSProperties}>
           <PlayerStatsCard
             subtitle={<div className="textSuccess">{wins}</div>}
             title={strings.th_wins}
@@ -97,20 +105,7 @@ export const PlayerStatsCards = ({
   );
 };
 
-const { number, bool, shape, string } = PropTypes;
-
-PlayerStatsCards.propTypes = {
-  loading: bool,
-  error: bool,
-  wins: number,
-  losses: number,
-  compact: bool,
-  playerId: string,
-  loggedInId: string,
-  strings: shape({}),
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   loading: state.app.playerWinLoss.loading,
   error: state.app.player.error,
   wins: state.app.playerWinLoss.data.win,

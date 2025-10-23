@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Box } from '@mui/material';
 import { Button } from '@mui/material';
@@ -35,12 +34,13 @@ const Styled = styled.div`
     }
   }
 `;
-class PlayerButtons extends React.Component {
-  static propTypes = {
-    playerId: PropTypes.string,
-    strings: PropTypes.shape({}),
-  };
 
+type PlayerButtonsProps = {
+  playerId: string,
+  strings: Strings,
+}
+
+class PlayerButtons extends React.Component<PlayerButtonsProps, { disableRefresh: boolean }> {
   state = { disableRefresh: false };
 
   render() {
@@ -67,12 +67,12 @@ class PlayerButtons extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   showForm: state.app.form.show,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: any) => ({
   toggleShowForm: () => dispatch(toggleShowFormAction('tableFilter')),
 });
 

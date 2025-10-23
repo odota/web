@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import querystring from 'querystring';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -8,10 +7,10 @@ import constants from '../../constants';
 import config from '../../../config';
 import { paramsWithTurbo } from '../../../utility.js';
 
-const shouldShow = (props) =>
+const shouldShow = (props: PlayedWithProps) =>
   props.loggedInId && props.loggedInId !== props.playerId;
 
-const getData = (props, context) => {
+const getData = (props: PlayedWithProps, context: any) => {
   if (shouldShow(props)) {
     const params = { included_account_id: props.playerId };
     fetch(
@@ -24,22 +23,22 @@ const getData = (props, context) => {
 
 const inlineStyle = { display: 'inline' };
 
-class PlayedWith extends React.Component {
-  static propTypes = {
-    playerId: PropTypes.string,
-    loggedInId: PropTypes.string,
-    strings: PropTypes.shape({}),
-  };
+type PlayedWithProps = {
+  playerId: string,
+  loggedInId: string,
+  strings: Strings,
+};
 
-  constructor() {
-    super();
-    this.state = {};
+class PlayedWith extends React.Component<PlayedWithProps, { win: number, lose: number }> {
+  constructor(props: PlayedWithProps) {
+    super(props);
   }
 
   componentDidMount() {
     getData(this.props, this);
   }
-  componentDidUpdate(prevProps) {
+
+  componentDidUpdate(prevProps: PlayedWithProps) {
     if (this.props.playerId !== prevProps.playerId) {
       getData(this.props, this);
     }
@@ -78,7 +77,7 @@ class PlayedWith extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 
