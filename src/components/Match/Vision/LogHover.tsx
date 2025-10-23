@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { gameCoordToUV, getWardSize } from '../../../utility';
 import DotaMap from '../../DotaMap';
@@ -55,7 +54,7 @@ const Styled = styled.div`
   }
 `;
 
-const wardStyle = (width, log) => {
+const wardStyle = (width: number, log: any) => {
   const gamePos = gameCoordToUV(log.entered.x, log.entered.y);
   const stroke =
     log.entered.player_slot < 5 ? constants.colorGreen : constants.colorRed;
@@ -88,15 +87,16 @@ const wardStyle = (width, log) => {
   };
 };
 
-const wardIcon = (log) => {
+const wardIcon = (log: any) => {
   const side = log.entered.player_slot < 5 ? 'goodguys' : 'badguys';
   return `/assets/images/dota2/map/${side}_${log.type}.png`;
 };
 
-export const WardPin = ({ width, log }) => {
+export const WardPin = ({ width, log }: { width: number, log: any }) => {
   const id = `ward-${log.entered.player_slot}-${log.entered.time}`;
   return (
     <Styled>
+      {/*@ts-expect-error*/}
       <div style={wardStyle(width, log)} data-tip data-for={id}>
         <img src={wardIcon(log)} alt={log.type === 'observer' ? 'O' : 'S'} />
       </div>
@@ -104,12 +104,8 @@ export const WardPin = ({ width, log }) => {
   );
 };
 
-WardPin.propTypes = {
-  width: PropTypes.number,
-  log: PropTypes.shape({}),
-};
-
-const LogHover = (ward, startTime) => (
+const LogHover = (ward: any, startTime: number) => (
+  //@ts-expect-error
   <div style={hoverMapStyle}>
     <DotaMap maxWidth={300} width={300} startTime={startTime}>
       <WardPin key={ward.key} width={300} log={ward} />

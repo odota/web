@@ -79,10 +79,12 @@ type Match = {
   chat: any[],
   radiant_gold_adv: number[],
   radiant_xp_adv: number[],
+  wards_log: any[],
 };
 
 type MatchPlayer = {
   hero_id: keyof Heroes,
+  hero_name: string,
   account_id: number,
   killed: Record<string, any>,
   killed_by: Record<string, any>,
@@ -125,3 +127,5 @@ type RouterProps = {
   },
   history: import('history').History,
 }
+
+type WardType = 'observer' | 'sentry';

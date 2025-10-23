@@ -1,11 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
 import Table from '../../Table';
 import Heading from '../../Heading';
 
 import PlayerThumb from '../PlayerThumb';
 import config from '../../../config';
+import { VisionState } from '.';
 
 const data = [
   {
@@ -30,27 +30,21 @@ const data = [
   },
 ];
 
-class VisionFilter extends React.Component {
-  static propTypes = {
-    match: PropTypes.shape({
-      players: PropTypes.arrayOf({}),
-    }),
-    parent: PropTypes.shape({
-      state: PropTypes.shape({
-        players: PropTypes.arrayOf({}),
-        teams: PropTypes.arrayOf({}),
-      }),
-      setPlayer: PropTypes.func,
-      teams: PropTypes.arrayOf({}),
-      setTeam: PropTypes.func,
-      setTypeWard: PropTypes.func,
-      checkedTypeWard: PropTypes.func,
-      onCheckAllWardsTeam: PropTypes.func,
-    }),
-    strings: PropTypes.shape({}),
-  };
+type VisionFilterProps = {
+  match:Match,
+  parent: {
+    state: VisionState,
+    setPlayer: Function,
+    setTeam: Function,
+    setTypeWard: Function,
+    checkedTypeWard: Function,
+    onCheckAllWardsTeam: Function,
+  },
+  strings: Strings,
+};
 
-  columns(index) {
+class VisionFilter extends React.Component<VisionFilterProps> {
+  columns(index: number) {
     const { teams } = this.props.parent.state;
     const { strings } = this.props;
     return [
@@ -66,7 +60,7 @@ class VisionFilter extends React.Component {
             }}
           />
         ),
-        displayFn: (row) => row.image,
+        displayFn: (row: any) => row.image,
       },
       this.playerColumn(0 + index),
       this.playerColumn(1 + index),
@@ -75,7 +69,7 @@ class VisionFilter extends React.Component {
       this.playerColumn(4 + index),
       {
         displayName: strings.chat_filter_all,
-        displayFn: (row) => (
+        displayFn: (row: any) => (
           <Checkbox
             checked={this.props.parent.checkedTypeWard(index, row.type)}
             onCheck={() => {
@@ -87,14 +81,14 @@ class VisionFilter extends React.Component {
     ];
   }
 
-  playerColumn(playerNumber) {
+  playerColumn(playerNumber: number) {
     return {
       displayName: (
         <PlayerThumb {...this.props.match.players[playerNumber]} hideText />
       ),
-      displayFn: (row) => (
+      displayFn: (row: any) => (
         <Checkbox
-          checked={this.props.parent.state.players[row.type][playerNumber]}
+          checked={this.props.parent.state.players[row.type as WardType][playerNumber]}
           onCheck={(event, checked) => {
             this.props.parent.setPlayer(playerNumber, row.type, checked);
           }}

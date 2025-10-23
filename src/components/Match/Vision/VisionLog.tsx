@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { threshold, formatSeconds } from '../../../utility';
 import Table from '../../Table';
@@ -8,6 +7,7 @@ import mcs from '../matchColumns';
 import constants from '../../constants';
 import LogHover from './LogHover';
 import config from '../../../config';
+import useStrings from '../../../hooks/useStrings.hook';
 
 const Styled = styled.div`
   display: inline-block;
@@ -43,7 +43,7 @@ const durationSentryColor = threshold(
   [constants.colorRed, constants.colorYelor, constants.colorGreen],
 );
 
-const columns = (strings) => {
+const columns = (strings: Strings) => {
   const { heroTdColumn } = mcs(strings);
   return [
     {
@@ -84,7 +84,7 @@ const columns = (strings) => {
   ];
 };
 
-function logWard(log, startTime) {
+function logWard(log: any, startTime: number) {
   return (
     <Styled>
       <div className="minimap">
@@ -99,7 +99,7 @@ function logWard(log, startTime) {
   );
 }
 
-const generateData = (match, strings) => (log) => {
+const generateData = (match: Match, strings: Strings) => (log: any) => {
   const { heroTd } = mcs(strings);
 
   const duration =
@@ -144,20 +144,15 @@ const generateData = (match, strings) => (log) => {
   };
 };
 
-const VisionLog = ({ match, wards, strings }) => (
-  <div>
+const VisionLog = ({ match, wards }: { match: Match, wards: any[] }) => {
+  const strings = useStrings();
+  return <div>
     <Heading title={strings.vision_ward_log} />
     <Table
       data={wards.map(generateData(match, strings))}
       columns={columns(strings)}
     />
-  </div>
-);
-
-VisionLog.propTypes = {
-  match: PropTypes.shape({}),
-  wards: PropTypes.arrayOf({}),
-  strings: PropTypes.shape({}),
+  </div>;
 };
 
 export default VisionLog;

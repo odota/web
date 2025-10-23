@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import Slider from 'material-ui/Slider';
 import rangeStep from 'lodash/fp/rangeStep';
 import debounce from 'lodash/fp/debounce';
@@ -86,7 +85,7 @@ const Styled = styled.div`
   }
 `;
 /* eslint-disable jsx-a11y/anchor-is-valid */
-const SliderTicks = ({ ticks, onTickClick, value, min, max }) => (
+const SliderTicks = ({ ticks, onTickClick, value = 0, min, max }: { ticks: number[], onTickClick: Function, value?: number, min: number, max: number }) => (
   <Styled>
     <div className="sliderTicks">
       {ticks.map((tick) => {
@@ -115,33 +114,26 @@ const SliderTicks = ({ ticks, onTickClick, value, min, max }) => (
   </Styled>
 );
 
-SliderTicks.propTypes = {
-  value: PropTypes.shape({}),
-  ticks: PropTypes.arrayOf({}),
-  onTickClick: PropTypes.func,
-  min: PropTypes.number,
-  max: PropTypes.number,
-};
-
-const alive = (ward, time) =>
+const alive = (ward: any, time = 0) =>
   time === -90 ||
   (time > ward.entered.time && (!ward.left || time < ward.left.time));
 // const team = (ward, teams) => (teams.radiant && ward.player < 5) || (teams.dire && ward.player > 4);
 // Currently always return true for team since we're just using it as a mass select-deselect
 // const isTeam = () => true;
 
-class Vision extends React.Component {
-  static propTypes = {
-    match: PropTypes.shape({
-      duration: PropTypes.number,
-      wards_log: PropTypes.arrayOf({}),
-    }),
-    strings: PropTypes.shape({}),
-    sponsorIcon: PropTypes.string,
-    sponsorURL: PropTypes.string,
-  };
+type VisionProps = {
+  match: Match,
+  strings: Strings,
+};
 
-  constructor(props) {
+export type VisionState = { players: { observer: boolean[], sentry: boolean[] }, teams: Record<string, any>, currentTick?: number };
+
+class Vision extends React.Component<VisionProps, VisionState> {
+  sliderMin: number;
+  sliderMax: number;
+  ticks: number[];
+  handleViewportChange: Function;
+  constructor(props: VisionProps) {
     super(props);
 
     this.sliderMin = -90;
@@ -163,16 +155,16 @@ class Vision extends React.Component {
     this.handleViewportChange = debounce(50, this.viewportChange);
   }
 
-  onCheckAllWardsTeam(index, end) {
+  onCheckAllWardsTeam(index: number, end: number) {
     const { players } = this.state;
-    const [observer, sentry] = ['observer', 'sentry'];
+    const [observer, sentry]: (WardType)[] = ['observer', 'sentry'];
     const allWardsTeam = players[observer]
       .slice(index, end)
       .concat(players[sentry].slice(index, end));
     return !(allWardsTeam.indexOf(true) === -1);
   }
 
-  setPlayer(player, type, value) {
+  setPlayer(player: number, type: WardType, value: boolean) {
     const { players } = this.state;
     const newArray = players[type];
     newArray[player] = value;
@@ -189,7 +181,7 @@ class Vision extends React.Component {
     });
   }
 
-  setTeam(team, value) {
+  setTeam(team: string, value: boolean) {
     const start = team === 'radiant' ? 0 : 5;
     const end = start + 5;
     const newPlayerObs = this.state.players.observer;
@@ -206,7 +198,7 @@ class Vision extends React.Component {
     this.setState(newState);
   }
 
-  setTypeWard(index, ward) {
+  setTypeWard(index: number, ward: WardType) {
     const { players } = this.state;
     const end = index + 5;
     const checked = players[ward].slice(index, end).indexOf(true) !== -1;
@@ -225,7 +217,7 @@ class Vision extends React.Component {
     this.setState(newState);
   }
 
-  checkedTypeWard(index, ward) {
+  checkedTypeWard(index: number, ward: WardType) {
     return (
       this.state.players[ward].slice(index, index + 5).indexOf(true) !== -1
     );
@@ -236,37 +228,37 @@ class Vision extends React.Component {
     return rangeStep(interval, 0, this.sliderMax);
   }
 
-  viewportChange(value) {
+  viewportChange(value: number) {
     this.setState({ ...this.state, currentTick: value });
   }
 
   visibleData() {
     const self = this;
-    const filter = (ward) =>
+    const filter = (ward: any) =>
       alive(ward, self.state.currentTick) &&
-      self.state.players[ward.type][ward.player];
+      self.state.players[ward.type as WardType][ward.player];
 
     return this.props.match.wards_log.filter(filter);
   }
 
   render() {
     const visibleWards = this.visibleData();
-    const { match, strings, sponsorIcon, sponsorURL } = this.props;
+    const { match, strings } = this.props;
 
     return (
       <div>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ margin: '10px', flexGrow: '1' }}>
-            <VisionMap match={match} wards={visibleWards} strings={strings} />
+            <VisionMap match={match} wards={visibleWards} />
           </div>
           <div style={{ flexGrow: '2' }}>
-            <Heading
+            {/* <Heading
               buttonLabel={
                 config.VITE_ENABLE_GOSUAI ? strings.gosu_vision : null
               }
               buttonTo={`${sponsorURL}Vision`}
               buttonIcon={sponsorIcon}
-            />
+            /> */}
             <div className="visionSliderText">
               {this.state.currentTick === -90
                 ? strings.vision_all_time
@@ -276,7 +268,7 @@ class Vision extends React.Component {
               value={this.state.currentTick}
               min={this.sliderMin}
               max={this.sliderMax}
-              onTickClick={(tick) => this.handleViewportChange(tick)}
+              onTickClick={(tick: any) => this.handleViewportChange(tick)}
               ticks={this.ticks}
             />
             <Slider
@@ -290,14 +282,14 @@ class Vision extends React.Component {
             <VisionFilter match={match} parent={this} strings={strings} />
           </div>
         </div>
-        <VisionItems match={match} strings={strings} />
-        <VisionLog match={match} wards={visibleWards} strings={strings} />
+        <VisionItems match={match}/>
+        <VisionLog match={match} wards={visibleWards} />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 

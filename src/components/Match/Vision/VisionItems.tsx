@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import TeamTable from '../TeamTable';
 import mcs from '../matchColumns';
+import useStrings from '../../../hooks/useStrings.hook';
 
-const VisionItems = ({ match, strings }) => {
+const VisionItems = ({ match }: { match: Match }) => {
+  const strings = useStrings();
   const { visionColumns } = mcs(strings);
   return (
     <TeamTable
@@ -15,11 +16,6 @@ const VisionItems = ({ match, strings }) => {
       radiantWin={match.radiant_win}
     />
   );
-};
-
-VisionItems.propTypes = {
-  match: PropTypes.shape({}),
-  strings: PropTypes.shape({}),
 };
 
 export default VisionItems;
