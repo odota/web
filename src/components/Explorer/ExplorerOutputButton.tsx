@@ -1,5 +1,5 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Button } from '@mui/material';
 
 const ExplorerOutputButton = ({
   defaultSelected,
@@ -32,19 +32,12 @@ const ExplorerOutputButton = ({
     clickFn = (noOp: any) => noOp;
   }
   return (
-    <RaisedButton
-      secondary={
-        Boolean(format &&
-        ((defaultSelected && !context.state.builder.format) ||
-          context.state.builder.format === format))
-      }
+    <Button
       style={{ margin: '5px' }}
-      label={label}
-      href={href}
-      //@ts-expect-error
+      href={href ?? ''}
       download={download}
       onClick={clickFn}
-    />
+    >{label}</Button>
   );
 };
 

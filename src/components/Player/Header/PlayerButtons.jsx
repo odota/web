@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Box } from '@mui/material';
-import FlatButton from 'material-ui/FlatButton';
+import { Button } from '@mui/material';
 import ActionUpdate from 'material-ui/svg-icons/navigation/refresh';
 import styled from 'styled-components';
 import { toggleShowForm as toggleShowFormAction } from '../../../actions/formActions';
@@ -48,8 +48,8 @@ class PlayerButtons extends React.Component {
     return (
       <Styled>
         <div data-hint={strings.app_refresh} data-hint-position="top">
-          <FlatButton
-            icon={<ActionUpdate />}
+          <Button
+            startIcon={<ActionUpdate />}
             disabled={this.state.disableRefresh}
             onClick={() => {
               fetch(`${config.VITE_API_HOST}/api/players/${playerId}/refresh`, {
@@ -57,8 +57,7 @@ class PlayerButtons extends React.Component {
               });
               this.setState({ disableRefresh: true });
             }}
-            label={strings.app_refresh_label}
-          />
+          >{strings.app_refresh_label}</Button>
         </div>
         <Box ml="16px">
           <GamemodeToggle />

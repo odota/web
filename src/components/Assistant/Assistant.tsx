@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import Heading from '../Heading';
-import IconButton from 'material-ui/IconButton';
+import { IconButton } from '@mui/material';
 import Mic from 'material-ui/svg-icons/av/mic';
 
 // Test
@@ -226,11 +226,11 @@ class Assistant extends React.Component<
                 height: 240,
                 padding: 60,
               }}
-              iconStyle={{
-                width: 120,
-                height: 120,
-                color: this.state.listening ? '#66cc00' : '#ffffff',
-              }}
+              // iconStyle={{
+              //   width: 120,
+              //   height: 120,
+              //   color: this.state.listening ? '#66cc00' : '#ffffff',
+              // }}
               onClick={() => {
                 this.setState(
                   { listening: true, recognizedSpeech: '', responseSpeech: '' },

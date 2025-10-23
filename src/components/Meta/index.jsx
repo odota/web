@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Button } from '@mui/material';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
@@ -202,18 +202,14 @@ class Explorer extends React.Component {
           {/* <ExplorerFormField label={strings.explorer_limit} fields={expandedFields} builderField="limit" handleFieldUpdate={handleFieldUpdate} builder={builder} /> */}
         </ExplorerControlSection>
         <div>
-          <RaisedButton
-            primary={!this.state.loading}
-            secondary={this.state.loading}
-            style={{ margin: '5px' }}
-            icon={!this.state.loading ? <ActionSearch /> : null}
-            label={
+          <Button
+            // icon={!this.state.loading ? <ActionSearch /> : null}
+            onClick={this.state.loading ? handleCancel : handleQuery}
+          >{
               this.state.loading
                 ? strings.explorer_cancel_button
                 : strings.explorer_query_button
-            }
-            onClick={this.state.loading ? handleCancel : handleQuery}
-          />
+            }</Button>
         </div>
         <Heading
           title={strings.explorer_results}

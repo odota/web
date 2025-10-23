@@ -1,5 +1,4 @@
 import React from 'react';
-import FlatButton from 'material-ui/FlatButton';
 import { formatTemplateToString, getTeamLogoUrl } from '../../utility';
 import {
   HeaderContainer,
@@ -33,9 +32,9 @@ export default (generalData, strings) => (
           subtitle={Math.floor(generalData.data.rating)}
         />
       </Row>
-      <Row>
+      {/* <Row>
         {config.VITE_ENABLE_RIVALRY && (
-          <FlatButton
+          <Button
             label={formatTemplateToString(
               strings.app_rivalry_team,
               generalData.data.name,
@@ -52,7 +51,7 @@ export default (generalData, strings) => (
             rel="noopener noreferrer"
           />
         )}
-      </Row>
+      </Row> */}
     </Column>
   </HeaderContainer>
 );

@@ -51,49 +51,4 @@ export const BottomTextDiv = styled.div`
   font-weight: ${constants.fontWeightLight};
   text-align: right;
 `;
-export const ButtonsDiv = styled.div`
-  margin-bottom: 30px;
 
-  & .bottomButtons {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-  }
-
-  & a {
-    background-color: ${constants.defaultPrimaryColor} !important;
-    border: 2px solid ${constants.textColorPrimary} !important;
-    padding: 3px 6px !important;
-    height: auto !important;
-    margin: 10px 5px !important;
-
-    @media only screen and (max-width: 375px) {
-      line-height: 20px !important;
-    }
-
-    &:hover {
-      background-color: ${constants.colorSuccess} !important;
-    }
-
-    & .label {
-      font-weight: ${constants.fontWeightLight};
-      font-size: ${constants.fontSizeCommon};
-
-      & b {
-        font-size: 18px;
-        font-weight: ${constants.fontWeightMedium};
-      }
-    }
-  }
-
-  & span {
-    text-transform: none !important;
-  }
-
-  & svg {
-    width: 20px;
-    height: 20px;
-    fill: ${constants.textColorPrimary};
-    vertical-align: sub !important;
-  }
-`;

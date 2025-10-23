@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import FlatButton from 'material-ui/FlatButton';
+import { Button } from '@mui/material';
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import constants from '../../constants';
@@ -54,7 +54,7 @@ const pageStyle = `
     margin: 0 1px !important; 
   }
 `;
-const StyledPage = styled(FlatButton)`
+const StyledPage = styled(Button)`
   ${pageStyle}
 `;
 const arrowStyle = `
@@ -63,7 +63,7 @@ const arrowStyle = `
   /* Override material-ui */
   color:${constants.colorYelor} !important;
   padding: 0 !important;`;
-const StyledArrowButton = styled(FlatButton)`
+const StyledArrowButton = styled(Button)`
   min-width: 20px !important;
   ${arrowStyle}
 `;
@@ -73,7 +73,7 @@ const StyledPrev = styled(Prev)`
 const StyledNext = styled(Next)`
   ${arrowStyle}
 `;
-const StyledCurrentPage = styled(FlatButton)`
+const StyledCurrentPage = styled(Button)`
   ${pageStyle}
 
   /* Override material-ui */

@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Buttons from './Buttons';
 import Why from './Why';
 import Sponsors from './Sponsors';
@@ -9,14 +8,16 @@ import {
   DescriptionDiv,
   BottomTextDiv,
 } from './Styled';
+import useStrings from '../../hooks/useStrings.hook';
 
 export interface HomePageProps {
   user?: string;
-  strings: { [key: string]: string };
+  strings: Strings;
 }
 
-const Home = ({ strings }: HomePageProps) => (
-  <div>
+const Home = () => {
+  const strings = useStrings();
+  return <div>
     <HeadContainerDiv>
       <HeadlineDiv>
         <h1>{strings.app_name}</h1>
@@ -41,12 +42,7 @@ const Home = ({ strings }: HomePageProps) => (
         Mike Azevedo
       </a>
     </BottomTextDiv>
-  </div>
-);
+  </div>;
+};
 
-const mapStateToProps = (state: any) => ({
-  content: state.content,
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(Home);
+export default Home;

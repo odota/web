@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Button } from '@mui/material';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
@@ -87,19 +87,15 @@ const Announce = ({
       {body && <ReactMarkdown source={body} />}
     </main>
     <aside>
-      <RaisedButton
-        backgroundColor={constants.colorBlue}
+      <Button
         href={link}
         target="_blank"
-        label={strings.announce_github_more}
-      />
+      >{strings.announce_github_more}</Button>
     </aside>
     <aside>
-      <RaisedButton
-        backgroundColor={constants.colorBlue}
+      <Button
         onClick={onClick}
-        label={strings.announce_dismiss}
-      />
+      >{strings.announce_dismiss}</Button>
     </aside>
   </StyledDiv>;
 };

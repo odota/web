@@ -2,7 +2,7 @@ import React from 'react';
 import { Tooltip } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { StyledDiv, TwoLineDiv } from './Styled';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Button } from '@mui/material';
 import useStrings from '../../hooks/useStrings.hook';
 
 const Heading = ({
@@ -49,15 +49,12 @@ const Heading = ({
       {winner && <span className="winner">{strings.th_winner}</span>}
       {buttonLabel && buttonTo && buttonIcon ? (
         <span className="sponsor-button">
-          <RaisedButton
-            label={buttonLabel}
-            icon={<img src={buttonIcon} alt="" />}
+          <Button
+            startIcon={<img src={buttonIcon} alt="" />}
             href={buttonTo}
             target="_blank"
-            //@ts-expect-error
             rel="noopener noreferrer"
-            primary
-          />
+          >{buttonLabel}</Button>
         </span>
       ) : (
         <div />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import FlatButton from 'material-ui/FlatButton';
+import { Button } from '@mui/material';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { heroSelector } from '../../reducers/selectors';
@@ -24,12 +24,6 @@ const HeroBlock = styled.div`
 
 const HeroFooter = styled.div`
   text-align: center;
-`;
-
-const HeroDetailsButton = styled(FlatButton)`
-  border: 1px solid rgba(0, 0, 0, 0.35) !important;
-  margin: 8px auto !important;
-  padding: 0 12px !important;
 `;
 
 const TabsBlock = styled.div`
@@ -192,14 +186,14 @@ class Hero extends React.Component<HeroProps> {
         <HeroBlock>
           <Header hero={hero} />
           <HeroFooter>
-            <HeroDetailsButton
-              type="button"
+            <Button
+              variant="outlined"
               onClick={this.toggleDetailVisibility}
             >
               {this.state.detailsOpen
                 ? strings.hide_details
                 : strings.show_details}
-            </HeroDetailsButton>
+            </Button>
           </HeroFooter>
           {this.state.detailsOpen && <AttributesBlock hero={hero} />}
         </HeroBlock>

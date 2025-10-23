@@ -1,8 +1,7 @@
 import React from 'react';
-import FlatButton from 'material-ui/FlatButton';
+import { Button } from '@mui/material';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { ButtonsDiv } from './Styled';
 import config from '../../config';
 
 import { HomePageProps } from './Home';
@@ -83,14 +82,11 @@ const Sponsors = ({ strings }: HomePageProps) => (
         </a>
       )}
     </div>
-    <ButtonsDiv>
-      <FlatButton
-        label={
-          <span style={{ fontWeight: 300 }}>{strings.home_become_sponsor}</span>
-        }
+    <div>
+      <Button
         href="mailto:sponsor@opendota.com"
-      />
-    </ButtonsDiv>
+      >{strings.home_become_sponsor}</Button>
+    </div>
   </StyledDiv>
 );
 

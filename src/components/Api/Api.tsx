@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import CircularProgress from 'material-ui/CircularProgress';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Button } from '@mui/material';
 import styled from 'styled-components';
 import StripeCheckout, { Token } from 'react-stripe-checkout';
 import config from '../../config';
+import { IconSteam } from '../Icons';
 
 const path = '/keys';
 
@@ -197,12 +198,12 @@ class KeyManagement extends React.Component<
           ) : (
             <div>
               {showLoginButton ? (
-                <RaisedButton
-                  primary
+                <Button
+                variant="contained"
+                startIcon={<IconSteam />}
                   href={`${config.VITE_API_HOST}/login`}
-                  label={strings.api_login}
                   style={{ margin: '5px 5px' }}
-                />
+                >{strings.api_login}</Button>
               ) : (
                 <div />
               )}
@@ -216,21 +217,19 @@ class KeyManagement extends React.Component<
                   zipCode
                   locale="auto"
                 >
-                  <RaisedButton
-                    primary
-                    label={strings.api_get_key}
+                  <Button
+                    variant="contained"
                     style={{ margin: '5px 5px' }}
-                  />
+                  >{strings.api_get_key}</Button>
                 </StripeCheckout>
               ) : (
                 <span />
               )}
-              <RaisedButton
+              <Button
                 href="//docs.opendota.com"
                 target="_blank"
-                label={strings.api_docs}
                 style={{ margin: '5px 5px' }}
-              />
+              >{strings.api_docs}</Button>
               {this.state.customer ? (
                 <div>
                   {this.state.customer.api_key ? (
@@ -269,11 +268,11 @@ class KeyManagement extends React.Component<
                           'api@opendota.com',
                         )}
                       </p>
-                      <RaisedButton
-                        label={strings.api_delete}
+                      <Button
+                        variant="contained"
                         style={{ margin: '5px 5px' }}
                         onClick={this.handleDelete}
-                      />
+                      >{strings.api_delete}</Button>
                       <StripeCheckout
                         name="OpenDota"
                         description={strings.api_title}
@@ -283,10 +282,10 @@ class KeyManagement extends React.Component<
                         zipCode
                         locale="auto"
                       >
-                        <RaisedButton
-                          label={strings.api_update_billing}
+                        <Button
+                          variant="contained"
                           style={{ margin: '5px 5px' }}
-                        />
+                        >{strings.api_update_billing}</Button>
                       </StripeCheckout>
                     </div>
                   ) : (

@@ -1,41 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import FlatButton from 'material-ui/FlatButton';
+import { Button } from '@mui/material';
 import { connect } from 'react-redux';
 import { IconSteam } from '../Icons';
-import { ButtonsDiv } from './Styled';
 import config from '../../config';
 
 import { HomePageProps } from './Home';
 
 const Buttons = ({ user, strings }: HomePageProps) => (
-  <ButtonsDiv>
+  <div>
     {!user && (
       <div>
-        <FlatButton
-          label={
-            <span className="label">
-              <b>{strings.home_login}</b> {strings.home_login_desc}
-            </span>
-          }
-          icon={<IconSteam />}
+        <Button
+          variant="contained"
+          startIcon={<IconSteam />}
           href={`${config.VITE_API_HOST}/login`}
-        />
+        >
+          {strings.home_login}
+        </Button>
       </div>
     )}
-    <div className="bottomButtons">
-      <div>
-        <FlatButton
-          label={
-            <span className="label">
-              <b>{strings.home_parse}</b> {strings.home_parse_desc}
-            </span>
-          }
-          containerElement={<Link to="/request">{strings.home_parse}</Link>}
-        />
-      </div>
-    </div>
-  </ButtonsDiv>
+  </div>
 );
 
 const mapStateToProps = (state: any) => {

@@ -256,6 +256,11 @@ const Header = ({ location, disableSearch }: { location: any, disableSearch?: bo
 
   const navbarPages = [
     {
+      key: 'header_request',
+      to: '/request',
+      label: strings.header_request,
+    },
+    {
       key: 'header_matches',
       to: '/matches',
       label: strings.header_matches,

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import FlatButton from 'material-ui/FlatButton';
+import { Button } from '@mui/material';
 import styled from 'styled-components';
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
 import ActionFingerprint from 'material-ui/svg-icons/action/fingerprint';
@@ -344,17 +344,15 @@ const MatchHeader = ({ match, strings }) => {
             )}
             <li>
               <span>{strings.match_id}</span>
-              <FlatButton
-                label={match.match_id}
-                className="copy-match-id"
+              <Button
                 onClick={copyMatchId}
-                icon={
+                endIcon={
                   <ContentCopy
                     viewBox="0 -3 30 30"
                     style={{ height: 18, width: 18 }}
                   />
                 }
-              />
+              >{match.match_id}</Button>
             </li>
             <li>
               <span>{strings.match_region}</span>
@@ -367,26 +365,23 @@ const MatchHeader = ({ match, strings }) => {
         <Warning className="unparsed">{strings.tooltip_unparsed}</Warning>
       )}
       <div className="matchButtons">
-        <FlatButton
-          label={
+        <Button
+          startIcon={match.version ? <NavigationRefresh /> : <ActionFingerprint />}
+        ><Link to={`/request#${match.match_id}`}>{
             match.version
               ? strings.match_button_reparse
               : strings.match_button_parse
-          }
-          icon={match.version ? <NavigationRefresh /> : <ActionFingerprint />}
-          containerElement={<Link to={`/request#${match.match_id}`}>r</Link>}
-        />
+          }</Link></Button>
         {match.replay_url && (
-          <FlatButton
-            label={strings.match_button_replay}
-            icon={<FileFileDownload />}
+          <Button
+            startIcon={<FileFileDownload />}
             href={match.replay_url}
             target="_blank"
             rel="noopener noreferrer"
-          />
+          >{strings.match_button_replay}</Button>
         )}
-        {config.VITE_ENABLE_DOTA_COACH && (
-          <FlatButton
+        {/* {config.VITE_ENABLE_DOTA_COACH && (
+          <Button
             label={strings.app_dota_coach_button}
             icon={
               <img
@@ -401,7 +396,7 @@ const MatchHeader = ({ match, strings }) => {
           />
         )}
         {config.VITE_ENABLE_RIVALRY && (
-          <FlatButton
+          <Button
             label={strings.app_rivalry}
             icon={
               <img
@@ -414,7 +409,7 @@ const MatchHeader = ({ match, strings }) => {
             target="_blank"
             rel="noopener noreferrer"
           />
-        )}
+        )} */}
       </div>
     </Styled>
   );

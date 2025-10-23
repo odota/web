@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import FlatButton from 'material-ui/FlatButton';
+import { Button } from '@mui/material';
 import Spinner from '../Spinner';
 import useStrings from '../../hooks/useStrings.hook';
 
-const StyledFlatButton = styled(FlatButton)`
+const StyledButton = styled(Button)`
   min-width: 30px !important;
   & > div > span {
     display: inline-block;
@@ -28,10 +28,9 @@ const LoggedIn = ({ playerId, style }: { playerId: number; style: any }) => {
   }
   return (
     <Link style={style} to={`/players/${playerId}`}>
-      <StyledFlatButton
-        label={strings.app_my_profile}
-        hoverColor="transparent"
-      />
+      <StyledButton>
+       {strings.app_my_profile}
+      </StyledButton>
     </Link>
   );
 };

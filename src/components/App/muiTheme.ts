@@ -5,8 +5,6 @@ const muiTheme = {
   card: { fontWeight: constants.fontWeightNormal },
   badge: { fontWeight: constants.fontWeightNormal },
   subheader: { fontWeight: constants.fontWeightNormal },
-  raisedButton: { fontWeight: constants.fontWeightNormal },
-  flatButton: { fontWeight: constants.fontWeightNormal },
   inkBar: {
     backgroundColor: constants.colorBlue,
   },

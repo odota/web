@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { loadStripe } from '@stripe/stripe-js';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Button } from '@mui/material';
 import { IconSteam } from '../Icons';
 
 import { useStrings } from '../../hooks/useStrings.hook';
@@ -154,27 +154,25 @@ const Subscription = ({ user, isSubscriber }) => {
           {user && isSubscriber && (
             <>
               <h4>{strings.subscriptions_h4}</h4>
-              <RaisedButton
-                primary
+              <Button
+                variant="contained"
                 onClick={handleManage}
-                label={strings.subscriptions_button_manage}
-              />
+              >{strings.subscriptions_button_manage}</Button>
             </>
           )}
           {user && !isSubscriber && (
-            <RaisedButton
-              primary
+            <Button
+              variant="contained"
               onClick={() => handleSubscribe(user)}
-              label={strings.subscriptions_button_subscribe}
-            />
+            >{strings.subscriptions_button_subscribe}</Button>
           )}
           {!user && (
-            <RaisedButton
-              primary
+            <Button
+              variant="contained"
               href={`${config.VITE_API_HOST}/login`}
-              label={strings.subscriptions_button_login}
-              icon={<IconSteam />}
-            />
+              startIcon={<IconSteam />}>
+              {strings.subscriptions_button_login}
+            </Button>
           )}
         </SubRight>
       </SubContainer>

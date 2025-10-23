@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import CircularProgress from 'material-ui/CircularProgress';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Button } from '@mui/material';
 import TextField from 'material-ui/TextField';
 import { postRequest } from '../../actions/requestActions';
 
@@ -54,10 +54,10 @@ class Request extends React.Component {
           {loading ? (
             progressIndicator
           ) : (
-            <RaisedButton
-              label={strings.request_submit}
+            <Button
+              variant="contained"
               onClick={this.handleSubmit}
-            />
+            >{strings.request_submit}</Button>
           )}
         </div>
       </div>

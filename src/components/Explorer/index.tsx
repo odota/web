@@ -1,7 +1,7 @@
 /* global ace */
 import React from 'react';
 import { connect } from 'react-redux';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Button } from '@mui/material';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
@@ -459,33 +459,30 @@ class Explorer extends React.Component<ExplorerProps, { builder: any, loading: b
           />
         </ExplorerControlSection>
         <div>
-          <RaisedButton
-            primary={!this.state.loading}
-            secondary={this.state.loading}
-            style={{ margin: '5px' }}
-            icon={!this.state.loading ? <ActionSearch /> : null}
-            label={
+          <Button
+            variant="contained"
+            // icon={!this.state.loading ? <ActionSearch /> : null}
+            onClick={this.state.loading ? handleCancel : handleQuery}
+            // loading={this.state.loading}
+          >{
               this.state.loading
                 ? strings.explorer_cancel_button
                 : strings.explorer_query_button
-            }
-            onClick={this.state.loading ? handleCancel : handleQuery}
-          />
-          <RaisedButton
-            secondary
+            }</Button>
+          <Button
+            variant="outlined"
             target="_blank"
             style={{ margin: '5px' }}
-            label={strings.explorer_schema}
             href="https://github.com/odota/core/blob/master/sql/create_tables.sql"
-          />
+          >{strings.explorer_schema}</Button>
           <span style={{ float: 'right' }}>
+          {/*
             <ExplorerOutputButton
               defaultSelected
               label={strings.explorer_table_button}
               format="table"
               context={explorer}
             />
-            {/*
           <ExplorerOutputButton label={strings.explorer_donut_button} format="donut" context={explorer} />
           <ExplorerOutputButton label={strings.explorer_bar_button} format="bar" context={explorer} />
           <ExplorerOutputButton label={strings.explorer_timeseries_button} format="timeseries" context={explorer} />

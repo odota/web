@@ -6,7 +6,7 @@ import Schedule from 'material-ui/svg-icons/action/schedule';
 import Grain from 'material-ui/svg-icons/image/grain';
 import { withRouter, Link } from 'react-router-dom';
 import querystring from 'querystring';
-import FlatButton from 'material-ui/FlatButton';
+import { Button } from '@mui/material';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import ScenariosFormField from './ScenariosFormField';
 import getColumns from './ScenariosColumns';
@@ -237,15 +237,14 @@ class Scenarios extends React.Component {
                 ),
               )}
             </div>
-            <FlatButton
+            <Button
+              variant="contained"
               onClick={this.getData}
               style={buttonStyle}
               backgroundColor="rgba(220, 220, 220, 0.05)"
               hoverColor="rgba(220, 220, 220, 0.2)"
-              label={strings.explorer_query_button}
-              icon={<ActionSearch />}
-              primary
-            />
+              // icon={<ActionSearch />}
+            >{strings.explorer_query_button}</Button>
             <Heading
               title={strings.explorer_results}
               subtitle={`${data.filter(minSampleSize).length} ${strings.explorer_num_rows}`}

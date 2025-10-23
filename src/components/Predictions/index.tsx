@@ -3,7 +3,6 @@ import Helmet from 'react-helmet';
 import Table from '../Table';
 import Heading from '../Heading';
 import Warning from '../Alerts/Warning';
-// import RaisedButton from 'material-ui/RaisedButton';
 
 // 60 days before
 const dateCutoff = '2022-08-11T07%3A00%3A00.000Z';
