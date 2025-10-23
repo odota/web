@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const StyledSvg = styled.svg`
@@ -16,8 +15,8 @@ const StyledCircle = styled.circle`
   stroke-dasharray: 38 100;
 `;
 
-const PiePercent = ({ percent, color, negativeColor }) => (
-  <StyledSvg viewBox="0 0 32 32" styles={{ color: negativeColor }}>
+const PiePercent = ({ percent, color, negativeColor }: { percent: number, color: string, negativeColor: string }) => (
+  <StyledSvg viewBox="0 0 32 32" style={{ color: negativeColor }}>
     <StyledCircle
       r="16"
       cx="16"
@@ -27,11 +26,5 @@ const PiePercent = ({ percent, color, negativeColor }) => (
     />
   </StyledSvg>
 );
-
-PiePercent.propTypes = {
-  percent: PropTypes.number,
-  color: PropTypes.string,
-  negativeColor: PropTypes.string,
-};
 
 export default PiePercent;

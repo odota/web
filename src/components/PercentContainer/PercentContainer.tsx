@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import LinearProgress from 'material-ui/LinearProgress';
 import styled from 'styled-components';
-// import PiePercent from '../../PiePercent';
 import { getPercentWin } from '../../utility';
 import constants from '../constants';
 // const getPercentWin = (wins, games) => (games ? Math.ceil(1000 * (wins / games)) / 10 : 0);
@@ -19,7 +17,7 @@ const StyledTextContainer = styled.div`
 `;
 
 // the LinearProgress can be swapped for PiePercent if it turns out people prefer that
-const PercentContainer = ({ wins, games, percent }) => (
+const PercentContainer = ({ wins, games, percent }: { wins: number, games: number, percent: number }) => (
   <StyledPercentContainer>
     <StyledTextContainer>
       {percent || getPercentWin(wins, games).toFixed(1)}
@@ -33,9 +31,3 @@ const PercentContainer = ({ wins, games, percent }) => (
     />
   </StyledPercentContainer>
 );
-
-PercentContainer.propTypes = {
-  wins: PropTypes.number,
-  games: PropTypes.number,
-  percent: PropTypes.number,
-};
