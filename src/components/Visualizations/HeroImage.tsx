@@ -17,7 +17,7 @@ const HeroImage = ({
   style?: any,
   className?: string,
   onClick?: Function,
-  alt: string,
+  alt?: string,
 }) => {
   let imageUrl = heroes[id as unknown as keyof Heroes] && config.VITE_IMAGE_CDN + heroes[id as unknown as keyof Heroes].img;
 

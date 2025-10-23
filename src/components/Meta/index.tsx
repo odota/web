@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button } from '@mui/material';
 import ActionSearch from 'material-ui/svg-icons/action/search';
@@ -14,12 +13,12 @@ import queryTemplate from './queryTemplate';
 import getFields from './fields';
 import config from '../../config';
 
-function jsonResponse(response) {
+function jsonResponse(response: Response) {
   return response.json();
 }
 
-function expandBuilderState(builder, fields) {
-  const expandedBuilder = {};
+function expandBuilderState(builder: Record<string, any>, fields: Record<string, any[]>) {
+  const expandedBuilder: Record<string, any> = {};
   Object.keys(builder).forEach((key) => {
     if (builder[key]) {
       expandedBuilder[key] = (fields[key] || []).find(
@@ -30,13 +29,11 @@ function expandBuilderState(builder, fields) {
   return expandedBuilder;
 }
 
-class Explorer extends React.Component {
-  static propTypes = {
-    strings: PropTypes.shape({}),
-  };
+type MetaProps = { strings: Strings };
 
-  constructor() {
-    super();
+class Meta extends React.Component<MetaProps, { loadingEditor: boolean, loading: boolean, result: any, builder: any, sql: string }> {
+  constructor(props: MetaProps) {
+    super(props);
     const urlState = querystring.parse(window.location.search.substring(1));
     this.state = {
       loadingEditor: true,
@@ -50,7 +47,7 @@ class Explorer extends React.Component {
     this.buildQuery(this.handleQuery);
   }
 
-  buildQuery = (cb) => {
+  buildQuery = (cb?: () => void) => {
     const noOp = () => {};
     const expandedBuilder = expandBuilderState(this.state.builder, getFields());
     this.setState({ sql: queryTemplate(expandedBuilder) }, cb || noOp);
@@ -64,7 +61,7 @@ class Explorer extends React.Component {
     window.stop();
   };
 
-  handleFieldUpdate = (builderField, value) => {
+  handleFieldUpdate = (builderField: string, value: any) => {
     this.setState(
       {
         ...this.state,
@@ -73,7 +70,7 @@ class Explorer extends React.Component {
           [builderField]: value,
         },
       },
-      this.buildQuery,
+      () => this.buildQuery(),
     );
   };
 
@@ -91,7 +88,7 @@ class Explorer extends React.Component {
       .then(this.handleResponse);
   };
 
-  handleResponse = (json) => {
+  handleResponse = (json: any) => {
     this.setState({
       ...this.state,
       loading: false,
@@ -228,10 +225,8 @@ class Explorer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = () => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Explorer);
+export default connect(mapStateToProps)(Meta);

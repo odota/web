@@ -1,4 +1,4 @@
-const queryTemplate = (props) => {
+const queryTemplate = (props: Record<string, any>) => {
   const {
     group,
     minMmr,

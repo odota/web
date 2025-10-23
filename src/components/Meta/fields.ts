@@ -29,7 +29,7 @@ const mmrs = Array(20).fill().map((e, i) => i * 500).map(element => ({
     });
 
   const durations = Array(10)
-    .fill()
+    .fill(undefined)
     .map((e, i) => i * 10)
     .map((duration) => ({
       text: `${formatTemplateToString(strings.time_mm, duration)}`,
@@ -39,7 +39,7 @@ const mmrs = Array(20).fill().map((e, i) => i * 500).map(element => ({
     }));
 
   const having = Array(5)
-    .fill()
+    .fill(undefined)
     .map((e, i) => (i + 1) * 5)
     .map((element) => ({
       text: String(element),
@@ -143,10 +143,10 @@ const mmrs = Array(20).fill().map((e, i) => i * 500).map(element => ({
     minRankTier: rankTiers,
     maxRankTier: rankTiers,
     hero: Object.keys(heroData).map((heroId) => ({
-      text: `[${heroId}] ${heroData[heroId].localized_name}`,
-      searchText: heroData[heroId].localized_name,
-      value: heroData[heroId].id,
-      key: String(heroData[heroId].id),
+      text: `[${heroId}] ${heroData[heroId as keyof Heroes].localized_name}`,
+      searchText: heroData[heroId as keyof Heroes].localized_name,
+      value: heroData[heroId as keyof Heroes].id,
+      key: String(heroData[heroId as keyof Heroes].id),
     })),
     minDuration: durations,
     maxDuration: durations,
