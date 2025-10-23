@@ -5,8 +5,10 @@ import {
   ListItemIcon,
   ListItemText,
   Collapse,
-} from '@material-ui/core';
-import { ExpandMore, ExpandLess, Translate } from '@material-ui/icons';
+} from '@mui/material';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import Translate from '@mui/icons-material/Translate';
 import styled from 'styled-components';
 import { langs } from '../../lang';
 import constants from '../constants';
@@ -40,7 +42,7 @@ const LocalizationMenu = React.forwardRef(() => {
 
   return (
     <div style={{ minWidth: '200px' }}>
-      <StyledListItem button onClick={handleOnClick}>
+      <StyledListItem onClick={handleOnClick}>
         <StyledListItemIcon>
           <Translate />
         </StyledListItemIcon>
@@ -57,7 +59,6 @@ const LocalizationMenu = React.forwardRef(() => {
           <List component="div" disablePadding>
             {langs.map((lang) => (
               <StyledListItem
-                button
                 onClick={() => setLocalization(null, null, lang)}
                 key={lang.value}
               >

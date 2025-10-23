@@ -148,8 +148,8 @@ const HeroFacet = ({
   heroID,
   facet,
 }: {
-  heroID: keyof Heroes;
-  facet: number;
+  heroID?: string;
+  facet?: number;
 }) => {
   const heroAbilities = useHeroAbilities();
 
@@ -161,7 +161,7 @@ const HeroFacet = ({
   }
 
   const selectedFacet =
-    heroAbilities[heroes[heroID].name]?.facets[facet - 1] ?? {};
+    heroAbilities[heroes[heroID as keyof Heroes].name]?.facets[facet - 1] ?? {};
   const { color, gradient_id, icon, name } = selectedFacet;
 
   const imageURL = `${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/icons/facets/${icon}.png`;

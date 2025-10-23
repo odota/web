@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
-import { Tooltip } from '@material-ui/core';
+import { Tooltip } from '@mui/material';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import { player_colors as playerColors } from 'dotaconstants';
 import SocialPerson from 'material-ui/svg-icons/social/person';
@@ -23,13 +22,14 @@ import AttrAgility from '../../Icons/AttrAgility';
 import AttrUniversal from '../../Icons/AttrUniversal';
 import HeroImage from '../HeroImage';
 import HeroFacet from './HeroFacet';
+import useStrings from '../../../hooks/useStrings.hook';
 
 // hero to use as background image in tooltip
 const backgroundMapping = {
-  str: 2, // Axe
-  agi: 47, // Viper
-  int: 10, // Morphling
-  all: 91, // Io
+  str: '2', // Axe
+  agi: '47', // Viper
+  int: '10', // Morphling
+  all: '91', // Io
 };
 
 const Styled = styled.div`
@@ -430,10 +430,38 @@ const expand = {
   left: '-10px',
 };
 
-class TableHeroImage extends React.Component {
+
+type TableHeroImageProps = {
+  parsed?: number,
+  image?: string,
+  title: string | React.ReactNode,
+  subtitle?: string | React.ReactNode,
+  registered?: string,
+  subscriber?: boolean,
+  contributor?: boolean,
+  accountId?: number,
+  playerSlot?: number,
+  hideText?: boolean,
+  party?: React.ReactNode,
+  confirmed?: boolean,
+  heroName?: string,
+  randomed?: boolean,
+  repicked?: string,
+  predictedVictory?: boolean,
+  leaverStatus?: number,
+  strings: Strings,
+  hero?: Hero,
+  heroID?: string,
+  facet?: number,
+  showGuide?: boolean,
+  guideUrl?: string,
+  guideType?: string,
+};
+
+class TableHeroImage extends React.Component<TableHeroImageProps, { tooltipVisible: boolean }> {
   state = { tooltipVisible: false };
 
-  setTooltipVisibility = (value) => {
+  setTooltipVisibility = (value: boolean) => {
     this.setState({ tooltipVisible: value });
   };
 
@@ -462,7 +490,7 @@ class TableHeroImage extends React.Component {
       predictedVictory,
       leaverStatus,
       strings,
-      hero = {},
+      hero,
     } = this.props;
     const { tooltipVisible } = this.state;
 
@@ -476,6 +504,7 @@ class TableHeroImage extends React.Component {
     };
 
     return (
+      //@ts-expect-error
       <Styled style={expand}>
         <HeroImageContainer>
           {parsed !== undefined && (
@@ -494,7 +523,7 @@ class TableHeroImage extends React.Component {
                   src={image}
                   alt={heroName}
                   className="image"
-                  data-tip={hero.id === undefined && null}
+                  data-tip={hero?.id === undefined && null}
                   data-for={heroName}
                   style={{ marginRight: facet ? '12px' : '7px' }}
                   {...heroImageEventProps}
@@ -503,7 +532,7 @@ class TableHeroImage extends React.Component {
                 <HeroImage
                   id={heroID}
                   className="image"
-                  data-tip={hero.id === undefined && null}
+                  data-tip={hero?.id === undefined && null}
                   data-for={heroName !== undefined && heroName}
                   style={{ marginRight: facet ? '12px' : '7px' }}
                   heroImageEventProps={heroImageEventProps}
@@ -513,7 +542,7 @@ class TableHeroImage extends React.Component {
                 <span
                   className="abandoned"
                   style={{ right: facet ? '12px' : '7px' }}
-                  data-hint={strings[`leaver_status_${leaverStatus}`]}
+                  data-hint={strings[`leaver_status_${leaverStatus}` as keyof Strings]}
                   data-hint-position="top"
                 >
                   <img src="/assets/images/dota2/disconnect_icon.png" alt="" />
@@ -524,7 +553,7 @@ class TableHeroImage extends React.Component {
                 <div
                   className="playerSlot"
                   style={{
-                    backgroundColor: playerColors[playerSlot],
+                    backgroundColor: playerColors[playerSlot as unknown as keyof typeof playerColors],
                     right: facet ? '12px' : '7px',
                   }}
                 />
@@ -548,7 +577,6 @@ class TableHeroImage extends React.Component {
                     data-hint-position="top"
                   >
                     <IconContributor
-                      className="icon"
                       dColor="#FFD700"
                       oColor="#212121"
                     />
@@ -561,7 +589,6 @@ class TableHeroImage extends React.Component {
                     data-hint-position="top"
                   >
                     <IconContributor
-                      className="icon"
                       dColor="#21be93"
                       oColor="#212121"
                     />
@@ -583,6 +610,7 @@ class TableHeroImage extends React.Component {
                 )}
               </span>
               {subtitle && (
+                //@ts-expect-error
                 <span style={subTextStyle} className="subTextContainer">
                   {subtitle}
                   <span>
@@ -629,7 +657,7 @@ class TableHeroImage extends React.Component {
                     }}
                   >
                     <HeroImage
-                      id={backgroundMapping[hero.primary_attr]}
+                      id={backgroundMapping[hero?.primary_attr as keyof typeof backgroundMapping]}
                       imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
                       style={{
                         position: 'absolute',
@@ -647,58 +675,58 @@ class TableHeroImage extends React.Component {
                         id={heroID}
                         imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix}
                       />
-                      {hero.primary_attr === 'str' && (
+                      {hero?.primary_attr === 'str' && (
                         <AttrStrength id="heroImg-attribute" />
                       )}
-                      {hero.primary_attr === 'agi' && (
+                      {hero?.primary_attr === 'agi' && (
                         <AttrAgility id="heroImg-attribute" />
                       )}
-                      {hero.primary_attr === 'int' && (
+                      {hero?.primary_attr === 'int' && (
                         <AttrIntelligent id="heroImg-attribute" />
                       )}
-                      {hero.primary_attr === 'all' && (
+                      {hero?.primary_attr === 'all' && (
                         <AttrUniversal id="heroImg-attribute" />
                       )}
                       <div className="health-mana">
-                        <span id="health">{Math.floor(hero.base_health)}</span>
-                        <span id="mana">{Math.floor(hero.base_mana)}</span>
+                        <span id="health">{Math.floor(hero?.base_health ?? 0)}</span>
+                        <span id="mana">{Math.floor(hero?.base_mana ?? 0)}</span>
                       </div>
                     </div>
                     <div className="header-stats">
-                      <div id="hero-name">{hero.localized_name}</div>
+                      <div id="hero-name">{hero?.localized_name}</div>
                       <div id="hero-roles">
-                        {hero.attack_type} -{' '}
-                        {hero.roles && hero.roles.join(', ')}
+                        {hero?.attack_type} -{' '}
+                        {hero?.roles && hero?.roles.join(', ')}
                       </div>
                       <div className="attributes-container">
                         <div className="attributes">
                           <AttrStrength
                             id="str"
                             className="attribute-img"
-                            main={`${hero.primary_attr === 'str'}`}
+                            main={`${hero?.primary_attr === 'str'}`}
                           />
                           <div className="attribute-text">
-                            {hero.base_str} +{hero.str_gain}
+                            {hero?.base_str} +{hero?.str_gain}
                           </div>
                         </div>
                         <div className="attributes">
                           <AttrAgility
                             id="agi"
                             className="attribute-img"
-                            main={`${hero.primary_attr === 'agi'}`}
+                            main={`${hero?.primary_attr === 'agi'}`}
                           />
                           <div className="attribute-text">
-                            {hero.base_agi} +{hero.agi_gain}
+                            {hero?.base_agi} +{hero?.agi_gain}
                           </div>
                         </div>
                         <div className="attributes">
                           <AttrIntelligent
                             id="int"
                             className="attribute-img"
-                            main={`${hero.primary_attr === 'int'}`}
+                            main={`${hero?.primary_attr === 'int'}`}
                           />
                           <div className="attribute-text">
-                            {hero.base_int} +{hero.int_gain}
+                            {hero?.base_int} +{hero?.int_gain}
                           </div>
                         </div>
                       </div>
@@ -709,22 +737,22 @@ class TableHeroImage extends React.Component {
                     <div className="stat">
                       <span>{`${strings.heading_move_speed}:`}</span>
                       <span className="dots" />
-                      <span>{hero.move_speed}</span>
+                      <span>{hero?.move_speed}</span>
                     </div>
                     <div className="stat">
                       <span>{`${strings.heading_attack}:`}</span>
                       <span className="dots" />
-                      <span>{`${hero.base_attack_min}-${hero.base_attack_max}`}</span>
+                      <span>{`${hero?.base_attack_min}-${hero?.base_attack_max}`}</span>
                     </div>
                     <div className="stat">
                       <span>{`${strings.heading_base_armor}:`}</span>
                       <span className="dots" />
-                      <span>{hero.base_armor}</span>
+                      <span>{hero?.base_armor}</span>
                     </div>
                     <div className="stat">
                       <span>{`${strings.heading_attack_range}:`}</span>
                       <span className="dots" />
-                      <span>{hero.attack_range}</span>
+                      <span>{hero?.attack_range}</span>
                     </div>
                   </div>
                 </HeroToolTip>
@@ -737,61 +765,28 @@ class TableHeroImage extends React.Component {
   }
 }
 
-const { string, oneOfType, bool, node, object, number, shape } = PropTypes;
-
-TableHeroImage.propTypes = {
-  parsed: number,
-  image: string,
-  title: oneOfType([string, object]),
-  subtitle: oneOfType([string, node]),
-  registered: string,
-  subscriber: bool,
-  contributor: bool,
-  accountId: number,
-  playerSlot: number,
-  hideText: bool,
-  party: node,
-  confirmed: bool,
-  heroName: string,
-  randomed: bool,
-  repicked: string,
-  predictedVictory: bool,
-  leaverStatus: number,
-  strings: shape({}),
-  hero: shape({}),
-  heroID: string,
-};
-
 // If need party or estimated, just add new prop with default val = solo and change icons depending what needs
-export const Mmr = ({ number, strings }) => (
-  <span>
+export const Mmr = ({ number }: { number: number }) => {
+  const strings = useStrings();
+  return <span>
     <section data-hint={strings.th_solo_mmr} data-hint-position="bottom">
       <SocialPerson />
     </section>
     {number || strings.general_unknown}
-  </span>
-);
-
-Mmr.propTypes = {
-  number: PropTypes.number,
-  strings: PropTypes.shape({}),
+  </span>;
 };
 
-export const CompetitiveRank = ({ rankTier, strings }) => (
-  <span className="rank">
+export const CompetitiveRank = ({ rankTier }: { rankTier: number }) => {
+  const strings = useStrings();
+  return <span className="rank">
     <section data-hint={strings.th_rank} data-hint-position="bottom">
       <SocialPerson />
     </section>
     {rankTier}
-  </span>
-);
-
-CompetitiveRank.propTypes = {
-  rankTier: PropTypes.number,
-  strings: PropTypes.shape({}),
+  </span>;
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 

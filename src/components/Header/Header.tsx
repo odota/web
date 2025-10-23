@@ -6,8 +6,10 @@ import {
   Menu,
   MenuItem,
   SwipeableDrawer,
-} from '@material-ui/core';
-import { BugReport, Menu as MenuIcon, Settings } from '@material-ui/icons';
+} from '@mui/material';
+import BugReport from '@mui/icons-material/BugReport';
+import MenuIcon from '@mui/icons-material/Menu'; 
+import Settings from '@mui/icons-material/Settings';
 import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
@@ -361,13 +363,13 @@ const Header = ({ location, disableSearch }: { location: any, disableSearch?: bo
               {user ? (
                 <>
                   <DrawerLink to={`/players/${user.account_id}`}>
-                    <ListItem button onClick={() => setMenuState(false)}>
+                    <ListItem onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_my_profile} />
                     </ListItem>
                   </DrawerLink>
                   {/*@ts-expect-error*/}
                   <DrawerLink as="a" href={`${config.VITE_API_HOST}/logout`}>
-                    <ListItem button onClick={() => setMenuState(false)}>
+                    <ListItem onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_logout} />
                     </ListItem>
                   </DrawerLink>
@@ -375,7 +377,7 @@ const Header = ({ location, disableSearch }: { location: any, disableSearch?: bo
               ) : (
                 //@ts-expect-error*
                 <DrawerLink as="a" href={`${config.VITE_API_HOST}/login`}>
-                  <ListItem button onClick={() => setMenuState(false)}>
+                  <ListItem onClick={() => setMenuState(false)}>
                     <ListItemText primary={strings.app_login} />
                   </ListItem>
                 </DrawerLink>

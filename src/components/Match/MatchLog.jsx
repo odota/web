@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
-import { Tooltip } from '@material-ui/core';
+import { Tooltip } from '@mui/material';
 import { heroes } from 'dotaconstants';
 import {
   formatSeconds,

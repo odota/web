@@ -1,8 +1,8 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import { connect, ConnectedProps } from 'react-redux';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import {
   getOrdinal,
   getTeamLogoUrl,

@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import HardwareKeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import constants from '../constants';
 
-const TableLink = ({ to, children, target, color }) => (
+const TableLink = ({ to, children, target, color }: { to: string, children: React.ReactNode, target?: string, color?: string }) => (
   <Link to={to} target={target}>
     {children}
     <HardwareKeyboardArrowRight
@@ -18,14 +17,5 @@ const TableLink = ({ to, children, target, color }) => (
     />
   </Link>
 );
-
-const { string, node } = PropTypes;
-
-TableLink.propTypes = {
-  to: string,
-  children: node,
-  target: string,
-  color: string,
-};
 
 export default TableLink;

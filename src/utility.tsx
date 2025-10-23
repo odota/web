@@ -794,7 +794,6 @@ export function displayHeroId(
     <TableHeroImage
       parsed={row.version}
       heroID={heroId}
-      //@ts-expect-error
       facet={row.hero_variant}
       title={getTitle(row, col, heroName)}
       subtitle={getSubtitle(row)}

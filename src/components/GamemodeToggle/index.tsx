@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FormControlLabel, Switch } from '@material-ui/core';
+import { FormControlLabel, Switch } from '@mui/material';
 
 import { useStrings } from '../../hooks/useStrings.hook';
 

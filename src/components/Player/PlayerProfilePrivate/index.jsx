@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
-import LockIcon from '@material-ui/icons/Lock';
+import { Button } from '@mui/material';
+import LockIcon from '@mui/icons-material/Lock';
 import config from '../../../config';
 
 const Styled = styled.div`

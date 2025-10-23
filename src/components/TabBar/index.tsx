@@ -1,4 +1,4 @@
-import { Tab, Tabs, Tooltip } from '@material-ui/core';
+import { Tab, Tabs, Tooltip } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import useReactRouter from 'use-react-router';

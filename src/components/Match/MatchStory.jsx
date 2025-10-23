@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Tooltip } from '@material-ui/core';
+import { Tooltip } from '@mui/material';
 import { heroes, item_colors as itemColors } from 'dotaconstants';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
 import { IconRadiant, IconDire } from '../Icons';

@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Tooltip } from '@material-ui/core';
+import { Tooltip } from '@mui/material';
 import { StyledHeaderCell } from './Styled';
 import { getSortIcon } from './tableHelpers';
 import { getColStyle } from '../../utility';

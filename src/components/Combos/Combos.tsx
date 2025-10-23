@@ -386,14 +386,12 @@ class Combos extends React.Component<{ strings: Strings }> {
               <RadioButton
                 value="public"
                 label={strings.public_matches}
-                //@ts-expect-error
                 style={styles.radioButton.root}
                 iconStyle={styles.radioButton.icon}
               />
               <RadioButton
                 value="pro"
                 label={strings.pro_matches}
-                //@ts-expect-error
                 style={{ ...styles.radioButton.root, marginRight: 0 }}
                 iconStyle={styles.radioButton.icon}
               />

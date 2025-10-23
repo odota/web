@@ -22,10 +22,11 @@
     "url": "http://github.com/odota/web"
   },
   "dependencies": {
-    "@material-ui/core": "^4.5.0",
-    "@material-ui/icons": "^4.5.1",
-    "@material-ui/styles": "^4.5.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@melloware/react-logviewer": "^6.3.4",
+    "@mui/icons-material": "^7.3.4",
+    "@mui/material": "^7.3.4",
     "@stripe/stripe-js": "^1.32.0",
     "abcolor": "^0.5.5",
     "ace-builds": "^1.43.4",

@@ -1,6 +1,6 @@
 import React from 'react';
 import findLast from 'lodash/fp/findLast';
-import { Tooltip } from '@material-ui/core';
+import { Tooltip } from '@mui/material';
 import {
   heroes,
   order_types as orderTypes,
