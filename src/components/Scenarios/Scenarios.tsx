@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Schedule from 'material-ui/svg-icons/action/schedule';
@@ -23,9 +22,9 @@ import ScenariosSkeleton from '../Skeletons/ScenariosSkeleton';
 import { formatTemplateToString, groupByArray } from '../../utility';
 import { IconLaneRoles } from '../Icons';
 
-const minSampleSize = (row) => row.games > 10;
+const minSampleSize = (row: any) => row.games > 10;
 
-const forms = {
+const forms: Record<string, any> = {
   itemTimings: {
     queryForms: ['hero_id', 'item'],
     filterForms: ['time'],
@@ -41,7 +40,7 @@ const forms = {
   },
 };
 
-const tabItems = (strings) => [
+const tabItems = (strings: Strings) => [
   {
     text: strings.scenarios_item_timings,
     value: 'itemTimings',
@@ -50,7 +49,7 @@ const tabItems = (strings) => [
   {
     text: strings.heading_lane_role,
     value: 'laneRoles',
-    icon: <IconLaneRoles />,
+    icon: <IconLaneRoles style={{}} />,
   },
   {
     text: strings.scenarios_misc,
@@ -59,12 +58,12 @@ const tabItems = (strings) => [
   },
 ];
 
-const reduceRows = (data) => {
+const reduceRows = (data: any[]) => {
   if (data.length === 0) {
     return data;
   }
   return data.map((scenario) =>
-    scenario.values.reduce((a, b) => ({
+    scenario.values.reduce((a: any, b: any) => ({
       ...a,
       games: Number(a.games) + Number(b.games),
       wins: Number(a.wins) + Number(b.wins),
@@ -72,34 +71,36 @@ const reduceRows = (data) => {
   );
 };
 
-const getLink = (scenario) => <Link to={`/scenarios/${scenario}`} />;
+const getLink = (scenario: string) => <Link to={`/scenarios/${scenario}`} />;
 
-class Scenarios extends React.Component {
+type ScenariosProps = {
+  match: {
+    params: { info: string },
+  },
+  location: {
+    search: {
+      substring: Function,
+    },
+  },
+  history: {
+    push: Function,
+  }
+  scenariosState: Record<string, { data: any[], loading?: boolean, error?: string, metadata?: any, metadataLoading?: boolean, metadataError?: string }>,
+  strings: Strings,
+  itemTimings: Function,
+  laneRoles: Function,
+  misc: Function,
+};
+
+class Scenarios extends React.Component<ScenariosProps, { selectedTab: ScenariosTab, formFields: Record<string, any> }> {
   tableKey = 0;
-
-  static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({ info: PropTypes.string }),
-    }),
-    location: PropTypes.shape({
-      search: PropTypes.shape({
-        substring: PropTypes.string,
-      }),
-    }),
-    history: PropTypes.shape({
-      push: PropTypes.func,
-    }),
-    scenariosState: PropTypes.shape({}),
-    strings: PropTypes.shape({}),
-  };
-
-  constructor(props) {
+  constructor(props: ScenariosProps) {
     super(props);
 
     const selectedTab = this.props.match.params.info || 'itemTimings';
     const params = this.props.location.search.substring(1);
 
-    const initialQueries = {};
+    const initialQueries: Record<string, any> = {};
     Object.keys(forms).forEach((tab) => {
       initialQueries[tab] =
         selectedTab === tab && Object.keys(querystring.parse(params)).length > 0
@@ -108,14 +109,10 @@ class Scenarios extends React.Component {
     });
 
     this.state = {
-      selectedTab,
+      selectedTab: selectedTab as ScenariosTab,
       formFields: initialQueries,
     };
     this.updateFormFieldStates();
-
-    this.getData = this.getData.bind(this);
-    this.updateQueryParams = this.updateQueryParams.bind(this);
-    this.updateFormFieldStates = this.updateFormFieldStates.bind(this);
   }
 
   componentDidMount() {
@@ -123,13 +120,13 @@ class Scenarios extends React.Component {
     this.updateQueryParams();
   }
 
-  getData() {
+  getData = () => {
     const { selectedTab, formFields } = this.state;
     this.props[selectedTab](formFields[selectedTab]);
     this.incrementTableKey();
   }
 
-  handleChange = (selectedTab) => {
+  handleChange = (selectedTab: ScenariosTab) => {
     this.setState({ selectedTab }, this.initialQuery);
   };
 
@@ -137,24 +134,24 @@ class Scenarios extends React.Component {
     this.tableKey += 1;
   };
 
-  initialQuery() {
+  initialQuery = () => {
     const { scenariosState } = this.props;
     const { selectedTab } = this.state;
     const { data } = scenariosState[selectedTab];
-    if (scenariosState[selectedTab].loading && data.length === 0) {
+    if (scenariosState[selectedTab].loading && data?.length === 0) {
       this.getData();
     }
     this.updateQueryParams();
   }
 
-  updateQueryParams() {
+  updateQueryParams = () => {
     const { formFields, selectedTab } = this.state;
     this.props.history.push(
       `/scenarios/${selectedTab}?${querystring.stringify(formFields[selectedTab])}`,
     );
   }
 
-  updateFormFieldStates(newFormFieldState) {
+  updateFormFieldStates = (newFormFieldState?: any) => {
     const { selectedTab, formFields } = this.state;
     this.setState(
       {
@@ -175,10 +172,10 @@ class Scenarios extends React.Component {
     const { metadata, metadataLoading, metadataError } =
       scenariosState.metadata;
     if (filterForms) {
-      filterForms.forEach((key) => {
+      filterForms.forEach((key: string) => {
         const formValue =
           formFields[selectedTab] && formFields[selectedTab][key];
-        data = data.filter(
+        data = data?.filter(
           (row) =>
             Number(formValue) === row[key] ||
             formValue === row[key] ||
@@ -213,7 +210,9 @@ class Scenarios extends React.Component {
                 />
               ))}
             </Tabs>
-            <div style={formFieldStyle}>
+            <div 
+              //@ts-expect-error
+              style={formFieldStyle}>
               {[...(queryForms || []), ...(filterForms || [])].map(
                 (field, index) => (
                   <ScenariosFormField
@@ -221,7 +220,6 @@ class Scenarios extends React.Component {
                     field={field}
                     index={index}
                     selectedTab={selectedTab}
-                    updateQueryParams={this.updateQueryParams}
                     updateFormFieldState={this.updateFormFieldStates}
                     formFieldState={
                       formFields[selectedTab] && formFields[selectedTab][field]
@@ -241,13 +239,13 @@ class Scenarios extends React.Component {
               variant="contained"
               onClick={this.getData}
               style={buttonStyle}
-              backgroundColor="rgba(220, 220, 220, 0.05)"
-              hoverColor="rgba(220, 220, 220, 0.2)"
+              // backgroundColor="rgba(220, 220, 220, 0.05)"
+              // hoverColor="rgba(220, 220, 220, 0.2)"
               // icon={<ActionSearch />}
             >{strings.explorer_query_button}</Button>
             <Heading
               title={strings.explorer_results}
-              subtitle={`${data.filter(minSampleSize).length} ${strings.explorer_num_rows}`}
+              subtitle={`${data?.filter(minSampleSize).length} ${strings.explorer_num_rows}`}
             />
             <Table
               key={selectedTab + this.tableKey}
@@ -263,7 +261,7 @@ class Scenarios extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
   const { scenariosItemTimings, scenariosLaneRoles, scenariosMisc, metadata } =
     state.app;
 
@@ -273,6 +271,7 @@ const mapStateToProps = (state) => {
         metadata: metadata.data.scenarios,
         metadataLoading: metadata.loading,
         metadataError: metadata.error,
+        data: [],
       },
       itemTimings: {
         data: scenariosItemTimings.data,
@@ -294,10 +293,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  itemTimings: (params) => dispatch(getScenariosItemTimings(params)),
-  laneRoles: (params) => dispatch(getScenariosLaneRoles(params)),
-  misc: (params) => dispatch(getScenariosMisc(params)),
+const mapDispatchToProps = (dispatch: any) => ({
+  itemTimings: (params: any) => dispatch(getScenariosItemTimings(params)),
+  laneRoles: (params: any) => dispatch(getScenariosLaneRoles(params)),
+  misc: (params: any) => dispatch(getScenariosMisc(params)),
 });
 
 export default withRouter(

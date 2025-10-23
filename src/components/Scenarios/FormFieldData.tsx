@@ -4,19 +4,19 @@ import { heroes, items } from 'dotaconstants';
 import { getTimeRange } from './ScenariosColumns';
 import config from '../../config';
 
-export default function getFormFieldData(metadata, strings) {
+export default function getFormFieldData(metadata: any, strings: Strings) {
   const { teamScenariosQueryParams, itemCost, gameDurationBucket, timings } =
     metadata;
   return {
     heroList: Object.keys(heroes)
       .map((id) => ({
-        text: heroes[id] && heroes[id].localized_name,
+        text: heroes[id as keyof Heroes] && heroes[id as keyof Heroes].localized_name,
         value: (
           <MenuItem
-            primaryText={heroes[id] && heroes[id].localized_name}
+            primaryText={heroes[id as keyof Heroes] && heroes[id as keyof Heroes].localized_name}
             leftIcon={
               <img
-                src={`${config.VITE_IMAGE_CDN}${heroes[id] && heroes[id].icon}`}
+                src={`${config.VITE_IMAGE_CDN}${heroes[id as keyof Heroes] && heroes[id as keyof Heroes].icon}`}
                 alt=""
               />
             }
@@ -24,19 +24,21 @@ export default function getFormFieldData(metadata, strings) {
         ),
         altValue: id,
       }))
-      .sort((a, b) => a.text && a.text.localeCompare(b.text)),
+      .sort((a: any, b: any) => a.text && a.text.localeCompare(b.text)),
 
     itemList: Object.keys(items)
       .filter(
-        (item) => items[item].cost >= itemCost && !item.startsWith('recipe_'),
+        (item) => (items[item as keyof Items]?.cost ?? 0) >= itemCost && !item.startsWith('recipe_'),
       )
       .map((item) => ({
-        text: items[item].dname,
+        //@ts-expect-error
+        text: items[item as keyof Items]?.dname,
         value: (
           <MenuItem
-            primaryText={items[item].dname}
+            //@ts-expect-error
+            primaryText={items[item as keyof Items]?.dname}
             leftIcon={
-              <img src={`${config.VITE_IMAGE_CDN}${items[item].img}`} alt="" />
+              <img src={`${config.VITE_IMAGE_CDN}${items[item as keyof typeof items]?.img}`} alt="" />
             }
           />
         ),
@@ -45,21 +47,21 @@ export default function getFormFieldData(metadata, strings) {
       .sort((a, b) => a.text && a.text.localeCompare(b.text)),
 
     laneRoleList: [1, 2, 3, 4].map((role) => ({
-      text: strings[`lane_role_${role}`],
+      text: strings[`lane_role_${role}` as keyof Strings],
       value: role.toString(),
     })),
 
-    miscList: teamScenariosQueryParams.map((scenario) => ({
-      text: strings[`scenarios_${scenario}`],
+    miscList: teamScenariosQueryParams.map((scenario: string) => ({
+      text: strings[`scenarios_${scenario}` as keyof Strings],
       value: scenario,
     })),
 
-    gameDurationList: gameDurationBucket.map((time) => ({
+    gameDurationList: gameDurationBucket.map((time: number) => ({
       text: getTimeRange(time, gameDurationBucket),
       value: time.toString(),
     })),
 
-    timingList: timings.map((time) => ({
+    timingList: timings.map((time: number) => ({
       text: getTimeRange(time, timings),
       value: time.toString(),
     })),

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const icon = (props: { style: { color: string }}) => {
+const icon = (props: { style: { color?: string }}) => {
   const { color } = props.style;
   return (
     <svg {...props} viewBox="0 0 24 24">
@@ -70,6 +70,6 @@ const icon = (props: { style: { color: string }}) => {
   );
 };
 
-export default styled(icon)`
+export default styled(icon)<{style: { color?: string }}>`
   height: 24px;
 `;

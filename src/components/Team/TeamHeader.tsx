@@ -10,7 +10,7 @@ import {
 } from './TeamStyled';
 import config from '../../config';
 
-export default (generalData, strings) => (
+export default (generalData: any, strings: Strings) => (
   <HeaderContainer loading={generalData.loading} error={generalData.error}>
     <Logo
       src={getTeamLogoUrl(generalData.data.logo_url)}

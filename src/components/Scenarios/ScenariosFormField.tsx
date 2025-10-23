@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import getFormFieldData from './FormFieldData';
 import { listStyle } from './Styles';
 
-const hintTexts = (strings) => ({
+const hintTexts = (strings: Strings) => ({
   itemTimings: {
     hero_id: strings.filter_hero_id,
     item: strings.scenarios_item,
@@ -25,20 +24,21 @@ const customStyles = {
   scenario: { width: '450px' },
 };
 
-class ScenarioFormField extends React.Component {
-  static propTypes = {
-    field: PropTypes.string,
-    formFieldState: PropTypes.shape({}),
-    metadata: PropTypes.shape({}),
-    updateFormFieldState: PropTypes.func,
-    selectedTab: PropTypes.string,
-    className: PropTypes.string,
-    index: PropTypes.number,
-    strings: PropTypes.shape({}),
-    incrementTableKey: PropTypes.func,
-  };
+type ScenariosFormFieldProps = {
+  field: 'hero_id' | 'item' | 'time' | 'lane_role' | 'scenario',
+  formFieldState: any,
+  metadata: any,
+  updateFormFieldState: Function,
+  selectedTab: ScenariosTab,
+  className: string,
+  index: number,
+  strings: Strings,
+  incrementTableKey: Function,
+}
 
-  constructor(props) {
+class ScenarioFormField extends React.Component<ScenariosFormFieldProps, { searchText: string, animate?: boolean }> {
+  dataSources: Record<string, Record<string, any[]>> = {};
+  constructor(props: ScenariosFormFieldProps) {
     super(props);
     const { field, formFieldState, metadata, selectedTab, strings } =
       this.props;
@@ -76,10 +76,6 @@ class ScenarioFormField extends React.Component {
     this.state = {
       searchText,
     };
-
-    this.resetField = this.resetField.bind(this);
-    this.handleUpdateInput = this.handleUpdateInput.bind(this);
-    this.handleRequest = this.handleRequest.bind(this);
   }
 
   componentDidMount() {
@@ -88,18 +84,18 @@ class ScenarioFormField extends React.Component {
     });
   }
 
-  handleUpdateInput(searchText) {
+  handleUpdateInput = (searchText: string) => {
     this.setState({ searchText });
   }
 
-  handleRequest(chosenRequest) {
+  handleRequest = (chosenRequest: any) => {
     const { updateFormFieldState, field } = this.props;
     updateFormFieldState({
       [field]: chosenRequest.altValue || chosenRequest.value,
     });
   }
 
-  resetField() {
+  resetField = () => {
     if (this.props.className === 'filter') {
       this.props.incrementTableKey();
     }
@@ -120,10 +116,12 @@ class ScenarioFormField extends React.Component {
       <div>
         <AutoComplete
           openOnFocus
-          listStyle={{ ...listStyle, ...customStyles[field] }}
+          listStyle={{ ...listStyle, ...customStyles[field as keyof typeof customStyles] }}
           filter={AutoComplete.caseInsensitiveFilter}
+          //@ts-expect-error
           floatingLabelText={hintTexts(strings)[selectedTab][field]}
           dataSource={this.dataSources[selectedTab][field]}
+          //@ts-expect-error
           onClick={this.resetField}
           onUpdateInput={this.handleUpdateInput}
           searchText={searchText}
@@ -136,7 +134,7 @@ class ScenarioFormField extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 

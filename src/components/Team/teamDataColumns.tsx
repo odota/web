@@ -12,21 +12,22 @@ import { TableRow, TableImage } from './TeamStyled';
 import proPlayerImages from './proPlayerImages';
 import { FromNowTooltip } from '../Visualizations';
 
-const getPlayerImageUrl = (accountId) => {
-  if (proPlayerImages[accountId]) {
+const getPlayerImageUrl = (accountId: number) => {
+  if (proPlayerImages[accountId as keyof typeof proPlayerImages]) {
     return `/assets/images/dota2/players/${accountId}.png`;
   }
   return '/assets/images/dota2/players/portrait.png';
 };
 
-export const matchColumns = (strings) => [
+export const matchColumns = (strings: Strings) => [
   {
     displayName: strings.th_match_id,
     field: 'match_id',
     sortFn: true,
-    displayFn: (row, col, field) => (
+    displayFn: (row: any, col: any, field: any) => (
       <div>
         <TableLink to={`/matches/${field}`}>{field}</TableLink>
+        {/*@ts-expect-error*/}
         <div style={{ ...subTextStyle }}>
           <div style={{ float: 'left' }}>
             <FromNowTooltip timestamp={row.start_time + row.duration} />
@@ -46,7 +47,7 @@ export const matchColumns = (strings) => [
   },
   {
     displayName: strings.th_result,
-    displayFn: (row) => {
+    displayFn: (row: any) => {
       const won = row.radiant_win === row.radiant;
       const string = won ? strings.td_win : strings.td_loss;
       const textColor = won ? constants.colorGreen : constants.colorRed;
@@ -57,7 +58,7 @@ export const matchColumns = (strings) => [
     displayName: strings.th_opposing_team,
     field: 'opposing_team_name',
     sortFn: true,
-    displayFn: (row, col, field) => (
+    displayFn: (row: any, col: any, field: any) => (
       <TableRow>
         <TableImage src={getTeamLogoUrl(row.opposing_team_logo)} alt="" />
         <TableLink to={`/teams/${row.opposing_team_id}`}>
@@ -68,12 +69,12 @@ export const matchColumns = (strings) => [
   },
 ];
 
-export const memberColumns = (strings) => [
+export const memberColumns = (strings: Strings) => [
   {
     displayName: strings.th_name,
     field: 'name',
     sortFn: true,
-    displayFn: (row, col, field) => (
+    displayFn: (row: any, col: any, field: any) => (
       <TableRow>
         <TableImage src={getPlayerImageUrl(row.account_id)} />
         <TableLink to={`/players/${row.account_id}`}>
@@ -91,17 +92,17 @@ export const memberColumns = (strings) => [
   {
     displayName: strings.th_winrate,
     field: 'wins',
-    sortFn: (row) => row.wins / row.games_played,
+    sortFn: (row: any) => row.wins / row.games_played,
     percentBars: true,
   },
 ];
 
-export const heroColumns = (strings) => [
+export const heroColumns = (strings: Strings) => [
   {
     displayName: strings.th_hero_id,
     field: 'hero_id',
     displayFn: displayHeroId,
-    sortFn: (row) => heroes[row.hero_id] && heroes[row.hero_id].localized_name,
+    sortFn: (row: any) => heroes[row.hero_id as keyof Heroes] && heroes[row.hero_id as keyof Heroes].localized_name,
   },
   {
     displayName: strings.th_games_played,
@@ -112,7 +113,7 @@ export const heroColumns = (strings) => [
   {
     displayName: strings.th_winrate,
     field: 'wins',
-    sortFn: (row) => row.wins / row.games_played,
+    sortFn: (row: any) => row.wins / row.games_played,
     percentBars: true,
   },
 ];

@@ -4,12 +4,12 @@ import Table from '../Table';
 import Overview from './Overview';
 import { matchColumns, memberColumns, heroColumns } from './teamDataColumns';
 
-const teamPages = (strings) => [
+const teamPages = (strings: Strings) => [
   Overview(strings),
   {
     name: strings.tab_matches,
     key: 'matches',
-    content: (generalData, matchData) => (
+    content: (generalData: any, matchData: any) => (
       <Container
         title={strings.heading_matches}
         loading={matchData.loading}
@@ -27,7 +27,7 @@ const teamPages = (strings) => [
   {
     name: strings.tab_heroes,
     key: 'heroes',
-    content: (generalData, matchData, heroData) => (
+    content: (generalData: any, matchData: any, heroData: any) => (
       <Container
         title={strings.heading_heroes}
         loading={heroData.loading}
@@ -45,7 +45,7 @@ const teamPages = (strings) => [
   {
     name: strings.tab_players,
     key: 'players',
-    content: (generalData, matchData, heroData, playerData) => (
+    content: (generalData: any, matchData: any, heroData: any, playerData: any) => (
       <div>
         <Container
           title={strings.heading_current_players}
@@ -55,7 +55,7 @@ const teamPages = (strings) => [
           <Table
             columns={memberColumns(strings)}
             data={playerData.data.filter(
-              (player) => player.is_current_team_member,
+              (player: any) => player.is_current_team_member,
             )}
           />
         </Container>
@@ -67,7 +67,7 @@ const teamPages = (strings) => [
           <Table
             columns={memberColumns(strings)}
             data={playerData.data.filter(
-              (player) => !player.is_current_team_member,
+              (player: any) => !player.is_current_team_member,
             )}
             paginated
             key="players"
@@ -78,7 +78,7 @@ const teamPages = (strings) => [
   },
 ];
 
-export default (teamId, strings) =>
+export default (teamId: string | undefined, strings: Strings) =>
   teamPages(strings).map((page) => ({
     ...page,
     route: `/teams/${teamId}/${page.key}`,

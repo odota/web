@@ -19,7 +19,7 @@ import Matches from '../Matches';
 import Player from '../Player';
 import Records from '../Records';
 import Request from '../Request/Request';
-import Scenarios from '../Scenarios';
+import Scenarios from '../Scenarios/Scenarios';
 import Search from '../Search/Search';
 import Teams from '../Teams';
 import GlobalStyle from './GlobalStyle';
