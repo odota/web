@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 import { IconOpenSource, IconStatsBars, IconWand } from '../Icons';
 import constants from '../constants';
-
-import { HomePageProps } from './Home';
+import useStrings from '../../hooks/useStrings.hook';
 
 const StyledDiv = styled.div`
   margin: 50px auto 0;
@@ -51,8 +49,9 @@ const StyledDiv = styled.div`
   }
 `;
 
-const Why = ({ strings }: HomePageProps) => (
-  <StyledDiv>
+const Why = () => {
+  const strings = useStrings();
+  return <StyledDiv>
     <div className="whyList">
       <div className="whyElement">
         <IconOpenSource />
@@ -70,11 +69,7 @@ const Why = ({ strings }: HomePageProps) => (
         <div className="description">{strings.home_free_desc}</div>
       </div>
     </div>
-  </StyledDiv>
-);
+  </StyledDiv>;
+};
 
-const mapStateToProps = (state: any) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(Why);
+export default Why;

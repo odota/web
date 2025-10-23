@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { isRadiant, getTeamName } from '../../utility';
@@ -21,7 +20,7 @@ const StyledDiv = styled.div`
     }
 `;
 
-const isBestValueInMatch = (players) => (field, row, underline) => {
+const isBestValueInMatch = (players: MatchPlayer[]) => (field: keyof MatchPlayer, row: any, underline: string) => {
   const values = players.map((player) => player[field]);
   const bestValue =
     underline === 'max' ? Math.max(...values) : Math.min(...values);
@@ -29,10 +28,10 @@ const isBestValueInMatch = (players) => (field, row, underline) => {
   return bestValue === row[field];
 };
 
-const keyFn = (row) => row && row.player_slot + 1;
+const keyFn = (row: any) => row && row.player_slot + 1;
 
-const getHighlightFn = (loggedInId) => (row) => {
-  const s = { style: {} };
+const getHighlightFn = (loggedInId: number) => (row: any) => {
+  const s: { style: Record<string, string> } = { style: {} };
   if (loggedInId && row.account_id === loggedInId) {
     if (row.player_slot < 5) {
       s.style.backgroundColor = 'rgba(18, 156, 40, 0.09)';
@@ -43,7 +42,7 @@ const getHighlightFn = (loggedInId) => (row) => {
   return s;
 };
 
-const filterMatchPlayers = (players, team = '') =>
+const filterMatchPlayers = (players: MatchPlayer[], team = '') =>
   players
     .filter(
       (player) =>
@@ -53,29 +52,30 @@ const filterMatchPlayers = (players, team = '') =>
     )
     .sort((a, b) => a.player_slot - b.player_slot);
 
-class TeamTable extends React.Component {
-  static propTypes = {
-    gameMode: PropTypes.number,
-    players: PropTypes.arrayOf({}),
-    columns: PropTypes.arrayOf({}),
-    heading: PropTypes.string,
-    picksBans: PropTypes.arrayOf({}),
-    radiantTeam: PropTypes.shape({}),
-    direTeam: PropTypes.shape({}),
-    summable: PropTypes.bool,
-    hoverRowColumn: PropTypes.bool,
-    loggedInId: PropTypes.number,
-    buttonLabel: PropTypes.string,
-    buttonTo: PropTypes.string,
-    buttonIcon: PropTypes.string,
-    customWidth: PropTypes.number,
-    radiantWin: PropTypes.bool,
-    overflowAuto: PropTypes.bool,
-    hideWinnerTag: PropTypes.bool,
-  };
-  constructor() {
-    super();
-    this.teamTableRef = null;
+type TeamTableProps = {
+  gameMode?: number,
+  players: MatchPlayer[],
+  columns: any[],
+  heading: string,
+  picksBans?: any[],
+  radiantTeam: any,
+  direTeam: any,
+  summable?: boolean,
+  hoverRowColumn?: boolean,
+  loggedInId: number,
+  buttonLabel?: string,
+  buttonTo?: string,
+  buttonIcon?: string,
+  customWidth?: number,
+  radiantWin: boolean,
+  overflowAuto?: boolean,
+  hideWinnerTag?: boolean,
+};
+
+class TeamTable extends React.Component<TeamTableProps> {
+  teamTableRef: any = null;
+  constructor(props: TeamTableProps) {
+    super(props);
   }
 
   componentDidMount() {
@@ -86,7 +86,7 @@ class TeamTable extends React.Component {
     this.addListeners();
   }
 
-  setTeamTableRef = (node) => {
+  setTeamTableRef = (node: any) => {
     this.teamTableRef = node;
   };
 
@@ -241,7 +241,7 @@ class TeamTable extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   loggedInId: state.app.metadata.data.user
     ? state.app.metadata.data.user.account_id
     : null,

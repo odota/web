@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 import { Tooltip } from '@mui/material';
@@ -139,7 +138,7 @@ const StyledLogContainer = styled.div`
 
 const DIVIDER_SECONDS = 30; // insert a divider if two consecutive entries are X seconds apart
 
-const isRadiant = (entry) => {
+const isRadiant = (entry: any) => {
   if (entry.isRadiant) {
     return true;
   }
@@ -157,11 +156,11 @@ const typeConfig = {
   objectives: 1,
   runes: 2,
 };
-const getObjectiveDesc = (objective, strings) =>
+const getObjectiveDesc = (objective: any, strings: Strings) =>
   objective.key && objective.type === 'CHAT_MESSAGE_BARRACKS_KILL'
-    ? strings[`barracks_value_${objective.key}`]
+    ? strings[`barracks_value_${objective.key}` as keyof Strings]
     : '';
-const getObjectiveBase = (objective, strings) => {
+const getObjectiveBase = (objective: any, strings: Strings) => {
   if (objective.type === 'building_kill') {
     const desc =
       objective.key.indexOf('npc_dota_badguys') === 0
@@ -170,13 +169,13 @@ const getObjectiveBase = (objective, strings) => {
     return `${desc} ${(objective.key.split('guys_') || [])[1]}`;
   }
   return (
-    strings[objective.subtype || objective.type] ||
+    strings[(objective.subtype || objective.type) as keyof Strings] ||
     objective.subtype ||
     objective.type
   );
 };
-const generateLog = (match, { types, players }, strings) => {
-  let log = [];
+const generateLog = (match: Match, { types, players }: { types: number[], players: number[] }, strings: Strings) => {
+  let log: any[] = [];
   const matchPlayers = !players.length
     ? match.players
     : match.players.filter((p, i) => players.includes(i));
@@ -260,15 +259,17 @@ const generateLog = (match, { types, players }, strings) => {
   return log;
 };
 
-class MatchLog extends React.Component {
-  static propTypes = {
-    match: PropTypes.shape({
-      players: PropTypes.arrayOf({}),
-    }),
-    strings: PropTypes.shape({}),
-  };
+type MatchLogProps = {
+  match: Match,
+  strings: Strings,
+};
 
-  constructor(props) {
+type MatchLogState = { types: number[], players: number[] } & Record<string, any>;
+
+class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
+  typesSource: any = undefined;
+  playersSource: any = undefined;
+  constructor(props: MatchLogProps) {
     super(props);
     this.state = {
       types: Object.values(typeConfig),
@@ -289,13 +290,13 @@ class MatchLog extends React.Component {
     }));
   }
 
-  addChip = (name, input, limit) => {
+  addChip = (name: string, input: any, limit: number) => {
     const currentChips = this.state[name];
     const newChips = [input.value].concat(currentChips).slice(0, limit);
     this.setState({ [name]: newChips });
   };
 
-  deleteChip = (name, index) => {
+  deleteChip = (name: string, index: number) => {
     const currentChips = this.state[name];
     const newChips = [
       ...currentChips.slice(0, index),
@@ -309,7 +310,7 @@ class MatchLog extends React.Component {
     const runeTooltips = Object.keys(strings)
       .filter((str) => str.indexOf('rune_') === 0)
       .map((runeKey) => {
-        const runeString = strings[runeKey];
+        const runeString = strings[runeKey as keyof Strings];
         return (
           <ReactTooltip id={runeString} key={runeString}>
             <span>{runeString}</span>
@@ -317,7 +318,7 @@ class MatchLog extends React.Component {
         );
       });
     const logData = generateLog(this.props.match, this.state, strings);
-    const groupedEntries = [];
+    const groupedEntries: any[] = [];
     let lastEntryTime = Number.MIN_SAFE_INTEGER;
 
     return (
@@ -447,8 +448,8 @@ class MatchLog extends React.Component {
   }
 }
 
-function EntryMessage({ entry, strings }) {
-  const translateBuildings = (isRad, key) => {
+function EntryMessage({ entry, strings }: { entry: any, strings: Strings }) {
+  const translateBuildings = (isRad: boolean, key: string) => {
     const team = isRad ? strings.general_radiant : strings.general_dire;
     const k = key.split('_').slice(3).join('_');
     const dict = {
@@ -457,15 +458,15 @@ function EntryMessage({ entry, strings }) {
       tower1_top: ` ${strings.top_tower} ${strings.tier1}`,
       tower2_top: ` ${strings.top_tower} ${strings.tier2}`,
       tower3_top: ` ${strings.top_tower} ${strings.tier3}`,
-      towerenderSecond_top: ` ${strings.top_tower} ${strings.tierenderSecond}`,
+      towerenderSecond_top: ` ${strings.top_tower}`,
       tower1_mid: ` ${strings.mid_tower} ${strings.tier1}`,
       tower2_mid: ` ${strings.mid_tower} ${strings.tier2}`,
       tower3_mid: ` ${strings.mid_tower} ${strings.tier3}`,
-      towerenderSecond_mid: ` ${strings.mid_tower} ${strings.tierenderSecond}`,
+      towerenderSecond_mid: ` ${strings.mid_tower}`,
       tower1_bot: ` ${strings.bot_tower} ${strings.tier1}`,
       tower2_bot: ` ${strings.bot_tower} ${strings.tier2}`,
       tower3_bot: ` ${strings.bot_tower} ${strings.tier3}`,
-      towerenderSecond_bot: ` ${strings.bot_tower} ${strings.tierenderSecond}`,
+      towerenderSecond_bot: ` ${strings.bot_tower}`,
       tower4: ` ${strings.heading_tower} ${strings.tier4}`,
       melee_rax_top: ` ${'Top'} ${strings.building_melee_rax}`,
       melee_rax_mid: ` ${'Mid'} ${strings.building_melee_rax}`,
@@ -474,7 +475,7 @@ function EntryMessage({ entry, strings }) {
       range_rax_mid: ` ${'Mid'} ${strings.building_range_rax}`,
       range_rax_bot: ` ${'Bot'} ${strings.building_range_rax}`,
     };
-    return team + dict[k];
+    return team + dict[k as keyof typeof dict];
   };
 
   switch (entry.type) {
@@ -491,7 +492,7 @@ function EntryMessage({ entry, strings }) {
     }
     case 'runes': {
       const runeType = entry.detail;
-      const runeString = strings[`rune_${runeType}`];
+      const runeString = strings[`rune_${runeType}` as keyof Strings];
       return (
         <>
           <Tooltip title={runeString}>
@@ -622,7 +623,7 @@ function EntryMessage({ entry, strings }) {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 

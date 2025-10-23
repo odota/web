@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import config from '../../config';
 
 import { HomePageProps } from './Home';
+import useStrings from '../../hooks/useStrings.hook';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -34,8 +35,9 @@ const StyledDiv = styled.div`
   }
 `;
 
-const Sponsors = ({ strings }: HomePageProps) => (
-  <StyledDiv>
+const Sponsors = () => {
+  const strings = useStrings();
+  return <StyledDiv>
     <div className="headline">{strings.home_sponsored_by}</div>
     <div className="images">
       {config.VITE_ENABLE_DOTACOACH && (
@@ -87,11 +89,7 @@ const Sponsors = ({ strings }: HomePageProps) => (
         href="mailto:sponsor@opendota.com"
       >{strings.home_become_sponsor}</Button>
     </div>
-  </StyledDiv>
-);
+  </StyledDiv>;
+};
 
-const mapStateToProps = (state: any) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(Sponsors);
+export default Sponsors;

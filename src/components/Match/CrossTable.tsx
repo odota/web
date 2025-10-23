@@ -1,13 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { heroes } from 'dotaconstants';
 import ReactTooltip from 'react-tooltip';
 import { abbreviateNumber } from '../../utility';
 import { IconRadiant, IconDire } from '../Icons';
 import constants from '../constants';
 import HeroImage from '../Visualizations/HeroImage';
+import useStrings from '../../hooks/useStrings.hook';
 
 const StyledDiv = styled.div`
   table {
@@ -131,10 +130,11 @@ const StyledDiv = styled.div`
   }
 `;
 
-const CrossTable = ({ match, field1, field2, strings }) => (
-  <StyledDiv>
-    <table selectable={false}>
-      <tbody displayRowCheckbox={false}>
+const CrossTable = ({ match, field1, field2 }: { match : Match, field1: keyof MatchPlayer, field2: keyof MatchPlayer }) => {
+  const strings = useStrings();
+  return <StyledDiv>
+    <table>
+      <tbody>
         <tr>
           <td />
           {match.players
@@ -409,18 +409,7 @@ const CrossTable = ({ match, field1, field2, strings }) => (
         </tr>
       </tbody>
     </table>
-  </StyledDiv>
-);
-
-CrossTable.propTypes = {
-  match: PropTypes.shape({}),
-  field1: PropTypes.string,
-  field2: PropTypes.string,
-  strings: PropTypes.shape({}),
+  </StyledDiv>;
 };
 
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(CrossTable);
+export default CrossTable;

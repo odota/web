@@ -316,7 +316,7 @@ const InflictorWithValueAndHooks = withHooks(InflictorWithValue);
 
 export default (
   inflictor: string,
-  value?: keyof typeof items,
+  value?: string,
   type?: string,
   ptooltip?: string,
   abilityId?: keyof typeof abilityIds,

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 import NavigationArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
@@ -43,8 +42,8 @@ const arrowStyle = {
   transition: 'none',
 };
 
-const processCasts = (uses, targets) => {
-  const field = {};
+const processCasts = (uses: Record<string, number>, targets: any) => {
+  const field: Record<string, any> = {};
   Object.keys(uses).forEach((ability) => {
     if (targets[ability]) {
       field[ability] = { ...targets[ability], totalCasts: uses[ability] };
@@ -55,8 +54,8 @@ const processCasts = (uses, targets) => {
   return field;
 };
 
-const damageTargetIcons = (t) => {
-  const targets = [];
+const damageTargetIcons = (t: any) => {
+  const targets: any[] = [];
   Object.keys(t).forEach((target) => {
     const hero = getHeroesById()[target];
     let j;
@@ -73,6 +72,7 @@ const damageTargetIcons = (t) => {
         >
           <span
             id="targetvalue"
+            //@ts-expect-error
             style={dmgTargetValueStyle}
           >{`${abbreviateNumber(t[target])}`}</span>
           <HeroImage
@@ -103,19 +103,20 @@ const damageTargetIcons = (t) => {
   );
 };
 
-const TargetsBreakdown = ({ field, abilityUses = null }) => {
+const TargetsBreakdown = ({ field, abilityUses = null }: { field: string, abilityUses: Record<string, number> | null }) => {
   if (field) {
-    let f;
+    let f: Record<string, any>;
     if (abilityUses) {
       f = Object.entries(processCasts(abilityUses, field))
         .sort((a, b) => abilityUses[b[0]] - abilityUses[a[0]])
         .reduce((obj, [k, v]) => Object.assign(obj, { [k]: v }), {});
     } else {
       f = Object.entries(field)
+        //@ts-expect-error
         .sort((a, b) => sumValues(b[1]) - sumValues(a[1]))
         .reduce((obj, [k, v]) => Object.assign(obj, { [k]: v }), {});
     }
-    const r = [];
+    const r: any[] = [];
     Object.keys(f).forEach((inflictor) => {
       const valueOverall = f[inflictor].totalCasts
         ? f[inflictor].totalCasts
@@ -125,6 +126,7 @@ const TargetsBreakdown = ({ field, abilityUses = null }) => {
           <StyledDmgTargetInflictor id="target">
             {inflictorWithValue(inflictor, abbreviateNumber(valueOverall))}
           </StyledDmgTargetInflictor>
+          {/*@ts-expect-error*/}
           <NavigationArrowForward style={arrowStyle} />
           {!f[inflictor].null ? damageTargetIcons(f[inflictor]) : <Dummy />}
         </div>,
@@ -143,11 +145,6 @@ const TargetsBreakdown = ({ field, abilityUses = null }) => {
     );
   }
   return null;
-};
-
-TargetsBreakdown.propTypes = {
-  field: PropTypes.shape({}),
-  abilityUses: PropTypes.shape({}),
 };
 
 export default TargetsBreakdown;

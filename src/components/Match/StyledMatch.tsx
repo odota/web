@@ -240,9 +240,9 @@ export const StyledEmote = styled.img.attrs<{emote?: string}>({
   vertical-align: bottom;
 `;
 
-export const StyledStorySpan = styled.span`
+export const StyledStorySpan = styled.span<{ isRadiant?: boolean }>`
   white-space: nowrap;
-  color: ${(props: { isRadiant: boolean }) =>
+  color: ${(props) =>
     props.isRadiant ? constants.colorGreen : constants.colorRed};
   svg,
   img {
@@ -291,7 +291,7 @@ export const StyledStoryNetWorthBar = styled.div`
   border-top-right-radius: 3px;
 }
 `;
-export const StyledStoryNetWorthText = styled.div<{ color: string, left: number, width: number }>`
+export const StyledStoryNetWorthText = styled.div<{ color?: string, left?: number, width?: number }>`
   position: relative;
   display: flex;
   text-align: center;

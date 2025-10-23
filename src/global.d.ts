@@ -85,6 +85,8 @@ type MatchPlayer = {
   hero_id: keyof Heroes,
   account_id: number,
   killed: Record<string, any>,
+  killed_by: Record<string, any>,
+  damage_taken: Record<string, number>,
   kills_log: any[],
   player_slot: number,
   damage: Record<string, any>,
@@ -94,10 +96,18 @@ type MatchPlayer = {
   is_roaming: boolean,
   desc: string,
   lane: number,
+  gold_t: number[],
   cs_t: number[],
   lh_t: number[],
   lane_pos: any,
   gold_reasons: Record<string, number>,
   xp_reasons: Record<string, number>,
   cosmetics: any[],
+  runes_log: any[],
+  pred_vict: boolean,
+  first_purchase_time: Record<string, number>,
+  kills: number;
+  deaths: number;
+  assists: number;
+  purchase_log: any[];
 };

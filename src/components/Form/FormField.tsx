@@ -47,12 +47,12 @@ type FormFieldProps = {
     addChip: Function,
     history?: any,
     label: string,
-    filter: (searchText: string, key: string) => boolean,
+    filter?: (searchText: string, key: string) => boolean,
     className?: string,
     maxSearchResults?: number,
     deleteChip: Function,
     strings: Strings,
-    resetField: Function,
+    resetField?: Function,
     textFieldStyle?: any,
 };
 
@@ -159,7 +159,7 @@ class FormField extends React.Component<FormFieldProps> {
     field.bundle === this.state.selectedBundle;
 
   handleClick = () => {
-    if (this.state.singleSelection) {
+    if (this.state.singleSelection && this.props.resetField) {
       this.props.resetField();
     }
   };

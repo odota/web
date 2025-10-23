@@ -5,9 +5,11 @@ import { IconSteam } from '../Icons';
 import config from '../../config';
 
 import { HomePageProps } from './Home';
+import useStrings from '../../hooks/useStrings.hook';
 
-const Buttons = ({ user, strings }: HomePageProps) => (
-  <div>
+const Buttons = ({ user }: HomePageProps) => {
+  const strings = useStrings();
+  return <div>
     {!user && (
       <div>
         <Button
@@ -19,15 +21,14 @@ const Buttons = ({ user, strings }: HomePageProps) => (
         </Button>
       </div>
     )}
-  </div>
-);
+  </div>;
+};
 
 const mapStateToProps = (state: any) => {
   const { data } = state.app.metadata;
   return {
     user: data.user,
-    strings: state.app.strings,
   };
 };
 
-export default connect(mapStateToProps, null)(Buttons);
+export default connect(mapStateToProps)(Buttons);

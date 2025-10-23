@@ -12,7 +12,6 @@ import useStrings from '../../hooks/useStrings.hook';
 
 export interface HomePageProps {
   user?: string;
-  strings: Strings;
 }
 
 const Home = () => {
@@ -25,7 +24,7 @@ const Home = () => {
       <DescriptionDiv>
         <h2>{strings.app_description}</h2>
       </DescriptionDiv>
-      <Buttons strings={strings} />
+      <Buttons />
     </HeadContainerDiv>
     <Why />
     <Sponsors />
