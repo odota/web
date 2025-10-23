@@ -24,8 +24,8 @@ const Info = ({
   msg,
 }: {
   children: React.ReactNode;
-  className: string;
-  msg: string;
+  className?: string;
+  msg?: string;
 }) => (
   <StyledDiv className={`${className}`}>
     <ActionInfo />

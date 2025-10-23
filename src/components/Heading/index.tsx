@@ -21,7 +21,7 @@ const Heading = ({
   title?: string;
   titleTo?: string;
   icon?: React.ReactNode;
-  subtitle?: string;
+  subtitle?: string | React.ReactNode;
   buttonLabel?: string;
   buttonTo?: string;
   buttonIcon?: string;

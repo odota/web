@@ -1,12 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { MMRGraph } from '../../../Visualizations';
 import { getPlayerMmr } from '../../../../actions';
 import Container from '../../../Container';
 import Info from '../../../Alerts/Info';
+import useStrings from '../../../../hooks/useStrings.hook';
 
-const MMRInfo = (strings) => (
+const MMRInfo = (strings: Strings) => (
   <Info>
     <a
       href="https://blog.opendota.com/2016/01/13/opendota-mmr-and-you/"
@@ -18,8 +18,9 @@ const MMRInfo = (strings) => (
   </Info>
 );
 
-const MMR = ({ columns, error, loading, strings }) => (
-  <div>
+const MMR = ({ columns, error, loading }: { columns: any[], error: string, loading: boolean }) => {
+  const strings = useStrings();
+  return <div>
     <Container
       title={strings.heading_mmr}
       subtitle={MMRInfo(strings)}
@@ -29,33 +30,30 @@ const MMR = ({ columns, error, loading, strings }) => (
       <MMRGraph columns={columns} />
     </Container>
   </div>
-);
-
-MMR.propTypes = {
-  columns: PropTypes.arrayOf({}),
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-  strings: PropTypes.shape({}),
 };
 
-const getData = (props) => {
+const getData = (props: MMRProps) => {
   props.getPlayerMmr(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    playerId: PropTypes.string,
-    strings: PropTypes.shape({}),
-  };
+type MMRProps = {
+  location: {
+    key: string,
+    search?: string,
+  },
+  playerId: string,
+  columns: any[],
+  loading: boolean,
+  error: string,
+  getPlayerMmr: Function
+};
 
+class RequestLayer extends React.Component<MMRProps> {
   componentDidMount() {
     getData(this.props);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: MMRProps) {
     if (
       this.props.playerId !== prevProps.playerId ||
       this.props.location.key !== prevProps.location.key
@@ -69,11 +67,10 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   columns: state.app.playerMmr.data,
   loading: state.app.playerMmr.loading,
   error: state.app.playerMmr.error,
-  strings: state.app.strings,
 });
 
 export default connect(mapStateToProps, { getPlayerMmr })(RequestLayer);

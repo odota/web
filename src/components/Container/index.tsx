@@ -5,7 +5,7 @@ import ContainerSkeleton from '../Skeletons/ContainerSkeleton';
 
 type ContainerProps = {
   title?: string,
-  subtitle?: string,
+  subtitle?: string | React.ReactNode,
   style?: any,
   className?: string,
   loading?: boolean,
