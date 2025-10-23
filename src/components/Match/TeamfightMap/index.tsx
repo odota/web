@@ -1,15 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  arrayOf,
-  object,
-  shape,
-  number,
-  bool,
-  func,
-  string,
-  array,
-} from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 import {
@@ -26,6 +16,7 @@ import Timeline from '../Timeline';
 import DotaMap from '../../DotaMap';
 import constants from '../../constants';
 import config from '../../../config';
+import useStrings from '../../../hooks/useStrings.hook';
 
 const Styled = styled.div`
   .parentContainer {
@@ -225,13 +216,13 @@ const Styled = styled.div`
   }
 `;
 
-const iconSize = (mapWidth, factor = 12, minSize = 15) =>
+const iconSize = (mapWidth: number, factor = 12, minSize = 15) =>
   mapWidth / factor <= minSize ? minSize : mapWidth / factor;
 
 const style = (
-  width,
-  position,
-  iconSizeOverride,
+  width: number,
+  position: { x: number, y: number },
+  iconSizeOverride?: number,
   options = { noTopAdjustment: false },
 ) => ({
   width: iconSizeOverride || iconSize(width),
@@ -242,9 +233,9 @@ const style = (
   left: (width / 127) * position.x - (iconSizeOverride || iconSize(width) / 2),
 });
 
-const isRadiant = (radiantGoldDelta) => radiantGoldDelta > 0;
+const isRadiant = (radiantGoldDelta: number) => radiantGoldDelta > 0;
 
-const IconType = (_isRadiant) => (_isRadiant ? IconRadiant : IconDire);
+const IconType = (_isRadiant: boolean) => (_isRadiant ? IconRadiant : IconDire);
 
 export const TeamfightIcon = ({
   position,
@@ -253,6 +244,15 @@ export const TeamfightIcon = ({
   onClick,
   Icon,
   ...props
+}: {
+  position: { x: number, y: number },
+  tooltipKey: string,
+  mapWidth: number,
+  onClick?: Function,
+  Icon: any,
+  isRadiant?: boolean,
+  className?: string,
+  style?: any,
 }) => (
   <Icon
     className="teamfightIcon"
@@ -264,7 +264,7 @@ export const TeamfightIcon = ({
   />
 );
 
-export const GoldDelta = ({ radiantGoldDelta }) => (
+export const GoldDelta = ({ radiantGoldDelta }: { radiantGoldDelta: number }) => (
   <div className="goldChange">
     {isRadiant(radiantGoldDelta) ? radiantGoldDelta : radiantGoldDelta * -1}
     <img
@@ -274,12 +274,12 @@ export const GoldDelta = ({ radiantGoldDelta }) => (
   </div>
 );
 
-const getIconStyle = (radiantGoldDelta) =>
+const getIconStyle = (radiantGoldDelta: number) =>
   isRadiant(radiantGoldDelta) ? 'radiant' : 'dire';
-const getSelectedStyle = (radiantGoldDelta) =>
+const getSelectedStyle = (radiantGoldDelta: number) =>
   isRadiant(radiantGoldDelta) ? 'radiantSelected' : 'direSelected';
 
-const getTombStyle = (position) =>
+const getTombStyle = (position: any[]) =>
   position.reduce(
     (str, _position) => {
       const radStr = _position.isRadiant ? 'radiant' : 'dire';
@@ -295,9 +295,9 @@ export const Tombstones = ({
   deathPositions,
   mapWidth,
   tooltipKey,
-  strings,
-}) => (
-  <div>
+}: { deathPositions: any[][], mapWidth: number, tooltipKey: string }) => {
+  const strings = useStrings();
+  return <div>
     {deathPositions.map((position, index) => (
       <div key={index}>
         <TeamfightIcon
@@ -324,8 +324,8 @@ export const Tombstones = ({
         </ReactTooltip>
       </div>
     ))}
-  </div>
-);
+  </div>;
+};
 
 export const Teamfight = ({
   position,
@@ -338,9 +338,19 @@ export const Teamfight = ({
   mapWidth,
   onClick,
   deathPositions,
-  strings,
-}) => (
-  <div>
+}: {
+  position: any,
+  tooltipKey: string,
+  start: number,
+  end: number,
+  radiantGoldDelta: number,
+  selected: boolean,
+  hovered: boolean,
+  mapWidth: number,
+  onClick?: Function,
+  deathPositions: any[],
+}) => {
+  return <div>
     <div className={getIconStyle(radiantGoldDelta)}>
       <div
         className={`teamfightIconSvg ${hovered && 'hovered'} ${selected && 'selected'}`}
@@ -370,13 +380,12 @@ export const Teamfight = ({
         deathPositions={deathPositions}
         mapWidth={mapWidth}
         tooltipKey={tooltipKey}
-        strings={strings}
       />
     )}
-  </div>
-);
+  </div>;
+};
 
-const avgPosition = ({ deaths_pos: deathPositions }) => {
+const avgPosition = ({ deaths_pos: deathPositions }: { deaths_pos: any[][] }) => {
   const avgs = deathPositions.reduce(
     (avg, position, index) => {
       const posTotal = position.reduce(
@@ -415,17 +424,15 @@ const avgPosition = ({ deaths_pos: deathPositions }) => {
   };
 };
 
-class TeamfightMap extends Component {
-  static propTypes = {
-    teamfights: arrayOf(object),
-    match: shape({}),
-    strings: shape({}),
-    sponsorIcon: string,
-    sponsorURL: string,
-  };
+type TeamfightMapProps =  {
+  teamfights: any[],
+  match: Match,
+  strings: Strings,
+};
 
-  constructor(props) {
-    super();
+class TeamfightMap extends Component<TeamfightMapProps, { teamfight: any, hoveredTeamfight?: any }> {
+  constructor(props: TeamfightMapProps) {
+    super(props);
     const { teamfights = [] } = props;
     const teamfight = teamfights.length > 0 ? teamfights[0] : null;
     this.state = {
@@ -433,7 +440,7 @@ class TeamfightMap extends Component {
     };
   }
 
-  onIconClick = (teamfight) => () => {
+  onIconClick = (teamfight: any) => () => {
     // We do this because we need to prevent the map click event from
     // being executed. That click event is innaccurate if the actual icon is clicked.
     // event.stopPropagation();
@@ -442,7 +449,7 @@ class TeamfightMap extends Component {
     });
   };
 
-  onMapClick = (width) => (event) => {
+  onMapClick = (width: number) => (event: any) => {
     const { x: x1, y: y1 } = calculateRelativeXY(event);
     const { teamfights } = this.props;
     const newSelection = teamfights.reduce(
@@ -473,19 +480,19 @@ class TeamfightMap extends Component {
     });
   };
 
-  onTeamfightHover = (teamfight) => () => {
+  onTeamfightHover = (teamfight: any) => () => {
     this.setState({
       hoveredTeamfight: teamfight,
     });
   };
 
-  onTimelineHover = (start) =>
+  onTimelineHover = (start: number) =>
     this.curriedTeamfightHandler(this.onTeamfightHover, start);
 
-  onTimelineIconClick = (start) =>
+  onTimelineIconClick = (start: number) =>
     this.curriedTeamfightHandler(this.onIconClick, start);
 
-  curriedTeamfightHandler = (fn, start) => (event) => {
+  curriedTeamfightHandler = (fn: Function, start: number) => (event: any) => {
     fn(this.props.teamfights.find((tf) => tf.start === start))(event);
   };
 
@@ -504,8 +511,6 @@ class TeamfightMap extends Component {
       teamfights = [],
       match,
       strings,
-      sponsorURL,
-      sponsorIcon,
     } = this.props;
     const teamfight = this.state.teamfight || {};
     const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
@@ -539,7 +544,6 @@ class TeamfightMap extends Component {
                     radiantGoldDelta={teamFight.radiant_gold_advantage_delta}
                     deathPositions={teamFight.deaths_pos}
                     mapWidth={400}
-                    strings={strings}
                   />
                 ))}
               </DotaMap>
@@ -574,11 +578,11 @@ class TeamfightMap extends Component {
                 players={teamfight.players}
                 columns={teamfightColumns}
                 heading={strings.heading_teamfights}
-                buttonLabel={
-                  config.VITE_ENABLE_GOSUAI ? strings.gosu_teamfights : null
-                }
-                buttonTo={`${sponsorURL}Teamfights`}
-                buttonIcon={sponsorIcon}
+                // buttonLabel={
+                //   config.VITE_ENABLE_GOSUAI ? strings.gosu_teamfights : null
+                // }
+                // buttonTo={`${sponsorURL}Teamfights`}
+                // buttonIcon={sponsorIcon}
                 radiantTeam={this.props.match.radiant_team}
                 direTeam={this.props.match.dire_team}
                 radiantWin={match.radiant_win}
@@ -592,46 +596,7 @@ class TeamfightMap extends Component {
   }
 }
 
-const positionShape = {
-  x: number,
-  y: number,
-};
-
-TeamfightIcon.propTypes = {
-  position: shape(positionShape),
-  tooltipKey: string,
-  mapWidth: number,
-  onClick: func, // not required because tombstone doesn't need click fn
-  Icon: func,
-  style: shape({}),
-};
-
-GoldDelta.propTypes = {
-  radiantGoldDelta: number,
-};
-
-Tombstones.propTypes = {
-  tooltipKey: string,
-  mapWidth: number,
-  deathPositions: arrayOf(array),
-  strings: shape({}),
-};
-
-Teamfight.propTypes = {
-  position: shape(positionShape),
-  tooltipKey: string,
-  start: number,
-  end: number,
-  radiantGoldDelta: number,
-  selected: bool,
-  hovered: bool,
-  mapWidth: number,
-  onClick: func,
-  deathPositions: arrayOf(array),
-  strings: shape({}),
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 

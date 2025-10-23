@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { heroes } from 'dotaconstants';
 import Heading from '../Heading';
 import Table from '../Table';
@@ -40,11 +39,6 @@ const TickElement = (props: { x: number, y: number, payload: any }) => {
   }
 
   return null;
-};
-TickElement.propTypes = {
-  x: PropTypes.number,
-  y: PropTypes.number,
-  payload: PropTypes.shape({}),
 };
 
 const matchPages = (strings: Strings): {
