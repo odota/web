@@ -7,9 +7,8 @@ import {
 import curry from 'lodash/fp/curry';
 import findLast from 'lodash/fp/findLast';
 import inRange from 'lodash/fp/inRange';
-// import SvgIcon from 'material-ui/SvgIcon';
-import SocialPeople from 'material-ui/svg-icons/social/people';
-import SocialPerson from 'material-ui/svg-icons/social/person';
+import SocialPeople from '@mui/icons-material/Group';
+import SocialPerson from '@mui/icons-material/Person';
 import querystring from 'querystring';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -854,9 +853,8 @@ export const transformations = {
       if (_partySize === 1) {
         return (
           <SocialPerson
-            color="rgb(179, 179, 179)"
             //@ts-expect-error
-            style={{ ...iconStyle, float: 'right' }}
+            style={iconStyle}
           />
         );
       } else if (_partySize === null || _partySize === undefined) {
@@ -865,7 +863,6 @@ export const transformations = {
       return (
         <div style={{ float: 'right', marginTop: '-3px', marginRight: '2px' }}>
           <SocialPeople
-            color="rgb(179, 179, 179)"
             //@ts-expect-error
             style={iconStyle}
           />
