@@ -45,7 +45,7 @@ class PlayedWith extends React.Component<PlayedWithProps, { win: number, lose: n
   }
   render() {
     const { strings } = this.props;
-    return (
+    return this.state?.win && this.state?.lose ? (
       <div
         style={{
           display: shouldShow(this.props) ? 'inline' : 'none',
@@ -73,7 +73,7 @@ class PlayedWith extends React.Component<PlayedWithProps, { win: number, lose: n
           }
         />
       </div>
-    );
+    ) : null;
   }
 }
 
