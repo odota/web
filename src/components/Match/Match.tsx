@@ -14,7 +14,7 @@ type MatchProps = {
   matchData: Match,
   match: {
     params: {
-      info: string,
+      info?: string,
     },
   },
   user: any,

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { heroes } from 'dotaconstants';
@@ -27,18 +26,19 @@ export const WinnerSpan = styled.span`
   }
 `;
 
-const matchesColumns = (strings) => [
+const matchesColumns = (strings: Strings) => [
   {
     field: 'version',
-    displayFn: (row, col, field) => <div>{field ? '☆' : ''}</div>,
+    displayFn: (row: any, col: any, field: any) => <div>{field ? '☆' : ''}</div>,
   },
   {
     displayName: strings.th_match_id,
     field: 'match_id',
     sortFn: true,
-    displayFn: (row, col, field) => (
+    displayFn: (row: any, col: any, field: any) => (
       <div>
         <TableLink to={`/matches/${field}`}>{field}</TableLink>
+        {/*@ts-expect-error*/}
         <div style={{ ...subTextStyle }}>
           <div style={{ float: 'left' }}>
             <FromNowTooltip timestamp={row.start_time + row.duration} />
@@ -64,7 +64,7 @@ const matchesColumns = (strings) => [
     ),
     field: 'radiant_name',
     color: constants.colorGreen,
-    displayFn: (row, col, field) => (
+    displayFn: (row: any, col: any, field: any) => (
       <div>
         {row.radiant_win && (
           <WinnerSpan>
@@ -81,7 +81,7 @@ const matchesColumns = (strings) => [
     ),
     field: 'dire_name',
     color: constants.colorRed,
-    displayFn: (row, col, field) => (
+    displayFn: (row: any, col: any, field: any) => (
       <div>
         {!row.radiant_win && (
           <WinnerSpan>
@@ -94,14 +94,15 @@ const matchesColumns = (strings) => [
   },
 ];
 
-const publicMatchesColumns = (strings) => [
+const publicMatchesColumns = (strings: Strings) => [
   {
     displayName: strings.th_match_id,
     field: 'match_id',
     sortFn: true,
-    displayFn: (row, col, field) => (
+    displayFn: (row: any, col: any, field: any) => (
       <div>
         <TableLink to={`/matches/${field}`}>{field}</TableLink>
+        {/*@ts-expect-error*/}
         <div style={{ ...subTextStyle }}>
           <div style={{ float: 'left' }}>
             <FromNowTooltip timestamp={row.start_time + row.duration} />
@@ -126,14 +127,14 @@ const publicMatchesColumns = (strings) => [
       </StyledTeamIconContainer>
     ),
     field: 'radiant_team',
-    displayFn: (row, col, field) =>
-      field?.map((heroId) =>
+    displayFn: (row: any, col: any, field: any[]) =>
+      field?.map((heroId: keyof Heroes) =>
         heroes[heroId] ? (
           <HeroImage
             id={heroId}
             key={heroId}
             style={{ width: '50px' }}
-            alt=""
+            alt={heroId}
           />
         ) : null,
       ),
@@ -143,25 +144,25 @@ const publicMatchesColumns = (strings) => [
       <StyledTeamIconContainer>{strings.general_dire}</StyledTeamIconContainer>
     ),
     field: 'dire_team',
-    displayFn: (row, col, field) =>
-      field?.map((heroId) =>
+    displayFn: (row: any, col: any, field: any[]) =>
+      field?.map((heroId: keyof Heroes) =>
         heroes[heroId] ? (
           <HeroImage
             id={heroId}
             key={heroId}
             style={{ width: '50px' }}
-            alt=""
+            alt={heroId}
           />
         ) : null,
       ),
   },
 ];
 
-const matchTabs = (strings) => [
+const matchTabs = (strings: Strings) => [
   {
     name: strings.hero_pro_tab,
     key: 'pro',
-    content: (propsPar) => (
+    content: (propsPar: MatchesProps) => (
       <div>
         <Table
           data={propsPar.proData}
@@ -175,7 +176,7 @@ const matchTabs = (strings) => [
   {
     name: strings.matches_highest_mmr,
     key: 'highMmr',
-    content: (propsPar) => (
+    content: (propsPar: MatchesProps) => (
       <div>
         <Table
           data={propsPar.publicData}
@@ -188,7 +189,7 @@ const matchTabs = (strings) => [
   },
 ];
 
-const getData = (props) => {
+const getData = (props: MatchesProps) => {
   const route = props.match.params.matchId || 'pro';
   if (!Number.isInteger(Number(route))) {
     props.dispatchProMatches();
@@ -196,23 +197,23 @@ const getData = (props) => {
   }
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        matchId: PropTypes.number,
-      }),
-    }),
-    strings: PropTypes.shape({}),
-    // proData: PropTypes.array,
-    // publicData: PropTypes.array,
-  };
+type MatchesProps = {
+  match: { params: { matchId: string, info?: string } },
+  strings: Strings,
+  dispatchProMatches: Function,
+  dispatchPublicMatches: Function,
+  proData: any[],
+  publicData: any[],
+  loading: boolean,
+};
+
+class RequestLayer extends React.Component<MatchesProps> {
 
   componentDidMount() {
     getData(this.props);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: MatchesProps) {
     if (this.props.match.params.matchId !== prevProps.match.params.matchId) {
       getData(this.props);
     }
@@ -238,16 +239,16 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   proData: state.app.proMatches.data,
   publicData: state.app.publicMatches.data,
   loading: state.app.proMatches.loading,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: any) => ({
   dispatchProMatches: () => dispatch(getProMatches()),
-  dispatchPublicMatches: (options) => dispatch(getPublicMatches(options)),
+  dispatchPublicMatches: (options: any) => dispatch(getPublicMatches(options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
