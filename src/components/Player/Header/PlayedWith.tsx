@@ -30,6 +30,10 @@ type PlayedWithProps = {
 };
 
 class PlayedWith extends React.Component<PlayedWithProps, { win: number, lose: number }> {
+  state = {
+    win: 0,
+    lose: 0,
+  };
   constructor(props: PlayedWithProps) {
     super(props);
   }
