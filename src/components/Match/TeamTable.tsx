@@ -31,7 +31,7 @@ const isBestValueInMatch = (players: MatchPlayer[]) => (field: keyof MatchPlayer
 const keyFn = (row: any) => row && row.player_slot + 1;
 
 const getHighlightFn = (loggedInId: number) => (row: any) => {
-  const s: { style: Record<string, string> } = { style: {} };
+  const s: { style: React.CSSProperties } = { style: {} };
   if (loggedInId && row.account_id === loggedInId) {
     if (row.player_slot < 5) {
       s.style.backgroundColor = 'rgba(18, 156, 40, 0.09)';

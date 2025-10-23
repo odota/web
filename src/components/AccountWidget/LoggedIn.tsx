@@ -21,7 +21,7 @@ const StyledButton = styled(Button)`
   display: flex;
 `;
 
-const LoggedIn = ({ playerId, style }: { playerId: number; style: any }) => {
+const LoggedIn = ({ playerId, style }: { playerId: number; style: React.CSSProperties }) => {
   const strings = useStrings();
   if (!playerId) {
     return <Spinner color="#fff" size={0.5} />;

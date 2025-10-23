@@ -39,7 +39,7 @@ const CollapseButton = ({
 }: {
   handleClick: React.MouseEventHandler<HTMLDivElement>,
   collapsed: boolean,
-  buttonStyle: any,
+  buttonStyle: React.CSSProperties,
   handleHoverOn: React.MouseEventHandler<HTMLDivElement>,
   handleHoverOff: React.MouseEventHandler<HTMLDivElement>,
 }) => {
