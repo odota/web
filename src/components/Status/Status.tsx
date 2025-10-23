@@ -105,6 +105,7 @@ class Status extends React.Component<{ strings: Strings }> {
             if (propName === 'health') {
               return (
                 <Table
+                  //@ts-expect-error
                   style={tableStyle}
                   data={Object.keys(this.state.result.health || {}).map(
                     (key) => ({
@@ -119,6 +120,7 @@ class Status extends React.Component<{ strings: Strings }> {
             return (
               <div>
                 <Table
+                  //@ts-expect-error
                   style={tableStyle}
                   data={Object.keys(this.state.result[propName] || {})
                     .map((key) => ({

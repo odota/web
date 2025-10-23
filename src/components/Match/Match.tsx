@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { List } from 'react-content-loader';
-import TabbedContent from '../TabbedContent';
+import TabbedContent from '../TabbedContent/TabbedContent';
 import { getMatch } from '../../actions';
 import MatchHeader from './MatchHeader/MatchHeader';
 import matchPages from './matchPages';

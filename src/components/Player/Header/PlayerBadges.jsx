@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Error from '../../Error/Error';
-import Spinner from '../../Spinner';
+import Spinner from '../../Spinner/Spinner';
 import {
   IconCheese,
   IconSteam,

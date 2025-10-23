@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import ActionHelp from 'material-ui/svg-icons/action/help';
 import styled from 'styled-components';
-import Spinner from '../../Spinner';
+import Spinner from '../../Spinner/Spinner';
 import Error from '../../Error/Error';
 import PlayedWith from './PlayedWith';
 import { PlayerStatsCard } from './Styled';

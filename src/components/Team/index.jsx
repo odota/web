@@ -8,7 +8,7 @@ import {
   getTeamMatches,
   getTeamPlayers,
 } from '../../actions';
-import Spinner from '../Spinner';
+import Spinner from '../Spinner/Spinner';
 import TabBar from '../TabBar';
 import teamPages from './teamPages';
 import getTeamHeader from './TeamHeader';

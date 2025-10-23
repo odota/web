@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 import styled from 'styled-components';
-import Spinner from '../Spinner';
+import Spinner from '../Spinner/Spinner';
 import Error from '../Error/Error';
 import { IconCheese } from '../Icons';
 

@@ -2,6 +2,7 @@ declare module 'ace-builds/src-noconflict/ace';
 declare module 'ace-builds/src-noconflict/ext-language_tools';
 declare module 'ace-builds/src-noconflict/theme-monokai';
 declare module 'ace-builds/src-noconflict/mode-sql';
+declare module 'abcolor';
 
 type Strings = typeof import('./lang/en-US.json');
 type Heroes = typeof import('dotaconstants/build/heroes.json');
@@ -74,6 +75,8 @@ type Match = {
   first_blood_time: number,
   draft_timings: any[],
   chat: any[],
+  radiant_gold_adv: number[],
+  radiant_xp_adv: number[],
 };
 
 type MatchPlayer = {

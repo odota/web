@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import Long from 'long';
 import { getPlayer, getPlayerWinLoss } from '../../actions';
 import TabBar from '../TabBar';
-import Spinner from '../Spinner';
+import Spinner from '../Spinner/Spinner';
 import TableFilterForm from './TableFilterForm';
 import PlayerHeader from './Header/PlayerHeader';
 // import Error from '../Error/Error';

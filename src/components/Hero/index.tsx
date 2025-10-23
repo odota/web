@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { heroSelector } from '../../reducers/selectors';
 import Heading from '../Heading';
 import TabBar from '../TabBar';
-import Spinner from '../Spinner';
+import Spinner from '../Spinner/Spinner';
 import ErrorBox from '../Error/ErrorBox';
 import Header from './Header';
 import Ranking from './Ranking';

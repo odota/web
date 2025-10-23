@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
-import Spinner from '../Spinner';
+import Spinner from '../Spinner/Spinner';
 import useStrings from '../../hooks/useStrings.hook';
 
 const StyledButton = styled(Button)`

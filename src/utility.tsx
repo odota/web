@@ -74,7 +74,7 @@ export function formatSeconds(input: number | undefined) {
     return time;
   }
 
-  return null;
+  return '';
 }
 
 export function formatSkillOrAttributeValues(values: string[]) {
@@ -1106,7 +1106,7 @@ export function getLocalizedMonthStrings() {
   );
 }
 
-export function formatGraphValueData(data: number, histogramName: string) {
+export function formatGraphValueData(data: number, histogramName?: string) {
   if (data !== 0 && !data) return '';
 
   switch (histogramName) {
@@ -1114,7 +1114,7 @@ export function formatGraphValueData(data: number, histogramName: string) {
       return formatSeconds(data);
 
     default:
-      return data;
+      return String(data);
   }
 }
 

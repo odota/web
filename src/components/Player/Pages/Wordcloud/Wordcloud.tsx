@@ -7,7 +7,7 @@ import Wordcloud from '../../../Wordcloud/Wordcloud';
 type Props = {
   playerId: string;
   location: { key: string; search: any };
-  error: boolean;
+  error: string;
   loading: boolean;
   data: {
     my_word_counts: Record<string, number>;
