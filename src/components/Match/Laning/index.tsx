@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import Heading from '../../Heading';
 import Heatmap from '../../Heatmap/Heatmap';
 import Table from '../../Table';
@@ -14,26 +13,26 @@ import {
 import Graph from './Graph';
 import config from '../../../config';
 
-class Laning extends React.Component {
-  static propTypes = {
-    match: PropTypes.shape({}),
-    strings: PropTypes.shape({}),
-    sponsorURL: PropTypes.string,
-    sponsorIcon: PropTypes.string,
+type LaningProps = {
+    match: Match,
+    strings: Strings,
+    sponsorURL: string,
+    sponsorIcon: string,
   };
 
-  constructor(props) {
+class Laning extends React.Component<LaningProps, { selectedPlayer: number }> {
+  constructor(props: LaningProps) {
     super(props);
     this.state = {
       selectedPlayer: 0,
     };
   }
 
-  setSelectedPlayer = (playerSlot) => {
+  setSelectedPlayer = (playerSlot: number) => {
     this.setState({ ...this.state, selectedPlayer: playerSlot });
   };
 
-  defaultSort = (r1, r2) => {
+  defaultSort = (r1: any, r2: any) => {
     if (r1.isRadiant !== r2.isRadiant) {
       return 1;
     }
@@ -59,7 +58,7 @@ class Laning extends React.Component {
         <StyledFlexElement>
           <Heading
             title={strings.th_map}
-            buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_laning : null}
+            buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_laning : undefined}
             buttonTo={`${sponsorURL}Laning`}
             buttonIcon={sponsorIcon}
           />
@@ -78,7 +77,6 @@ class Laning extends React.Component {
         <StyledFlexElement>
           <Graph
             match={match}
-            strings={strings}
             selectedPlayer={this.state.selectedPlayer}
           />
         </StyledFlexElement>
@@ -87,7 +85,7 @@ class Laning extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 
