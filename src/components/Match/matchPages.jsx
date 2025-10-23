@@ -59,7 +59,7 @@ const matchPages = (strings) => {
     // goldReasonsColumns,
     // xpReasonsColumns,
     objectiveDamageColumns,
-    analysisColumns,
+    // analysisColumns,
     inflictorsColumns,
     castsColumns,
     fantasyColumns,
@@ -402,60 +402,28 @@ const matchPages = (strings) => {
         </div>
       ),
     },
-    {
-      name: strings.tab_analysis,
-      key: 'analysis',
-      parsed: true,
-      content: (match) => (
-        <div>
-          <TeamTable
-            players={match.players}
-            columns={analysisColumns}
-            heading={strings.heading_analysis}
-            buttonLabel={
-              config.VITE_ENABLE_GOSUAI ? strings.gosu_analysis : null
-            }
-            buttonTo={`${gosuUrl}Analysis`}
-            buttonIcon={gosuIcon}
-            radiantTeam={match.radiant_team}
-            direTeam={match.dire_team}
-            radiantWin={match.radiant_win}
-          />
-        </div>
-      ),
-    },
-    {
-      name: strings.tab_cosmetics,
-      key: 'cosmetics',
-      parsed: true,
-      content: (match) => (
-        <div>
-          <Heading
-            title={strings.heading_cosmetics}
-            buttonLabel={
-              config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null
-            }
-            buttonTo={`${gosuUrl}Cosmetics`}
-            buttonIcon={gosuIcon}
-          />
-          <Table
-            data={match.players.filter((obj) => obj.cosmetics.length > 0)}
-            columns={cosmeticsColumns}
-          />
-        </div>
-      ),
-    },
-    {
-      name: strings.tab_log,
-      key: 'log',
-      skeleton: true,
-      parsed: true,
-      content: (match) => (
-        <div>
-          <MatchLog match={match} />
-        </div>
-      ),
-    },
+    // {
+    //   name: strings.tab_analysis,
+    //   key: 'analysis',
+    //   parsed: true,
+    //   content: (match) => (
+    //     <div>
+    //       <TeamTable
+    //         players={match.players}
+    //         columns={analysisColumns}
+    //         heading={strings.heading_analysis}
+    //         buttonLabel={
+    //           config.VITE_ENABLE_GOSUAI ? strings.gosu_analysis : null
+    //         }
+    //         buttonTo={`${gosuUrl}Analysis`}
+    //         buttonIcon={gosuIcon}
+    //         radiantTeam={match.radiant_team}
+    //         direTeam={match.dire_team}
+    //         radiantWin={match.radiant_win}
+    //       />
+    //     </div>
+    //   ),
+    // },
     {
       name: strings.tab_fantasy,
       key: 'fantasy',
@@ -512,6 +480,38 @@ const matchPages = (strings) => {
       content: (match) => (
         <div>
           <MatchStory match={match} />
+        </div>
+      ),
+    },
+    {
+      name: strings.tab_log,
+      key: 'log',
+      skeleton: true,
+      parsed: true,
+      content: (match) => (
+        <div>
+          <MatchLog match={match} />
+        </div>
+      ),
+    },
+    {
+      name: strings.tab_cosmetics,
+      key: 'cosmetics',
+      parsed: true,
+      content: (match) => (
+        <div>
+          <Heading
+            title={strings.heading_cosmetics}
+            buttonLabel={
+              config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null
+            }
+            buttonTo={`${gosuUrl}Cosmetics`}
+            buttonIcon={gosuIcon}
+          />
+          <Table
+            data={match.players.filter((obj) => obj.cosmetics.length > 0)}
+            columns={cosmeticsColumns}
+          />
         </div>
       ),
     },
