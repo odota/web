@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import Toggle from 'material-ui/Toggle';
 import TeamTable from '../TeamTable';
 import mcs from '../matchColumns';
@@ -18,27 +17,26 @@ const toggleStyle = {
   borderRadius: '5px',
 };
 
-class Purchases extends React.Component {
-  static propTypes = {
-    match: PropTypes.shape({}),
-    strings: PropTypes.shape({}),
-    sponsorURL: PropTypes.string,
-    sponsorIcon: PropTypes.string,
-  };
+type PurchasesProps = {
+  match: Match,
+  strings: Strings,
+};
 
-  constructor(props) {
+class Purchases extends React.Component<PurchasesProps, { showConsumables: boolean }> {
+  constructor(props: PurchasesProps) {
     super(props);
     this.state = {
       showConsumables: false,
     };
-    this.change = () => {
-      const { showConsumables } = this.state;
-      this.setState({ showConsumables: !showConsumables });
-    };
   }
 
+  change = () => {
+    const { showConsumables } = this.state;
+    this.setState({ showConsumables: !showConsumables });
+  };
+
   render() {
-    const { match, strings, sponsorURL, sponsorIcon } = this.props;
+    const { match, strings } = this.props;
     const { purchaseTimesColumns } = mcs(strings);
     return (
       <div style={{ position: 'relative' }}>
@@ -49,6 +47,7 @@ class Purchases extends React.Component {
             lineHeight: '13px',
             fontSize: '14px',
           }}
+          //@ts-expect-error
           style={toggleStyle}
           onToggle={this.change}
           thumbStyle={{
@@ -66,9 +65,9 @@ class Purchases extends React.Component {
           players={match.players}
           columns={purchaseTimesColumns(match, this.state.showConsumables)}
           heading={strings.heading_purchase_log}
-          buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
-          buttonTo={`${sponsorURL}Purchases`}
-          buttonIcon={sponsorIcon}
+          // buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
+          // buttonTo={`${sponsorURL}Purchases`}
+          // buttonIcon={sponsorIcon}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
           radiantWin={match.radiant_win}
@@ -79,7 +78,7 @@ class Purchases extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   strings: state.app.strings,
 });
 

@@ -231,9 +231,9 @@ export const StyledPlayersDeath = styled.div`
     height: 29px;
   }
 `;
-export const StyledEmote = styled.img.attrs({
-  alt: (props) => props.emote,
-  src: (props) => `/assets/images/dota2/emoticons/${props.emote}.gif`,
+export const StyledEmote = styled.img.attrs<{emote?: string}>({
+  alt: (props: {emote?: string}) => props.emote,
+  src: (props: {emote?: string}) => `/assets/images/dota2/emoticons/${props.emote}.gif`,
 })`
   width: 20px;
   height: 20px;
@@ -242,7 +242,7 @@ export const StyledEmote = styled.img.attrs({
 
 export const StyledStorySpan = styled.span`
   white-space: nowrap;
-  color: ${(props) =>
+  color: ${(props: { isRadiant: boolean }) =>
     props.isRadiant ? constants.colorGreen : constants.colorRed};
   svg,
   img {
@@ -291,7 +291,7 @@ export const StyledStoryNetWorthBar = styled.div`
   border-top-right-radius: 3px;
 }
 `;
-export const StyledStoryNetWorthText = styled.div`
+export const StyledStoryNetWorthText = styled.div<{ color: string, left: number, width: number }>`
   position: relative;
   display: flex;
   text-align: center;

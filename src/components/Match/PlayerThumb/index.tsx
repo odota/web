@@ -1,11 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { string, oneOfType, number, bool, shape } from 'prop-types';
 import { player_colors as playerColors } from 'dotaconstants';
 import { heroes } from 'dotaconstants';
 import styled from 'styled-components';
 import constants from '../../constants';
 import config from '../../../config';
+import useStrings from '../../../hooks/useStrings.hook';
 
 const StyledAside = styled.aside`
   display: flex;
@@ -19,16 +18,23 @@ const StyledImg = styled.img`
   margin-right: 4px;
 `;
 
-const PlayerThumb = (props) => {
-  const { name, personaname, hideText, strings } = props;
+const PlayerThumb = (props: {
+  player_slot?: number,
+  hero_id?: string,
+  name?: string,
+  personaname?: string,
+  hideText?: boolean,
+}) => {
+  const strings = useStrings();
+  const { name, personaname, hideText } = props;
   const playerSlot = props.player_slot;
   const heroId = props.hero_id;
   return (
-    <StyledAside style={{ color: playerColors[playerSlot] }}>
+    <StyledAside style={{ color: playerColors[playerSlot as unknown as keyof typeof playerColors] }}>
       <StyledImg
         src={
-          heroes[heroId]
-            ? `${config.VITE_IMAGE_CDN}${heroes[heroId].icon}`
+          heroes[heroId as keyof Heroes]
+            ? `${config.VITE_IMAGE_CDN}${heroes[heroId as keyof Heroes].icon}`
             : '/assets/images/blank-1x1.gif'
         }
         alt=""
@@ -38,17 +44,4 @@ const PlayerThumb = (props) => {
   );
 };
 
-PlayerThumb.propTypes = {
-  player_slot: oneOfType([string, number]),
-  hero_id: oneOfType([string, number]),
-  name: string,
-  personaname: string,
-  hideText: bool,
-  strings: shape({}),
-};
-
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(PlayerThumb);
+export default PlayerThumb;
