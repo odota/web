@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import { heroes } from 'dotaconstants';
 import styled from 'styled-components';
@@ -9,11 +8,12 @@ import {
   isRadiant,
   jsonFn,
   getTeamName,
-} from '../../../utility';
-import { IconBloodDrop, IconRoshan, IconBattle } from '../../Icons';
-import PlayerThumb from '../PlayerThumb';
-import constants from '../../constants';
-import config from '../../../config';
+} from '../../utility';
+import { IconBloodDrop, IconRoshan, IconBattle } from '../Icons';
+import PlayerThumb from './PlayerThumb';
+import constants from '../constants';
+import config from '../../config';
+import useStrings from '../../hooks/useStrings.hook';
 
 const Styled = styled.div`
   .clickable {
@@ -291,7 +291,7 @@ const Styled = styled.div`
 
 const heroesArr = jsonFn(heroes);
 
-const getWinnerStyle = (obj) =>
+const getWinnerStyle = (obj: any) =>
   obj && obj.radiant_gold_advantage_delta >= 0 ? 'radiantWinner' : 'direWinner';
 
 const Timeline = ({
@@ -299,8 +299,8 @@ const Timeline = ({
   onTeamfightClick,
   onTeamfightHover,
   selectedTeamfight,
-  strings,
-}) => {
+}: { match: Match, onTeamfightClick?: Function, onTeamfightHover?: Function, selectedTeamfight?: number }) => {
+  const strings = useStrings();
   const preHorn = 90; // Seconds before the battle horn
 
   if (match.objectives && match.objectives.length > 0) {
@@ -308,15 +308,15 @@ const Timeline = ({
     const fbIndex = match.objectives.findIndex(
       (obj) => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD',
     );
-    let fbArr = [{ type: 'firstblood', time: match.first_blood_time || 0 }];
+    let fbArr: { type: string, time: number, team?: number, player_slot?: number, key?: number | null, start?: number, end?: number, deaths?: any[] }[] = [{ type: 'firstblood', time: match.first_blood_time || 0 }];
 
     if (fbIndex > -1 && match.objectives[fbIndex].player_slot !== undefined) {
       const killer =
         match.players.find(
           (player) =>
             player.player_slot === match.objectives[fbIndex].player_slot,
-        ) || {};
-      const killerLog = killer.kills_log;
+        );
+      const killerLog = killer?.kills_log;
 
       fbArr = [
         {
@@ -373,8 +373,8 @@ const Timeline = ({
       .map((obj) => ({
         type: 'aegis',
         act:
-          (obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' && 'stolen') ||
-          (obj.type === 'CHAT_MESSAGE_DENIED_AEGIS' && 'denied'),
+          ((obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' && 'stolen') ||
+          (obj.type === 'CHAT_MESSAGE_DENIED_AEGIS' && 'denied')) as string,
         time: obj.time,
         player_slot: obj.player_slot,
       }));
@@ -386,16 +386,15 @@ const Timeline = ({
     );
     fTower = match.objectives[fTower] ? match.objectives[fTower].time : null;
 
-    let fRax = match.objectives.findIndex(
+    let fRax = match.objectives[match.objectives.findIndex(
       (o) => o.type === 'CHAT_MESSAGE_BARRACKS_KILL',
-    );
-    fRax = match.objectives[fRax] || null;
+    )] || null;
 
     return (
       Math.abs(
         events.filter((obj) => obj.type === 'firstblood')[0].time -
           match.first_blood_time,
-      ) <= preHorn && (
+      ) <= preHorn ? (
         // some old (source1) matches have wrong time in objectives, ex: 271008789.
         // preHorn (90) is just small allowable mismatch. Since first_blood_time always >= 0, ex: 2792706825, fb before battle horn
         <Styled>
@@ -422,9 +421,11 @@ const Timeline = ({
                     (obj.team && obj.team === 2)
                       ? 'radiant'
                       : 'dire';
-                  const wTeamfight =
-                    obj.type === 'teamfight' &&
-                    (100 * (obj.end - obj.start)) / (match.duration + preHorn);
+                  const wTeamfight: number =
+                    obj.type === 'teamfight' ?
+                    //@ts-expect-error
+                    (100 * (obj.end - obj.start)) / (match.duration + preHorn)
+                    : 0;
 
                   return (
                     <mark
@@ -503,7 +504,7 @@ const Timeline = ({
                               <PlayerThumb
                                 {...match.players.find((player) => {
                                   const foundHero = heroesArr('find')(
-                                    (hero) => hero.name === obj.key,
+                                    (hero: any) => hero.name === obj.key,
                                   );
                                   return (
                                     foundHero && player.hero_id === foundHero.id
@@ -514,22 +515,22 @@ const Timeline = ({
                           </section>
                         )}
                         {obj.type === 'roshan' &&
-                          aegis[obj.key] &&
+                          aegis[obj.key as number] &&
                           match.players
                             .filter(
                               (player) =>
                                 player.player_slot ===
-                                aegis[obj.key].player_slot,
+                                aegis[obj.key as number].player_slot,
                             )
                             .map((player) => (
                               <section key={player.player_slot}>
                                 <PlayerThumb {...player} />
                                 <span>
-                                  {!aegis[obj.key].act &&
+                                  {!aegis[obj.key as number].act &&
                                     strings.timeline_aegis_picked_up}
-                                  {aegis[obj.key].act === 'stolen' &&
+                                  {aegis[obj.key as number].act === 'stolen' &&
                                     strings.timeline_aegis_snatched}
-                                  {aegis[obj.key].act === 'denied' &&
+                                  {aegis[obj.key as number].act === 'denied' &&
                                     strings.timeline_aegis_denied}
                                 </span>
                                 <img
@@ -548,7 +549,7 @@ const Timeline = ({
                                 {formatSeconds(obj.end)}
                               </span>
                             </header>
-                            {obj.deaths.map((death) => (
+                            {obj.deaths?.map((death) => (
                               <section key={death.key}>
                                 <PlayerThumb {...match.players[death.key]} />
                                 {death.deaths > 0 ? (
@@ -566,10 +567,12 @@ const Timeline = ({
                                     <span className="goldChange goldLost" />
                                   )}
                                   {/* nothing if === 0 */}
+                                  {/*@ts-expect-error*/}
                                   <font
                                     style={{ color: constants.colorGolden }}
                                   >
                                     {Math.abs(death.gold_delta)}{' '}
+                                  {/*@ts-expect-error*/}
                                   </font>
                                   <img
                                     alt="Gold"
@@ -602,27 +605,17 @@ const Timeline = ({
               <div>
                 <span>
                   {strings.match_first_barracks} (
-                  {strings[`barracks_value_${fRax.key}`]}){' '}
+                  {strings[`barracks_value_${fRax.key}` as keyof Strings]}){' '}
                 </span>
                 {formatSeconds(fRax.time)}
               </div>
             )}
           </div>
         </Styled>
-      )
-    );
+      ) : null);
   }
 
   return null;
 };
 
-Timeline.propTypes = {
-  match: PropTypes.shape({}),
-  strings: PropTypes.shape({}),
-};
-
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(Timeline);
+export default Timeline;

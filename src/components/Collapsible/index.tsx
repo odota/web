@@ -63,7 +63,7 @@ const CollapsibleContainer = styled.div`
   box-sizing: border-box;
 `;
 
-class Collapsible extends React.Component<{ name: string, children: React.ReactNode, initialMaxHeight: number, buttonStyle: any}, { collapsed: boolean, hovered: boolean }> {
+class Collapsible extends React.Component<{ name: string, children: React.ReactNode, initialMaxHeight?: number, buttonStyle?: any}, { collapsed: boolean, hovered: boolean }> {
   constructor(props: any) {
     super(props);
     this.state = {

@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { isRadiant, getTeamName } from '../../utility';
 import { IconRadiant, IconDire } from '../Icons';
 import Heading from '../Heading';
 import Table from '../Table';
 
-const filterMatchPlayers = (players, team = '') =>
+const filterMatchPlayers = (players: MatchPlayer[], team = '') =>
   players
     .filter(
       (player) =>
@@ -15,13 +14,20 @@ const filterMatchPlayers = (players, team = '') =>
     )
     .sort((a, b) => a.player_slot - b.player_slot);
 
-const AbilityBuildTable = ({
+const AbilityDraftTable = ({
   players = [],
   columns,
   heading = '',
   radiantTeam = {},
   direTeam = {},
   summable = false,
+}: {
+  players: MatchPlayer[],
+  columns: any[],
+  heading: string,
+  radiantTeam: any,
+  direTeam: any,
+  summable: boolean,
 }) => (
   <div>
     <Heading
@@ -45,13 +51,4 @@ const AbilityBuildTable = ({
   </div>
 );
 
-AbilityBuildTable.propTypes = {
-  players: PropTypes.arrayOf({}),
-  columns: PropTypes.arrayOf({}),
-  heading: PropTypes.string,
-  radiantTeam: PropTypes.arrayOf({}),
-  direTeam: PropTypes.arrayOf({}),
-  summable: PropTypes.bool,
-};
-
-export default AbilityBuildTable;
+export default AbilityDraftTable;

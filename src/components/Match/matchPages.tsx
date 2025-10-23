@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { heroes } from 'dotaconstants';
 import Heading from '../Heading';
 import Table from '../Table';
-import TeamfightMap from '../Match/TeamfightMap';
-import Purchases from '../Match/Purchases';
-import Timeline from '../Match/Overview/Timeline';
+import TeamfightMap from './TeamfightMap';
+import Purchases from './Purchases';
+import Timeline from './Timeline';
 import MatchGraph from '../Visualizations/Graph/MatchGraph';
 import StackedBarGraph from '../Visualizations/Graph/StackedBarGraph';
 import Draft from './Draft/Draft';
@@ -15,17 +15,17 @@ import CrossTable from './CrossTable';
 import MatchLog from './MatchLog';
 import MatchStory from './MatchStory';
 import mcs from './matchColumns';
-import Overview from './Overview';
+import { getOverviewTab } from './Overview/Overview';
 import TeamTable from './TeamTable';
 import Chat from './Chat/Chat';
 import { StyledFlexContainer, StyledFlexElement } from './StyledMatch';
 import { getHeroImageUrl, IMAGESIZE_ENUM } from '../../utility';
 import config from '../../config';
 
-const TickElement = (props) => {
+const TickElement = (props: { x: number, y: number, payload: any }) => {
   const { x, y, payload } = props;
 
-  if (heroes[payload.value]) {
+  if (heroes[payload.value as keyof Heroes]) {
     const href = getHeroImageUrl(payload.value, IMAGESIZE_ENUM.SMALL.suffix);
     const imageProps = {
       xlinkHref: href,
@@ -47,7 +47,14 @@ TickElement.propTypes = {
   payload: PropTypes.shape({}),
 };
 
-const matchPages = (strings) => {
+const matchPages = (strings: Strings): {
+  name: string,
+  key: string,
+  content: (m: Match) => React.ReactNode,
+  skeleton?: boolean,
+  parsed?: boolean,
+  hidden?: (m: Match) => boolean,
+}[] => {
   const {
     benchmarksColumns,
     performanceColumns,
@@ -65,26 +72,23 @@ const matchPages = (strings) => {
     fantasyColumns,
   } = mcs(strings);
 
-  const gosuUrl =
-    'https://gosu.ai/dota/?utm_source=opendota&utm_medium=cpc&utm_campaign=';
-  const gosuIcon = '/assets/images/gosu-24px.png';
-
   return [
-    Overview(strings, gosuUrl, gosuIcon),
+    getOverviewTab(strings),
     {
       name: strings.tab_benchmarks,
       key: 'benchmarks',
-      content: (match) => (
+      parsed: false,
+      content: (match: Match) => (
         <div>
           <TeamTable
             players={match.players}
             columns={benchmarksColumns(match)}
             heading={strings.heading_benchmarks}
-            buttonLabel={
-              config.VITE_ENABLE_GOSUAI ? strings.gosu_benchmarks : null
-            }
-            buttonTo={`${gosuUrl}Benchmarks`}
-            buttonIcon={gosuIcon}
+            // buttonLabel={
+            //   config.VITE_ENABLE_GOSUAI ? strings.gosu_benchmarks : null
+            // }
+            // buttonTo={`${gosuUrl}Benchmarks`}
+            // buttonIcon={gosuIcon}
             radiantTeam={match.radiant_team}
             direTeam={match.dire_team}
             radiantWin={match.radiant_win}
@@ -97,8 +101,8 @@ const matchPages = (strings) => {
       name: strings.tab_drafts,
       key: 'draft',
       parsed: true,
-      hidden: (match) => match.game_mode !== 2,
-      content: (match) => (
+      hidden: (match: Match) => match.game_mode !== 2,
+      content: (match: Match) => (
         <div>
           <Draft
             gameMode={match.game_mode}
@@ -106,9 +110,8 @@ const matchPages = (strings) => {
             direTeam={match.dire_team}
             draft={match.draft_timings}
             startTime={match.start_time}
-            sponsorIcon={gosuIcon}
-            sponsorURL={gosuUrl}
-            strings={strings}
+            // sponsorIcon={gosuIcon}
+            // sponsorURL={gosuUrl}
           />
         </div>
       ),
@@ -117,17 +120,17 @@ const matchPages = (strings) => {
       name: strings.tab_performances,
       key: 'performances',
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <div>
           <TeamTable
             players={match.players}
             columns={performanceColumns}
             heading={strings.heading_performances}
-            buttonLabel={
-              config.VITE_ENABLE_GOSUAI ? strings.gosu_performances : null
-            }
-            buttonTo={`${gosuUrl}Performances`}
-            buttonIcon={gosuIcon}
+            // buttonLabel={
+            //   config.VITE_ENABLE_GOSUAI ? strings.gosu_performances : null
+            // }
+            // buttonTo={`${gosuUrl}Performances`}
+            // buttonIcon={gosuIcon}
             radiantTeam={match.radiant_team}
             direTeam={match.dire_team}
             radiantWin={match.radiant_win}
@@ -141,9 +144,9 @@ const matchPages = (strings) => {
       name: strings.tab_laning,
       key: 'laning',
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <div>
-          <Laning match={match} sponsorURL={gosuUrl} sponsorIcon={gosuIcon} />
+          <Laning match={match} />
         </div>
       ),
     },
@@ -152,15 +155,15 @@ const matchPages = (strings) => {
       key: 'combat',
       skeleton: true,
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <div>
-          {config.VITE_ENABLE_GOSUAI && (
+          {/* {config.VITE_ENABLE_GOSUAI && (
             <Heading
               buttonLabel={strings.gosu_combat}
               buttonTo={`${gosuUrl}Combat`}
               buttonIcon={gosuIcon}
             />
-          )}
+          )} */}
           <StyledFlexContainer>
             <StyledFlexElement>
               <Heading title={strings.heading_kills} />
@@ -187,15 +190,15 @@ const matchPages = (strings) => {
       key: 'farm',
       skeleton: true,
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <div>
           <TeamTable
             players={match.players}
             columns={unitKillsColumns}
             heading={strings.heading_unit_kills}
-            buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_farm : null}
-            buttonTo={`${gosuUrl}Farm`}
-            buttonIcon={gosuIcon}
+            // buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_farm : null}
+            // buttonTo={`${gosuUrl}Farm`}
+            // buttonIcon={gosuIcon}
             radiantTeam={match.radiant_team}
             direTeam={match.dire_team}
             radiantWin={match.radiant_win}
@@ -219,7 +222,7 @@ const matchPages = (strings) => {
             }))}
             heading={strings.heading_gold_reasons}
             type="gold_reasons"
-            tooltipFormatter={(heroId) =>
+            tooltipFormatter={(heroId: keyof Heroes) =>
               heroes[heroId] && heroes[heroId].localized_name
             }
             tickElement={TickElement}
@@ -231,7 +234,7 @@ const matchPages = (strings) => {
             }))}
             heading={strings.heading_xp_reasons}
             type="xp_reasons"
-            tooltipFormatter={(heroId) =>
+            tooltipFormatter={(heroId: keyof Heroes) =>
               heroes[heroId] && heroes[heroId].localized_name
             }
             tickElement={TickElement}
@@ -262,12 +265,12 @@ const matchPages = (strings) => {
       key: 'purchases',
       skeleton: true,
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <div>
           <Purchases
             match={match}
-            sponsorURL={gosuUrl}
-            sponsorIcon={gosuIcon}
+            // sponsorURL={gosuUrl}
+            // sponsorIcon={gosuIcon}
           />
         </div>
       ),
@@ -277,14 +280,14 @@ const matchPages = (strings) => {
       key: 'graphs',
       skeleton: true,
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <div>
           <Timeline match={match} />
           <MatchGraph
             match={match}
             type="difference"
-            sponsorURL={gosuUrl}
-            sponsorIcon={gosuIcon}
+            // sponsorURL={gosuUrl}
+            // sponsorIcon={gosuIcon}
           />
           <MatchGraph match={match} type="gold" />
           <MatchGraph match={match} type="xp" />
@@ -297,17 +300,17 @@ const matchPages = (strings) => {
       key: 'casts',
       skeleton: true,
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <div>
           <TeamTable
             players={match.players}
             columns={castsColumns}
             heading={strings.heading_casts}
-            buttonLabel={
-              config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null
-            }
-            buttonTo={`${gosuUrl}Casts`}
-            buttonIcon={gosuIcon}
+            // buttonLabel={
+            //   config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null
+            // }
+            // buttonTo={`${gosuUrl}Casts`}
+            // buttonIcon={gosuIcon}
             radiantTeam={match.radiant_team}
             direTeam={match.dire_team}
             radiantWin={match.radiant_win}
@@ -320,17 +323,17 @@ const matchPages = (strings) => {
       key: 'objectives',
       skeleton: true,
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <div>
           <TeamTable
             players={match.players}
             columns={objectiveDamageColumns}
             heading={strings.heading_objective_damage}
-            buttonLabel={
-              config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null
-            }
-            buttonTo={`${gosuUrl}Objectives`}
-            buttonIcon={gosuIcon}
+            // buttonLabel={
+            //   config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null
+            // }
+            // buttonTo={`${gosuUrl}Objectives`}
+            // buttonIcon={gosuIcon}
             radiantTeam={match.radiant_team}
             direTeam={match.dire_team}
             radiantWin={match.radiant_win}
@@ -353,12 +356,11 @@ const matchPages = (strings) => {
       key: 'vision',
       skeleton: true,
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <Vision
           match={match}
-          sponsorURL={gosuUrl}
-          sponsorIcon={gosuIcon}
-          hoverRowColumn
+          // sponsorURL={gosuUrl}
+          // sponsorIcon={gosuIcon}
         />
       ),
     },
@@ -366,17 +368,17 @@ const matchPages = (strings) => {
       name: strings.tab_actions,
       key: 'actions',
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <div>
           <TeamTable
             players={match.players}
             columns={actionsColumns}
             heading={strings.heading_actions}
-            buttonLabel={
-              config.VITE_ENABLE_GOSUAI ? strings.gosu_actions : null
-            }
-            buttonTo={`${gosuUrl}Actions`}
-            buttonIcon={gosuIcon}
+            // buttonLabel={
+            //   config.VITE_ENABLE_GOSUAI ? strings.gosu_actions : null
+            // }
+            // buttonTo={`${gosuUrl}Actions`}
+            // buttonIcon={gosuIcon}
             radiantTeam={match.radiant_team}
             direTeam={match.dire_team}
             radiantWin={match.radiant_win}
@@ -390,14 +392,13 @@ const matchPages = (strings) => {
       key: 'teamfights',
       skeleton: true,
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <div>
           <TeamfightMap
             teamfights={match.teamfights}
             match={match}
-            sponsorURL={gosuUrl}
-            sponsorIcon={gosuIcon}
-            hoverRowColumn
+            // sponsorURL={gosuUrl}
+            // sponsorIcon={gosuIcon}
           />
         </div>
       ),
@@ -406,7 +407,7 @@ const matchPages = (strings) => {
     //   name: strings.tab_analysis,
     //   key: 'analysis',
     //   parsed: true,
-    //   content: (match) => (
+    //   content: (match: Match) => (
     //     <div>
     //       <TeamTable
     //         players={match.players}
@@ -428,17 +429,17 @@ const matchPages = (strings) => {
       name: strings.tab_fantasy,
       key: 'fantasy',
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <div>
           <TeamTable
             players={match.players}
             columns={fantasyColumns}
             heading={strings.heading_fantasy}
-            buttonLabel={
-              config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null
-            }
-            buttonTo={`${gosuUrl}Fantasy`}
-            buttonIcon={gosuIcon}
+            // buttonLabel={
+            //   config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null
+            // }
+            // buttonTo={`${gosuUrl}Fantasy`}
+            // buttonIcon={gosuIcon}
             radiantTeam={match.radiant_team}
             direTeam={match.dire_team}
             radiantWin={match.radiant_win}
@@ -451,7 +452,7 @@ const matchPages = (strings) => {
       name: strings.tab_chat,
       key: 'chat',
       parsed: true,
-      content: (match) => {
+      content: (match: Match) => {
         const data = (match.chat || []).map((msg) => {
           const p = match.players[msg.slot];
           if (p) {
@@ -477,7 +478,7 @@ const matchPages = (strings) => {
       name: strings.tab_story,
       key: 'story',
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <div>
           <MatchStory match={match} />
         </div>
@@ -488,7 +489,7 @@ const matchPages = (strings) => {
       key: 'log',
       skeleton: true,
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <div>
           <MatchLog match={match} />
         </div>
@@ -498,15 +499,15 @@ const matchPages = (strings) => {
       name: strings.tab_cosmetics,
       key: 'cosmetics',
       parsed: true,
-      content: (match) => (
+      content: (match: Match) => (
         <div>
           <Heading
             title={strings.heading_cosmetics}
-            buttonLabel={
-              config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null
-            }
-            buttonTo={`${gosuUrl}Cosmetics`}
-            buttonIcon={gosuIcon}
+            // buttonLabel={
+            //   config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null
+            // }
+            // buttonTo={`${gosuUrl}Cosmetics`}
+            // buttonIcon={gosuIcon}
           />
           <Table
             data={match.players.filter((obj) => obj.cosmetics.length > 0)}
@@ -518,7 +519,7 @@ const matchPages = (strings) => {
   ];
 };
 
-export default (matchId, match, strings) =>
+export default (matchId: string, match: Match | null, strings: Strings) =>
   matchPages(strings).map((page) => ({
     // ...page,
     name: page.name,
@@ -527,6 +528,6 @@ export default (matchId, match, strings) =>
     content: page.content,
     route: `/matches/${matchId}/${page.key.toLowerCase()}`,
     disabled: match && !match.version && page.parsed,
-    hidden: (m) => page.hidden && page.hidden(m),
+    hidden: (m: Match) => page.hidden && page.hidden(m),
     skeleton: page.skeleton,
   }));

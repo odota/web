@@ -68,12 +68,19 @@ type Match = {
   replay_url?: string,
   region: number,
   game_mode: number,
+  picks_bans: any[],
+  objectives: any[],
+  teamfights: { start: number, end: number, radiant_gold_advantage_delta: number, players: any[] }[],
+  first_blood_time: number,
+  draft_timings: any[],
+  chat: any[],
 };
 
 type MatchPlayer = {
   hero_id: keyof Heroes,
   account_id: number,
   killed: Record<string, any>,
+  kills_log: any[],
   player_slot: number,
   damage: Record<string, any>,
   name: string,
@@ -84,6 +91,8 @@ type MatchPlayer = {
   lane: number,
   cs_t: number[],
   lh_t: number[],
-  kills_log: any[],
   lane_pos: any,
+  gold_reasons: Record<string, number>,
+  xp_reasons: Record<string, number>,
+  cosmetics: any[],
 };

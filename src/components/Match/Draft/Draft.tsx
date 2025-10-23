@@ -177,8 +177,8 @@ const Draft = ({
   direTeam: any,
   draft: any[],
   startTime: number,
-  sponsorURL: string,
-  sponsorIcon: string,
+  sponsorURL?: string,
+  sponsorIcon?: string,
 }) => {
   const strings = useStrings();
   // one-based indexing (since draft[i].order starts at 1)

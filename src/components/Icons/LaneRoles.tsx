@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 
-const icon = (props: any) => {
+const icon = (props: { style: { color: string }}) => {
   const { color } = props.style;
   return (
     <svg {...props} viewBox="0 0 24 24">
@@ -74,7 +73,3 @@ const icon = (props: any) => {
 export default styled(icon)`
   height: 24px;
 `;
-
-icon.propTypes = {
-  style: PropTypes.shape({}),
-};

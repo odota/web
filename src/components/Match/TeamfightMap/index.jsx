@@ -22,7 +22,7 @@ import { IconRadiant, IconDire, IconDot } from '../../Icons';
 import TeamTable from '../TeamTable';
 import mcs from '../matchColumns';
 import PlayerThumb from '../PlayerThumb';
-import Timeline from '../Overview/Timeline';
+import Timeline from '../Timeline';
 import DotaMap from '../../DotaMap';
 import constants from '../../constants';
 import config from '../../../config';

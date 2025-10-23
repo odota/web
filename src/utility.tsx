@@ -58,10 +58,11 @@ export function pad(n: string | number, width: number, z = '0') {
     : new Array(width - str.length + 1).join(z) + n;
 }
 
-export function formatSeconds(input: number) {
+export function formatSeconds(input: number | undefined) {
   if (
     !Number.isNaN(parseFloat(String(input))) &&
-    Number.isFinite(Number(input))
+    Number.isFinite(Number(input)) &&
+    input !== undefined
   ) {
     const absTime = Math.abs(input);
     const minutes = Math.floor(absTime / 60);
@@ -620,7 +621,7 @@ export function compileLevelOneStats(hero: any) {
 }
 /* eslint-enable camelcase */
 
-export const getTeamName = (team: { name: string }, _isRadiant: boolean) => {
+export const getTeamName = (team?: { name: string }, _isRadiant?: boolean) => {
   const { strings } = store.getState().app;
   if (_isRadiant) {
     return team && team.name ? team.name : strings.general_radiant;

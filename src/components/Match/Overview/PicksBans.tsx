@@ -1,10 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import constants from '../../constants';
 import { IMAGESIZE_ENUM } from '../../../utility';
 import HeroImage from './../../Visualizations/HeroImage';
+import useStrings from '../../../hooks/useStrings.hook';
 
 const Styled = styled.div`
   display: inline-block;
@@ -68,8 +67,9 @@ const Styled = styled.div`
   }
 `;
 
-const PicksBans = ({ gameMode, data, strings, style }) => {
+const PicksBans = ({ gameMode, data, style }: { gameMode: number, data: any[], style?: any }) => {
   let firstBan = 0;
+  const strings = useStrings();
 
   return (
     <Styled style={style}>
@@ -106,14 +106,4 @@ const PicksBans = ({ gameMode, data, strings, style }) => {
   );
 };
 
-PicksBans.propTypes = {
-  data: PropTypes.arrayOf({}),
-  strings: PropTypes.shape({}),
-  style: PropTypes.shape({}),
-};
-
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(PicksBans);
+export default PicksBans;

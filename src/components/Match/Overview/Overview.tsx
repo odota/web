@@ -34,22 +34,23 @@ const Styled = styled.div`
   }
 `;
 
-const Overview = (strings, gosuUrl, gosuIcon) => {
+export const getOverviewTab = (strings: Strings) => {
   const { overviewColumns, abilityColumns, abilityDraftColumns } = mcs(strings);
   return {
     name: strings.tab_overview,
     key: 'overview',
+    parsed: false,
     skeleton: true,
-    content: (match) => (
+    content: (match: Match) => (
       <div>
         <TeamTable
           gameMode={match.game_mode}
           players={match.players}
           columns={overviewColumns(match)}
           heading={strings.heading_overview}
-          buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
-          buttonTo={`${gosuUrl}Overview`}
-          buttonIcon={gosuIcon}
+          // buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
+          // buttonTo={`${gosuUrl}Overview`}
+          // buttonIcon={gosuIcon}
           picksBans={match.picks_bans}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
@@ -63,7 +64,7 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
             players={match.players}
             columns={abilityDraftColumns()}
             heading={strings.heading_ability_draft}
-            picksBans={match.picks_bans}
+            // picksBans={match.picks_bans}
             radiantTeam={match.radiant_team}
             direTeam={match.dire_team}
             summable
@@ -94,5 +95,3 @@ const Overview = (strings, gosuUrl, gosuIcon) => {
     ),
   };
 };
-
-export default Overview;

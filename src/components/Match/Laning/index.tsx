@@ -16,8 +16,8 @@ import config from '../../../config';
 type LaningProps = {
     match: Match,
     strings: Strings,
-    sponsorURL: string,
-    sponsorIcon: string,
+    // sponsorURL: string,
+    // sponsorIcon: string,
   };
 
 class Laning extends React.Component<LaningProps, { selectedPlayer: number }> {
@@ -41,7 +41,7 @@ class Laning extends React.Component<LaningProps, { selectedPlayer: number }> {
   };
 
   render() {
-    const { match, strings, sponsorURL, sponsorIcon } = this.props;
+    const { match, strings } = this.props;
     const { laningColumns } = mcs(strings);
 
     const tableData = [...match.players].sort(this.defaultSort);
@@ -58,9 +58,9 @@ class Laning extends React.Component<LaningProps, { selectedPlayer: number }> {
         <StyledFlexElement>
           <Heading
             title={strings.th_map}
-            buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_laning : undefined}
-            buttonTo={`${sponsorURL}Laning`}
-            buttonIcon={sponsorIcon}
+            // buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_laning : undefined}
+            // buttonTo={`${sponsorURL}Laning`}
+            // buttonIcon={sponsorIcon}
           />
           <Heatmap
             width={400}
