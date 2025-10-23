@@ -1,35 +1,34 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { List } from 'react-content-loader';
 import TabbedContent from '../TabbedContent';
 import { getMatch } from '../../actions';
-import MatchHeader from './MatchHeader';
+import MatchHeader from './MatchHeader/MatchHeader';
 import matchPages from './matchPages';
 import FourOhFour from '../../components/FourOhFour/FourOhFour';
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    loading: PropTypes.bool,
-    error: PropTypes.bool,
-    matchData: PropTypes.shape({}),
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        info: PropTypes.string,
-      }),
-    }),
-    user: PropTypes.shape({}),
-    getMatch: PropTypes.func,
-    matchId: PropTypes.string,
-    strings: PropTypes.shape({}),
-  };
+type MatchProps = {
+  loading: boolean,
+  error: boolean,
+  matchData: Match,
+  match: {
+    params: {
+      info: string,
+    },
+  },
+  user: any,
+  getMatch: Function,
+  matchId: string,
+  strings: Strings,
+};
 
+class RequestLayer extends React.Component<MatchProps> {
   componentDidMount() {
     this.props.getMatch(this.props.matchId);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: MatchProps) {
     if (this.props.matchId !== prevProps.matchId) {
       this.props.getMatch(this.props.matchId);
     }
@@ -51,7 +50,7 @@ class RequestLayer extends React.Component {
     ) : (
       <div>
         <Helmet title={pageTitle} />
-        <MatchHeader match={matchData} user={user} />
+        <MatchHeader match={matchData} />
         <TabbedContent
           info={info}
           tabs={matchPages(matchId, matchData, strings)}
@@ -64,7 +63,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   matchData: state.app.match.data,
   loading: state.app.match.loading,
   error: state.app.match.error,
@@ -72,8 +71,8 @@ const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getMatch: (matchId) => dispatch(getMatch(matchId)),
+const mapDispatchToProps = (dispatch: any) => ({
+  getMatch: (matchId: string) => dispatch(getMatch(matchId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

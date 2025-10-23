@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import styled from 'styled-components';
@@ -13,6 +12,7 @@ import { IconRadiant, IconDire } from '../../Icons';
 import Warning from '../../Alerts/Warning';
 import constants from '../../constants';
 import config from '../../../config';
+import useStrings from '../../../hooks/useStrings.hook';
 
 const Styled = styled.header`
   width: 100vw;
@@ -266,24 +266,25 @@ const Styled = styled.header`
   },
 `;
 
-const getWinnerStyle = (radiantWin) => {
+const getWinnerStyle = (radiantWin: boolean | undefined) => {
   if (radiantWin === null || radiantWin === undefined) {
     return 'nowinner';
   }
   return radiantWin ? 'radiant' : 'dire';
 };
 
-const MatchHeader = ({ match, strings }) => {
+const MatchHeader = ({ match }: { match : Match }) => {
+  const strings = useStrings();
   if (!match) {
     return null;
   }
 
-  const copyMatchId = () => navigator.clipboard.writeText(match.match_id);
+  const copyMatchId = () => navigator.clipboard.writeText(String(match.match_id));
 
-  const mapPlayers = (key, radiant) => (player) =>
+  const mapPlayers = (key: keyof MatchPlayer, radiant: boolean | undefined) => (player: MatchPlayer) =>
     radiant === undefined || radiant === isRadiant(player.player_slot)
       ? Number(player[key])
-      : null;
+      : 0;
 
   const victorySection = match.radiant_win ? (
     <span>
@@ -311,11 +312,11 @@ const MatchHeader = ({ match, strings }) => {
         <div className="mainInfo">
           <div className="killsRadiant">
             {match.radiant_score ||
-              match.players.map(mapPlayers('kills', true)).reduce(sum, 0)}
+              match.players.map(mapPlayers('kills' as keyof MatchPlayer, true)).reduce(sum, 0)}
           </div>
           <div className="gmde">
             <span className="gameMode">
-              {strings[`game_mode_${match.game_mode}`]}
+              {strings[`game_mode_${match.game_mode}` as keyof Strings]}
             </span>
             <span className="duration">
               {transformations.duration(null, null, match.duration)}
@@ -331,7 +332,7 @@ const MatchHeader = ({ match, strings }) => {
           </div>
           <div className="killsDire">
             {match.dire_score ||
-              match.players.map(mapPlayers('kills', false)).reduce(sum, 0)}
+              match.players.map(mapPlayers('kills' as keyof MatchPlayer, false)).reduce(sum, 0)}
           </div>
         </div>
         <div className="additionalInfo">
@@ -356,7 +357,7 @@ const MatchHeader = ({ match, strings }) => {
             </li>
             <li>
               <span>{strings.match_region}</span>
-              {strings[`region_${match.region}`]}
+              {strings[`region_${match.region}` as keyof Strings]}
             </li>
           </ul>
         </div>
@@ -415,14 +416,4 @@ const MatchHeader = ({ match, strings }) => {
   );
 };
 
-MatchHeader.propTypes = {
-  match: PropTypes.shape({}),
-  user: PropTypes.shape({}),
-  strings: PropTypes.shape({}),
-};
-
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(MatchHeader);
+export default MatchHeader;

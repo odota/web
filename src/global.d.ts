@@ -50,23 +50,8 @@ type Hero = {
 type Heroes = Record<string, Hero>;
 
 type Match = {
-  players: {
-    hero_id: keyof Heroes,
-    account_id: number,
-    killed: Record<string, any>,
-    player_slot: number,
-    damage: Record<string, any>,
-    name: string,
-    personaname: string,
-    isRadiant: boolean,
-    is_roaming: boolean,
-    desc: string,
-    lane: number,
-    cs_t: number[],
-    lh_t: number[],
-    kills_log: any[],
-    lane_pos: any,
-  }[],
+  players: MatchPlayer[],
+  match_id: number,
   duration: number,
   radiant_win: boolean,
   tower_status_radiant: number,
@@ -74,4 +59,31 @@ type Match = {
   barracks_status_dire: number,
   tower_status_dire: number,
   start_time: number,
+  radiant_team?: { name: string }
+  dire_team?: { name: string }
+  radiant_score: number,
+  dire_score: number,
+  league?: { name: string }
+  version?: number,
+  replay_url?: string,
+  region: number,
+  game_mode: number,
+};
+
+type MatchPlayer = {
+  hero_id: keyof Heroes,
+  account_id: number,
+  killed: Record<string, any>,
+  player_slot: number,
+  damage: Record<string, any>,
+  name: string,
+  personaname: string,
+  isRadiant: boolean,
+  is_roaming: boolean,
+  desc: string,
+  lane: number,
+  cs_t: number[],
+  lh_t: number[],
+  kills_log: any[],
+  lane_pos: any,
 };
