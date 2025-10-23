@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { TrendGraph } from '../../../Visualizations';
@@ -8,6 +7,7 @@ import ButtonGarden from '../../../ButtonGarden';
 import trendNames from '../matchDataColumns';
 import Heading from '../../../Heading';
 import Container from '../../../Container';
+import useStrings from '../../../../hooks/useStrings.hook';
 
 const Trend = ({
   routeParams,
@@ -16,8 +16,8 @@ const Trend = ({
   error,
   loading,
   history,
-  strings,
-}) => {
+}: TrendsProps) => {
+  const strings = useStrings();
   const selectedTrend = routeParams.subInfo || trendNames[0];
   return (
     <div>
@@ -26,7 +26,7 @@ const Trend = ({
         subtitle={strings.trends_description}
       />
       <ButtonGarden
-        onClick={(buttonName) =>
+        onClick={(buttonName: string) =>
           history.push(
             `/players/${playerId}/trends/${buttonName}${window.location.search}`,
           )
@@ -38,45 +38,37 @@ const Trend = ({
         <TrendGraph
           columns={columns}
           name={selectedTrend}
-          onClick={(p) => {
-            const matchId = columns[p.index].match_id;
-            history.push(`/matches/${matchId}`);
-          }}
+          // onClick={(p) => {
+          //   const matchId = columns[p.index].match_id;
+          //   history.push(`/matches/${matchId}`);
+          // }}
         />
       </Container>
     </div>
   );
 };
 
-Trend.propTypes = {
-  routeParams: PropTypes.shape({}),
-  columns: PropTypes.arrayOf({}),
-  playerId: PropTypes.string,
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-  history: PropTypes.shape({}),
-  strings: PropTypes.shape({}),
-};
-
-const getData = (props) => {
+const getData = (props: TrendsProps) => {
   const trendName = props.routeParams.subInfo || trendNames[0];
   props.getPlayerTrends(props.playerId, props.location.search, trendName);
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    playerId: PropTypes.string,
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    strings: PropTypes.shape({}),
-  };
+type TrendsProps = {
+  playerId: string,
+  routeParams: any,
+  getPlayerTrends: Function,
+  columns: any[],
+  error: string,
+  loading: boolean,
+  trendName: string,
+} & RouterProps;
 
+class RequestLayer extends React.Component<TrendsProps> {
   componentDidMount() {
     getData(this.props);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: TrendsProps) {
     if (
       this.props.playerId !== prevProps.playerId ||
       this.props.location.key !== prevProps.location.key
@@ -90,11 +82,10 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   columns: state.app.playerTrends.data,
   loading: state.app.playerTrends.loading,
   error: state.app.playerTrends.error,
-  strings: state.app.strings,
 });
 
 export default withRouter(

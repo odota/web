@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { withRouter } from 'react-router-dom';
@@ -13,26 +12,17 @@ import PlayerHeader from './Header/PlayerHeader';
 import playerPages from './playerPages';
 import PlayerProfilePrivate from './PlayerProfilePrivate';
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        playerId: PropTypes.string,
-      }),
-    }),
-    history: PropTypes.shape({
-      push: PropTypes.func,
-    }),
-    officialPlayerName: PropTypes.string,
-    playerName: PropTypes.string,
-    playerLoading: PropTypes.bool,
-    strings: PropTypes.shape({}),
-    isPlayerProfilePublic: PropTypes.bool,
-  };
+type PlayerProps = {
+  officialPlayerName: string,
+  playerName: string,
+  playerLoading: boolean,
+  strings: Strings,
+  isPlayerProfilePublic: boolean,
+  getPlayer: Function,
+  getPlayerWinLoss: Function,
+} & RouterProps;
 
+class RequestLayer extends React.Component<PlayerProps> {
   componentDidMount() {
     const { props } = this;
     const { playerId } = props.match.params;
@@ -40,7 +30,7 @@ class RequestLayer extends React.Component {
     props.getPlayerWinLoss(playerId, props.location.search);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: PlayerProps) {
     const { props } = this;
     const { playerId } = props.match.params;
     if (prevProps.match.params.playerId !== playerId) {
@@ -95,7 +85,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
   const playerProfile = state.app.player.data.profile || {};
   const loggedInUser = state.app.metadata.data.user || {};
 
@@ -112,9 +102,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getPlayer: (playerId) => dispatch(getPlayer(playerId)),
-  getPlayerWinLoss: (playerId, options) =>
+const mapDispatchToProps = (dispatch: any) => ({
+  getPlayer: (playerId: string) => dispatch(getPlayer(playerId)),
+  getPlayerWinLoss: (playerId: string, options: any) =>
     dispatch(getPlayerWinLoss(playerId, options)),
 });
 

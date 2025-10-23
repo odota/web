@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPlayerRecords } from '../../../../actions';
@@ -8,6 +7,7 @@ import Container from '../../../Container';
 import dataColumns from '../matchDataColumns';
 import ButtonGarden from '../../../ButtonGarden';
 import playerRecordsColumns from './playerRecordsColumns';
+import useStrings from '../../../../hooks/useStrings.hook';
 
 const excludedColumns = ['win_rate', 'level'];
 const recordsColumns = dataColumns.filter(
@@ -21,13 +21,13 @@ const Records = ({
   loading,
   playerId,
   history,
-  strings,
-}) => {
+}: RecordsProps) => {
+  const strings = useStrings();
   const selected = routeParams.subInfo || recordsColumns[0];
   return (
     <div style={{ fontSize: 10 }}>
       <ButtonGarden
-        onClick={(buttonName) => {
+        onClick={(buttonName: string) => {
           history.push(
             `/players/${playerId}/records/${buttonName}${window.location.search}`,
           );
@@ -42,8 +42,8 @@ const Records = ({
       >
         <Table
           columns={playerRecordsColumns(strings).concat({
-            displayName: strings[`th_${selected}`] || strings.th_record,
-            displayFn: (row, col, field) =>
+            displayName: strings[`th_${selected}` as keyof Strings] || strings.th_record,
+            displayFn: (row: any, col: any, field: number) =>
               field && field.toFixed ? Number(field.toFixed(2)) : '',
             field: selected,
             relativeBars: true,
@@ -55,17 +55,7 @@ const Records = ({
   );
 };
 
-Records.propTypes = {
-  routeParams: PropTypes.shape({}),
-  history: PropTypes.shape({}),
-  data: PropTypes.arrayOf({}),
-  error: PropTypes.string,
-  playerId: PropTypes.string,
-  loading: PropTypes.bool,
-  strings: PropTypes.shape({}),
-};
-
-const getData = (props) => {
+const getData = (props: RecordsProps) => {
   props.getPlayerRecords(
     props.playerId,
     props.location.search,
@@ -73,20 +63,21 @@ const getData = (props) => {
   );
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    playerId: PropTypes.string,
-    strings: PropTypes.shape({}),
-  };
+type RecordsProps = {
+  routeParams: any;
+  playerId: string,
+  getPlayerRecords: Function,
+  data: any[],
+  error: string,
+  loading: boolean,
+} & RouterProps;
 
+class RequestLayer extends React.Component<RecordsProps> {
   componentDidMount() {
     getData(this.props);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: RecordsProps) {
     if (
       this.props.playerId !== prevProps.playerId ||
       this.props.location.key !== prevProps.location.key
@@ -100,15 +91,14 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   data: state.app.playerRecords.data,
   error: state.app.playerRecords.error,
   loading: state.app.playerRecords.loading,
-  strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getPlayerRecords: (playerId, options, subInfo) =>
+const mapDispatchToProps = (dispatch: any) => ({
+  getPlayerRecords: (playerId: string, options: any, subInfo: string) =>
     dispatch(getPlayerRecords(playerId, options, subInfo)),
 });
 

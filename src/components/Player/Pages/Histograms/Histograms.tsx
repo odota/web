@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -10,8 +9,9 @@ import Heading from '../../../Heading';
 import { HistogramGraph } from '../../../Visualizations';
 import dataColumns from '../matchDataColumns';
 import { formatGraphValueData } from '../../../../utility';
+import useStrings from '../../../../hooks/useStrings.hook';
 
-const getMedian = (columns, midpoint) => {
+const getMedian = (columns: any[], midpoint: number) => {
   let sum = 0;
   const medianCol = columns.find((col) => {
     sum += col.games;
@@ -20,15 +20,15 @@ const getMedian = (columns, midpoint) => {
   return medianCol && medianCol.x;
 };
 
-const getSubtitleStats = (columns, strings, histogramName) => {
+const getSubtitleStats = (columns: any[], strings: Strings, histogramName: string) => {
   const total = columns.reduce((sum, col) => sum + col.games, 0);
   let median = getMedian(columns, total / 2);
   median = formatGraphValueData(median, histogramName);
   return `(${strings.heading_total_matches}: ${total}${median !== undefined ? `, ${strings.heading_median}: ${median})` : ''}`;
 };
 
-const getSubtitleDescription = (histogramName, strings) =>
-  strings[`histograms_${histogramName}_description`] || '';
+const getSubtitleDescription = (histogramName: string, strings: Strings) =>
+  strings[`histograms_${histogramName}_description` as keyof Strings] || '';
 
 const histogramNames = dataColumns.filter((col) => col !== 'win_rate');
 
@@ -40,15 +40,15 @@ const Histogram = ({
   loading,
   histogramName,
   history,
-  strings,
-}) => (
-  <div>
+}: HistogramsProps) => {
+  const strings = useStrings();
+  return <div>
     <Heading
       title={strings.histograms_name}
       subtitle={strings.histograms_description}
     />
     <ButtonGarden
-      onClick={(buttonName) => {
+      onClick={(buttonName: string) => {
         history.push(
           `/players/${playerId}/histograms/${buttonName}${window.location.search}`,
         );
@@ -59,7 +59,7 @@ const Histogram = ({
     <Container error={error} loading={loading}>
       <div>
         <Heading
-          title={strings[`heading_${histogramName}`]}
+          title={strings[`heading_${histogramName}` as keyof Strings]}
           subtitle={
             loading
               ? ''
@@ -74,21 +74,10 @@ const Histogram = ({
         <HistogramGraph columns={columns || []} histogramName={histogramName} />
       </div>
     </Container>
-  </div>
-);
-
-Histogram.propTypes = {
-  routeParams: PropTypes.shape({}),
-  columns: PropTypes.number,
-  playerId: PropTypes.string,
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-  histogramName: PropTypes.string,
-  history: PropTypes.shape({}),
-  strings: PropTypes.shape({}),
+  </div>;
 };
 
-const getData = (props) => {
+const getData = (props: HistogramsProps) => {
   props.getPlayerHistograms(
     props.playerId,
     props.location.search,
@@ -96,20 +85,22 @@ const getData = (props) => {
   );
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    playerId: PropTypes.string,
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    strings: PropTypes.shape({}),
-  };
+type HistogramsProps = {
+  routeParams: any;
+  playerId: string,
+  getPlayerHistograms: Function,
+  columns: any[],
+  error: string,
+  loading: boolean,
+  histogramName: string,
+} & RouterProps;
 
+class RequestLayer extends React.Component<HistogramsProps> {
   componentDidMount() {
     getData(this.props);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: HistogramsProps) {
     if (
       this.props.playerId !== prevProps.playerId ||
       this.props.location.key !== prevProps.location.key
@@ -123,12 +114,11 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state, { histogramName = histogramNames[0] }) => ({
+const mapStateToProps = (state: any, { histogramName = histogramNames[0] }) => ({
   histogramName,
   columns: state.app.playerHistograms.data,
   loading: state.app.playerHistograms.loading,
   error: state.app.playerHistograms.error,
-  strings: state.app.strings,
 });
 
 export default withRouter(

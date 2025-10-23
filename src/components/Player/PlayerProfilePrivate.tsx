@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
 import LockIcon from '@mui/icons-material/Lock';
-import config from '../../../config';
+import config from '../../config';
+import useStrings from '../../hooks/useStrings.hook';
 
 const Styled = styled.div`
   text-align: center;
@@ -34,7 +33,8 @@ const Styled = styled.div`
   }
 `;
 
-const PlayerProfilePrivate = ({ strings }) => {
+const PlayerProfilePrivate = () => {
+  const strings = useStrings();
   const handleButtonClick = () => {
     window.location.href = `${config.VITE_API_HOST}/login`;
   };
@@ -60,12 +60,4 @@ const PlayerProfilePrivate = ({ strings }) => {
   );
 };
 
-PlayerProfilePrivate.propTypes = {
-  strings: PropTypes.shape({}),
-};
-
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(PlayerProfilePrivate);
+export default PlayerProfilePrivate;

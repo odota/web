@@ -376,6 +376,7 @@ PlayerHeader.propTypes = {
   rankTier: PropTypes.number,
   leaderboardRank: PropTypes.number,
   strings: PropTypes.shape({}),
+  location: PropTypes.shape({}),
 };
 
 const mapStateToProps = (state) => ({

@@ -10,7 +10,7 @@ import {
   RecordsPage,
   CountsPage,
   TrendsPage,
-  MMRPage,
+  // MMRPage,
   // ItemsPage,
   WardmapPage,
   WordcloudPage,
@@ -18,14 +18,13 @@ import {
   ActivityPage,
 } from './Pages';
 
-const playerPages = (strings) => [
+const playerPages = (strings: Strings) => [
   {
     name: strings.tab_overview,
     key: 'overview',
-    content: (playerId, routeParams, location) => (
+    content: (playerId: string, routeParams: any, location: any) => (
       <OverviewPage
         playerId={playerId}
-        routeParams={routeParams}
         location={location}
       />
     ),
@@ -33,10 +32,9 @@ const playerPages = (strings) => [
   {
     name: strings.tab_matches,
     key: 'matches',
-    content: (playerId, routeParams, location) => (
+    content: (playerId: string, routeParams: any, location: any) => (
       <MatchesPage
         playerId={playerId}
-        routeParams={routeParams}
         location={location}
       />
     ),
@@ -44,10 +42,9 @@ const playerPages = (strings) => [
   {
     name: strings.tab_heroes,
     key: 'heroes',
-    content: (playerId, routeParams, location) => (
+    content: (playerId: string, routeParams: any, location: any) => (
       <HeroesPage
         playerId={playerId}
-        routeParams={routeParams}
         location={location}
       />
     ),
@@ -55,10 +52,9 @@ const playerPages = (strings) => [
   {
     name: strings.tab_peers,
     key: 'peers',
-    content: (playerId, routeParams, location) => (
+    content: (playerId: string, routeParams: any, location: any) => (
       <PeersPage
         playerId={playerId}
-        routeParams={routeParams}
         location={location}
       />
     ),
@@ -66,10 +62,9 @@ const playerPages = (strings) => [
   {
     name: strings.tab_pros,
     key: 'pros',
-    content: (playerId, routeParams, location) => (
+    content: (playerId: string, routeParams: any, location: any) => (
       <ProsPage
         playerId={playerId}
-        routeParams={routeParams}
         location={location}
       />
     ),
@@ -77,21 +72,19 @@ const playerPages = (strings) => [
   {
     name: strings.tab_records,
     key: 'records',
-    content: (playerId, routeParams, location) => (
+    content: (playerId: string, routeParams: any, location: any) => (
       <RecordsPage
         playerId={playerId}
         routeParams={routeParams}
-        location={location}
       />
     ),
   },
   {
     name: strings.tab_totals,
     key: 'totals',
-    content: (playerId, routeParams, location) => (
+    content: (playerId: string, routeParams: any, location: any) => (
       <TotalsPage
         playerId={playerId}
-        routeParams={routeParams}
         location={location}
       />
     ),
@@ -99,10 +92,9 @@ const playerPages = (strings) => [
   {
     name: strings.tab_counts,
     key: 'counts',
-    content: (playerId, routeParams, location) => (
+    content: (playerId: string, routeParams: any, location: any) => (
       <CountsPage
         playerId={playerId}
-        routeParams={routeParams}
         location={location}
       />
     ),
@@ -110,11 +102,10 @@ const playerPages = (strings) => [
   {
     name: strings.tab_histograms,
     key: 'histograms',
-    content: (playerId, routeParams, location) => (
+    content: (playerId: string, routeParams: any, location: any) => (
       <HistogramsPage
         playerId={playerId}
         routeParams={routeParams}
-        location={location}
         histogramName={routeParams.subInfo}
       />
     ),
@@ -122,11 +113,10 @@ const playerPages = (strings) => [
   {
     name: strings.tab_trends,
     key: 'trends',
-    content: (playerId, routeParams, location) => (
+    content: (playerId: string, routeParams: any, location: any) => (
       <TrendsPage
         playerId={playerId}
         routeParams={routeParams}
-        location={location}
         trendName={routeParams.subInfo}
       />
     ),
@@ -134,10 +124,9 @@ const playerPages = (strings) => [
   {
     name: strings.tab_wardmap,
     key: 'wardmap',
-    content: (playerId, routeParams, location) => (
+    content: (playerId: string, routeParams: any, location: any) => (
       <WardmapPage
         playerId={playerId}
-        routeParams={routeParams}
         location={location}
       />
     ),
@@ -145,32 +134,29 @@ const playerPages = (strings) => [
   {
     name: strings.tab_wordcloud,
     key: 'wordcloud',
-    content: (playerId, routeParams, location) => (
+    content: (playerId: string, routeParams: any, location: any) => (
       <WordcloudPage
         playerId={playerId}
-        routeParams={routeParams}
         location={location}
       />
     ),
   },
-  {
-    name: strings.tab_mmr,
-    key: 'mmr',
-    content: (playerId, routeParams, location) => (
-      <MMRPage
-        playerId={playerId}
-        routeParams={routeParams}
-        location={location}
-      />
-    ),
-  },
+  // {
+  //   name: strings.tab_mmr,
+  //   key: 'mmr',
+  //   content: (playerId: string, routeParams: any, location: any) => (
+  //     <MMRPage
+  //       playerId={playerId}
+  //       location={location}
+  //     />
+  //   ),
+  // },
   {
     name: strings.tab_rankings,
     key: 'rankings',
-    content: (playerId, routeParams, location) => (
+    content: (playerId: string, routeParams: any, location: any) => (
       <RankingsPage
         playerId={playerId}
-        routeParams={routeParams}
         location={location}
       />
     ),
@@ -178,17 +164,16 @@ const playerPages = (strings) => [
   {
     name: strings.tab_activity,
     key: 'activity',
-    content: (playerId, routeParams, location) => (
+    content: (playerId: string, routeParams: any, location: any) => (
       <ActivityPage
         playerId={playerId}
-        routeParams={routeParams}
         location={location}
       />
     ),
   },
 ];
 
-export default (playerId, strings, isPlayerProfilePublic) =>
+export default (playerId: string | undefined, strings: Strings, isPlayerProfilePublic?: boolean) =>
   playerPages(strings).map((page) => ({
     ...page,
     route: `/players/${playerId}/${page.key}`,

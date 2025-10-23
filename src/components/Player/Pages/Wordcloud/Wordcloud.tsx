@@ -6,7 +6,7 @@ import Wordcloud from '../../../Wordcloud/Wordcloud';
 
 type Props = {
   playerId: string;
-  location: { key: string; search: any };
+  location: any;
   error: string;
   loading: boolean;
   data: {

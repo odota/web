@@ -1,18 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import querystring from 'querystring';
 import styled from 'styled-components';
 import { heroes, patch, region } from 'dotaconstants';
-import { toggleShowForm } from '../../../actions/formActions';
-import FormField from '../../Form/FormField';
-import constants from '../../constants';
-import config from '../../../config';
+import { toggleShowForm } from '../../actions/formActions';
+import FormField from '../Form/FormField';
+import constants from '../constants';
+import config from '../../config';
 
 const textFieldStyle = { width: 53, fontSize: 9, height: 'auto' };
 
-const Styled = styled.div`
+const Styled = styled.div<{ strings: Strings }>`
   .formGroup {
     box-sizing: border-box;
     display: flex;
@@ -118,29 +117,30 @@ const Styled = styled.div`
   }
 `;
 
-const getPeers = (props, context) => {
+const getPeers = (props: TableFilterFormProps, context: any) => {
   fetch(`${config.VITE_API_HOST}/api/players/${props.playerId}/peers`)
     .then((resp) => resp.json())
     .then((json) => context.setState({ peers: json }));
 };
 
-const setShowFormState = (props) => {
+const setShowFormState = (props: TableFilterFormProps) => {
   if (Boolean(props.currentQueryString.substring(1)) !== props.showForm) {
     // If query string state has a filter, turn on the form
     props.toggleShowForm();
   }
 };
 
-class TableFilterForm extends React.Component {
-  static propTypes = {
-    currentQueryString: PropTypes.string,
-    history: PropTypes.shape({}),
-    playerId: PropTypes.string,
-    strings: PropTypes.shape({}),
-  };
+type TableFilterFormProps = {
+  currentQueryString: string;
+  playerId: string;
+  strings: Strings;
+  showForm: boolean;
+  toggleShowForm: Function;
+} & RouterProps;
 
-  constructor() {
-    super();
+class TableFilterForm extends React.Component<TableFilterFormProps, { peers: any[] }> {
+  constructor(props: TableFilterFormProps) {
+    super(props);
     this.state = {
       peers: [],
     };
@@ -151,7 +151,7 @@ class TableFilterForm extends React.Component {
     getPeers(this.props, this);
   }
 
-  componentDidUpdate(nextProps) {
+  componentDidUpdate(nextProps: TableFilterFormProps) {
     if (nextProps.playerId !== this.props.playerId) {
       setShowFormState(nextProps);
       getPeers(nextProps, this);
@@ -166,16 +166,16 @@ class TableFilterForm extends React.Component {
 
     const heroList = Object.keys(heroes)
       .map((id) => ({
-        text: heroes[id] && heroes[id].localized_name,
+        text: heroes[id as keyof Heroes] && heroes[id as keyof Heroes].localized_name,
         value: id,
       }))
-      .sort((a, b) => a.text && a.text.localeCompare(b.text));
+      .sort((a: any, b: any) => a.text && a.text.localeCompare(b.text));
 
     const laneList = Object.keys(strings)
       .filter((str) => str.indexOf('lane_role_') === 0)
       .map((str) => str.substring('lane_role_'.length))
       .map((id) => ({
-        text: strings[`lane_role_${id}`],
+        text: strings[`lane_role_${id}` as keyof Strings],
         value: Number(id),
       }));
 
@@ -190,7 +190,7 @@ class TableFilterForm extends React.Component {
       .filter((str) => str.indexOf('game_mode_') === 0)
       .map((str) => str.substring('game_mode_'.length))
       .map((id) => ({
-        text: strings[`game_mode_${id}`],
+        text: strings[`game_mode_${id}` as keyof Strings],
         value: id,
       }));
 
@@ -198,12 +198,12 @@ class TableFilterForm extends React.Component {
       .filter((str) => str.indexOf('lobby_type_') === 0)
       .map((str) => str.substring('lobby_type_'.length))
       .map((id) => ({
-        text: strings[`lobby_type_${id}`],
+        text: strings[`lobby_type_${id}` as keyof Strings],
         value: id,
       }));
 
     const regionList = Object.keys(region).map((id) => ({
-      text: strings[`region_${id}`],
+      text: strings[`region_${id}` as keyof Strings],
       value: Number(id),
     }));
 
@@ -344,7 +344,7 @@ class TableFilterForm extends React.Component {
       },
     ];
 
-    const CustomFormField = (props) => (
+    const CustomFormField = (props: { label: string, name: string, dataSource: any[], strict?: boolean, limit?: number }) => (
       <FormField
         formSelectionState={formSelectionState}
         history={history}
@@ -360,8 +360,8 @@ class TableFilterForm extends React.Component {
         <div
           className="showForm"
           style={{
-            borderColor: isFilterApplied && 'rgba(45,210,106,0.27)',
-            backgroundColor: isFilterApplied && 'rgba(31, 31, 33, 0.85)',
+            borderColor: isFilterApplied ? 'rgba(45,210,106,0.27)' : undefined,
+            backgroundColor: isFilterApplied ? 'rgba(31, 31, 33, 0.85)' : undefined,
           }}
         >
           <div className="formGroup">
@@ -494,13 +494,13 @@ class TableFilterForm extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   showForm: state.app.form.show,
   currentQueryString: window.location.search,
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: any) => ({
   toggleShowForm: () => dispatch(toggleShowForm()),
 });
 

@@ -111,3 +111,17 @@ type MatchPlayer = {
   assists: number;
   purchase_log: any[];
 };
+
+type RouterProps = {
+  location: import('history').Location,
+  match: {
+    params: {
+      playerId: string,
+      info?: string,
+    },
+    isExact: boolean;
+    path: string,
+    url: string,
+  },
+  history: import('history').History,
+}

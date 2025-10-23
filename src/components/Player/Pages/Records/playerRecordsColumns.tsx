@@ -1,6 +1,6 @@
 import { transformations, displayHeroId } from '../../../../utility';
 
-export default (strings) => [
+export default (strings: Strings): any[] => [
   {
     displayName: strings.th_hero_id,
     tooltip: strings.tooltip_hero_id,
