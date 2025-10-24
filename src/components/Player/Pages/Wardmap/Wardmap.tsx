@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import { calculateResponsiveState } from 'redux-responsive';
 import styled from 'styled-components';
@@ -32,24 +32,26 @@ const StyledContainer = styled.div`
   }
 `;
 
-const getData = (props) => {
+const getData = (props: WardmapProps) => {
   props.getPlayerWardmap(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    updateWindowSize: PropTypes.func,
-    error: PropTypes.string,
-    loading: PropTypes.bool,
-    data: PropTypes.arrayOf({}),
-    browser: PropTypes.shape({}),
-    playerId: PropTypes.string,
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    strings: PropTypes.shape({}),
-  };
+type WardmapProps = {
+  updateWindowSize: (this: Window, ev: UIEvent) => any,
+  error: string,
+  loading: boolean,
+  data: { obs: any, sen: any },
+  browser: any,
+  playerId: string,
+  location: {
+    key?: string,
+    search?: string,
+  },
+  strings: Strings,
+  getPlayerWardmap: Function,
+};
 
+class RequestLayer extends React.Component<WardmapProps, { clicked?: string }> {
   state = {
     clicked: undefined,
   };
@@ -59,7 +61,7 @@ class RequestLayer extends React.Component {
     window.addEventListener('resize', this.props.updateWindowSize);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: WardmapProps) {
     if (
       this.props.playerId !== prevProps.playerId ||
       this.props.location.key !== prevProps.location.key
@@ -72,7 +74,7 @@ class RequestLayer extends React.Component {
     window.removeEventListener('resize', this.props.updateWindowSize);
   }
 
-  getClickProperties(mapId) {
+  getClickProperties(mapId: string) {
     return {
       className:
         this.state.clicked && this.state.clicked !== mapId
@@ -82,7 +84,7 @@ class RequestLayer extends React.Component {
     };
   }
 
-  handleClick = (mapId) => () => {
+  handleClick = (mapId: string) => () => {
     this.setState({
       clicked: !this.state.clicked && mapId,
     });
@@ -130,7 +132,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   data: state.app.playerWardmap.data,
   loading: state.app.playerWardmap.loading,
   error: state.app.playerWardmap.data.error,
@@ -138,8 +140,8 @@ const mapStateToProps = (state) => ({
   strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getPlayerWardmap: (playerId, options) =>
+const mapDispatchToProps = (dispatch: any) => ({
+  getPlayerWardmap: (playerId: string, options: any) =>
     dispatch(getPlayerWardmap(playerId, options)),
   updateWindowSize: () => dispatch(calculateResponsiveState(window)),
 });

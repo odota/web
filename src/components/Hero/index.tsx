@@ -198,7 +198,7 @@ class Hero extends React.Component<HeroProps> {
           {this.state.detailsOpen && <AttributesBlock hero={hero} />}
         </HeroBlock>
         <TabsBlock>
-          <TabBar info={route} tabs={tabs(heroId)} />
+          <TabBar tabs={tabs(heroId)} />
           {currentTab ? currentTab.content(this.props) : null}
         </TabsBlock>
       </div>

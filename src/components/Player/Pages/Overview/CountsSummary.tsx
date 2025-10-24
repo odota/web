@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+
 import GaugeChart from './../../../Visualizations/GaugeChart';
 import constants from '../../../constants';
 
@@ -29,7 +29,7 @@ const Styled = styled.div`
   }
 `;
 
-const Summary = ({ data }) => (
+const Summary = ({ data }: { data: any[] }) => (
   <Styled>
     <div className="gauge-container">
       {data.map((el) => (
@@ -42,9 +42,5 @@ const Summary = ({ data }) => (
     </div>
   </Styled>
 );
-
-Summary.propTypes = {
-  data: PropTypes.arrayOf({}),
-};
 
 export default Summary;

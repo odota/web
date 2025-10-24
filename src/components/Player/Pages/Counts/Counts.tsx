@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { getPlayerCounts } from '../../../../actions';
 import Table from '../../../Table';
 import Container from '../../../Container';
 import playerCountsColumns from './playerCountsColumns';
+import useStrings from '../../../../hooks/useStrings.hook';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -20,12 +21,13 @@ const StyledTableContainer = styled.div`
   padding: 5px;
 `;
 
-const Counts = ({ counts, error, loading, strings }) => (
-  <StyledContainer>
+const Counts = ({ counts, error, loading}: CountsProps) => {
+  const strings = useStrings();
+  return <StyledContainer>
     {Object.keys(counts).map((key) => (
       <StyledTableContainer key={key}>
         <Container
-          title={strings[`heading_${key}`]}
+          title={strings[`heading_${key}` as keyof Strings]}
           error={error}
           loading={loading}
         >
@@ -36,34 +38,31 @@ const Counts = ({ counts, error, loading, strings }) => (
         </Container>
       </StyledTableContainer>
     ))}
-  </StyledContainer>
-);
-
-Counts.propTypes = {
-  counts: PropTypes.oneOfType([PropTypes.shape({}), PropTypes.array]),
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-  strings: PropTypes.shape({}),
+  </StyledContainer>;
 };
 
-const getData = (props) => {
+type CountsProps = {
+  counts: Record<string, any>,
+  error: string,
+  loading: boolean,
+  getPlayerCounts: Function,
+  playerId: string,
+  location: {
+    key?: string,
+    search?: string,
+  },
+};
+
+const getData = (props: CountsProps) => {
   props.getPlayerCounts(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    playerId: PropTypes.string,
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    strings: PropTypes.shape({}),
-  };
-
+class RequestLayer extends React.Component<CountsProps> {
   componentDidMount() {
     getData(this.props);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: CountsProps) {
     if (
       this.props.playerId !== prevProps.playerId ||
       this.props.location.key !== prevProps.location.key
@@ -77,15 +76,14 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   counts: state.app.playerCounts.data,
   error: state.app.playerCounts.error,
   loading: state.app.playerCounts.loading,
-  strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getPlayerCounts: (playerId, options) =>
+const mapDispatchToProps = (dispatch: any) => ({
+  getPlayerCounts: (playerId: string, options: any) =>
     dispatch(getPlayerCounts(playerId, options)),
 });
 

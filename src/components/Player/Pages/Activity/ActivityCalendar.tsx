@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import constants from '../../../constants';
 import {
@@ -17,12 +16,13 @@ import {
   Content,
   WeekDayLabels,
 } from './Styled';
+import useStrings from '../../../../hooks/useStrings.hook';
 
 const langCode = window.localStorage.getItem('localization') || 'en-US';
 const weekDayStrings = getLocalizedWeekdayStrings();
 const monthStrings = getLocalizedMonthStrings();
 
-const circleRadius = (dayData, normalizationRatio) => {
+const circleRadius = (dayData: any, normalizationRatio: number) => {
   if (!dayData) {
     return 0;
   }
@@ -33,7 +33,7 @@ const circleRadius = (dayData, normalizationRatio) => {
   return Math.max(minRadius, Math.min(maxRadius, sum / normalizationRatio));
 };
 
-const circleColor = (dayData) => {
+const circleColor = (dayData: any) => {
   if (!dayData) {
     return 'transparent';
   }
@@ -45,7 +45,7 @@ const circleColor = (dayData) => {
   return `rgb(${red},${green},0)`;
 };
 
-const getNormalizationRatio = (data) => {
+const getNormalizationRatio = (data: any[]) => {
   let maxValue = 0;
   data.forEach((day) => {
     const sum = day.win + day.loss;
@@ -55,7 +55,7 @@ const getNormalizationRatio = (data) => {
   return maxValue / 7;
 };
 
-const getTooltip = (date, data) => {
+const getTooltip = (date: Date, data: any) => {
   const dateString =
     date &&
     date.toLocaleDateString(langCode, {
@@ -83,18 +83,26 @@ const getTooltip = (date, data) => {
 const Day = ({
   year,
   normalizationRatio,
-  strings,
   handleMonthHoverOn,
   handleMonthHoverOff,
   hoveredMonth,
   day,
   handleDayClick,
   clickedDay,
+}: {
+  year: number,
+  normalizationRatio: number,
+  handleMonthHoverOn?: (e: React.MouseEvent) => void,
+  handleMonthHoverOff?: (e: React.MouseEvent) => void,
+  hoveredMonth: number | null,
+  day: any,
+  handleDayClick: Function,
+  clickedDay: number | null,
 }) => {
   const { month, date, data, firstDayOfMonth } = day;
   const radius = circleRadius(data, normalizationRatio);
   const fillColor = circleColor(data);
-  const tooltip = getTooltip(date, data, strings);
+  const tooltip = getTooltip(date, data);
   const doy = date && getDOY(date);
 
   return (
@@ -103,7 +111,7 @@ const Day = ({
       className={date && 'active'}
       style={{
         opacity: hoveredMonth !== null && hoveredMonth !== month ? '0.2' : '1',
-        outline: doy === clickedDay && `1px solid ${constants.colorBlue}`,
+        outline: doy === clickedDay ? `1px solid ${constants.colorBlue}` : undefined,
       }}
     >
       {firstDayOfMonth && (
@@ -129,19 +137,7 @@ const Day = ({
   );
 };
 
-Day.propTypes = {
-  year: PropTypes.number,
-  normalizationRatio: PropTypes.number,
-  strings: PropTypes.shape({}),
-  handleMonthHoverOn: PropTypes.func,
-  handleMonthHoverOff: PropTypes.func,
-  hoveredMonth: PropTypes.number,
-  day: PropTypes.shape({}),
-  handleDayClick: PropTypes.func,
-  clickedDay: PropTypes.number,
-};
-
-const mapDays2Weeks = (year, data) => {
+const mapDays2Weeks = (year: number, data: any[]) => {
   const firstDay = new Date(year, 0, 1).getDay();
   const lastDay = new Date(year, 11, 31).getDay();
   const today = new Date();
@@ -175,16 +171,14 @@ const mapDays2Weeks = (year, data) => {
   return weeks;
 };
 
-class Weeks extends React.Component {
-  static propTypes = {
-    year: PropTypes.number,
-    strings: PropTypes.shape({}),
-    data: PropTypes.arrayOf(PropTypes.shape({})),
-  };
-
+class Weeks extends React.Component<{
+  year: number,
+  strings: Strings,
+  data: any[],
+  }, { hoveredMonth: number | null, clickedDay: number | null}> {
   state = { hoveredMonth: null, clickedDay: null };
 
-  handleMonthHoverOn = (month) => () => {
+  handleMonthHoverOn = (month: number) => {
     this.setState({ hoveredMonth: month });
   };
 
@@ -192,7 +186,7 @@ class Weeks extends React.Component {
     this.setState({ hoveredMonth: null });
   };
 
-  handleDayClick = (clickedDay) => () => {
+  handleDayClick = (clickedDay: number) => () => {
     this.setState({
       clickedDay: clickedDay === this.state.clickedDay ? null : clickedDay,
     });
@@ -216,13 +210,12 @@ class Weeks extends React.Component {
 
               return (
                 <Day
-                  strings={strings}
-                  handleMonthHoverOn={
-                    firstDayOfMonth && this.handleMonthHoverOn(month)
-                  }
-                  handleMonthHoverOff={
-                    firstDayOfMonth && this.handleMonthHoverOff
-                  }
+                  handleMonthHoverOn={() => {
+                    firstDayOfMonth && this.handleMonthHoverOn(month);
+                  }}
+                  handleMonthHoverOff={() => {
+                    firstDayOfMonth && this.handleMonthHoverOff();
+                  }}
                   handleDayClick={this.handleDayClick}
                   hoveredMonth={this.state.hoveredMonth}
                   normalizationRatio={normalizationRatio}
@@ -273,8 +266,8 @@ class Weeks extends React.Component {
   }
 }
 
-const aggregateByYear = (matches) => {
-  const data = {};
+const aggregateByYear = (matches: any[]) => {
+  const data: Record<string, any[]> = {};
   matches.forEach((match) => {
     const { radiant_win: radiantWin, player_slot: playerSlot } = match;
     const date = new Date(match.start_time * 1000);
@@ -292,13 +285,13 @@ const aggregateByYear = (matches) => {
   return data;
 };
 
-const ActivityCalendar = ({ strings, data }) => {
+const ActivityCalendar = ({ strings, data }: { strings: Strings, data: any[] }) => {
   const aggregatedData = aggregateByYear(data);
 
   return (
     <Styled>
       <ReactTooltip
-        sanitizeHtmlOptions={{ allowedAttributes: false, allowedTags: false }}
+        sanitizeHtmlOptions={{ allowedAttributes: false }}
         offset={{ right: 2 }}
       />
       {Object.keys(aggregatedData)
@@ -312,7 +305,7 @@ const ActivityCalendar = ({ strings, data }) => {
                 ))}
               </WeekDayLabels>
               <Weeks
-                year={year}
+                year={Number(year)}
                 strings={strings}
                 data={aggregatedData[year]}
               />
@@ -321,11 +314,6 @@ const ActivityCalendar = ({ strings, data }) => {
         ))}
     </Styled>
   );
-};
-
-ActivityCalendar.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({})),
-  strings: PropTypes.shape({}),
 };
 
 export default ActivityCalendar;

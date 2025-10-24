@@ -36,7 +36,7 @@ const StyledTab = styled(Tab)`
 const TabTooltip = ({ title, children }: { title: string, children: React.ReactElement<any, any> }) =>
   title ? <Tooltip title={title}>{children}</Tooltip> : children;
 
-const TabBar = ({ tabs, match }: { tabs: any[], match?: any, info?: string }) => {
+const TabBar = ({ tabs, match }: { tabs: any[], match?: any }) => {
   const [tabValue, setTabValue] = useState(0);
   const { history, location } = useReactRouter();
   const visibleTabs = useMemo(
@@ -47,7 +47,7 @@ const TabBar = ({ tabs, match }: { tabs: any[], match?: any, info?: string }) =>
 
   useEffect(() => {
     const newTabIndex = visibleTabs.findIndex(
-      (tab) => location.pathname === tab.route,
+      (tab) => location.pathname.startsWith(tab.route),
     );
     setTabValue(newTabIndex !== -1 ? newTabIndex : 0);
   }, [visibleTabs, history, location.pathname]);

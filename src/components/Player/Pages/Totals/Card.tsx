@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 import { shape } from 'prop-types';
 import { formatTemplateToString } from '../../../../utility';
+import useStrings from '../../../../hooks/useStrings.hook';
 
-const fastPlurality = (val, singular, plural) =>
+const fastPlurality = (val: number, singular: string, plural: string) =>
   val === 1 ? singular : plural;
 
-const formatDurationString = (sec, strings) => {
+const formatDurationString = (sec: number, strings: Strings) => {
   const days = Math.floor(sec / 86400);
   const hours = Math.floor((sec - days * 86400) / 3600);
   const minutes = Math.floor((sec - days * 86400 - hours * 3600) / 60);
@@ -82,26 +82,18 @@ const Value = styled.div`
   text-align: center;
 `;
 
-const Card = ({ total, strings }) => (
-  <Wrapper>
+const Card = ({ total }: { total: { field: string, sum: number } }) => {
+  const strings = useStrings();
+  return <Wrapper>
     <Box>
-      <Header>{strings[`heading_${total.field}`]}</Header>
+      <Header>{strings[`heading_${total.field}` as keyof Strings]}</Header>
       <Value>
         {total.field === 'duration'
           ? formatDurationString(total.sum, strings)
           : Math.floor(total.sum).toLocaleString()}
       </Value>
     </Box>
-  </Wrapper>
-);
-
-Card.propTypes = {
-  total: shape({}),
-  strings: shape({}),
+  </Wrapper>;
 };
 
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(Card);
+export default Card;

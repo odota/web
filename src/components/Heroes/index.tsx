@@ -193,7 +193,7 @@ class RequestLayer extends React.Component<HeroesProps> {
       <div>
         <Helmet title={strings.header_heroes} />
         <div>
-          <TabBar info={route} tabs={heroTabs} />
+          <TabBar tabs={heroTabs} />
           {selectedTab &&
             selectedTab.content(
               processedData,

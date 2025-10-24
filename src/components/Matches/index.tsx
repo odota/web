@@ -229,7 +229,7 @@ class RequestLayer extends React.Component<MatchesProps> {
       <div>
         <Helmet title={strings.title_matches} />
         <div>
-          <TabBar info={route} tabs={matchTabs(strings)} />
+          <TabBar tabs={matchTabs(strings)} />
           {tab && tab.content(this.props)}
         </div>
       </div>

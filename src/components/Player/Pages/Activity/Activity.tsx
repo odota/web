@@ -1,16 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import ActivityCalendar from './ActivityCalendar';
 import { getPlayerMatches } from '../../../../actions';
 import Container from '../../../Container';
+import useStrings from '../../../../hooks/useStrings.hook';
 
 const defaultOptions = {
   limit: null,
 };
 
-const Activity = ({ error, loading, strings, data }) => (
-  <Container
+const Activity = ({ error, loading, data }: ActivityProps) => {
+  const strings = useStrings();
+  return <Container
     title={strings.tab_activity}
     subtitle={strings.activity_subtitle}
     error={error}
@@ -18,33 +20,30 @@ const Activity = ({ error, loading, strings, data }) => (
   >
     <ActivityCalendar strings={strings} data={data} />
   </Container>
-);
-
-Activity.propTypes = {
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-  strings: PropTypes.shape({}),
-  data: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
-const getData = (props) => {
+const getData = (props: ActivityProps) => {
   props.getPlayerMatches(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    playerId: PropTypes.string,
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    strings: PropTypes.shape({}),
-  };
+type ActivityProps = {
+  playerId:string,
+  location: {
+    key: string,
+    search?: string,
+  },
+  getPlayerMatches: Function,
+  error: string,
+  loading: boolean,
+  data: any[],
+};
 
+class RequestLayer extends React.Component<ActivityProps> {
   componentDidMount() {
     getData(this.props);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: ActivityProps) {
     if (
       this.props.playerId !== prevProps.playerId ||
       this.props.location.key !== prevProps.location.key
@@ -58,15 +57,14 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   data: state.app.playerMatches.data,
   loading: state.app.playerMatches.loading,
   error: state.app.playerMatches.error,
-  strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getPlayerMatches: (playerId, options = defaultOptions) =>
+const mapDispatchToProps = (dispatch: any) => ({
+  getPlayerMatches: (playerId: string, options = defaultOptions) =>
     dispatch(getPlayerMatches(playerId, options)),
 });
 

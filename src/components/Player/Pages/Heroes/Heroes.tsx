@@ -1,47 +1,45 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import { getPlayerHeroes } from '../../../../actions';
 import Table from '../../../Table';
 import Container from '../../../Container';
 import { playerHeroesColumns } from './playerHeroesColumns';
+import useStrings from '../../../../hooks/useStrings.hook';
 
-const Heroes = ({ data, playerId, error, loading, strings }) => (
-  <Container title={strings.heading_heroes} error={error} loading={loading}>
+const Heroes = ({ data, playerId, error, loading }: HeroesProps) => {
+  const strings = useStrings();
+  return <Container title={strings.heading_heroes} error={error} loading={loading}>
     <Table
       paginated
       columns={playerHeroesColumns(playerId, strings)}
       data={data}
     />
-  </Container>
-);
-
-Heroes.propTypes = {
-  data: PropTypes.arrayOf({}),
-  playerId: PropTypes.string,
-  error: PropTypes.string,
-  loading: PropTypes.bool,
-  strings: PropTypes.shape({}),
+  </Container>;
 };
 
-const getData = (props) => {
+type HeroesProps = {
+  data: any[],
+  error: string,
+  loading: boolean,
+  playerId: string,
+  getPlayerHeroes: Function,
+  location: {
+    key?: string,
+    search?: string,
+  },
+};
+
+const getData = (props: HeroesProps) => {
   props.getPlayerHeroes(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    playerId: PropTypes.string,
-    strings: PropTypes.shape({}),
-  };
-
+class RequestLayer extends React.Component<HeroesProps> {
   componentDidMount() {
     getData(this.props);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: HeroesProps) {
     if (
       this.props.playerId !== prevProps.playerId ||
       this.props.location.key !== prevProps.location.key
@@ -55,15 +53,14 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   data: state.app.playerHeroes.data,
   error: state.app.playerHeroes.error,
   loading: state.app.playerHeroes.loading,
-  strings: state.app.strings,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getPlayerHeroes: (playerId, options) =>
+const mapDispatchToProps = (dispatch: any) => ({
+  getPlayerHeroes: (playerId: string, options: any) =>
     dispatch(getPlayerHeroes(playerId, options)),
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import Checkbox from 'material-ui/Checkbox';
 import styled from 'styled-components';
@@ -20,6 +20,7 @@ import constants from '../../../constants';
 import CountsSummary from './CountsSummary';
 import { formatTemplateToString } from '../../../../utility';
 import Collapsible from '../../../Collapsible';
+import useStrings from '../../../../hooks/useStrings.hook';
 
 export const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
@@ -99,8 +100,32 @@ const Styled = styled.div`
   width: 30px;
 `;
 
-const getValidRecentMatches = (matches) =>
+const getValidRecentMatches = (matches: Match[]) =>
   matches.filter((match) => match.game_mode !== 19).slice(0, MAX_MATCHES_ROWS);
+
+type OverviewProps = {
+  recentMatches: any,
+  playerMatches: any,
+  heroesData: any[],
+  heroesLoading: boolean,
+  heroesError: string,
+  peersData: any[],
+  peersLoading: boolean,
+  peersError: string,
+  countsData: any[],
+  countsLoading: boolean,
+  countsError: string,
+  location: {
+    key?: string,
+    search?: string,
+  },
+  playerId: string,
+  getPlayerMatches: Function,
+  getPlayerRecentMatches: Function,
+  getPlayerHeroes: Function,
+  getPlayerPeers: Function,
+  getPlayerCounts: Function,
+};
 
 const Overview = ({
   recentMatches,
@@ -114,12 +139,15 @@ const Overview = ({
   playerId,
   toggleTurboGames,
   showTurboGames,
-  strings,
   countsData,
   countsLoading,
   countsError,
   location,
+}: OverviewProps & {
+  toggleTurboGames: (e: React.MouseEvent) => void,
+  showTurboGames: boolean,
 }) => {
+  const strings = useStrings();
   const {
     data: matchesData,
     loading: matchesLoading,
@@ -148,7 +176,7 @@ const Overview = ({
           loaderHeight={30}
           key="averages"
         >
-          <Styled
+          {/* <Styled
             data-hint={strings.include_turbo_matches}
             data-hint-position="right"
             style={{
@@ -161,15 +189,12 @@ const Overview = ({
           >
             <Checkbox
               style={{
-                display: validRecentMatches.filter(
-                  (match) => showTurboGames || match.game_mode !== 23,
-                ),
                 opacity: 0.45,
               }}
               defaultChecked
               onCheck={toggleTurboGames}
             />
-          </Styled>
+          </Styled> */}
           <SummOfRecMatches
             matchesData={validRecentMatches.filter(
               (match) => showTurboGames || match.game_mode !== 23,
@@ -201,7 +226,7 @@ const Overview = ({
           <Table
             columns={playerMatchesColumns(strings, false)}
             data={matchesData}
-            maxRows={!location.search && MAX_MATCHES_ROWS}
+            maxRows={!location.search ? MAX_MATCHES_ROWS : undefined}
             paginated={matchesData.length > MAX_MATCHES_ROWS}
           />
         </Container>
@@ -249,26 +274,7 @@ const Overview = ({
   );
 };
 
-Overview.propTypes = {
-  recentMatches: PropTypes.shape({}),
-  playerMatches: PropTypes.shape({}),
-  heroesData: PropTypes.arrayOf({}),
-  heroesLoading: PropTypes.bool,
-  heroesError: PropTypes.string,
-  peersData: PropTypes.arrayOf({}),
-  peersLoading: PropTypes.bool,
-  peersError: PropTypes.string,
-  playerId: PropTypes.string,
-  toggleTurboGames: PropTypes.func,
-  showTurboGames: PropTypes.bool,
-  strings: PropTypes.shape({}),
-  countsData: PropTypes.arrayOf({}),
-  countsLoading: PropTypes.bool,
-  countsError: PropTypes.bool,
-  location: PropTypes.string,
-};
-
-const getData = (props) => {
+const getData = (props: OverviewProps) => {
   if (props.location.search) {
     props.getPlayerMatches(props.playerId, props.location.search);
   } else {
@@ -279,30 +285,19 @@ const getData = (props) => {
   props.getPlayerCounts(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    playerId: PropTypes.string,
-    toggleTurboGames: PropTypes.func,
-    showTurboGames: PropTypes.bool,
-    strings: PropTypes.shape({}),
-  };
-
-  constructor(props) {
+class RequestLayer extends React.Component<OverviewProps, { showTurboGames: boolean }> {
+  constructor(props: OverviewProps) {
     super(props);
     this.state = {
       showTurboGames: true,
     };
-    this.toggleTurboGames = this.toggleTurboGames.bind(this);
   }
 
   componentDidMount() {
     getData(this.props);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: OverviewProps) {
     if (
       this.props.playerId !== prevProps.playerId ||
       this.props.location.key !== prevProps.location.key
@@ -327,7 +322,7 @@ class RequestLayer extends React.Component {
   }
 }
 
-const filterCounts = (counts) => {
+const filterCounts = (counts: Record<string, any>) => {
   const countMap = {
     is_radiant: [],
     game_mode: [],
@@ -336,10 +331,10 @@ const filterCounts = (counts) => {
     lane_role: [],
   };
 
-  const limitCount = (key, field, lim) =>
+  const limitCount = (key: string, field: string, lim: number) =>
     counts[key].list
-      .filter((el) => el.category !== 'Unknown')
-      .sort((a, b) => b[field] - a[field])
+      .filter((el: any) => el.category !== 'Unknown')
+      .sort((a: any, b: any) => b[field] - a[field])
       .slice(0, lim);
 
   Object.keys(counts).forEach((key) => {
@@ -378,7 +373,7 @@ const filterCounts = (counts) => {
   ];
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   recentMatches: {
     data: state.app.playerRecentMatches.data,
     loading: state.app.playerRecentMatches.loading,
@@ -401,16 +396,16 @@ const mapStateToProps = (state) => ({
   countsError: state.app.playerCounts.error,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getPlayerRecentMatches: (playerId, options) =>
+const mapDispatchToProps = (dispatch: any) => ({
+  getPlayerRecentMatches: (playerId: string, options: any) =>
     dispatch(getPlayerRecentMatches(playerId, options)),
-  getPlayerMatches: (playerId, options) =>
+  getPlayerMatches: (playerId: string, options: any) =>
     dispatch(getPlayerMatches(playerId, options)),
-  getPlayerHeroes: (playerId, options) =>
+  getPlayerHeroes: (playerId: string, options: any) =>
     dispatch(getPlayerHeroes(playerId, options)),
-  getPlayerPeers: (playerId, options) =>
+  getPlayerPeers: (playerId: string, options: any) =>
     dispatch(getPlayerPeers(playerId, options)),
-  getPlayerCounts: (playerId, options) =>
+  getPlayerCounts: (playerId: string, options: any) =>
     dispatch(getPlayerCounts(playerId, options)),
 });
 

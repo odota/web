@@ -64,7 +64,6 @@ class RequestLayer extends React.Component<PlayerProps> {
         <div>
           <PlayerHeader playerId={playerId} location={location} />
           <TabBar
-            info={info}
             tabs={playerPages(playerId, strings, isPlayerProfilePublic)}
           />
         </div>

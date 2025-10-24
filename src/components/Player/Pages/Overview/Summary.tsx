@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { heroes } from 'dotaconstants';
 import {
   isRadiant,
@@ -12,10 +10,12 @@ import {
 import { MAX_MATCHES_ROWS } from './Overview';
 import constants from '../../../constants';
 import HeroImage from '../../../Visualizations/HeroImage';
+import useStrings from '../../../../hooks/useStrings.hook';
 
-const SummOfRecMatches = ({ matchesData, strings }) => {
+const SummOfRecMatches = ({ matchesData }: { matchesData: any[] }) => {
+  const strings = useStrings();
   // initial values
-  const data = {
+  const data: Record<string, any[]> = {
     kills: [],
     deaths: [],
     assists: [],
@@ -28,7 +28,7 @@ const SummOfRecMatches = ({ matchesData, strings }) => {
     duration: [],
     wins: [],
   };
-  const computed = {};
+  const computed: Record<string, any> = {};
 
   let winrate = 0;
 
@@ -102,12 +102,12 @@ const SummOfRecMatches = ({ matchesData, strings }) => {
           const c = computed[key];
 
           if (c.avg) {
-            const hero = heroes[c.max.heroId] || {};
+            const hero = heroes[c.max.heroId as keyof Heroes] || {};
             return (
               <li key={key}>
-                <span>{strings[`heading_${key}`]}</span>
+                <span>{strings[`heading_${key}` as keyof Strings]}</span>
                 <Link to={`/matches/${c.max.matchId}`}>
-                  <p style={{ color: constants[c.color] }}>
+                  <p style={{ color: constants[c.color as keyof typeof constants] } as React.CSSProperties}>
                     {key === 'duration'
                       ? formatSeconds(c.avg)
                       : abbreviateNumber(c.avg)}
@@ -117,7 +117,7 @@ const SummOfRecMatches = ({ matchesData, strings }) => {
                         ? formatSeconds(c.max.value)
                         : abbreviateNumber(c.max.value)}
                       <HeroImage
-                        id={hero.id}
+                        id={String(hero.id)}
                         isIcon
                         alt={hero.localized_name}
                       />
@@ -135,13 +135,4 @@ const SummOfRecMatches = ({ matchesData, strings }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  strings: state.app.strings,
-});
-
-SummOfRecMatches.propTypes = {
-  matchesData: PropTypes.arrayOf(PropTypes.shape({})),
-  strings: PropTypes.shape({}),
-};
-
-export default connect(mapStateToProps)(SummOfRecMatches);
+export default SummOfRecMatches;

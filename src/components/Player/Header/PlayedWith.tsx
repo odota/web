@@ -29,11 +29,10 @@ type PlayedWithProps = {
   strings: Strings,
 };
 
-class PlayedWith extends React.Component<PlayedWithProps, { win: number, lose: number }> {
-  state = {
-    win: 0,
-    lose: 0,
-  };
+type PlayedWithState = { win?: number, lose?: number };
+
+class PlayedWith extends React.Component<PlayedWithProps, PlayedWithState> {
+  state: PlayedWithState = {};
   constructor(props: PlayedWithProps) {
     super(props);
   }

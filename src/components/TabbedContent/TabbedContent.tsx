@@ -38,7 +38,7 @@ const TabbedContent = ({ info, tabs, match, content, skeleton }: {
   skeleton?: boolean,
 }) => (
   <React.Fragment>
-    <TabBar info={info} tabs={tabs} match={match} />
+    <TabBar tabs={tabs} match={match} />
     <RenderContent content={content} skeleton={skeleton} key={info} />
   </React.Fragment>
 );

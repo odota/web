@@ -1,7 +1,7 @@
 import { transformations, displayHeroId } from '../../../../utility';
 import matchesColumns from '../../../Match/matchColumns';
 
-export default (strings, isShowItems) => [
+export default (strings: Strings, isShowItems: boolean) => [
   {
     displayName: strings.th_hero_id,
     tooltip: strings.tooltip_hero_id,

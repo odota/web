@@ -1,47 +1,45 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import { getPlayerPros } from '../../../../actions';
 import Table from '../../../Table';
 import Container from '../../../Container';
 import playerProsColumns from './playerProsColumns';
+import useStrings from '../../../../hooks/useStrings.hook';
 
-const Pros = ({ data, playerId, error, loading, strings }) => (
-  <Container title={strings.heading_pros} error={error} loading={loading}>
+const Pros = ({ data, playerId, error, loading }: ProsProps) => {
+  const strings = useStrings();
+  return <Container title={strings.heading_pros} error={error} loading={loading}>
     <Table
       paginated
       columns={playerProsColumns(playerId, strings)}
       data={data}
     />
-  </Container>
-);
-
-Pros.propTypes = {
-  data: PropTypes.arrayOf({}),
-  error: PropTypes.string,
-  playerId: PropTypes.string,
-  loading: PropTypes.bool,
-  strings: PropTypes.shape({}),
+  </Container>;
 };
 
-const getData = (props) => {
+type ProsProps = {
+  data: any[],
+  error: string,
+  playerId: string,
+  loading: boolean,
+  getPlayerPros: Function,
+  location: {
+    key?: string,
+    search?: string,
+  }
+};
+
+const getData = (props: ProsProps) => {
   props.getPlayerPros(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    playerId: PropTypes.string,
-    strings: PropTypes.shape({}),
-  };
-
+class RequestLayer extends React.Component<ProsProps> {
   componentDidMount() {
     getData(this.props);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: ProsProps) {
     if (
       this.props.playerId !== prevProps.playerId ||
       this.props.location.key !== prevProps.location.key
@@ -55,16 +53,15 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  getPlayerPros: (playerId, options) =>
+const mapDispatchToProps = (dispatch: any) => ({
+  getPlayerPros: (playerId: string, options: any) =>
     dispatch(getPlayerPros(playerId, options)),
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   data: state.app.playerPros.data,
   error: state.app.playerPros.error,
   loading: state.app.playerPros.loading,
-  strings: state.app.strings,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

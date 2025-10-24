@@ -1,48 +1,46 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import { getPlayerPeers } from '../../../../actions';
 import Table from '../../../Table';
 import Container from '../../../Container';
 import { playerPeersColumns } from './playerPeersColumns';
+import useStrings from '../../../../hooks/useStrings.hook';
 
-const Peers = ({ data, playerId, error, loading, strings }) => (
-  <Container title={strings.heading_peers} error={error} loading={loading}>
+const Peers = ({ data, playerId, error, loading }: PeersProps) => {
+  const strings = useStrings();
+  return <Container title={strings.heading_peers} error={error} loading={loading}>
     <Table
       paginated
       columns={playerPeersColumns(playerId, strings)}
       data={data}
       placeholderMessage={strings.peers_none}
     />
-  </Container>
-);
-
-Peers.propTypes = {
-  data: PropTypes.arrayOf({}),
-  error: PropTypes.string,
-  playerId: PropTypes.string,
-  loading: PropTypes.bool,
-  strings: PropTypes.shape({}),
+  </Container>;
 };
 
-const getData = (props) => {
+type PeersProps = {
+  data: any[],
+  error: string,
+  playerId: string,
+  loading: boolean,
+  getPlayerPeers: Function,
+  location: {
+    key?: string,
+    search?: string,
+  }
+};
+
+const getData = (props: PeersProps) => {
   props.getPlayerPeers(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component {
-  static propTypes = {
-    location: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-    playerId: PropTypes.string,
-    strings: PropTypes.shape({}),
-  };
-
+class RequestLayer extends React.Component<PeersProps> {
   componentDidMount() {
     getData(this.props);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: PeersProps) {
     if (
       this.props.playerId !== prevProps.playerId ||
       this.props.location.key !== prevProps.location.key
@@ -56,14 +54,13 @@ class RequestLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   data: state.app.playerPeers.data,
   error: state.app.playerPeers.error,
   loading: state.app.playerPeers.loading,
-  strings: state.app.strings,
 });
-const mapDispatchToProps = (dispatch) => ({
-  getPlayerPeers: (playerId, options) =>
+const mapDispatchToProps = (dispatch: any) => ({
+  getPlayerPeers: (playerId: string, options: any) =>
     dispatch(getPlayerPeers(playerId, options)),
 });
 
