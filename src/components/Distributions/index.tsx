@@ -93,7 +93,7 @@ class RequestLayer extends React.Component<{ loading: boolean, match: { params: 
       let rows = data && data[key] && data[key].rows;
       if (key === 'ranks') {
         // Translate the rank integers into names
-        rows = rows.map((r: any) => ({
+        rows = rows?.map((r: any) => ({
           ...r,
           bin_name: rankTierToString(r.bin_name),
         }));

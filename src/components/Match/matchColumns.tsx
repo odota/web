@@ -8,7 +8,8 @@ import {
   permanent_buffs as buffs,
 } from 'dotaconstants';
 import ReactTooltip from 'react-tooltip';
-import { RadioButton } from 'material-ui/RadioButton';
+import { Radio as RadioButton } from '@mui/material';
+//@ts-expect-error
 import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import {
   formatSeconds,

@@ -1,16 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AutoComplete from 'material-ui/AutoComplete';
+import { Autocomplete, Chip, TextField } from '@mui/material';
 import querystring from 'querystring';
-import ChipList from './ChipList';
-import constants from '../constants';
+// import ChipList from './ChipList';
+// import constants from '../constants';
 
-const { colorRed, colorBlue } = constants;
-
-const addChipDefault = (name: string, input: { value: string }, limit: number, history: any) => {
+const addChipToUrl = (name: string, input: { label: string, id: string | number } | undefined | null, limit?: number, history?: any) => {
   if (history) {
     const query = querystring.parse(window.location.search.substring(1));
-    const field = [input.value].concat(query[name] || []).slice(0, limit);
+    const field = ([input?.id] as any[]).concat(query[name] || []).slice(0, limit);
     const newQuery = {
       ...query,
       [name]: field,
@@ -21,7 +19,7 @@ const addChipDefault = (name: string, input: { value: string }, limit: number, h
   }
 };
 
-const deleteChipDefault = (name: string, index: number, history: any) => {
+const deleteChipFromUrl = (name: string, index: number, history?: any) => {
   if (history) {
     const query = querystring.parse(window.location.search.substring(1));
     const field = ([] as any[]).concat(query[name] || []);
@@ -40,128 +38,87 @@ const deleteChipDefault = (name: string, index: number, history: any) => {
 
 type FormFieldProps = {
     name: string,
-    dataSource: any[],
+    dataSource: { label: string, id: number }[],
     strict?: boolean,
     limit?: number,
     formSelectionState: any,
-    addChip?: Function,
+    addChip?: (name: string, value: any, limit?: number) => void,
+    deleteChip?: (name: string, index: number) => void,
     history?: any,
     label: string,
     filter?: (searchText: string, key: string) => boolean,
     className?: string,
     maxSearchResults?: number,
-    deleteChip?: Function,
     strings: Strings,
     resetField?: Function,
     textFieldStyle?: any,
+    size?: 'small' | 'medium',
+    width?: number,
 };
 
 class FormField extends React.Component<FormFieldProps> {
   state = {
     searchText: '',
     errorText: '',
-    selectedBundle: undefined,
-    singleSelection: undefined,
+    // selectedBundle: undefined,
+    // singleSelection: undefined,
   };
-  autocomplete: AutoComplete | null = null;
   constructor(props: FormFieldProps) {
     super(props);
-    const { formSelectionState, name } = this.props;
-    const initialState =
-      formSelectionState[name] &&
-      this.findFromSource(
-        Array.isArray(formSelectionState[name])
-          ? formSelectionState[name][0]
-          : formSelectionState[name],
-      );
+    // const { formSelectionState, name } = this.props;
+    // const initialState =
+    //   formSelectionState[name] &&
+    //   this.findFromSource(
+    //     Array.isArray(formSelectionState[name])
+    //       ? formSelectionState[name][0]
+    //       : formSelectionState[name],
+    //   );
 
     this.state = {
       searchText: '',
       errorText: '',
-      selectedBundle: initialState && initialState.bundle,
-      singleSelection: initialState && initialState.singleSelection,
+      // selectedBundle: initialState && initialState.bundle,
+      // singleSelection: initialState && initialState.singleSelection,
     };
   }
 
-  handleSelect = (value: { value: string, bundle: any, singleSelection: any }, index: number) => {
+  handleSelect = (e: React.SyntheticEvent, value: string[] | { label: string, id: string | number }[]) => {
     const {
       name,
-      dataSource,
-      strict,
       limit,
       formSelectionState,
-      addChip = addChipDefault,
+      addChip,
       history,
-      strings,
     } = this.props;
 
-    const selectedElements = formSelectionState[name];
-    if (selectedElements && Array.isArray(selectedElements)) {
-      const isSelected =
-        index > -1
-          ? selectedElements.includes(value.value)
-          : selectedElements.includes(value);
-      if (isSelected) {
-        // Handle inputs that are already selected
-        this.handleUpdateInput('');
-        return;
+    let valueToAdd;
+    if (typeof value[0] === 'string') {
+      // free input mode
+      valueToAdd = {
+        label: value[0],
+        id: value[0],
       }
-    }
-
-    let input = null;
-
-    if (index > -1) {
-      // User selected an element
-      input = dataSource.filter(this.bundleFilter)[index];
-    } else if (!strict && index === -1) {
-      // Direct free input
-      input = {
-        text: value,
-        value,
-      };
     } else {
-      // Strict and not in datasource
-      this.setState({
-        searchText: '',
-        errorText: strings.filter_error,
-      });
-      return;
+      // Add the latest value
+      valueToAdd = value?.[value.length - 1] as { label: string, id: string | number };
     }
-
-    this.setState({
-      selectedBundle: value.bundle,
-      singleSelection: value.singleSelection,
-    });
-    this.handleUpdateInput('');
-    addChip(name, input, limit, history);
+    addChipToUrl(name, valueToAdd, limit, history);
+    addChip && addChip(name, valueToAdd, limit);
   };
 
-  handleUpdateInput = (searchText: string) => {
+  handleUpdateInput = (e: any, searchText: string) => {
     this.setState({
       searchText,
-      errorText: '', // clear error when user types
     });
   };
 
   findFromSource = (element: any) => {
     let fromSource = this.props.dataSource.find(
-      (data) => Number(data.value) === Number(element),
+      (data) => Number(data.id) === Number(element),
     );
     fromSource =
-      fromSource || this.props.dataSource.find((data) => data.key === element);
-    return fromSource || { text: element, value: element };
-  };
-
-  bundleFilter = (field: any) =>
-    !this.state.selectedBundle ||
-    !this.props.formSelectionState[this.props.name] ||
-    this.props.formSelectionState[this.props.name].length < 1 ||
-    field.bundle === this.state.selectedBundle;
-
-  handleClick = () => {
-    if (this.state.singleSelection && this.props.resetField) {
-      this.props.resetField();
-    }
+      fromSource || this.props.dataSource.find((data) => data.id === element);
+    return fromSource || { label: element, id: element };
   };
 
   render() {
@@ -171,49 +128,45 @@ class FormField extends React.Component<FormFieldProps> {
       dataSource = [],
       className,
       maxSearchResults = 150,
-      deleteChip = deleteChipDefault,
       history,
       formSelectionState,
-      filter,
-      textFieldStyle,
     } = this.props;
     const { searchText, errorText } = this.state;
 
-    const selectedElements = [].concat(formSelectionState[name] || []);
+    const selectedElements: number[] = [].concat(formSelectionState[name] || []);
     // Use dataSource on selectedElements to hydrate the chipList
     const chipList = selectedElements.map(this.findFromSource);
     return (
-      <div className={className} data-hint-position="left" data-hint={label}>
-        <AutoComplete
-          ref={(ref) => {
-            this.autocomplete = ref;
-            return null;
-          }}
+      <div className={className}>
+        <Autocomplete
+          clearIcon={null}
+          sx={{ width: this.props.width ? `${this.props.width}px` : undefined }}
+          size={this.props.size ?? 'medium'}
+          freeSolo={!this.props.strict}
+          multiple={true}
+          value={chipList}
+          inputValue={searchText}
+          getOptionLabel={(option: any) => option.label}
+          renderInput={(params) => <TextField {...params} label={label} />}
+          renderValue={(value: any[], getItemProps) => (
+            value.map((v, index) => {
+              return <Chip size={this.props.size} label={v.label} {...getItemProps({ index })} onDelete={(e) => {
+                deleteChipFromUrl(name, index, history);
+                this.props.deleteChip && this.props.deleteChip(name, index);
+              }} />;
+            })
+          )}
           openOnFocus
-          dataSource={dataSource.filter(this.bundleFilter)}
-          floatingLabelText={label}
-          filter={filter || AutoComplete.fuzzyFilter}
-          maxSearchResults={maxSearchResults}
-          onNewRequest={this.handleSelect}
-          onUpdateInput={this.handleUpdateInput}
-          searchText={searchText}
-          errorText={errorText}
-          listStyle={{ maxHeight: 250, overflow: 'auto' }}
-          style={{ flex: '1 0 0' }}
-          floatingLabelFocusStyle={{ color: errorText ? colorRed : colorBlue }}
-          underlineFocusStyle={{ borderColor: colorBlue }}
-          errorStyle={{ color: colorRed }}
-          //@ts-expect-error
-          onClose={() => this.setState({ errorText: '' })}
-          onClick={this.handleClick}
-          textFieldStyle={textFieldStyle}
+          options={dataSource}
+          onChange={this.handleSelect}
+          onInputChange={this.handleUpdateInput}
         />
-        <ChipList
+        {/* <ChipList
           name={name}
           chipList={chipList}
           deleteChip={deleteChip}
           history={history}
-        />
+        /> */}
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Toggle from 'material-ui/Toggle';
+import { FormControlLabel, Switch } from '@mui/material';
 import TeamTable from '../TeamTable';
 import mcs from '../matchColumns';
 import config from '../../../config';
@@ -40,26 +40,21 @@ class Purchases extends React.Component<PurchasesProps, { showConsumables: boole
     const { purchaseTimesColumns } = mcs(strings);
     return (
       <div style={{ position: 'relative' }}>
-        <Toggle
-          label={strings.show_consumables_items}
-          labelStyle={{
-            color: '#b3b3b3',
-            lineHeight: '13px',
-            fontSize: '14px',
-          }}
-          style={toggleStyle}
-          onToggle={this.change}
-          thumbStyle={{
-            backgroundColor: 'rgb(179, 179, 179)',
-            marginTop: '2px',
-            marginRight: '3px',
-          }}
-          trackStyle={{
-            position: 'absolute',
-            marginTop: '2px',
-            marginRight: '3px',
-          }}
-        />
+        <FormControlLabel label={strings.show_consumables_items} control={
+        <Switch
+          // style={toggleStyle}
+          onChange={this.change}
+          // thumbStyle={{
+          //   backgroundColor: 'rgb(179, 179, 179)',
+          //   marginTop: '2px',
+          //   marginRight: '3px',
+          // }}
+          // trackStyle={{
+          //   position: 'absolute',
+          //   marginTop: '2px',
+          //   marginRight: '3px',
+          // }}
+        />} />
         <TeamTable
           players={match.players}
           columns={purchaseTimesColumns(match, this.state.showConsumables)}

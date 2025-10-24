@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
+//@ts-expect-error
 import NavigationArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
 import { inflictorWithValue } from '../Visualizations';
 import { sumValues, getHeroesById, abbreviateNumber } from '../../utility';

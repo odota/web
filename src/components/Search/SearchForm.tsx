@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import debounce from 'lodash/debounce';
-import TextField from 'material-ui/TextField';
+import { TextField } from '@mui/material';
 import querystring from 'querystring';
 import { getSearchResultAndPros, setSearchQuery } from '../../actions';
 import constants from '../constants';
@@ -33,10 +32,6 @@ class SearchForm extends React.Component<SearchFormProps, { query?: string }> {
     }
   }
 
-  debouncedSetQuery = (value?: any) => {
-    debounce(this.props.dispatchSetQuery, 100);
-  };
-
   formSubmit = (e: any) => {
     const { query } = this.state;
     e.preventDefault();
@@ -51,10 +46,6 @@ class SearchForm extends React.Component<SearchFormProps, { query?: string }> {
     this.setState({
       query: value,
     });
-
-    if (pathname === '/search') {
-      this.debouncedSetQuery(value);
-    }
   };
 
   render() {
@@ -67,7 +58,7 @@ class SearchForm extends React.Component<SearchFormProps, { query?: string }> {
         <TextField
           id="searchField"
           aria-label={strings.search_title}
-          hintText={
+          placeholder={
             small
               ? strings.search_title
               : `${strings.search_title?.slice(0, -13)}...`
@@ -75,14 +66,8 @@ class SearchForm extends React.Component<SearchFormProps, { query?: string }> {
           value={this.state.query}
           onChange={this.handleChange}
           fullWidth
-          underlineFocusStyle={{
-            borderColor: constants.primaryLinkColor,
-            bottom: '-4px',
-            left: '-40px',
-            width: 'calc(100% + 40px)',
-          }}
+          size="small"
           style={{ whiteSpace: 'nowrap', overflow: 'hidden', display: 'flex' }}
-          underlineStyle={{ borderColor: 'transparent' }}
         />
       </form>
     );

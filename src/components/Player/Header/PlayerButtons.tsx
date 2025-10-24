@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Box } from '@mui/material';
 import { Button } from '@mui/material';
+//@ts-expect-error
 import ActionUpdate from 'material-ui/svg-icons/navigation/refresh';
 import styled from 'styled-components';
 import { toggleShowForm as toggleShowFormAction } from '../../../actions/formActions';

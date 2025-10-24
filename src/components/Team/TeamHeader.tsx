@@ -21,15 +21,15 @@ export default (generalData: any, strings: Strings) => (
       <Row>
         <TeamStatsCard
           title={strings.th_wins}
-          subtitle={<div className="textSuccess">{generalData.data.wins}</div>}
+          subheader={<div className="textSuccess">{generalData.data.wins}</div>}
         />
         <TeamStatsCard
           title={strings.th_losses}
-          subtitle={<div className="textDanger">{generalData.data.losses}</div>}
+          subheader={<div className="textDanger">{generalData.data.losses}</div>}
         />
         <TeamStatsCard
           title={strings.th_rating}
-          subtitle={Math.floor(generalData.data.rating)}
+          subheader={Math.floor(generalData.data.rating)}
         />
       </Row>
       {/* <Row>

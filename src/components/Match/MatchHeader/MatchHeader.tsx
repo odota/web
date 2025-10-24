@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import styled from 'styled-components';
+//@ts-expect-error
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
+//@ts-expect-error
 import ActionFingerprint from 'material-ui/svg-icons/action/fingerprint';
-import FileFileDownload from 'material-ui/svg-icons/file/file-download';
+//@ts-expect-error
+import FileFileDownload from 'material-ui/svg-icons/file/file-download'
+//@ts-expect-error;
 import ContentCopy from 'material-ui/svg-icons/content/content-copy';
 import { transformations, isRadiant, sum } from '../../../utility';
 import { IconRadiant, IconDire } from '../../Icons';

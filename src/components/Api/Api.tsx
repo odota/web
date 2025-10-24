@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import CircularProgress from 'material-ui/CircularProgress';
+import { CircularProgress } from '@mui/material';
 import { Button } from '@mui/material';
 import styled from 'styled-components';
 import StripeCheckout, { Token } from 'react-stripe-checkout';
@@ -194,7 +194,7 @@ class KeyManagement extends React.Component<
           <h1>{strings.api_title}</h1>
           <h2>{strings.api_subtitle}</h2>
           {loading || this.state.loading || !Object.keys(strings).length ? (
-            <CircularProgress mode="indeterminate" />
+            <CircularProgress />
           ) : (
             <div>
               {showLoginButton ? (

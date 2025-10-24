@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Avatar from 'material-ui/Avatar';
-import Badge from 'material-ui/Badge';
+import { Avatar, Badge } from '@mui/material';
 import styled from 'styled-components';
 import { Facebook } from 'react-content-loader';
 import { rankTierToString } from '../../../utility';
-import Error from '../../Error/Error';
+import ErrorBox from '../../Error/ErrorBox';
 import PlayerStats from './PlayerStats';
 import PlayerBadges from './PlayerBadges';
 import PlayerButtons from './PlayerButtons';
@@ -293,7 +292,7 @@ const PlayerHeader = ({
   location: any,
 }) => {
   if (error) {
-    return <Error />;
+    return <ErrorBox />;
   }
   if (loading) {
     return (
@@ -335,16 +334,16 @@ const PlayerHeader = ({
           <div className="imageContainer">
             <Badge
               badgeContent={<RegisteredBadge registered={registered} />}
-              badgeStyle={badgeStyle}
-              style={{
-                margin: 0,
-                padding: 0,
-              }}
+              // badgeStyle={badgeStyle}
+              // style={{
+              //   margin: 0,
+              //   padding: 0,
+              // }}
             >
               <Avatar
                 src={picture}
                 style={avatarStyle}
-                size={LARGE_IMAGE_SIZE}
+                sx={{ width: LARGE_IMAGE_SIZE, height: LARGE_IMAGE_SIZE }}
                 className="overviewAvatar"
               />
             </Badge>

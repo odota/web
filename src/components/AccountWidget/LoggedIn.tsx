@@ -24,7 +24,7 @@ const StyledButton = styled(Button)`
 const LoggedIn = ({ playerId, style }: { playerId: number; style: React.CSSProperties }) => {
   const strings = useStrings();
   if (!playerId) {
-    return <Spinner color="#fff" size={0.5} />;
+    return <Spinner size={0.5} />;
   }
   return (
     <Link style={style} to={`/players/${playerId}`}>

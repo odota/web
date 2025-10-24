@@ -23,14 +23,14 @@ const getFields = (players: any[] = [], leagues: any[] = [], teams: any[] = []) 
     singleSelection: 'true',
   };
 
-  const usesSelect = (itemKey: string) => ({
-    //@ts-expect-error
-    text: `${strings.explorer_uses} - ${items[itemKey as keyof typeof items].dname} ${getItemSuffix(itemKey)}`,
-    value: `(item_uses->>'${itemKey}')::int`,
-    key: `uses_${itemKey}`,
-    alias: 'uses',
-    bundle: 'uses',
-  });
+  // const usesSelect = (itemKey: string) => ({
+  //   //@ts-expect-error
+  //   text: `${strings.explorer_uses} - ${items[itemKey as keyof typeof items].dname} ${getItemSuffix(itemKey)}`,
+  //   value: `(item_uses->>'${itemKey}')::int`,
+  //   key: `uses_${itemKey}`,
+  //   alias: 'uses',
+  //   bundle: 'uses',
+  // });
 
   // const timingSelect = itemKey => ({
   //   text: `${strings.explorer_timing} - ${items[itemKey].dname} ${getItemSuffix(itemKey)}`,
@@ -420,11 +420,11 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
         bundle: 'picks_bans',
       },
     ] as any[])
-      .concat(
-        Object.keys(items)
-          .filter((itemKey) => items[itemKey as keyof typeof items].cd)
-          .map(usesSelect),
-      )
+      // .concat(
+      //   Object.keys(items)
+      //     .filter((itemKey) => items[itemKey as keyof typeof items].cd)
+      //     .map(usesSelect),
+      // )
       // .concat(Object.keys(items).filter(itemKey => items[itemKey].cost > 2000).map(timingSelect))
       .concat(singleFields)
       .sort((a, b) => a.text && a.text.localeCompare(b.text)),

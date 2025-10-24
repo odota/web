@@ -1,10 +1,8 @@
 import React from 'react';
-import { RaisedButton, RadioButton, RadioButtonGroup } from 'material-ui';
+import { Button, FormControlLabel, Radio as RadioButton, RadioGroup as RadioButtonGroup, TextField } from '@mui/material';
 import { heroes } from 'dotaconstants';
 import querystring from 'querystring';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';
-import ActionSearch from 'material-ui/svg-icons/action/search';
 import HeroImage from '../Visualizations/HeroImage';
 import TableSkeleton from '../Skeletons/TableSkeleton';
 import Heading from '../Heading';
@@ -44,32 +42,17 @@ const InputFilter = ({
   setInputRef,
   reset,
   filterText,
-}: { handleChange: (e: React.FormEvent<{}>, newValue: string) => void, value: string, setInputRef: any, reset: any, filterText: string }) => (
-  <StyledInputFilter>
-    <div className="container">
-      <ActionSearch
-        style={{ marginRight: 6, opacity: '.6', verticalAlign: 'middle' }}
-      />
-      <TextField
-        aria-label={filterText}
-        ref={setInputRef}
-        hintText={filterText}
-        value={value}
-        onChange={handleChange}
-        style={{ width: 150 }}
-      />
-      <div
-        aria-label="clear hero filter"
-        className="reset-button"
-        onClick={reset}
-        onKeyPress={reset}
-        role="button"
-        tabIndex={0}
-      >
-        x
-      </div>
-    </div>
-  </StyledInputFilter>
+}: { handleChange: (e: React.ChangeEvent) => void, value: string, setInputRef: any, reset: any, filterText: string }) => (
+  <div style={{ textAlign: 'center' }}>
+  <TextField
+    aria-label={filterText}
+    ref={setInputRef}
+    placeholder={filterText}
+    value={value}
+    onChange={handleChange}
+    style={{ width: 150 }}
+  />
+  </div>
 );
 
 const heroesArray = Object.keys(heroes)
@@ -253,25 +236,27 @@ class Combos extends React.Component<{ strings: Strings }> {
     let data = json;
     const { teamA, teamB } = this.state;
 
-    // rearrange order of heroes so the results are displayed in the same order as selection
-    data.forEach((row: any) => {
-      if (!row.teama.includes(teamA[0]) && !row.teamb.includes(teamB[0])) {
-        const temp = row.teama;
-        row.teama = row.teamb;
-        row.teamb = temp;
-        row.teamawin = !row.teamawin;
-      }
-      row.teama.sort((a: number, b: number) => teamA.indexOf(b) - teamA.indexOf(a));
-      row.teama = [
-        ...row.teama.slice(teamA.length, 5),
-        ...row.teama.slice(0, teamA.length),
-      ];
-      row.teamb.sort((a: number, b: number) => teamB.indexOf(a) - teamB.indexOf(b));
-      row.teamb = [
-        ...row.teamb.slice(5 - teamB.length, 5),
-        ...row.teamb.slice(0, 5 - teamB.length),
-      ];
-    });
+    if (Array.isArray(data)) {
+      // rearrange order of heroes so the results are displayed in the same order as selection
+      data.forEach((row: any) => {
+        if (!row.teama.includes(teamA[0]) && !row.teamb.includes(teamB[0])) {
+          const temp = row.teama;
+          row.teama = row.teamb;
+          row.teamb = temp;
+          row.teamawin = !row.teamawin;
+        }
+        row.teama.sort((a: number, b: number) => teamA.indexOf(b) - teamA.indexOf(a));
+        row.teama = [
+          ...row.teama.slice(teamA.length, 5),
+          ...row.teama.slice(0, teamA.length),
+        ];
+        row.teamb.sort((a: number, b: number) => teamB.indexOf(a) - teamB.indexOf(b));
+        row.teamb = [
+          ...row.teamb.slice(5 - teamB.length, 5),
+          ...row.teamb.slice(0, 5 - teamB.length),
+        ];
+      });
+    }
 
     if (this.state.queryType === 'public') {
       // adapt json format so ExplorerOutputSection can process it
@@ -379,39 +364,33 @@ class Combos extends React.Component<{ strings: Strings }> {
           <div className="submit-section">
             <RadioButtonGroup
               name="queryType"
-              defaultSelected={this.state.queryType}
+              value={this.state.queryType}
               onChange={this.handleRadioButtonChange}
             >
-              <RadioButton
-                value="public"
-                label={strings.public_matches}
-                style={styles.radioButton.root}
-                iconStyle={styles.radioButton.icon}
-              />
-              <RadioButton
+              <FormControlLabel value="public" label={strings.public_matches} control={<RadioButton/>} />
+              <FormControlLabel 
                 value="pro"
                 label={strings.pro_matches}
-                style={{ ...styles.radioButton.root, marginRight: 0 }}
-                iconStyle={styles.radioButton.icon}
+                control={<RadioButton />} 
               />
             </RadioButtonGroup>
-            <RaisedButton
-              label={
-                this.state.loading
-                  ? strings.explorer_cancel_button
-                  : strings.request_submit
-              }
+            <Button
+              variant="contained"
               onClick={
                 this.state.loading ? this.handleCancel : this.handleSubmit
               }
-              buttonStyle={{
-                backgroundColor: this.state.loading
-                  ? '#822e2e'
-                  : 'rgba(23, 59, 90, 0.8)',
-              }}
+              // buttonStyle={{
+              //   backgroundColor: this.state.loading
+              //     ? '#822e2e'
+              //     : 'rgba(23, 59, 90, 0.8)',
+              // }}
               style={{ display: 'block', marginTop: 5 }}
               disabled={noHeroesSelected}
-            />
+            >{
+              this.state.loading
+                ? strings.explorer_cancel_button
+                : strings.request_submit
+            }</Button>
           </div>
         </div>
         <pre style={{ color: 'red' }}>

@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AutoComplete from 'material-ui/AutoComplete';
+import { Autocomplete, TextField } from '@mui/material';
 import getFormFieldData from './FormFieldData';
-import { listStyle } from './Styles';
 
 const hintTexts = (strings: Strings) => ({
   itemTimings: {
@@ -36,7 +35,7 @@ type ScenariosFormFieldProps = {
   incrementTableKey: Function,
 }
 
-class ScenarioFormField extends React.Component<ScenariosFormFieldProps, { searchText: string, animate?: boolean }> {
+class ScenarioFormField extends React.Component<ScenariosFormFieldProps, { animate?: boolean }> {
   dataSources: Record<string, Record<string, any[]>> = {};
   constructor(props: ScenariosFormFieldProps) {
     super(props);
@@ -65,17 +64,6 @@ class ScenarioFormField extends React.Component<ScenariosFormFieldProps, { searc
         scenario: miscList,
       },
     };
-
-    let searchText = this.dataSources[selectedTab][field].find(
-      (el) =>
-        (el.altValue !== undefined && el.altValue === formFieldState) ||
-        el.value === formFieldState,
-    );
-    searchText = searchText ? searchText.text : '';
-
-    this.state = {
-      searchText,
-    };
   }
 
   componentDidMount() {
@@ -84,52 +72,43 @@ class ScenarioFormField extends React.Component<ScenariosFormFieldProps, { searc
     });
   }
 
-  handleUpdateInput = (searchText: string) => {
-    this.setState({ searchText });
-  }
+  // handleUpdateInput = (e: any, searchText: string) => {
+  //   this.setState({ searchText });
+  // }
 
-  handleRequest = (chosenRequest: any) => {
+  handleRequest = (e: any, value: { label: string, id: string } | null) => {
     const { updateFormFieldState, field } = this.props;
     updateFormFieldState({
-      [field]: chosenRequest.altValue || chosenRequest.value,
+      [field]: value?.id,
     });
+    // this.setState({ searchText: value?.label });
   }
 
-  resetField = () => {
-    if (this.props.className === 'filter') {
-      this.props.incrementTableKey();
-    }
-    const { updateFormFieldState, field } = this.props;
-    this.setState({ searchText: '' }, updateFormFieldState({ [field]: null }));
-  }
+  // resetField = () => {
+  //   if (this.props.className === 'filter') {
+  //     this.props.incrementTableKey();
+  //   }
+  //   const { updateFormFieldState, field } = this.props;
+  //   this.setState({ searchText: '' }, updateFormFieldState({ [field]: null }));
+  // }
 
   render() {
     const { field, index, selectedTab, className, strings } = this.props;
-    const { searchText } = this.state;
-    const style = {
-      paddingRight: '20px',
-      opacity: this.state.animate ? 1 : 0,
-      transition: `all ${0.25 * (index + 1)}s ease-in-out`,
-    };
-
+    //@ts-expect-error
+    const label = hintTexts(strings)[selectedTab][field];
+    const options = this.dataSources[selectedTab][field].map((d: any) => ({ label: d.text ?? d.value, id: String(d.value) }));
     return (
-      <div>
-        <AutoComplete
-          openOnFocus
-          listStyle={{ ...listStyle, ...customStyles[field as keyof typeof customStyles] }}
-          filter={AutoComplete.caseInsensitiveFilter}
-          //@ts-expect-error
-          floatingLabelText={hintTexts(strings)[selectedTab][field]}
-          dataSource={this.dataSources[selectedTab][field]}
-          //@ts-expect-error
-          onClick={this.resetField}
-          onUpdateInput={this.handleUpdateInput}
-          searchText={searchText}
-          onNewRequest={this.handleRequest}
-          style={style}
-          className={className}
-        />
-      </div>
+      <Autocomplete
+        sx={{ width: '300px' }}
+        openOnFocus
+        renderInput={(params) => <TextField {...params} label={label} />}
+        options={options}
+        // onOpen={this.resetField}
+        value={options.find(o => o.id === this.props.formFieldState)}
+        // onInputChange={this.handleUpdateInput}
+        onChange={this.handleRequest}
+        className={className}
+      />
     );
   }
 }

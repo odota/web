@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import ActionHelp from 'material-ui/svg-icons/action/help';
 import styled from 'styled-components';
 import Spinner from '../../Spinner/Spinner';
 import Error from '../../Error/Error';
@@ -81,17 +80,17 @@ export const PlayerStatsCards = ({
   return (
     <Styled>
       <div className="container">
-        <div style={{ textAlign: compact ? 'center' : '' } as React.CSSProperties}>
+        <div style={{ textAlign: compact ? 'center' : '', display: 'flex' } as React.CSSProperties}>
           <PlayerStatsCard
-            subtitle={<div className="textSuccess">{wins}</div>}
+            subheader={<div className="textSuccess">{wins}</div>}
             title={strings.th_wins}
           />
           <PlayerStatsCard
-            subtitle={<div className="textDanger">{losses}</div>}
+            subheader={<div className="textDanger">{losses}</div>}
             title={strings.th_losses}
           />
           <PlayerStatsCard
-            subtitle={
+            subheader={
               wins + losses
                 ? `${((wins / (wins + losses)) * 100).toFixed(2)}%`
                 : strings.abbr_not_available
@@ -110,7 +109,6 @@ const mapStateToProps = (state: any) => ({
   error: state.app.player.error,
   wins: state.app.playerWinLoss.data.win,
   losses: state.app.playerWinLoss.data.lose,
-  strings: state.app.strings,
 });
 
 export default connect(mapStateToProps)(PlayerStatsCards);

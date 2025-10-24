@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
-import TextField from 'material-ui/TextField';
+import { TextField } from '@mui/material';
+//@ts-expect-error
 import ActionSearch from 'material-ui/svg-icons/action/search';
 
 const StyledHorizontalMenuFilter = styled.div`
@@ -23,21 +24,18 @@ const StyledHorizontalMenuFilter = styled.div`
 const HorizontalMenuFilter = ({
   handleChange,
   value,
-  setInputRef,
   reset,
   filterText,
 }: {
   handleChange: (e: React.FormEvent) => void,
   value: string,
-  setInputRef?: React.LegacyRef<TextField>,
   reset: (e: any) => void,
   filterText: string,
 }) => (
   <StyledHorizontalMenuFilter>
     <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
     <TextField
-      ref={setInputRef}
-      hintText={filterText}
+      helperText={filterText}
       value={value}
       onChange={handleChange}
       style={{ width: 150 }}
@@ -88,10 +86,6 @@ class HorizontalMenu extends React.Component<{ filterAndRenderElements: Function
     this.horizontalMenuRef?.removeEventListener('wheel', this.onWheel);
   }
 
-  setInputRef = (input: any) => {
-    this.inputRef = input;
-  };
-
   sethorizontalMenuRef = (node: any) => {
     this.horizontalMenuRef = node;
   };
@@ -118,7 +112,6 @@ class HorizontalMenu extends React.Component<{ filterAndRenderElements: Function
           handleChange={this.handleChange}
           value={this.state.searchValue}
           reset={this.resetSearchValue}
-          setInputRef={this.setInputRef}
           filterText={this.props.filterText}
         />
       </React.Fragment>

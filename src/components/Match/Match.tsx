@@ -7,10 +7,11 @@ import { getMatch } from '../../actions';
 import MatchHeader from './MatchHeader/MatchHeader';
 import matchPages from './matchPages';
 import FourOhFour from '../../components/FourOhFour/FourOhFour';
+import ErrorBox from '../Error/ErrorBox';
 
 type MatchProps = {
   loading: boolean,
-  error: boolean,
+  error: string,
   matchData: Match,
   match: {
     params: {
@@ -42,6 +43,11 @@ class RequestLayer extends React.Component<MatchProps> {
       (_page) => _page.key.toLowerCase() === info,
     );
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
+    // Server error or rate limit
+    if (String(error) === '429' || String(error) === '500') {
+      return <ErrorBox text={error} />;
+    }
+    // Can't find the match
     if (error && !loading) {
       return <FourOhFour msg={strings.request_invalid_match_id} />;
     }

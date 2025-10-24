@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import CircularProgress from 'material-ui/CircularProgress';
+import { CircularProgress } from '@mui/material';
 import { Button } from '@mui/material';
-import TextField from 'material-ui/TextField';
+import { TextField } from '@mui/material';
 import { postRequest } from '../../actions/requestActions';
 
 type RequestProps = {
@@ -34,9 +34,9 @@ class Request extends React.Component<RequestProps, { matchId: string }> {
   render() {
     const { progress, error, loading, strings } = this.props;
     const progressIndicator = progress ? (
-      <CircularProgress value={progress} mode="determinate" />
+      <CircularProgress value={progress} variant="determinate" />
     ) : (
-      <CircularProgress value={progress} mode="indeterminate" />
+      <CircularProgress value={progress} variant="indeterminate" />
     );
     return (
       <div style={{ textAlign: 'center' }}>
@@ -44,13 +44,13 @@ class Request extends React.Component<RequestProps, { matchId: string }> {
         <h1>{strings.request_title}</h1>
         <TextField
           id="match_id"
-          floatingLabelText={strings.request_match_id}
-          errorText={error && !loading ? strings.request_error : false}
+          label={strings.request_match_id}
+          error={Boolean(error)}
+          helperText={error && !loading ? strings.request_error : false}
           value={this.state.matchId}
-          //@ts-expect-error
           onChange={(e) => this.setState({ matchId: e.target.value })}
         />
-        <div>
+        <div style={{ marginTop: '8px' }}>
           {loading ? (
             progressIndicator
           ) : (

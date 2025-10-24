@@ -16,7 +16,7 @@ export default function transformPlayerMatches(fields: any) {
         );
         //@ts-expect-error
         const partnerHero = { ...found?.[1], player_slot: Number(found?.[0]) };
-        console.log(partnerHero, match);
+        // console.log(partnerHero, match);
         if (
           isRadiant(partnerHero.player_slot) === isRadiant(match.player_slot)
         ) {

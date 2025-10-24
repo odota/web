@@ -29,7 +29,7 @@ const tiTeams = [
   2163, 1838315, 15,
 ];
 
-const queryTemplate = (props: any) => {
+const queryTemplate = (props: Record<string, any[]>) => {
   const {
     select,
     group,
@@ -139,15 +139,15 @@ ${conjoin`matches.duration <= ${maxDuration}`}
 ${conjoin`team_match.radiant = ${side}`}
 ${conjoin`(team_match.radiant = matches.radiant_win) = ${result}`}
 ${conjoin`matches.cluster IN (${region})`}
-${minDate ? conjoin`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
-${maxDate ? conjoin`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
+${minDate?.[0] ? conjoin`matches.start_time >= extract(epoch from timestamp '${minDate[0]}')` : ''}
+${maxDate?.[0] ? conjoin`matches.start_time <= extract(epoch from timestamp '${maxDate[0]}')` : ''}
 ${conjoin`leagues.tier = '${tier}'`}
-${isTiTeam ? `AND teams.team_id IN (${tiTeams.join(',')})` : ''}
-${megaWin ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))' : ''}
-${maxGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage.value}` : ''}
-${minGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage.value}` : ''}
+${isTiTeam?.[0] ? `AND teams.team_id IN (${tiTeams.join(',')})` : ''}
+${megaWin?.[0] ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))' : ''}
+${maxGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage[0].value}` : ''}
+${minGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage[0].value}` : ''}
 GROUP BY hero_id
-ORDER BY total ${(order && order.value) || 'DESC'}`;
+ORDER BY total ${(order?.[0]?.value) ?? 'DESC'}`;
   } else {
     const selectVal: any = {};
     const groupVal: any = {};
@@ -253,25 +253,25 @@ ${conjoin`notable_players.team_id = ${team}`}
 ${conjoin`team_match.team_id = ${organization} AND (player_matches.player_slot < 128) = team_match.radiant`}
 ${conjoin`player_matches.lane_role = ${laneRole}`}
 ${conjoin`matches.cluster IN (${region})`}
-${minDate ? conjoin`matches.start_time >= extract(epoch from timestamp '${new Date(minDate.value).toISOString()}')` : ''}
-${maxDate ? conjoin`matches.start_time <= extract(epoch from timestamp '${new Date(maxDate.value).toISOString()}')` : ''}
+${minDate?.[0] ? conjoin`matches.start_time >= extract(epoch from timestamp '${minDate[0]}')` : ''}
+${maxDate?.[0] ? conjoin`matches.start_time <= extract(epoch from timestamp '${maxDate[0]}')` : ''}
 ${conjoin`leagues.tier = '${tier}'`}
-${isTiTeam ? `AND teams.team_id IN (${tiTeams.join(',')})` : ''}
-${megaWin ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))' : ''}
-${maxGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage.value}` : ''}
-${minGoldAdvantage ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage.value}` : ''}
+${isTiTeam?.[0] ? `AND teams.team_id IN (${tiTeams.join(',')})` : ''}
+${megaWin?.[0] ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))' : ''}
+${maxGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage[0].value}` : ''}
+${minGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage[0].value}` : ''}
 ${validateArray(groupArray) ? 'GROUP BY' : ''}${(validateArray(groupArray) && groupArray.map((x) => ` ${groupVal[x.key]}`)) || ''}
-${validateArray(groupArray) ? `HAVING count(distinct matches.match_id) >= ${(having && having.value) || '1'}` : ''}
+${validateArray(groupArray) ? `HAVING count(distinct matches.match_id) >= ${(having?.[0].value) ?? '1'}` : ''}
 ORDER BY ${[
       `${
         (validateArray(groupArray) &&
           validateArray(selectArray) &&
           selectArray.map(
-            (x) => `"AVG ${x.text}" ${order ? order.value : 'DESC'}`,
+            (x) => `"AVG ${x.text}" ${order?.[0]?.value ?? 'DESC'}`,
           )) ||
         (validateArray(selectArray) &&
           selectArray
-            .map((x) => `${x.value} ${order ? order.value : 'DESC'}`)
+            .map((x) => `${x.value} ${order?.[0]?.value ?? 'DESC'}`)
             .join(',')) ||
         'matches.match_id DESC'
       }`,
@@ -279,7 +279,7 @@ ORDER BY ${[
     ]
       .filter(Boolean)
       .join(',')} NULLS LAST
-LIMIT ${limit ? limit.value : 200}`;
+LIMIT ${limit?.[0]?.value ?? 200}`;
   }
   return (
     query

@@ -1,6 +1,5 @@
 import React from 'react';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import { Button } from '@mui/material';
 import useStrings from '../../hooks/useStrings.hook';
 
 const ButtonGarden = ({
@@ -14,19 +13,18 @@ const ButtonGarden = ({
 }) => {
   const strings = useStrings();
   return (
-    <SelectField
-      floatingLabelText={strings.explorer_select}
-      value={selectedButton}
-      onChange={(event, index, value) => onClick(value)}
-    >
+    <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
       {buttonNames.map((buttonName) => (
-        <MenuItem
-          value={buttonName}
+        <Button
+          sx={{ width: '180px' }}
+          size="small"
+          variant={selectedButton === buttonName ? 'contained' : 'outlined'}
+          onClick={(e) => onClick(buttonName)}
           key={buttonName}
-          primaryText={strings[`heading_${buttonName}` as keyof Strings]}
-        />
+          >{strings[`heading_${buttonName}` as keyof Strings]}
+        </Button>
       ))}
-    </SelectField>
+    </div>
   );
 };
 

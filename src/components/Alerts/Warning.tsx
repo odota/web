@@ -1,4 +1,5 @@
 import React from 'react';
+//@ts-expect-error
 import AlertWarning from 'material-ui/svg-icons/alert/warning';
 import styled from 'styled-components';
 import constants from '../constants';

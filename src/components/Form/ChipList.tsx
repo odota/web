@@ -1,25 +1,18 @@
 import React from 'react';
-import Chip from 'material-ui/Chip';
-import styled from 'styled-components';
+import { Chip } from '@mui/material';
 
-const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-
-const ChipList = ({ chipList, deleteChip, name, history }: { chipList: any[], deleteChip: Function, name: string, history: any }) => (
-  <StyledDiv className="chip">
+const ChipList = ({ chipList, deleteChip, name, history }: { chipList: { label: string, id: number }[], deleteChip: Function, name: string, history: any }) => (
+  <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
     {chipList.map((chip, index) => (
       <Chip
-        style={{ margin: '0 5px 5px 0' }}
-        key={chip.text}
-        onRequestDelete={() => deleteChip(name, index, history)}
-      >
-        {chip.text}
-      </Chip>
+        size="small"
+        // style={{ margin: '0 5px 5px 0' }}
+        key={chip.id}
+        label={chip.label}
+        onDelete={() => deleteChip(name, index, history)}
+      />        
     ))}
-  </StyledDiv>
+  </div>
 );
 
 export default ChipList;

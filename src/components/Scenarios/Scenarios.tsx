@@ -1,12 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ActionSearch from 'material-ui/svg-icons/action/search';
-import Schedule from 'material-ui/svg-icons/action/schedule';
-import Grain from 'material-ui/svg-icons/image/grain';
 import { withRouter, Link } from 'react-router-dom';
 import querystring from 'querystring';
 import { Button } from '@mui/material';
-import { Tabs, Tab } from 'material-ui/Tabs';
+import { Tabs, Tab } from '@mui/material';
 import ScenariosFormField from './ScenariosFormField';
 import getColumns from './ScenariosColumns';
 import { buttonStyle, formFieldStyle, StyledDiv, tabsStyle } from './Styles';
@@ -44,17 +41,17 @@ const tabItems = (strings: Strings) => [
   {
     text: strings.scenarios_item_timings,
     value: 'itemTimings',
-    icon: <Schedule />,
+    // icon: <Schedule />,
   },
   {
     text: strings.heading_lane_role,
     value: 'laneRoles',
-    icon: <IconLaneRoles style={{}} />,
+    // icon: <IconLaneRoles style={{}} />,
   },
   {
     text: strings.scenarios_misc,
     value: 'misc',
-    icon: <Grain />,
+    // icon: <Grain />,
   },
 ];
 
@@ -70,8 +67,6 @@ const reduceRows = (data: any[]) => {
     })),
   );
 };
-
-const getLink = (scenario: string) => <Link to={`/scenarios/${scenario}`} />;
 
 type ScenariosProps = {
   match: {
@@ -92,7 +87,9 @@ type ScenariosProps = {
   misc: Function,
 };
 
-class Scenarios extends React.Component<ScenariosProps, { selectedTab: ScenariosTab, formFields: Record<string, any> }> {
+type ScenariosState = { selectedTab: ScenariosTab, formFields: Record<string, any> };
+
+class Scenarios extends React.Component<ScenariosProps, ScenariosState> {
   tableKey = 0;
   constructor(props: ScenariosProps) {
     super(props);
@@ -126,7 +123,7 @@ class Scenarios extends React.Component<ScenariosProps, { selectedTab: Scenarios
     this.incrementTableKey();
   }
 
-  handleChange = (selectedTab: ScenariosTab) => {
+  handleChange = (e: React.SyntheticEvent, selectedTab: ScenariosTab) => {
     this.setState({ selectedTab }, this.initialQuery);
   };
 
@@ -149,6 +146,7 @@ class Scenarios extends React.Component<ScenariosProps, { selectedTab: Scenarios
     this.props.history.push(
       `/scenarios/${selectedTab}?${querystring.stringify(formFields[selectedTab])}`,
     );
+    this.getData();
   }
 
   updateFormFieldStates = (newFormFieldState?: any) => {
@@ -198,17 +196,13 @@ class Scenarios extends React.Component<ScenariosProps, { selectedTab: Scenarios
             <Tabs
               value={selectedTab}
               onChange={this.handleChange}
-              style={tabsStyle}
             >
               {tabItems(strings).map((item) => (
                 <Tab
+                  key={item.value}
                   label={item.text}
                   value={item.value}
-                  icon={item.icon}
-                  containerElement={getLink(item.value)}
-                  className="tab"
-                />
-              ))}
+                />))}
             </Tabs>
             <div 
               style={formFieldStyle}>
@@ -234,14 +228,14 @@ class Scenarios extends React.Component<ScenariosProps, { selectedTab: Scenarios
                 ),
               )}
             </div>
-            <Button
+            {/* <Button
               variant="contained"
               onClick={this.getData}
               style={buttonStyle}
               // backgroundColor="rgba(220, 220, 220, 0.05)"
               // hoverColor="rgba(220, 220, 220, 0.2)"
               // icon={<ActionSearch />}
-            >{strings.explorer_query_button}</Button>
+            >{strings.explorer_query_button}</Button> */}
             <Heading
               title={strings.explorer_results}
               subtitle={`${data?.filter(minSampleSize).length} ${strings.explorer_num_rows}`}

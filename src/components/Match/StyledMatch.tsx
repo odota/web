@@ -316,7 +316,7 @@ export const StyledStoryGoldAmount = styled.span`
   color: ${constants.colorGolden};
 `;
 export const StyledLogFilterForm = styled.div`
-  max-width: 800px;
+  max-width: 900px;
   display: flex;
   flex-direction: row;
   margin-left: auto;

@@ -39,7 +39,6 @@ li {
   height: 100%;
   min-height: 100vh;
   overflow-x: hidden;
-  padding-top: 56px;
 }
 
 [data-tip] {

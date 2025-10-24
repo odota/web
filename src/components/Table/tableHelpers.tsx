@@ -1,5 +1,7 @@
 import React from 'react';
+//@ts-expect-error
 import NavigationArrowUpward from 'material-ui/svg-icons/navigation/arrow-upward';
+//@ts-expect-error
 import NavigationArrowDownward from 'material-ui/svg-icons/navigation/arrow-downward';
 
 const getTotalWidth = (columns: any[]) =>

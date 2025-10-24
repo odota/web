@@ -1,8 +1,6 @@
 import React from 'react';
-import Drawer from 'material-ui/Drawer';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
+import { Drawer, Menu, MenuItem, IconButton } from '@mui/material';
+//@ts-expect-error
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import styled from 'styled-components';
 import constants from '../constants';
@@ -32,12 +30,10 @@ export default class BurgerMenu extends React.Component<BurgerMenuProps> {
           <MenuIcon />
         </IconButton>
         <StyledDrawer
-          docked={false}
-          width={260}
           open={this.state.open}
-          onRequestChange={(open) => this.setState({ open })}
+          onChange={(open) => this.setState({ open })}
         >
-          <Menu>
+          <Menu open={this.state.open}>
             {this.props.menuItems.map((item) => {
               const linkElement = React.cloneElement(item, {
                 style: { width: '100%', display: 'block' },

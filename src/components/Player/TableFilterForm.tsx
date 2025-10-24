@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import querystring from 'querystring';
-import styled from 'styled-components';
 import { heroes, patch, region } from 'dotaconstants';
 import { toggleShowForm } from '../../actions/formActions';
 import FormField from '../Form/FormField';
@@ -11,116 +10,12 @@ import config from '../../config';
 
 const textFieldStyle = { width: 53, fontSize: 9, height: 'auto' };
 
-const Styled = styled.div<{ strings: Strings }>`
-  .formGroup {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-bottom: -3px;
-
-    > div {
-      width: 60px;
-
-      &:not(:last-child) {
-        margin-right: 15px;
-      }
-    }
-
-    /* Override material-ui */
-    > div > div > div {
-      width: 60px !important;
-    }
-
-    label {
-      white-space: nowrap !important;
-      line-height: 12px !important;
-      text-overflow: ellipsis !important;
-      overflow: hidden !important;
-      width: 100% !important;
-      top: auto !important;
-      bottom: 10px !important;
-      letter-spacing: 0.1px !important;
-      font-size: 11px !important;
-      color: rgba(255, 255, 255, 0.48) !important;
-    }
-
-    input {
-      height: 20px !important;
-      margin-top: 0px !important;
-      vertical-align: super !important;
-    }
-
-    hr:first-child {
-      border-color: rgba(255, 255, 255, 0.3) !important;
-      border-bottom-style: dashed !important;
-    }
-
-    .chip {
-      padding-left: 1px;
-      > div {
-        border-radius: 0px !important;
-        width: 70px !important;
-        margin: 0px !important;
-        background-color: transparent !important;
-        > span {
-          font-size: 11px !important;
-          letter-spacing: 1px;
-          padding-left: 0px !important;
-          padding-right: 1px !important;
-          line-height: 12px !important;
-          overflow: hidden !important;
-          width: 50px !important;
-          text-overflow: ellipsis !important;
-        }
-        > svg {
-          position: relative !important;
-          bottom: 5px !important;
-          margin: 0px !important;
-          fill: rgb(71, 71, 86) !important;
-          flex-grow: 0 !important;
-          flex-shrink: 0 !important;
-
-          &:hover {
-            fill: white !important;
-          }
-        }
-      }
-    }
+const getPeers = async (props: TableFilterFormProps, context: any) => {
+  const resp = await fetch(`${config.VITE_API_HOST}/api/players/${props.playerId}/peers`);
+  if (resp.ok) {
+    const json = await resp.json();
+    context.setState({ peers: json });
   }
-
-  .hideForm {
-    overflow: hidden;
-    max-height: 0px;
-  }
-
-  .showForm {
-    border: 1px solid rgb(0, 0, 0, 0.12);
-    background-color: rgba(20, 20, 21, 0.32);
-    padding-left: 5px;
-    padding-right: 5px;
-    position: relative;
-    margin-top: 35px;
-
-    ::after {
-      position: absolute;
-      content: '${(props) => props.strings.filter_button_text_open}';
-      font-size: 12px;
-      top: -15px;
-      left: 0px;
-      line-height: 12px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      backface-visibility: hidden;
-      color: ${constants.colorMuted};
-    }
-  }
-`;
-
-const getPeers = (props: TableFilterFormProps, context: any) => {
-  fetch(`${config.VITE_API_HOST}/api/players/${props.playerId}/peers`)
-    .then((resp) => resp.json())
-    .then((json) => context.setState({ peers: json }));
 };
 
 const setShowFormState = (props: TableFilterFormProps) => {
@@ -166,8 +61,8 @@ class TableFilterForm extends React.Component<TableFilterFormProps, { peers: any
 
     const heroList = Object.keys(heroes)
       .map((id) => ({
-        text: heroes[id as keyof Heroes] && heroes[id as keyof Heroes].localized_name,
-        value: id,
+        label: heroes[id as keyof Heroes] && heroes[id as keyof Heroes].localized_name,
+        id: Number(id),
       }))
       .sort((a: any, b: any) => a.text && a.text.localeCompare(b.text));
 
@@ -175,14 +70,14 @@ class TableFilterForm extends React.Component<TableFilterFormProps, { peers: any
       .filter((str) => str.indexOf('lane_role_') === 0)
       .map((str) => str.substring('lane_role_'.length))
       .map((id) => ({
-        text: strings[`lane_role_${id}` as keyof Strings],
-        value: Number(id),
+        label: strings[`lane_role_${id}` as keyof Strings],
+        id: Number(id),
       }));
 
     const patchList = patch
       .map((_patch, index) => ({
-        text: _patch.name,
-        value: index,
+        label: _patch.name,
+        id: index,
       }))
       .reverse();
 
@@ -190,181 +85,174 @@ class TableFilterForm extends React.Component<TableFilterFormProps, { peers: any
       .filter((str) => str.indexOf('game_mode_') === 0)
       .map((str) => str.substring('game_mode_'.length))
       .map((id) => ({
-        text: strings[`game_mode_${id}` as keyof Strings],
-        value: id,
+        label: strings[`game_mode_${id}` as keyof Strings],
+        id: Number(id),
       }));
 
     const lobbyTypeList = Object.keys(strings)
       .filter((str) => str.indexOf('lobby_type_') === 0)
       .map((str) => str.substring('lobby_type_'.length))
       .map((id) => ({
-        text: strings[`lobby_type_${id}` as keyof Strings],
-        value: id,
+        label: strings[`lobby_type_${id}` as keyof Strings],
+        id: Number(id),
       }));
 
     const regionList = Object.keys(region).map((id) => ({
-      text: strings[`region_${id}` as keyof Strings],
-      value: Number(id),
+      label: strings[`region_${id}` as keyof Strings],
+      id: Number(id),
     }));
 
     const factionList = [
       {
-        text: strings.general_radiant,
-        value: 1,
+        label: strings.general_radiant,
+        id: 1,
       },
       {
-        text: strings.general_dire,
-        value: 0,
+        label: strings.general_dire,
+        id: 0,
       },
     ];
 
     const resultList = [
       {
-        text: strings.td_win,
-        value: 1,
+        label: strings.td_win,
+        id: 1,
       },
       {
-        text: strings.td_loss,
-        value: 0,
+        label: strings.td_loss,
+        id: 0,
       },
     ];
 
     const dateList = [
       {
-        text: strings.filter_last_week,
-        value: 7,
+        label: strings.filter_last_week,
+        id: 7,
       },
       {
-        text: strings.filter_last_month,
-        value: 30,
+        label: strings.filter_last_month,
+        id: 30,
       },
       {
-        text: strings.filter_last_3_months,
-        value: 90,
+        label: strings.filter_last_3_months,
+        id: 90,
       },
       {
-        text: strings.filter_last_6_months,
-        value: 180,
+        label: strings.filter_last_6_months,
+        id: 180,
       },
       {
-        text: strings.filter_last_12_months,
-        value: 360,
+        label: strings.filter_last_12_months,
+        id: 360,
       },
     ];
 
     const significantList = [
       {
-        text: strings.filter_significant_include,
-        value: 0,
+        label: strings.filter_significant_include,
+        id: 0,
       },
     ];
 
     const gamesPlayedList = [
       {
-        text: '5',
-        value: 5,
+        label: '5',
+        id: 5,
       },
       {
-        text: '10',
-        value: 10,
+        label: '10',
+        id: 10,
       },
       {
-        text: '15',
-        value: 15,
+        label: '15',
+        id: 15,
       },
       {
-        text: '20',
-        value: 20,
+        label: '20',
+        id: 20,
       },
       {
-        text: '25',
-        value: 25,
+        label: '25',
+        id: 25,
       },
     ];
 
     const partySize = [
       {
-        text: '1',
-        value: 1,
+        label: '1',
+        id: 1,
       },
       {
-        text: '2',
-        value: 2,
+        label: '2',
+        id: 2,
       },
       {
-        text: '3',
-        value: 3,
+        label: '3',
+        id: 3,
       },
       {
-        text: '4',
-        value: 4,
+        label: '4',
+        id: 4,
       },
       {
-        text: '5',
-        value: 5,
+        label: '5',
+        id: 5,
       },
     ];
 
     const roleList = [
       {
-        text: 'Carry',
-        value: 1,
+        label: 'Carry',
+        id: 1,
       },
       {
-        text: 'Nuker',
-        value: 2,
+        label: 'Nuker',
+        id: 2,
       },
       {
-        text: 'Initiator',
-        value: 3,
+        label: 'Initiator',
+        id: 3,
       },
       {
-        text: 'Disabler',
-        value: 4,
+        label: 'Disabler',
+        id: 4,
       },
       {
-        text: 'Durable',
-        value: 5,
+        label: 'Durable',
+        id: 5,
       },
       {
-        text: 'Escape',
-        value: 6,
+        label: 'Escape',
+        id: 6,
       },
       {
-        text: 'Support',
-        value: 7,
+        label: 'Support',
+        id: 7,
       },
       {
-        text: 'Pusher',
-        value: 8,
+        label: 'Pusher',
+        id: 8,
       },
       {
-        text: 'Jungler',
-        value: 9,
+        label: 'Jungler',
+        id: 9,
       },
     ];
 
-    const CustomFormField = (props: { label: string, name: string, dataSource: any[], strict?: boolean, limit?: number }) => (
+    const CustomFormField = (props: { label: string, name: string, dataSource: { label: string, id: number}[], strict?: boolean, limit?: number }) => (
       <FormField
         formSelectionState={formSelectionState}
         history={history}
         textFieldStyle={textFieldStyle}
+        size="small"
+        width={220}
         {...props}
       />
     );
 
-    const isFilterApplied = Object.keys(formSelectionState).length > 0;
-
+    // const isFilterApplied = Object.keys(formSelectionState).length > 0;
     return (
-      <Styled strings={strings}>
-        <div
-          className="showForm"
-          style={{
-            borderColor: isFilterApplied ? 'rgba(45,210,106,0.27)' : undefined,
-            backgroundColor: isFilterApplied ? 'rgba(31, 31, 33, 0.85)' : undefined,
-          }}
-        >
-          <div className="formGroup">
+          <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap:'8px' }}>
             <CustomFormField
               name="hero_id"
               label={strings.filter_hero_id}
@@ -453,8 +341,8 @@ class TableFilterForm extends React.Component<TableFilterFormProps, { peers: any
               name="included_account_id"
               label={strings.filter_included_account_id}
               dataSource={this.state.peers.map((peer) => ({
-                text: `${peer.personaname}`,
-                value: peer.account_id,
+                label: `${peer.personaname}`,
+                id: peer.account_id,
               }))}
               limit={10}
             />
@@ -462,8 +350,8 @@ class TableFilterForm extends React.Component<TableFilterFormProps, { peers: any
               name="excluded_account_id"
               label={strings.filter_excluded_account_id}
               dataSource={this.state.peers.map((peer) => ({
-                text: `${peer.personaname}`,
-                value: peer.account_id,
+                label: `${peer.personaname}`,
+                id: peer.account_id,
               }))}
             />
             <CustomFormField
@@ -473,13 +361,13 @@ class TableFilterForm extends React.Component<TableFilterFormProps, { peers: any
               strict
               limit={1}
             />
-            <CustomFormField
+            {/* <CustomFormField
               name="having"
               label={strings.explorer_having}
               dataSource={gamesPlayedList}
               strict
               limit={1}
-            />
+            /> */}
             <CustomFormField
               name="party_size"
               label={strings.filter_party_size}
@@ -488,8 +376,6 @@ class TableFilterForm extends React.Component<TableFilterFormProps, { peers: any
               limit={1}
             />
           </div>
-        </div>
-      </Styled>
     );
   }
 }

@@ -2,7 +2,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@mui/material';
-import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
 import Papa from 'papaparse';
@@ -22,24 +21,18 @@ import config from '../../config';
 const playerMapping: Record<string, string> = {};
 const teamMapping: Record<string, string> = {};
 
-function jsonResponse(response: Response) {
-  return response.json();
-}
-
-function expandBuilderState(builder: any, _fields: any) {
+function expandBuilderState(builder: Record<string, string[]>, _fields: Record<string, any[]>) {
   const expandedBuilder: any = {};
   Object.keys(builder).forEach((key) => {
-    if (Array.isArray(builder[key])) {
+    if (key === 'minDate' || key === 'maxDate') {
+      expandedBuilder[key] = builder[key];
+    } else {
       expandedBuilder[key] = builder[key].map(
-        (x) =>
+        (x: string) =>
           (_fields[key] || []).find((element: any) => element.key === x) || {
             value: x,
           },
       );
-    } else if (builder[key]) {
-      expandedBuilder[key] = (_fields[key] || []).find(
-        (element: any) => element.key === builder[key],
-      ) || { value: builder[key] };
     }
   });
   return expandedBuilder;
@@ -60,11 +53,17 @@ class Explorer extends React.Component<ExplorerProps, { builder: any, loading: b
   completersSet = false;
   constructor(props: ExplorerProps) {
     super(props);
-    let urlState: any = {};
+    let urlState: Record<string, string[]> = {};
     let sqlState = '';
     try {
-      urlState = querystring.parse(window.location.search.substring(1));
-      sqlState = urlState.sql;
+      const params = querystring.parse(window.location.search.substring(1));
+      sqlState = params.sql as string;
+      // Wrap all values in array
+      const arrayUrlState: Record<string, string[]> = {};
+      Object.keys(params).forEach(key => {
+        arrayUrlState[key] = (Array.isArray(params[key]) ? params[key] : [params[key]]) as string[];
+      });
+      urlState = arrayUrlState;
       delete urlState.sql;
     } catch (e) {
       // console.error(e);
@@ -100,7 +99,7 @@ class Explorer extends React.Component<ExplorerProps, { builder: any, loading: b
     ) {
       this.completersSet = true;
       fetch(`${config.VITE_API_HOST}/api/schema`)
-        .then(jsonResponse)
+        .then(resp => resp.json())
         .then((schema) => {
           this.editor.completers = [
             autocomplete(
@@ -131,7 +130,7 @@ class Explorer extends React.Component<ExplorerProps, { builder: any, loading: b
     window.stop();
   };
 
-  handleFieldUpdate = (builderField: string, value: string) => {
+  handleFieldUpdate = (builderField: string, value: string | string[] | undefined) => {
     this.setState(
       {
         builder: {
@@ -149,7 +148,7 @@ class Explorer extends React.Component<ExplorerProps, { builder: any, loading: b
     return fetch(
       `${config.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`,
     )
-      .then(jsonResponse)
+      .then(resp => resp.json())
       .then(this.handleResponse);
   };
 
@@ -395,20 +394,6 @@ class Explorer extends React.Component<ExplorerProps, { builder: any, loading: b
             builder={builder}
           />
           <ExplorerFormField
-            label={strings.explorer_min_date}
-            builderField="minDate"
-            handleFieldUpdate={handleFieldUpdate}
-            builder={builder}
-            isDateField
-          />
-          <ExplorerFormField
-            label={strings.explorer_max_date}
-            builderField="maxDate"
-            handleFieldUpdate={handleFieldUpdate}
-            builder={builder}
-            isDateField
-          />
-          <ExplorerFormField
             label={strings.explorer_order}
             fields={expandedFields}
             builderField="order"
@@ -429,24 +414,17 @@ class Explorer extends React.Component<ExplorerProps, { builder: any, loading: b
             handleFieldUpdate={handleFieldUpdate}
             builder={builder}
           />
-          <ExplorerFormField
+          {/* <ExplorerFormField
             label={strings.explorer_is_ti_team}
             fields={expandedFields}
             builderField="isTiTeam"
             handleFieldUpdate={handleFieldUpdate}
             builder={builder}
-          />
+          /> */}
           <ExplorerFormField
             label={strings.explorer_mega_comeback}
             fields={expandedFields}
             builderField="megaWin"
-            handleFieldUpdate={handleFieldUpdate}
-            builder={builder}
-          />
-          <ExplorerFormField
-            label={strings.explorer_max_gold_adv}
-            fields={expandedFields}
-            builderField="maxGoldAdvantage"
             handleFieldUpdate={handleFieldUpdate}
             builder={builder}
           />
@@ -457,6 +435,29 @@ class Explorer extends React.Component<ExplorerProps, { builder: any, loading: b
             handleFieldUpdate={handleFieldUpdate}
             builder={builder}
           />
+          <ExplorerFormField
+            label={strings.explorer_max_gold_adv}
+            fields={expandedFields}
+            builderField="maxGoldAdvantage"
+            handleFieldUpdate={handleFieldUpdate}
+            builder={builder}
+          />
+          <div>
+          <ExplorerFormField
+            label={strings.explorer_min_date}
+            builderField="minDate"
+            handleFieldUpdate={handleFieldUpdate}
+            builder={builder}
+            isDateField
+          />
+          <ExplorerFormField
+            label={strings.explorer_max_date}
+            builderField="maxDate"
+            handleFieldUpdate={handleFieldUpdate}
+            builder={builder}
+            isDateField
+          />
+          </div>
         </ExplorerControlSection>
         <div>
           <Button

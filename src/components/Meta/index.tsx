@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from '@mui/material';
-import ActionSearch from 'material-ui/svg-icons/action/search';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
 import ExplorerOutputSection from '../Explorer/ExplorerOutputSection';
@@ -12,10 +11,6 @@ import TableSkeleton from '../Skeletons/TableSkeleton';
 import queryTemplate from './queryTemplate';
 import getFields from './fields';
 import config from '../../config';
-
-function jsonResponse(response: Response) {
-  return response.json();
-}
 
 function expandBuilderState(builder: Record<string, any>, fields: Record<string, any[]>) {
   const expandedBuilder: Record<string, any> = {};
@@ -84,7 +79,7 @@ class Meta extends React.Component<MetaProps, { loadingEditor: boolean, loading:
     return fetch(
       `${config.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`,
     )
-      .then(jsonResponse)
+      .then(resp => resp.json())
       .then(this.handleResponse);
   };
 

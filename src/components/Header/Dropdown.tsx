@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem';
-import Popover from 'material-ui/Popover';
+import { Menu, MenuItem, Popover } from '@mui/material';
 // import styled from 'styled-components';
 // import constants from '../constants';
 
@@ -50,15 +48,14 @@ class Dropdown extends Component<DropdownProps> {
       <div className={className}>
         <Button onClick={this.handleTouchTap} open={open} {...buttonProps} />
         <Popover
-          autoCloseWhenOffScreen={false}
           open={open}
           anchorEl={this.state.anchorEl}
           anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-          onRequestClose={this.handleRequestClose}
+          // targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+          onClose={this.handleRequestClose}
           // className={styles.popoverContainer}
         >
-          <Menu>
+          <Menu open={open}>
             {React.Children.map(children, (child) =>
               child ? <MenuItem>{child}</MenuItem> : null,
             )}

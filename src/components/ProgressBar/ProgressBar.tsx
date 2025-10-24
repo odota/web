@@ -1,5 +1,4 @@
 import React from 'react';
-// import LinearProgress from 'material-ui/LinearProgress';
 
 const ProgressBar = ({ percent, height }: { percent: number, height: number }) => (
   <div>

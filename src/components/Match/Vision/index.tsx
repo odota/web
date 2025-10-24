@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Slider from 'material-ui/Slider';
+import { Slider } from '@mui/material';
 import rangeStep from 'lodash/fp/rangeStep';
-import debounce from 'lodash/fp/debounce';
 import styled from 'styled-components';
 import { formatSeconds } from '../../../utility';
 import VisionFilter from './VisionFilter';
@@ -132,7 +131,6 @@ class Vision extends React.Component<VisionProps, VisionState> {
   sliderMin: number;
   sliderMax: number;
   ticks: number[];
-  handleViewportChange: Function;
   constructor(props: VisionProps) {
     super(props);
 
@@ -152,7 +150,6 @@ class Vision extends React.Component<VisionProps, VisionState> {
     };
 
     this.ticks = this.computeTick();
-    this.handleViewportChange = debounce(50, this.viewportChange);
   }
 
   onCheckAllWardsTeam(index: number, end: number) {
@@ -228,7 +225,7 @@ class Vision extends React.Component<VisionProps, VisionState> {
     return rangeStep(interval, 0, this.sliderMax);
   }
 
-  viewportChange(value: number) {
+  viewportChange = (e: any, value: number) => {
     this.setState({ ...this.state, currentTick: value });
   }
 
@@ -268,7 +265,7 @@ class Vision extends React.Component<VisionProps, VisionState> {
               value={this.state.currentTick}
               min={this.sliderMin}
               max={this.sliderMax}
-              onTickClick={(tick: any) => this.handleViewportChange(tick)}
+              onTickClick={(tick: number) => this.viewportChange(null, tick)}
               ticks={this.ticks}
             />
             <Slider
@@ -276,8 +273,7 @@ class Vision extends React.Component<VisionProps, VisionState> {
               min={this.sliderMin}
               max={this.sliderMax}
               step={5}
-              disableFocusRipple
-              onChange={(e, value) => this.handleViewportChange(value)}
+              onChange={this.viewportChange}
             />
             <VisionFilter match={match} parent={this} strings={strings} />
           </div>

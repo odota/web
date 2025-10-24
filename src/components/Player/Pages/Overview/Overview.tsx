@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import Checkbox from 'material-ui/Checkbox';
 import styled from 'styled-components';
 import {
   getPlayerRecentMatches,

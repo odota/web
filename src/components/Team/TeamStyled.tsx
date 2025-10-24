@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { CardTitle } from 'material-ui/Card';
+import { CardHeader } from '@mui/material';
 import Container from '../Container';
 import constants from '../constants';
 
-export const TeamStatsCard = styled(CardTitle)`
+export const TeamStatsCard = styled(CardHeader)`
   display: inline-block;
   padding: 0 !important;
   margin-right: 25px;

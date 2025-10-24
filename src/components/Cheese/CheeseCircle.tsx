@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import CircularProgress from 'material-ui/CircularProgress';
+import { CircularProgress } from '@mui/material';
 import styled from 'styled-components';
 import Spinner from '../Spinner/Spinner';
 import Error from '../Error/Error';
@@ -76,11 +76,11 @@ const Cheese = ({
       {!error && !loading && (
         <ProgressDiv data-hint={`${cheese} / ${goal}`}>
           <FrontProgress
-            mode="determinate"
+            variant="determinate"
             value={Math.min(percent, 100)}
             size={90}
           />
-          <BackProgress mode="determinate" value={100} size={90} />
+          <BackProgress variant="determinate" value={100} size={90} />
           <CheeseDiv className="cheeseDiv">
             <IconCheese />
             <PercentP>{`${percent.toFixed(0)}%`}</PercentP>

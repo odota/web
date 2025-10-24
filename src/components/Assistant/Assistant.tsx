@@ -1,7 +1,7 @@
-/* eslint-disable */
 import React from 'react';
 import Heading from '../Heading';
 import { IconButton } from '@mui/material';
+//@ts-expect-error
 import Mic from 'material-ui/svg-icons/av/mic';
 
 // Test

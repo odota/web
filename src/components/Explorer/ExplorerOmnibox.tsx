@@ -1,21 +1,19 @@
 import React from 'react';
-import TextField from 'material-ui/TextField';
-import debounce from 'lodash/fp/debounce';
+import { TextField } from '@mui/material';
 import editDistance from './editDistance';
 
 const ExplorerOmnibox = (context: any, expandedFields: any) => (
   <TextField
     style={{ display: 'none' }}
-    floatingLabelText="Omnibox"
-    //@ts-expect-error
-    onChange={debounce((event: any, value: string) => {
+    onChange={(event: any) => {
+      const value = event.target.value;
       // Sample input 'dendi antimage'
       // Iterate over the fields and phrase tokens
       // Keep track of the best match for each field + token
       // TODO handle multi-word phrases like 'evil geniuses', 'gold per min'
       const result: any[] = [];
       Object.keys(expandedFields).forEach((field) => {
-        value.split(' ').forEach((token) => {
+        value.split(' ').forEach((token: string) => {
           const distances = expandedFields[field].map((element: any) => ({
             field,
             token,
@@ -54,7 +52,7 @@ const ExplorerOmnibox = (context: any, expandedFields: any) => (
         }
       });
       context.setState({ ...context.state, builder: { ...matchedBuilder } });
-    }, 1000)}
+    }}
   />
 );
 

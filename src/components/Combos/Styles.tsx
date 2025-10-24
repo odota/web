@@ -65,6 +65,7 @@ export const StyledHeroSelector = styled.div`
   box-sizing: border-box;
   transition: transform 0.1s ease-in-out;
   border: 1px solid transparent;
+  margin-top: 10px;
 
   @media screen and (min-width: ${constants.wrapMobile}) {
     :hover {

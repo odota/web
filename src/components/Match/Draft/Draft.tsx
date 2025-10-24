@@ -1,6 +1,8 @@
 import React from 'react';
 import { heroes } from 'dotaconstants';
+//@ts-expect-error
 import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+//@ts-expect-error
 import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import styled from 'styled-components';
 import Heading from '../../Heading';

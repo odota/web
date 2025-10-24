@@ -1,5 +1,5 @@
 import React from 'react';
-import LinearProgress from 'material-ui/LinearProgress';
+import { LinearProgress } from '@mui/material';
 import styled from 'styled-components';
 import { getPercentWin } from '../../utility';
 import constants from '../constants';
@@ -25,9 +25,9 @@ const PercentContainer = ({ wins, games, percent }: { wins: number, games: numbe
     <LinearProgress
       style={{ height: 5 }}
       // color={styles.lineColor}
-      mode="determinate"
+      variant="determinate"
       value={percent || getPercentWin(wins, games)}
-      color={constants.colorYelor}
+      color="warning"
     />
   </StyledPercentContainer>
 );

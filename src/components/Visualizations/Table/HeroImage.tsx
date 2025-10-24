@@ -2,9 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { Tooltip } from '@mui/material';
+//@ts-expect-error
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import { player_colors as playerColors } from 'dotaconstants';
+//@ts-expect-error
 import SocialPerson from 'material-ui/svg-icons/social/person';
+//@ts-expect-error
 import NotificationSync from 'material-ui/svg-icons/notification/sync';
 import styled from 'styled-components';
 import { subTextStyle, IMAGESIZE_ENUM } from '../../../utility';

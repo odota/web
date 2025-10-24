@@ -38,6 +38,8 @@ export const buttonStyle: React.CSSProperties = {
 export const formFieldStyle: React.CSSProperties = {
   display: 'flex',
   flexWrap: 'wrap',
+  marginTop: '20px',
+  gap: '8px',
 };
 
 export const tabsStyle: React.CSSProperties = {

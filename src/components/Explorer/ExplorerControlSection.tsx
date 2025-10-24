@@ -1,35 +1,24 @@
 import React from 'react';
-import Toggle from 'material-ui/Toggle';
-import styled from 'styled-components';
+import { FormControlLabel, Switch } from '@mui/material';
 import useStrings from '../../hooks/useStrings.hook';
-
-const StyledDiv = styled.div<{ showEditor?: boolean }>`
-  padding: 0 15px;
-  box-sizing: border-box;
-  display: ${(props) => (props.showEditor ? 'none' : 'flex')};
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
 
 const ExplorerControlSection = ({
   showToggle,
   showEditor,
   toggleEditor,
   children,
-}: { showToggle?: boolean, showEditor?: boolean, toggleEditor?: (e: React.MouseEvent) => void, children: React.ReactNode }) => {
+}: { showToggle?: boolean, showEditor?: boolean, toggleEditor?: (e: React.ChangeEvent) => void, children: React.ReactNode }) => {
   const strings = useStrings();
   return <div>
     <div style={{ width: '180px', margin: '10px' }}>
       <div>{/* drawOmnibox(this, expandedFields) */}</div>
       {showToggle && (
-        <Toggle
-          label={strings.explorer_toggle_sql}
-          defaultToggled={showEditor}
-          onToggle={toggleEditor}
-        />
-      )}
+        <FormControlLabel control={<Switch
+          defaultChecked={showEditor}
+          onChange={toggleEditor}
+        />} label={strings.explorer_toggle_sql} />)}
     </div>
-    <StyledDiv showEditor={showEditor}>{children}</StyledDiv>
+    <div style={{ display: showEditor ? 'none' : 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '8px' }}>{children}</div>
     <div style={{ display: showEditor ? 'block' : 'none' }}>
       <div
         id="editor"

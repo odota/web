@@ -1,8 +1,5 @@
-import React from 'react';
-import MenuItem from 'material-ui/MenuItem';
 import { heroes, items } from 'dotaconstants';
 import { getTimeRange } from './ScenariosColumns';
-import config from '../../config';
 
 export default function getFormFieldData(metadata: any, strings: Strings) {
   const { teamScenariosQueryParams, itemCost, gameDurationBucket, timings } =
@@ -11,18 +8,7 @@ export default function getFormFieldData(metadata: any, strings: Strings) {
     heroList: Object.keys(heroes)
       .map((id) => ({
         text: heroes[id as keyof Heroes] && heroes[id as keyof Heroes].localized_name,
-        value: (
-          <MenuItem
-            primaryText={heroes[id as keyof Heroes] && heroes[id as keyof Heroes].localized_name}
-            leftIcon={
-              <img
-                src={`${config.VITE_IMAGE_CDN}${heroes[id as keyof Heroes] && heroes[id as keyof Heroes].icon}`}
-                alt=""
-              />
-            }
-          />
-        ),
-        altValue: id,
+        value: Number(id),
       }))
       .sort((a: any, b: any) => a.text && a.text.localeCompare(b.text)),
 
@@ -33,16 +19,7 @@ export default function getFormFieldData(metadata: any, strings: Strings) {
       .map((item) => ({
         //@ts-expect-error
         text: items[item as keyof Items]?.dname,
-        value: (
-          <MenuItem
-            //@ts-expect-error
-            primaryText={items[item as keyof Items]?.dname}
-            leftIcon={
-              <img src={`${config.VITE_IMAGE_CDN}${items[item as keyof typeof items]?.img}`} alt="" />
-            }
-          />
-        ),
-        altValue: item,
+        value: item,
       }))
       .sort((a, b) => a.text && a.text.localeCompare(b.text)),
 

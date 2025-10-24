@@ -267,8 +267,8 @@ type MatchLogProps = {
 type MatchLogState = { types: number[], players: number[] } & Record<string, any>;
 
 class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
-  typesSource: any = undefined;
-  playersSource: any = undefined;
+  typesSource: { label: string, id: number}[] = [];
+  playersSource: { label: string, id: number}[] = [];
   constructor(props: MatchLogProps) {
     super(props);
     this.state = {
@@ -278,26 +278,28 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
 
     const { strings } = props;
     this.typesSource = [
-      { text: strings.heading_kills, value: 0 },
-      { text: strings.tab_objectives, value: 1 },
-      { text: strings.heading_runes, value: 2 },
-    ];
+      { label: strings.heading_kills, id: 0 },
+      { label: strings.tab_objectives, id: 1 },
+      { label: strings.heading_runes, id: 2 },
+    ]
     this.playersSource = this.props.match.players.map((player, index) => ({
-      text: heroes[player.hero_id]
+      label: heroes[player.hero_id]
         ? heroes[player.hero_id].localized_name
         : strings.general_no_hero,
-      value: index,
+      id: index,
     }));
   }
 
-  addChip = (name: string, input: any, limit: number) => {
-    const currentChips = this.state[name];
-    const newChips = [input.value].concat(currentChips).slice(0, limit);
-    this.setState({ [name]: newChips });
+  addChip = (name: string, input: { label: string, id: number }, limit?: number) => {
+    const currentChips = this.state[name as 'types' | 'players'];
+    if (!currentChips.includes(input.id)) {
+      const newChips = [input.id].concat(currentChips).slice(0, limit);
+      this.setState({ [name]: newChips });
+    }
   };
 
   deleteChip = (name: string, index: number) => {
-    const currentChips = this.state[name];
+    const currentChips = this.state[name as 'types' | 'players'];
     const newChips = [
       ...currentChips.slice(0, index),
       ...currentChips.slice(index + 1),
@@ -334,6 +336,7 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
             deleteChip={this.deleteChip}
             formSelectionState={this.state}
             strict
+            width={400}
           />
           <FormField
             name="players"
@@ -343,6 +346,7 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
             deleteChip={this.deleteChip}
             formSelectionState={this.state}
             strict
+            width={400}
           />
         </StyledLogFilterForm>
         <StyledLogContainer>

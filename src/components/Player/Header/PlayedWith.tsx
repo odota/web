@@ -10,14 +10,16 @@ import { paramsWithTurbo } from '../../../utility.js';
 const shouldShow = (props: PlayedWithProps) =>
   props.loggedInId && props.loggedInId !== props.playerId;
 
-const getData = (props: PlayedWithProps, context: any) => {
+const getData = async (props: PlayedWithProps, context: any) => {
   if (shouldShow(props)) {
     const params = { included_account_id: props.playerId };
-    fetch(
+    const resp = await fetch(
       `${config.VITE_API_HOST}/api/players/${props.loggedInId}/wl?${querystring.stringify(paramsWithTurbo(params))}`,
-    )
-      .then((resp) => resp.json())
-      .then((json) => context.setState({ ...context.state, ...json }));
+    );
+    if (resp.ok) {
+      const json = await resp.json();
+      context.setState({ ...context.state, ...json });
+    }
   }
 };
 
@@ -56,7 +58,7 @@ class PlayedWith extends React.Component<PlayedWithProps, PlayedWithState> {
         }}
       >
         <PlayerStatsCard
-          subtitle={
+          subheader={
             <div>
               <div style={{ ...inlineStyle, color: constants.colorGreen }}>
                 {this.state.win}

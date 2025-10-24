@@ -4,7 +4,6 @@ import { heroes } from 'dotaconstants';
 import { transformations, fromNow, subTextStyle } from '../../utility';
 import Table, { TableLink } from '../Table';
 import Container from '../Container';
-// import { List } from 'material-ui/List';
 import { StyledTeamIconContainer } from '../../components/Match/StyledMatch';
 import HeroImage from '../Visualizations/HeroImage';
 import useStrings from '../../hooks/useStrings.hook';

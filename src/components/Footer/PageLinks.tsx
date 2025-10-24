@@ -29,7 +29,7 @@ const PageLinks = () => {
       path: '//www.netlify.com',
     },
   ];
-  return <div>{links.map((link) => (
+  return <>{links.map((link) => (
     <a
       href={link.path}
       key={link.name}
@@ -38,7 +38,7 @@ const PageLinks = () => {
     >
       {link.name}
     </a>
-  ))}</div>;
+  ))}</>;
 };
 
 export default PageLinks;

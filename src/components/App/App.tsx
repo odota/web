@@ -1,6 +1,10 @@
+//@ts-expect-error
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+//@ts-expect-error
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+//@ts-expect-error
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import React, { Suspense } from 'react';
 import Helmet from 'react-helmet';
 import { Route, Switch, withRouter } from 'react-router-dom';
@@ -33,6 +37,12 @@ import useStrings from '../../hooks/useStrings.hook';
 const Status = React.lazy(() => import('../Status/Status'));
 const Explorer = React.lazy(() => import('../Explorer'));
 
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
 type AppStylesProps = {
   open?: boolean;
   location?: {
@@ -64,7 +74,7 @@ const StyledDiv = styled.div<AppStylesProps>`
     props.location?.pathname === '/'
       ? `url("/assets/images/home-background.png")`
       : ''};
-  background-position: center top -56px;
+  background-position: center top 0px;
   background-repeat: ${(props) =>
     props.location?.pathname === '/' ? 'no-repeat' : ''};
 `;
@@ -169,7 +179,7 @@ const App = (props: AppProps) => {
   const includeAds = !['/', '/api-keys', '/status'].includes(location.pathname);
 
   return (
-    //@ts-expect-error
+    <ThemeProvider theme={darkTheme}>
     <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
       {' '}
       {/* muiTheme types are missing here */}
@@ -249,6 +259,7 @@ const App = (props: AppProps) => {
         </StyledDiv>
       </Suspense>
     </MuiThemeProvider>
+    </ThemeProvider>
   );
 };
 

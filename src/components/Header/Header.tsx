@@ -10,9 +10,11 @@ import {
 import BugReport from '@mui/icons-material/BugReport';
 import MenuIcon from '@mui/icons-material/Menu'; 
 import Settings from '@mui/icons-material/Settings';
+//@ts-expect-error
 import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
+//@ts-expect-error
 import ActionSearch from 'material-ui/svg-icons/action/search';
-import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import { Toolbar } from '@mui/material';
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -28,7 +30,7 @@ import useStrings from '../../hooks/useStrings.hook';
 
 const REPORT_BUG_PATH = `//github.com/${config.GITHUB_REPO}/issues`;
 
-const VerticalAlignToolbar = styled(ToolbarGroup)`
+const VerticalAlignToolbar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,7 +78,6 @@ const ToolbarHeader = styled(Toolbar)`
   backdrop-filter: blur(16px);
   background-color: rgba(19, 111, 149, 37%) !important;
   box-shadow: 2px 2px 3px -2px rgb(0 0 0 / 23%);
-  height: 56px;
   left: 0;
   padding: 8px 16px !important;
   position: fixed;
@@ -326,7 +327,7 @@ const Header = ({ location, disableSearch }: { location: any, disableSearch?: bo
 
   return (
     <>
-      <ToolbarHeader>
+      <ToolbarHeader variant="dense">
         <VerticalAlignDiv>
           <LogoGroup onMenuClick={() => setMenuState(true)} />
           {small && <LinkGroup navbarPages={navbarPages} />}

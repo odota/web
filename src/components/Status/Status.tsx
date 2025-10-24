@@ -7,10 +7,6 @@ import Table from '../Table';
 import config from '../../config';
 import { LazyLog, ScrollFollow } from '@melloware/react-logviewer';
 
-function jsonResponse(response: any) {
-  return response.json();
-}
-
 const columns = [
   { displayName: 'key', field: 'key' },
   {
@@ -49,7 +45,7 @@ class Status extends React.Component<{ strings: Strings }> {
   componentDidMount() {
     const update = () =>
       fetch(`${config.VITE_API_HOST}/status`)
-        .then(jsonResponse)
+        .then(resp => resp.json())
         .then(async (json) => {
           const nextState = { result: json, last: this.state.result };
           return this.setState(nextState);

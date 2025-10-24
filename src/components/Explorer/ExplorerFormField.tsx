@@ -1,12 +1,15 @@
-import React, { JSXElementConstructor } from 'react';
-import AutoComplete from 'material-ui/AutoComplete';
-import FormField from '../Form/FormField';
+import React from 'react';
+import { Autocomplete, Chip, TextField } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 
 type ExplorerFormFieldProps = {
   fields?: Record<string, any>,
   label: string,
   builderField: string,
-  handleFieldUpdate: Function,
+  handleFieldUpdate: (builderField: string, value: string[] | undefined) => void,
   isDateField?: boolean,
   builder: Record<string, any>,
   chipLimit?: number,
@@ -15,15 +18,8 @@ type ExplorerFormFieldProps = {
 
 class ExplorerFormField extends React.Component<ExplorerFormFieldProps> {
   autocomplete: any = undefined;
-  datepicker: any = undefined;
-  state = {
-    DatePicker: undefined,
-  };
   constructor(props: ExplorerFormFieldProps) {
     super(props);
-    import('material-ui/DatePicker').then((dp) =>
-      this.setState({ DatePicker: dp.default }),
-    );
   }
 
   componentDidUpdate(newProps: ExplorerFormFieldProps) {
@@ -45,11 +41,12 @@ class ExplorerFormField extends React.Component<ExplorerFormFieldProps> {
     }
   }
 
-  addChip = (name: string, input: any, limit: number) => {
-    const currentChips: any[] = [].concat(this.props.builder[name] || []);
-    const newChips = currentChips.includes(input.key)
+  addChip = (name: string, input: { label: string, id: string }, limit: number) => {
+    const currentChips: string[] = [].concat(this.props.builder[name] || []);
+    const newChips = currentChips.includes(input.id)
       ? currentChips
-      : [input.key].concat(currentChips).slice(0, limit);
+      : [input.id].concat(currentChips).slice(0, limit);
+    // console.log(currentChips, input, newChips);
     this.props.handleFieldUpdate(name, newChips);
   };
 
@@ -62,22 +59,7 @@ class ExplorerFormField extends React.Component<ExplorerFormFieldProps> {
     this.props.handleFieldUpdate(name, newChips);
   };
 
-  resetField = () => {
-    const { builderField, handleFieldUpdate } = this.props;
-    // Set state on the ref'd component to clear it
-    if (this.autocomplete) {
-      this.autocomplete.setState({
-        searchText: '',
-      });
-    }
-    if (this.datepicker) {
-      this.datepicker.setState({ date: undefined });
-    }
-    handleFieldUpdate(builderField, undefined);
-  };
-
   render() {
-    const { DatePicker } = this.state;
     const {
       fields,
       label,
@@ -85,74 +67,50 @@ class ExplorerFormField extends React.Component<ExplorerFormFieldProps> {
       handleFieldUpdate,
       isDateField,
       builder,
-      chipLimit,
       multipleSelect,
     } = this.props;
-    const dataSource = fields && fields[builderField];
-    const fieldWidth = 280;
+    const dataSource: {label: string, id: string}[] = (fields && fields[builderField])?.map((d: any) => ({ label: d.text ?? d.value, id: d.key }));
+    // const fieldWidth = 250;
     if (isDateField) {
       return (
-        <span style={{ width: fieldWidth }}>
-          {DatePicker && (
-            //@ts-expect-error
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-              ref={(ref: any) => {
-                this.datepicker = ref;
-                return null;
-              }}
-              floatingLabelText={label}
-              container="inline"
-              autoOk
-              defaultDate={
-                builder[builderField]
-                  ? new Date(builder[builderField])
-                  : undefined
-              }
-              onShow={this.resetField}
-              onChange={(event: any, date: Date) => {
-                handleFieldUpdate(builderField, date.toISOString());
+              label={label}
+              defaultValue={builder[builderField] ? dayjs(builder[builderField]) : undefined}
+              // onOpen={this.resetField}
+              onChange={(value) => {
+                handleFieldUpdate(builderField, value ? [value.toISOString()] : undefined);
               }}
             />
-          )}
-        </span>
+            </LocalizationProvider>
       );
     }
+    const chipList = [].concat((builder[builderField] || [])).map((id: string) => dataSource.find(d => String(d.id) === String(id))).filter(Boolean);
+    const limit = multipleSelect ? 10 : 1;
     return (
-      <span style={{ width: fieldWidth }}>
-        {multipleSelect ? (
-          <FormField
-            name={builderField}
-            label={label}
-            dataSource={dataSource}
-            formSelectionState={builder}
-            filter={AutoComplete.caseInsensitiveFilter}
-            strict
-            limit={chipLimit}
-            addChip={this.addChip}
-            deleteChip={this.deleteChip}
-            resetField={this.resetField}
-          />
-        ) : (
-          <AutoComplete
-            ref={(ref) => {
-              this.autocomplete = ref;
-              return null;
-            }}
-            openOnFocus
-            listStyle={{ maxHeight: 400, overflow: 'auto' }}
-            fullWidth
-            filter={AutoComplete.caseInsensitiveFilter}
-            floatingLabelText={label}
-            dataSource={dataSource}
-            maxSearchResults={100}
-            //@ts-expect-error
-            onClick={this.resetField}
-            onNewRequest={(value, index) => {
-              handleFieldUpdate(builderField, index > -1 ? value.key : '');
-            }}
-          />
-        )}
-      </span>
+        <Autocomplete
+          multiple
+          clearIcon={null}
+          sx={{ width: '250px' }}
+          value={chipList}
+          fullWidth
+          renderInput={(params) => <TextField {...params} label={label} />}
+          renderValue={(value: any[], getItemProps) => (
+            value.map((v, index) => {
+              return <Chip size="small" label={v.label} {...getItemProps({ index })} onDelete={() => {
+                this.deleteChip(builderField, index);
+              }} />;
+            })
+          )}
+          openOnFocus
+          options={dataSource}
+          // onOpen={this.resetField}
+          onChange={(event, value) => {
+            // add the latest value
+            this.addChip(builderField, value[value.length - 1], limit);
+          }}
+          size="small"
+        />
     );
   }
 }

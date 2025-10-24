@@ -1,4 +1,5 @@
 import React from 'react';
+//@ts-expect-error
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import styled from 'styled-components';
 import constants from '../constants';

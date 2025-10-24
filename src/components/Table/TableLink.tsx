@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+//@ts-expect-error
 import HardwareKeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import constants from '../constants';
 

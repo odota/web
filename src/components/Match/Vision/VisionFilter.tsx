@@ -1,5 +1,5 @@
 import React from 'react';
-import Checkbox from 'material-ui/Checkbox';
+import { Checkbox } from '@mui/material';
 import Table from '../../Table';
 import Heading from '../../Heading';
 
@@ -52,7 +52,7 @@ class VisionFilter extends React.Component<VisionFilterProps> {
         displayName: (
           <Checkbox
             checked={teams[index === 0 ? 'radiant' : 'dire']}
-            onCheck={(event, checked) => {
+            onChange={(event, checked) => {
               this.props.parent.setTeam(
                 index === 0 ? 'radiant' : 'dire',
                 checked,
@@ -72,7 +72,7 @@ class VisionFilter extends React.Component<VisionFilterProps> {
         displayFn: (row: any) => (
           <Checkbox
             checked={this.props.parent.checkedTypeWard(index, row.type)}
-            onCheck={() => {
+            onChange={() => {
               this.props.parent.setTypeWard(index, row.type);
             }}
           />
@@ -89,7 +89,7 @@ class VisionFilter extends React.Component<VisionFilterProps> {
       displayFn: (row: any) => (
         <Checkbox
           checked={this.props.parent.state.players[row.type as WardType][playerNumber]}
-          onCheck={(event, checked) => {
+          onChange={(event, checked) => {
             this.props.parent.setPlayer(playerNumber, row.type, checked);
           }}
         />

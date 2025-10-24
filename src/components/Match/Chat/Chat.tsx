@@ -1,9 +1,12 @@
 import React, { createElement } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+//@ts-expect-error
 import AvVolumeUp from 'material-ui/svg-icons/av/volume-up';
-import Checkbox from 'material-ui/Checkbox';
+import { Checkbox, FormControlLabel } from '@mui/material';
+//@ts-expect-error
 import Visibility from 'material-ui/svg-icons/action/visibility';
+//@ts-expect-error
 import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import { heroes, player_colors as playerColors } from 'dotaconstants';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
@@ -261,7 +264,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
       radiant: true,
       dire: true,
       text: true,
-      phrases: false,
+      phrases: true,
       audio: true,
       all: true,
       allies: true,
@@ -569,31 +572,31 @@ class Chat extends React.Component<ChatProps, ChatState> {
               <ul>
                 {categories[cat as keyof typeof categories].map((filter: any) => {
                   const len = filter.f().length;
-                  const lenFiltered = filter.f(this.state.messages).length;
+                  // const lenFiltered = filter.f(this.state.messages).length;
 
                   return (
                     <li key={filter.name}>
-                      <Checkbox
-                        label={
-                          <span>
+                      <FormControlLabel label={
+                        <>
                             <div>
                               {strings[`chat_filter_${filter.name}` as keyof Strings] ||
                                 strings[`general_${filter.name}` as keyof Strings]}
-                              <b>{len}</b>
+                              <b style={{ marginLeft: '1em' }}>{len}</b>
                             </div>
-                            {len !== lenFiltered && (
-                              <small>
-                                {strings.chat_filtered.toLowerCase()}{' '}
-                                <span>{lenFiltered}</span>
-                              </small>
-                            )}
-                          </span>
-                        }
+                            {/* <small>
+                              {strings.chat_filtered.toLowerCase()}{' '}
+                              <span>{lenFiltered}</span>
+                            </small> */}
+                          </>
+                        } 
+                        control={
+                        <Checkbox
                         checked={this.state[filter.name as keyof ChatState]}
-                        onCheck={() => this.toggleFilter(filter.name)}
+                        onChange={() => this.toggleFilter(filter.name)}
                         checkedIcon={<Visibility />}
-                        uncheckedIcon={<VisibilityOff />}
+                        icon={<VisibilityOff />}
                         disabled={filter.disabled()}
+                        />}
                       />
                     </li>
                   );
