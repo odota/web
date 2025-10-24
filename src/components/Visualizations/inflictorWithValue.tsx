@@ -314,7 +314,7 @@ function withHooks(Component: any) {
 const InflictorWithValueAndHooks = withHooks(InflictorWithValue);
 
 export default (
-  inflictor: string,
+  inflictor?: string,
   value?: string,
   type?: string,
   ptooltip?: string,

@@ -6,9 +6,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "react",
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "lib": ["dom", "es2015", "scripthost", "es6", "es2016", "es2017"],
+    "lib": ["dom", "esnext"],
     "strict": true,
     "skipLibCheck": true,
     "types": ["vite/client"]

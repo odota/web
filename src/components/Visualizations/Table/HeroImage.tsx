@@ -446,7 +446,7 @@ type TableHeroImageProps = {
   confirmed?: boolean,
   heroName?: string,
   randomed?: boolean,
-  repicked?: string,
+  repicked?: boolean,
   predictedVictory?: boolean,
   leaverStatus?: number,
   strings: Strings,

@@ -85,6 +85,9 @@ type Match = {
 type MatchPlayer = {
   hero_id: keyof Heroes,
   hero_name: string,
+  hero_healing: number,
+  item_neutral: number,
+  item_neutral2: number,
   account_id: number,
   killed: Record<string, any>,
   killed_by: Record<string, any>,
@@ -112,6 +115,33 @@ type MatchPlayer = {
   deaths: number;
   assists: number;
   purchase_log: any[];
+  last_login: string;
+  is_contributor: boolean;
+  is_subscriber: boolean;
+  rank_tier: number;
+  hero_variant: number;
+  randomed: boolean;
+  repicked: boolean;
+  leaver_status: number;
+  party_size: number;
+  party_id: number;
+  additional_units: any[];
+  permanent_buffs: any[];
+  ability_upgrades_arr: number[],
+  abilities: any[],
+  specific: any,
+  actions: Record<string, number>;
+  runes: Record<string, number>;
+  objective_damage: Record<string, number>;
+  damage_inflictor: Record<string, number>;
+  ability_uses: Record<string, number>;
+  obs_log: any[];
+  sen_log: any[];
+  item_uses: Record<string, number>;
+  net_worth: number;
+  hero_damage: number;
+  tower_damage: number;
+  benchmarks: Record<string, any>;
 };
 
 type RouterProps = {

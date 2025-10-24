@@ -8,7 +8,7 @@ import { usePatchnotes } from '../../hooks/usePatchnotes.hook';
 import { items } from 'dotaconstants';
 
 // Get patchnotes from up to two last letter patches
-function getRecentChanges(item: keyof typeof items, patchnotes: PatchNotes) {
+function getRecentChanges(item?: keyof Items, patchnotes?: PatchNotes) {
   const changes: { patch: any; note: string }[] = [];
   if (!patchnotes) {
     return changes;
@@ -18,11 +18,11 @@ function getRecentChanges(item: keyof typeof items, patchnotes: PatchNotes) {
   const previous = patches[patches.length - 2];
   // Latest patch wasn't a major patch e.g. 7_35b, return more entries
   if (latest.length > 4) {
-    patchnotes[previous].items?.[item]?.forEach((note: string) =>
+    patchnotes[previous].items?.[item!]?.forEach((note: string) =>
       changes.push({ patch: previous, note }),
     );
   }
-  patchnotes[latest].items?.[item]?.forEach((note: string) =>
+  patchnotes[latest].items?.[item!]?.forEach((note: string) =>
     changes.push({ patch: latest, note }),
   );
   return changes;
@@ -487,13 +487,13 @@ const ItemTooltip = ({
   inflictor,
   value,
 }: {
-  item: any;
-  inflictor: keyof typeof items;
-  value: keyof typeof items;
+  item: Items['blink'] & any;
+  inflictor?: keyof Items;
+  value?: keyof Items;
 }) => {
   const patchnotes = usePatchnotes();
   const recentChanges = getRecentChanges(inflictor, patchnotes);
-  const enhancement = items[value] || null;
+  const enhancement = items[value!] || null;
   const [stats, upperCaseStats] = itemStats(item);
   const abilities = item.abilities || [];
   const hasNonPassive = abilities.some((a: { type: string }) =>

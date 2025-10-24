@@ -102,7 +102,7 @@ const damageTargetIcons = (t: any) => {
   );
 };
 
-const TargetsBreakdown = ({ field, abilityUses = null }: { field: string, abilityUses: Record<string, number> | null }) => {
+const TargetsBreakdown = ({ field, abilityUses = null }: { field: string, abilityUses?: Record<string, number> | null }) => {
   if (field) {
     let f: Record<string, any>;
     if (abilityUses) {

@@ -52,17 +52,15 @@ const scepterTooltip = <ItemTooltip item={items.ultimate_scepter} />;
 const AGHANIMS_SHARD = 12;
 const AGHANIMS_SCEPTER = 2;
 
-export default (strings) => {
+export default (strings: Strings) => {
   const heroTd = (
-    row,
-    col,
-    field,
-    index,
-    hideName,
-    party,
-    showGuide = false,
-    guideType,
-  ) => {
+    row: MatchPlayer,
+    col?: any,
+    field?: any,
+    index?: number,
+    hideName?: boolean,
+    party?: React.ReactNode,
+  ): React.ReactNode | null => {
     const heroName =
       heroes[row.hero_id] &&
       heroes[row.hero_id].localized_name.toLowerCase().replace(' ', '-');
@@ -77,25 +75,24 @@ export default (strings) => {
         subtitle={
           <CompetitiveRank
             rankTier={rankTierToString(row.rank_tier)}
-            strings={strings}
           />
         }
         hideText={hideName}
-        confirmed={row.account_id && row.name}
+        confirmed={Boolean(row.account_id && row.name)}
         party={party}
         heroName={
           heroes[row.hero_id]
             ? heroes[row.hero_id].localized_name
             : strings.general_no_hero
         }
-        heroID={row.hero_id}
+        heroID={String(row.hero_id)}
         facet={row.hero_variant}
-        showGuide={showGuide}
-        guideType={guideType}
-        guideUrl={
-          heroes[row.hero_id] &&
-          `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`
-        }
+        // showGuide={showGuide}
+        // guideType={guideType}
+        // guideUrl={
+        //   heroes[row.hero_id] &&
+        //   `https://moremmr.com/en/heroes/${heroName}/videos?utm_source=opendota&utm_medium=heroes&utm_campaign=${heroName}`
+        // }
         randomed={row.randomed}
         repicked={row.repicked}
         predictedVictory={row.pred_vict}
@@ -113,7 +110,7 @@ export default (strings) => {
     sortFn: true,
   };
 
-  const partyStyles = (row, match) => {
+  const partyStyles = (row: MatchPlayer, match: Match) => {
     if (
       row.party_size === 1 ||
       (match.players &&
@@ -122,7 +119,7 @@ export default (strings) => {
       return null;
     }
     // groupBy party id, then remove all the solo players, then find the index the party the row player is in
-    const index = Object.values(groupBy(match.players, 'party_id'))
+    const index = Object.values<any[]>(groupBy(match.players, 'party_id'))
       .filter((x) => x.length > 1)
       .findIndex((x) => x.find((y) => y.player_slot === row.player_slot));
     return (
@@ -132,7 +129,7 @@ export default (strings) => {
     );
   };
 
-  const findBuyTime = (purchaseLog, itemKey, _itemSkipCount) => {
+  const findBuyTime = (purchaseLog: any[], itemKey: string, _itemSkipCount: number) => {
     let skipped = 0;
     let itemSkipCount = _itemSkipCount || 0;
     const purchaseEvent = findLast((item) => {
@@ -155,15 +152,15 @@ export default (strings) => {
     };
   };
 
-  const itemsTd = (row) => {
+  const itemsTd = (row: MatchPlayer) => {
     const itemArray = [];
     const additionalItemArray = [];
     const backpackItemArray = [];
 
-    const visitedItemsCount = {};
+    const visitedItemsCount: Record<string, number> = {};
 
     for (let i = 0; i < 6; i += 1) {
-      const itemKey = itemIds[row[`item_${i}`]];
+      const itemKey = itemIds[row[`item_${i}` as keyof MatchPlayer] as keyof typeof itemIds];
       const { itemSkipCount, purchaseEvent } = findBuyTime(
         row.purchase_log,
         itemKey,
@@ -171,7 +168,7 @@ export default (strings) => {
       );
       visitedItemsCount[itemKey] = itemSkipCount;
 
-      if (items[itemKey]) {
+      if (items[itemKey as keyof Items]) {
         itemArray.push(
           inflictorWithValue(
             itemKey,
@@ -181,12 +178,13 @@ export default (strings) => {
       }
 
       // Use hero_id because Meepo showing up as an additional unit in some matches http://dev.dota2.com/showthread.php?t=132401
-      if (row.hero_id === 80 && row.additional_units) {
-        const additionalItemKey = itemIds[row.additional_units[0][`item_${i}`]];
+      // This is actually a number but we type it as string to match keys of Heroes
+      if ((row.hero_id as unknown as number) === 80 && row.additional_units) {
+        const additionalItemKey = itemIds[row.additional_units[0][`item_${i}`] as keyof typeof itemIds];
         const additionalFirstPurchase =
           row.first_purchase_time && row.first_purchase_time[additionalItemKey];
 
-        if (items[additionalItemKey]) {
+        if (items[additionalItemKey as keyof Items]) {
           additionalItemArray.push(
             inflictorWithValue(
               additionalItemKey,
@@ -196,11 +194,11 @@ export default (strings) => {
         }
       }
 
-      const backpackItemKey = itemIds[row[`backpack_${i}`]];
+      const backpackItemKey = itemIds[row[`backpack_${i}` as keyof MatchPlayer] as keyof typeof itemIds];
       const backpackfirstPurchase =
         row.first_purchase_time && row.first_purchase_time[backpackItemKey];
 
-      if (items[backpackItemKey]) {
+      if (items[backpackItemKey as keyof Items]) {
         backpackItemArray.push(
           inflictorWithValue(
             backpackItemKey,
@@ -230,12 +228,12 @@ export default (strings) => {
     );
   };
 
-  const overviewColumns = (match) => {
-    const cols = [
+  const overviewColumns = (match: Match) => {
+    const cols = ([
       {
         displayName: strings.th_avatar,
         field: 'player_slot',
-        displayFn: (row, col, field, i) =>
+        displayFn: (row: MatchPlayer, col: any, field: any, i: number) =>
           heroTd(
             row,
             col,
@@ -243,8 +241,6 @@ export default (strings) => {
             i,
             false,
             partyStyles(row, match),
-            false,
-            null,
           ),
         sortFn: true,
         width: 170,
@@ -259,7 +255,7 @@ export default (strings) => {
         textAlign: 'center',
         paddingRight: 7,
         width: 41,
-        displayFn: (row, col, field) => (
+        displayFn: (row: MatchPlayer, col: any, field: any) => (
           <StyledLevel>
             <span>{field}</span>
             <svg viewBox="0 0 36 36" className="circular_chart">
@@ -280,7 +276,7 @@ export default (strings) => {
         displayName: strings.th_kills,
         tooltip: strings.tooltip_kills,
         field: 'kills',
-        displayFn: (row, col, field) => field || '-',
+        displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
         sortFn: true,
         sumFn: true,
         color: 'hsla(123, 25%, 57%, 1)',
@@ -294,7 +290,7 @@ export default (strings) => {
         displayName: strings.th_deaths,
         tooltip: strings.tooltip_deaths,
         field: 'deaths',
-        displayFn: (row, col, field) => field || '-',
+        displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
         sortFn: true,
         sumFn: true,
         color: 'hsla(0, 80%, 65%, 1)',
@@ -308,7 +304,7 @@ export default (strings) => {
         displayName: strings.th_assists,
         tooltip: strings.tooltip_assists,
         field: 'assists',
-        displayFn: (row, col, field) => field || '-',
+        displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
         sortFn: true,
         sumFn: true,
         color: constants.colorBlueGray,
@@ -322,7 +318,7 @@ export default (strings) => {
         displayName: strings.th_last_hits,
         tooltip: strings.tooltip_last_hits,
         field: 'last_hits',
-        displayFn: (row, col, field) => field || '-',
+        displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
         sortFn: true,
         sumFn: true,
         // relativeBars: true,
@@ -347,7 +343,7 @@ export default (strings) => {
         displayName: strings.th_denies,
         tooltip: strings.tooltip_denies,
         field: 'denies',
-        displayFn: (row, col, field) => field || '-',
+        displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
         sortFn: true,
         sumFn: true,
         // relativeBars: true,
@@ -363,7 +359,7 @@ export default (strings) => {
         sortFn: true,
         color: constants.golden,
         sumFn: true,
-        displayFn: (row) => abbreviateNumber(row.net_worth),
+        displayFn: (row: MatchPlayer) => abbreviateNumber(row.net_worth),
         textAlign: 'right',
         width: 32,
         underline: 'max',
@@ -410,7 +406,7 @@ export default (strings) => {
         field: 'hero_damage',
         sortFn: true,
         sumFn: true,
-        displayFn: (row) => abbreviateNumber(row.hero_damage),
+        displayFn: (row: MatchPlayer) => abbreviateNumber(row.hero_damage),
         // relativeBars: true,
         textAlign: 'right',
         paddingLeft: 14,
@@ -422,7 +418,7 @@ export default (strings) => {
         displayName: strings.th_tower_damage,
         tooltip: strings.tooltip_tower_damage,
         field: 'tower_damage',
-        displayFn: (row) => abbreviateNumber(row.tower_damage),
+        displayFn: (row: MatchPlayer) => abbreviateNumber(row.tower_damage),
         sortFn: true,
         sumFn: true,
         // relativeBars: true,
@@ -438,7 +434,7 @@ export default (strings) => {
         field: 'hero_healing',
         sortFn: true,
         sumFn: true,
-        displayFn: (row) => abbreviateNumber(row.hero_healing),
+        displayFn: (row: MatchPlayer) => abbreviateNumber(row.hero_healing),
         // relativeBars: true,
         textAlign: 'right',
         paddingLeft: 5,
@@ -453,7 +449,7 @@ export default (strings) => {
         width: 240,
         displayFn: itemsTd,
       },
-    ]
+    ] as any[])
       .concat(
         match.players.map((player) => player.item_neutral).reduce(sum, 0) > 0
           ? {
@@ -461,7 +457,7 @@ export default (strings) => {
               width: 20,
               paddingRight: 23,
               paddingLeft: 5,
-              displayFn: (row) => (
+              displayFn: (row: MatchPlayer) => (
                 <div
                   style={{
                     height: 30,
@@ -472,8 +468,8 @@ export default (strings) => {
                 >
                   {row.item_neutral
                     ? inflictorWithValue(
-                        itemIds[row.item_neutral],
-                        itemIds[row.item_neutral2],
+                        itemIds[row.item_neutral as unknown as keyof typeof itemIds],
+                        itemIds[row.item_neutral2 as unknown as keyof typeof itemIds],
                         'neutral',
                       )
                     : null}
@@ -486,7 +482,7 @@ export default (strings) => {
         paddingLeft: 5,
         paddingRight: 0,
         width: 32,
-        displayFn: (row) => (
+        displayFn: (row: MatchPlayer) => (
           <StyledAghanimsBuffs>
             <ReactTooltip id="scepter" effect="solid" place="left">
               {scepterTooltip}
@@ -534,7 +530,7 @@ export default (strings) => {
               tooltip: strings.tooltip_permanent_buffs,
               field: 'permanent_buffs',
               width: 60,
-              displayFn: (row) =>
+              displayFn: (row: MatchPlayer) =>
                 row.permanent_buffs && row.permanent_buffs.length > 0
                   ? row.permanent_buffs
                       .filter(
@@ -544,7 +540,7 @@ export default (strings) => {
                       )
                       .map((buff) =>
                         inflictorWithValue(
-                          buffs[buff.permanent_buff],
+                          buffs[buff.permanent_buff as keyof typeof buffs],
                           buff.stack_count,
                           'buff',
                         ),
@@ -557,7 +553,7 @@ export default (strings) => {
     return cols;
   };
 
-  const abilityMapping = (index, upgradesArr, hero) => {
+  const abilityMapping = (index: number, upgradesArr: any[], hero: number) => {
     // Map the actual level position to the position in the data array
     // Some levels now don't correspond to any ability upgrade
     // 21 to 23 are the additional abilities gained at level 30
@@ -572,24 +568,24 @@ export default (strings) => {
       22: -1,
       23: -1,
     };
-    const ability = upgradesArr[(hero !== 74 && mapping[index]) || index - 1];
+    const ability = upgradesArr[(hero !== 74 && mapping[index as keyof typeof mapping]) || index - 1];
 
-    return ability ? inflictorWithValue(null, null, null, null, ability) : null;
+    return ability ? inflictorWithValue(undefined, undefined, undefined, undefined, ability) : null;
   };
 
   const abilityColumns = () => {
-    const cols = Array.from(new Array(26), (_, index) => ({
+    const cols: any[] = Array.from(new Array(26), (_, index) => ({
       displayName: `${index}`,
       tooltip: 'Ability upgraded at this level',
       field: `ability_upgrades_arr_${index}`,
-      displayFn: (row) => {
+      displayFn: (row: MatchPlayer) => {
         if (!row.ability_upgrades_arr) {
           return null;
         }
         return (
           <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`}>
             <div className="ability">
-              {abilityMapping(index, row.ability_upgrades_arr, row.hero_id) || (
+              {abilityMapping(index, row.ability_upgrades_arr, row.hero_id as unknown as number) || (
                 <div className="placeholder" />
               )}
             </div>
@@ -604,18 +600,18 @@ export default (strings) => {
   };
 
   const abilityDraftColumns = () => {
-    const cols = Array.from(new Array(6), (_, index) => ({
+    const cols: any[] = Array.from(new Array(6), (_, index) => ({
       displayName: `${index}`,
       tooltip: strings.tooltip_abilitydraft,
       field: `abilities${index}`,
-      displayFn: (row) => (
+      displayFn: (row: MatchPlayer) => (
         <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`}>
           <div className="ability">
             {inflictorWithValue(
-              null,
-              null,
-              null,
-              null,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
               row.abilities?.[index - 1],
             ) || <div className="placeholder" />}
           </div>
@@ -628,20 +624,20 @@ export default (strings) => {
     return cols;
   };
 
-  const benchmarksColumns = (match) => {
-    const cols = [heroTdColumn];
+  const benchmarksColumns = (match: Match) => {
+    const cols: any[] = [heroTdColumn];
     if (match.players && match.players[0] && match.players[0].benchmarks) {
       Object.keys(match.players[0].benchmarks).forEach((key, i) => {
         if (match.version || !parsedBenchmarkCols.includes(key)) {
           cols.push({
             displayName:
-              strings[`th_${key}`] ||
-              strings[`heading_${key}`] ||
-              strings[`tooltip_${key}`],
-            tooltip: strings[`tooltip_${key}`],
+              strings[`th_${key}` as keyof Strings] ||
+              strings[`heading_${key}` as keyof Strings] ||
+              strings[`tooltip_${key}` as keyof Strings],
+            tooltip: strings[`tooltip_${key}` as keyof Strings],
             field: 'benchmarks',
             index: i,
-            displayFn: (row, column, field) => {
+            displayFn: (row: MatchPlayer, column: any, field: any) => {
               if (field) {
                 const bm = field[key];
                 const bucket = percentile(bm.pct);
@@ -652,7 +648,7 @@ export default (strings) => {
                     data-tip
                     data-for={`benchmarks_${row.player_slot}_${key}`}
                   >
-                    <span style={{ color: constants[bucket.color] }}>
+                    <span style={{ color: constants[bucket.color as keyof typeof constants] } as React.CSSProperties}>
                       {`${percent}%`}
                     </span>
                     <small style={{ margin: '3px' }}>{value}</small>
@@ -664,7 +660,7 @@ export default (strings) => {
                       {formatTemplateToString(
                         strings.benchmarks_description,
                         value,
-                        strings[`th_${key}`],
+                        strings[`th_${key}` as keyof Strings],
                         percent,
                       )}
                     </ReactTooltip>
@@ -680,7 +676,7 @@ export default (strings) => {
     return cols;
   };
 
-  const displayFantasyComponent = (transform) => (row, col, field) => {
+  const displayFantasyComponent = (transform: Function) => (row: MatchPlayer, col: any, field: any) => {
     const score = Number(transform(field).toFixed(2));
     const raw = Number((field || 0).toFixed(2));
     return (
@@ -702,7 +698,7 @@ export default (strings) => {
       displayName: strings.th_kills,
       field: 'kills',
       tooltip: strings.tooltip_kills,
-      fantasyFn: (v) => 0.3 * v,
+      fantasyFn: (v: number) => 0.3 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -711,7 +707,7 @@ export default (strings) => {
       displayName: strings.th_deaths,
       field: 'deaths',
       tooltip: strings.tooltip_deaths,
-      fantasyFn: (v) => 3 - 0.3 * v,
+      fantasyFn: (v: number) => 3 - 0.3 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -720,7 +716,7 @@ export default (strings) => {
       displayName: strings.th_last_hits,
       field: 'last_hits',
       tooltip: strings.tooltip_last_hits,
-      fantasyFn: (v) => 0.003 * v,
+      fantasyFn: (v: number) => 0.003 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -729,7 +725,7 @@ export default (strings) => {
       displayName: strings.th_denies,
       field: 'denies',
       tooltip: strings.tooltip_denies,
-      fantasyFn: (v) => 0.003 * v,
+      fantasyFn: (v: number) => 0.003 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -738,7 +734,7 @@ export default (strings) => {
       displayName: strings.th_gold_per_min,
       field: 'gold_per_min',
       tooltip: strings.tooltip_gold_per_min,
-      fantasyFn: (v) => 0.002 * v,
+      fantasyFn: (v: number) => 0.002 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -747,7 +743,7 @@ export default (strings) => {
       displayName: strings.th_towers,
       field: 'towers_killed',
       tooltip: strings.tooltip_tower_kills,
-      fantasyFn: (v) => 1 * v,
+      fantasyFn: (v: number) => 1 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -756,7 +752,7 @@ export default (strings) => {
       displayName: strings.th_roshan,
       field: 'roshans_killed',
       tooltip: strings.farm_roshan,
-      fantasyFn: (v) => 1 * v,
+      fantasyFn: (v: number) => 1 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -765,7 +761,7 @@ export default (strings) => {
       displayName: strings.th_teamfight_participation,
       field: 'teamfight_participation',
       tooltip: strings.tooltip_teamfight_participation,
-      fantasyFn: (v) => 3 * v,
+      fantasyFn: (v: number) => 3 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -774,7 +770,7 @@ export default (strings) => {
       displayName: strings.th_observers_placed,
       field: 'obs_placed',
       tooltip: strings.tooltip_used_ward_observer,
-      fantasyFn: (v) => 0.5 * v,
+      fantasyFn: (v: number) => 0.5 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -783,7 +779,7 @@ export default (strings) => {
       displayName: strings.th_camps_stacked,
       field: 'camps_stacked',
       tooltip: strings.tooltip_camps_stacked,
-      fantasyFn: (v) => 0.5 * v,
+      fantasyFn: (v: number) => 0.5 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -792,7 +788,7 @@ export default (strings) => {
       displayName: strings.heading_runes,
       field: 'rune_pickups',
       tooltip: strings.analysis_rune_control,
-      fantasyFn: (v) => 0.25 * v,
+      fantasyFn: (v: number) => 0.25 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -801,7 +797,7 @@ export default (strings) => {
       displayName: strings.th_firstblood_claimed,
       field: 'firstblood_claimed',
       tooltip: strings.th_firstblood_claimed,
-      fantasyFn: (v) => 4 * v,
+      fantasyFn: (v: number) => 4 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
@@ -810,64 +806,65 @@ export default (strings) => {
       displayName: strings.th_stuns,
       field: 'stuns',
       tooltip: strings.tooltip_stuns,
-      fantasyFn: (v) => 0.05 * v,
+      fantasyFn: (v: number) => 0.05 * v,
       get displayFn() {
         return displayFantasyComponent(this.fantasyFn);
       },
     },
   ];
 
-  const fantasyColumns = [
+  const fantasyColumns = ([
     heroTdColumn,
     {
       displayName: strings.th_fantasy_points,
-      displayFn: (row) =>
+      displayFn: (row: MatchPlayer) =>
         fantasyComponents
-          .map((comp) => comp.fantasyFn(row[comp.field]))
+          .map((comp) => comp.fantasyFn(row[comp.field as keyof MatchPlayer]))
           .reduce((a, b) => a + b)
           .toFixed(2),
     },
-  ].concat(fantasyComponents);
+  ] as any[]).concat(fantasyComponents);
 
-  const purchaseTimesColumns = (match, showConsumables) => {
-    const cols = [heroTdColumn];
+  const purchaseTimesColumns = (match: Match, showConsumables: boolean) => {
+    const cols: any[] = [heroTdColumn];
     const bucket = 300;
     for (let i = 0; i < match.duration + bucket; i += bucket) {
       const curTime = i;
       cols.push({
         displayName: `${curTime / 60}'`,
         field: 'purchase_log',
-        displayFn: (row, column, field) => (
+        displayFn: (row: MatchPlayer, column: any, field: any) => (
           <div>
             {field
               ? field
                   .filter(
-                    (purchase) =>
+                    (purchase: any) =>
                       purchase.time >= curTime - bucket &&
                       purchase.time < curTime,
                   )
-                  .sort((p1, p2) => {
-                    const item1 = items[p1.key];
-                    const item2 = items[p2.key];
+                  .sort((p1: any, p2: any) => {
+                    const item1 = items[p1.key as keyof Items];
+                    const item2 = items[p2.key as keyof Items];
                     if (item1 && item2 && p1.time === p2.time) {
                       // We're only concerned with sorting by value
                       // if items are bought at the same time, time is presorted
-                      return item1.cost - item2.cost;
+                      return (item1.cost ?? 0) - (item2.cost ?? 0);
                     }
                     return 0;
                   })
-                  .map((purchase) => {
+                  .map((purchase: any) => {
                     if (
-                      items[purchase.key] &&
+                      items[purchase.key as keyof Items] &&
                       (showConsumables ||
-                        items[purchase.key].qual !== 'consumable')
+                        //@ts-expect-error
+                        items[purchase.key as keyof Items].qual !== 'consumable')
                     ) {
                       return inflictorWithValue(
                         purchase.key,
                         formatSeconds(purchase.time),
-                        null,
-                        null,
-                        null,
+                        undefined,
+                        undefined,
+                        undefined,
                         purchase.charges,
                       );
                     }
@@ -881,8 +878,8 @@ export default (strings) => {
     return cols;
   };
 
-  const lastHitsTimesColumns = (match) => {
-    const cols = [heroTdColumn];
+  const lastHitsTimesColumns = (match: Match) => {
+    const cols: any[] = [heroTdColumn];
     const bucket = 300;
     for (let i = bucket; i <= match.duration; i += bucket) {
       const curTime = i;
@@ -890,13 +887,13 @@ export default (strings) => {
       cols.push({
         displayName: `${minutes}'`,
         field: i,
-        sortFn: (row) => row.lh_t && row.lh_t[minutes],
-        displayFn: (row) =>
+        sortFn: (row: MatchPlayer) => row.lh_t && row.lh_t[minutes],
+        displayFn: (row: MatchPlayer) =>
           `${row.lh_t[minutes]} (+${
             row.lh_t[minutes] - row.lh_t[minutes - bucket / 60]
           })`,
         relativeBars: true,
-        sumFn: (acc, row) =>
+        sumFn: (acc: number, row: MatchPlayer) =>
           acc + (row.lh_t && row.lh_t[minutes] ? row.lh_t[minutes] : 0),
       });
     }
@@ -910,7 +907,7 @@ export default (strings) => {
       tooltip: strings.tooltip_multikill,
       field: 'multi_kills_max',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -919,7 +916,7 @@ export default (strings) => {
       tooltip: strings.tooltip_killstreak,
       field: 'kill_streaks_max',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -928,7 +925,7 @@ export default (strings) => {
       tooltip: strings.tooltip_stuns,
       field: 'stuns',
       sortFn: true,
-      displayFn: (row, col, field) => (field ? field.toFixed(2) : '-'),
+      displayFn: (row: MatchPlayer, column: any, field: any) => (field ? field.toFixed(2) : '-'),
       relativeBars: true,
       sumFn: true,
     },
@@ -937,7 +934,7 @@ export default (strings) => {
       tooltip: strings.tooltip_camps_stacked,
       field: 'camps_stacked',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -946,18 +943,18 @@ export default (strings) => {
       tooltip: strings.tooltip_dead,
       field: 'life_state_dead',
       sortFn: true,
-      displayFn: (row, col, field) => formatSeconds(field) || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => formatSeconds(field) || '-',
       relativeBars: true,
       invertBarColor: true,
       sumFn: true,
-      displaySumFn: (total) => formatSeconds(total) || '-',
+      displaySumFn: (total: number) => formatSeconds(total) || '-',
     },
     {
       displayName: strings.th_buybacks,
       tooltip: strings.tooltip_buybacks,
       field: 'buybacks',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -966,7 +963,7 @@ export default (strings) => {
       tooltip: strings.tooltip_pings,
       field: 'pings',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -975,7 +972,7 @@ export default (strings) => {
       tooltip: strings.tooltip_biggest_hit,
       field: 'max_hero_hit',
       sortFn: true,
-      displayFn: (row, column, field) => {
+      displayFn: (row: MatchPlayer, col: any, field: any) => {
         if (field) {
           const hero = heroNames[field.key] || {};
           return (
@@ -995,7 +992,7 @@ export default (strings) => {
       displayName: strings.th_other,
       field: 'performance_others',
       sortFn: true,
-      displayFn: (row, col, field) => {
+      displayFn: (row: MatchPlayer, column: any, field: any) => {
         const comp = [];
         if (field) {
           if (field.tracked_deaths) {
@@ -1030,9 +1027,9 @@ export default (strings) => {
     },
   ];
 
-  const laningColumns = (currentState, setSelectedPlayer) => [
+  const laningColumns = (currentState: any, setSelectedPlayer: Function) => [
     {
-      displayFn: (row) => (
+      displayFn: (row: MatchPlayer) => (
         <RadioButton
           checked={currentState.selectedPlayer === row.player_slot}
           onClick={() => setSelectedPlayer(row.player_slot)}
@@ -1045,7 +1042,7 @@ export default (strings) => {
       tooltip: strings.heading_is_radiant,
       field: 'isRadiant',
       sortFn: true,
-      displayFn: (row, col, field) => (
+      displayFn: (row: MatchPlayer, column: any, field: any) => (
         <span>
           {field && <IconRadiant height="30" />}
           {!field && <IconDire height="30" />}
@@ -1057,9 +1054,9 @@ export default (strings) => {
       tooltip: strings.tooltip_lane,
       field: 'lane_role',
       sortFn: true,
-      displayFn: (row, col, field) => (
+      displayFn: (row: MatchPlayer, column: any, field: any) => (
         <div>
-          <span>{strings[`lane_role_${field}`]}</span>
+          <span>{strings[`lane_role_${field}` as keyof Strings]}</span>
           {row.is_roaming && (
             <span style={subTextStyle}>{strings.roaming}</span>
           )}
@@ -1071,7 +1068,7 @@ export default (strings) => {
       tooltip: strings.tooltip_win_lane,
       field: 'line_win',
       sortFn: true,
-      displayFn: (row, col, field) =>
+      displayFn: (row: MatchPlayer, column: any, field: any) =>
         field && (
           <StyledLineWinnerSpan>
             <IconTrophy />
@@ -1091,7 +1088,7 @@ export default (strings) => {
       tooltip: strings.tooltip_lane_efficiency,
       field: 'lane_efficiency',
       sortFn: true,
-      displayFn: (row, col, field) =>
+      displayFn: (row: MatchPlayer, column: any, field: any) =>
         field ? `${(field * 100).toFixed(2)}%` : '-',
       relativeBars: true,
       sumFn: true,
@@ -1101,7 +1098,7 @@ export default (strings) => {
       tooltip: strings.tooltip_lhten,
       field: 'lh_ten',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -1110,7 +1107,7 @@ export default (strings) => {
       tooltip: strings.tooltip_dnten,
       field: 'dn_ten',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -1123,7 +1120,7 @@ export default (strings) => {
       tooltip: strings.farm_heroes,
       field: 'hero_kills',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -1132,7 +1129,7 @@ export default (strings) => {
       tooltip: strings.farm_creeps,
       field: 'lane_kills',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -1141,7 +1138,7 @@ export default (strings) => {
       tooltip: strings.farm_neutrals,
       field: 'neutral_kills',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -1150,7 +1147,7 @@ export default (strings) => {
       tooltip: strings.farm_ancients,
       field: 'ancient_kills',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -1159,7 +1156,7 @@ export default (strings) => {
       tooltip: strings.farm_towers,
       field: 'tower_kills',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -1168,7 +1165,7 @@ export default (strings) => {
       tooltip: strings.farm_couriers,
       field: 'courier_kills',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -1177,7 +1174,7 @@ export default (strings) => {
       tooltip: strings.farm_roshan,
       field: 'roshan_kills',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -1186,7 +1183,7 @@ export default (strings) => {
       tooltip: strings.farm_observers,
       field: 'observer_kills',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -1195,7 +1192,7 @@ export default (strings) => {
       tooltip: strings.farm_necronomicon,
       field: 'necronomicon_kills',
       sortFn: true,
-      displayFn: (row, col, field) => field || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -1203,14 +1200,14 @@ export default (strings) => {
       displayName: strings.th_other,
       field: 'specific',
       // TODO make this work for non-english (current names are hardcoded in dotaconstants)
-      displayFn: (row, col, field) => (
+      displayFn: (row: MatchPlayer, column: any, field: any) => (
         <div>
           {Object.keys(field || {}).map((unit) => (
             <div key={unit}>{`${field[unit]} ${unit}`}</div>
           ))}
         </div>
       ),
-      sumFn: (acc, row) => {
+      sumFn: (acc: any, row: MatchPlayer) => {
         const result = acc != null ? acc : {};
 
         Object.keys(row.specific || {}).forEach((unit) => {
@@ -1219,7 +1216,7 @@ export default (strings) => {
 
         return result;
       },
-      displaySumFn: (totals) => (
+      displaySumFn: (totals: any) => (
         <div>
           {Object.keys(totals || {}).map((unit) => (
             <div key={unit}>{`${totals[unit]} ${unit}`}</div>
@@ -1229,7 +1226,7 @@ export default (strings) => {
     },
   ];
 
-  const actionsColumns = [
+  const actionsColumns = ([
     heroTdColumn,
     {
       displayName: strings.th_actions_per_min,
@@ -1238,42 +1235,42 @@ export default (strings) => {
       sortFn: true,
       relativeBars: true,
     },
-  ].concat(
+  ] as any[]).concat(
     Object.keys(orderTypes)
-      .filter((orderType) => `th_${orderTypes[orderType]}` in strings)
+      .filter((orderType) => `th_${orderTypes[orderType as keyof typeof orderTypes]}` in strings)
       .map((orderType) => ({
-        displayName: strings[`th_${orderTypes[orderType]}`],
-        tooltip: strings[`tooltip_${orderTypes[orderType]}`],
+        displayName: strings[`th_${orderTypes[orderType as keyof typeof orderTypes]}` as keyof Strings],
+        tooltip: strings[`tooltip_${orderTypes[orderType as keyof typeof orderTypes]}` as keyof Strings],
         field: orderType,
-        sortFn: (row) => (row.actions ? row.actions[orderType] : 0),
-        displayFn: (row, column, value) => value || '-',
+        sortFn: (row: MatchPlayer) => (row.actions ? row.actions[orderType] : 0),
+        displayFn: (row: MatchPlayer, column: any, value: any) => value || '-',
         relativeBars: true,
       })),
   );
 
-  const runesColumns = [heroTdColumn].concat(
+  const runesColumns = ([heroTdColumn] as any[]).concat(
     Object.keys(strings)
       .filter((str) => str.indexOf('rune_') === 0)
       .map((str) => str.split('_')[1])
       .map((runeType) => ({
         displayName: (
           <StyledRunes data-tip data-for={`rune_${runeType}`}>
-            <Tooltip title={strings[`rune_${runeType}`]}>
+            <Tooltip title={strings[`rune_${runeType}` as keyof Strings]}>
               <img
                 src={`/assets/images/dota2/runes/${runeType}.png`}
-                alt={strings[`rune_${runeType}`]}
+                alt={strings[`rune_${runeType}` as keyof Strings]}
               />
             </Tooltip>
           </StyledRunes>
         ),
         field: `rune_${runeType}`,
-        displayFn: (row, col, value) => value || '-',
-        sortFn: (row) => row.runes && row.runes[runeType],
+        displayFn: (row: MatchPlayer, col: any, value: any) => value || '-',
+        sortFn: (row: MatchPlayer) => row.runes && row.runes[runeType],
         relativeBars: true,
       })),
   );
 
-  const cosmeticsRarity = {
+  const cosmeticsRarity: Record<string, string> = {
     common: '#B0C3D9',
     uncommon: '#5E98D9',
     rare: '#4B69FF',
@@ -1288,7 +1285,7 @@ export default (strings) => {
     {
       displayName: strings.th_cosmetics,
       field: 'cosmetics',
-      displayFn: (row, col, field) =>
+      displayFn: (row: MatchPlayer, column: any, field: any[]) =>
         field.map((cosmetic) => (
           <StyledCosmetic
             key={cosmetic.item_id}
@@ -1330,19 +1327,19 @@ export default (strings) => {
     },
   ];
 
-  const goldReasonsColumns = [heroTdColumn].concat(
+  const goldReasonsColumns = ([heroTdColumn] as any[]).concat(
     Object.keys(strings)
       .filter((str) => str.indexOf('gold_reasons_') === 0)
       .map((gr) => ({
-        displayName: strings[gr],
+        displayName: strings[gr as keyof Strings],
         field: gr,
-        sortFn: (row) =>
+        sortFn: (row: MatchPlayer) =>
           row.gold_reasons
             ? row.gold_reasons[gr.substring('gold_reasons_'.length)]
             : 0,
-        displayFn: (row, column, value) => value || '-',
+        displayFn: (row: MatchPlayer, column: any, value: any) => value || '-',
         relativeBars: true,
-        sumFn: (acc, row) =>
+        sumFn: (acc: number, row: MatchPlayer) =>
           acc +
           (row.gold_reasons
             ? row.gold_reasons[gr.substring('gold_reasons_'.length)] || 0
@@ -1350,19 +1347,19 @@ export default (strings) => {
       })),
   );
 
-  const xpReasonsColumns = [heroTdColumn].concat(
+  const xpReasonsColumns = ([heroTdColumn] as any[]).concat(
     Object.keys(strings)
       .filter((str) => str.indexOf('xp_reasons_') === 0)
       .map((xpr) => ({
-        displayName: strings[xpr],
+        displayName: strings[xpr as keyof Strings],
         field: xpr,
-        sortFn: (row) =>
+        sortFn: (row: MatchPlayer) =>
           row.xp_reasons
             ? row.xp_reasons[xpr.substring('xp_reasons_'.length)]
             : 0,
-        displayFn: (row, column, value) => value || '-',
+        displayFn: (row: MatchPlayer, column: any, value: any) => value || '-',
         relativeBars: true,
-        sumFn: (acc, row) =>
+        sumFn: (acc: number, row: MatchPlayer) =>
           acc +
           (row.xp_reasons
             ? row.xp_reasons[xpr.substring('xp_reasons_'.length)] || 0
@@ -1370,17 +1367,17 @@ export default (strings) => {
       })),
   );
 
-  const objectiveDamageColumns = [heroTdColumn].concat(
+  const objectiveDamageColumns = ([heroTdColumn] as any[]).concat(
     Object.keys(strings)
       .filter((str) => str.indexOf('objective_') === 0)
       .map((obj) => ({
-        displayName: strings[obj],
+        displayName: strings[obj as keyof Strings],
         field: obj,
-        tooltip: strings[`tooltip_${obj}`],
-        sortFn: (row) =>
+        tooltip: strings[`tooltip_${obj}` as keyof Strings],
+        sortFn: (row: MatchPlayer) =>
           row.objective_damage &&
           row.objective_damage[obj.substring('objective_'.length)],
-        displayFn: (row, col, value) => value || '-',
+        displayFn: (row: MatchPlayer, col: any, value: any) => value || '-',
         relativeBars: true,
       })),
   );
@@ -1391,7 +1388,7 @@ export default (strings) => {
       displayName: strings.th_damage_dealt,
       field: 'damage_targets',
       width: '1px',
-      displayFn: (row, col, field) => {
+      displayFn: (row: MatchPlayer, column: any, field: any) => {
         if (field) {
           return <TargetsBreakdown field={field} />;
         }
@@ -1412,7 +1409,7 @@ export default (strings) => {
     {
       displayName: strings.th_damage_received,
       field: 'damage_inflictor_received',
-      displayFn: (row, col, field) => (
+      displayFn: (row: MatchPlayer, column: any, field: any) => (
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {field
             ? Object.keys(field)
@@ -1435,7 +1432,7 @@ export default (strings) => {
       displayName: strings.th_abilities,
       tooltip: strings.tooltip_casts,
       field: 'ability_targets',
-      displayFn: (row, col, field) => {
+      displayFn: (row: MatchPlayer, column: any, field: any) => {
         if (field) {
           return (
             <TargetsBreakdown field={field} abilityUses={row.ability_uses} />
@@ -1456,7 +1453,7 @@ export default (strings) => {
       displayName: strings.th_items,
       tooltip: strings.tooltip_casts,
       field: 'item_uses',
-      displayFn: (row, col, field) => (
+      displayFn: (row: MatchPlayer, column: any, field: any) => (
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {field
             ? Object.keys(field)
@@ -1475,7 +1472,7 @@ export default (strings) => {
       displayName: strings.th_hits,
       tooltip: strings.tooltip_hits,
       field: 'hero_hits',
-      displayFn: (row, col, field) => (
+      displayFn: (row: MatchPlayer, column: any, field: any) => (
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {field
             ? Object.keys(field)
@@ -1497,7 +1494,7 @@ export default (strings) => {
     {
       displayName: strings.th_analysis,
       field: 'analysis',
-      displayFn: (row, col, field) =>
+      displayFn: (row: MatchPlayer, column: any, field: any) =>
         Object.keys(field || {}).map((key) => {
           const val = field[key];
           val.display = `${val.name}: ${Number(
@@ -1511,17 +1508,17 @@ export default (strings) => {
               <div>
                 <span
                   style={{
-                    color: constants[bucket.color],
+                    color: constants[bucket.color as keyof typeof constants],
                     margin: '10px',
                     fontSize: '18px',
-                  }}
+                  } as React.CSSProperties}
                 >
                   {bucket.grade}
                 </span>
                 <span>{field[key].display}</span>
                 <StyledUnusedItem>
                   {key === 'unused_item' &&
-                    field[key].metadata.map((item) => inflictorWithValue(item))}
+                    field[key].metadata.map((item: any) => inflictorWithValue(item))}
                 </StyledUnusedItem>
               </div>
             );
@@ -1531,7 +1528,7 @@ export default (strings) => {
     },
   ];
 
-  const playerDeaths = (row, col, field) => {
+  const playerDeaths = (row: MatchPlayer, column: any, field: any) => {
     const deaths = [];
     for (let i = 0; i < field; i += 1) {
       deaths.push(
@@ -1544,7 +1541,7 @@ export default (strings) => {
     return field > 0 && <StyledPlayersDeath>{deaths}</StyledPlayersDeath>;
   };
 
-  const inflictorRow = (row, col, field) =>
+  const inflictorRow = (row: MatchPlayer, column: any, field: any) =>
     field ? (
       <div style={{ maxWidth: '100px' }}>
         {Object.keys(field).map((inflictor) =>
@@ -1599,16 +1596,16 @@ export default (strings) => {
     },
   ];
 
-  const computeAverage = (row, type) => {
+  const computeAverage = (row: MatchPlayer, type: 'obs' | 'sen') => {
     // const wardType = type === 'obs' ? 'ward_observer' : 'ward_sentry';
     // const maxDuration = items[wardType].attrib.find(x => x.key === 'lifetime').value;
     // 7.31 broke attrib values, so hardcode them here
     const maxDuration = type === 'obs' ? 360 : 420;
-    const totalDuration = [];
-    row[`${type}_log`].forEach((ward) => {
+    const totalDuration: number[] = [];
+    row[`${type}_log` as keyof MatchPlayer].forEach((ward: any) => {
       const findTime =
-        row[`${type}_left_log`] &&
-        row[`${type}_left_log`].find((x) => x.ehandle === ward.ehandle);
+        row[`${type}_left_log` as keyof MatchPlayer] &&
+        row[`${type}_left_log` as keyof MatchPlayer].find((x: any) => x.ehandle === ward.ehandle);
       const leftTime = (findTime && findTime.time) || false;
       if (leftTime !== false) {
         // exclude wards that did not expire before game ended from average time
@@ -1640,8 +1637,8 @@ export default (strings) => {
     ),
     field: 'obs_avg_life',
     tooltip: strings.tooltip_duration_observer,
-    sortFn: (row) => computeAverage(row, 'obs'),
-    displayFn: (row) => formatSeconds(computeAverage(row, 'obs')) || '-',
+    sortFn: (row: MatchPlayer) => computeAverage(row, 'obs'),
+    displayFn: (row: MatchPlayer) => formatSeconds(computeAverage(row, 'obs')) || '-',
     relativeBars: true,
   };
 
@@ -1659,8 +1656,8 @@ export default (strings) => {
     ),
     field: 'sen_avg_life',
     tooltip: strings.tooltip_duration_sentry,
-    sortFn: (row) => computeAverage(row, 'sen'),
-    displayFn: (row) => formatSeconds(computeAverage(row, 'sen')) || '-',
+    sortFn: (row: MatchPlayer) => computeAverage(row, 'sen'),
+    displayFn: (row: MatchPlayer) => formatSeconds(computeAverage(row, 'sen')) || '-',
     relativeBars: true,
   };
 
@@ -1679,7 +1676,7 @@ export default (strings) => {
     tooltip: strings.tooltip_purchase_ward_observer,
     field: 'purchase_ward_observer',
     sortFn: true,
-    displayFn: (row, col, field) => field || '-',
+    displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
     relativeBars: true,
   };
 
@@ -1698,7 +1695,7 @@ export default (strings) => {
     tooltip: strings.tooltip_purchase_ward_sentry,
     field: 'purchase_ward_sentry',
     sortFn: true,
-    displayFn: (row, col, field) => field || '-',
+    displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
     relativeBars: true,
   };
 
@@ -1717,7 +1714,7 @@ export default (strings) => {
     tooltip: strings.tooltip_purchase_dust,
     field: 'purchase_dust',
     sortFn: true,
-    displayFn: (row, col, field) => field || '-',
+    displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
     relativeBars: true,
   };
 
@@ -1736,7 +1733,7 @@ export default (strings) => {
     tooltip: strings.tooltip_purchase_smoke_of_deceit,
     field: 'purchase_smoke_of_deceit',
     sortFn: true,
-    displayFn: (row, col, field) => field || '-',
+    displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
     relativeBars: true,
   };
 
@@ -1755,11 +1752,11 @@ export default (strings) => {
     tooltip: strings.tooltip_purchase_gem,
     field: 'purchase_gem',
     sortFn: true,
-    displayFn: (row, col, field) => field || '-',
+    displayFn: (row: MatchPlayer, column: any, field: any) => field || '-',
     relativeBars: true,
   };
 
-  const visionColumns = (visionStrings) => [
+  const visionColumns = (visionStrings: Strings) => [
     heroTdColumn,
     purchaseObserverColumn,
     {
@@ -1776,8 +1773,8 @@ export default (strings) => {
       ),
       tooltip: visionStrings.tooltip_used_ward_observer,
       field: 'uses_ward_observer',
-      sortFn: (row) => row.obs_log && row.obs_log.length,
-      displayFn: (row, column, value) => value || '-',
+      sortFn: (row: MatchPlayer) => row.obs_log && row.obs_log.length,
+      displayFn: (row: MatchPlayer, column: any, value: any) => value || '-',
       relativeBars: true,
     },
     obsAvgColumn,
@@ -1796,8 +1793,8 @@ export default (strings) => {
       ),
       tooltip: visionStrings.tooltip_used_ward_sentry,
       field: 'uses_ward_sentry',
-      sortFn: (row) => row.sen_log && row.sen_log.length,
-      displayFn: (row, column, value) => value || '-',
+      sortFn: (row: MatchPlayer) => row.sen_log && row.sen_log.length,
+      displayFn: (row: MatchPlayer, column: any, value: any) => value || '-',
       relativeBars: true,
     },
     senAvgColumn,
@@ -1816,8 +1813,8 @@ export default (strings) => {
       ),
       tooltip: visionStrings.tooltip_used_dust,
       field: 'uses_dust',
-      sortFn: (row) => row.item_uses && row.item_uses.dust,
-      displayFn: (row, column, value) => value || '-',
+      sortFn: (row: MatchPlayer) => row.item_uses && row.item_uses.dust,
+      displayFn: (row: MatchPlayer, column: any, value: any) => value || '-',
       relativeBars: true,
     },
     purchaseSmokeColumn,
@@ -1835,8 +1832,8 @@ export default (strings) => {
       ),
       tooltip: visionStrings.tooltip_used_smoke_of_deceit,
       field: 'uses_smoke',
-      sortFn: (row) => row.item_uses && row.item_uses.smoke_of_deceit,
-      displayFn: (row, column, value) => value || '-',
+      sortFn: (row: MatchPlayer) => row.item_uses && row.item_uses.smoke_of_deceit,
+      displayFn: (row: MatchPlayer, column: any, value: any) => value || '-',
       relativeBars: true,
     },
     purchaseGemColumn,
