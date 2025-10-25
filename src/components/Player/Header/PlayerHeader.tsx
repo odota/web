@@ -278,13 +278,6 @@ const PlayerHeader = ({
     marginRight: small ? 30 : 0,
   };
 
-  if (!small) {
-    badgeStyle = {
-      ...badgeStyle,
-      marginLeft: -1 * (LARGE_IMAGE_SIZE / 2) * 0.75,
-    };
-  }
-
   return (
     <Styled>
       <div className="container">
