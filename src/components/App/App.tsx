@@ -66,7 +66,7 @@ const StyledDiv = styled.div<AppStylesProps>`
     props.location?.pathname === '/'
       ? `url("/assets/images/home-background.png")`
       : ''};
-  background-position: center top 0px;
+  background-position: center top -8px;
   background-repeat: ${(props) =>
     props.location?.pathname === '/' ? 'no-repeat' : ''};
 `;

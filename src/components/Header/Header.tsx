@@ -342,7 +342,7 @@ const Header = ({
           {small && <LinkGroup navbarPages={navbarPages} />}
         </VerticalAlignDiv>
         <div
-          style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}
+          style={{ display: 'flex', justifyContent: 'flex-end', width: '100%', gap: '4px' }}
         >
           {!disableSearch && <SearchGroup />}
           <VerticalAlignDiv>
