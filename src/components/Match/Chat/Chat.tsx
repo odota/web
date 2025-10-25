@@ -1,13 +1,10 @@
 import React, { createElement } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-//@ts-expect-error
-import AvVolumeUp from 'material-ui/svg-icons/av/volume-up';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { Checkbox, FormControlLabel } from '@mui/material';
-//@ts-expect-error
-import Visibility from 'material-ui/svg-icons/action/visibility';
-//@ts-expect-error
-import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { heroes, player_colors as playerColors } from 'dotaconstants';
 import emotes from 'dota2-emoticons/resources/json/charname.json';
 import styled from 'styled-components';
@@ -449,7 +446,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
               message = [(messageInfo.message || '').replace(/%s1/, 'A hero')];
               if (messageInfo.sound_ext) {
                 message.unshift(
-                  <AvVolumeUp
+                  <VolumeUpIcon
                     key={messageInfo.id}
                     viewBox="-2 -2 28 28"
                     onClick={() => this.audio(messageInfo, index)}
@@ -593,8 +590,8 @@ class Chat extends React.Component<ChatProps, ChatState> {
                         <Checkbox
                         checked={this.state[filter.name as keyof ChatState]}
                         onChange={() => this.toggleFilter(filter.name)}
-                        checkedIcon={<Visibility />}
-                        icon={<VisibilityOff />}
+                        checkedIcon={<VisibilityIcon />}
+                        icon={<VisibilityOffIcon />}
                         disabled={filter.disabled()}
                         />}
                       />

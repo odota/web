@@ -1,6 +1,5 @@
 import React from 'react';
-//@ts-expect-error
-import ActionInfo from 'material-ui/svg-icons/action/info';
+import InfoIcon from '@mui/icons-material/Info';
 import styled from 'styled-components';
 import constants from '../constants';
 
@@ -29,7 +28,7 @@ const Info = ({
   msg?: string;
 }) => (
   <StyledDiv className={`${className}`}>
-    <ActionInfo />
+    <InfoIcon />
     <span>
       {!children && msg}
       {!msg && children}

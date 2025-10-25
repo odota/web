@@ -7,8 +7,8 @@ import {
 import curry from 'lodash/fp/curry';
 import findLast from 'lodash/fp/findLast';
 import inRange from 'lodash/fp/inRange';
-import SocialPeople from '@mui/icons-material/Group';
-import SocialPerson from '@mui/icons-material/Person';
+import GroupIcon from '@mui/icons-material/Group';
+import PersonIcon from '@mui/icons-material/Person';
 import querystring from 'querystring';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -847,7 +847,7 @@ export const transformations = {
     const partySize = (_partySize: number) => {
       if (_partySize === 1) {
         return (
-          <SocialPerson
+          <PersonIcon
             style={iconStyle}
           />
         );
@@ -856,7 +856,7 @@ export const transformations = {
       }
       return (
         <div style={{ float: 'right', marginTop: '-3px', marginRight: '2px' }}>
-          <SocialPeople
+          <GroupIcon
             style={iconStyle}
           />
           <div

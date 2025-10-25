@@ -1,5 +1,4 @@
 import React from 'react';
-//@ts-expect-error
-import CheckCircle from 'material-ui/svg-icons/action/check-circle';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-export default (props: any) => <CheckCircle viewBox="2 2 20 20" {...props} />;
+export default (props: any) => <CheckCircleIcon viewBox="2 2 20 20" {...props} />;

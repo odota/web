@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
-//@ts-expect-error
-import NavigationArrowForward from 'material-ui/svg-icons/navigation/arrow-forward';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { inflictorWithValue } from '../Visualizations';
 import { sumValues, getHeroesById, abbreviateNumber } from '../../utility';
 import { StyledDmgTargetInflictor, StyledDmgTargetRow } from './StyledMatch';
@@ -125,7 +124,7 @@ const TargetsBreakdown = ({ field, abilityUses = null }: { field: string, abilit
           <StyledDmgTargetInflictor id="target">
             {inflictorWithValue(inflictor, abbreviateNumber(valueOverall))}
           </StyledDmgTargetInflictor>
-          <NavigationArrowForward style={arrowStyle} />
+          <ArrowForwardIcon style={arrowStyle} />
           {!f[inflictor].null ? damageTargetIcons(f[inflictor]) : <Dummy />}
         </div>,
       );

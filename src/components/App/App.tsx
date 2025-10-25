@@ -1,9 +1,3 @@
-//@ts-expect-error
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-//@ts-expect-error
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-//@ts-expect-error
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import React, { Suspense } from 'react';
 import Helmet from 'react-helmet';
@@ -26,8 +20,6 @@ import Request from '../Request/Request';
 import Scenarios from '../Scenarios/Scenarios';
 import Search from '../Search/Search';
 import Teams from '../Teams';
-import GlobalStyle from './GlobalStyle';
-import muiTheme from './muiTheme';
 import config from '../../config';
 import Spinner from '../Spinner/Spinner';
 import Players from '../Players/Players';
@@ -180,11 +172,7 @@ const App = (props: AppProps) => {
 
   return (
     <ThemeProvider theme={darkTheme}>
-    <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme, muiTheme)}>
-      {' '}
-      {/* muiTheme types are missing here */}
       <Suspense fallback={<Spinner />}>
-        <GlobalStyle />
         <StyledDiv {...props}>
           <Helmet
             defaultTitle={strings.title_default}
@@ -258,7 +246,6 @@ const App = (props: AppProps) => {
           </Back2Top>
         </StyledDiv>
       </Suspense>
-    </MuiThemeProvider>
     </ThemeProvider>
   );
 };

@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Box } from '@mui/material';
 import { Button } from '@mui/material';
-//@ts-expect-error
-import ActionUpdate from 'material-ui/svg-icons/navigation/refresh';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import styled from 'styled-components';
 import { toggleShowForm as toggleShowFormAction } from '../../../actions/formActions';
 import GamemodeToggle from '../../../components/GamemodeToggle';
@@ -50,7 +49,7 @@ class PlayerButtons extends React.Component<PlayerButtonsProps, { disableRefresh
       <Styled>
         <div data-hint={strings.app_refresh} data-hint-position="top">
           <Button
-            startIcon={<ActionUpdate />}
+            startIcon={<RefreshIcon />}
             disabled={this.state.disableRefresh}
             onClick={() => {
               fetch(`${config.VITE_API_HOST}/api/players/${playerId}/refresh`, {

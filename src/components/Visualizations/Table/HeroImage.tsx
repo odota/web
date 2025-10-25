@@ -2,13 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { Tooltip } from '@mui/material';
-//@ts-expect-error
-import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { player_colors as playerColors } from 'dotaconstants';
-//@ts-expect-error
-import SocialPerson from 'material-ui/svg-icons/social/person';
-//@ts-expect-error
-import NotificationSync from 'material-ui/svg-icons/notification/sync';
+import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
+import SyncIcon from '@mui/icons-material/Sync';
 import styled from 'styled-components';
 import { subTextStyle, IMAGESIZE_ENUM } from '../../../utility';
 import { TableLink } from '../../Table';
@@ -26,6 +23,8 @@ import AttrUniversal from '../../Icons/AttrUniversal';
 import HeroImage from '../HeroImage';
 import HeroFacet from './HeroFacet';
 import useStrings from '../../../hooks/useStrings.hook';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+
 
 // hero to use as background image in tooltip
 const backgroundMapping = {
@@ -166,16 +165,11 @@ const Styled = styled.div`
     display: inline-block;
 
     & svg {
-      width: 10px !important;
-      height: 10px !important;
+      width: 14px !important;
+      height: 14px !important;
       margin-right: 5px;
     }
-    width: 10px;
-    height: 10px;
-    margin-right: 5px;
-    background-color: ${constants.colorSuccess};
-    border-radius: 50%;
-    margin-top: 1px;
+    color: ${constants.colorSuccess}
   }
 
   .imageContainer {
@@ -514,7 +508,7 @@ class TableHeroImage extends React.Component<TableHeroImageProps, { tooltipVisib
               className={parsed ? 'parsed' : 'unparsed'}
               data-hint={parsed && strings.tooltip_parsed}
             >
-              <ActionDoneAll />
+              <DoneAllIcon />
             </div>
           )}
           {party && <div className="party">{party}</div>}
@@ -570,7 +564,9 @@ class TableHeroImage extends React.Component<TableHeroImageProps, { tooltipVisib
                     className="registered"
                     data-hint={strings.tooltip_registered_user}
                     data-hint-position="top"
-                  />
+                  >
+                    <HowToRegIcon />
+                  </div>
                 )}
                 {subscriber && (
                   <div
@@ -630,7 +626,7 @@ class TableHeroImage extends React.Component<TableHeroImageProps, { tooltipVisib
                         data-hint={strings.general_repicked}
                         data-hint-position="top"
                       >
-                        <NotificationSync />
+                        <SyncIcon />
                       </span>
                     )}
                     {predictedVictory && (
@@ -771,7 +767,7 @@ export const Mmr = ({ number }: { number: number }) => {
   const strings = useStrings();
   return <span>
     <section data-hint={strings.th_solo_mmr} data-hint-position="bottom">
-      <SocialPerson />
+      <MilitaryTechIcon />
     </section>
     {number || strings.general_unknown}
   </span>;
@@ -781,7 +777,7 @@ export const CompetitiveRank = ({ rankTier }: { rankTier: number }) => {
   const strings = useStrings();
   return <span className="rank">
     <section data-hint={strings.th_rank} data-hint-position="bottom">
-      <SocialPerson />
+      <MilitaryTechIcon />
     </section>
     {rankTier}
   </span>;

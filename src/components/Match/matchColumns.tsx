@@ -9,8 +9,7 @@ import {
 } from 'dotaconstants';
 import ReactTooltip from 'react-tooltip';
 import { Radio as RadioButton } from '@mui/material';
-//@ts-expect-error
-import ActionOpenInNew from 'material-ui/svg-icons/action/open-in-new';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {
   formatSeconds,
   abbreviateNumber,
@@ -1309,7 +1308,7 @@ export default (strings: Strings) => {
                   }`,
                 }}
               />
-              <ActionOpenInNew />
+              <OpenInNewIcon />
             </a>
             <ReactTooltip id={`cosmetic_${cosmetic.item_id}`} effect="solid">
               <span

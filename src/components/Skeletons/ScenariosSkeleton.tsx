@@ -5,8 +5,6 @@ const ScenariosSkeleton = () => (
   <ContentLoader
     height={300}
     width={800}
-    primaryColor="#666"
-    secondaryColor="#ecebeb"
     animate
   >
     <rect x="0" y="55" rx="0" ry="0" width="800" height="50" />

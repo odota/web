@@ -3,14 +3,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import styled from 'styled-components';
-//@ts-expect-error
-import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh';
-//@ts-expect-error
-import ActionFingerprint from 'material-ui/svg-icons/action/fingerprint';
-//@ts-expect-error
-import FileFileDownload from 'material-ui/svg-icons/file/file-download'
-//@ts-expect-error;
-import ContentCopy from 'material-ui/svg-icons/content/content-copy';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import DataObjectIcon from '@mui/icons-material/DataObject';
+import DownloadIcon from '@mui/icons-material/Download';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { transformations, isRadiant, sum } from '../../../utility';
 import { IconRadiant, IconDire } from '../../Icons';
 import Warning from '../../Alerts/Warning';
@@ -352,7 +348,7 @@ const MatchHeader = ({ match }: { match : Match }) => {
               <Button
                 onClick={copyMatchId}
                 endIcon={
-                  <ContentCopy
+                  <ContentCopyIcon
                     viewBox="0 -3 30 30"
                     style={{ height: 18, width: 18 }}
                   />
@@ -371,7 +367,7 @@ const MatchHeader = ({ match }: { match : Match }) => {
       )}
       <div className="matchButtons">
         <Button
-          startIcon={match.version ? <NavigationRefresh /> : <ActionFingerprint />}
+          startIcon={match.version ? <RefreshIcon /> : <DataObjectIcon />}
         ><Link to={`/request#${match.match_id}`}>{
             match.version
               ? strings.match_button_reparse
@@ -379,7 +375,7 @@ const MatchHeader = ({ match }: { match : Match }) => {
           }</Link></Button>
         {match.replay_url && (
           <Button
-            startIcon={<FileFileDownload />}
+            startIcon={<DownloadIcon />}
             href={match.replay_url}
             target="_blank"
             rel="noopener noreferrer"

@@ -3,10 +3,8 @@ import ContentLoader from 'react-content-loader';
 
 const TableSkeleton = (props: any) => (
   <ContentLoader
-    height={160}
-    width={500}
-    primaryColor="#666"
-    secondaryColor="#ecebeb"
+    height={300}
+    width={600}
     animate
     {...props}
   >

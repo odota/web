@@ -1,8 +1,6 @@
 import React from 'react';
-//@ts-expect-error
-import NavigationArrowUpward from 'material-ui/svg-icons/navigation/arrow-upward';
-//@ts-expect-error
-import NavigationArrowDownward from 'material-ui/svg-icons/navigation/arrow-downward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 const getTotalWidth = (columns: any[]) =>
   columns.reduce((prev, current) => prev + current.width, 0);
@@ -14,10 +12,10 @@ const isSortField = (sortField: string, field: string) => sortField === field;
 const getSortIcon = (sortState: string, sortField: string, field: string, style: React.CSSProperties) => {
   if (isSortField(sortField, field)) {
     if (sortState === 'asc') {
-      return <NavigationArrowUpward style={style} />;
+      return <ArrowUpwardIcon style={style} />;
     }
     if (sortState === 'desc') {
-      return <NavigationArrowDownward style={style} />;
+      return <ArrowDownwardIcon style={style} />;
     }
   }
   return null;

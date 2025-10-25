@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import { TextField } from '@mui/material';
-//@ts-expect-error
-import ActionSearch from 'material-ui/svg-icons/action/search';
+import SearchIcon from '@mui/icons-material/Search';
 
 const StyledHorizontalMenuFilter = styled.div`
   display: flex;
@@ -33,7 +32,7 @@ const HorizontalMenuFilter = ({
   filterText: string,
 }) => (
   <StyledHorizontalMenuFilter>
-    <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
+    <SearchIcon style={{ marginRight: 6, opacity: '.6' }} />
     <TextField
       helperText={filterText}
       value={value}

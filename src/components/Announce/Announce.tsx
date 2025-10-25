@@ -84,7 +84,7 @@ const Announce = ({
   return <StyledDiv>
     <main>
       <h4>{title}</h4>
-      {body && <ReactMarkdown source={body} />}
+      {body && <ReactMarkdown>{body}</ReactMarkdown>}
     </main>
     <aside>
       <Button

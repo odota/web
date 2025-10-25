@@ -10,10 +10,8 @@ import {
 import BugReport from '@mui/icons-material/BugReport';
 import MenuIcon from '@mui/icons-material/Menu'; 
 import Settings from '@mui/icons-material/Settings';
-//@ts-expect-error
-import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
-//@ts-expect-error
-import ActionSearch from 'material-ui/svg-icons/action/search';
+import LogoutIcon from '@mui/icons-material/Logout';
+import SearchIcon from '@mui/icons-material/Search';
 import { Toolbar } from '@mui/material';
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
@@ -206,7 +204,7 @@ const LogoGroup = ({ onMenuClick }: { onMenuClick: (e: React.MouseEvent) => void
 
 const SearchGroup = () => (
   <VerticalAlignToolbar style={{ marginLeft: 'auto' }}>
-    <ActionSearch style={{ marginRight: 6, opacity: '.6' }} />
+    <SearchIcon style={{ marginRight: 6, opacity: '.6' }} />
     <SearchForm />
   </VerticalAlignToolbar>
 );
@@ -239,7 +237,7 @@ const LogOut = () => {
     href={`${config.VITE_API_HOST}/logout`}
     rel="noopener noreferrer"
   >
-    <LogOutButton style={{ marginRight: 32, width: 24, height: 24 }} />
+    <LogoutIcon style={{ marginRight: 32, width: 24, height: 24 }} />
     {strings.app_logout}
   </DropdownMenuItem>;
 };

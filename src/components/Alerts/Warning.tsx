@@ -1,6 +1,5 @@
 import React from 'react';
-//@ts-expect-error
-import AlertWarning from 'material-ui/svg-icons/alert/warning';
+import WarningIcon from '@mui/icons-material/Warning';
 import styled from 'styled-components';
 import constants from '../constants';
 
@@ -29,7 +28,7 @@ const Warning = ({
   msg?: string;
 }) => (
   <StyledDiv className={`${className}`}>
-    <AlertWarning />
+    <WarningIcon />
     <span>
       {!children && msg}
       {!msg && children}

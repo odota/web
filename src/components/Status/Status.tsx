@@ -38,7 +38,7 @@ class Status extends React.Component<{ strings: Strings }> {
   state = {
     result: {} as Record<string, any>,
     last: {} as Record<string, any>,
-    // ts: new Date(),
+    ts: new Date(),
     // follow: true,
   };
 
@@ -55,9 +55,9 @@ class Status extends React.Component<{ strings: Strings }> {
     setInterval(
       () => {
         // Periodically clear the logs and reconnect
-        // this.setState({ ts: new Date() });
+        this.setState({ ts: new Date() });
       },
-      30 * 60 * 1000,
+      15 * 60 * 1000,
     );
   }
   render() {
@@ -71,7 +71,7 @@ class Status extends React.Component<{ strings: Strings }> {
               startFollowing={true}
               render={({ follow, onScroll }) => (
                 <LazyLog
-                  // key={Number(this.state.ts)}
+                  key={Number(this.state.ts)}
                   stream
                   url={`${config.VITE_API_HOST.replace('http', 'ws')}`}
                   websocket
@@ -80,8 +80,8 @@ class Status extends React.Component<{ strings: Strings }> {
                   enableSearch
                   selectableLines
                   onLoad={() => {
-                    // Trigger a reload since we finished connecting to socket
-                    // this.setState({ ts: new Date() });
+                    // Trigger a reload since socket connection ended
+                    this.setState({ ts: new Date() });
                   }}
                 />
               )}

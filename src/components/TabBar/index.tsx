@@ -1,9 +1,9 @@
 import { Tab, Tabs, Tooltip } from '@mui/material';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import useReactRouter from 'use-react-router';
 
 import constants from '../constants';
+import { withRouter } from 'react-router-dom';
 
 const StyledMain = styled.main`
   position: relative;
@@ -36,13 +36,12 @@ const StyledTab = styled(Tab)`
 const TabTooltip = ({ title, children }: { title: string, children: React.ReactElement<any, any> }) =>
   title ? <Tooltip title={title}>{children}</Tooltip> : children;
 
-const TabBar = ({ tabs, match }: { tabs: any[], match?: any }) => {
+const TabBar = ({ tabs, matchData, history, location }: { tabs: any[], matchData?: Match } & RouterProps) => {
   const [tabValue, setTabValue] = useState(0);
-  const { history, location } = useReactRouter();
   const visibleTabs = useMemo(
     () =>
-      tabs.filter((tab) => !tab.hidden || (tab.hidden && !tab.hidden(match))),
-    [match, tabs],
+      tabs.filter((tab) => !tab.hidden || (tab.hidden && !tab.hidden(matchData))),
+    [matchData, tabs],
   );
 
   useEffect(() => {
@@ -89,4 +88,4 @@ const TabBar = ({ tabs, match }: { tabs: any[], match?: any }) => {
   );
 };
 
-export default TabBar;
+export default withRouter(TabBar);

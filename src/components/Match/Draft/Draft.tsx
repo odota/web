@@ -1,9 +1,7 @@
 import React from 'react';
 import { heroes } from 'dotaconstants';
-//@ts-expect-error
-import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-//@ts-expect-error
-import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import styled from 'styled-components';
 import Heading from '../../Heading';
 import { IconRadiant, IconDire } from '../../Icons';
@@ -116,11 +114,11 @@ const HeroIcon = styled.div`
   }
 `;
 
-const LeftArrow = styled(Prev)`
+const LeftArrow = styled(KeyboardArrowLeftIcon)`
   visibility: ${(props: { visible: string }) => (props.visible === 'true' ? 'visible' : 'hidden')};
 `;
 
-const RightArrow = styled(Next)`
+const RightArrow = styled(KeyboardArrowRightIcon)`
   visibility: ${(props: { visible: string }) => (props.visible === 'true' ? 'visible' : 'hidden')};
 `;
 

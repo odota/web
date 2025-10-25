@@ -1,6 +1,6 @@
 import React from 'react';
-import { List } from 'react-content-loader';
 import TabBar from '../TabBar';
+import TableSkeleton from '../Skeletons/TableSkeleton';
 
 class RenderContent extends React.Component<{ skeleton?: boolean, content: any }> {
   state = {
@@ -18,8 +18,7 @@ class RenderContent extends React.Component<{ skeleton?: boolean, content: any }
     const { render } = this.state;
 
     const PlaceHolder = () =>
-      skeleton ? <List primaryColor="#666" width={250} height={120} /> : null;
-
+      skeleton ? <TableSkeleton /> : null;
     return render && content ? (
       content
     ) : (
@@ -30,15 +29,15 @@ class RenderContent extends React.Component<{ skeleton?: boolean, content: any }
   }
 }
 
-const TabbedContent = ({ info, tabs, match, content, skeleton }: {
+const TabbedContent = ({ info, tabs, matchData, content, skeleton }: {
   tabs: any[],
   info: string,
-  match: any,
+  matchData: Match,
   content: any,
   skeleton?: boolean,
 }) => (
   <React.Fragment>
-    <TabBar tabs={tabs} match={match} />
+    <TabBar tabs={tabs} matchData={matchData} />
     <RenderContent content={content} skeleton={skeleton} key={info} />
   </React.Fragment>
 );

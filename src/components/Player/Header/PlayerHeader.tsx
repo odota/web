@@ -87,24 +87,6 @@ const Styled = styled.div`
     justify-content: center;
   }
 
-  .registered {
-    width: 18px;
-    height: 18px;
-    position: relative;
-
-    &[data-hint-position='top'] {
-      &::before {
-        top: -7px;
-        margin-left: 3px;
-      }
-
-      &::after {
-        margin-bottom: 7px;
-        margin-left: -7px;
-      }
-    }
-  }
-
   .dotaPlusMedal {
     position: relative;
     display: flex;
@@ -139,17 +121,6 @@ const Styled = styled.div`
 `;
 
 const LARGE_IMAGE_SIZE = 124;
-
-const RegisteredBadge = ({ registered }: { registered : boolean }) => {
-  const strings = useStrings();
-  return registered ? (
-    <div
-      className="registered"
-      data-hint={strings.tooltip_registered_user}
-      data-hint-position="top"
-    />
-  ) : null;
-};
 
 const DotaPlusBadge = ({ plus }: { plus: boolean }) => {
   const strings = useStrings();
@@ -268,7 +239,6 @@ const PlayerHeader = ({
   officialPlayerName,
   playerId,
   picture,
-  registered,
   plus,
   loading,
   error,
@@ -281,7 +251,6 @@ const PlayerHeader = ({
   officialPlayerName: string,
   playerId: string,
   picture: string,
-  registered: boolean,
   plus: boolean,
   loading: boolean,
   error: string,
@@ -297,23 +266,12 @@ const PlayerHeader = ({
   if (loading) {
     return (
       <Facebook
-        primaryColor="#666"
-        secondaryColor="#ecebeb"
         width={400}
         height={60}
         animate
       />
     );
   }
-
-  let badgeStyle: React.CSSProperties = {
-    fontSize: 20,
-    top: 5,
-    left: 40,
-    background: registered ? constants.colorGreen : 'transparent',
-    width: 18,
-    height: 18,
-  };
 
   const avatarStyle = {
     marginLeft: small ? 30 : 0,
@@ -332,21 +290,12 @@ const PlayerHeader = ({
       <div className="container">
         <div className="topContainer">
           <div className="imageContainer">
-            <Badge
-              badgeContent={<RegisteredBadge registered={registered} />}
-              // badgeStyle={badgeStyle}
-              // style={{
-              //   margin: 0,
-              //   padding: 0,
-              // }}
-            >
-              <Avatar
-                src={picture}
-                style={avatarStyle}
-                sx={{ width: LARGE_IMAGE_SIZE, height: LARGE_IMAGE_SIZE }}
-                className="overviewAvatar"
-              />
-            </Badge>
+            <Avatar
+              src={picture}
+              style={avatarStyle}
+              sx={{ width: LARGE_IMAGE_SIZE, height: LARGE_IMAGE_SIZE }}
+              className="overviewAvatar"
+            />
           </div>
           <div className="playerInfo">
             <div className="titleNameButtons">
@@ -381,7 +330,6 @@ const mapStateToProps = (state: any) => ({
   officialPlayerName: (state.app.player.data.profile || {}).name,
   playerSoloCompetitiveRank: state.app.player.data.solo_competitive_rank,
   picture: (state.app.player.data.profile || {}).avatarfull,
-  registered: (state.app.player.data.profile || {}).last_login,
   plus: (state.app.player.data.profile || {}).plus,
   small: state.browser.greaterThan.small,
   loggedInUser: state.app.metadata.data.user,

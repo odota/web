@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
-//@ts-expect-error
-import Next from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-//@ts-expect-error
-import Prev from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import constants from '../constants';
 import useStrings from '../../hooks/useStrings.hook';
 
@@ -69,10 +67,10 @@ const StyledArrowButton = styled(Button)`
   min-width: 20px !important;
   ${arrowStyle}
 `;
-const StyledPrev = styled(Prev)`
+const StyledPrev = styled(KeyboardArrowLeftIcon)`
   ${arrowStyle}
 `;
-const StyledNext = styled(Next)`
+const StyledNext = styled(KeyboardArrowRightIcon)`
   ${arrowStyle}
 `;
 const StyledCurrentPage = styled(Button)`

@@ -32,7 +32,7 @@ const PageLinks = () => {
   return <>{links.map((link) => (
     <a
       href={link.path}
-      key={link.name}
+      key={link.path}
       target="_blank"
       rel="noopener noreferrer"
     >

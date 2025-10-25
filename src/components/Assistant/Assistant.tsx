@@ -1,8 +1,7 @@
 import React from 'react';
 import Heading from '../Heading';
 import { IconButton } from '@mui/material';
-//@ts-expect-error
-import Mic from 'material-ui/svg-icons/av/mic';
+import MicIcon from '@mui/icons-material/Mic';
 
 // Test
 // window.speechSynthesis.speak(new window.SpeechSynthesisUtterance('some text here'))
@@ -256,7 +255,7 @@ class Assistant extends React.Component<
                 );
               }}
             >
-              <Mic />
+              <MicIcon />
             </IconButton>
           </div>
           <div>{this.state.recognizedSpeech}</div>

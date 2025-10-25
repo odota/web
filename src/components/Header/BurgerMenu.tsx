@@ -1,7 +1,6 @@
 import React from 'react';
 import { Drawer, Menu, MenuItem, IconButton } from '@mui/material';
-//@ts-expect-error
-import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+import MenuIcon from '@mui/icons-material/Menu';
 import styled from 'styled-components';
 import constants from '../constants';
 

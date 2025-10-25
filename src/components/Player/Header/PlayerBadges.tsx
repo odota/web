@@ -11,6 +11,7 @@ import {
 } from '../../Icons';
 import constants from '../../constants';
 import useStrings from '../../../hooks/useStrings.hook';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
 
 const Styled = styled.div`
   .iconButton {
@@ -135,6 +136,7 @@ export const PlayerBadgesIcons = ({
   steamLink,
   officialPlayerName,
   playerId,
+  registered,
 }: {
   loading: boolean,
   error: string,
@@ -145,6 +147,7 @@ export const PlayerBadgesIcons = ({
   steamLink: string,
   officialPlayerName: string,
   playerId: string,
+  registered: boolean,
 }) => {
   const strings = useStrings();
   const getPlayerBadges = () => {
@@ -205,13 +208,26 @@ export const PlayerBadgesIcons = ({
                 oColor="#212121"
               />
             </div>
-          )}
+          )}  
+          {registered && <RegisteredBadge registered={registered} />}
         </div>
       </Styled>
     );
   };
 
   return getPlayerBadges();
+};
+
+const RegisteredBadge = ({ registered }: { registered : boolean }) => {
+  const strings = useStrings();
+  return registered ? (
+    <div
+      style={{ marginLeft: '8px', paddingTop: '8px', color: constants.colorSuccess }}
+      data-hint={strings.tooltip_registered_user}
+    >
+      <HowToRegIcon />
+    </div>
+  ) : null;
 };
 
 const mapStateToProps = (state: any) => ({
@@ -223,6 +239,7 @@ const mapStateToProps = (state: any) => ({
   tracked: state.app.player.data.tracked_until,
   steamLink: (state.app.player.data.profile || {}).profileurl,
   officialPlayerName: (state.app.player.data.profile || {}).name,
+  registered: (state.app.player.data.profile || {}).last_login,
 });
 
 export default connect(mapStateToProps)(PlayerBadgesIcons);

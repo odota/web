@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { List } from 'react-content-loader';
 import TabbedContent from '../TabbedContent/TabbedContent';
 import { getMatch } from '../../actions';
 import MatchHeader from './MatchHeader/MatchHeader';
 import matchPages from './matchPages';
 import FourOhFour from '../../components/FourOhFour/FourOhFour';
 import ErrorBox from '../Error/ErrorBox';
+import Spinner from '../Spinner/Spinner';
 
 type MatchProps = {
   loading: boolean,
@@ -51,16 +51,14 @@ class RequestLayer extends React.Component<MatchProps> {
     if (error && !loading) {
       return <FourOhFour msg={strings.request_invalid_match_id} />;
     }
-    return loading ? (
-      <List primaryColor="#666" width={250} height={120} />
-    ) : (
+    return (loading ? <Spinner /> :
       <div>
         <Helmet title={pageTitle} />
         <MatchHeader match={matchData} />
         <TabbedContent
           info={info}
           tabs={matchPages(matchId, matchData, strings)}
-          match={matchData}
+          matchData={matchData}
           content={page && page.content(matchData)}
           skeleton={page && page.skeleton}
         />
