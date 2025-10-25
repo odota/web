@@ -76,10 +76,6 @@ const ToolbarHeader = styled(Toolbar)`
   backdrop-filter: blur(16px);
   background-color: rgba(19, 111, 149, 37%) !important;
   box-shadow: 2px 2px 3px -2px rgb(0 0 0 / 23%);
-  left: 0;
-  padding: 8px 16px !important;
-  position: fixed;
-  top: 0;
   width: 100%;
   z-index: 200;
 
@@ -150,7 +146,7 @@ const SettingsGroup = ({ children }: { children: React.ReactNode }) => {
   }, [setAnchorEl]);
 
   return (
-    <>
+    <div>
       {/*@ts-expect-error*/}
       <IconButton
         ref={buttonRef}
@@ -170,7 +166,7 @@ const SettingsGroup = ({ children }: { children: React.ReactNode }) => {
           {children}
         </DropdownMenu>
       )}
-    </>
+    </div>
   );
 };
 
@@ -183,7 +179,7 @@ const MenuButtonWrapper = styled.div`
 `;
 
 const LogoGroup = ({ onMenuClick }: { onMenuClick: (e: React.MouseEvent) => void }) => (
-  <div style={{ marginRight: 16 }}>
+  <div style={{ marginRight: 16, marginLeft: 16 }}>
     <VerticalAlignToolbar>
       <MenuButtonWrapper>
         <IconButton
@@ -203,7 +199,7 @@ const LogoGroup = ({ onMenuClick }: { onMenuClick: (e: React.MouseEvent) => void
 );
 
 const SearchGroup = () => (
-  <VerticalAlignToolbar style={{ marginLeft: 'auto' }}>
+  <VerticalAlignToolbar>
     <SearchIcon style={{ marginRight: 6, opacity: '.6' }} />
     <SearchForm />
   </VerticalAlignToolbar>
@@ -325,20 +321,22 @@ const Header = ({ location, disableSearch }: { location: any, disableSearch?: bo
 
   return (
     <>
-      <ToolbarHeader variant="dense">
+      <ToolbarHeader disableGutters variant="dense">
         <VerticalAlignDiv>
           <LogoGroup onMenuClick={() => setMenuState(true)} />
           {small && <LinkGroup navbarPages={navbarPages} />}
         </VerticalAlignDiv>
-        {!disableSearch && <SearchGroup />}
-        <VerticalAlignDiv>
-          {small && <AccountGroup />}
-          <SettingsGroup>
-            <LocalizationMenu />
-            <ReportBug />
-            {user ? <LogOut /> : null}
-          </SettingsGroup>
-        </VerticalAlignDiv>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+          {!disableSearch && <SearchGroup />}
+          <VerticalAlignDiv>
+            {small && <AccountGroup />}
+            <SettingsGroup>
+              <LocalizationMenu />
+              <ReportBug />
+              {user ? <LogOut /> : null}
+            </SettingsGroup>
+          </VerticalAlignDiv>
+        </div>
         <SwipeableDrawer
           onOpen={() => setMenuState(true)}
           onClose={() => setMenuState(false)}
