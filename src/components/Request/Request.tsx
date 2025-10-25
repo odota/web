@@ -5,6 +5,7 @@ import { CircularProgress } from '@mui/material';
 import { Button } from '@mui/material';
 import { TextField } from '@mui/material';
 import { postRequest } from '../../actions/requestActions';
+import Heading from '../Heading';
 
 type RequestProps = {
   dispatchPostRequest: Function;
@@ -39,25 +40,36 @@ class Request extends React.Component<RequestProps, { matchId: string }> {
       <CircularProgress value={progress} variant="indeterminate" />
     );
     return (
-      <div style={{ textAlign: 'center' }}>
+      <div>
         <Helmet title={strings.title_request} />
-        <h1>{strings.request_title}</h1>
-        <TextField
-          id="match_id"
-          label={strings.request_match_id}
-          error={Boolean(error)}
-          helperText={error && !loading ? strings.request_error : false}
-          value={this.state.matchId}
-          onChange={(e) => this.setState({ matchId: e.target.value })}
-        />
-        <div style={{ marginTop: '8px' }}>
-          {loading ? (
-            progressIndicator
-          ) : (
-            <Button variant="contained" onClick={this.handleSubmit}>
-              {strings.request_submit}
-            </Button>
-          )}
+        <Heading title={strings.request_title} className="top-heading" />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '400px',
+            margin: '0 auto',
+          }}
+        >
+          <TextField
+            id="match_id"
+            label={strings.request_match_id}
+            error={Boolean(error)}
+            helperText={error && !loading ? strings.request_error : false}
+            value={this.state.matchId}
+            onChange={(e) => this.setState({ matchId: e.target.value })}
+          />
+          <div style={{ marginTop: '8px' }}>
+            {loading ? (
+              progressIndicator
+            ) : (
+              <Button variant="contained" onClick={this.handleSubmit}>
+                {strings.request_submit}
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     );

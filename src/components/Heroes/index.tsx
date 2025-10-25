@@ -33,7 +33,7 @@ class RequestLayer extends React.Component<HeroesProps> {
   getMatchCountByRank = (json: any, rank: string) =>
     json.map((heroStat: any) => heroStat[rank] || 0).reduce(sum, 0) / 10;
 
-  createTab = (key: 'pro' | 'public' | 'turbo', matchCount: number) => {
+  createTab = (key: 'pro' | 'public' | 'turbo') => {
     const { strings } = this.props;
 
     const names = {
@@ -49,22 +49,12 @@ class RequestLayer extends React.Component<HeroesProps> {
     };
 
     const name = names[key ?? 'pro'];
-    const title = titles[key ?? 'pro'];
 
     return {
       name,
       key,
       content: (data: any, _columns: any[], loading: boolean) => (
-        <div>
-          <Heading
-            className="top-heading with-tabbar"
-            title={title}
-            subtitle={`${abbreviateNumber(matchCount)} ${strings.hero_last_7days}`}
-            icon=""
-            twoLine
-          />
-          <Table data={data} columns={_columns} loading={loading} />
-        </div>
+        <Table data={data} columns={_columns} loading={loading} />
       ),
       route: `/heroes/${key}`,
     };
@@ -183,10 +173,17 @@ class RequestLayer extends React.Component<HeroesProps> {
       (a: any, b: any) => a.heroName && a.heroName.localeCompare(b.heroName),
     );
 
+    const matchCounts = {
+      pro: matchCountPro,
+      public: matchCountPublic,
+      turbo: matchCountTurbo,
+    };
+    const matchCount = matchCounts[route as keyof typeof matchCounts];
+
     const heroTabs = [
-      this.createTab('pro', matchCountPro),
-      this.createTab('public', matchCountPublic),
-      this.createTab('turbo', matchCountTurbo),
+      this.createTab('pro'),
+      this.createTab('public'),
+      this.createTab('turbo'),
     ];
 
     const selectedTab = heroTabs.find((_tab) => _tab.key === route);
@@ -195,15 +192,20 @@ class RequestLayer extends React.Component<HeroesProps> {
     return (
       <div>
         <Helmet title={strings.header_heroes} />
-        <div>
-          <TabBar tabs={heroTabs} />
-          {selectedTab &&
-            selectedTab.content(
-              processedData,
-              rankColumns({ tabType: route as HeroesTab, strings }),
-              loading,
-            )}
-        </div>
+        <Heading
+          className="top-heading"
+          title={strings.header_heroes}
+          subtitle={`${abbreviateNumber(matchCount)} ${strings.hero_last_7days}`}
+          icon=""
+          twoLine
+        />
+        <TabBar tabs={heroTabs} />
+        {selectedTab &&
+          selectedTab.content(
+            processedData,
+            rankColumns({ tabType: route as HeroesTab, strings }),
+            loading,
+          )}
       </div>
     );
   }

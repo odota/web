@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Avatar, Badge } from '@mui/material';
+import { Avatar } from '@mui/material';
 import styled from 'styled-components';
 import { Facebook } from 'react-content-loader';
 import { rankTierToString } from '../../../utility';

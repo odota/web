@@ -125,8 +125,8 @@ class ExplorerOutputSection extends React.Component<ExplorerOutputSectionProps> 
                 return strings[`rune_${field}` as keyof Strings];
               } else if (column.field === 'item_name') {
                 return items[field as keyof typeof items]
-                //@ts-expect-error
-                  ? items[field as keyof typeof items].dname
+                  ? //@ts-expect-error
+                    items[field as keyof typeof items].dname
                   : field;
               } else if (
                 column.field === 'time' ||

@@ -8,7 +8,7 @@ export const StyledDiv = styled.div`
 
   &.top-heading {
     width: 100vw;
-    margin: -57px -50vw 50px -50vw;
+    margin: 0px -50vw 0px -50vw;
     margin-top: 0px;
     position: relative;
     left: 50%;
@@ -22,10 +22,6 @@ export const StyledDiv = styled.div`
     font-weight: bold;
     background-color: rgba(14, 84, 113, 37%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-
-    &.with-tabbar {
-      margin-top: -30px;
-    }
   }
 
   .winner {

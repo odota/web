@@ -14,6 +14,7 @@ import { StyledTeamIconContainer } from '../Match/StyledMatch';
 import constants from '../constants';
 import { FromNowTooltip } from '../Visualizations';
 import HeroImage from '../Visualizations/HeroImage';
+import Heading from '../Heading';
 
 export const WinnerSpan = styled.span`
   display: inline-block;
@@ -229,10 +230,9 @@ class RequestLayer extends React.Component<MatchesProps> {
     return (
       <div>
         <Helmet title={strings.title_matches} />
-        <div>
-          <TabBar tabs={matchTabs(strings)} />
-          {tab && tab.content(this.props)}
-        </div>
+        <Heading title={strings.th_matches} className="top-heading" />
+        <TabBar tabs={matchTabs(strings)} />
+        {tab && tab.content(this.props)}
       </div>
     );
   }

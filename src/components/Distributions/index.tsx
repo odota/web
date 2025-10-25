@@ -107,15 +107,6 @@ class RequestLayer extends React.Component<{
       }
       return (
         <div>
-          <Heading
-            className="top-heading with-tabbar"
-            title={strings[`distributions_heading_${key}` as keyof Strings]}
-            subtitle={`
-            ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map((row: any) => row.count).reduce(sum, 0))} ${strings.th_players}
-          `}
-            icon=" "
-            twoLine
-          />
           {key === 'mmr' || key === 'ranks' ? (
             <DistributionGraph
               data={rows}
@@ -143,11 +134,22 @@ class RequestLayer extends React.Component<{
     const page = distributionsPages.find(
       (_page) => (_page.key || _page.name.toLowerCase()) === info,
     );
+    const data = this.props.data;
+    const key = info;
     return loading ? (
       <DistributionsSkeleton />
     ) : (
       <div>
         <Helmet title={page ? page.name : strings.distributions_tab_ranks} />
+        <Heading
+          className="top-heading"
+          title={strings[`distributions_heading_${key}` as keyof Strings]}
+          subtitle={`
+          ${data[key] && data[key].rows && abbreviateNumber(data[key].rows.map((row: any) => row.count).reduce(sum, 0))} ${strings.th_players}
+        `}
+          icon=" "
+          twoLine
+        />
         <TabBar tabs={distributionsPages} />
         {page && page.content(this.props.data, info)}
       </div>

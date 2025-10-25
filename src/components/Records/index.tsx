@@ -108,12 +108,12 @@ class RequestLayer extends React.Component<RecordsProps> {
       <div>
         <Helmet title={strings.heading_records} />
         <div>
-          <TabBar tabs={tabs(strings)} />
           <Heading
             title={strings.heading_records}
             subtitle={strings.subheading_records}
-            className="top-heading with-tabbar"
+            className="top-heading"
           />
+          <TabBar tabs={tabs(strings)} />
           {tab && tab.content(this.props)}
         </div>
       </div>

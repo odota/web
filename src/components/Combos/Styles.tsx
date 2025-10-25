@@ -13,6 +13,7 @@ export const StyledCombos = styled.div`
   .main-section {
     border-bottom: 1px solid rgba(255, 255, 255, 0.28);
     margin-bottom: 10px;
+    margin-top: 10px;
   }
 
   .hero-overview {
