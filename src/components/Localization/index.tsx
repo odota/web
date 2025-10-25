@@ -3,24 +3,16 @@ import {
   List,
   ListItem,
   ListItemIcon,
+  ListItemButton,
   ListItemText,
   Collapse,
 } from '@mui/material';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import Translate from '@mui/icons-material/Translate';
-import styled from 'styled-components';
 import { langs } from '../../lang';
 import constants from '../constants';
 import { useStrings } from '../../hooks/useStrings.hook';
-
-const StyledListItem = styled(ListItem)`
-  color: ${constants.primaryTextColor} !important;
-`;
-
-const StyledListItemIcon = styled(ListItemIcon)`
-  color: ${constants.primaryTextColor} !important;
-`;
 
 const setLocalization = (event: any, key: string | null, payload: { value: any }) => {
   window.localStorage.setItem('localization', payload.value);
@@ -42,13 +34,13 @@ const LocalizationMenu = React.forwardRef(() => {
 
   return (
     <div style={{ minWidth: '200px' }}>
-      <StyledListItem onClick={handleOnClick}>
-        <StyledListItemIcon>
+      <ListItemButton onClick={handleOnClick}>
+        <ListItemIcon>
           <Translate />
-        </StyledListItemIcon>
+        </ListItemIcon>
         <ListItemText primary={strings.app_language} />
         {open ? <ExpandLess /> : <ExpandMore />}
-      </StyledListItem>
+      </ListItemButton>
       <List component="div">
         <Collapse
           in={open}
@@ -58,12 +50,14 @@ const LocalizationMenu = React.forwardRef(() => {
         >
           <List component="div" disablePadding>
             {langs.map((lang) => (
-              <StyledListItem
+              <ListItem>
+              <ListItemButton
                 onClick={() => setLocalization(null, null, lang)}
                 key={lang.value}
               >
                 <ListItemText primary={lang.native} />
-              </StyledListItem>
+              </ListItemButton>
+              </ListItem>
             ))}
           </List>
         </Collapse>
