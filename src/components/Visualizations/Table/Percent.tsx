@@ -3,7 +3,17 @@ import { gradient } from 'abcolor';
 import { StyledContainer, PercentContainer, TitleContainer } from './Styled';
 import constants from '../../constants';
 
-const Percent = ({ percent, altValue, valEl, inverse = false }: { percent: number, altValue?: number, valEl?: React.ReactNode, inverse?: boolean }) => (
+const Percent = ({
+  percent,
+  altValue,
+  valEl,
+  inverse = false,
+}: {
+  percent: number;
+  altValue?: number;
+  valEl?: React.ReactNode;
+  inverse?: boolean;
+}) => (
   <StyledContainer>
     <TitleContainer>
       {valEl || percent} {altValue && <small>{altValue}</small>}

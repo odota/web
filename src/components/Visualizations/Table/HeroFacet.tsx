@@ -144,13 +144,7 @@ const Facet = styled.div`
   }
 `;
 
-const HeroFacet = ({
-  heroID,
-  facet,
-}: {
-  heroID?: string;
-  facet?: number;
-}) => {
+const HeroFacet = ({ heroID, facet }: { heroID?: string; facet?: number }) => {
   const heroAbilities = useHeroAbilities();
 
   if (!(heroID && facet)) {

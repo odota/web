@@ -9,21 +9,23 @@ import useStrings from '../../../../hooks/useStrings.hook';
 
 const Items = ({ data, error, loading }: ItemsProps) => {
   const strings = useStrings();
-  return <Container title="Items" error={error} loading={loading}>
-    <Table paginated columns={playerItemsColumns(strings)} data={data} />
-  </Container>;
+  return (
+    <Container title="Items" error={error} loading={loading}>
+      <Table paginated columns={playerItemsColumns(strings)} data={data} />
+    </Container>
+  );
 };
 
 type ItemsProps = {
-  data: any[],
-  error: string,
-  loading: boolean,
-  getPlayerItems: Function,
+  data: any[];
+  error: string;
+  loading: boolean;
+  getPlayerItems: Function;
   location: {
-    key?: string,
-    search?: string,
-  }
-  playerId: string
+    key?: string;
+    search?: string;
+  };
+  playerId: string;
 };
 
 const getData = (props: ItemsProps) => {

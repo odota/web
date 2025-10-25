@@ -54,13 +54,13 @@ const getData = (props: TrendsProps) => {
 };
 
 type TrendsProps = {
-  playerId: string,
-  routeParams: any,
-  getPlayerTrends: Function,
-  columns: any[],
-  error: string,
-  loading: boolean,
-  trendName: string,
+  playerId: string;
+  routeParams: any;
+  getPlayerTrends: Function;
+  columns: any[];
+  error: string;
+  loading: boolean;
+  trendName: string;
 } & RouterProps;
 
 class RequestLayer extends React.Component<TrendsProps> {

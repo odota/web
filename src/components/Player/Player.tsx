@@ -12,13 +12,13 @@ import playerPages from './playerPages';
 import PlayerProfilePrivate from './PlayerProfilePrivate';
 
 type PlayerProps = {
-  officialPlayerName: string,
-  playerName: string,
-  playerLoading: boolean,
-  strings: Strings,
-  isPlayerProfilePublic: boolean,
-  getPlayer: Function,
-  getPlayerWinLoss: Function,
+  officialPlayerName: string;
+  playerName: string;
+  playerLoading: boolean;
+  strings: Strings;
+  isPlayerProfilePublic: boolean;
+  getPlayer: Function;
+  getPlayerWinLoss: Function;
 } & RouterProps;
 
 class RequestLayer extends React.Component<PlayerProps> {

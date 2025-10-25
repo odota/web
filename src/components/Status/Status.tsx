@@ -45,7 +45,7 @@ class Status extends React.Component<{ strings: Strings }> {
   componentDidMount() {
     const update = () =>
       fetch(`${config.VITE_API_HOST}/status`)
-        .then(resp => resp.json())
+        .then((resp) => resp.json())
         .then(async (json) => {
           const nextState = { result: json, last: this.state.result };
           return this.setState(nextState);

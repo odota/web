@@ -11,17 +11,17 @@ const renderRanking = (hero: Hero | undefined, rankings: any[]) => (
 );
 
 class Ranking extends Component<{
-    match: {
-      params: {
-        heroId: string,
-      },
-    },
-    isLoading: boolean,
-    isError: boolean,
-    rankings: any[],
-    hero?: Hero,
-    getRanking: Function,
-  }> {
+  match: {
+    params: {
+      heroId: string;
+    };
+  };
+  isLoading: boolean;
+  isError: boolean;
+  rankings: any[];
+  hero?: Hero;
+  getRanking: Function;
+}> {
   componentDidMount() {
     if (this.props.match.params && this.props.match.params.heroId) {
       this.props.getRanking(this.props.match.params.heroId);

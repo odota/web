@@ -6,18 +6,17 @@ import BenchmarkGraphs from './BenchmarkGraphs';
 import BenchmarkSkeleton from '../Skeletons/BenchmarkSkeleton';
 
 class Benchmark extends Component<{
-    match: {
-      params: {
-        heroId: string,
-      },
-    },
-    strings: Strings,
-    getBenchmark: Function,
-    isLoading: boolean,
-    isError: boolean,
-    result: any[],
-  }> {
-
+  match: {
+    params: {
+      heroId: string;
+    };
+  };
+  strings: Strings;
+  getBenchmark: Function;
+  isLoading: boolean;
+  isError: boolean;
+  result: any[];
+}> {
   componentDidMount() {
     if (this.props.match.params && this.props.match.params.heroId) {
       this.props.getBenchmark(this.props.match.params.heroId);

@@ -10,19 +10,23 @@ const HeroImage = ({
   heroImageEventProps,
   ...rest
 }: {
-  id: string | undefined,
-  isIcon?: boolean,
-  imageSizeSuffix?: string,
-  heroImageEventProps?: any,
-  style?: any,
-  className?: string,
-  onClick?: Function,
-  alt?: string,
+  id: string | undefined;
+  isIcon?: boolean;
+  imageSizeSuffix?: string;
+  heroImageEventProps?: any;
+  style?: any;
+  className?: string;
+  onClick?: Function;
+  alt?: string;
 }) => {
-  let imageUrl = heroes[id as unknown as keyof Heroes] && config.VITE_IMAGE_CDN + heroes[id as unknown as keyof Heroes].img;
+  let imageUrl =
+    heroes[id as unknown as keyof Heroes] &&
+    config.VITE_IMAGE_CDN + heroes[id as unknown as keyof Heroes].img;
 
   if (isIcon) {
-    imageUrl = heroes[id as unknown as keyof Heroes] && config.VITE_IMAGE_CDN + heroes[id as unknown as keyof Heroes].icon;
+    imageUrl =
+      heroes[id as unknown as keyof Heroes] &&
+      config.VITE_IMAGE_CDN + heroes[id as unknown as keyof Heroes].icon;
   }
 
   return <img src={imageUrl} alt="" {...rest} {...heroImageEventProps} />;

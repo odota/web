@@ -15,10 +15,10 @@ const StyledButton = styled(Button)`
 */
 
 type DropdownProps = {
-  Button: Function,
-  buttonProps: any,
-  className: string,
-  children: React.ReactNode,
+  Button: Function;
+  buttonProps: any;
+  className: string;
+  children: React.ReactNode;
 };
 
 class Dropdown extends Component<DropdownProps> {

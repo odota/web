@@ -8,7 +8,7 @@ import {
   SwipeableDrawer,
 } from '@mui/material';
 import BugReport from '@mui/icons-material/BugReport';
-import MenuIcon from '@mui/icons-material/Menu'; 
+import MenuIcon from '@mui/icons-material/Menu';
 import Settings from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
@@ -178,7 +178,11 @@ const MenuButtonWrapper = styled.div`
   }
 `;
 
-const LogoGroup = ({ onMenuClick }: { onMenuClick: (e: React.MouseEvent) => void }) => (
+const LogoGroup = ({
+  onMenuClick,
+}: {
+  onMenuClick: (e: React.MouseEvent) => void;
+}) => (
   <div style={{ marginRight: 16, marginLeft: 16 }}>
     <VerticalAlignToolbar>
       <MenuButtonWrapper>
@@ -213,33 +217,44 @@ const AccountGroup = () => (
 
 const ReportBug = () => {
   const strings = useStrings();
-  return <DropdownMenuItem
-    //@ts-expect-error
-    component="a"
-    href={REPORT_BUG_PATH}
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <BugReport style={{ marginRight: 32, width: 24, height: 24 }} />
-    {strings.app_report_bug}
-  </DropdownMenuItem>;
+  return (
+    <DropdownMenuItem
+      //@ts-expect-error
+      component="a"
+      href={REPORT_BUG_PATH}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <BugReport style={{ marginRight: 32, width: 24, height: 24 }} />
+      {strings.app_report_bug}
+    </DropdownMenuItem>
+  );
 };
 
 const LogOut = () => {
   const strings = useStrings();
-  return <DropdownMenuItem
-  //@ts-expect-error
-    component="a"
-    href={`${config.VITE_API_HOST}/logout`}
-    rel="noopener noreferrer"
-  >
-    <LogoutIcon style={{ marginRight: 32, width: 24, height: 24 }} />
-    {strings.app_logout}
-  </DropdownMenuItem>;
+  return (
+    <DropdownMenuItem
+      //@ts-expect-error
+      component="a"
+      href={`${config.VITE_API_HOST}/logout`}
+      rel="noopener noreferrer"
+    >
+      <LogoutIcon style={{ marginRight: 32, width: 24, height: 24 }} />
+      {strings.app_logout}
+    </DropdownMenuItem>
+  );
 };
 
-const Header = ({ location, disableSearch }: { location: any, disableSearch?: boolean }) => {
-  const [Announce, setAnnounce] = useState<React.JSXElementConstructor<any> | null>(null);
+const Header = ({
+  location,
+  disableSearch,
+}: {
+  location: any;
+  disableSearch?: boolean;
+}) => {
+  const [Announce, setAnnounce] =
+    useState<React.JSXElementConstructor<any> | null>(null);
   const [menuIsOpen, setMenuState] = useState(false);
   const small = useSelector((state: any) => state.browser.greaterThan.small);
   const user = useSelector((state: any) => state.app.metadata.data.user);
@@ -326,7 +341,9 @@ const Header = ({ location, disableSearch }: { location: any, disableSearch?: bo
           <LogoGroup onMenuClick={() => setMenuState(true)} />
           {small && <LinkGroup navbarPages={navbarPages} />}
         </VerticalAlignDiv>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+        <div
+          style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}
+        >
           {!disableSearch && <SearchGroup />}
           <VerticalAlignDiv>
             {small && <AccountGroup />}

@@ -3,7 +3,15 @@ import { KDAContainer, TitleContainer, KDAPercentContainer } from './Styled';
 import constants from '../../constants';
 import useStrings from '../../../hooks/useStrings.hook';
 
-const KDA = ({ kills, deaths, assists }: { kills: number, deaths: number, assists: number }) => {
+const KDA = ({
+  kills,
+  deaths,
+  assists,
+}: {
+  kills: number;
+  deaths: number;
+  assists: number;
+}) => {
   const strings = useStrings();
   const kdaSum = kills + deaths + assists;
 

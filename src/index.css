@@ -12,12 +12,12 @@ body {
 }
 
 a {
-  color: #6BF;
+  color: #6bf;
   text-decoration: none;
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
 
   &:hover {
-    color: color(#6BF lightness(-33%));
+    color: color(#6bf lightness(-33%));
   }
 }
 
@@ -27,8 +27,8 @@ li {
 
 #root {
   background-color: #192023;
-  background-image: -webkit-linear-gradient(to right, #1a2b3e, #141E30);
-  background-image: linear-gradient(to right, #1a2b3e, #141E30);
+  background-image: -webkit-linear-gradient(to right, #1a2b3e, #141e30);
+  background-image: linear-gradient(to right, #1a2b3e, #141e30);
   color: rgba(255, 255, 255, 0.87);
   height: 100%;
   min-height: 100vh;
@@ -39,7 +39,7 @@ li {
   cursor: help;
 }
 
-[data-id="tooltip"] {
+[data-id='tooltip'] {
   padding: 8px 12px !important;
   border-radius: 2px !important;
   background-color: rgba(0, 0, 0, 0.9) !important;
@@ -75,7 +75,7 @@ li {
   }
 
   &::before {
-    content: "";
+    content: '';
     width: 0;
     height: 0;
   }
@@ -107,7 +107,7 @@ li {
   }
 }
 
-[data-hint-position="top"] {
+[data-hint-position='top'] {
   &::after {
     bottom: 100%;
     margin-bottom: 3px;
@@ -122,7 +122,7 @@ li {
   }
 }
 
-[data-hint-position="bottom"] {
+[data-hint-position='bottom'] {
   &::after {
     top: 100%;
     margin-top: 3px;

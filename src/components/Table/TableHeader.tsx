@@ -8,11 +8,11 @@ const TableHeader = ({
   sortClick,
   setHighlightedCol,
 }: {
-  columns: any[],
-  sortState: string,
-  sortField: string,
-  sortClick: Function,
-  setHighlightedCol?: Function,
+  columns: any[];
+  sortState: string;
+  sortField: string;
+  sortClick: Function;
+  setHighlightedCol?: Function;
 }) => (
   <tr>
     {columns.map((column, index) => (

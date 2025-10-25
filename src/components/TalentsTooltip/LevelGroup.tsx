@@ -57,7 +57,7 @@ const TalentContent = styled.div`
   }
 `;
 
-const LevelGroup = ({ talents, level }: { talents: any[], level: string }) => (
+const LevelGroup = ({ talents, level }: { talents: any[]; level: string }) => (
   <Wrapper>
     <TalentContent>{talents && talents[0] && talents[0].name}</TalentContent>
     <Level>{level}</Level>

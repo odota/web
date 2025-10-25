@@ -10,13 +10,13 @@ const ExplorerOutputButton = ({
   onClick,
   context,
 }: {
-  defaultSelected?: boolean,
-  label: string,
-  format?: string,
-  href?: string,
-  download?: string,
-  onClick?: (e: React.MouseEvent) => void,
-  context: any,
+  defaultSelected?: boolean;
+  label: string;
+  format?: string;
+  href?: string;
+  download?: string;
+  onClick?: (e: React.MouseEvent) => void;
+  context: any;
 }) => {
   let clickFn;
   if (onClick) {
@@ -37,7 +37,9 @@ const ExplorerOutputButton = ({
       href={href ?? ''}
       download={download}
       onClick={clickFn}
-    >{label}</Button>
+    >
+      {label}
+    </Button>
   );
 };
 

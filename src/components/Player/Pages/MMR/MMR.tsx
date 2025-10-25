@@ -18,18 +18,28 @@ const MMRInfo = (strings: Strings) => (
   </Info>
 );
 
-const MMR = ({ columns, error, loading }: { columns: any[], error: string, loading: boolean }) => {
+const MMR = ({
+  columns,
+  error,
+  loading,
+}: {
+  columns: any[];
+  error: string;
+  loading: boolean;
+}) => {
   const strings = useStrings();
-  return <div>
-    <Container
-      title={strings.heading_mmr}
-      subtitle={MMRInfo(strings)}
-      error={error}
-      loading={loading}
-    >
-      <MMRGraph columns={columns} />
-    </Container>
-  </div>
+  return (
+    <div>
+      <Container
+        title={strings.heading_mmr}
+        subtitle={MMRInfo(strings)}
+        error={error}
+        loading={loading}
+      >
+        <MMRGraph columns={columns} />
+      </Container>
+    </div>
+  );
 };
 
 const getData = (props: MMRProps) => {
@@ -38,14 +48,14 @@ const getData = (props: MMRProps) => {
 
 type MMRProps = {
   location: {
-    key: string,
-    search?: string,
-  },
-  playerId: string,
-  columns: any[],
-  loading: boolean,
-  error: string,
-  getPlayerMmr: Function
+    key: string;
+    search?: string;
+  };
+  playerId: string;
+  columns: any[];
+  loading: boolean;
+  error: string;
+  getPlayerMmr: Function;
 };
 
 class RequestLayer extends React.Component<MMRProps> {

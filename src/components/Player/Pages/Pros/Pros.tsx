@@ -9,25 +9,27 @@ import useStrings from '../../../../hooks/useStrings.hook';
 
 const Pros = ({ data, playerId, error, loading }: ProsProps) => {
   const strings = useStrings();
-  return <Container title={strings.heading_pros} error={error} loading={loading}>
-    <Table
-      paginated
-      columns={playerProsColumns(playerId, strings)}
-      data={data}
-    />
-  </Container>;
+  return (
+    <Container title={strings.heading_pros} error={error} loading={loading}>
+      <Table
+        paginated
+        columns={playerProsColumns(playerId, strings)}
+        data={data}
+      />
+    </Container>
+  );
 };
 
 type ProsProps = {
-  data: any[],
-  error: string,
-  playerId: string,
-  loading: boolean,
-  getPlayerPros: Function,
+  data: any[];
+  error: string;
+  playerId: string;
+  loading: boolean;
+  getPlayerPros: Function;
   location: {
-    key?: string,
-    search?: string,
-  }
+    key?: string;
+    search?: string;
+  };
 };
 
 const getData = (props: ProsProps) => {

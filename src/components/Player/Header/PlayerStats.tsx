@@ -62,13 +62,13 @@ export const PlayerStatsCards = ({
   playerId,
   loggedInId,
 }: {
-  loading: boolean,
-  error: boolean,
-  wins: number,
-  losses: number,
-  compact: boolean,
-  playerId: string,
-  loggedInId: string,
+  loading: boolean;
+  error: boolean;
+  wins: number;
+  losses: number;
+  compact: boolean;
+  playerId: string;
+  loggedInId: string;
 }) => {
   const strings = useStrings();
   if (error) {
@@ -80,7 +80,14 @@ export const PlayerStatsCards = ({
   return (
     <Styled>
       <div className="container">
-        <div style={{ textAlign: compact ? 'center' : '', display: 'flex' } as React.CSSProperties}>
+        <div
+          style={
+            {
+              textAlign: compact ? 'center' : '',
+              display: 'flex',
+            } as React.CSSProperties
+          }
+        >
           <PlayerStatsCard
             subheader={<div className="textSuccess">{wins}</div>}
             title={strings.th_wins}

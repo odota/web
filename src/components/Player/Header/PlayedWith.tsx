@@ -26,12 +26,12 @@ const getData = async (props: PlayedWithProps, context: any) => {
 const inlineStyle = { display: 'inline' };
 
 type PlayedWithProps = {
-  playerId: string,
-  loggedInId: string,
-  strings: Strings,
+  playerId: string;
+  loggedInId: string;
+  strings: Strings;
 };
 
-type PlayedWithState = { win?: number, lose?: number };
+type PlayedWithState = { win?: number; lose?: number };
 
 class PlayedWith extends React.Component<PlayedWithProps, PlayedWithState> {
   state: PlayedWithState = {};

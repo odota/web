@@ -65,20 +65,20 @@ const getMatchupsColumns = (heroes: Hero[], strings: Strings) => {
 };
 
 class Matchups extends React.Component<{
-  isLoading: boolean,
+  isLoading: boolean;
   match: {
     params: {
-      heroId: string,
-    },
-  },
-    data: {
-        hero_id: number,
-        games_played: number,
-        wins: number,
-      }[],
-    heroes: Hero[],
-    onGetHeroMatchups: Function,
-    strings: Strings,
+      heroId: string;
+    };
+  };
+  data: {
+    hero_id: number;
+    games_played: number;
+    wins: number;
+  }[];
+  heroes: Hero[];
+  onGetHeroMatchups: Function;
+  strings: Strings;
 }> {
   componentDidMount() {
     const { onGetHeroMatchups, match } = this.props;
@@ -96,7 +96,10 @@ class Matchups extends React.Component<{
         ...item,
         win_rate: Math.max(
           0,
-          Math.min(100, Number(((item.wins / item.games_played) * 100).toFixed(2))),
+          Math.min(
+            100,
+            Number(((item.wins / item.games_played) * 100).toFixed(2)),
+          ),
         ),
         advantage: Math.round(
           wilsonScore(item.wins, item.games_played - item.wins) * 100,

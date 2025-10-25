@@ -73,9 +73,7 @@ export default (strings: Strings) => {
         accountId={row.account_id}
         playerSlot={row.player_slot}
         subtitle={
-          <CompetitiveRank
-            rankTier={rankTierToString(row.rank_tier)}
-          />
+          <CompetitiveRank rankTier={rankTierToString(row.rank_tier)} />
         }
         hideText={hideName}
         confirmed={Boolean(row.account_id && row.name)}
@@ -129,7 +127,11 @@ export default (strings: Strings) => {
     );
   };
 
-  const findBuyTime = (purchaseLog: any[], itemKey: string, _itemSkipCount: number) => {
+  const findBuyTime = (
+    purchaseLog: any[],
+    itemKey: string,
+    _itemSkipCount: number,
+  ) => {
     let skipped = 0;
     let itemSkipCount = _itemSkipCount || 0;
     const purchaseEvent = findLast((item) => {
@@ -160,7 +162,8 @@ export default (strings: Strings) => {
     const visitedItemsCount: Record<string, number> = {};
 
     for (let i = 0; i < 6; i += 1) {
-      const itemKey = itemIds[row[`item_${i}` as keyof MatchPlayer] as keyof typeof itemIds];
+      const itemKey =
+        itemIds[row[`item_${i}` as keyof MatchPlayer] as keyof typeof itemIds];
       const { itemSkipCount, purchaseEvent } = findBuyTime(
         row.purchase_log,
         itemKey,
@@ -180,7 +183,8 @@ export default (strings: Strings) => {
       // Use hero_id because Meepo showing up as an additional unit in some matches http://dev.dota2.com/showthread.php?t=132401
       // This is actually a number but we type it as string to match keys of Heroes
       if ((row.hero_id as unknown as number) === 80 && row.additional_units) {
-        const additionalItemKey = itemIds[row.additional_units[0][`item_${i}`] as keyof typeof itemIds];
+        const additionalItemKey =
+          itemIds[row.additional_units[0][`item_${i}`] as keyof typeof itemIds];
         const additionalFirstPurchase =
           row.first_purchase_time && row.first_purchase_time[additionalItemKey];
 
@@ -194,7 +198,10 @@ export default (strings: Strings) => {
         }
       }
 
-      const backpackItemKey = itemIds[row[`backpack_${i}` as keyof MatchPlayer] as keyof typeof itemIds];
+      const backpackItemKey =
+        itemIds[
+          row[`backpack_${i}` as keyof MatchPlayer] as keyof typeof itemIds
+        ];
       const backpackfirstPurchase =
         row.first_purchase_time && row.first_purchase_time[backpackItemKey];
 
@@ -229,227 +236,222 @@ export default (strings: Strings) => {
   };
 
   const overviewColumns = (match: Match) => {
-    const cols = ([
-      {
-        displayName: strings.th_avatar,
-        field: 'player_slot',
-        displayFn: (row: MatchPlayer, col: any, field: any, i: number) =>
-          heroTd(
-            row,
-            col,
-            field,
-            i,
-            false,
-            partyStyles(row, match),
-          ),
-        sortFn: true,
-        width: 170,
-      },
-      {
-        displayName: strings.th_level,
-        tooltip: strings.tooltip_level,
-        field: 'level',
-        sortFn: true,
-        maxFn: true,
-        sumFn: true,
-        textAlign: 'center',
-        paddingRight: 7,
-        width: 41,
-        displayFn: (row: MatchPlayer, col: any, field: any) => (
-          <StyledLevel>
-            <span>{field}</span>
-            <svg viewBox="0 0 36 36" className="circular_chart">
-              <path
-                className="circle"
-                strokeDasharray={`${
-                  (field / constants.dotaMaxLevel) * 100
-                }, 100`}
-                d="M18 2.0845
+    const cols = (
+      [
+        {
+          displayName: strings.th_avatar,
+          field: 'player_slot',
+          displayFn: (row: MatchPlayer, col: any, field: any, i: number) =>
+            heroTd(row, col, field, i, false, partyStyles(row, match)),
+          sortFn: true,
+          width: 170,
+        },
+        {
+          displayName: strings.th_level,
+          tooltip: strings.tooltip_level,
+          field: 'level',
+          sortFn: true,
+          maxFn: true,
+          sumFn: true,
+          textAlign: 'center',
+          paddingRight: 7,
+          width: 41,
+          displayFn: (row: MatchPlayer, col: any, field: any) => (
+            <StyledLevel>
+              <span>{field}</span>
+              <svg viewBox="0 0 36 36" className="circular_chart">
+                <path
+                  className="circle"
+                  strokeDasharray={`${
+                    (field / constants.dotaMaxLevel) * 100
+                  }, 100`}
+                  d="M18 2.0845
                 a 15.9155 15.9155 0 0 1 0 31.831
                 a 15.9155 15.9155 0 0 1 0 -31.831"
-              />
-            </svg>
-          </StyledLevel>
-        ),
-      },
-      {
-        displayName: strings.th_kills,
-        tooltip: strings.tooltip_kills,
-        field: 'kills',
-        displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
-        sortFn: true,
-        sumFn: true,
-        color: 'hsla(123, 25%, 57%, 1)',
-        textAlign: 'right',
-        paddingLeft: 10,
-        paddingRight: 5,
-        width: 21,
-        underline: 'max',
-      },
-      {
-        displayName: strings.th_deaths,
-        tooltip: strings.tooltip_deaths,
-        field: 'deaths',
-        displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
-        sortFn: true,
-        sumFn: true,
-        color: 'hsla(0, 80%, 65%, 1)',
-        textAlign: 'right',
-        paddingLeft: 5,
-        paddingRight: 5,
-        width: 21,
-        underline: 'min',
-      },
-      {
-        displayName: strings.th_assists,
-        tooltip: strings.tooltip_assists,
-        field: 'assists',
-        displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
-        sortFn: true,
-        sumFn: true,
-        color: constants.colorBlueGray,
-        textAlign: 'right',
-        paddingLeft: 5,
-        paddingRight: 14,
-        width: 21,
-        underline: 'max',
-      },
-      {
-        displayName: strings.th_last_hits,
-        tooltip: strings.tooltip_last_hits,
-        field: 'last_hits',
-        displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
-        sortFn: true,
-        sumFn: true,
-        // relativeBars: true,
-        textAlign: 'right',
-        paddingRight: 0,
-        paddingLeft: 14,
-        width: 21,
-        underline: 'max',
-      },
-      {
-        displayName: '/',
-        displayFn: () => '/',
-        sumFn: true,
-        displaySumFn: () => '/',
-        width: 5,
-        paddingRight: 2,
-        paddingLeft: 2,
-        color: 'rgba(255, 255, 255, 0.4)',
-        className: 'no-col-hover',
-      },
-      {
-        displayName: strings.th_denies,
-        tooltip: strings.tooltip_denies,
-        field: 'denies',
-        displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
-        sortFn: true,
-        sumFn: true,
-        // relativeBars: true,
-        paddingLeft: 0,
-        paddingRight: 8,
-        width: 21,
-        underline: 'max',
-      },
-      {
-        displayName: strings.th_net_worth,
-        tooltip: strings.tooltip_net_worth,
-        field: 'net_worth',
-        sortFn: true,
-        color: constants.golden,
-        sumFn: true,
-        displayFn: (row: MatchPlayer) => abbreviateNumber(row.net_worth),
-        textAlign: 'right',
-        width: 32,
-        underline: 'max',
-      },
-      {
-        displayName: strings.th_gold_per_min,
-        tooltip: strings.tooltip_gold_per_min,
-        field: 'gold_per_min',
-        sortFn: true,
-        sumFn: true,
-        // relativeBars: true,
-        textAlign: 'right',
-        paddingRight: 0,
-        paddingLeft: 10,
-        width: 25,
-        underline: 'max',
-      },
-      {
-        displayName: '/',
-        displayFn: () => '/',
-        sumFn: true,
-        displaySumFn: () => '/',
-        width: 5,
-        paddingRight: 2,
-        paddingLeft: 2,
-        color: 'rgba(255, 255, 255, 0.4)',
-        className: 'no-col-hover',
-      },
-      {
-        displayName: strings.th_xp_per_min,
-        tooltip: strings.tooltip_xp_per_min,
-        field: 'xp_per_min',
-        sortFn: true,
-        sumFn: true,
-        // relativeBars: true,
-        paddingLeft: 0,
-        paddingRight: 11,
-        width: 25,
-        underline: 'max',
-      },
-      {
-        displayName: strings.th_hero_damage,
-        tooltip: strings.tooltip_hero_damage,
-        field: 'hero_damage',
-        sortFn: true,
-        sumFn: true,
-        displayFn: (row: MatchPlayer) => abbreviateNumber(row.hero_damage),
-        // relativeBars: true,
-        textAlign: 'right',
-        paddingLeft: 14,
-        paddingRight: 5,
-        width: 32,
-        underline: 'max',
-      },
-      {
-        displayName: strings.th_tower_damage,
-        tooltip: strings.tooltip_tower_damage,
-        field: 'tower_damage',
-        displayFn: (row: MatchPlayer) => abbreviateNumber(row.tower_damage),
-        sortFn: true,
-        sumFn: true,
-        // relativeBars: true,
-        textAlign: 'right',
-        paddingLeft: 5,
-        paddingRight: 5,
-        width: 32,
-        underline: 'max',
-      },
-      {
-        displayName: strings.th_hero_healing,
-        tooltip: strings.tooltip_hero_healing,
-        field: 'hero_healing',
-        sortFn: true,
-        sumFn: true,
-        displayFn: (row: MatchPlayer) => abbreviateNumber(row.hero_healing),
-        // relativeBars: true,
-        textAlign: 'right',
-        paddingLeft: 5,
-        paddingRight: 14,
-        width: 32,
-        underline: 'max',
-      },
-      {
-        displayName: strings.th_items,
-        tooltip: strings.tooltip_items,
-        field: 'items',
-        width: 240,
-        displayFn: itemsTd,
-      },
-    ] as any[])
+                />
+              </svg>
+            </StyledLevel>
+          ),
+        },
+        {
+          displayName: strings.th_kills,
+          tooltip: strings.tooltip_kills,
+          field: 'kills',
+          displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
+          sortFn: true,
+          sumFn: true,
+          color: 'hsla(123, 25%, 57%, 1)',
+          textAlign: 'right',
+          paddingLeft: 10,
+          paddingRight: 5,
+          width: 21,
+          underline: 'max',
+        },
+        {
+          displayName: strings.th_deaths,
+          tooltip: strings.tooltip_deaths,
+          field: 'deaths',
+          displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
+          sortFn: true,
+          sumFn: true,
+          color: 'hsla(0, 80%, 65%, 1)',
+          textAlign: 'right',
+          paddingLeft: 5,
+          paddingRight: 5,
+          width: 21,
+          underline: 'min',
+        },
+        {
+          displayName: strings.th_assists,
+          tooltip: strings.tooltip_assists,
+          field: 'assists',
+          displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
+          sortFn: true,
+          sumFn: true,
+          color: constants.colorBlueGray,
+          textAlign: 'right',
+          paddingLeft: 5,
+          paddingRight: 14,
+          width: 21,
+          underline: 'max',
+        },
+        {
+          displayName: strings.th_last_hits,
+          tooltip: strings.tooltip_last_hits,
+          field: 'last_hits',
+          displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
+          sortFn: true,
+          sumFn: true,
+          // relativeBars: true,
+          textAlign: 'right',
+          paddingRight: 0,
+          paddingLeft: 14,
+          width: 21,
+          underline: 'max',
+        },
+        {
+          displayName: '/',
+          displayFn: () => '/',
+          sumFn: true,
+          displaySumFn: () => '/',
+          width: 5,
+          paddingRight: 2,
+          paddingLeft: 2,
+          color: 'rgba(255, 255, 255, 0.4)',
+          className: 'no-col-hover',
+        },
+        {
+          displayName: strings.th_denies,
+          tooltip: strings.tooltip_denies,
+          field: 'denies',
+          displayFn: (row: MatchPlayer, col: any, field: any) => field || '-',
+          sortFn: true,
+          sumFn: true,
+          // relativeBars: true,
+          paddingLeft: 0,
+          paddingRight: 8,
+          width: 21,
+          underline: 'max',
+        },
+        {
+          displayName: strings.th_net_worth,
+          tooltip: strings.tooltip_net_worth,
+          field: 'net_worth',
+          sortFn: true,
+          color: constants.golden,
+          sumFn: true,
+          displayFn: (row: MatchPlayer) => abbreviateNumber(row.net_worth),
+          textAlign: 'right',
+          width: 32,
+          underline: 'max',
+        },
+        {
+          displayName: strings.th_gold_per_min,
+          tooltip: strings.tooltip_gold_per_min,
+          field: 'gold_per_min',
+          sortFn: true,
+          sumFn: true,
+          // relativeBars: true,
+          textAlign: 'right',
+          paddingRight: 0,
+          paddingLeft: 10,
+          width: 25,
+          underline: 'max',
+        },
+        {
+          displayName: '/',
+          displayFn: () => '/',
+          sumFn: true,
+          displaySumFn: () => '/',
+          width: 5,
+          paddingRight: 2,
+          paddingLeft: 2,
+          color: 'rgba(255, 255, 255, 0.4)',
+          className: 'no-col-hover',
+        },
+        {
+          displayName: strings.th_xp_per_min,
+          tooltip: strings.tooltip_xp_per_min,
+          field: 'xp_per_min',
+          sortFn: true,
+          sumFn: true,
+          // relativeBars: true,
+          paddingLeft: 0,
+          paddingRight: 11,
+          width: 25,
+          underline: 'max',
+        },
+        {
+          displayName: strings.th_hero_damage,
+          tooltip: strings.tooltip_hero_damage,
+          field: 'hero_damage',
+          sortFn: true,
+          sumFn: true,
+          displayFn: (row: MatchPlayer) => abbreviateNumber(row.hero_damage),
+          // relativeBars: true,
+          textAlign: 'right',
+          paddingLeft: 14,
+          paddingRight: 5,
+          width: 32,
+          underline: 'max',
+        },
+        {
+          displayName: strings.th_tower_damage,
+          tooltip: strings.tooltip_tower_damage,
+          field: 'tower_damage',
+          displayFn: (row: MatchPlayer) => abbreviateNumber(row.tower_damage),
+          sortFn: true,
+          sumFn: true,
+          // relativeBars: true,
+          textAlign: 'right',
+          paddingLeft: 5,
+          paddingRight: 5,
+          width: 32,
+          underline: 'max',
+        },
+        {
+          displayName: strings.th_hero_healing,
+          tooltip: strings.tooltip_hero_healing,
+          field: 'hero_healing',
+          sortFn: true,
+          sumFn: true,
+          displayFn: (row: MatchPlayer) => abbreviateNumber(row.hero_healing),
+          // relativeBars: true,
+          textAlign: 'right',
+          paddingLeft: 5,
+          paddingRight: 14,
+          width: 32,
+          underline: 'max',
+        },
+        {
+          displayName: strings.th_items,
+          tooltip: strings.tooltip_items,
+          field: 'items',
+          width: 240,
+          displayFn: itemsTd,
+        },
+      ] as any[]
+    )
       .concat(
         match.players.map((player) => player.item_neutral).reduce(sum, 0) > 0
           ? {
@@ -468,8 +470,12 @@ export default (strings: Strings) => {
                 >
                   {row.item_neutral
                     ? inflictorWithValue(
-                        itemIds[row.item_neutral as unknown as keyof typeof itemIds],
-                        itemIds[row.item_neutral2 as unknown as keyof typeof itemIds],
+                        itemIds[
+                          row.item_neutral as unknown as keyof typeof itemIds
+                        ],
+                        itemIds[
+                          row.item_neutral2 as unknown as keyof typeof itemIds
+                        ],
                         'neutral',
                       )
                     : null}
@@ -568,9 +574,14 @@ export default (strings: Strings) => {
       22: -1,
       23: -1,
     };
-    const ability = upgradesArr[(hero !== 74 && mapping[index as keyof typeof mapping]) || index - 1];
+    const ability =
+      upgradesArr[
+        (hero !== 74 && mapping[index as keyof typeof mapping]) || index - 1
+      ];
 
-    return ability ? inflictorWithValue(undefined, undefined, undefined, undefined, ability) : null;
+    return ability
+      ? inflictorWithValue(undefined, undefined, undefined, undefined, ability)
+      : null;
   };
 
   const abilityColumns = () => {
@@ -585,9 +596,11 @@ export default (strings: Strings) => {
         return (
           <StyledAbilityUpgrades data-tip data-for={`au_${row.player_slot}`}>
             <div className="ability">
-              {abilityMapping(index, row.ability_upgrades_arr, row.hero_id as unknown as number) || (
-                <div className="placeholder" />
-              )}
+              {abilityMapping(
+                index,
+                row.ability_upgrades_arr,
+                row.hero_id as unknown as number,
+              ) || <div className="placeholder" />}
             </div>
           </StyledAbilityUpgrades>
         );
@@ -648,7 +661,14 @@ export default (strings: Strings) => {
                     data-tip
                     data-for={`benchmarks_${row.player_slot}_${key}`}
                   >
-                    <span style={{ color: constants[bucket.color as keyof typeof constants] } as React.CSSProperties}>
+                    <span
+                      style={
+                        {
+                          color:
+                            constants[bucket.color as keyof typeof constants],
+                        } as React.CSSProperties
+                      }
+                    >
                       {`${percent}%`}
                     </span>
                     <small style={{ margin: '3px' }}>{value}</small>
@@ -676,22 +696,27 @@ export default (strings: Strings) => {
     return cols;
   };
 
-  const displayFantasyComponent = (transform: Function) => (row: MatchPlayer, col: any, field: any) => {
-    const score = Number(transform(field).toFixed(2));
-    const raw = Number((field || 0).toFixed(2));
-    return (
-      <Tooltip
-        title={formatTemplateToString(strings.fantasy_description, raw, score)}
-      >
-        <div>
-          <span>{score}</span>
-          <small style={{ margin: '3px', color: 'rgb(179, 179, 179)' }}>
-            {raw}
-          </small>
-        </div>
-      </Tooltip>
-    );
-  };
+  const displayFantasyComponent =
+    (transform: Function) => (row: MatchPlayer, col: any, field: any) => {
+      const score = Number(transform(field).toFixed(2));
+      const raw = Number((field || 0).toFixed(2));
+      return (
+        <Tooltip
+          title={formatTemplateToString(
+            strings.fantasy_description,
+            raw,
+            score,
+          )}
+        >
+          <div>
+            <span>{score}</span>
+            <small style={{ margin: '3px', color: 'rgb(179, 179, 179)' }}>
+              {raw}
+            </small>
+          </div>
+        </Tooltip>
+      );
+    };
 
   const fantasyComponents = [
     {
@@ -813,17 +838,19 @@ export default (strings: Strings) => {
     },
   ];
 
-  const fantasyColumns = ([
-    heroTdColumn,
-    {
-      displayName: strings.th_fantasy_points,
-      displayFn: (row: MatchPlayer) =>
-        fantasyComponents
-          .map((comp) => comp.fantasyFn(row[comp.field as keyof MatchPlayer]))
-          .reduce((a, b) => a + b)
-          .toFixed(2),
-    },
-  ] as any[]).concat(fantasyComponents);
+  const fantasyColumns = (
+    [
+      heroTdColumn,
+      {
+        displayName: strings.th_fantasy_points,
+        displayFn: (row: MatchPlayer) =>
+          fantasyComponents
+            .map((comp) => comp.fantasyFn(row[comp.field as keyof MatchPlayer]))
+            .reduce((a, b) => a + b)
+            .toFixed(2),
+      },
+    ] as any[]
+  ).concat(fantasyComponents);
 
   const purchaseTimesColumns = (match: Match, showConsumables: boolean) => {
     const cols: any[] = [heroTdColumn];
@@ -857,7 +884,8 @@ export default (strings: Strings) => {
                       items[purchase.key as keyof Items] &&
                       (showConsumables ||
                         //@ts-expect-error
-                        items[purchase.key as keyof Items].qual !== 'consumable')
+                        items[purchase.key as keyof Items].qual !==
+                          'consumable')
                     ) {
                       return inflictorWithValue(
                         purchase.key,
@@ -925,7 +953,8 @@ export default (strings: Strings) => {
       tooltip: strings.tooltip_stuns,
       field: 'stuns',
       sortFn: true,
-      displayFn: (row: MatchPlayer, column: any, field: any) => (field ? field.toFixed(2) : '-'),
+      displayFn: (row: MatchPlayer, column: any, field: any) =>
+        field ? field.toFixed(2) : '-',
       relativeBars: true,
       sumFn: true,
     },
@@ -943,7 +972,8 @@ export default (strings: Strings) => {
       tooltip: strings.tooltip_dead,
       field: 'life_state_dead',
       sortFn: true,
-      displayFn: (row: MatchPlayer, column: any, field: any) => formatSeconds(field) || '-',
+      displayFn: (row: MatchPlayer, column: any, field: any) =>
+        formatSeconds(field) || '-',
       relativeBars: true,
       invertBarColor: true,
       sumFn: true,
@@ -1226,23 +1256,35 @@ export default (strings: Strings) => {
     },
   ];
 
-  const actionsColumns = ([
-    heroTdColumn,
-    {
-      displayName: strings.th_actions_per_min,
-      tooltip: strings.tooltip_actions_per_min,
-      field: 'actions_per_min',
-      sortFn: true,
-      relativeBars: true,
-    },
-  ] as any[]).concat(
+  const actionsColumns = (
+    [
+      heroTdColumn,
+      {
+        displayName: strings.th_actions_per_min,
+        tooltip: strings.tooltip_actions_per_min,
+        field: 'actions_per_min',
+        sortFn: true,
+        relativeBars: true,
+      },
+    ] as any[]
+  ).concat(
     Object.keys(orderTypes)
-      .filter((orderType) => `th_${orderTypes[orderType as keyof typeof orderTypes]}` in strings)
+      .filter(
+        (orderType) =>
+          `th_${orderTypes[orderType as keyof typeof orderTypes]}` in strings,
+      )
       .map((orderType) => ({
-        displayName: strings[`th_${orderTypes[orderType as keyof typeof orderTypes]}` as keyof Strings],
-        tooltip: strings[`tooltip_${orderTypes[orderType as keyof typeof orderTypes]}` as keyof Strings],
+        displayName:
+          strings[
+            `th_${orderTypes[orderType as keyof typeof orderTypes]}` as keyof Strings
+          ],
+        tooltip:
+          strings[
+            `tooltip_${orderTypes[orderType as keyof typeof orderTypes]}` as keyof Strings
+          ],
         field: orderType,
-        sortFn: (row: MatchPlayer) => (row.actions ? row.actions[orderType] : 0),
+        sortFn: (row: MatchPlayer) =>
+          row.actions ? row.actions[orderType] : 0,
         displayFn: (row: MatchPlayer, column: any, value: any) => value || '-',
         relativeBars: true,
       })),
@@ -1507,18 +1549,22 @@ export default (strings: Strings) => {
             return (
               <div>
                 <span
-                  style={{
-                    color: constants[bucket.color as keyof typeof constants],
-                    margin: '10px',
-                    fontSize: '18px',
-                  } as React.CSSProperties}
+                  style={
+                    {
+                      color: constants[bucket.color as keyof typeof constants],
+                      margin: '10px',
+                      fontSize: '18px',
+                    } as React.CSSProperties
+                  }
                 >
                   {bucket.grade}
                 </span>
                 <span>{field[key].display}</span>
                 <StyledUnusedItem>
                   {key === 'unused_item' &&
-                    field[key].metadata.map((item: any) => inflictorWithValue(item))}
+                    field[key].metadata.map((item: any) =>
+                      inflictorWithValue(item),
+                    )}
                 </StyledUnusedItem>
               </div>
             );
@@ -1605,7 +1651,9 @@ export default (strings: Strings) => {
     row[`${type}_log` as keyof MatchPlayer].forEach((ward: any) => {
       const findTime =
         row[`${type}_left_log` as keyof MatchPlayer] &&
-        row[`${type}_left_log` as keyof MatchPlayer].find((x: any) => x.ehandle === ward.ehandle);
+        row[`${type}_left_log` as keyof MatchPlayer].find(
+          (x: any) => x.ehandle === ward.ehandle,
+        );
       const leftTime = (findTime && findTime.time) || false;
       if (leftTime !== false) {
         // exclude wards that did not expire before game ended from average time
@@ -1638,7 +1686,8 @@ export default (strings: Strings) => {
     field: 'obs_avg_life',
     tooltip: strings.tooltip_duration_observer,
     sortFn: (row: MatchPlayer) => computeAverage(row, 'obs'),
-    displayFn: (row: MatchPlayer) => formatSeconds(computeAverage(row, 'obs')) || '-',
+    displayFn: (row: MatchPlayer) =>
+      formatSeconds(computeAverage(row, 'obs')) || '-',
     relativeBars: true,
   };
 
@@ -1657,7 +1706,8 @@ export default (strings: Strings) => {
     field: 'sen_avg_life',
     tooltip: strings.tooltip_duration_sentry,
     sortFn: (row: MatchPlayer) => computeAverage(row, 'sen'),
-    displayFn: (row: MatchPlayer) => formatSeconds(computeAverage(row, 'sen')) || '-',
+    displayFn: (row: MatchPlayer) =>
+      formatSeconds(computeAverage(row, 'sen')) || '-',
     relativeBars: true,
   };
 
@@ -1832,7 +1882,8 @@ export default (strings: Strings) => {
       ),
       tooltip: visionStrings.tooltip_used_smoke_of_deceit,
       field: 'uses_smoke',
-      sortFn: (row: MatchPlayer) => row.item_uses && row.item_uses.smoke_of_deceit,
+      sortFn: (row: MatchPlayer) =>
+        row.item_uses && row.item_uses.smoke_of_deceit,
       displayFn: (row: MatchPlayer, column: any, value: any) => value || '-',
       relativeBars: true,
     },

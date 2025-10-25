@@ -28,7 +28,14 @@ const columns = (strings: Strings) => [
     field: 'rank_tier',
     sortFn: true,
     displayFn: (row: any, col: number, field: any) => (
-      <div style={{ zoom: 0.5 }}>{<RankTierMedal rankTier={field} leaderboardRank={row.leaderboard_rank} />}</div>
+      <div style={{ zoom: 0.5 }}>
+        {
+          <RankTierMedal
+            rankTier={field}
+            leaderboardRank={row.leaderboard_rank}
+          />
+        }
+      </div>
     ),
   },
   {

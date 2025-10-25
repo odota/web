@@ -25,7 +25,6 @@ import HeroFacet from './HeroFacet';
 import useStrings from '../../../hooks/useStrings.hook';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 
-
 // hero to use as background image in tooltip
 const backgroundMapping = {
   str: '2', // Axe
@@ -169,7 +168,7 @@ const Styled = styled.div`
       height: 14px !important;
       margin-right: 5px;
     }
-    color: ${constants.colorSuccess}
+    color: ${constants.colorSuccess};
   }
 
   .imageContainer {
@@ -427,35 +426,37 @@ const expand: React.CSSProperties = {
   left: '-10px',
 };
 
-
 type TableHeroImageProps = {
-  parsed?: number,
-  image?: string,
-  title: string | React.ReactNode,
-  subtitle?: string | React.ReactNode,
-  registered?: string,
-  subscriber?: boolean,
-  contributor?: boolean,
-  accountId?: number,
-  playerSlot?: number,
-  hideText?: boolean,
-  party?: React.ReactNode,
-  confirmed?: boolean,
-  heroName?: string,
-  randomed?: boolean,
-  repicked?: boolean,
-  predictedVictory?: boolean,
-  leaverStatus?: number,
-  strings: Strings,
-  hero?: Hero,
-  heroID?: string,
-  facet?: number,
-  showGuide?: boolean,
-  guideUrl?: string,
-  guideType?: string,
+  parsed?: number;
+  image?: string;
+  title: string | React.ReactNode;
+  subtitle?: string | React.ReactNode;
+  registered?: string;
+  subscriber?: boolean;
+  contributor?: boolean;
+  accountId?: number;
+  playerSlot?: number;
+  hideText?: boolean;
+  party?: React.ReactNode;
+  confirmed?: boolean;
+  heroName?: string;
+  randomed?: boolean;
+  repicked?: boolean;
+  predictedVictory?: boolean;
+  leaverStatus?: number;
+  strings: Strings;
+  hero?: Hero;
+  heroID?: string;
+  facet?: number;
+  showGuide?: boolean;
+  guideUrl?: string;
+  guideType?: string;
 };
 
-class TableHeroImage extends React.Component<TableHeroImageProps, { tooltipVisible: boolean }> {
+class TableHeroImage extends React.Component<
+  TableHeroImageProps,
+  { tooltipVisible: boolean }
+> {
   state = { tooltipVisible: false };
 
   setTooltipVisibility = (value: boolean) => {
@@ -538,7 +539,9 @@ class TableHeroImage extends React.Component<TableHeroImageProps, { tooltipVisib
                 <span
                   className="abandoned"
                   style={{ right: facet ? '12px' : '7px' }}
-                  data-hint={strings[`leaver_status_${leaverStatus}` as keyof Strings]}
+                  data-hint={
+                    strings[`leaver_status_${leaverStatus}` as keyof Strings]
+                  }
                   data-hint-position="top"
                 >
                   <img src="/assets/images/dota2/disconnect_icon.png" alt="" />
@@ -549,7 +552,10 @@ class TableHeroImage extends React.Component<TableHeroImageProps, { tooltipVisib
                 <div
                   className="playerSlot"
                   style={{
-                    backgroundColor: playerColors[playerSlot as unknown as keyof typeof playerColors],
+                    backgroundColor:
+                      playerColors[
+                        playerSlot as unknown as keyof typeof playerColors
+                      ],
                     right: facet ? '12px' : '7px',
                   }}
                 />
@@ -574,10 +580,7 @@ class TableHeroImage extends React.Component<TableHeroImageProps, { tooltipVisib
                     data-hint={strings.app_subscriber}
                     data-hint-position="top"
                   >
-                    <IconContributor
-                      dColor="#FFD700"
-                      oColor="#212121"
-                    />
+                    <IconContributor dColor="#FFD700" oColor="#212121" />
                   </div>
                 )}
                 {contributor && (
@@ -586,10 +589,7 @@ class TableHeroImage extends React.Component<TableHeroImageProps, { tooltipVisib
                     data-hint={strings.app_contributor}
                     data-hint-position="top"
                   >
-                    <IconContributor
-                      dColor="#21be93"
-                      oColor="#212121"
-                    />
+                    <IconContributor dColor="#21be93" oColor="#212121" />
                   </div>
                 )}
                 {confirmed && (
@@ -654,7 +654,11 @@ class TableHeroImage extends React.Component<TableHeroImageProps, { tooltipVisib
                     }}
                   >
                     <HeroImage
-                      id={backgroundMapping[hero?.primary_attr as keyof typeof backgroundMapping]}
+                      id={
+                        backgroundMapping[
+                          hero?.primary_attr as keyof typeof backgroundMapping
+                        ]
+                      }
                       imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
                       style={{
                         position: 'absolute',
@@ -685,8 +689,12 @@ class TableHeroImage extends React.Component<TableHeroImageProps, { tooltipVisib
                         <AttrUniversal id="heroImg-attribute" />
                       )}
                       <div className="health-mana">
-                        <span id="health">{Math.floor(hero?.base_health ?? 0)}</span>
-                        <span id="mana">{Math.floor(hero?.base_mana ?? 0)}</span>
+                        <span id="health">
+                          {Math.floor(hero?.base_health ?? 0)}
+                        </span>
+                        <span id="mana">
+                          {Math.floor(hero?.base_mana ?? 0)}
+                        </span>
                       </div>
                     </div>
                     <div className="header-stats">
@@ -765,22 +773,26 @@ class TableHeroImage extends React.Component<TableHeroImageProps, { tooltipVisib
 // If need party or estimated, just add new prop with default val = solo and change icons depending what needs
 export const Mmr = ({ number }: { number: number }) => {
   const strings = useStrings();
-  return <span>
-    <section data-hint={strings.th_solo_mmr} data-hint-position="bottom">
-      <MilitaryTechIcon />
-    </section>
-    {number || strings.general_unknown}
-  </span>;
+  return (
+    <span>
+      <section data-hint={strings.th_solo_mmr} data-hint-position="bottom">
+        <MilitaryTechIcon />
+      </section>
+      {number || strings.general_unknown}
+    </span>
+  );
 };
 
 export const CompetitiveRank = ({ rankTier }: { rankTier: number }) => {
   const strings = useStrings();
-  return <span className="rank">
-    <section data-hint={strings.th_rank} data-hint-position="bottom">
-      <MilitaryTechIcon />
-    </section>
-    {rankTier}
-  </span>;
+  return (
+    <span className="rank">
+      <section data-hint={strings.th_rank} data-hint-position="bottom">
+        <MilitaryTechIcon />
+      </section>
+      {rankTier}
+    </span>
+  );
 };
 
 const mapStateToProps = (state: any) => ({

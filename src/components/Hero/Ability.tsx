@@ -55,7 +55,7 @@ const AbilityManaComsumption = styled.div`
   right: 0;
 `;
 
-const Ability = (props: { mc: string[], img: string }) => {
+const Ability = (props: { mc: string[]; img: string }) => {
   const ttId = nanoid();
   //@ts-expect-error
   const showMana = props.mc && parseInt(props.mc, 0) > 0;

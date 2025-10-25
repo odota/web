@@ -383,7 +383,10 @@ const BuildingMap = ({ match }: { match: Match }) => {
                       key={player.hero_id}
                       style={{
                         width: `${(Number(player.damage) * 100) / buildingsHealth[(type === 'tower' ? `tower${tier}` : type) as keyof typeof buildingsHealth]}%`,
-                        backgroundColor: playerColors[player.player_slot as unknown as keyof typeof playerColors],
+                        backgroundColor:
+                          playerColors[
+                            player.player_slot as unknown as keyof typeof playerColors
+                          ],
                       }}
                     />
                   ))}
@@ -400,7 +403,12 @@ const BuildingMap = ({ match }: { match: Match }) => {
                       />
                       <span className="damageValue">{player.damage}</span>
                       <span
-                        style={{ color: playerColors[player.player_slot as unknown as keyof typeof playerColors] }}
+                        style={{
+                          color:
+                            playerColors[
+                              player.player_slot as unknown as keyof typeof playerColors
+                            ],
+                        }}
                         className="playerName"
                       >
                         {player.name}

@@ -1,7 +1,17 @@
 import React from 'react';
 import { Chip } from '@mui/material';
 
-const ChipList = ({ chipList, deleteChip, name, history }: { chipList: { label: string, id: number }[], deleteChip: Function, name: string, history: any }) => (
+const ChipList = ({
+  chipList,
+  deleteChip,
+  name,
+  history,
+}: {
+  chipList: { label: string; id: number }[];
+  deleteChip: Function;
+  name: string;
+  history: any;
+}) => (
   <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
     {chipList.map((chip, index) => (
       <Chip
@@ -10,7 +20,7 @@ const ChipList = ({ chipList, deleteChip, name, history }: { chipList: { label: 
         key={chip.id}
         label={chip.label}
         onDelete={() => deleteChip(name, index, history)}
-      />        
+      />
     ))}
   </div>
 );

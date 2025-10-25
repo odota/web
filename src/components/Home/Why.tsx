@@ -51,25 +51,27 @@ const StyledDiv = styled.div`
 
 const Why = () => {
   const strings = useStrings();
-  return <StyledDiv>
-    <div className="whyList">
-      <div className="whyElement">
-        <IconOpenSource />
-        <div className="headline">{strings.home_opensource_title}</div>
-        <div className="description">{strings.home_opensource_desc}</div>
+  return (
+    <StyledDiv>
+      <div className="whyList">
+        <div className="whyElement">
+          <IconOpenSource />
+          <div className="headline">{strings.home_opensource_title}</div>
+          <div className="description">{strings.home_opensource_desc}</div>
+        </div>
+        <div className="whyElement">
+          <IconStatsBars />
+          <div className="headline">{strings.home_indepth_title}</div>
+          <div className="description">{strings.home_indepth_desc}</div>
+        </div>
+        <div className="whyElement">
+          <IconWand />
+          <div className="headline">{strings.home_free_title}</div>
+          <div className="description">{strings.home_free_desc}</div>
+        </div>
       </div>
-      <div className="whyElement">
-        <IconStatsBars />
-        <div className="headline">{strings.home_indepth_title}</div>
-        <div className="description">{strings.home_indepth_desc}</div>
-      </div>
-      <div className="whyElement">
-        <IconWand />
-        <div className="headline">{strings.home_free_title}</div>
-        <div className="description">{strings.home_free_desc}</div>
-      </div>
-    </div>
-  </StyledDiv>;
+    </StyledDiv>
+  );
 };
 
 export default Why;

@@ -82,12 +82,12 @@ const getData = (props: RecordsProps) => {
 };
 
 type RecordsProps = {
-  match: { params: { info?: string }},
-  strings: Strings,
-  dispatchRecords: Function,
-  data: any[],
-  loading: boolean,
-}
+  match: { params: { info?: string } };
+  strings: Strings;
+  dispatchRecords: Function;
+  data: any[];
+  loading: boolean;
+};
 
 class RequestLayer extends React.Component<RecordsProps> {
   componentDidMount() {

@@ -34,7 +34,16 @@ const Behavior = styled.div`
   }
 `;
 
-const AbilityBehaviour = ({ ability }: { ability: { behavior?: any, dmg_type?: string, bkbpierce?: boolean, dispellable?: boolean } }) => (
+const AbilityBehaviour = ({
+  ability,
+}: {
+  ability: {
+    behavior?: any;
+    dmg_type?: string;
+    bkbpierce?: boolean;
+    dispellable?: boolean;
+  };
+}) => (
   <Behavior>
     {ability.behavior ? (
       <div>

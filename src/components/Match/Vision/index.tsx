@@ -84,7 +84,19 @@ const Styled = styled.div`
   }
 `;
 /* eslint-disable jsx-a11y/anchor-is-valid */
-const SliderTicks = ({ ticks, onTickClick, value = 0, min, max }: { ticks: number[], onTickClick: Function, value?: number, min: number, max: number }) => (
+const SliderTicks = ({
+  ticks,
+  onTickClick,
+  value = 0,
+  min,
+  max,
+}: {
+  ticks: number[];
+  onTickClick: Function;
+  value?: number;
+  min: number;
+  max: number;
+}) => (
   <Styled>
     <div className="sliderTicks">
       {ticks.map((tick) => {
@@ -121,11 +133,15 @@ const alive = (ward: any, time = 0) =>
 // const isTeam = () => true;
 
 type VisionProps = {
-  match: Match,
-  strings: Strings,
+  match: Match;
+  strings: Strings;
 };
 
-export type VisionState = { players: { observer: boolean[], sentry: boolean[] }, teams: Record<string, any>, currentTick?: number };
+export type VisionState = {
+  players: { observer: boolean[]; sentry: boolean[] };
+  teams: Record<string, any>;
+  currentTick?: number;
+};
 
 class Vision extends React.Component<VisionProps, VisionState> {
   sliderMin: number;
@@ -154,7 +170,7 @@ class Vision extends React.Component<VisionProps, VisionState> {
 
   onCheckAllWardsTeam(index: number, end: number) {
     const { players } = this.state;
-    const [observer, sentry]: (WardType)[] = ['observer', 'sentry'];
+    const [observer, sentry]: WardType[] = ['observer', 'sentry'];
     const allWardsTeam = players[observer]
       .slice(index, end)
       .concat(players[sentry].slice(index, end));
@@ -227,7 +243,7 @@ class Vision extends React.Component<VisionProps, VisionState> {
 
   viewportChange = (e: any, value: number) => {
     this.setState({ ...this.state, currentTick: value });
-  }
+  };
 
   visibleData() {
     const self = this;
@@ -278,7 +294,7 @@ class Vision extends React.Component<VisionProps, VisionState> {
             <VisionFilter match={match} parent={this} strings={strings} />
           </div>
         </div>
-        <VisionItems match={match}/>
+        <VisionItems match={match} />
         <VisionLog match={match} wards={visibleWards} />
       </div>
     );

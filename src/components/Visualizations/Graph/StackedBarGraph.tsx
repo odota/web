@@ -33,11 +33,11 @@ const StackedBarGraph = ({
   tickElement,
   tooltipFormatter,
 }: {
-  columns: any[],
-  heading: string,
-  type: string,
-  tickElement: Function,
-  tooltipFormatter: Function,
+  columns: any[];
+  heading: string;
+  type: string;
+  tickElement: Function;
+  tooltipFormatter: Function;
 }) => {
   const strings = useStrings();
   columns.sort((a, b) => {

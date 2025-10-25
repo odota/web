@@ -98,9 +98,7 @@ function generateTeamfights({
           killer: newtf.players.find(
             (killer: any) =>
               heroes[death.player.hero_id as keyof Heroes] &&
-              killer.killed[
-                heroes[death.player.hero_id as keyof Heroes].name
-              ],
+              killer.killed[heroes[death.player.hero_id as keyof Heroes].name],
           ),
         },
       ])

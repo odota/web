@@ -86,17 +86,25 @@ const wardIcon = (log: any) => {
   return `/assets/images/dota2/map/${side}_${log.type}.png`;
 };
 
-const WardTooltipEnter = ({ player, log }: { player: MatchPlayer, log: any }) => {
+const WardTooltipEnter = ({
+  player,
+  log,
+}: {
+  player: MatchPlayer;
+  log: any;
+}) => {
   const strings = useStrings();
-  return <div className="tooltipContainer">
-    <PlayerThumb {...player} />
-    <div>
-      {log.type === 'observer'
-        ? strings.vision_placed_observer
-        : strings.vision_placed_sentry}
+  return (
+    <div className="tooltipContainer">
+      <PlayerThumb {...player} />
+      <div>
+        {log.type === 'observer'
+          ? strings.vision_placed_observer
+          : strings.vision_placed_sentry}
+      </div>
+      <div>{` ${formatSeconds(log.entered.time)}`}</div>
     </div>
-    <div>{` ${formatSeconds(log.entered.time)}`}</div>
-  </div>;
+  );
 };
 
 const WardTooltipLeft = ({ log }: { log: any }) => {
@@ -118,7 +126,15 @@ const WardTooltipLeft = ({ log }: { log: any }) => {
   );
 };
 
-const WardPin = ({ match, width, log }: { match: Match, width: number, log: any }) => {
+const WardPin = ({
+  match,
+  width,
+  log,
+}: {
+  match: Match;
+  width: number;
+  log: any;
+}) => {
   const strings = useStrings();
   const id = `ward-${log.entered.player_slot}-${log.entered.time}`;
   const sideName = log.entered.player_slot < 5 ? 'radiant' : 'dire';
@@ -134,10 +150,7 @@ const WardPin = ({ match, width, log }: { match: Match, width: number, log: any 
         border
         class={`${sideName}WardTooltip`}
       >
-        <WardTooltipEnter
-          player={match.players[log.player]}
-          log={log}
-        />
+        <WardTooltipEnter player={match.players[log.player]} log={log} />
         {log.left && <WardTooltipLeft log={log} />}
       </ReactTooltip>
     </Styled>
@@ -145,14 +158,14 @@ const WardPin = ({ match, width, log }: { match: Match, width: number, log: any 
 };
 
 type VisionMapProps = {
-  match: Match,
-  wards: any[],
+  match: Match;
+  wards: any[];
 };
 
 class VisionMap extends React.Component<VisionMapProps> {
   static defaultProps = {
     width: 400,
-  }
+  };
 
   shouldComponentUpdate(newProps: VisionMapProps) {
     return newProps.wards.length !== this.props.wards.length;

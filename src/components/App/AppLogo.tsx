@@ -22,15 +22,17 @@ interface AppLogoProps {
 
 const AppLogo = ({ size, onClick }: AppLogoProps) => {
   const strings = useStrings();
-  return <StyledLink
-    aria-label="Go to the Open Dota homepage"
-    to="/"
-    onClick={onClick}
-  >
-    <span style={{ fontSize: size }}>
-      {strings.app_name && `<${strings.app_name}/>`}
-    </span>
-  </StyledLink>;
+  return (
+    <StyledLink
+      aria-label="Go to the Open Dota homepage"
+      to="/"
+      onClick={onClick}
+    >
+      <span style={{ fontSize: size }}>
+        {strings.app_name && `<${strings.app_name}/>`}
+      </span>
+    </StyledLink>
+  );
 };
 
 export default AppLogo;

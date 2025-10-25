@@ -54,7 +54,9 @@ const Heading = ({
             href={buttonTo}
             target="_blank"
             rel="noopener noreferrer"
-          >{buttonLabel}</Button>
+          >
+            {buttonLabel}
+          </Button>
         </span>
       ) : (
         <div />

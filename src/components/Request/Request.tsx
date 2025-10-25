@@ -7,11 +7,11 @@ import { TextField } from '@mui/material';
 import { postRequest } from '../../actions/requestActions';
 
 type RequestProps = {
-  dispatchPostRequest: Function,
-  progress: number,
-  error: string,
-  loading: boolean,
-  strings: Strings,
+  dispatchPostRequest: Function;
+  progress: number;
+  error: string;
+  loading: boolean;
+  strings: Strings;
 };
 
 class Request extends React.Component<RequestProps, { matchId: string }> {
@@ -54,10 +54,9 @@ class Request extends React.Component<RequestProps, { matchId: string }> {
           {loading ? (
             progressIndicator
           ) : (
-            <Button
-              variant="contained"
-              onClick={this.handleSubmit}
-            >{strings.request_submit}</Button>
+            <Button variant="contained" onClick={this.handleSubmit}>
+              {strings.request_submit}
+            </Button>
           )}
         </div>
       </div>

@@ -21,7 +21,8 @@ const ButtonGarden = ({
           variant={selectedButton === buttonName ? 'contained' : 'outlined'}
           onClick={(e) => onClick(buttonName)}
           key={buttonName}
-          >{strings[`heading_${buttonName}` as keyof Strings]}
+        >
+          {strings[`heading_${buttonName}` as keyof Strings]}
         </Button>
       ))}
     </div>

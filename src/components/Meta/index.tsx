@@ -12,7 +12,10 @@ import queryTemplate from './queryTemplate';
 import getFields from './fields';
 import config from '../../config';
 
-function expandBuilderState(builder: Record<string, any>, fields: Record<string, any[]>) {
+function expandBuilderState(
+  builder: Record<string, any>,
+  fields: Record<string, any[]>,
+) {
   const expandedBuilder: Record<string, any> = {};
   Object.keys(builder).forEach((key) => {
     if (builder[key]) {
@@ -26,7 +29,16 @@ function expandBuilderState(builder: Record<string, any>, fields: Record<string,
 
 type MetaProps = { strings: Strings };
 
-class Meta extends React.Component<MetaProps, { loadingEditor: boolean, loading: boolean, result: any, builder: any, sql: string }> {
+class Meta extends React.Component<
+  MetaProps,
+  {
+    loadingEditor: boolean;
+    loading: boolean;
+    result: any;
+    builder: any;
+    sql: string;
+  }
+> {
   constructor(props: MetaProps) {
     super(props);
     const urlState = querystring.parse(window.location.search.substring(1));
@@ -79,7 +91,7 @@ class Meta extends React.Component<MetaProps, { loadingEditor: boolean, loading:
     return fetch(
       `${config.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`,
     )
-      .then(resp => resp.json())
+      .then((resp) => resp.json())
       .then(this.handleResponse);
   };
 
@@ -197,11 +209,11 @@ class Meta extends React.Component<MetaProps, { loadingEditor: boolean, loading:
           <Button
             // icon={!this.state.loading ? <ActionSearch /> : null}
             onClick={this.state.loading ? handleCancel : handleQuery}
-          >{
-              this.state.loading
-                ? strings.explorer_cancel_button
-                : strings.explorer_query_button
-            }</Button>
+          >
+            {this.state.loading
+              ? strings.explorer_cancel_button
+              : strings.explorer_query_button}
+          </Button>
         </div>
         <Heading
           title={strings.explorer_results}

@@ -54,7 +54,19 @@ const AttributeValue = styled.div`
   }
 `;
 
-const AttributeMain = ({ style, attribute, isPrimary, base, gain }: { style?: any, attribute: string, isPrimary: boolean, base: number, gain: number }) => {
+const AttributeMain = ({
+  style,
+  attribute,
+  isPrimary,
+  base,
+  gain,
+}: {
+  style?: any;
+  attribute: string;
+  isPrimary: boolean;
+  base: number;
+  gain: number;
+}) => {
   const attributeDotStyle = {
     background: constants.primaryTextColor,
   };

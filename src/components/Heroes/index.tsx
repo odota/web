@@ -11,17 +11,17 @@ import { sum, abbreviateNumber } from '../../utility';
 import { HeroesTab, rankColumns } from './rankColumns';
 
 type HeroesProps = {
-  dispatchHeroStats: Function,
-  onGetProPlayers: Function,
-  data: any | any[],
-  loading: boolean,
+  dispatchHeroStats: Function;
+  onGetProPlayers: Function;
+  data: any | any[];
+  loading: boolean;
   match: {
     params: {
-      info: string,
-      heroId: string,
-    }
-  },
-  strings: Strings,
+      info: string;
+      heroId: string;
+    };
+  };
+  strings: Strings;
 };
 
 class RequestLayer extends React.Component<HeroesProps> {
@@ -100,7 +100,8 @@ class RequestLayer extends React.Component<HeroesProps> {
       matchCount2 +
       matchCount1;
     const matchCountTurbo =
-      json.map((heroStat: any) => heroStat.turbo_picks || 0).reduce(sum, 0) / 10;
+      json.map((heroStat: any) => heroStat.turbo_picks || 0).reduce(sum, 0) /
+      10;
 
     const processedData = json.map((heroStat: any) => {
       const pickRatePro = (heroStat.pro_pick || 0) / matchCountPro;
@@ -143,7 +144,9 @@ class RequestLayer extends React.Component<HeroesProps> {
         ...heroStat,
         hero_id: heroStat.id,
         heroName:
-          (heroes[heroStat.id as keyof Heroes] && heroes[heroStat.id as keyof Heroes].localized_name) || '',
+          (heroes[heroStat.id as keyof Heroes] &&
+            heroes[heroStat.id as keyof Heroes].localized_name) ||
+          '',
         matchCountPro,
         pickBanRatePro: pickRatePro + banRatePro,
         pickRatePro,

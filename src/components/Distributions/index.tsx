@@ -33,7 +33,13 @@ const CountryDiv = styled.div`
   }
 `;
 
-class RequestLayer extends React.Component<{ loading: boolean, match: { params: { info: string } }, dispatchDistributions: Function, data: any, strings: Strings }> {
+class RequestLayer extends React.Component<{
+  loading: boolean;
+  match: { params: { info: string } };
+  dispatchDistributions: Function;
+  data: any;
+  strings: Strings;
+}> {
   componentDidMount() {
     this.props.dispatchDistributions();
   }
@@ -43,7 +49,8 @@ class RequestLayer extends React.Component<{ loading: boolean, match: { params: 
       {
         displayName: strings.th_rank,
         field: '',
-        displayFn: (row: any, col: any, field: string, i: number) => getOrdinal(i + 1),
+        displayFn: (row: any, col: any, field: string, i: number) =>
+          getOrdinal(i + 1),
       },
       {
         displayName: strings.th_country,

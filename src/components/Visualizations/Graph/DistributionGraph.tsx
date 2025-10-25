@@ -13,7 +13,13 @@ import {
 import { StyledTooltip } from './Styled';
 import useStrings from '../../../hooks/useStrings.hook';
 
-const DistributionTooltipContent = ({ payload, array }: { payload?: any, array: any[] }) => {
+const DistributionTooltipContent = ({
+  payload,
+  array,
+}: {
+  payload?: any;
+  array: any[];
+}) => {
   const strings = useStrings();
   const data = payload && payload[0] && payload[0].payload;
   const total = array.length ? array[array.length - 1].cumulative_sum : 0;
@@ -31,7 +37,13 @@ const DistributionTooltipContent = ({ payload, array }: { payload?: any, array: 
   );
 };
 
-const DistributionGraph = ({ data, xTickInterval }: { data: any[], xTickInterval: number | null }) => {
+const DistributionGraph = ({
+  data,
+  xTickInterval,
+}: {
+  data: any[];
+  xTickInterval: number | null;
+}) => {
   if (data && data.length) {
     return (
       <ResponsiveContainer width="100%" height={600}>
@@ -51,11 +63,7 @@ const DistributionGraph = ({ data, xTickInterval }: { data: any[], xTickInterval
           <YAxis yAxisId="right" orientation="right" stroke="#ff4c4c" />
           <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
 
-          <Tooltip
-            content={
-              <DistributionTooltipContent array={data} />
-            }
-          />
+          <Tooltip content={<DistributionTooltipContent array={data} />} />
           <Bar dataKey="count" yAxisId="left" fill="#1393f9" />
           <Line dataKey="cumulative_sum" yAxisId="right" stroke="#ff4c4c" />
         </ComposedChart>

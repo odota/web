@@ -8,32 +8,34 @@ import useStrings from '../../../../hooks/useStrings.hook';
 
 const Rankings = ({ data, error, loading }: RankingsProps) => {
   const strings = useStrings();
-  return <div>
-    <Container
-      title={strings.heading_rankings}
-      subtitle={strings.rankings_description}
-      error={error}
-      loading={loading}
-    >
-      <Table
-        columns={playerRankingsColumns(strings)}
-        data={data}
-        placeholderMessage={strings.rankings_none}
-      />
-    </Container>
-  </div>;
+  return (
+    <div>
+      <Container
+        title={strings.heading_rankings}
+        subtitle={strings.rankings_description}
+        error={error}
+        loading={loading}
+      >
+        <Table
+          columns={playerRankingsColumns(strings)}
+          data={data}
+          placeholderMessage={strings.rankings_none}
+        />
+      </Container>
+    </div>
+  );
 };
 
 type RankingsProps = {
-  data: any[],
-  error: string,
-  loading: boolean,
-  getPlayerRankings: Function,
-  playerId: string,
+  data: any[];
+  error: string;
+  loading: boolean;
+  getPlayerRankings: Function;
+  playerId: string;
   location: {
-    key?: string,
-    search?: string,
-  }
+    key?: string;
+    search?: string;
+  };
 };
 
 const getData = (props: RankingsProps) => {

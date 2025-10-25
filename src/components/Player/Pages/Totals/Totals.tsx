@@ -45,38 +45,40 @@ const drawElement = (element: any, type: number | string) => {
 
 const Totals = ({ data, error, loading }: TotalsProps) => {
   const strings = useStrings();
-  return <div>
-    <Container
-      title={strings.heading_all_matches}
-      error={error}
-      loading={loading}
-    >
-      <CardContainer>
-        {data.map((element) => drawElement(element, 1))}
-      </CardContainer>
-    </Container>
-    <Container
-      title={strings.heading_parsed_matches}
-      error={error}
-      loading={loading}
-    >
-      <CardContainer>
-        {data.map((element) => drawElement(element, 'parsed'))}
-      </CardContainer>
-    </Container>
-  </div>;
+  return (
+    <div>
+      <Container
+        title={strings.heading_all_matches}
+        error={error}
+        loading={loading}
+      >
+        <CardContainer>
+          {data.map((element) => drawElement(element, 1))}
+        </CardContainer>
+      </Container>
+      <Container
+        title={strings.heading_parsed_matches}
+        error={error}
+        loading={loading}
+      >
+        <CardContainer>
+          {data.map((element) => drawElement(element, 'parsed'))}
+        </CardContainer>
+      </Container>
+    </div>
+  );
 };
 
 type TotalsProps = {
-  data: any[],
-  error: string,
-  loading: boolean,
-  getPlayerTotals: Function,
+  data: any[];
+  error: string;
+  loading: boolean;
+  getPlayerTotals: Function;
   location: {
-    key?: string,
-    search?: string,
-  },
-  playerId: string,
+    key?: string;
+    search?: string;
+  };
+  playerId: string;
 };
 
 const getData = (props: TotalsProps) => {

@@ -36,11 +36,14 @@ const Styled = styled.div`
 `;
 
 type PlayerButtonsProps = {
-  playerId: string,
-  strings: Strings,
-}
+  playerId: string;
+  strings: Strings;
+};
 
-class PlayerButtons extends React.Component<PlayerButtonsProps, { disableRefresh: boolean }> {
+class PlayerButtons extends React.Component<
+  PlayerButtonsProps,
+  { disableRefresh: boolean }
+> {
   state = { disableRefresh: false };
 
   render() {
@@ -57,7 +60,9 @@ class PlayerButtons extends React.Component<PlayerButtonsProps, { disableRefresh
               });
               this.setState({ disableRefresh: true });
             }}
-          >{strings.app_refresh_label}</Button>
+          >
+            {strings.app_refresh_label}
+          </Button>
         </div>
         <Box ml="16px">
           <GamemodeToggle />

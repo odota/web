@@ -25,7 +25,9 @@ export default (generalData: any, strings: Strings) => (
         />
         <TeamStatsCard
           title={strings.th_losses}
-          subheader={<div className="textDanger">{generalData.data.losses}</div>}
+          subheader={
+            <div className="textDanger">{generalData.data.losses}</div>
+          }
         />
         <TeamStatsCard
           title={strings.th_rating}

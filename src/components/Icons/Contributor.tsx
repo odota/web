@@ -1,6 +1,14 @@
 import React from 'react';
 
-const Contributor = ({ dColor, oColor, ...props }: { dColor: string, oColor: string, className?: string }) => (
+const Contributor = ({
+  dColor,
+  oColor,
+  ...props
+}: {
+  dColor: string;
+  oColor: string;
+  className?: string;
+}) => (
   <svg
     {...props}
     version="1"

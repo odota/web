@@ -45,7 +45,12 @@ const teamPages = (strings: Strings) => [
   {
     name: strings.tab_players,
     key: 'players',
-    content: (generalData: any, matchData: any, heroData: any, playerData: any) => (
+    content: (
+      generalData: any,
+      matchData: any,
+      heroData: any,
+      playerData: any,
+    ) => (
       <div>
         <Container
           title={strings.heading_current_players}

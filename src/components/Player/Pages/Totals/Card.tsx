@@ -82,18 +82,20 @@ const Value = styled.div`
   text-align: center;
 `;
 
-const Card = ({ total }: { total: { field: string, sum: number } }) => {
+const Card = ({ total }: { total: { field: string; sum: number } }) => {
   const strings = useStrings();
-  return <Wrapper>
-    <Box>
-      <Header>{strings[`heading_${total.field}` as keyof Strings]}</Header>
-      <Value>
-        {total.field === 'duration'
-          ? formatDurationString(total.sum, strings)
-          : Math.floor(total.sum).toLocaleString()}
-      </Value>
-    </Box>
-  </Wrapper>;
+  return (
+    <Wrapper>
+      <Box>
+        <Header>{strings[`heading_${total.field}` as keyof Strings]}</Header>
+        <Value>
+          {total.field === 'duration'
+            ? formatDurationString(total.sum, strings)
+            : Math.floor(total.sum).toLocaleString()}
+        </Value>
+      </Box>
+    </Wrapper>
+  );
 };
 
 export default Card;

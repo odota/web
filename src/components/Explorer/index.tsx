@@ -21,7 +21,10 @@ import config from '../../config';
 const playerMapping: Record<string, string> = {};
 const teamMapping: Record<string, string> = {};
 
-function expandBuilderState(builder: Record<string, string[]>, _fields: Record<string, any[]>) {
+function expandBuilderState(
+  builder: Record<string, string[]>,
+  _fields: Record<string, any[]>,
+) {
   const expandedBuilder: any = {};
   Object.keys(builder).forEach((key) => {
     if (key === 'minDate' || key === 'maxDate') {
@@ -39,16 +42,25 @@ function expandBuilderState(builder: Record<string, string[]>, _fields: Record<s
 }
 
 type ExplorerProps = {
-  proPlayers: any[],
-  teams: any[],
-  leagues: any[],
-  dispatchProPlayers: Function,
-  dispatchLeagues: Function,
-  dispatchTeams: Function,
-  strings: Strings
+  proPlayers: any[];
+  teams: any[];
+  leagues: any[];
+  dispatchProPlayers: Function;
+  dispatchLeagues: Function;
+  dispatchTeams: Function;
+  strings: Strings;
 };
 
-class Explorer extends React.Component<ExplorerProps, { builder: any, loading: boolean, loadingEditor: boolean, showEditor: boolean, result: any }> {
+class Explorer extends React.Component<
+  ExplorerProps,
+  {
+    builder: any;
+    loading: boolean;
+    loadingEditor: boolean;
+    showEditor: boolean;
+    result: any;
+  }
+> {
   editor: any = undefined;
   completersSet = false;
   constructor(props: ExplorerProps) {
@@ -60,8 +72,10 @@ class Explorer extends React.Component<ExplorerProps, { builder: any, loading: b
       sqlState = params.sql as string;
       // Wrap all values in array
       const arrayUrlState: Record<string, string[]> = {};
-      Object.keys(params).forEach(key => {
-        arrayUrlState[key] = (Array.isArray(params[key]) ? params[key] : [params[key]]) as string[];
+      Object.keys(params).forEach((key) => {
+        arrayUrlState[key] = (
+          Array.isArray(params[key]) ? params[key] : [params[key]]
+        ) as string[];
       });
       urlState = arrayUrlState;
       delete urlState.sql;
@@ -99,7 +113,7 @@ class Explorer extends React.Component<ExplorerProps, { builder: any, loading: b
     ) {
       this.completersSet = true;
       fetch(`${config.VITE_API_HOST}/api/schema`)
-        .then(resp => resp.json())
+        .then((resp) => resp.json())
         .then((schema) => {
           this.editor.completers = [
             autocomplete(
@@ -130,7 +144,10 @@ class Explorer extends React.Component<ExplorerProps, { builder: any, loading: b
     window.stop();
   };
 
-  handleFieldUpdate = (builderField: string, value: string | string[] | undefined) => {
+  handleFieldUpdate = (
+    builderField: string,
+    value: string | string[] | undefined,
+  ) => {
     this.setState(
       {
         builder: {
@@ -148,7 +165,7 @@ class Explorer extends React.Component<ExplorerProps, { builder: any, loading: b
     return fetch(
       `${config.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`,
     )
-      .then(resp => resp.json())
+      .then((resp) => resp.json())
       .then(this.handleResponse);
   };
 
@@ -443,20 +460,20 @@ class Explorer extends React.Component<ExplorerProps, { builder: any, loading: b
             builder={builder}
           />
           <div>
-          <ExplorerFormField
-            label={strings.explorer_min_date}
-            builderField="minDate"
-            handleFieldUpdate={handleFieldUpdate}
-            builder={builder}
-            isDateField
-          />
-          <ExplorerFormField
-            label={strings.explorer_max_date}
-            builderField="maxDate"
-            handleFieldUpdate={handleFieldUpdate}
-            builder={builder}
-            isDateField
-          />
+            <ExplorerFormField
+              label={strings.explorer_min_date}
+              builderField="minDate"
+              handleFieldUpdate={handleFieldUpdate}
+              builder={builder}
+              isDateField
+            />
+            <ExplorerFormField
+              label={strings.explorer_max_date}
+              builderField="maxDate"
+              handleFieldUpdate={handleFieldUpdate}
+              builder={builder}
+              isDateField
+            />
           </div>
         </ExplorerControlSection>
         <div>
@@ -465,19 +482,21 @@ class Explorer extends React.Component<ExplorerProps, { builder: any, loading: b
             // icon={!this.state.loading ? <ActionSearch /> : null}
             onClick={this.state.loading ? handleCancel : handleQuery}
             // loading={this.state.loading}
-          >{
-              this.state.loading
-                ? strings.explorer_cancel_button
-                : strings.explorer_query_button
-            }</Button>
+          >
+            {this.state.loading
+              ? strings.explorer_cancel_button
+              : strings.explorer_query_button}
+          </Button>
           <Button
             variant="outlined"
             target="_blank"
             style={{ margin: '5px' }}
             href="https://github.com/odota/core/blob/master/sql/create_tables.sql"
-          >{strings.explorer_schema}</Button>
+          >
+            {strings.explorer_schema}
+          </Button>
           <span style={{ float: 'right' }}>
-          {/*
+            {/*
             <ExplorerOutputButton
               defaultSelected
               label={strings.explorer_table_button}

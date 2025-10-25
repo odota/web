@@ -453,8 +453,7 @@ export const bindWidth = (width: number, maxWidth: number) =>
 export const getHeroesById = () => {
   const obj: any = {};
   Object.keys(heroes).forEach((hero) => {
-    obj[heroes[hero as keyof Heroes].name] =
-      heroes[hero as keyof Heroes];
+    obj[heroes[hero as keyof Heroes].name] = heroes[hero as keyof Heroes];
   });
   return obj;
 };
@@ -495,7 +494,8 @@ export function groupByArray(xs: any[], key: string | Function) {
   }, []);
 }
 
-export const sumValues = (f: any): number => Object.values(f).reduce((a: any, b: any) => a + b) as number;
+export const sumValues = (f: any): number =>
+  Object.values(f).reduce((a: any, b: any) => a + b) as number;
 
 /* eslint-disable camelcase */
 // https://dota2.gamepedia.com/Attributes
@@ -812,9 +812,7 @@ export const transformations = {
   match_id_with_time: (row: any, col: any, field: any) => (
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span
-        style={{ ...subTextStyle, display: 'block', marginTop: 1 }}
-      >
+      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
         {fromNow(row.start_time)}
       </span>
     </div>
@@ -846,24 +844,14 @@ export const transformations = {
 
     const partySize = (_partySize: number) => {
       if (_partySize === 1) {
-        return (
-          <PersonIcon
-            style={iconStyle}
-          />
-        );
+        return <PersonIcon style={iconStyle} />;
       } else if (_partySize === null || _partySize === undefined) {
         return null;
       }
       return (
         <div style={{ float: 'right', marginTop: '-3px', marginRight: '2px' }}>
-          <GroupIcon
-            style={iconStyle}
-          />
-          <div
-            style={partyTextStyle}
-          >
-            {`x${row.party_size}`}
-          </div>
+          <GroupIcon style={iconStyle} />
+          <div style={partyTextStyle}>{`x${row.party_size}`}</div>
         </div>
       );
     };
@@ -890,9 +878,7 @@ export const transformations = {
           <span style={{ color: getColor(field) }}>{getString(field)}</span>
         </TableLink>
         <div>
-          <span
-            style={{ ...subTextStyle, marginTop: 1, display: 'inline' }}
-          >
+          <span style={{ ...subTextStyle, marginTop: 1, display: 'inline' }}>
             {row.league_name
               ? row.league_name
               : strings[`lobby_type_${row.lobby_type}`]}
@@ -923,11 +909,7 @@ export const transformations = {
       <div>
         {strings[`game_mode_${field}`] && `${strings[`game_mode_${field}`]}`}
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <span
-            style={skillStyle}
-          >
-            {rankTierToString(row.average_rank)}
-          </span>
+          <span style={skillStyle}>{rankTierToString(row.average_rank)}</span>
         </div>
         <ReactTooltip place="top" effect="solid" />
       </div>
@@ -951,9 +933,7 @@ export const transformations = {
       <div>
         <span>{formatSeconds(field)}</span>
         {displaySide && (
-          <span
-            style={{ ...subTextStyle }}
-          >
+          <span style={{ ...subTextStyle }}>
             {playerIsRadiant || teamIsRadiant
               ? strings.general_radiant
               : strings.general_dire}

@@ -46,30 +46,36 @@ const initialState = {
 };
 
 type TableProps = {
-  data: any[],
-  columns: any[],
-  loading?: boolean,
-  error?: boolean,
-  summable?: boolean,
-  maxRows?: number,
-  paginated?: boolean,
-  placeholderMessage?: string,
-  pageLength?: number,
-  hoverRowColumn?: boolean,
-  highlightFn?: Function,
-  keyFn?: Function,
-  customWidth?: number,
-  isBestValueInMatch?: Function,
-  overflowAuto?: boolean,
-  className?: string,
-  style?: React.CSSProperties,
+  data: any[];
+  columns: any[];
+  loading?: boolean;
+  error?: boolean;
+  summable?: boolean;
+  maxRows?: number;
+  paginated?: boolean;
+  placeholderMessage?: string;
+  pageLength?: number;
+  hoverRowColumn?: boolean;
+  highlightFn?: Function;
+  keyFn?: Function;
+  customWidth?: number;
+  isBestValueInMatch?: Function;
+  overflowAuto?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
 };
 
-type TableState = { currentPage: number, sortState: string, sortField: string, sortFn: Function, scrolled?: boolean };
+type TableState = {
+  currentPage: number;
+  sortState: string;
+  sortField: string;
+  sortFn: Function;
+  scrolled?: boolean;
+};
 
 class Table extends React.Component<TableProps, TableState> {
   state: TableState = initialState;
-  static renderSumRow({ columns, data }: { columns: any[], data: any[] }) {
+  static renderSumRow({ columns, data }: { columns: any[]; data: any[] }) {
     return (
       <tr>
         {columns.map((column, colIndex) => {
@@ -151,8 +157,8 @@ class Table extends React.Component<TableProps, TableState> {
     this.setState({
       sortState:
         sortField === state.sortField
-        //@ts-expect-error
-          ? SORT_ENUM.next(SORT_ENUM[state.sortState])
+          ? //@ts-expect-error
+            SORT_ENUM.next(SORT_ENUM[state.sortState])
           : SORT_ENUM[0],
       sortField,
       sortFn,
@@ -347,10 +353,7 @@ class Table extends React.Component<TableProps, TableState> {
                           fieldEl = displayFn(row, column, value, index);
                         } else if (sparkline) {
                           fieldEl = (
-                            <TableSparkline
-                              values={value}
-                              altValues={[]}
-                            />
+                            <TableSparkline values={value} altValues={[]} />
                           );
                         } else {
                           fieldEl = value;

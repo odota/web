@@ -98,7 +98,13 @@ const handleSubscribe = async (user: any) => {
   }
 };
 
-const Subscription = ({ user, isSubscriber }: { user: any, isSubscriber: boolean }) => {
+const Subscription = ({
+  user,
+  isSubscriber,
+}: {
+  user: any;
+  isSubscriber: boolean;
+}) => {
   const strings = useStrings();
   const handleManage = useCallback(async () => {
     const res = await fetch(`${config.VITE_API_HOST}/manageSub`, {
@@ -154,23 +160,22 @@ const Subscription = ({ user, isSubscriber }: { user: any, isSubscriber: boolean
           {user && isSubscriber && (
             <>
               <h4>{strings.subscriptions_h4}</h4>
-              <Button
-                variant="contained"
-                onClick={handleManage}
-              >{strings.subscriptions_button_manage}</Button>
+              <Button variant="contained" onClick={handleManage}>
+                {strings.subscriptions_button_manage}
+              </Button>
             </>
           )}
           {user && !isSubscriber && (
-            <Button
-              variant="contained"
-              onClick={() => handleSubscribe(user)}
-            >{strings.subscriptions_button_subscribe}</Button>
+            <Button variant="contained" onClick={() => handleSubscribe(user)}>
+              {strings.subscriptions_button_subscribe}
+            </Button>
           )}
           {!user && (
             <Button
               variant="contained"
               href={`${config.VITE_API_HOST}/login`}
-              startIcon={<IconSteam />}>
+              startIcon={<IconSteam />}
+            >
               {strings.subscriptions_button_login}
             </Button>
           )}

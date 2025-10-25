@@ -29,7 +29,9 @@ export const WinnerSpan = styled.span`
 const matchesColumns = (strings: Strings) => [
   {
     field: 'version',
-    displayFn: (row: any, col: any, field: any) => <div>{field ? '☆' : ''}</div>,
+    displayFn: (row: any, col: any, field: any) => (
+      <div>{field ? '☆' : ''}</div>
+    ),
   },
   {
     displayName: strings.th_match_id,
@@ -196,17 +198,16 @@ const getData = (props: MatchesProps) => {
 };
 
 type MatchesProps = {
-  match: { params: { matchId: string, info?: string } },
-  strings: Strings,
-  dispatchProMatches: Function,
-  dispatchPublicMatches: Function,
-  proData: any[],
-  publicData: any[],
-  loading: boolean,
+  match: { params: { matchId: string; info?: string } };
+  strings: Strings;
+  dispatchProMatches: Function;
+  dispatchPublicMatches: Function;
+  proData: any[];
+  publicData: any[];
+  loading: boolean;
 };
 
 class RequestLayer extends React.Component<MatchesProps> {
-
   componentDidMount() {
     getData(this.props);
   }

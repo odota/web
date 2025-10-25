@@ -6,26 +6,40 @@ import { StyledCustomizedTooltip } from '../../Visualizations/Graph/Styled';
 import constants from '../../constants';
 import useStrings from '../../../hooks/useStrings.hook';
 
-const CustomizedTooltip = ({ label, external }: { label?: any, external: any }) => {
+const CustomizedTooltip = ({
+  label,
+  external,
+}: {
+  label?: any;
+  external: any;
+}) => {
   const strings = useStrings();
-  return <StyledCustomizedTooltip>
-    <div className="label">
-      {label} - {label + 1}
-    </div>
-    {external && external[label] && (
-      <div>
-        <div>
-          {strings.cs_this_minute}: {external[label].delta}
-        </div>
-        <div>
-          {strings.cumulative_cs}: {external[label].cumulative}
-        </div>
+  return (
+    <StyledCustomizedTooltip>
+      <div className="label">
+        {label} - {label + 1}
       </div>
-    )}
-  </StyledCustomizedTooltip>;
+      {external && external[label] && (
+        <div>
+          <div>
+            {strings.cs_this_minute}: {external[label].delta}
+          </div>
+          <div>
+            {strings.cumulative_cs}: {external[label].cumulative}
+          </div>
+        </div>
+      )}
+    </StyledCustomizedTooltip>
+  );
 };
 
-const Sparkline = ({ values, altValues }: { values: number[], altValues: number[] }) => {
+const Sparkline = ({
+  values,
+  altValues,
+}: {
+  values: number[];
+  altValues: number[];
+}) => {
   let lastValue = 0;
   const data = (values || altValues)
     .map((v) => {
@@ -40,9 +54,7 @@ const Sparkline = ({ values, altValues }: { values: number[], altValues: number[
       <SparklineContainer>
         <BarChart data={data} width={200} height={40} barCategoryGap={1}>
           <YAxis hide domain={[0, 12]} />
-          <Tooltip
-            content={<CustomizedTooltip external={data} />}
-          />
+          <Tooltip content={<CustomizedTooltip external={data} />} />
           <ReferenceLine
             y={6}
             stroke={constants.colorRed}

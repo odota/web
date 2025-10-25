@@ -138,16 +138,16 @@ export const PlayerBadgesIcons = ({
   playerId,
   registered,
 }: {
-  loading: boolean,
-  error: string,
-  cheese: number,
-  isContributor: boolean,
-  isSubscriber: boolean,
-  tracked: boolean,
-  steamLink: string,
-  officialPlayerName: string,
-  playerId: string,
-  registered: boolean,
+  loading: boolean;
+  error: string;
+  cheese: number;
+  isContributor: boolean;
+  isSubscriber: boolean;
+  tracked: boolean;
+  steamLink: string;
+  officialPlayerName: string;
+  playerId: string;
+  registered: boolean;
 }) => {
   const strings = useStrings();
   const getPlayerBadges = () => {
@@ -208,7 +208,7 @@ export const PlayerBadgesIcons = ({
                 oColor="#212121"
               />
             </div>
-          )}  
+          )}
           {registered && <RegisteredBadge registered={registered} />}
         </div>
       </Styled>
@@ -218,11 +218,15 @@ export const PlayerBadgesIcons = ({
   return getPlayerBadges();
 };
 
-const RegisteredBadge = ({ registered }: { registered : boolean }) => {
+const RegisteredBadge = ({ registered }: { registered: boolean }) => {
   const strings = useStrings();
   return registered ? (
     <div
-      style={{ marginLeft: '8px', paddingTop: '8px', color: constants.colorSuccess }}
+      style={{
+        marginLeft: '8px',
+        paddingTop: '8px',
+        color: constants.colorSuccess,
+      }}
       data-hint={strings.tooltip_registered_user}
     >
       <HowToRegIcon />

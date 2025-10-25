@@ -13,10 +13,12 @@ const Wrapper = styled.span`
   }
 `;
 
-const Attribute = ({ style, children }: { style?: any, children: React.ReactNode }) => (
-  <Wrapper style={style}>
-    {children}
-  </Wrapper>
-);
+const Attribute = ({
+  style,
+  children,
+}: {
+  style?: any;
+  children: React.ReactNode;
+}) => <Wrapper style={style}>{children}</Wrapper>;
 
 export default Attribute;

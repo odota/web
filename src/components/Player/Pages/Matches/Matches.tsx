@@ -9,25 +9,27 @@ import useStrings from '../../../../hooks/useStrings.hook';
 
 const Matches = ({ data, error, loading }: MatchesProps) => {
   const strings = useStrings();
-  return <Container title={strings.heading_matches} error={error} loading={loading}>
-    <Table
-      paginated
-      columns={playerMatchesColumns(strings, true)}
-      data={data}
-    />
-  </Container>
+  return (
+    <Container title={strings.heading_matches} error={error} loading={loading}>
+      <Table
+        paginated
+        columns={playerMatchesColumns(strings, true)}
+        data={data}
+      />
+    </Container>
+  );
 };
 
 type MatchesProps = {
-  data: any[],
-  error: string,
-  loading: boolean,
-  getPlayerMatches: Function,
+  data: any[];
+  error: string;
+  loading: boolean;
+  getPlayerMatches: Function;
   location: {
-    key?: string,
-    search?: string,
-  },
-  playerId: string,
+    key?: string;
+    search?: string;
+  };
+  playerId: string;
 };
 
 const getData = (props: MatchesProps) => {

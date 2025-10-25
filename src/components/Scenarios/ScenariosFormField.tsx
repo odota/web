@@ -24,18 +24,21 @@ const customStyles = {
 };
 
 type ScenariosFormFieldProps = {
-  field: 'hero_id' | 'item' | 'time' | 'lane_role' | 'scenario',
-  formFieldState: any,
-  metadata: any,
-  updateFormFieldState: Function,
-  selectedTab: ScenariosTab,
-  className: string,
-  index: number,
-  strings: Strings,
-  incrementTableKey: Function,
-}
+  field: 'hero_id' | 'item' | 'time' | 'lane_role' | 'scenario';
+  formFieldState: any;
+  metadata: any;
+  updateFormFieldState: Function;
+  selectedTab: ScenariosTab;
+  className: string;
+  index: number;
+  strings: Strings;
+  incrementTableKey: Function;
+};
 
-class ScenarioFormField extends React.Component<ScenariosFormFieldProps, { animate?: boolean }> {
+class ScenarioFormField extends React.Component<
+  ScenariosFormFieldProps,
+  { animate?: boolean }
+> {
   dataSources: Record<string, Record<string, any[]>> = {};
   constructor(props: ScenariosFormFieldProps) {
     super(props);
@@ -76,13 +79,13 @@ class ScenarioFormField extends React.Component<ScenariosFormFieldProps, { anima
   //   this.setState({ searchText });
   // }
 
-  handleRequest = (e: any, value: { label: string, id: string } | null) => {
+  handleRequest = (e: any, value: { label: string; id: string } | null) => {
     const { updateFormFieldState, field } = this.props;
     updateFormFieldState({
       [field]: value?.id,
     });
     // this.setState({ searchText: value?.label });
-  }
+  };
 
   // resetField = () => {
   //   if (this.props.className === 'filter') {
@@ -96,7 +99,10 @@ class ScenarioFormField extends React.Component<ScenariosFormFieldProps, { anima
     const { field, index, selectedTab, className, strings } = this.props;
     //@ts-expect-error
     const label = hintTexts(strings)[selectedTab][field];
-    const options = this.dataSources[selectedTab][field].map((d: any) => ({ label: d.text ?? d.value, id: String(d.value) }));
+    const options = this.dataSources[selectedTab][field].map((d: any) => ({
+      label: d.text ?? d.value,
+      id: String(d.value),
+    }));
     return (
       <Autocomplete
         sx={{ width: '300px' }}
@@ -104,7 +110,7 @@ class ScenarioFormField extends React.Component<ScenariosFormFieldProps, { anima
         renderInput={(params) => <TextField {...params} label={label} />}
         options={options}
         // onOpen={this.resetField}
-        value={options.find(o => o.id === this.props.formFieldState)}
+        value={options.find((o) => o.id === this.props.formFieldState)}
         // onInputChange={this.handleUpdateInput}
         onChange={this.handleRequest}
         className={className}

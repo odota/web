@@ -1,6 +1,12 @@
 import React from 'react';
 
-const ProgressBar = ({ percent, height }: { percent: number, height: number }) => (
+const ProgressBar = ({
+  percent,
+  height,
+}: {
+  percent: number;
+  height: number;
+}) => (
   <div>
     <div
       style={{

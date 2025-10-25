@@ -8,20 +8,20 @@ import { transformations } from '../../utility';
 import { proPlayersSelector } from '../../reducers/selectors';
 
 class Recent extends React.Component<{
-    isLoading: boolean,
-    isError: boolean,
-    result: any,
-    onGetRecentMatches: Function,
-    match: {
-      params: {
-        heroId: string,
-      },
-    },
-    proPlayers: {
-      name: string,
-    }[],
-    strings: Strings,
-  }> {
+  isLoading: boolean;
+  isError: boolean;
+  result: any;
+  onGetRecentMatches: Function;
+  match: {
+    params: {
+      heroId: string;
+    };
+  };
+  proPlayers: {
+    name: string;
+  }[];
+  strings: Strings;
+}> {
   static defaultProps = {
     result: null,
     isError: false,
@@ -85,7 +85,7 @@ class Recent extends React.Component<{
     ];
 
     if (isError || (result && result.error)) {
-      return <ErrorBox text={result.error ?? strings.error } />;
+      return <ErrorBox text={result.error ?? strings.error} />;
     }
 
     // Merge recent matches with ProPlayer names

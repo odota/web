@@ -72,7 +72,13 @@ const TooltipStylesDiv = styled.div`
     font-size: ${constants.fontSizeCommon};
   }
 `;
-const TrendTooltipContent = ({ payload, name }: { payload?: any[], name: string }) => {
+const TrendTooltipContent = ({
+  payload,
+  name,
+}: {
+  payload?: any[];
+  name: string;
+}) => {
   const strings = useStrings();
   const data = payload && payload[0] && payload[0].payload;
   if (data) {
@@ -94,7 +100,9 @@ const TrendTooltipContent = ({ payload, name }: { payload?: any[], name: string 
                 </span>
                 <span className="time">{` ${fromNow(data.start_time)}`}</span>
               </div>
-              <div>{strings[`game_mode_${data.game_mode}` as keyof Strings]}</div>
+              <div>
+                {strings[`game_mode_${data.game_mode}` as keyof Strings]}
+              </div>
               <div>{formatSeconds(data.duration)}</div>
               {data.name === 'win_rate' || name === 'duration' ? (
                 ''
@@ -115,37 +123,37 @@ const TrendTooltipContent = ({ payload, name }: { payload?: any[], name: string 
   return null;
 };
 
-const TrendGraph = ({ columns, name }: { columns: any[], name: string }) => {
+const TrendGraph = ({ columns, name }: { columns: any[]; name: string }) => {
   const strings = useStrings();
-  return <ResponsiveContainer width="100%" height={400}>
-    <LineChart
-      data={columns}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 30,
-        bottom: 5,
-      }}
-    >
-      <XAxis interval={49}>
-        <Label value="" position="insideTopRight" />
-      </XAxis>
-      <YAxis domain={['auto', 'auto']} />
-      <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
+  return (
+    <ResponsiveContainer width="100%" height={400}>
+      <LineChart
+        data={columns}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 30,
+          bottom: 5,
+        }}
+      >
+        <XAxis interval={49}>
+          <Label value="" position="insideTopRight" />
+        </XAxis>
+        <YAxis domain={['auto', 'auto']} />
+        <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
 
-      <Tooltip
-        content={<TrendTooltipContent name={name} />}
-      />
-      <Line
-        dot={false}
-        dataKey="value"
-        stroke="#66BBFF"
-        strokeWidth={2}
-        name={strings[`heading_${name}` as keyof Strings]}
-      />
-      <Legend />
-    </LineChart>
-  </ResponsiveContainer>;
+        <Tooltip content={<TrendTooltipContent name={name} />} />
+        <Line
+          dot={false}
+          dataKey="value"
+          stroke="#66BBFF"
+          strokeWidth={2}
+          name={strings[`heading_${name}` as keyof Strings]}
+        />
+        <Legend />
+      </LineChart>
+    </ResponsiveContainer>
+  );
 };
 
 export default TrendGraph;

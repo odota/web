@@ -53,64 +53,69 @@ type Hero = {
 type Heroes = Record<string, Hero>;
 
 type Match = {
-  players: MatchPlayer[],
-  match_id: number,
-  duration: number,
-  radiant_win: boolean,
-  tower_status_radiant: number,
-  barracks_status_radiant: number,
-  barracks_status_dire: number,
-  tower_status_dire: number,
-  start_time: number,
-  radiant_team?: { name: string }
-  dire_team?: { name: string }
-  radiant_score: number,
-  dire_score: number,
-  league?: { name: string }
-  version?: number,
-  replay_url?: string,
-  region: number,
-  game_mode: number,
-  picks_bans: any[],
-  objectives: any[],
-  teamfights: { start: number, end: number, radiant_gold_advantage_delta: number, players: any[] }[],
-  first_blood_time: number,
-  draft_timings: any[],
-  chat: any[],
-  radiant_gold_adv: number[],
-  radiant_xp_adv: number[],
-  wards_log: any[],
+  players: MatchPlayer[];
+  match_id: number;
+  duration: number;
+  radiant_win: boolean;
+  tower_status_radiant: number;
+  barracks_status_radiant: number;
+  barracks_status_dire: number;
+  tower_status_dire: number;
+  start_time: number;
+  radiant_team?: { name: string };
+  dire_team?: { name: string };
+  radiant_score: number;
+  dire_score: number;
+  league?: { name: string };
+  version?: number;
+  replay_url?: string;
+  region: number;
+  game_mode: number;
+  picks_bans: any[];
+  objectives: any[];
+  teamfights: {
+    start: number;
+    end: number;
+    radiant_gold_advantage_delta: number;
+    players: any[];
+  }[];
+  first_blood_time: number;
+  draft_timings: any[];
+  chat: any[];
+  radiant_gold_adv: number[];
+  radiant_xp_adv: number[];
+  wards_log: any[];
 };
 
 type MatchPlayer = {
-  hero_id: keyof Heroes,
-  hero_name: string,
-  hero_healing: number,
-  item_neutral: number,
-  item_neutral2: number,
-  account_id: number,
-  killed: Record<string, any>,
-  killed_by: Record<string, any>,
-  damage_taken: Record<string, number>,
-  kills_log: any[],
-  player_slot: number,
-  damage: Record<string, any>,
-  name: string,
-  personaname: string,
-  isRadiant: boolean,
-  is_roaming: boolean,
-  desc: string,
-  lane: number,
-  gold_t: number[],
-  cs_t: number[],
-  lh_t: number[],
-  lane_pos: any,
-  gold_reasons: Record<string, number>,
-  xp_reasons: Record<string, number>,
-  cosmetics: any[],
-  runes_log: any[],
-  pred_vict: boolean,
-  first_purchase_time: Record<string, number>,
+  hero_id: keyof Heroes;
+  hero_name: string;
+  hero_healing: number;
+  item_neutral: number;
+  item_neutral2: number;
+  account_id: number;
+  killed: Record<string, any>;
+  killed_by: Record<string, any>;
+  damage_taken: Record<string, number>;
+  kills_log: any[];
+  player_slot: number;
+  damage: Record<string, any>;
+  name: string;
+  personaname: string;
+  isRadiant: boolean;
+  is_roaming: boolean;
+  desc: string;
+  lane: number;
+  gold_t: number[];
+  cs_t: number[];
+  lh_t: number[];
+  lane_pos: any;
+  gold_reasons: Record<string, number>;
+  xp_reasons: Record<string, number>;
+  cosmetics: any[];
+  runes_log: any[];
+  pred_vict: boolean;
+  first_purchase_time: Record<string, number>;
   kills: number;
   deaths: number;
   assists: number;
@@ -127,9 +132,9 @@ type MatchPlayer = {
   party_id: number;
   additional_units: any[];
   permanent_buffs: any[];
-  ability_upgrades_arr: number[],
-  abilities: any[],
-  specific: any,
+  ability_upgrades_arr: number[];
+  abilities: any[];
+  specific: any;
   actions: Record<string, number>;
   runes: Record<string, number>;
   objective_damage: Record<string, number>;
@@ -145,17 +150,17 @@ type MatchPlayer = {
 };
 
 type RouterProps = {
-  location: import('history').Location,
+  location: import('history').Location;
   match: {
     params: {
-      playerId: string,
-      info?: string,
-    },
+      playerId: string;
+      info?: string;
+    };
     isExact: boolean;
-    path: string,
-    url: string,
-  },
-  history: import('history').History,
-}
+    path: string;
+    url: string;
+  };
+  history: import('history').History;
+};
 
 type WardType = 'observer' | 'sentry';

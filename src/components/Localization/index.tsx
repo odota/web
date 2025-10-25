@@ -14,7 +14,11 @@ import { langs } from '../../lang';
 import constants from '../constants';
 import { useStrings } from '../../hooks/useStrings.hook';
 
-const setLocalization = (event: any, key: string | null, payload: { value: any }) => {
+const setLocalization = (
+  event: any,
+  key: string | null,
+  payload: { value: any },
+) => {
   window.localStorage.setItem('localization', payload.value);
   window.location.reload();
 };
@@ -51,12 +55,12 @@ const LocalizationMenu = React.forwardRef(() => {
           <List component="div" disablePadding>
             {langs.map((lang) => (
               <ListItem>
-              <ListItemButton
-                onClick={() => setLocalization(null, null, lang)}
-                key={lang.value}
-              >
-                <ListItemText primary={lang.native} />
-              </ListItemButton>
+                <ListItemButton
+                  onClick={() => setLocalization(null, null, lang)}
+                  key={lang.value}
+                >
+                  <ListItemText primary={lang.native} />
+                </ListItemButton>
               </ListItem>
             ))}
           </List>

@@ -26,13 +26,15 @@ const getColumns = (f: string, metadata: any, strings: Strings) => {
         displayName: strings.scenarios_time,
         field: 'time',
         sortFn: (row: any) => row.time,
-        displayFn: (row: any, col: any, field: number) => getTimeRange(field, metadata.timings),
+        displayFn: (row: any, col: any, field: number) =>
+          getTimeRange(field, metadata.timings),
       },
       {
         displayName: strings.scenarios_item,
         field: 'item',
         sortFn: true,
-        displayFn: (row: any, col: any, field: string) => inflictorWithValue(field),
+        displayFn: (row: any, col: any, field: string) =>
+          inflictorWithValue(field),
       },
       {
         displayName: strings.heading_win_rate,
@@ -54,7 +56,8 @@ const getColumns = (f: string, metadata: any, strings: Strings) => {
         displayName: strings.heading_lane_role,
         field: 'lane_role',
         sortFn: true,
-        displayFn: (row: any, col: any, field: number) => strings[`lane_role_${field}` as keyof Strings] || field,
+        displayFn: (row: any, col: any, field: number) =>
+          strings[`lane_role_${field}` as keyof Strings] || field,
       },
       {
         displayName: strings.scenarios_game_duration,
@@ -77,7 +80,8 @@ const getColumns = (f: string, metadata: any, strings: Strings) => {
         displayName: strings.scenarios_scenario,
         field: 'scenario',
         sortFn: true,
-        displayFn: (row: any, col: any, field: number) => strings[`scenarios_${field}` as keyof Strings] || field,
+        displayFn: (row: any, col: any, field: number) =>
+          strings[`scenarios_${field}` as keyof Strings] || field,
       },
       {
         displayName: strings.heading_win_rate,

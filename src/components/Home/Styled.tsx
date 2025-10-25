@@ -51,4 +51,3 @@ export const BottomTextDiv = styled.div`
   font-weight: ${constants.fontWeightLight};
   text-align: right;
 `;
-

@@ -21,36 +21,38 @@ const StyledTableContainer = styled.div`
   padding: 5px;
 `;
 
-const Counts = ({ counts, error, loading}: CountsProps) => {
+const Counts = ({ counts, error, loading }: CountsProps) => {
   const strings = useStrings();
-  return <StyledContainer>
-    {Object.keys(counts).map((key) => (
-      <StyledTableContainer key={key}>
-        <Container
-          title={strings[`heading_${key}` as keyof Strings]}
-          error={error}
-          loading={loading}
-        >
-          <Table
-            columns={playerCountsColumns(strings)}
-            data={counts[key].list}
-          />
-        </Container>
-      </StyledTableContainer>
-    ))}
-  </StyledContainer>;
+  return (
+    <StyledContainer>
+      {Object.keys(counts).map((key) => (
+        <StyledTableContainer key={key}>
+          <Container
+            title={strings[`heading_${key}` as keyof Strings]}
+            error={error}
+            loading={loading}
+          >
+            <Table
+              columns={playerCountsColumns(strings)}
+              data={counts[key].list}
+            />
+          </Container>
+        </StyledTableContainer>
+      ))}
+    </StyledContainer>
+  );
 };
 
 type CountsProps = {
-  counts: Record<string, any>,
-  error: string,
-  loading: boolean,
-  getPlayerCounts: Function,
-  playerId: string,
+  counts: Record<string, any>;
+  error: string;
+  loading: boolean;
+  getPlayerCounts: Function;
+  playerId: string;
   location: {
-    key?: string,
-    search?: string,
-  },
+    key?: string;
+    search?: string;
+  };
 };
 
 const getData = (props: CountsProps) => {

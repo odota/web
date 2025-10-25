@@ -155,32 +155,34 @@ const StyledHr = styled.hr`
 
 const Footer = () => {
   const strings = useStrings();
-  return <StyledFooter>
-    <div className="links">
-      <div className="logoNsocial">
-        <AppLogo />
-        <SocialLinks />
+  return (
+    <StyledFooter>
+      <div className="links">
+        <div className="logoNsocial">
+          <AppLogo />
+          <SocialLinks />
+        </div>
+        <small className="about">
+          <span id="app-description">{strings.app_description}</span>
+          {' - '}
+          <span id="app-powered-by">{strings.app_powered_by}</span>
+          <a
+            href="http://steampowered.com"
+            aria-describedby="app-description app-powered-by"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <IconSteam />
+          </a>
+        </small>
+        <StyledHr />
+        <div className="pages">
+          <PageLinks />
+        </div>
       </div>
-      <small className="about">
-        <span id="app-description">{strings.app_description}</span>
-        {' - '}
-        <span id="app-powered-by">{strings.app_powered_by}</span>
-        <a
-          href="http://steampowered.com"
-          aria-describedby="app-description app-powered-by"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <IconSteam />
-        </a>
-      </small>
-      <StyledHr />
-      <div className="pages">
-        <PageLinks />
-      </div>
-    </div>
-    {/* <Cheese /> */}
-  </StyledFooter>;
+      {/* <Cheese /> */}
+    </StyledFooter>
+  );
 };
 
 export default Footer;

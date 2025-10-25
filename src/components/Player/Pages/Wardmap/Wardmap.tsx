@@ -37,18 +37,18 @@ const getData = (props: WardmapProps) => {
 };
 
 type WardmapProps = {
-  updateWindowSize: (this: Window, ev: UIEvent) => any,
-  error: string,
-  loading: boolean,
-  data: { obs: any, sen: any },
-  browser: any,
-  playerId: string,
+  updateWindowSize: (this: Window, ev: UIEvent) => any;
+  error: string;
+  loading: boolean;
+  data: { obs: any; sen: any };
+  browser: any;
+  playerId: string;
   location: {
-    key?: string,
-    search?: string,
-  },
-  strings: Strings,
-  getPlayerWardmap: Function,
+    key?: string;
+    search?: string;
+  };
+  strings: Strings;
+  getPlayerWardmap: Function;
 };
 
 class RequestLayer extends React.Component<WardmapProps, { clicked?: string }> {

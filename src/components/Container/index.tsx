@@ -4,17 +4,17 @@ import Error from '../Error/Error';
 import ContainerSkeleton from '../Skeletons/ContainerSkeleton';
 
 type ContainerProps = {
-  title?: string,
-  subtitle?: string | React.ReactNode,
-  style?: any,
-  className?: string,
-  loading?: boolean,
-  error?: string,
-  children?: React.ReactNode,
-  hide?: boolean,
-  titleTo?: string,
-  loaderWidth?: number,
-  loaderHeight?: number,
+  title?: string;
+  subtitle?: string | React.ReactNode;
+  style?: any;
+  className?: string;
+  loading?: boolean;
+  error?: string;
+  children?: React.ReactNode;
+  hide?: boolean;
+  titleTo?: string;
+  loaderWidth?: number;
+  loaderHeight?: number;
 };
 
 const Container = ({

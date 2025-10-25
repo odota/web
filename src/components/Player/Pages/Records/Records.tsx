@@ -42,7 +42,8 @@ const Records = ({
       >
         <Table
           columns={playerRecordsColumns(strings).concat({
-            displayName: strings[`th_${selected}` as keyof Strings] || strings.th_record,
+            displayName:
+              strings[`th_${selected}` as keyof Strings] || strings.th_record,
             displayFn: (row: any, col: any, field: number) =>
               field && field.toFixed ? Number(field.toFixed(2)) : '',
             field: selected,
@@ -65,11 +66,11 @@ const getData = (props: RecordsProps) => {
 
 type RecordsProps = {
   routeParams: any;
-  playerId: string,
-  getPlayerRecords: Function,
-  data: any[],
-  error: string,
-  loading: boolean,
+  playerId: string;
+  getPlayerRecords: Function;
+  data: any[];
+  error: string;
+  loading: boolean;
 } & RouterProps;
 
 class RequestLayer extends React.Component<RecordsProps> {

@@ -22,47 +22,47 @@ const getData = (props: TeamProps) => {
 };
 
 type TeamProps = {
-  dispatchTeam: Function,
-  dispatchTeamMatches: Function,
-  dispatchTeamHeroes: Function,
-  dispatchTeamPlayers: Function,
-    generalData: {
-      data: {
-        team_id: number,
-        rating: number,
-        wins: number,
-        losses: number,
-        last_match_time: number,
-        name: string,
-        tag: string,
-        logo_url: string,
-      },
-      loading: boolean,
-      error: string,
-    },
-    matchData: {
-      data: any[],
-      loading: boolean,
-      error: string,
-    }
-    heroData: {
-      data: any[],
-      loading: boolean,
-      error: string,
-    }
-    playerData: {
-      data: any[],
-      loading: boolean,
-      error: string,
-    },
-    match: {
-      params: {
-        teamId?: string,
-        info?: string,
-      },
-    },
-    strings: Strings,
-  }
+  dispatchTeam: Function;
+  dispatchTeamMatches: Function;
+  dispatchTeamHeroes: Function;
+  dispatchTeamPlayers: Function;
+  generalData: {
+    data: {
+      team_id: number;
+      rating: number;
+      wins: number;
+      losses: number;
+      last_match_time: number;
+      name: string;
+      tag: string;
+      logo_url: string;
+    };
+    loading: boolean;
+    error: string;
+  };
+  matchData: {
+    data: any[];
+    loading: boolean;
+    error: string;
+  };
+  heroData: {
+    data: any[];
+    loading: boolean;
+    error: string;
+  };
+  playerData: {
+    data: any[];
+    loading: boolean;
+    error: string;
+  };
+  match: {
+    params: {
+      teamId?: string;
+      info?: string;
+    };
+  };
+  strings: Strings;
+};
 
 class Team extends React.Component<TeamProps> {
   componentDidMount() {

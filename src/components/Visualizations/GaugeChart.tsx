@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { abbreviateNumber } from '../../utility';
 
-const Styled = styled.div<{ percent?: number, meterColor?: string }>`
+const Styled = styled.div<{ percent?: number; meterColor?: string }>`
   font-size: 60%;
   margin: 5px 19px 15px 5px;
   position: relative;
@@ -143,7 +143,15 @@ const computeMeterColor = (value: number) => {
   return 'rgb(117,176,103)';
 };
 
-const GaugeChart = ({ number, percent, caption }: { number: number, percent: number, caption: string }) => (
+const GaugeChart = ({
+  number,
+  percent,
+  caption,
+}: {
+  number: number;
+  percent: number;
+  caption: string;
+}) => (
   <Styled
     className="gauge-chart"
     percent={computeMeterPercent(percent)}

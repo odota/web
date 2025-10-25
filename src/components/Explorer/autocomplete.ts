@@ -24,7 +24,12 @@ const sqlfuncs = [
   'using()',
 ];
 
-const autocomplete = (cols: any[], proPlayers: any[] = [], teams: any[] = [], leagues: any[] = []) => {
+const autocomplete = (
+  cols: any[],
+  proPlayers: any[] = [],
+  teams: any[] = [],
+  leagues: any[] = [],
+) => {
   const { strings } = store.getState().app;
   const filteredPros = proPlayers
     .filter((p) => p.name)
@@ -50,7 +55,13 @@ const autocomplete = (cols: any[], proPlayers: any[] = [], teams: any[] = [], le
       meta: `${l.leagueid.toString()} (${strings.explorer_league})`,
     }));
   return {
-    getCompletions(editor: any, session: any, pos: number, prefix: string, callback: Function) {
+    getCompletions(
+      editor: any,
+      session: any,
+      pos: number,
+      prefix: string,
+      callback: Function,
+    ) {
       callback(
         null,
         ([] as any[])

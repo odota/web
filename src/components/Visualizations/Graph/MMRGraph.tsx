@@ -36,55 +36,57 @@ const formatXTickDetailed = (time: number) => {
 
 const MMRGraph = ({ columns }: { columns: any[] }) => {
   const strings = useStrings();
-  return <StyledGraphArea>
-    <ResponsiveContainer width="100%" height={400}>
-      <LineChart
-        data={columns.map(filterZeroValues)}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 30,
-          bottom: 5,
-        }}
-      >
-        <XAxis dataKey="time" interval={49} tickFormatter={formatXTick}>
-          <Label value={strings.th_time} position="insideTopRight" />
-        </XAxis>
-        <YAxis type="number" domain={['dataMin - 100', 'dataMax + 100']} />
-        <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
-
-        <Tooltip
-          wrapperStyle={{
-            backgroundColor: constants.darkPrimaryColor,
-            border: 'none',
+  return (
+    <StyledGraphArea>
+      <ResponsiveContainer width="100%" height={400}>
+        <LineChart
+          data={columns.map(filterZeroValues)}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 30,
+            bottom: 5,
           }}
-          labelFormatter={formatXTickDetailed}
-        />
-        <Line
-          dot={false}
-          dataKey="solo_competitive_rank"
-          stroke="#66BBFF"
-          strokeWidth={2}
-          name={strings.th_solo_mmr}
-        />
-        <Line
-          dot={false}
-          dataKey="competitive_rank"
-          stroke="#FF4C4C"
-          strokeWidth={2}
-          name={strings.th_party_mmr}
-        />
-        <Legend verticalAlign="top" />
-        <Brush
-          dataKey="time"
-          height={40}
-          stroke={constants.primaryLinkColor}
-          fill={constants.darkPrimaryColor}
-          tickFormatter={formatXTick}
-        />
-      </LineChart>
-    </ResponsiveContainer>
-  </StyledGraphArea>;
+        >
+          <XAxis dataKey="time" interval={49} tickFormatter={formatXTick}>
+            <Label value={strings.th_time} position="insideTopRight" />
+          </XAxis>
+          <YAxis type="number" domain={['dataMin - 100', 'dataMax + 100']} />
+          <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
+
+          <Tooltip
+            wrapperStyle={{
+              backgroundColor: constants.darkPrimaryColor,
+              border: 'none',
+            }}
+            labelFormatter={formatXTickDetailed}
+          />
+          <Line
+            dot={false}
+            dataKey="solo_competitive_rank"
+            stroke="#66BBFF"
+            strokeWidth={2}
+            name={strings.th_solo_mmr}
+          />
+          <Line
+            dot={false}
+            dataKey="competitive_rank"
+            stroke="#FF4C4C"
+            strokeWidth={2}
+            name={strings.th_party_mmr}
+          />
+          <Legend verticalAlign="top" />
+          <Brush
+            dataKey="time"
+            height={40}
+            stroke={constants.primaryLinkColor}
+            fill={constants.darkPrimaryColor}
+            tickFormatter={formatXTick}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </StyledGraphArea>
+  );
 };
 
 export default MMRGraph;

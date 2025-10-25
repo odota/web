@@ -70,7 +70,13 @@ const renderGraphs = (data: any[]) =>
     <BenchmarkGraph key={graphData.title} data={graphData} />
   ));
 
-const BenchmarkGraphs = ({ data, strings }: { data: any[], strings: Strings }) => {
+const BenchmarkGraphs = ({
+  data,
+  strings,
+}: {
+  data: any[];
+  strings: Strings;
+}) => {
   const mappedData = getData(data, strings);
 
   return <Wrapper>{renderGraphs(mappedData)}</Wrapper>;

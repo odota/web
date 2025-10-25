@@ -9,19 +9,21 @@ import useStrings from '../../hooks/useStrings.hook';
 
 const Buttons = ({ user }: HomePageProps) => {
   const strings = useStrings();
-  return <div>
-    {!user && (
-      <div>
-        <Button
-          variant="contained"
-          startIcon={<IconSteam />}
-          href={`${config.VITE_API_HOST}/login`}
-        >
-          {strings.home_login}
-        </Button>
-      </div>
-    )}
-  </div>;
+  return (
+    <div>
+      {!user && (
+        <div>
+          <Button
+            variant="contained"
+            startIcon={<IconSteam />}
+            href={`${config.VITE_API_HOST}/login`}
+          >
+            {strings.home_login}
+          </Button>
+        </div>
+      )}
+    </div>
+  );
 };
 
 const mapStateToProps = (state: any) => {

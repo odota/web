@@ -81,23 +81,22 @@ const Announce = ({
   link: string;
 }) => {
   const strings = useStrings();
-  return <StyledDiv>
-    <main>
-      <h4>{title}</h4>
-      {body && <ReactMarkdown>{body}</ReactMarkdown>}
-    </main>
-    <aside>
-      <Button
-        href={link}
-        target="_blank"
-      >{strings.announce_github_more}</Button>
-    </aside>
-    <aside>
-      <Button
-        onClick={onClick}
-      >{strings.announce_dismiss}</Button>
-    </aside>
-  </StyledDiv>;
+  return (
+    <StyledDiv>
+      <main>
+        <h4>{title}</h4>
+        {body && <ReactMarkdown>{body}</ReactMarkdown>}
+      </main>
+      <aside>
+        <Button href={link} target="_blank">
+          {strings.announce_github_more}
+        </Button>
+      </aside>
+      <aside>
+        <Button onClick={onClick}>{strings.announce_dismiss}</Button>
+      </aside>
+    </StyledDiv>
+  );
 };
 
 class RequestLayer extends React.Component<

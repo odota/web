@@ -33,20 +33,32 @@ const StyledTab = styled(Tab)`
   min-width: 0 !important;
 `;
 
-const TabTooltip = ({ title, children }: { title: string, children: React.ReactElement<any, any> }) =>
-  title ? <Tooltip title={title}>{children}</Tooltip> : children;
+const TabTooltip = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactElement<any, any>;
+}) => (title ? <Tooltip title={title}>{children}</Tooltip> : children);
 
-const TabBar = ({ tabs, matchData, history, location }: { tabs: any[], matchData?: Match } & RouterProps) => {
+const TabBar = ({
+  tabs,
+  matchData,
+  history,
+  location,
+}: { tabs: any[]; matchData?: Match } & RouterProps) => {
   const [tabValue, setTabValue] = useState(0);
   const visibleTabs = useMemo(
     () =>
-      tabs.filter((tab) => !tab.hidden || (tab.hidden && !tab.hidden(matchData))),
+      tabs.filter(
+        (tab) => !tab.hidden || (tab.hidden && !tab.hidden(matchData)),
+      ),
     [matchData, tabs],
   );
 
   useEffect(() => {
-    const newTabIndex = visibleTabs.findIndex(
-      (tab) => location.pathname.startsWith(tab.route),
+    const newTabIndex = visibleTabs.findIndex((tab) =>
+      location.pathname.startsWith(tab.route),
     );
     setTabValue(newTabIndex !== -1 ? newTabIndex : 0);
   }, [visibleTabs, history, location.pathname]);

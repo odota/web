@@ -1,4 +1,7 @@
-function conjoin(strings: TemplateStringsArray, value: { value: any}[] | { value: any } | string) {
+function conjoin(
+  strings: TemplateStringsArray,
+  value: { value: any }[] | { value: any } | string,
+) {
   if (!value) {
     return '';
   }
@@ -147,7 +150,7 @@ ${megaWin?.[0] ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_
 ${maxGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage[0].value}` : ''}
 ${minGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage[0].value}` : ''}
 GROUP BY hero_id
-ORDER BY total ${(order?.[0]?.value) ?? 'DESC'}`;
+ORDER BY total ${order?.[0]?.value ?? 'DESC'}`;
   } else {
     const selectVal: any = {};
     const groupVal: any = {};
@@ -261,7 +264,7 @@ ${megaWin?.[0] ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_
 ${maxGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage[0].value}` : ''}
 ${minGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage[0].value}` : ''}
 ${validateArray(groupArray) ? 'GROUP BY' : ''}${(validateArray(groupArray) && groupArray.map((x) => ` ${groupVal[x.key]}`)) || ''}
-${validateArray(groupArray) ? `HAVING count(distinct matches.match_id) >= ${(having?.[0].value) ?? '1'}` : ''}
+${validateArray(groupArray) ? `HAVING count(distinct matches.match_id) >= ${having?.[0].value ?? '1'}` : ''}
 ORDER BY ${[
       `${
         (validateArray(groupArray) &&

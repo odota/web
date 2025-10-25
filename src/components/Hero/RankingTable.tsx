@@ -8,7 +8,8 @@ const RankingTable = ({ rankings }: { rankings: any[] }) => {
   const rankingColumns = [
     {
       displayName: strings.th_rank,
-      displayFn: (row: any, col: any, field: string, index: number) => getOrdinal(index + 1),
+      displayFn: (row: any, col: any, field: string, index: number) =>
+        getOrdinal(index + 1),
     },
     {
       displayName: strings.th_name,

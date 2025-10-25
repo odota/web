@@ -144,15 +144,17 @@ const generateData = (match: Match, strings: Strings) => (log: any) => {
   };
 };
 
-const VisionLog = ({ match, wards }: { match: Match, wards: any[] }) => {
+const VisionLog = ({ match, wards }: { match: Match; wards: any[] }) => {
   const strings = useStrings();
-  return <div>
-    <Heading title={strings.vision_ward_log} />
-    <Table
-      data={wards.map(generateData(match, strings))}
-      columns={columns(strings)}
-    />
-  </div>;
+  return (
+    <div>
+      <Heading title={strings.vision_ward_log} />
+      <Table
+        data={wards.map(generateData(match, strings))}
+        columns={columns(strings)}
+      />
+    </div>
+  );
 };
 
 export default VisionLog;

@@ -70,24 +70,37 @@ const reduceRows = (data: any[]) => {
 
 type ScenariosProps = {
   match: {
-    params: { info: string },
-  },
+    params: { info: string };
+  };
   location: {
     search: {
-      substring: Function,
-    },
-  },
+      substring: Function;
+    };
+  };
   history: {
-    push: Function,
-  }
-  scenariosState: Record<string, { data: any[], loading?: boolean, error?: string, metadata?: any, metadataLoading?: boolean, metadataError?: string }>,
-  strings: Strings,
-  itemTimings: Function,
-  laneRoles: Function,
-  misc: Function,
+    push: Function;
+  };
+  scenariosState: Record<
+    string,
+    {
+      data: any[];
+      loading?: boolean;
+      error?: string;
+      metadata?: any;
+      metadataLoading?: boolean;
+      metadataError?: string;
+    }
+  >;
+  strings: Strings;
+  itemTimings: Function;
+  laneRoles: Function;
+  misc: Function;
 };
 
-type ScenariosState = { selectedTab: ScenariosTab, formFields: Record<string, any> };
+type ScenariosState = {
+  selectedTab: ScenariosTab;
+  formFields: Record<string, any>;
+};
 
 class Scenarios extends React.Component<ScenariosProps, ScenariosState> {
   tableKey = 0;
@@ -121,7 +134,7 @@ class Scenarios extends React.Component<ScenariosProps, ScenariosState> {
     const { selectedTab, formFields } = this.state;
     this.props[selectedTab](formFields[selectedTab]);
     this.incrementTableKey();
-  }
+  };
 
   handleChange = (e: React.SyntheticEvent, selectedTab: ScenariosTab) => {
     this.setState({ selectedTab }, this.initialQuery);
@@ -139,7 +152,7 @@ class Scenarios extends React.Component<ScenariosProps, ScenariosState> {
       this.getData();
     }
     this.updateQueryParams();
-  }
+  };
 
   updateQueryParams = () => {
     const { formFields, selectedTab } = this.state;
@@ -147,7 +160,7 @@ class Scenarios extends React.Component<ScenariosProps, ScenariosState> {
       `/scenarios/${selectedTab}?${querystring.stringify(formFields[selectedTab])}`,
     );
     this.getData();
-  }
+  };
 
   updateFormFieldStates = (newFormFieldState?: any) => {
     const { selectedTab, formFields } = this.state;
@@ -160,7 +173,7 @@ class Scenarios extends React.Component<ScenariosProps, ScenariosState> {
       },
       this.updateQueryParams,
     );
-  }
+  };
 
   render() {
     const { scenariosState, strings } = this.props;
@@ -193,19 +206,12 @@ class Scenarios extends React.Component<ScenariosProps, ScenariosState> {
               info={`${formatTemplateToString(strings.scenarios_info, 4)}`}
               className="top-heading"
             />
-            <Tabs
-              value={selectedTab}
-              onChange={this.handleChange}
-            >
+            <Tabs value={selectedTab} onChange={this.handleChange}>
               {tabItems(strings).map((item) => (
-                <Tab
-                  key={item.value}
-                  label={item.text}
-                  value={item.value}
-                />))}
+                <Tab key={item.value} label={item.text} value={item.value} />
+              ))}
             </Tabs>
-            <div 
-              style={formFieldStyle}>
+            <div style={formFieldStyle}>
               {[...(queryForms || []), ...(filterForms || [])].map(
                 (field, index) => (
                   <ScenariosFormField

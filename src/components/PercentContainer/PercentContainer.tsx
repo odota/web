@@ -17,7 +17,15 @@ const StyledTextContainer = styled.div`
 `;
 
 // the LinearProgress can be swapped for PiePercent if it turns out people prefer that
-const PercentContainer = ({ wins, games, percent }: { wins: number, games: number, percent: number }) => (
+const PercentContainer = ({
+  wins,
+  games,
+  percent,
+}: {
+  wins: number;
+  games: number;
+  percent: number;
+}) => (
   <StyledPercentContainer>
     <StyledTextContainer>
       {percent || getPercentWin(wins, games).toFixed(1)}

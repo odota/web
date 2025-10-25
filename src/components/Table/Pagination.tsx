@@ -85,7 +85,15 @@ const StyledInfo = styled.div`
   color: ${constants.colorMutedLight};
 `;
 
-const getPages = ({ currentPage, numPages, setCurrentPage }: { currentPage: number, numPages: number, setCurrentPage: Function }) => {
+const getPages = ({
+  currentPage,
+  numPages,
+  setCurrentPage,
+}: {
+  currentPage: number;
+  numPages: number;
+  setCurrentPage: Function;
+}) => {
   // let i = currentPage - 4 > 0 ? currentPage - 4 : 0;
   const pages = [];
   const minStart = Math.max(numPages - 5, 0);
@@ -126,65 +134,69 @@ const Pagination = ({
   length,
   place,
 }: {
-  currentPage: number,
-  nextPage: (e: React.MouseEvent) => void,
-  prevPage: (e: React.MouseEvent) => void,
-  setCurrentPage: Function,
-  numPages: number,
-  pageLength: number,
-  length: number,
-  place: string,
+  currentPage: number;
+  nextPage: (e: React.MouseEvent) => void;
+  prevPage: (e: React.MouseEvent) => void;
+  setCurrentPage: Function;
+  numPages: number;
+  pageLength: number;
+  length: number;
+  place: string;
 }) => {
   const strings = useStrings();
   if (numPages > 1) {
-    return <StyledContainer top={place === 'top'}>
-      <StyledPagination top={place === 'top'}>
-        {currentPage > 0 && (
-          <StyledPage onClick={() => setCurrentPage(0)}>
-            {strings.pagination_first}
-          </StyledPage>
-        )}
-        <div>
+    return (
+      <StyledContainer top={place === 'top'}>
+        <StyledPagination top={place === 'top'}>
           {currentPage > 0 && (
-            <StyledArrowButton onClick={currentPage > 0 ? prevPage : () => {}}>
-              <StyledPrev />
-            </StyledArrowButton>
+            <StyledPage onClick={() => setCurrentPage(0)}>
+              {strings.pagination_first}
+            </StyledPage>
           )}
-          {currentPage > 2 && numPages > 2 && (
-            <StyledCurrentPage disabled>...</StyledCurrentPage>
-          )}
-          {getPages({ currentPage, numPages, setCurrentPage })}
-          {numPages > currentPage + 3 && (
-            <StyledCurrentPage disabled>...</StyledCurrentPage>
-          )}
+          <div>
+            {currentPage > 0 && (
+              <StyledArrowButton
+                onClick={currentPage > 0 ? prevPage : () => {}}
+              >
+                <StyledPrev />
+              </StyledArrowButton>
+            )}
+            {currentPage > 2 && numPages > 2 && (
+              <StyledCurrentPage disabled>...</StyledCurrentPage>
+            )}
+            {getPages({ currentPage, numPages, setCurrentPage })}
+            {numPages > currentPage + 3 && (
+              <StyledCurrentPage disabled>...</StyledCurrentPage>
+            )}
+            {currentPage < numPages - 1 && (
+              <StyledArrowButton
+                onClick={currentPage < numPages - 1 ? nextPage : () => {}}
+              >
+                <StyledNext />
+              </StyledArrowButton>
+            )}
+          </div>
           {currentPage < numPages - 1 && (
-            <StyledArrowButton
-              onClick={currentPage < numPages - 1 ? nextPage : () => {}}
-            >
-              <StyledNext />
-            </StyledArrowButton>
+            <StyledPage onClick={() => setCurrentPage(numPages - 1)}>
+              {strings.pagination_last}
+            </StyledPage>
           )}
-        </div>
-        {currentPage < numPages - 1 && (
-          <StyledPage onClick={() => setCurrentPage(numPages - 1)}>
-            {strings.pagination_last}
-          </StyledPage>
+        </StyledPagination>
+        {place === 'bot' && (
+          <StyledInfo>
+            {(pageLength * currentPage + 1).toLocaleString('en-US')}
+            {' - '}
+            {Math.min(
+              pageLength * currentPage + pageLength,
+              length,
+            ).toLocaleString('en-US')}{' '}
+            {strings.pagination_of} {length.toLocaleString('en-US')}
+          </StyledInfo>
         )}
-      </StyledPagination>
-      {place === 'bot' && (
-        <StyledInfo>
-          {(pageLength * currentPage + 1).toLocaleString('en-US')}
-          {' - '}
-          {Math.min(
-            pageLength * currentPage + pageLength,
-            length,
-          ).toLocaleString('en-US')}{' '}
-          {strings.pagination_of} {length.toLocaleString('en-US')}
-        </StyledInfo>
-      )}
-    </StyledContainer>;
+      </StyledContainer>
+    );
   }
   return null;
-}
+};
 
 export default Pagination;

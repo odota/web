@@ -14,11 +14,11 @@ import Graph from './Graph';
 import config from '../../../config';
 
 type LaningProps = {
-    match: Match,
-    strings: Strings,
-    // sponsorURL: string,
-    // sponsorIcon: string,
-  };
+  match: Match;
+  strings: Strings;
+  // sponsorURL: string,
+  // sponsorIcon: string,
+};
 
 class Laning extends React.Component<LaningProps, { selectedPlayer: number }> {
   constructor(props: LaningProps) {
@@ -75,10 +75,7 @@ class Laning extends React.Component<LaningProps, { selectedPlayer: number }> {
           />
         </StyledFlexElement>
         <StyledFlexElement>
-          <Graph
-            match={match}
-            selectedPlayer={this.state.selectedPlayer}
-          />
+          <Graph match={match} selectedPlayer={this.state.selectedPlayer} />
         </StyledFlexElement>
       </StyledFlexContainer>
     );

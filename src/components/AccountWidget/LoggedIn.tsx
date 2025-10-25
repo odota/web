@@ -21,16 +21,20 @@ const StyledButton = styled(Button)`
   display: flex;
 `;
 
-const LoggedIn = ({ playerId, style }: { playerId: number; style: React.CSSProperties }) => {
+const LoggedIn = ({
+  playerId,
+  style,
+}: {
+  playerId: number;
+  style: React.CSSProperties;
+}) => {
   const strings = useStrings();
   if (!playerId) {
     return <Spinner size={0.5} />;
   }
   return (
     <Link style={style} to={`/players/${playerId}`}>
-      <StyledButton>
-       {strings.app_my_profile}
-      </StyledButton>
+      <StyledButton>{strings.app_my_profile}</StyledButton>
     </Link>
   );
 };

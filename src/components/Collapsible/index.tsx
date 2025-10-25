@@ -37,23 +37,25 @@ const CollapseButton = ({
   handleHoverOn,
   handleHoverOff,
 }: {
-  handleClick: React.MouseEventHandler<HTMLDivElement>,
-  collapsed: boolean,
-  buttonStyle: React.CSSProperties,
-  handleHoverOn: React.MouseEventHandler<HTMLDivElement>,
-  handleHoverOff: React.MouseEventHandler<HTMLDivElement>,
+  handleClick: React.MouseEventHandler<HTMLDivElement>;
+  collapsed: boolean;
+  buttonStyle: React.CSSProperties;
+  handleHoverOn: React.MouseEventHandler<HTMLDivElement>;
+  handleHoverOff: React.MouseEventHandler<HTMLDivElement>;
 }) => {
   const strings = useStrings();
-  return <ButtonContainer
-    style={buttonStyle}
-    onClick={handleClick}
-    onMouseEnter={handleHoverOn}
-    onMouseLeave={handleHoverOff}
-  >
-    {collapsed
-      ? [<span>{strings.general_show}</span>, <IconPlusSquare />]
-      : [<span>{strings.general_hide}</span>, <IconMinusSquare />]}
-  </ButtonContainer>;
+  return (
+    <ButtonContainer
+      style={buttonStyle}
+      onClick={handleClick}
+      onMouseEnter={handleHoverOn}
+      onMouseLeave={handleHoverOff}
+    >
+      {collapsed
+        ? [<span>{strings.general_show}</span>, <IconPlusSquare />]
+        : [<span>{strings.general_hide}</span>, <IconMinusSquare />]}
+    </ButtonContainer>
+  );
 };
 
 const CollapsibleContainer = styled.div`
@@ -63,7 +65,15 @@ const CollapsibleContainer = styled.div`
   box-sizing: border-box;
 `;
 
-class Collapsible extends React.Component<{ name: string, children: React.ReactNode, initialMaxHeight?: number, buttonStyle?: any}, { collapsed: boolean, hovered: boolean }> {
+class Collapsible extends React.Component<
+  {
+    name: string;
+    children: React.ReactNode;
+    initialMaxHeight?: number;
+    buttonStyle?: any;
+  },
+  { collapsed: boolean; hovered: boolean }
+> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -94,7 +104,9 @@ class Collapsible extends React.Component<{ name: string, children: React.ReactN
       <CollapsibleContainer
         style={{
           border:
-            (!collapsed && hovered) ? '1px dashed rgba(255, 255, 255, 0.1)' : undefined,
+            !collapsed && hovered
+              ? '1px dashed rgba(255, 255, 255, 0.1)'
+              : undefined,
         }}
       >
         <CollapseButton

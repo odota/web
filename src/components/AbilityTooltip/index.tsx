@@ -118,7 +118,24 @@ const Break = styled.div`
   background-color: #080d15;
 `;
 
-const AbilityTooltip = ({ ability, inflictor }: { ability: { img?: string, dname?: string, behavior?: string, dmg_type?: string, bkbpierce?: boolean, desc?: string, attrib?: any[], dmg?: any, mc?: string[], cd?: number[] }, inflictor?: string }) => (
+const AbilityTooltip = ({
+  ability,
+  inflictor,
+}: {
+  ability: {
+    img?: string;
+    dname?: string;
+    behavior?: string;
+    dmg_type?: string;
+    bkbpierce?: boolean;
+    desc?: string;
+    attrib?: any[];
+    dmg?: any;
+    mc?: string[];
+    cd?: number[];
+  };
+  inflictor?: string;
+}) => (
   <Wrapper>
     <Header>
       <HeaderBgImg img={ability.img} />
@@ -146,9 +163,7 @@ const AbilityTooltip = ({ ability, inflictor }: { ability: { img?: string, dname
       </div>
     )}
     {ability.desc && (
-      <Description
-        ref={(el: any) => styleValues(el)}
-      >
+      <Description ref={(el: any) => styleValues(el)}>
         {ability.desc}
       </Description>
     )}

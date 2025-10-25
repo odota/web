@@ -265,7 +265,9 @@ class IntroEvent extends StoryEvent {
     const strings = useStrings();
 
     return formatTemplate(strings.story_intro, {
-      game_mode_article: articleFor(strings[`game_mode_${this.game_mode}` as keyof Strings]),
+      game_mode_article: articleFor(
+        strings[`game_mode_${this.game_mode}` as keyof Strings],
+      ),
       game_mode: strings[`game_mode_${this.game_mode}` as keyof Strings],
       date: this.date.toLocaleDateString(
         (window.localStorage && window.localStorage.getItem('localization')) ||
@@ -298,7 +300,9 @@ class FirstbloodEvent extends StoryEvent {
       const killerLog = this.killer?.kills_log;
       const victimHero =
         Array.isArray(killerLog) && killerLog[0] ? killerLog[0].key : null;
-      const foundHero = heroesArr('find')((hero: any) => hero.name === victimHero);
+      const foundHero = heroesArr('find')(
+        (hero: any) => hero.name === victimHero,
+      );
       this.victim = match.players.find(
         (player) => foundHero && player.hero_id === foundHero.id,
       );
@@ -730,7 +734,9 @@ class BarracksEvent extends StoryEvent {
     this.key = 0;
     if (obj.type === 'building_kill') {
       const groups =
-        /npc_dota_(good|bad)guys_(range|melee)_rax_(bot|mid|top)/.exec(obj.key)!;
+        /npc_dota_(good|bad)guys_(range|melee)_rax_(bot|mid|top)/.exec(
+          obj.key,
+        )!;
       this.team = groups[1] === 'good';
       this.is_melee = groups[2] === 'melee';
       this.lane = {
@@ -916,7 +922,11 @@ class ExpensiveItemEvent extends StoryEvent {
     this.price_limit = price;
     match.players.forEach((player) => {
       Object.entries(player.first_purchase_time).forEach(([item, time]) => {
-        if (item in items && (items[item as keyof Items]?.cost ?? 0) >= price && time < this.time) {
+        if (
+          item in items &&
+          (items[item as keyof Items]?.cost ?? 0) >= price &&
+          time < this.time
+        ) {
           this.time = time;
           this.item = item;
           this.player = player;
@@ -1065,14 +1075,14 @@ class GameoverEvent extends StoryEvent {
         //@ts-expect-error
         <font key="radiant_score" color={constants.colorGreen}>
           {this.radiant_score}
-        {/*@ts-expect-error*/}
+          {/*@ts-expect-error*/}
         </font>
       ),
       dire_score: (
         //@ts-expect-error
         <font key="dire_score" color={constants.colorRed}>
           {this.dire_score}
-        {/*@ts-expect-error*/}
+          {/*@ts-expect-error*/}
         </font>
       ),
     });

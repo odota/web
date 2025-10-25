@@ -22,12 +22,12 @@ const AbilityDraftTable = ({
   direTeam = {},
   summable = false,
 }: {
-  players: MatchPlayer[],
-  columns: any[],
-  heading: string,
-  radiantTeam: any,
-  direTeam: any,
-  summable: boolean,
+  players: MatchPlayer[];
+  columns: any[];
+  heading: string;
+  radiantTeam: any;
+  direTeam: any;
+  summable: boolean;
 }) => (
   <div>
     <Heading

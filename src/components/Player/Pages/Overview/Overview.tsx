@@ -103,27 +103,27 @@ const getValidRecentMatches = (matches: Match[]) =>
   matches.filter((match) => match.game_mode !== 19).slice(0, MAX_MATCHES_ROWS);
 
 type OverviewProps = {
-  recentMatches: any,
-  playerMatches: any,
-  heroesData: any[],
-  heroesLoading: boolean,
-  heroesError: string,
-  peersData: any[],
-  peersLoading: boolean,
-  peersError: string,
-  countsData: any[],
-  countsLoading: boolean,
-  countsError: string,
+  recentMatches: any;
+  playerMatches: any;
+  heroesData: any[];
+  heroesLoading: boolean;
+  heroesError: string;
+  peersData: any[];
+  peersLoading: boolean;
+  peersError: string;
+  countsData: any[];
+  countsLoading: boolean;
+  countsError: string;
   location: {
-    key?: string,
-    search?: string,
-  },
-  playerId: string,
-  getPlayerMatches: Function,
-  getPlayerRecentMatches: Function,
-  getPlayerHeroes: Function,
-  getPlayerPeers: Function,
-  getPlayerCounts: Function,
+    key?: string;
+    search?: string;
+  };
+  playerId: string;
+  getPlayerMatches: Function;
+  getPlayerRecentMatches: Function;
+  getPlayerHeroes: Function;
+  getPlayerPeers: Function;
+  getPlayerCounts: Function;
 };
 
 const Overview = ({
@@ -143,8 +143,8 @@ const Overview = ({
   countsError,
   location,
 }: OverviewProps & {
-  toggleTurboGames: (e: React.MouseEvent) => void,
-  showTurboGames: boolean,
+  toggleTurboGames: (e: React.MouseEvent) => void;
+  showTurboGames: boolean;
 }) => {
   const strings = useStrings();
   const {
@@ -284,7 +284,10 @@ const getData = (props: OverviewProps) => {
   props.getPlayerCounts(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component<OverviewProps, { showTurboGames: boolean }> {
+class RequestLayer extends React.Component<
+  OverviewProps,
+  { showTurboGames: boolean }
+> {
   constructor(props: OverviewProps) {
     super(props);
     this.state = {

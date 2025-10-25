@@ -11,7 +11,9 @@ import config from '../../config';
 const textFieldStyle = { width: 53, fontSize: 9, height: 'auto' };
 
 const getPeers = async (props: TableFilterFormProps, context: any) => {
-  const resp = await fetch(`${config.VITE_API_HOST}/api/players/${props.playerId}/peers`);
+  const resp = await fetch(
+    `${config.VITE_API_HOST}/api/players/${props.playerId}/peers`,
+  );
   if (resp.ok) {
     const json = await resp.json();
     context.setState({ peers: json });
@@ -33,7 +35,10 @@ type TableFilterFormProps = {
   toggleShowForm: Function;
 } & RouterProps;
 
-class TableFilterForm extends React.Component<TableFilterFormProps, { peers: any[] }> {
+class TableFilterForm extends React.Component<
+  TableFilterFormProps,
+  { peers: any[] }
+> {
   constructor(props: TableFilterFormProps) {
     super(props);
     this.state = {
@@ -61,7 +66,9 @@ class TableFilterForm extends React.Component<TableFilterFormProps, { peers: any
 
     const heroList = Object.keys(heroes)
       .map((id) => ({
-        label: heroes[id as keyof Heroes] && heroes[id as keyof Heroes].localized_name,
+        label:
+          heroes[id as keyof Heroes] &&
+          heroes[id as keyof Heroes].localized_name,
         id: Number(id),
       }))
       .sort((a: any, b: any) => a.text && a.text.localeCompare(b.text));
@@ -239,7 +246,13 @@ class TableFilterForm extends React.Component<TableFilterFormProps, { peers: any
       },
     ];
 
-    const CustomFormField = (props: { label: string, name: string, dataSource: { label: string, id: number}[], strict?: boolean, limit?: number }) => (
+    const CustomFormField = (props: {
+      label: string;
+      name: string;
+      dataSource: { label: string; id: number }[];
+      strict?: boolean;
+      limit?: number;
+    }) => (
       <FormField
         formSelectionState={formSelectionState}
         history={history}
@@ -252,130 +265,137 @@ class TableFilterForm extends React.Component<TableFilterFormProps, { peers: any
 
     // const isFilterApplied = Object.keys(formSelectionState).length > 0;
     return (
-          <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap:'8px' }}>
-            <CustomFormField
-              name="hero_id"
-              label={strings.filter_hero_id}
-              dataSource={heroList}
-              strict
-              limit={1}
-            />
-            <CustomFormField
-              name="is_radiant"
-              label={strings.filter_is_radiant}
-              dataSource={factionList}
-              strict
-              limit={1}
-            />
-            <CustomFormField
-              name="win"
-              label={strings.filter_win}
-              dataSource={resultList}
-              strict
-              limit={1}
-            />
-            {/*             <CustomFormField
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          gap: '8px',
+        }}
+      >
+        <CustomFormField
+          name="hero_id"
+          label={strings.filter_hero_id}
+          dataSource={heroList}
+          strict
+          limit={1}
+        />
+        <CustomFormField
+          name="is_radiant"
+          label={strings.filter_is_radiant}
+          dataSource={factionList}
+          strict
+          limit={1}
+        />
+        <CustomFormField
+          name="win"
+          label={strings.filter_win}
+          dataSource={resultList}
+          strict
+          limit={1}
+        />
+        {/*             <CustomFormField
               name="role_id"
               label={strings.heading_lane_role}
               dataSource={roleList}
               strict
               limit={1}
             /> */}
-            <CustomFormField
-              name="lane_role"
-              label={strings.filter_lane_role}
-              dataSource={laneList}
-              strict
-              limit={1}
-            />
-            <CustomFormField
-              name="patch"
-              label={strings.filter_patch}
-              dataSource={patchList}
-              strict
-              limit={1}
-            />
-            <CustomFormField
-              name="game_mode"
-              label={strings.filter_game_mode}
-              dataSource={modeList}
-              strict
-              limit={1}
-            />
-            <CustomFormField
-              name="lobby_type"
-              label={strings.filter_lobby_type}
-              dataSource={lobbyTypeList}
-              strict
-              limit={1}
-            />
-            <CustomFormField
-              name="date"
-              label={strings.filter_date}
-              dataSource={dateList}
-              strict
-              limit={1}
-            />
-            <CustomFormField
-              name="region"
-              label={strings.filter_region}
-              dataSource={regionList}
-              strict
-              limit={1}
-            />
-            <CustomFormField
-              name="with_hero_id"
-              label={strings.filter_with_hero_id}
-              dataSource={heroList}
-              strict
-              limit={5}
-            />
-            <CustomFormField
-              name="against_hero_id"
-              label={strings.filter_against_hero_id}
-              dataSource={heroList}
-              strict
-              limit={5}
-            />
-            <CustomFormField
-              name="included_account_id"
-              label={strings.filter_included_account_id}
-              dataSource={this.state.peers.map((peer) => ({
-                label: `${peer.personaname}`,
-                id: peer.account_id,
-              }))}
-              limit={10}
-            />
-            <CustomFormField
-              name="excluded_account_id"
-              label={strings.filter_excluded_account_id}
-              dataSource={this.state.peers.map((peer) => ({
-                label: `${peer.personaname}`,
-                id: peer.account_id,
-              }))}
-            />
-            <CustomFormField
-              name="significant"
-              label={strings.filter_significant}
-              dataSource={significantList}
-              strict
-              limit={1}
-            />
-            {/* <CustomFormField
+        <CustomFormField
+          name="lane_role"
+          label={strings.filter_lane_role}
+          dataSource={laneList}
+          strict
+          limit={1}
+        />
+        <CustomFormField
+          name="patch"
+          label={strings.filter_patch}
+          dataSource={patchList}
+          strict
+          limit={1}
+        />
+        <CustomFormField
+          name="game_mode"
+          label={strings.filter_game_mode}
+          dataSource={modeList}
+          strict
+          limit={1}
+        />
+        <CustomFormField
+          name="lobby_type"
+          label={strings.filter_lobby_type}
+          dataSource={lobbyTypeList}
+          strict
+          limit={1}
+        />
+        <CustomFormField
+          name="date"
+          label={strings.filter_date}
+          dataSource={dateList}
+          strict
+          limit={1}
+        />
+        <CustomFormField
+          name="region"
+          label={strings.filter_region}
+          dataSource={regionList}
+          strict
+          limit={1}
+        />
+        <CustomFormField
+          name="with_hero_id"
+          label={strings.filter_with_hero_id}
+          dataSource={heroList}
+          strict
+          limit={5}
+        />
+        <CustomFormField
+          name="against_hero_id"
+          label={strings.filter_against_hero_id}
+          dataSource={heroList}
+          strict
+          limit={5}
+        />
+        <CustomFormField
+          name="included_account_id"
+          label={strings.filter_included_account_id}
+          dataSource={this.state.peers.map((peer) => ({
+            label: `${peer.personaname}`,
+            id: peer.account_id,
+          }))}
+          limit={10}
+        />
+        <CustomFormField
+          name="excluded_account_id"
+          label={strings.filter_excluded_account_id}
+          dataSource={this.state.peers.map((peer) => ({
+            label: `${peer.personaname}`,
+            id: peer.account_id,
+          }))}
+        />
+        <CustomFormField
+          name="significant"
+          label={strings.filter_significant}
+          dataSource={significantList}
+          strict
+          limit={1}
+        />
+        {/* <CustomFormField
               name="having"
               label={strings.explorer_having}
               dataSource={gamesPlayedList}
               strict
               limit={1}
             /> */}
-            <CustomFormField
-              name="party_size"
-              label={strings.filter_party_size}
-              dataSource={partySize}
-              strict
-              limit={1}
-            />
-          </div>
+        <CustomFormField
+          name="party_size"
+          label={strings.filter_party_size}
+          dataSource={partySize}
+          strict
+          limit={1}
+        />
+      </div>
     );
   }
 }

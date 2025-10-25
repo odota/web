@@ -31,16 +31,16 @@ const data = [
 ];
 
 type VisionFilterProps = {
-  match:Match,
+  match: Match;
   parent: {
-    state: VisionState,
-    setPlayer: Function,
-    setTeam: Function,
-    setTypeWard: Function,
-    checkedTypeWard: Function,
-    onCheckAllWardsTeam: Function,
-  },
-  strings: Strings,
+    state: VisionState;
+    setPlayer: Function;
+    setTeam: Function;
+    setTypeWard: Function;
+    checkedTypeWard: Function;
+    onCheckAllWardsTeam: Function;
+  };
+  strings: Strings;
 };
 
 class VisionFilter extends React.Component<VisionFilterProps> {
@@ -88,7 +88,9 @@ class VisionFilter extends React.Component<VisionFilterProps> {
       ),
       displayFn: (row: any) => (
         <Checkbox
-          checked={this.props.parent.state.players[row.type as WardType][playerNumber]}
+          checked={
+            this.props.parent.state.players[row.type as WardType][playerNumber]
+          }
           onChange={(event, checked) => {
             this.props.parent.setPlayer(playerNumber, row.type, checked);
           }}

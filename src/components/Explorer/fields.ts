@@ -12,7 +12,11 @@ const getItemSuffix = (itemKey: string) =>
     ? itemKey[itemKey.length - 1]
     : '';
 
-const getFields = (players: any[] = [], leagues: any[] = [], teams: any[] = []) => {
+const getFields = (
+  players: any[] = [],
+  leagues: any[] = [],
+  teams: any[] = [],
+) => {
   const { strings } = store.getState().app;
   const jsonSelect = {
     value: 'key',
@@ -273,153 +277,155 @@ const getFields = (players: any[] = [], leagues: any[] = [], teams: any[] = []) 
     }));
 
   return {
-    select: ([
-      {
-        text: strings.heading_duration,
-        value: 'duration',
-        alias: 'as time',
-        key: 'duration',
-        formatSeconds: true,
-        bundle: 'duration',
-      },
-      {
-        text: strings.heading_distinct_heroes,
-        value: 'player_matches.hero_id',
-        countValue: 'count(distinct player_matches.hero_id) distinct_heroes',
-        key: 'distinct_heroes',
-        distinct: true,
-        bundle: 'distinct_heroes',
-      },
-      {
-        ...jsonSelect,
-        text: strings.heading_item_purchased,
-        alias: 'item_name',
-        join: ', json_each(player_matches.purchase)',
-        key: 'item_purchased',
-      },
-      {
-        ...jsonSelect,
-        text: strings.heading_ability_used,
-        alias: 'ability_name',
-        join: ', json_each(player_matches.ability_uses)',
-        key: 'ability_used',
-      },
-      {
-        ...jsonSelect,
-        text: strings.heading_item_used,
-        alias: 'item_name',
-        join: ', json_each(player_matches.item_uses)',
-        key: 'item_used',
-      },
-      {
-        ...jsonSelect,
-        text: strings.heading_damage_inflictor,
-        alias: 'inflictor',
-        join: ', json_each(player_matches.damage_inflictor)',
-        key: 'damage_inflictor',
-      },
-      {
-        ...jsonSelect,
-        text: strings.heading_damage_inflictor_received,
-        alias: 'inflictor',
-        join: ', json_each(player_matches.damage_inflictor_received)',
-        key: 'damage_inflictor_received',
-      },
-      {
-        ...jsonSelect,
-        text: strings.heading_runes,
-        alias: 'rune_id',
-        join: ', json_each(player_matches.runes)',
-        key: 'runes',
-      },
-      {
-        ...jsonSelect,
-        text: strings.heading_unit_kills,
-        join: ', json_each(player_matches.killed)',
-        key: 'unit_kills',
-      },
-      {
-        ...jsonSelect,
-        text: strings.heading_damage_instances,
-        join: ', json_each(player_matches.hero_hits)',
-        key: 'damage_instances',
-      },
-      // killSelect({
-      //   text: strings.heading_courier,
-      //   unitKey: 'npc_dota_courier',
-      // }),
-      // killSelect({
-      //   text: strings.heading_roshan,
-      //   unitKey: 'npc_dota_roshan',
-      // }),
-      // killSelect({
-      //   text: strings.heading_tower,
-      //   unitKey: '%tower%',
-      // }),
-      // killSelect({
-      //   text: strings.heading_barracks,
-      //   unitKey: '%rax%',
-      // }),
-      // killSelect({
-      //   text: strings.heading_shrine,
-      //   unitKey: '%healers%',
-      // }),
-      {
-        text: strings.explorer_hero_combos,
-        value: 1,
-        groupValue: 1,
-        groupKeySelect:
-          'player_matches.hero_id, player_matches2.hero_id hero_id2',
-        groupKey: 'player_matches.hero_id, player_matches2.hero_id',
-        joinFn: (props: any) => `JOIN player_matches player_matches2
+    select: (
+      [
+        {
+          text: strings.heading_duration,
+          value: 'duration',
+          alias: 'as time',
+          key: 'duration',
+          formatSeconds: true,
+          bundle: 'duration',
+        },
+        {
+          text: strings.heading_distinct_heroes,
+          value: 'player_matches.hero_id',
+          countValue: 'count(distinct player_matches.hero_id) distinct_heroes',
+          key: 'distinct_heroes',
+          distinct: true,
+          bundle: 'distinct_heroes',
+        },
+        {
+          ...jsonSelect,
+          text: strings.heading_item_purchased,
+          alias: 'item_name',
+          join: ', json_each(player_matches.purchase)',
+          key: 'item_purchased',
+        },
+        {
+          ...jsonSelect,
+          text: strings.heading_ability_used,
+          alias: 'ability_name',
+          join: ', json_each(player_matches.ability_uses)',
+          key: 'ability_used',
+        },
+        {
+          ...jsonSelect,
+          text: strings.heading_item_used,
+          alias: 'item_name',
+          join: ', json_each(player_matches.item_uses)',
+          key: 'item_used',
+        },
+        {
+          ...jsonSelect,
+          text: strings.heading_damage_inflictor,
+          alias: 'inflictor',
+          join: ', json_each(player_matches.damage_inflictor)',
+          key: 'damage_inflictor',
+        },
+        {
+          ...jsonSelect,
+          text: strings.heading_damage_inflictor_received,
+          alias: 'inflictor',
+          join: ', json_each(player_matches.damage_inflictor_received)',
+          key: 'damage_inflictor_received',
+        },
+        {
+          ...jsonSelect,
+          text: strings.heading_runes,
+          alias: 'rune_id',
+          join: ', json_each(player_matches.runes)',
+          key: 'runes',
+        },
+        {
+          ...jsonSelect,
+          text: strings.heading_unit_kills,
+          join: ', json_each(player_matches.killed)',
+          key: 'unit_kills',
+        },
+        {
+          ...jsonSelect,
+          text: strings.heading_damage_instances,
+          join: ', json_each(player_matches.hero_hits)',
+          key: 'damage_instances',
+        },
+        // killSelect({
+        //   text: strings.heading_courier,
+        //   unitKey: 'npc_dota_courier',
+        // }),
+        // killSelect({
+        //   text: strings.heading_roshan,
+        //   unitKey: 'npc_dota_roshan',
+        // }),
+        // killSelect({
+        //   text: strings.heading_tower,
+        //   unitKey: '%tower%',
+        // }),
+        // killSelect({
+        //   text: strings.heading_barracks,
+        //   unitKey: '%rax%',
+        // }),
+        // killSelect({
+        //   text: strings.heading_shrine,
+        //   unitKey: '%healers%',
+        // }),
+        {
+          text: strings.explorer_hero_combos,
+          value: 1,
+          groupValue: 1,
+          groupKeySelect:
+            'player_matches.hero_id, player_matches2.hero_id hero_id2',
+          groupKey: 'player_matches.hero_id, player_matches2.hero_id',
+          joinFn: (props: any) => `JOIN player_matches player_matches2
 ON player_matches.match_id = player_matches2.match_id
 AND player_matches.hero_id != player_matches2.hero_id 
 AND abs(player_matches.player_slot - player_matches2.player_slot) < 10
 ${props.hero && props.hero.value ? '' : 'AND player_matches.hero_id < player_matches2.hero_id'}`,
-        key: 'hero_combos',
-        bundle: 'combinations',
-      },
-      {
-        text: strings.explorer_hero_player,
-        value: 1,
-        groupValue: 1,
-        groupKey: 'player_matches.hero_id, player_matches.account_id',
-        key: 'hero_player',
-        bundle: 'combinations',
-      },
-      {
-        text: strings.explorer_player_player,
-        value: 1,
-        groupValue: 1,
-        groupKeySelect:
-          'player_matches.account_id, player_matches2.account_id account_id2',
-        groupKey: 'player_matches.account_id, player_matches2.account_id',
-        joinFn: (props: any) => `JOIN player_matches player_matches2
+          key: 'hero_combos',
+          bundle: 'combinations',
+        },
+        {
+          text: strings.explorer_hero_player,
+          value: 1,
+          groupValue: 1,
+          groupKey: 'player_matches.hero_id, player_matches.account_id',
+          key: 'hero_player',
+          bundle: 'combinations',
+        },
+        {
+          text: strings.explorer_player_player,
+          value: 1,
+          groupValue: 1,
+          groupKeySelect:
+            'player_matches.account_id, player_matches2.account_id account_id2',
+          groupKey: 'player_matches.account_id, player_matches2.account_id',
+          joinFn: (props: any) => `JOIN player_matches player_matches2
 ON player_matches.match_id = player_matches2.match_id
 AND player_matches.account_id != player_matches2.account_id 
 AND abs(player_matches.player_slot - player_matches2.player_slot) < 10
 ${props.player && props.player.value ? '' : 'AND player_matches.account_id < player_matches2.account_id'}`,
-        key: 'player_player',
-        bundle: 'combinations',
-      },
-      {
-        text: strings.explorer_picks_bans,
-        template: 'picks_bans',
-        key: 'picks_bans',
-        // picks_bans.team is 0 for radiant, 1 for dire
-        where: 'AND team_match.radiant::int != picks_bans.team',
-        value: 1,
-        bundle: 'picks_bans',
-      },
-      {
-        text: strings.explorer_counter_picks_bans,
-        template: 'picks_bans',
-        key: 'counter_picks_bans',
-        where: 'AND team_match.radiant::int = picks_bans.team',
-        value: 1,
-        bundle: 'picks_bans',
-      },
-    ] as any[])
+          key: 'player_player',
+          bundle: 'combinations',
+        },
+        {
+          text: strings.explorer_picks_bans,
+          template: 'picks_bans',
+          key: 'picks_bans',
+          // picks_bans.team is 0 for radiant, 1 for dire
+          where: 'AND team_match.radiant::int != picks_bans.team',
+          value: 1,
+          bundle: 'picks_bans',
+        },
+        {
+          text: strings.explorer_counter_picks_bans,
+          template: 'picks_bans',
+          key: 'counter_picks_bans',
+          where: 'AND team_match.radiant::int = picks_bans.team',
+          value: 1,
+          bundle: 'picks_bans',
+        },
+      ] as any[]
+    )
       // .concat(
       //   Object.keys(items)
       //     .filter((itemKey) => items[itemKey as keyof typeof items].cd)
@@ -527,7 +533,8 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
     region: Object.keys(regionData).map((regionKey) => ({
       text: strings[`region_${regionKey}`],
       value: Object.keys(clusterData).filter(
-        (key) => String(clusterData[key as keyof typeof clusterData]) === regionKey,
+        (key) =>
+          String(clusterData[key as keyof typeof clusterData]) === regionKey,
       ),
       key: String(regionKey),
     })),

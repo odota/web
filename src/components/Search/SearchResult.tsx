@@ -16,12 +16,10 @@ const searchColumns = (strings: Strings) => [
       const subtitle = row.last_match_time
         ? fromNow(Number(new Date(row.last_match_time)) / 1000)
         : '';
-      return transformations.player(
-        {
-          ...row,
-          subtitle,
-        },
-      );
+      return transformations.player({
+        ...row,
+        subtitle,
+      });
     },
   },
 ];
@@ -31,11 +29,9 @@ const proColumns = (strings: Strings) => [
     displayName: strings.th_name,
     field: 'name',
     displayFn: (row: any, col: any, field: any) =>
-      transformations.player(
-        {
-          ...row,
-        },
-      ),
+      transformations.player({
+        ...row,
+      }),
   },
   {
     displayName: strings.th_team_name,
@@ -118,47 +114,53 @@ const Search = ({
   matchLoading,
   matchError,
 }: {
-  players?: any[],
-  playersLoading?: boolean,
-  playersError?: string,
-  pros?: any[],
-  prosLoading?: boolean,
-  prosError?: string,
-  matchData?: any[],
-  matchLoading?: boolean,
-  matchError?: boolean,
+  players?: any[];
+  playersLoading?: boolean;
+  playersError?: string;
+  pros?: any[];
+  prosLoading?: boolean;
+  prosError?: string;
+  matchData?: any[];
+  matchLoading?: boolean;
+  matchError?: boolean;
 }) => {
   const strings = useStrings();
-  return <div>
-    <Container
-      loading={matchLoading}
-      title={strings.explorer_match}
-      hide={!matchData || matchData.length === 0 || matchError}
-    >
-      <Table data={[matchData]} columns={matchColumns(strings)} />
-    </Container>
-    <Container
-      loading={prosLoading}
-      error={prosError}
-      title={strings.app_pro_players}
-      hide={!pros || pros.length === 0}
-    >
-      <Table
-        paginated
-        pageLength={5}
-        data={pros ?? []}
-        columns={proColumns(strings)}
-      />
-    </Container>
-    <Container
-      loading={playersLoading}
-      error={playersError}
-      title={strings.app_public_players}
-      subtitle={`${players?.length} ${strings.app_results}`}
-    >
-      <Table paginated data={players ?? []} columns={searchColumns(strings)} />
-    </Container>
-  </div>;
+  return (
+    <div>
+      <Container
+        loading={matchLoading}
+        title={strings.explorer_match}
+        hide={!matchData || matchData.length === 0 || matchError}
+      >
+        <Table data={[matchData]} columns={matchColumns(strings)} />
+      </Container>
+      <Container
+        loading={prosLoading}
+        error={prosError}
+        title={strings.app_pro_players}
+        hide={!pros || pros.length === 0}
+      >
+        <Table
+          paginated
+          pageLength={5}
+          data={pros ?? []}
+          columns={proColumns(strings)}
+        />
+      </Container>
+      <Container
+        loading={playersLoading}
+        error={playersError}
+        title={strings.app_public_players}
+        subtitle={`${players?.length} ${strings.app_results}`}
+      >
+        <Table
+          paginated
+          data={players ?? []}
+          columns={searchColumns(strings)}
+        />
+      </Container>
+    </div>
+  );
 };
 
 export default Search;

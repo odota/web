@@ -12,14 +12,16 @@ const defaultOptions = {
 
 const Activity = ({ error, loading, data }: ActivityProps) => {
   const strings = useStrings();
-  return <Container
-    title={strings.tab_activity}
-    subtitle={strings.activity_subtitle}
-    error={error}
-    loading={loading}
-  >
-    <ActivityCalendar strings={strings} data={data} />
-  </Container>
+  return (
+    <Container
+      title={strings.tab_activity}
+      subtitle={strings.activity_subtitle}
+      error={error}
+      loading={loading}
+    >
+      <ActivityCalendar strings={strings} data={data} />
+    </Container>
+  );
 };
 
 const getData = (props: ActivityProps) => {
@@ -27,15 +29,15 @@ const getData = (props: ActivityProps) => {
 };
 
 type ActivityProps = {
-  playerId:string,
+  playerId: string;
   location: {
-    key: string,
-    search?: string,
-  },
-  getPlayerMatches: Function,
-  error: string,
-  loading: boolean,
-  data: any[],
+    key: string;
+    search?: string;
+  };
+  getPlayerMatches: Function;
+  error: string;
+  loading: boolean;
+  data: any[];
 };
 
 class RequestLayer extends React.Component<ActivityProps> {

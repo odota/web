@@ -174,7 +174,11 @@ const getObjectiveBase = (objective: any, strings: Strings) => {
     objective.type
   );
 };
-const generateLog = (match: Match, { types, players }: { types: number[], players: number[] }, strings: Strings) => {
+const generateLog = (
+  match: Match,
+  { types, players }: { types: number[]; players: number[] },
+  strings: Strings,
+) => {
   let log: any[] = [];
   const matchPlayers = !players.length
     ? match.players
@@ -260,15 +264,18 @@ const generateLog = (match: Match, { types, players }: { types: number[], player
 };
 
 type MatchLogProps = {
-  match: Match,
-  strings: Strings,
+  match: Match;
+  strings: Strings;
 };
 
-type MatchLogState = { types: number[], players: number[] } & Record<string, any>;
+type MatchLogState = { types: number[]; players: number[] } & Record<
+  string,
+  any
+>;
 
 class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
-  typesSource: { label: string, id: number}[] = [];
-  playersSource: { label: string, id: number}[] = [];
+  typesSource: { label: string; id: number }[] = [];
+  playersSource: { label: string; id: number }[] = [];
   constructor(props: MatchLogProps) {
     super(props);
     this.state = {
@@ -281,7 +288,7 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
       { label: strings.heading_kills, id: 0 },
       { label: strings.tab_objectives, id: 1 },
       { label: strings.heading_runes, id: 2 },
-    ]
+    ];
     this.playersSource = this.props.match.players.map((player, index) => ({
       label: heroes[player.hero_id]
         ? heroes[player.hero_id].localized_name
@@ -290,7 +297,11 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
     }));
   }
 
-  addChip = (name: string, input: { label: string, id: number }, limit?: number) => {
+  addChip = (
+    name: string,
+    input: { label: string; id: number },
+    limit?: number,
+  ) => {
     const currentChips = this.state[name as 'types' | 'players'];
     if (!currentChips.includes(input.id)) {
       const newChips = [input.id].concat(currentChips).slice(0, limit);
@@ -452,7 +463,7 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
   }
 }
 
-function EntryMessage({ entry, strings }: { entry: any, strings: Strings }) {
+function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
   const translateBuildings = (isRad: boolean, key: string) => {
     const team = isRad ? strings.general_radiant : strings.general_dire;
     const k = key.split('_').slice(3).join('_');

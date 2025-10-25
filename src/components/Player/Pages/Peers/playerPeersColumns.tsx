@@ -76,10 +76,10 @@ const restColumns = (strings: Strings) => [
   },
 ];
 
-export const playerPeersOverviewColumns = (playerId: string, strings: Strings) => [
-  ...avatarMatches(playerId, strings),
-  ...winsWith(strings),
-];
+export const playerPeersOverviewColumns = (
+  playerId: string,
+  strings: Strings,
+) => [...avatarMatches(playerId, strings), ...winsWith(strings)];
 
 export const playerPeersColumns = (playerId: string, strings: Strings) => [
   ...avatarMatches(playerId, strings),

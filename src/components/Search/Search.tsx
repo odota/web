@@ -9,23 +9,31 @@ import useStrings from '../../hooks/useStrings.hook';
 
 const extract = (item: any) => `${item.name}${item.team_name}`;
 
-const Search = ({ data, pros, query, matchData, ...rest }: {
-  data: any,
-  pros: any[],
-  query: string,
-  match: any,
-  matchData: any[],
+const Search = ({
+  data,
+  pros,
+  query,
+  matchData,
+  ...rest
+}: {
+  data: any;
+  pros: any[];
+  query: string;
+  match: any;
+  matchData: any[];
 }) => {
   const strings = useStrings();
-  return <div>
-    <Helmet title={`${query} - ${strings.title_search}`} />
-    <SearchResult
-      {...rest}
-      players={data || []}
-      pros={pros || []}
-      matchData={matchData}
-    />
-  </div>;
+  return (
+    <div>
+      <Helmet title={`${query} - ${strings.title_search}`} />
+      <SearchResult
+        {...rest}
+        players={data || []}
+        pros={pros || []}
+        matchData={matchData}
+      />
+    </div>
+  );
 };
 
 const mapStateToProps = (state: any) => {

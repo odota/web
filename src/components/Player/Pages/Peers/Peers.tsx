@@ -9,26 +9,28 @@ import useStrings from '../../../../hooks/useStrings.hook';
 
 const Peers = ({ data, playerId, error, loading }: PeersProps) => {
   const strings = useStrings();
-  return <Container title={strings.heading_peers} error={error} loading={loading}>
-    <Table
-      paginated
-      columns={playerPeersColumns(playerId, strings)}
-      data={data}
-      placeholderMessage={strings.peers_none}
-    />
-  </Container>;
+  return (
+    <Container title={strings.heading_peers} error={error} loading={loading}>
+      <Table
+        paginated
+        columns={playerPeersColumns(playerId, strings)}
+        data={data}
+        placeholderMessage={strings.peers_none}
+      />
+    </Container>
+  );
 };
 
 type PeersProps = {
-  data: any[],
-  error: string,
-  playerId: string,
-  loading: boolean,
-  getPlayerPeers: Function,
+  data: any[];
+  error: string;
+  playerId: string;
+  loading: boolean;
+  getPlayerPeers: Function;
   location: {
-    key?: string,
-    search?: string,
-  }
+    key?: string;
+    search?: string;
+  };
 };
 
 const getData = (props: PeersProps) => {

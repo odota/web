@@ -2,7 +2,10 @@ import React from 'react';
 import TabBar from '../TabBar';
 import TableSkeleton from '../Skeletons/TableSkeleton';
 
-class RenderContent extends React.Component<{ skeleton?: boolean, content: any }> {
+class RenderContent extends React.Component<{
+  skeleton?: boolean;
+  content: any;
+}> {
   state = {
     render: false,
   };
@@ -17,8 +20,7 @@ class RenderContent extends React.Component<{ skeleton?: boolean, content: any }
     const { skeleton, content } = this.props;
     const { render } = this.state;
 
-    const PlaceHolder = () =>
-      skeleton ? <TableSkeleton /> : null;
+    const PlaceHolder = () => (skeleton ? <TableSkeleton /> : null);
     return render && content ? (
       content
     ) : (
@@ -29,12 +31,18 @@ class RenderContent extends React.Component<{ skeleton?: boolean, content: any }
   }
 }
 
-const TabbedContent = ({ info, tabs, matchData, content, skeleton }: {
-  tabs: any[],
-  info: string,
-  matchData: Match,
-  content: any,
-  skeleton?: boolean,
+const TabbedContent = ({
+  info,
+  tabs,
+  matchData,
+  content,
+  skeleton,
+}: {
+  tabs: any[];
+  info: string;
+  matchData: Match;
+  content: any;
+  skeleton?: boolean;
 }) => (
   <React.Fragment>
     <TabBar tabs={tabs} matchData={matchData} />

@@ -7,14 +7,18 @@ export default function getFormFieldData(metadata: any, strings: Strings) {
   return {
     heroList: Object.keys(heroes)
       .map((id) => ({
-        text: heroes[id as keyof Heroes] && heroes[id as keyof Heroes].localized_name,
+        text:
+          heroes[id as keyof Heroes] &&
+          heroes[id as keyof Heroes].localized_name,
         value: Number(id),
       }))
       .sort((a: any, b: any) => a.text && a.text.localeCompare(b.text)),
 
     itemList: Object.keys(items)
       .filter(
-        (item) => (items[item as keyof Items]?.cost ?? 0) >= itemCost && !item.startsWith('recipe_'),
+        (item) =>
+          (items[item as keyof Items]?.cost ?? 0) >= itemCost &&
+          !item.startsWith('recipe_'),
       )
       .map((item) => ({
         //@ts-expect-error

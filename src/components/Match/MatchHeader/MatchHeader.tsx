@@ -273,18 +273,21 @@ const getWinnerStyle = (radiantWin: boolean | undefined) => {
   return radiantWin ? 'radiant' : 'dire';
 };
 
-const MatchHeader = ({ match }: { match : Match }) => {
+const MatchHeader = ({ match }: { match: Match }) => {
   const strings = useStrings();
   if (!match) {
     return null;
   }
 
-  const copyMatchId = () => navigator.clipboard.writeText(String(match.match_id));
+  const copyMatchId = () =>
+    navigator.clipboard.writeText(String(match.match_id));
 
-  const mapPlayers = (key: keyof MatchPlayer, radiant: boolean | undefined) => (player: MatchPlayer) =>
-    radiant === undefined || radiant === isRadiant(player.player_slot)
-      ? Number(player[key])
-      : 0;
+  const mapPlayers =
+    (key: keyof MatchPlayer, radiant: boolean | undefined) =>
+    (player: MatchPlayer) =>
+      radiant === undefined || radiant === isRadiant(player.player_slot)
+        ? Number(player[key])
+        : 0;
 
   const victorySection = match.radiant_win ? (
     <span>
@@ -312,7 +315,9 @@ const MatchHeader = ({ match }: { match : Match }) => {
         <div className="mainInfo">
           <div className="killsRadiant">
             {match.radiant_score ||
-              match.players.map(mapPlayers('kills' as keyof MatchPlayer, true)).reduce(sum, 0)}
+              match.players
+                .map(mapPlayers('kills' as keyof MatchPlayer, true))
+                .reduce(sum, 0)}
           </div>
           <div className="gmde">
             <span className="gameMode">
@@ -332,7 +337,9 @@ const MatchHeader = ({ match }: { match : Match }) => {
           </div>
           <div className="killsDire">
             {match.dire_score ||
-              match.players.map(mapPlayers('kills' as keyof MatchPlayer, false)).reduce(sum, 0)}
+              match.players
+                .map(mapPlayers('kills' as keyof MatchPlayer, false))
+                .reduce(sum, 0)}
           </div>
         </div>
         <div className="additionalInfo">
@@ -353,7 +360,9 @@ const MatchHeader = ({ match }: { match : Match }) => {
                     style={{ height: 18, width: 18 }}
                   />
                 }
-              >{match.match_id}</Button>
+              >
+                {match.match_id}
+              </Button>
             </li>
             <li>
               <span>{strings.match_region}</span>
@@ -368,18 +377,22 @@ const MatchHeader = ({ match }: { match : Match }) => {
       <div className="matchButtons">
         <Button
           startIcon={match.version ? <RefreshIcon /> : <DataObjectIcon />}
-        ><Link to={`/request#${match.match_id}`}>{
-            match.version
+        >
+          <Link to={`/request#${match.match_id}`}>
+            {match.version
               ? strings.match_button_reparse
-              : strings.match_button_parse
-          }</Link></Button>
+              : strings.match_button_parse}
+          </Link>
+        </Button>
         {match.replay_url && (
           <Button
             startIcon={<DownloadIcon />}
             href={match.replay_url}
             target="_blank"
             rel="noopener noreferrer"
-          >{strings.match_button_replay}</Button>
+          >
+            {strings.match_button_replay}
+          </Button>
         )}
         {/* {config.VITE_ENABLE_DOTA_COACH && (
           <Button

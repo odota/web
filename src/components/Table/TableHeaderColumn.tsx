@@ -31,12 +31,12 @@ const TableHeaderColumn = ({
   index,
   setHighlightedCol,
 }: {
-  column: any,
-  sortClick: Function,
-  sortField: string,
-  sortState: string,
-  setHighlightedCol?: Function,
-  index: number,
+  column: any;
+  sortClick: Function;
+  sortField: string;
+  sortState: string;
+  setHighlightedCol?: Function;
+  index: number;
 }) => {
   const style: React.CSSProperties = {
     justifyContent: column.center ? 'center' : undefined,

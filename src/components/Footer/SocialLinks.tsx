@@ -21,17 +21,21 @@ export default () => {
     });
   }
 
-  return <div>{links.map((link) => (
-    <a
-      key={link.path}
-      target="_blank"
-      rel="noopener noreferrer"
-      data-hint-position="top"
-      data-hint={link.tooltip}
-      href={link.path}
-      aria-label={link.tooltip}
-    >
-      {link.icon}
-    </a>
-  ))}</div>;
+  return (
+    <div>
+      {links.map((link) => (
+        <a
+          key={link.path}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-hint-position="top"
+          data-hint={link.tooltip}
+          href={link.path}
+          aria-label={link.tooltip}
+        >
+          {link.icon}
+        </a>
+      ))}
+    </div>
+  );
 };

@@ -7,14 +7,14 @@ import { getSearchResultAndPros, setSearchQuery } from '../../actions';
 import constants from '../constants';
 
 type SearchFormProps = {
-  dispatchSearch: Function,
-  dispatchSetQuery: (args: any) => any,
+  dispatchSearch: Function;
+  dispatchSetQuery: (args: any) => any;
   history: {
-    push: Function,
-  },
-  strings: Strings,
-  small: boolean,
-}
+    push: Function;
+  };
+  strings: Strings;
+  small: boolean;
+};
 
 class SearchForm extends React.Component<SearchFormProps, { query?: string }> {
   constructor(props: SearchFormProps) {

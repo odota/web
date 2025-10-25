@@ -5,21 +5,20 @@ import { HistogramGraph } from '../Visualizations';
 import DurationsSkeleton from '../Skeletons/DurationsSkeleton';
 
 class Durations extends React.Component<{
-    match: {
-      params: {
-        heroId: string,
-      },
-    },
-    onGetHeroDurations: (heroId: string) => Promise<any>,
-    isLoading: boolean,
-    data: {
-      duration_bin: number,
-      games_played: number,
-      wins: number,
-    }[],
-    strings: Strings,
-  }> {
-
+  match: {
+    params: {
+      heroId: string;
+    };
+  };
+  onGetHeroDurations: (heroId: string) => Promise<any>;
+  isLoading: boolean;
+  data: {
+    duration_bin: number;
+    games_played: number;
+    wins: number;
+  }[];
+  strings: Strings;
+}> {
   componentDidMount() {
     const { onGetHeroDurations, match } = this.props;
 

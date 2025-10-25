@@ -33,12 +33,12 @@ const TabsBlock = styled.div`
 type HeroProps = {
   match: {
     params: {
-      info: string,
-      heroId: string,
-    },
-  },
-  heroes: Hero[],
-  strings: Strings,
+      info: string;
+      heroId: string;
+    };
+  };
+  heroes: Hero[];
+  strings: Strings;
 };
 
 class Hero extends React.Component<HeroProps> {
@@ -186,10 +186,7 @@ class Hero extends React.Component<HeroProps> {
         <HeroBlock>
           <Header hero={hero} />
           <HeroFooter>
-            <Button
-              variant="outlined"
-              onClick={this.toggleDetailVisibility}
-            >
+            <Button variant="outlined" onClick={this.toggleDetailVisibility}>
               {this.state.detailsOpen
                 ? strings.hide_details
                 : strings.show_details}

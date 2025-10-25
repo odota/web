@@ -1,5 +1,11 @@
 import React from 'react';
-import { Button, FormControlLabel, Radio as RadioButton, RadioGroup as RadioButtonGroup, TextField } from '@mui/material';
+import {
+  Button,
+  FormControlLabel,
+  Radio as RadioButton,
+  RadioGroup as RadioButtonGroup,
+  TextField,
+} from '@mui/material';
 import { heroes } from 'dotaconstants';
 import querystring from 'querystring';
 import { connect } from 'react-redux';
@@ -42,16 +48,22 @@ const InputFilter = ({
   setInputRef,
   reset,
   filterText,
-}: { handleChange: (e: React.ChangeEvent) => void, value: string, setInputRef: any, reset: any, filterText: string }) => (
+}: {
+  handleChange: (e: React.ChangeEvent) => void;
+  value: string;
+  setInputRef: any;
+  reset: any;
+  filterText: string;
+}) => (
   <div style={{ textAlign: 'center' }}>
-  <TextField
-    aria-label={filterText}
-    ref={setInputRef}
-    placeholder={filterText}
-    value={value}
-    onChange={handleChange}
-    style={{ width: 150 }}
-  />
+    <TextField
+      aria-label={filterText}
+      ref={setInputRef}
+      placeholder={filterText}
+      value={value}
+      onChange={handleChange}
+      style={{ width: 150 }}
+    />
   </div>
 );
 
@@ -68,13 +80,13 @@ const HeroSelector = ({
   isFiltered,
   heroName,
 }: {
-  id: string,
-  handleHeroSelection: Function,
-  selected: boolean,
-  teamAFull: boolean,
-  teamBFull: boolean,
-  isFiltered: boolean,
-  heroName: string
+  id: string;
+  handleHeroSelection: Function;
+  selected: boolean;
+  teamAFull: boolean;
+  teamBFull: boolean;
+  isFiltered: boolean;
+  heroName: string;
 }) => (
   <StyledHeroSelector selected={selected} isFiltered={isFiltered}>
     <HeroImage
@@ -118,47 +130,57 @@ const HeroSelector = ({
   </StyledHeroSelector>
 );
 
-const SelectedHeroes = ({ teamA, teamB, handleHeroDeSelection }: { teamA: number[], teamB: number[], handleHeroDeSelection: Function }) => {
+const SelectedHeroes = ({
+  teamA,
+  teamB,
+  handleHeroDeSelection,
+}: {
+  teamA: number[];
+  teamB: number[];
+  handleHeroDeSelection: Function;
+}) => {
   const strings = useStrings();
-  return <StyledSelectedHeroes>
-    <div className="team-container left">
-      <div className="team-title team-a">
-        {formatTemplateToString(strings.team, 'A')}
+  return (
+    <StyledSelectedHeroes>
+      <div className="team-container left">
+        <div className="team-title team-a">
+          {formatTemplateToString(strings.team, 'A')}
+        </div>
+        <div>
+          {[4, 3, 2, 1, 0].map((i) =>
+            teamA[i] ? (
+              <HeroImage
+                id={String(teamA[i])}
+                className="hero-img"
+                onClick={handleHeroDeSelection(i, 'teamA')}
+              />
+            ) : (
+              <div className="hero-placeholder hero-img" />
+            ),
+          )}
+        </div>
       </div>
-      <div>
-        {[4, 3, 2, 1, 0].map((i) =>
-          teamA[i] ? (
-            <HeroImage
-              id={String(teamA[i])}
-              className="hero-img"
-              onClick={handleHeroDeSelection(i, 'teamA')}
-            />
-          ) : (
-            <div className="hero-placeholder hero-img" />
-          ),
-        )}
+      <div className="seperator" />
+      <div className="team-container right">
+        <div className="team-title team-b">
+          {formatTemplateToString(strings.team, 'B')}
+        </div>
+        <div>
+          {[0, 1, 2, 3, 4].map((i) =>
+            teamB[i] ? (
+              <HeroImage
+                id={String(teamB[i])}
+                className="hero-img"
+                onClick={handleHeroDeSelection(i, 'teamB')}
+              />
+            ) : (
+              <div className="hero-placeholder hero-img" />
+            ),
+          )}
+        </div>
       </div>
-    </div>
-    <div className="seperator" />
-    <div className="team-container right">
-      <div className="team-title team-b">
-        {formatTemplateToString(strings.team, 'B')}
-      </div>
-      <div>
-        {[0, 1, 2, 3, 4].map((i) =>
-          teamB[i] ? (
-            <HeroImage
-              id={String(teamB[i])}
-              className="hero-img"
-              onClick={handleHeroDeSelection(i, 'teamB')}
-            />
-          ) : (
-            <div className="hero-placeholder hero-img" />
-          ),
-        )}
-      </div>
-    </div>
-  </StyledSelectedHeroes>;
+    </StyledSelectedHeroes>
+  );
 };
 
 function asArray(value: any) {
@@ -171,12 +193,12 @@ function asArray(value: any) {
 class Combos extends React.Component<{ strings: Strings }> {
   parsedUrlQuery = querystring.parse(window.location.search.substring(1)); // eslint-disable-line react/sort-comp
   inputRef: any;
-  
+
   state = {
     queryType: this.parsedUrlQuery.queryType || 'public',
     teamA: asArray(this.parsedUrlQuery.teamA).map(Number),
     teamB: asArray(this.parsedUrlQuery.teamB).map(Number),
-    queryResult: {} as { rows: any[], fields: any[], err: string },
+    queryResult: {} as { rows: any[]; fields: any[]; err: string },
     loading: false,
     searchValue: '',
   };
@@ -200,20 +222,26 @@ class Combos extends React.Component<{ strings: Strings }> {
 
   handleChange = (e: any) => this.setState({ searchValue: e.target.value });
 
-  handleHeroSelection = (resetSearchValue: any) => (heroID: number, team: 'teamA' | 'teamB') => () => {
-    if (this.state.loading) {
-      return;
-    }
-    const { teamA, teamB } = this.state;
-    if (this.state[team].length < 5 && ![...teamA, ...teamB].includes(heroID)) {
-      this.setState(
-        {
-          [team]: [...this.state[team], heroID],
-        },
-        resetSearchValue,
-      );
-    }
-  };
+  handleHeroSelection =
+    (resetSearchValue: any) =>
+    (heroID: number, team: 'teamA' | 'teamB') =>
+    () => {
+      if (this.state.loading) {
+        return;
+      }
+      const { teamA, teamB } = this.state;
+      if (
+        this.state[team].length < 5 &&
+        ![...teamA, ...teamB].includes(heroID)
+      ) {
+        this.setState(
+          {
+            [team]: [...this.state[team], heroID],
+          },
+          resetSearchValue,
+        );
+      }
+    };
 
   handleHeroDeSelection = (index: number, team: 'teamA' | 'teamB') => () => {
     if (this.state.loading) {
@@ -245,12 +273,16 @@ class Combos extends React.Component<{ strings: Strings }> {
           row.teamb = temp;
           row.teamawin = !row.teamawin;
         }
-        row.teama.sort((a: number, b: number) => teamA.indexOf(b) - teamA.indexOf(a));
+        row.teama.sort(
+          (a: number, b: number) => teamA.indexOf(b) - teamA.indexOf(a),
+        );
         row.teama = [
           ...row.teama.slice(teamA.length, 5),
           ...row.teama.slice(0, teamA.length),
         ];
-        row.teamb.sort((a: number, b: number) => teamB.indexOf(a) - teamB.indexOf(b));
+        row.teamb.sort(
+          (a: number, b: number) => teamB.indexOf(a) - teamB.indexOf(b),
+        );
         row.teamb = [
           ...row.teamb.slice(5 - teamB.length, 5),
           ...row.teamb.slice(0, 5 - teamB.length),
@@ -367,11 +399,15 @@ class Combos extends React.Component<{ strings: Strings }> {
               value={this.state.queryType}
               onChange={this.handleRadioButtonChange}
             >
-              <FormControlLabel value="public" label={strings.public_matches} control={<RadioButton/>} />
-              <FormControlLabel 
+              <FormControlLabel
+                value="public"
+                label={strings.public_matches}
+                control={<RadioButton />}
+              />
+              <FormControlLabel
                 value="pro"
                 label={strings.pro_matches}
-                control={<RadioButton />} 
+                control={<RadioButton />}
               />
             </RadioButtonGroup>
             <Button
@@ -386,11 +422,11 @@ class Combos extends React.Component<{ strings: Strings }> {
               // }}
               style={{ display: 'block', marginTop: 5 }}
               disabled={noHeroesSelected}
-            >{
-              this.state.loading
+            >
+              {this.state.loading
                 ? strings.explorer_cancel_button
-                : strings.request_submit
-            }</Button>
+                : strings.request_submit}
+            </Button>
           </div>
         </div>
         <pre style={{ color: 'red' }}>

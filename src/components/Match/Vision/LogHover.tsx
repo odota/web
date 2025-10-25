@@ -92,7 +92,7 @@ const wardIcon = (log: any) => {
   return `/assets/images/dota2/map/${side}_${log.type}.png`;
 };
 
-export const WardPin = ({ width, log }: { width: number, log: any }) => {
+export const WardPin = ({ width, log }: { width: number; log: any }) => {
   const id = `ward-${log.entered.player_slot}-${log.entered.time}`;
   return (
     <Styled>

@@ -15,7 +15,15 @@ const StyledCircle = styled.circle`
   stroke-dasharray: 38 100;
 `;
 
-const PiePercent = ({ percent, color, negativeColor }: { percent: number, color: string, negativeColor: string }) => (
+const PiePercent = ({
+  percent,
+  color,
+  negativeColor,
+}: {
+  percent: number;
+  color: string;
+  negativeColor: string;
+}) => (
   <StyledSvg viewBox="0 0 32 32" style={{ color: negativeColor }}>
     <StyledCircle
       r="16"

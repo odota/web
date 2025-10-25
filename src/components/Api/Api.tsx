@@ -199,11 +199,13 @@ class KeyManagement extends React.Component<
             <div>
               {showLoginButton ? (
                 <Button
-                variant="contained"
-                startIcon={<IconSteam />}
+                  variant="contained"
+                  startIcon={<IconSteam />}
                   href={`${config.VITE_API_HOST}/login`}
                   style={{ margin: '5px 5px' }}
-                >{strings.api_login}</Button>
+                >
+                  {strings.api_login}
+                </Button>
               ) : (
                 <div />
               )}
@@ -217,10 +219,9 @@ class KeyManagement extends React.Component<
                   zipCode
                   locale="auto"
                 >
-                  <Button
-                    variant="contained"
-                    style={{ margin: '5px 5px' }}
-                  >{strings.api_get_key}</Button>
+                  <Button variant="contained" style={{ margin: '5px 5px' }}>
+                    {strings.api_get_key}
+                  </Button>
                 </StripeCheckout>
               ) : (
                 <span />
@@ -229,7 +230,9 @@ class KeyManagement extends React.Component<
                 href="//docs.opendota.com"
                 target="_blank"
                 style={{ margin: '5px 5px' }}
-              >{strings.api_docs}</Button>
+              >
+                {strings.api_docs}
+              </Button>
               {this.state.customer ? (
                 <div>
                   {this.state.customer.api_key ? (
@@ -272,7 +275,9 @@ class KeyManagement extends React.Component<
                         variant="contained"
                         style={{ margin: '5px 5px' }}
                         onClick={this.handleDelete}
-                      >{strings.api_delete}</Button>
+                      >
+                        {strings.api_delete}
+                      </Button>
                       <StripeCheckout
                         name="OpenDota"
                         description={strings.api_title}
@@ -285,7 +290,9 @@ class KeyManagement extends React.Component<
                         <Button
                           variant="contained"
                           style={{ margin: '5px 5px' }}
-                        >{strings.api_update_billing}</Button>
+                        >
+                          {strings.api_update_billing}
+                        </Button>
                       </StripeCheckout>
                     </div>
                   ) : (

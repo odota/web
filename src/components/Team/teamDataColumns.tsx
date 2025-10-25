@@ -101,7 +101,9 @@ export const heroColumns = (strings: Strings) => [
     displayName: strings.th_hero_id,
     field: 'hero_id',
     displayFn: displayHeroId,
-    sortFn: (row: any) => heroes[row.hero_id as keyof Heroes] && heroes[row.hero_id as keyof Heroes].localized_name,
+    sortFn: (row: any) =>
+      heroes[row.hero_id as keyof Heroes] &&
+      heroes[row.hero_id as keyof Heroes].localized_name,
   },
   {
     displayName: strings.th_games_played,

@@ -41,7 +41,7 @@ const Label = styled.span`
 const calcArmorPercent = (hero: number) =>
   Math.round(((0.06 * hero) / (1 + 0.06 * hero)) * 100);
 
-const HeroAttributes = ({ hero }: { hero: Hero}) => {
+const HeroAttributes = ({ hero }: { hero: Hero }) => {
   const h = compileLevelOneStats(hero);
   const strings = useStrings();
 

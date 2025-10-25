@@ -26,10 +26,10 @@ const HorizontalMenuFilter = ({
   reset,
   filterText,
 }: {
-  handleChange: (e: React.FormEvent) => void,
-  value: string,
-  reset: (e: any) => void,
-  filterText: string,
+  handleChange: (e: React.FormEvent) => void;
+  value: string;
+  reset: (e: any) => void;
+  filterText: string;
 }) => (
   <StyledHorizontalMenuFilter>
     <SearchIcon style={{ marginRight: 6, opacity: '.6' }} />
@@ -61,7 +61,11 @@ export const StyledHeroHorizontalMenu = styled.div`
   margin-top: 15px;
 `;
 
-class HorizontalMenu extends React.Component<{ filterAndRenderElements: Function, filterText: string, strings: Strings }> {
+class HorizontalMenu extends React.Component<{
+  filterAndRenderElements: Function;
+  filterText: string;
+  strings: Strings;
+}> {
   inputRef: any = null;
   horizontalMenuRef: any = null;
 

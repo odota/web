@@ -10,18 +10,18 @@ import ErrorBox from '../Error/ErrorBox';
 import Spinner from '../Spinner/Spinner';
 
 type MatchProps = {
-  loading: boolean,
-  error: string,
-  matchData: Match,
+  loading: boolean;
+  error: string;
+  matchData: Match;
   match: {
     params: {
-      info?: string,
-    },
-  },
-  user: any,
-  getMatch: Function,
-  matchId: string,
-  strings: Strings,
+      info?: string;
+    };
+  };
+  user: any;
+  getMatch: Function;
+  matchId: string;
+  strings: Strings;
 };
 
 class RequestLayer extends React.Component<MatchProps> {
@@ -51,7 +51,9 @@ class RequestLayer extends React.Component<MatchProps> {
     if (error && !loading) {
       return <FourOhFour msg={strings.request_invalid_match_id} />;
     }
-    return (loading ? <Spinner /> :
+    return loading ? (
+      <Spinner />
+    ) : (
       <div>
         <Helmet title={pageTitle} />
         <MatchHeader match={matchData} />

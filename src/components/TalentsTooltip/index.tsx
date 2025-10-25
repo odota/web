@@ -31,7 +31,13 @@ const Background = styled.div`
   opacity: 0.08;
 `;
 
-const TalentsTooltip = ({ talents, ttId }: { talents: any[], ttId: string }) => (
+const TalentsTooltip = ({
+  talents,
+  ttId,
+}: {
+  talents: any[];
+  ttId: string;
+}) => (
   <Wrapper>
     <ReactTooltip id={ttId} effect="solid" place="left">
       <Content>

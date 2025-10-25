@@ -7,21 +7,21 @@ import { wilsonScore } from '../../utility';
 import { proPlayersSelector } from '../../reducers/selectors';
 
 class Players extends React.Component<{
-    isLoading: boolean,
-    data: {
-        account_id: number,
-        games_played: number,
-        wins: number,
-      }[],
-    match: {
-      params: {
-        heroId: string,
-      },
-    },
-    onGetHeroPlayers: Function,
-    proPlayers: any,
-    strings: Strings,
-  }> {
+  isLoading: boolean;
+  data: {
+    account_id: number;
+    games_played: number;
+    wins: number;
+  }[];
+  match: {
+    params: {
+      heroId: string;
+    };
+  };
+  onGetHeroPlayers: Function;
+  proPlayers: any;
+  strings: Strings;
+}> {
   componentDidMount() {
     const { onGetHeroPlayers, match } = this.props;
 
@@ -72,7 +72,10 @@ class Players extends React.Component<{
       .map((item) => {
         const wins = Math.max(
           0,
-          Math.min(100, Number(((item.wins / item.games_played) * 100).toFixed(2))),
+          Math.min(
+            100,
+            Number(((item.wins / item.games_played) * 100).toFixed(2)),
+          ),
         );
         const advantage = Math.round(
           wilsonScore(item.wins, item.games_played - item.wins) * 100,

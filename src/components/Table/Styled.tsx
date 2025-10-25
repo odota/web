@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import constants from '../constants';
 
-export const StyledBody = styled.div<{ customWidth?: number, hoverRowColumn?: boolean }>`
+export const StyledBody = styled.div<{
+  customWidth?: number;
+  hoverRowColumn?: boolean;
+}>`
   table {
     table-layout: auto !important;
     font-family: ${constants.tableFontFamily} !important;

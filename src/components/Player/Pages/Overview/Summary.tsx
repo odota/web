@@ -107,7 +107,13 @@ const SummOfRecMatches = ({ matchesData }: { matchesData: any[] }) => {
               <li key={key}>
                 <span>{strings[`heading_${key}` as keyof Strings]}</span>
                 <Link to={`/matches/${c.max.matchId}`}>
-                  <p style={{ color: constants[c.color as keyof typeof constants] } as React.CSSProperties}>
+                  <p
+                    style={
+                      {
+                        color: constants[c.color as keyof typeof constants],
+                      } as React.CSSProperties
+                    }
+                  >
                     {key === 'duration'
                       ? formatSeconds(c.avg)
                       : abbreviateNumber(c.avg)}

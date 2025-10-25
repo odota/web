@@ -20,13 +20,15 @@ const StyledDiv = styled.div`
     }
 `;
 
-const isBestValueInMatch = (players: MatchPlayer[]) => (field: keyof MatchPlayer, row: any, underline: string) => {
-  const values = players.map((player) => player[field]);
-  const bestValue =
-    underline === 'max' ? Math.max(...values) : Math.min(...values);
+const isBestValueInMatch =
+  (players: MatchPlayer[]) =>
+  (field: keyof MatchPlayer, row: any, underline: string) => {
+    const values = players.map((player) => player[field]);
+    const bestValue =
+      underline === 'max' ? Math.max(...values) : Math.min(...values);
 
-  return bestValue === row[field];
-};
+    return bestValue === row[field];
+  };
 
 const keyFn = (row: any) => row && row.player_slot + 1;
 
@@ -53,23 +55,23 @@ const filterMatchPlayers = (players: MatchPlayer[], team = '') =>
     .sort((a, b) => a.player_slot - b.player_slot);
 
 type TeamTableProps = {
-  gameMode?: number,
-  players: MatchPlayer[],
-  columns: any[],
-  heading: string,
-  picksBans?: any[],
-  radiantTeam: any,
-  direTeam: any,
-  summable?: boolean,
-  hoverRowColumn?: boolean,
-  loggedInId: number,
-  buttonLabel?: string,
-  buttonTo?: string,
-  buttonIcon?: string,
-  customWidth?: number,
-  radiantWin: boolean,
-  overflowAuto?: boolean,
-  hideWinnerTag?: boolean,
+  gameMode?: number;
+  players: MatchPlayer[];
+  columns: any[];
+  heading: string;
+  picksBans?: any[];
+  radiantTeam: any;
+  direTeam: any;
+  summable?: boolean;
+  hoverRowColumn?: boolean;
+  loggedInId: number;
+  buttonLabel?: string;
+  buttonTo?: string;
+  buttonIcon?: string;
+  customWidth?: number;
+  radiantWin: boolean;
+  overflowAuto?: boolean;
+  hideWinnerTag?: boolean;
 };
 
 class TeamTable extends React.Component<TeamTableProps> {

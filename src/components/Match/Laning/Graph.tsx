@@ -22,10 +22,17 @@ import useStrings from '../../../hooks/useStrings.hook';
 
 const formatGraphTime = (minutes: number) => `${minutes}:00`;
 
-const CustomizedTooltip = ({ label, payload }: { label?: string, payload?: any[] }) => (
+const CustomizedTooltip = ({
+  label,
+  payload,
+}: {
+  label?: string;
+  payload?: any[];
+}) => (
   <StyledCustomizedTooltip>
     <div className="label">{label}</div>
-    {payload?.map((data, i) => (
+    {payload
+      ?.map((data, i) => (
         <div
           key={i}
           className={`data ${i < 5 && 'isRadiant'}`}
@@ -38,7 +45,12 @@ const CustomizedTooltip = ({ label, payload }: { label?: string, payload?: any[]
   </StyledCustomizedTooltip>
 );
 
-const CustomizedDot = (props: { cx?: number, cy?: number, payload?: any, killsLog: any[] }) => {
+const CustomizedDot = (props: {
+  cx?: number;
+  cy?: number;
+  payload?: any;
+  killsLog: any[];
+}) => {
   const { cx, cy, payload, killsLog } = props;
 
   const kills = killsLog.filter((l) => {
@@ -72,8 +84,8 @@ const CustomizedDot = (props: { cx?: number, cy?: number, payload?: any, killsLo
 };
 
 type GraphProps = {
-  match: Match,
-  selectedPlayer: number,
+  match: Match;
+  selectedPlayer: number;
 };
 
 const Graph = (props: GraphProps) => {
@@ -114,7 +126,10 @@ const Graph = (props: GraphProps) => {
             <Tooltip content={<CustomizedTooltip />} />
             {match.players.map((player) => {
               const hero = heroes[player.hero_id] || {};
-              const playerColor = playerColors[player.player_slot as unknown as keyof typeof playerColors];
+              const playerColor =
+                playerColors[
+                  player.player_slot as unknown as keyof typeof playerColors
+                ];
               const isSelected = selectedPlayer === player.player_slot;
               const opacity = isSelected ? 1 : 0.25;
               const stroke = isSelected ? 4 : 2;

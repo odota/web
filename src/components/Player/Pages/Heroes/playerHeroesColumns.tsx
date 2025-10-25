@@ -2,7 +2,10 @@ import React from 'react';
 import { displayHeroId } from '../../../../utility';
 import { TableLink } from '../../../Table';
 
-export const playerHeroesOverviewColumns = (playerId: string, strings: Strings) => [
+export const playerHeroesOverviewColumns = (
+  playerId: string,
+  strings: Strings,
+) => [
   {
     displayName: strings.th_hero_id,
     tooltip: strings.tooltip_hero_id,

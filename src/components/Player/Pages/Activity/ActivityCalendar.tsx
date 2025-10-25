@@ -90,14 +90,14 @@ const Day = ({
   handleDayClick,
   clickedDay,
 }: {
-  year: number,
-  normalizationRatio: number,
-  handleMonthHoverOn?: (e: React.MouseEvent) => void,
-  handleMonthHoverOff?: (e: React.MouseEvent) => void,
-  hoveredMonth: number | null,
-  day: any,
-  handleDayClick: Function,
-  clickedDay: number | null,
+  year: number;
+  normalizationRatio: number;
+  handleMonthHoverOn?: (e: React.MouseEvent) => void;
+  handleMonthHoverOff?: (e: React.MouseEvent) => void;
+  hoveredMonth: number | null;
+  day: any;
+  handleDayClick: Function;
+  clickedDay: number | null;
 }) => {
   const { month, date, data, firstDayOfMonth } = day;
   const radius = circleRadius(data, normalizationRatio);
@@ -111,7 +111,8 @@ const Day = ({
       className={date && 'active'}
       style={{
         opacity: hoveredMonth !== null && hoveredMonth !== month ? '0.2' : '1',
-        outline: doy === clickedDay ? `1px solid ${constants.colorBlue}` : undefined,
+        outline:
+          doy === clickedDay ? `1px solid ${constants.colorBlue}` : undefined,
       }}
     >
       {firstDayOfMonth && (
@@ -171,11 +172,14 @@ const mapDays2Weeks = (year: number, data: any[]) => {
   return weeks;
 };
 
-class Weeks extends React.Component<{
-  year: number,
-  strings: Strings,
-  data: any[],
-  }, { hoveredMonth: number | null, clickedDay: number | null}> {
+class Weeks extends React.Component<
+  {
+    year: number;
+    strings: Strings;
+    data: any[];
+  },
+  { hoveredMonth: number | null; clickedDay: number | null }
+> {
   state = { hoveredMonth: null, clickedDay: null };
 
   handleMonthHoverOn = (month: number) => {
@@ -285,7 +289,13 @@ const aggregateByYear = (matches: any[]) => {
   return data;
 };
 
-const ActivityCalendar = ({ strings, data }: { strings: Strings, data: any[] }) => {
+const ActivityCalendar = ({
+  strings,
+  data,
+}: {
+  strings: Strings;
+  data: any[];
+}) => {
   const aggregatedData = aggregateByYear(data);
 
   return (

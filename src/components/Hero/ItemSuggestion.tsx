@@ -7,19 +7,21 @@ import { getHeroItemSuggestions } from '../../actions';
 import TableSkeleton from '../Skeletons/TableSkeleton';
 
 type ItemSuggestionProps = {
-   match: {
+  match: {
     params: {
-      heroId: string,
-    },
-  },
-  isLoading: boolean,
-  onGetHeroItemSuggestions: (heroId: string) => Promise<any>,
-  data: any[],
+      heroId: string;
+    };
+  };
+  isLoading: boolean;
+  onGetHeroItemSuggestions: (heroId: string) => Promise<any>;
+  data: any[];
 };
 
 function ItemSuggestion(props: ItemSuggestionProps) {
   const displayFn = (row: any, col: any, i: number) =>
-    Object.keys(i).map((itemId) => inflictorWithValue(itemIds[itemId as keyof typeof itemIds]));
+    Object.keys(i).map((itemId) =>
+      inflictorWithValue(itemIds[itemId as keyof typeof itemIds]),
+    );
 
   const { onGetHeroItemSuggestions, match } = props;
   useEffect(() => {

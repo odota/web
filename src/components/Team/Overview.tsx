@@ -10,7 +10,12 @@ const MAX_HEROES_ROWS = 10;
 export default (strings: Strings) => ({
   name: strings.tab_overview,
   key: 'overview',
-  content: (generalData: any, matchData: any, heroData: any, playerData: any) => (
+  content: (
+    generalData: any,
+    matchData: any,
+    heroData: any,
+    playerData: any,
+  ) => (
     <Row>
       <MatchesContainer>
         <Container

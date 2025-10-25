@@ -20,7 +20,11 @@ const HistogramTooltipContent = ({
   payload,
   xAxisLabel = '',
   histogramName,
-}: { payload?: any, xAxisLabel?: string, histogramName?: string }) => {
+}: {
+  payload?: any;
+  xAxisLabel?: string;
+  histogramName?: string;
+}) => {
   const strings = useStrings();
   const data = payload && payload[0] && payload[0].payload;
   return (
@@ -40,7 +44,11 @@ const HistogramGraph = ({
   columns,
   xAxisLabel = '',
   histogramName,
-}: { columns: any[], xAxisLabel?: string, histogramName?: string }) => (
+}: {
+  columns: any[];
+  xAxisLabel?: string;
+  histogramName?: string;
+}) => (
   <ResponsiveContainer width="100%" height={graphHeight}>
     <BarChart
       height={graphHeight}
@@ -68,7 +76,10 @@ const HistogramGraph = ({
 
       <Tooltip
         content={
-          <HistogramTooltipContent xAxisLabel={xAxisLabel} histogramName={histogramName} />
+          <HistogramTooltipContent
+            xAxisLabel={xAxisLabel}
+            histogramName={histogramName}
+          />
         }
         cursor={{ fill: 'rgba(255, 255, 255, .35)' }}
       />

@@ -26,13 +26,13 @@ function resolveId(key, value, mappings) {
 */
 
 type ExplorerOutputSectionProps = {
-  rows: any[],
-  fields: any[],
-  expandedBuilder?: any,
-  playerMapping?: any,
-  teamMapping?: any,
-  format?: string,
-  strings: Strings,
+  rows: any[];
+  fields: any[];
+  expandedBuilder?: any;
+  playerMapping?: any;
+  teamMapping?: any;
+  format?: string;
+  strings: Strings;
 };
 
 class ExplorerOutputSection extends React.Component<ExplorerOutputSectionProps> {
@@ -124,8 +124,10 @@ class ExplorerOutputSection extends React.Component<ExplorerOutputSectionProps> 
               } else if (column.field === 'rune_id') {
                 return strings[`rune_${field}` as keyof Strings];
               } else if (column.field === 'item_name') {
+                return items[field as keyof typeof items]
                 //@ts-expect-error
-                return items[field as keyof typeof items] ? items[field as keyof typeof items].dname : field;
+                  ? items[field as keyof typeof items].dname
+                  : field;
               } else if (
                 column.field === 'time' ||
                 (column.field === 'avg' &&

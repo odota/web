@@ -21,7 +21,7 @@ import { StyledFlexContainer, StyledFlexElement } from './StyledMatch';
 import { getHeroImageUrl, IMAGESIZE_ENUM } from '../../utility';
 import config from '../../config';
 
-const TickElement = (props: { x: number, y: number, payload: any }) => {
+const TickElement = (props: { x: number; y: number; payload: any }) => {
   const { x, y, payload } = props;
 
   if (heroes[payload.value as keyof Heroes]) {
@@ -41,13 +41,15 @@ const TickElement = (props: { x: number, y: number, payload: any }) => {
   return null;
 };
 
-const matchPages = (strings: Strings): {
-  name: string,
-  key: string,
-  content: (m: Match) => React.ReactNode,
-  skeleton?: boolean,
-  parsed?: boolean,
-  hidden?: (m: Match) => boolean,
+const matchPages = (
+  strings: Strings,
+): {
+  name: string;
+  key: string;
+  content: (m: Match) => React.ReactNode;
+  skeleton?: boolean;
+  parsed?: boolean;
+  hidden?: (m: Match) => boolean;
 }[] => {
   const {
     benchmarksColumns,

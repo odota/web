@@ -29,16 +29,20 @@ const PageLinks = () => {
       path: '//www.netlify.com',
     },
   ];
-  return <>{links.map((link) => (
-    <a
-      href={link.path}
-      key={link.path}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      {link.name}
-    </a>
-  ))}</>;
+  return (
+    <>
+      {links.map((link) => (
+        <a
+          href={link.path}
+          key={link.path}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {link.name}
+        </a>
+      ))}
+    </>
+  );
 };
 
 export default PageLinks;

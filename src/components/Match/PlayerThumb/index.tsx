@@ -19,18 +19,22 @@ const StyledImg = styled.img`
 `;
 
 const PlayerThumb = (props: {
-  player_slot?: number,
-  hero_id?: string,
-  name?: string,
-  personaname?: string,
-  hideText?: boolean,
+  player_slot?: number;
+  hero_id?: string;
+  name?: string;
+  personaname?: string;
+  hideText?: boolean;
 }) => {
   const strings = useStrings();
   const { name, personaname, hideText } = props;
   const playerSlot = props.player_slot;
   const heroId = props.hero_id;
   return (
-    <StyledAside style={{ color: playerColors[playerSlot as unknown as keyof typeof playerColors] }}>
+    <StyledAside
+      style={{
+        color: playerColors[playerSlot as unknown as keyof typeof playerColors],
+      }}
+    >
       <StyledImg
         src={
           heroes[heroId as keyof Heroes]

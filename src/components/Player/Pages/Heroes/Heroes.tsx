@@ -9,25 +9,27 @@ import useStrings from '../../../../hooks/useStrings.hook';
 
 const Heroes = ({ data, playerId, error, loading }: HeroesProps) => {
   const strings = useStrings();
-  return <Container title={strings.heading_heroes} error={error} loading={loading}>
-    <Table
-      paginated
-      columns={playerHeroesColumns(playerId, strings)}
-      data={data}
-    />
-  </Container>;
+  return (
+    <Container title={strings.heading_heroes} error={error} loading={loading}>
+      <Table
+        paginated
+        columns={playerHeroesColumns(playerId, strings)}
+        data={data}
+      />
+    </Container>
+  );
 };
 
 type HeroesProps = {
-  data: any[],
-  error: string,
-  loading: boolean,
-  playerId: string,
-  getPlayerHeroes: Function,
+  data: any[];
+  error: string;
+  loading: boolean;
+  playerId: string;
+  getPlayerHeroes: Function;
   location: {
-    key?: string,
-    search?: string,
-  },
+    key?: string;
+    search?: string;
+  };
 };
 
 const getData = (props: HeroesProps) => {

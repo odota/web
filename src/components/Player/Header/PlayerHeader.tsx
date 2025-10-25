@@ -135,7 +135,13 @@ const DotaPlusBadge = ({ plus }: { plus: boolean }) => {
   ) : null;
 };
 
-export const RankTierMedal = ( { rankTier, leaderboardRank }: { rankTier: number, leaderboardRank: number}) => {
+export const RankTierMedal = ({
+  rankTier,
+  leaderboardRank,
+}: {
+  rankTier: number;
+  leaderboardRank: number;
+}) => {
   let medalElement = null;
   const imgDescription = rankTierToString(rankTier);
   if (rankTier) {
@@ -247,30 +253,24 @@ const PlayerHeader = ({
   rankTier,
   leaderboardRank,
 }: {
-  playerName: string,
-  officialPlayerName: string,
-  playerId: string,
-  picture: string,
-  plus: boolean,
-  loading: boolean,
-  error: string,
-  small: boolean,
-  loggedInUser: any,
-  rankTier: number,
-  leaderboardRank: number,
-  location: any,
+  playerName: string;
+  officialPlayerName: string;
+  playerId: string;
+  picture: string;
+  plus: boolean;
+  loading: boolean;
+  error: string;
+  small: boolean;
+  loggedInUser: any;
+  rankTier: number;
+  leaderboardRank: number;
+  location: any;
 }) => {
   if (error) {
     return <ErrorBox />;
   }
   if (loading) {
-    return (
-      <Facebook
-        width={400}
-        height={60}
-        animate
-      />
-    );
+    return <Facebook width={400} height={60} animate />;
   }
 
   const avatarStyle = {
@@ -302,13 +302,14 @@ const PlayerHeader = ({
               loggedInId={loggedInUser && String(loggedInUser.account_id)}
               compact={!small}
             />
-            <PlayerButtons
-              playerId={playerId}
-            />
+            <PlayerButtons playerId={playerId} />
           </div>
           <div style={{ display: 'flex' }}>
             <DotaPlusBadge plus={plus} />
-            <RankTierMedal rankTier={rankTier} leaderboardRank={leaderboardRank} />
+            <RankTierMedal
+              rankTier={rankTier}
+              leaderboardRank={leaderboardRank}
+            />
           </div>
         </div>
       </div>

@@ -54,13 +54,16 @@ const Ban = styled(PickBan)`
 const DraftCell = styled.div`
   display: flex;
   width: fit-content;
-  margin-left: ${(props: { radiant: boolean }) => (props.radiant ? '0' : 'auto')};
-  justify-content: ${(props: { radiant: boolean }) => (props.radiant ? 'flex-start' : 'flex-end')};
+  margin-left: ${(props: { radiant: boolean }) =>
+    props.radiant ? '0' : 'auto'};
+  justify-content: ${(props: { radiant: boolean }) =>
+    props.radiant ? 'flex-start' : 'flex-end'};
 
   .time-tracker {
     display: flex;
     flex-direction: column;
-    align-items: ${(props: { radiant: boolean }) => (props.radiant ? 'flex-start' : 'flex-end')};
+    align-items: ${(props: { radiant: boolean }) =>
+      props.radiant ? 'flex-start' : 'flex-end'};
     justify-content: space-around;
     order: ${(props: { radiant: boolean }) => (props.radiant ? '1' : '-1')};
     padding: 8px;
@@ -115,14 +118,24 @@ const HeroIcon = styled.div`
 `;
 
 const LeftArrow = styled(KeyboardArrowLeftIcon)`
-  visibility: ${(props: { visible: string }) => (props.visible === 'true' ? 'visible' : 'hidden')};
+  visibility: ${(props: { visible: string }) =>
+    props.visible === 'true' ? 'visible' : 'hidden'};
 `;
 
 const RightArrow = styled(KeyboardArrowRightIcon)`
-  visibility: ${(props: { visible: string }) => (props.visible === 'true' ? 'visible' : 'hidden')};
+  visibility: ${(props: { visible: string }) =>
+    props.visible === 'true' ? 'visible' : 'hidden'};
 `;
 
-const TimeTracker = ({ pb, extraTime, isCaptains }: { pb: any, extraTime: number, isCaptains: boolean }) => (
+const TimeTracker = ({
+  pb,
+  extraTime,
+  isCaptains,
+}: {
+  pb: any;
+  extraTime: number;
+  isCaptains: boolean;
+}) => (
   <div className="time-tracker">
     <span className="taken">
       <span className={pb.total_time_taken > 30 ? 'extra-used' : ''}>
@@ -143,7 +156,19 @@ const TimeTracker = ({ pb, extraTime, isCaptains }: { pb: any, extraTime: number
   </div>
 );
 
-const DraftHero = ({ pb, radiant, calcExtraTime, picks, isCaptains }: { pb: any, radiant: boolean, calcExtraTime: Function, picks: number[], isCaptains: boolean }) => (
+const DraftHero = ({
+  pb,
+  radiant,
+  calcExtraTime,
+  picks,
+  isCaptains,
+}: {
+  pb: any;
+  radiant: boolean;
+  calcExtraTime: Function;
+  picks: number[];
+  isCaptains: boolean;
+}) => (
   <DraftCell radiant={radiant}>
     <TimeTracker
       pb={pb}
@@ -153,7 +178,8 @@ const DraftHero = ({ pb, radiant, calcExtraTime, picks, isCaptains }: { pb: any,
     <HeroIcon>
       <img
         src={
-          heroes[pb.hero_id as keyof Heroes] && config.VITE_IMAGE_CDN + heroes[pb.hero_id as keyof Heroes].img
+          heroes[pb.hero_id as keyof Heroes] &&
+          config.VITE_IMAGE_CDN + heroes[pb.hero_id as keyof Heroes].img
         }
         alt=""
         data-ispick={picks.includes(pb.order)}
@@ -172,13 +198,13 @@ const Draft = ({
   sponsorURL,
   sponsorIcon,
 }: {
-  gameMode: number,
-  radiantTeam: any,
-  direTeam: any,
-  draft: any[],
-  startTime: number,
-  sponsorURL?: string,
-  sponsorIcon?: string,
+  gameMode: number;
+  radiantTeam: any;
+  direTeam: any;
+  draft: any[];
+  startTime: number;
+  sponsorURL?: string;
+  sponsorIcon?: string;
 }) => {
   const strings = useStrings();
   // one-based indexing (since draft[i].order starts at 1)

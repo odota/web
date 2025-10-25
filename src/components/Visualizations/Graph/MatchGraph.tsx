@@ -45,10 +45,17 @@ const generateDiffData = (match: Match) => {
   return data;
 };
 
-const CustomizedTooltip = ({ label, payload }: { label?: string, payload?: any[] }) => (
+const CustomizedTooltip = ({
+  label,
+  payload,
+}: {
+  label?: string;
+  payload?: any[];
+}) => (
   <StyledCustomizedTooltip>
     <div className="label">{label}</div>
-    {payload?.map((data, i) => (
+    {payload
+      ?.map((data, i) => (
         <div
           // value={data.value}
           className={`data ${i < 5 && 'isRadiant'}`}
@@ -170,12 +177,15 @@ const XpNetworthGraph = ({ match }: { match: Match }) => {
 };
 
 type PlayersGraphProps = {
-  match: Match,
-  type: string,
-  strings: Strings,
+  match: Match;
+  type: string;
+  strings: Strings;
 };
 
-class PlayersGraph extends React.Component<PlayersGraphProps, { hoverHero: any }> {
+class PlayersGraph extends React.Component<
+  PlayersGraphProps,
+  { hoverHero: any }
+> {
   constructor(props: PlayersGraphProps) {
     super(props);
     this.state = {
@@ -200,17 +210,24 @@ class PlayersGraph extends React.Component<PlayersGraphProps, { hoverHero: any }
     const { hoverHero } = this.state;
 
     const matchData: any[] = [];
-    if (match.players && match.players[0] && match.players[0][`${type}_t` as keyof MatchPlayer]) {
-      match.players[0][`${type}_t` as keyof MatchPlayer].forEach((value: number, index: number) => {
-        if (index <= Math.floor(match.duration / 60)) {
-          const obj: Record<string, any> = { time: formatGraphTime(index) };
-          match.players.forEach((player) => {
-            const hero = heroes[player.hero_id] || {};
-            obj[hero.localized_name] = player[`${type}_t` as keyof MatchPlayer][index];
-          });
-          matchData.push(obj);
-        }
-      });
+    if (
+      match.players &&
+      match.players[0] &&
+      match.players[0][`${type}_t` as keyof MatchPlayer]
+    ) {
+      match.players[0][`${type}_t` as keyof MatchPlayer].forEach(
+        (value: number, index: number) => {
+          if (index <= Math.floor(match.duration / 60)) {
+            const obj: Record<string, any> = { time: formatGraphTime(index) };
+            match.players.forEach((player) => {
+              const hero = heroes[player.hero_id] || {};
+              obj[hero.localized_name] =
+                player[`${type}_t` as keyof MatchPlayer][index];
+            });
+            matchData.push(obj);
+          }
+        },
+      );
 
       return (
         <StyledHolder>
@@ -232,7 +249,10 @@ class PlayersGraph extends React.Component<PlayersGraphProps, { hoverHero: any }
               <Tooltip content={<CustomizedTooltip />} />
               {match.players.map((player) => {
                 const hero = heroes[player.hero_id] || {};
-                const playerColor = playerColors[player.player_slot as unknown as keyof typeof playerColors];
+                const playerColor =
+                  playerColors[
+                    player.player_slot as unknown as keyof typeof playerColors
+                  ];
                 const isSelected =
                   heroes[player.hero_id] &&
                   hoverHero === heroes[player.hero_id].localized_name;
@@ -268,9 +288,9 @@ const MatchGraph = ({
   match,
   width = 1200,
 }: {
-  type: string,
-  match: Match,
-  width?: number,
+  type: string;
+  match: Match;
+  width?: number;
 }) => {
   const strings = useStrings();
   if (type === 'difference') {
@@ -284,9 +304,7 @@ const MatchGraph = ({
       />
     );
   } else if (type === 'gold' || type === 'xp' || type === 'lh') {
-    return (
-      <PlayersGraph type={type} match={match} strings={strings} />
-    );
+    return <PlayersGraph type={type} match={match} strings={strings} />;
   }
   return null;
 };

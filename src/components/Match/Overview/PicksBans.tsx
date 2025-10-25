@@ -67,7 +67,15 @@ const Styled = styled.div`
   }
 `;
 
-const PicksBans = ({ gameMode, data, style }: { gameMode?: number, data: any[], style?: any }) => {
+const PicksBans = ({
+  gameMode,
+  data,
+  style,
+}: {
+  gameMode?: number;
+  data: any[];
+  style?: any;
+}) => {
   let firstBan = 0;
   const strings = useStrings();
 

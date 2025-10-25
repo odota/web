@@ -3,7 +3,17 @@ import { Link } from 'react-router-dom';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import constants from '../constants';
 
-const TableLink = ({ to, children, target, color }: { to: string, children: React.ReactNode, target?: string, color?: string }) => (
+const TableLink = ({
+  to,
+  children,
+  target,
+  color,
+}: {
+  to: string;
+  children: React.ReactNode;
+  target?: string;
+  color?: string;
+}) => (
   <Link to={to} target={target}>
     {children}
     <KeyboardArrowRightIcon

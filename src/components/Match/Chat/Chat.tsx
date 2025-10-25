@@ -246,96 +246,114 @@ const StyledDiv = styled.div`
 
 const isSpectator = (slot: number) => slot > 9 && slot < 128;
 
-const getChatWheel = (id: string): { id: number, name: string, label?: string, message?: string, all_chat?: any, sound_ext?: string, image?: string } => chatWheelMessages[id as keyof typeof chatWheelMessages] || {};
+const getChatWheel = (
+  id: string,
+): {
+  id: number;
+  name: string;
+  label?: string;
+  message?: string;
+  all_chat?: any;
+  sound_ext?: string;
+  image?: string;
+} => chatWheelMessages[id as keyof typeof chatWheelMessages] || {};
 
 type ChatProps = {
-  data: any[],
-  strings: Strings,
+  data: any[];
+  strings: Strings;
 };
 
-type ChatState = { radiant?: boolean, dire?: boolean, text?: boolean, phrases?: boolean, audio?: boolean, all?: boolean, allies?: boolean, spam?: boolean, playing?: any, messages?: any[] | null };
+type ChatState = {
+  radiant?: boolean;
+  dire?: boolean;
+  text?: boolean;
+  phrases?: boolean;
+  audio?: boolean;
+  all?: boolean;
+  allies?: boolean;
+  spam?: boolean;
+  playing?: any;
+  messages?: any[] | null;
+};
 
 class Chat extends React.Component<ChatProps, ChatState> {
   raw = undefined as unknown as any[];
   state: ChatState = {
-      radiant: true,
-      dire: true,
-      text: true,
-      phrases: true,
-      audio: true,
-      all: true,
-      allies: true,
-      spam: true,
+    radiant: true,
+    dire: true,
+    text: true,
+    phrases: true,
+    audio: true,
+    all: true,
+    allies: true,
+    spam: true,
 
-      playing: null,
-      messages: null,
-    }
-    filters = {
-      radiant: {
-        f: (arr = this.raw) =>
-          arr.filter(
-            (msg) => isRadiant(msg.player_slot) || isSpectator(msg.slot),
-          ),
-        type: 'faction',
-        disabled: () => !this.state.dire,
-      },
-      dire: {
-        f: (arr = this.raw) => arr.filter((msg) => !isRadiant(msg.player_slot)),
-        type: 'faction',
-        disabled: () => !this.state.radiant,
-      },
-      text: {
-        f: (arr = this.raw) => arr.filter((msg) => msg.type === 'chat'),
-        type: 'type',
-        disabled: () =>
-          this.state.phrases === false && this.state.audio === false,
-      },
-      phrases: {
-        f: (arr = this.raw) =>
-          arr.filter(
-            (msg) =>
-              msg.type === 'chatwheel' &&
-              !getChatWheel(msg.key).sound_ext &&
-              !getChatWheel(msg.key).image,
-          ),
-        type: 'type',
-        disabled: () => this.state.text === false && this.state.audio === false,
-      },
-      audio: {
-        f: (arr = this.raw) =>
-          arr.filter(
-            (msg) =>
-              msg.type === 'chatwheel' && getChatWheel(msg.key).sound_ext,
-          ),
-        type: 'type',
-        disabled: () =>
-          this.state.phrases === false && this.state.text === false,
-      },
-      all: {
-        f: (arr = this.raw) =>
-          arr.filter(
-            (msg) =>
-              msg.type === 'chat' ||
-              (msg.type === 'chatwheel' && getChatWheel(msg.key).all_chat),
-          ),
-        type: 'target',
-        disabled: () => !this.state.allies,
-      },
-      allies: {
-        f: (arr = this.raw) =>
-          arr.filter(
-            (msg) =>
-              msg.type === 'chatwheel' && !getChatWheel(msg.key).all_chat,
-          ),
-        type: 'target',
-        disabled: () => !this.state.all,
-      },
-      spam: {
-        f: (arr = this.raw) => arr.filter((msg) => msg.spam),
-        type: 'other',
-        disabled: () => false,
-      },
-    };
+    playing: null,
+    messages: null,
+  };
+  filters = {
+    radiant: {
+      f: (arr = this.raw) =>
+        arr.filter(
+          (msg) => isRadiant(msg.player_slot) || isSpectator(msg.slot),
+        ),
+      type: 'faction',
+      disabled: () => !this.state.dire,
+    },
+    dire: {
+      f: (arr = this.raw) => arr.filter((msg) => !isRadiant(msg.player_slot)),
+      type: 'faction',
+      disabled: () => !this.state.radiant,
+    },
+    text: {
+      f: (arr = this.raw) => arr.filter((msg) => msg.type === 'chat'),
+      type: 'type',
+      disabled: () =>
+        this.state.phrases === false && this.state.audio === false,
+    },
+    phrases: {
+      f: (arr = this.raw) =>
+        arr.filter(
+          (msg) =>
+            msg.type === 'chatwheel' &&
+            !getChatWheel(msg.key).sound_ext &&
+            !getChatWheel(msg.key).image,
+        ),
+      type: 'type',
+      disabled: () => this.state.text === false && this.state.audio === false,
+    },
+    audio: {
+      f: (arr = this.raw) =>
+        arr.filter(
+          (msg) => msg.type === 'chatwheel' && getChatWheel(msg.key).sound_ext,
+        ),
+      type: 'type',
+      disabled: () => this.state.phrases === false && this.state.text === false,
+    },
+    all: {
+      f: (arr = this.raw) =>
+        arr.filter(
+          (msg) =>
+            msg.type === 'chat' ||
+            (msg.type === 'chatwheel' && getChatWheel(msg.key).all_chat),
+        ),
+      type: 'target',
+      disabled: () => !this.state.allies,
+    },
+    allies: {
+      f: (arr = this.raw) =>
+        arr.filter(
+          (msg) => msg.type === 'chatwheel' && !getChatWheel(msg.key).all_chat,
+        ),
+      type: 'target',
+      disabled: () => !this.state.all,
+    },
+    spam: {
+      f: (arr = this.raw) => arr.filter((msg) => msg.spam),
+      type: 'other',
+      disabled: () => false,
+    },
+  };
   constructor(props: ChatProps) {
     super(props);
 
@@ -533,7 +551,12 @@ class Chat extends React.Component<ChatProps, ChatState> {
                 <span className="target">[{target.toUpperCase()}]</span>
                 <Link
                   to={`/players/${msg.accountID}`}
-                  style={{ color: playerColors[msg.player_slot as keyof typeof playerColors] || 'red' }}
+                  style={{
+                    color:
+                      playerColors[
+                        msg.player_slot as keyof typeof playerColors
+                      ] || 'red',
+                  }}
                   className={`author ${msg.accountID ? '' : 'disabled'}`}
                 >
                   {msg.name || msg.unit}
@@ -547,19 +570,23 @@ class Chat extends React.Component<ChatProps, ChatState> {
     );
 
     const Filters = ({ strings }: { strings: Strings }) => {
-      const categories: Record<string, any> = Object.keys(this.filters).reduce((cats, name) => {
-        const c: Record<string, any[]> = cats;
-        const f = this.filters;
-        if (f[name as keyof typeof f].f().length > 0) {
-          c[f[name as keyof typeof f].type] = c[f[name as keyof typeof f].type] || [];
-          c[f[name as keyof typeof f].type].push({
-            name,
-            f: f[name as keyof typeof f].f,
-            disabled: f[name as keyof typeof f].disabled,
-          });
-        }
-        return c;
-      }, {});
+      const categories: Record<string, any> = Object.keys(this.filters).reduce(
+        (cats, name) => {
+          const c: Record<string, any[]> = cats;
+          const f = this.filters;
+          if (f[name as keyof typeof f].f().length > 0) {
+            c[f[name as keyof typeof f].type] =
+              c[f[name as keyof typeof f].type] || [];
+            c[f[name as keyof typeof f].type].push({
+              name,
+              f: f[name as keyof typeof f].f,
+              disabled: f[name as keyof typeof f].disabled,
+            });
+          }
+          return c;
+        },
+        {},
+      );
 
       return (
         <ul className="Filters">
@@ -567,37 +594,47 @@ class Chat extends React.Component<ChatProps, ChatState> {
             <li key={cat}>
               <div>{strings[`chat_category_${cat}` as keyof Strings]}</div>
               <ul>
-                {categories[cat as keyof typeof categories].map((filter: any) => {
-                  const len = filter.f().length;
-                  // const lenFiltered = filter.f(this.state.messages).length;
+                {categories[cat as keyof typeof categories].map(
+                  (filter: any) => {
+                    const len = filter.f().length;
+                    // const lenFiltered = filter.f(this.state.messages).length;
 
-                  return (
-                    <li key={filter.name}>
-                      <FormControlLabel label={
-                        <>
-                            <div>
-                              {strings[`chat_filter_${filter.name}` as keyof Strings] ||
-                                strings[`general_${filter.name}` as keyof Strings]}
-                              <b style={{ marginLeft: '1em' }}>{len}</b>
-                            </div>
-                            {/* <small>
+                    return (
+                      <li key={filter.name}>
+                        <FormControlLabel
+                          label={
+                            <>
+                              <div>
+                                {strings[
+                                  `chat_filter_${filter.name}` as keyof Strings
+                                ] ||
+                                  strings[
+                                    `general_${filter.name}` as keyof Strings
+                                  ]}
+                                <b style={{ marginLeft: '1em' }}>{len}</b>
+                              </div>
+                              {/* <small>
                               {strings.chat_filtered.toLowerCase()}{' '}
                               <span>{lenFiltered}</span>
                             </small> */}
-                          </>
-                        } 
-                        control={
-                        <Checkbox
-                        checked={this.state[filter.name as keyof ChatState]}
-                        onChange={() => this.toggleFilter(filter.name)}
-                        checkedIcon={<VisibilityIcon />}
-                        icon={<VisibilityOffIcon />}
-                        disabled={filter.disabled()}
-                        />}
-                      />
-                    </li>
-                  );
-                })}
+                            </>
+                          }
+                          control={
+                            <Checkbox
+                              checked={
+                                this.state[filter.name as keyof ChatState]
+                              }
+                              onChange={() => this.toggleFilter(filter.name)}
+                              checkedIcon={<VisibilityIcon />}
+                              icon={<VisibilityOffIcon />}
+                              disabled={filter.disabled()}
+                            />
+                          }
+                        />
+                      </li>
+                    );
+                  },
+                )}
               </ul>
             </li>
           ))}

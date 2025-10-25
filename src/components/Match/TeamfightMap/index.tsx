@@ -221,7 +221,7 @@ const iconSize = (mapWidth: number, factor = 12, minSize = 15) =>
 
 const style = (
   width: number,
-  position: { x: number, y: number },
+  position: { x: number; y: number },
   iconSizeOverride?: number,
   options = { noTopAdjustment: false },
 ) => ({
@@ -245,14 +245,14 @@ export const TeamfightIcon = ({
   Icon,
   ...props
 }: {
-  position: { x: number, y: number },
-  tooltipKey: string,
-  mapWidth: number,
-  onClick?: Function,
-  Icon: any,
-  isRadiant?: boolean,
-  className?: string,
-  style?: any,
+  position: { x: number; y: number };
+  tooltipKey: string;
+  mapWidth: number;
+  onClick?: Function;
+  Icon: any;
+  isRadiant?: boolean;
+  className?: string;
+  style?: any;
 }) => (
   <Icon
     className="teamfightIcon"
@@ -264,7 +264,11 @@ export const TeamfightIcon = ({
   />
 );
 
-export const GoldDelta = ({ radiantGoldDelta }: { radiantGoldDelta: number }) => (
+export const GoldDelta = ({
+  radiantGoldDelta,
+}: {
+  radiantGoldDelta: number;
+}) => (
   <div className="goldChange">
     {isRadiant(radiantGoldDelta) ? radiantGoldDelta : radiantGoldDelta * -1}
     <img
@@ -295,36 +299,42 @@ export const Tombstones = ({
   deathPositions,
   mapWidth,
   tooltipKey,
-}: { deathPositions: any[][], mapWidth: number, tooltipKey: string }) => {
+}: {
+  deathPositions: any[][];
+  mapWidth: number;
+  tooltipKey: string;
+}) => {
   const strings = useStrings();
-  return <div>
-    {deathPositions.map((position, index) => (
-      <div key={index}>
-        <TeamfightIcon
-          Icon={IconDot}
-          position={position[0]}
-          mapWidth={mapWidth}
-          tooltipKey={`${index}_${tooltipKey}`}
-          className={`mapIcon ${getTombStyle(position)}Tombstone`}
-          style={style(mapWidth, position[0], iconSize(mapWidth, 20))}
-        />
-        <ReactTooltip
-          id={`${index}_${tooltipKey}`}
-          effect="solid"
-          border
-          class={`${getTombStyle(position)}TombstoneTooltip`}
-        >
-          {position.map((pos, _index) => (
-            <div key={_index} className="tooltipContainer">
-              <PlayerThumb {...pos.player} />
-              <div>{strings.tooltip_tombstone_killer}</div>
-              <PlayerThumb {...pos.killer} />
-            </div>
-          ))}
-        </ReactTooltip>
-      </div>
-    ))}
-  </div>;
+  return (
+    <div>
+      {deathPositions.map((position, index) => (
+        <div key={index}>
+          <TeamfightIcon
+            Icon={IconDot}
+            position={position[0]}
+            mapWidth={mapWidth}
+            tooltipKey={`${index}_${tooltipKey}`}
+            className={`mapIcon ${getTombStyle(position)}Tombstone`}
+            style={style(mapWidth, position[0], iconSize(mapWidth, 20))}
+          />
+          <ReactTooltip
+            id={`${index}_${tooltipKey}`}
+            effect="solid"
+            border
+            class={`${getTombStyle(position)}TombstoneTooltip`}
+          >
+            {position.map((pos, _index) => (
+              <div key={_index} className="tooltipContainer">
+                <PlayerThumb {...pos.player} />
+                <div>{strings.tooltip_tombstone_killer}</div>
+                <PlayerThumb {...pos.killer} />
+              </div>
+            ))}
+          </ReactTooltip>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export const Teamfight = ({
@@ -339,53 +349,59 @@ export const Teamfight = ({
   onClick,
   deathPositions,
 }: {
-  position: any,
-  tooltipKey: string,
-  start: number,
-  end: number,
-  radiantGoldDelta: number,
-  selected: boolean,
-  hovered: boolean,
-  mapWidth: number,
-  onClick?: Function,
-  deathPositions: any[],
+  position: any;
+  tooltipKey: string;
+  start: number;
+  end: number;
+  radiantGoldDelta: number;
+  selected: boolean;
+  hovered: boolean;
+  mapWidth: number;
+  onClick?: Function;
+  deathPositions: any[];
 }) => {
-  return <div>
-    <div className={getIconStyle(radiantGoldDelta)}>
-      <div
-        className={`teamfightIconSvg ${hovered && 'hovered'} ${selected && 'selected'}`}
-      >
-        <TeamfightIcon
-          position={position}
-          isRadiant={isRadiant(radiantGoldDelta)}
-          tooltipKey={tooltipKey}
-          mapWidth={mapWidth}
-          onClick={onClick}
-          Icon={IconType(isRadiant(radiantGoldDelta))}
-        />
-      </div>
-      <ReactTooltip id={tooltipKey} effect="solid">
-        <div className="tooltipContainer teamfightTooltipContainer">
-          <div>
-            {formatSeconds(start)} - {formatSeconds(end)}
-          </div>
-          <div>
-            <GoldDelta radiantGoldDelta={radiantGoldDelta} />
-          </div>
+  return (
+    <div>
+      <div className={getIconStyle(radiantGoldDelta)}>
+        <div
+          className={`teamfightIconSvg ${hovered && 'hovered'} ${selected && 'selected'}`}
+        >
+          <TeamfightIcon
+            position={position}
+            isRadiant={isRadiant(radiantGoldDelta)}
+            tooltipKey={tooltipKey}
+            mapWidth={mapWidth}
+            onClick={onClick}
+            Icon={IconType(isRadiant(radiantGoldDelta))}
+          />
         </div>
-      </ReactTooltip>
+        <ReactTooltip id={tooltipKey} effect="solid">
+          <div className="tooltipContainer teamfightTooltipContainer">
+            <div>
+              {formatSeconds(start)} - {formatSeconds(end)}
+            </div>
+            <div>
+              <GoldDelta radiantGoldDelta={radiantGoldDelta} />
+            </div>
+          </div>
+        </ReactTooltip>
+      </div>
+      {selected && (
+        <Tombstones
+          deathPositions={deathPositions}
+          mapWidth={mapWidth}
+          tooltipKey={tooltipKey}
+        />
+      )}
     </div>
-    {selected && (
-      <Tombstones
-        deathPositions={deathPositions}
-        mapWidth={mapWidth}
-        tooltipKey={tooltipKey}
-      />
-    )}
-  </div>;
+  );
 };
 
-const avgPosition = ({ deaths_pos: deathPositions }: { deaths_pos: any[][] }) => {
+const avgPosition = ({
+  deaths_pos: deathPositions,
+}: {
+  deaths_pos: any[][];
+}) => {
   const avgs = deathPositions.reduce(
     (avg, position, index) => {
       const posTotal = position.reduce(
@@ -424,13 +440,16 @@ const avgPosition = ({ deaths_pos: deathPositions }: { deaths_pos: any[][] }) =>
   };
 };
 
-type TeamfightMapProps =  {
-  teamfights: any[],
-  match: Match,
-  strings: Strings,
+type TeamfightMapProps = {
+  teamfights: any[];
+  match: Match;
+  strings: Strings;
 };
 
-class TeamfightMap extends Component<TeamfightMapProps, { teamfight: any, hoveredTeamfight?: any }> {
+class TeamfightMap extends Component<
+  TeamfightMapProps,
+  { teamfight: any; hoveredTeamfight?: any }
+> {
   constructor(props: TeamfightMapProps) {
     super(props);
     const { teamfights = [] } = props;
@@ -507,11 +526,7 @@ class TeamfightMap extends Component<TeamfightMapProps, { teamfight: any, hovere
   }
 
   render() {
-    const {
-      teamfights = [],
-      match,
-      strings,
-    } = this.props;
+    const { teamfights = [], match, strings } = this.props;
     const teamfight = this.state.teamfight || {};
     const Icon = IconType(isRadiant(teamfight.radiant_gold_advantage_delta));
     const { teamfightColumns } = mcs(strings);

@@ -18,11 +18,14 @@ const toggleStyle: React.CSSProperties = {
 };
 
 type PurchasesProps = {
-  match: Match,
-  strings: Strings,
+  match: Match;
+  strings: Strings;
 };
 
-class Purchases extends React.Component<PurchasesProps, { showConsumables: boolean }> {
+class Purchases extends React.Component<
+  PurchasesProps,
+  { showConsumables: boolean }
+> {
   constructor(props: PurchasesProps) {
     super(props);
     this.state = {
@@ -40,21 +43,25 @@ class Purchases extends React.Component<PurchasesProps, { showConsumables: boole
     const { purchaseTimesColumns } = mcs(strings);
     return (
       <div style={{ position: 'relative' }}>
-        <FormControlLabel label={strings.show_consumables_items} control={
-        <Switch
-          // style={toggleStyle}
-          onChange={this.change}
-          // thumbStyle={{
-          //   backgroundColor: 'rgb(179, 179, 179)',
-          //   marginTop: '2px',
-          //   marginRight: '3px',
-          // }}
-          // trackStyle={{
-          //   position: 'absolute',
-          //   marginTop: '2px',
-          //   marginRight: '3px',
-          // }}
-        />} />
+        <FormControlLabel
+          label={strings.show_consumables_items}
+          control={
+            <Switch
+              // style={toggleStyle}
+              onChange={this.change}
+              // thumbStyle={{
+              //   backgroundColor: 'rgb(179, 179, 179)',
+              //   marginTop: '2px',
+              //   marginRight: '3px',
+              // }}
+              // trackStyle={{
+              //   position: 'absolute',
+              //   marginTop: '2px',
+              //   marginRight: '3px',
+              // }}
+            />
+          }
+        />
         <TeamTable
           players={match.players}
           columns={purchaseTimesColumns(match, this.state.showConsumables)}
