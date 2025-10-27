@@ -5,7 +5,9 @@ export const StyledDiv = styled.div`
   &.top-heading {
     width: 100vw;
     position: relative;
-    left: -25px;
+    margin: 0px -50vw 0px -50vw;
+    left: 50%;
+    right: 50%;
     padding: 15px 0px 15px 20px;
     display: flex;
     flex-direction: column;
@@ -14,7 +16,6 @@ export const StyledDiv = styled.div`
     letter-spacing: 10px;
     font-weight: bold;
     background-color: rgba(14, 84, 113, 37%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .winner {
@@ -93,6 +94,7 @@ export const StyledDiv = styled.div`
     letter-spacing: normal;
     font-weight: normal;
     overflow-wrap: normal;
+    padding-right: 10px;
   }
 
   .sponsor-button {
