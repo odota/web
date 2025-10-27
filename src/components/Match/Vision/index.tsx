@@ -9,7 +9,6 @@ import VisionItems from './VisionItems';
 import VisionMap from './VisionMap';
 import VisionLog from './VisionLog';
 import constants from '../../constants';
-import Heading from '../../Heading';
 import config from '../../../config';
 
 const Styled = styled.div`

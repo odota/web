@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { heroes } from 'dotaconstants';
 import styled from 'styled-components';

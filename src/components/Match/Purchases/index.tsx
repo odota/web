@@ -5,18 +5,6 @@ import TeamTable from '../TeamTable';
 import mcs from '../matchColumns';
 import config from '../../../config';
 
-const toggleStyle: React.CSSProperties = {
-  width: '30px',
-  float: 'right',
-  position: 'absolute',
-  right: '100px',
-  top: '-12px',
-  border: '1px solid rgba(179, 179, 179, 0.1)',
-  padding: '6px',
-  backgroundColor: 'rgba(0, 0, 0, 0.6)',
-  borderRadius: '5px',
-};
-
 type PurchasesProps = {
   match: Match;
   strings: Strings;

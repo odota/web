@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { heroes } from 'dotaconstants';
 import { transformations, fromNow, subTextStyle } from '../../utility';
 import Table, { TableLink } from '../Table';

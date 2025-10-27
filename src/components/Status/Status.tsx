@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 import CountUp from 'react-countup';
 import { abbreviateNumber } from '../../utility';
 import Table from '../Table';
 import config from '../../config';
 import { LazyLog, ScrollFollow } from '@melloware/react-logviewer';
+import useStrings from '../../hooks/useStrings.hook';
 
 const columns = [
   { displayName: 'key', field: 'key' },
@@ -34,44 +34,41 @@ const tableStyle: React.CSSProperties = {
   padding: '15px',
 };
 
-class Status extends React.Component<{ strings: Strings }> {
-  state = {
-    result: {} as Record<string, any>,
+const Status = () => {
+  const strings = useStrings();
+  const [ts, setTs] = useState(Number(new Date()));
+  const [state, setState] = useState({
+    current: {} as Record<string, any>,
     last: {} as Record<string, any>,
-    ts: new Date(),
-    // follow: true,
-  };
+  });
+  useEffect(() => {
+    const update = async () => {
+      const resp = await fetch(`${config.VITE_API_HOST}/status`);
+      const json = await resp.json();
+      const nextState = { current: json, last: state.current };
+      return setState(nextState);
 
-  componentDidMount() {
-    const update = () =>
-      fetch(`${config.VITE_API_HOST}/status`)
-        .then((resp) => resp.json())
-        .then(async (json) => {
-          const nextState = { result: json, last: this.state.result };
-          return this.setState(nextState);
-        });
+    };
     update();
     setInterval(update, 10000);
     setInterval(
       () => {
         // Periodically clear the logs and reconnect
-        this.setState({ ts: new Date() });
+        setTs(Number(new Date()));
       },
-      15 * 60 * 1000,
+      10 * 60 * 1000,
     );
-  }
-  render() {
-    const { strings } = this.props;
+  });
     return (
       <>
         <Helmet title={strings.title_status} />
-        <div style={{ height: '300px' }}>
+        <div style={{ height: '300px', overflow: 'hidden' }}>
           {
             <ScrollFollow
               startFollowing={true}
               render={({ follow, onScroll }) => (
                 <LazyLog
-                  key={Number(this.state.ts)}
+                  key={ts}
                   stream
                   url={`${config.VITE_API_HOST.replace('http', 'ws')}`}
                   websocket
@@ -79,9 +76,10 @@ class Status extends React.Component<{ strings: Strings }> {
                   onScroll={onScroll}
                   enableSearch
                   selectableLines
+                  wrapLines
                   onLoad={() => {
                     // Trigger a reload since socket connection ended
-                    this.setState({ ts: new Date() });
+                    setTs(Number(new Date()));
                   }}
                 />
               )}
@@ -94,18 +92,18 @@ class Status extends React.Component<{ strings: Strings }> {
             columnCount: window.innerWidth < 600 ? 1 : 3,
           }}
         >
-          {Object.keys(this.state.result).map((propName) => {
-            if (typeof this.state.result[propName] !== 'object') {
-              return this.state.result[propName];
+          {Object.keys(state.current).map((propName) => {
+            if (typeof state.current[propName] !== 'object') {
+              return state.current[propName];
             }
             if (propName === 'health') {
               return (
                 <Table
                   style={tableStyle}
-                  data={Object.keys(this.state.result.health || {}).map(
+                  data={Object.keys(state.current.health || {}).map(
                     (key) => ({
                       key,
-                      value: `${abbreviateNumber(this.state.result.health[key].metric)}/${abbreviateNumber(this.state.result.health[key].threshold)}`,
+                      value: `${abbreviateNumber(state.current.health[key].metric)}/${abbreviateNumber(state.current.health[key].threshold)}`,
                     }),
                   )}
                   columns={columns}
@@ -116,14 +114,14 @@ class Status extends React.Component<{ strings: Strings }> {
               <div>
                 <Table
                   style={tableStyle}
-                  data={Object.keys(this.state.result[propName] || {})
+                  data={Object.keys(state.current[propName] || {})
                     .map((key) => ({
                       key,
-                      value: this.state.result[propName]?.[key],
+                      value: state.current[propName]?.[key],
                       start:
-                        this.state.last?.[propName]?.[key] ??
-                        this.state.result[propName]?.[key],
-                      end: this.state.result[propName]?.[key],
+                        state.last?.[propName]?.[key] ??
+                        state.current[propName]?.[key],
+                      end: state.current[propName]?.[key],
                     }))
                     .filter((item) => item.value)}
                   columns={columns}
@@ -134,11 +132,6 @@ class Status extends React.Component<{ strings: Strings }> {
         </div>
       </>
     );
-  }
 }
 
-const mapStateToProps = (state: any) => ({
-  strings: state.app.strings,
-});
-
-export default connect(mapStateToProps)(Status);
+export default Status;
