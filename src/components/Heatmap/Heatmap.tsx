@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import nanoid from 'nanoid';
 import h337 from 'heatmap.js';
 import DotaMap from '../DotaMap';
@@ -37,7 +37,7 @@ const drawHeatmap = (
   heatmap.setData(adjustedData);
 };
 
-class Heatmap extends Component<{
+class Heatmap extends React.Component<{
   points: PointArray;
   width: number;
   startTime: number;

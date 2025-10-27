@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
@@ -446,7 +446,7 @@ type TeamfightMapProps = {
   strings: Strings;
 };
 
-class TeamfightMap extends Component<
+class TeamfightMap extends React.Component<
   TeamfightMapProps,
   { teamfight: any; hoveredTeamfight?: any }
 > {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { getRanking } from '../../actions';
 import RankingTable from './RankingTable';
@@ -10,7 +10,7 @@ const renderRanking = (hero: Hero | undefined, rankings: any[]) => (
   </div>
 );
 
-class Ranking extends Component<{
+class Ranking extends React.Component<{
   match: {
     params: {
       heroId: string;

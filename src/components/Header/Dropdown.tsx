@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Menu, MenuItem, Popover } from '@mui/material';
 // import styled from 'styled-components';
 // import constants from '../constants';
@@ -21,7 +21,7 @@ type DropdownProps = {
   children: React.ReactNode;
 };
 
-class Dropdown extends Component<DropdownProps> {
+class Dropdown extends React.Component<DropdownProps> {
   state = { open: false, anchorEl: undefined };
   constructor(props: DropdownProps) {
     super(props);
