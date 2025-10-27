@@ -2,17 +2,10 @@ import styled from 'styled-components';
 import constants from '../constants';
 
 export const StyledDiv = styled.div`
-  margin-top: 15px;
-  margin-bottom: 4px;
-  margin-left: 3px;
-
   &.top-heading {
     width: 100vw;
-    margin: 0px -50vw 0px -50vw;
-    margin-top: 0px;
     position: relative;
-    left: 50%;
-    right: 50%;
+    left: -25px;
     padding: 15px 0px 15px 20px;
     display: flex;
     flex-direction: column;
@@ -81,7 +74,6 @@ export const StyledDiv = styled.div`
     font-size: 20px;
     font-weight: 500;
     letter-spacing: 1px;
-    margin-left: 52px;
 
     &::before {
       content: '▶';
@@ -96,12 +88,11 @@ export const StyledDiv = styled.div`
   }
 
   &.top-heading .subtitle {
-    margin-left: 10px;
     font-size: 14px;
     color: rgba(255, 255, 255, 0.6);
     letter-spacing: normal;
     font-weight: normal;
-    margin-left: 51px;
+    overflow-wrap: normal;
   }
 
   .sponsor-button {

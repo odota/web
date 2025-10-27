@@ -222,8 +222,7 @@ export const getHeroIconUrlFromHeroKey = (heroKey: string) => {
   const heroId = Object.keys(heroes).find(
     (k) => heroes[k as keyof Heroes].name === heroKey,
   ) as keyof Heroes;
-  //@ts-expect-error
-  if (heroId && heroId[0] && heroes[heroId[0]]) {
+  if (heroId && heroId[0] && heroes[heroId[0] as keyof Heroes]) {
     return `${config.VITE_IMAGE_CDN}${heroes[heroId].icon}`;
   }
 
@@ -701,8 +700,7 @@ export function fromNow(time: number) {
     },
   ];
 
-  // @ts-expect-error
-  const diff = (new Date() - new Date(time * 1000)) / 1000;
+  const diff = (Number(new Date()) - Number(new Date(time * 1000))) / 1000;
 
   if (diff < 5) {
     return strings.time_just_now;

@@ -83,13 +83,14 @@ export const PlayerStatsCards = ({
         <div
           style={
             {
-              textAlign: compact ? 'center' : '',
+              justifyContent: compact ? 'center' : undefined,
               display: 'flex',
             } as React.CSSProperties
           }
         >
           <PlayerStatsCard
             subheader={<div className="textSuccess">{wins}</div>}
+            sx={{ paddingLeft: '0px' }}
             title={strings.th_wins}
           />
           <PlayerStatsCard
