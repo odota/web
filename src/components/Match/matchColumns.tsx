@@ -1,5 +1,4 @@
 import React from 'react';
-import findLast from 'lodash/fp/findLast';
 import { Tooltip } from '@mui/material';
 import {
   heroes,
@@ -134,7 +133,7 @@ export default (strings: Strings) => {
   ) => {
     let skipped = 0;
     let itemSkipCount = _itemSkipCount || 0;
-    const purchaseEvent = findLast((item) => {
+    const purchaseEvent = purchaseLog.findLast((item) => {
       if (item.key !== itemKey) {
         return false;
       }
@@ -146,7 +145,7 @@ export default (strings: Strings) => {
 
       skipped += 1;
       return false;
-    }, purchaseLog);
+    });
 
     return {
       itemSkipCount,

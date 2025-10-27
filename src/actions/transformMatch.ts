@@ -1,6 +1,4 @@
 import { heroes } from 'dotaconstants';
-import immutable from 'seamless-immutable';
-import flatten from 'lodash/fp/flatten';
 import {
   isRadiant,
   isSupport,
@@ -121,8 +119,8 @@ function generateTeamfights({
 }
 
 // create a detailed history of each wards
-function generateVisionLog(match: any) {
-  const computeWardData = (player: any, i: number) => {
+function generateVisionLog(match: Match) {
+  const computeWardData = (player: MatchPlayer, i: number) => {
     // let's coerce some value to be sure the structure is what we expect.
     const safePlayer = {
       ...player,
@@ -161,7 +159,7 @@ function generateVisionLog(match: any) {
     return observers.concat(sentries);
   };
 
-  const temp: any[] = flatten((match.players || []).map(computeWardData));
+  const temp: any[] = (match.players || []).map(computeWardData).flat();
   temp.sort((a, b) => a.entered.time - b.entered.time);
   const result2 = temp.map((x, i) => ({ ...x, key: i }));
 
@@ -321,7 +319,7 @@ function transformMatch(m: any) {
     ...m,
     teamfights: generateTeamfights(m),
     players: newPlayers,
-    wards_log: generateVisionLog(immutable(m)),
+    wards_log: generateVisionLog(m),
     objectives: newObjectives,
   };
 }

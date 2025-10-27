@@ -1,6 +1,6 @@
 import React from 'react';
 import wordcloud from 'wordcloud';
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 
 const stopWords =
   'a,am,an,and,are,as,at,be,by,for,from,how,i,im,in,is,it,not,of,on,or,that,the,this,to,was,what,when,where,who,will,with';

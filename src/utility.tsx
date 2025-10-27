@@ -4,9 +4,6 @@ import {
   patch,
   xp_level as xpLevel,
 } from 'dotaconstants';
-import curry from 'lodash/fp/curry';
-import findLast from 'lodash/fp/findLast';
-import inRange from 'lodash/fp/inRange';
 import GroupIcon from '@mui/icons-material/Group';
 import PersonIcon from '@mui/icons-material/Person';
 import querystring from 'querystring';
@@ -357,21 +354,18 @@ export function unpackPositionData(input: any) {
   return input;
 }
 
-export const threshold = curry(
-  (start: number, limits: any[], values: any[], value: any) => {
-    if (limits.length !== values.length)
-      throw new Error('Limits must be the same as functions.');
+export const threshold = (start: number, limits: number[], values: string[]) => (value: number) => {
+  if (limits.length !== values.length)
+    throw new Error('Limits must be the same as functions.');
 
-    const limitsWithStart = limits.slice(0);
-    limitsWithStart.unshift(start);
+  const limitsWithStart = limits.slice(0);
+  limitsWithStart.unshift(start);
 
-    return findLast(
-      (v: any, i: number) =>
-        inRange(limitsWithStart[i], limitsWithStart[i + 1], value),
-      values,
-    );
-  },
-);
+  return values.findLast(
+    (v: any, i: number) =>
+      inRange(limitsWithStart[i], limitsWithStart[i + 1], value)
+  );
+};
 
 export const getTeamLogoUrl = (logoUrl: string) => {
   if (!logoUrl) {
@@ -1117,3 +1111,15 @@ export function getWardSize(type: string, mapSize: number) {
     return (mapSize * 1000) / originMapSize;
   }
 }
+
+export function rangeStep(step: number, start: number, end: number) {  
+  const result = [];
+  for (let i = start; i < end; i += step) {
+    result.push(i);
+  }
+  return result;
+}
+
+const inRange = (start: number, end: number, number: number) => {
+  return number >= start && number < end;
+};

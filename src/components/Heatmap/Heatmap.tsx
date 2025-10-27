@@ -1,5 +1,5 @@
 import React from 'react';
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 import h337 from 'heatmap.js';
 import DotaMap from '../DotaMap';
 

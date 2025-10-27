@@ -142,6 +142,8 @@ type MatchPlayer = {
   ability_uses: Record<string, number>;
   obs_log: any[];
   sen_log: any[];
+  obs_left_log: any[];
+  sen_left_log: any[];
   item_uses: Record<string, number>;
   net_worth: number;
   hero_damage: number;

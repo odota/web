@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 import ItemTooltip from './../ItemTooltip/index';
 import constants from '../constants';

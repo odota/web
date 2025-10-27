@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Slider } from '@mui/material';
-import rangeStep from 'lodash/fp/rangeStep';
 import styled from 'styled-components';
-import { formatSeconds } from '../../../utility';
+import { formatSeconds, rangeStep } from '../../../utility';
 import VisionFilter from './VisionFilter';
 import VisionItems from './VisionItems';
 import VisionMap from './VisionMap';
