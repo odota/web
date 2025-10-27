@@ -27,12 +27,7 @@ const columns = [
   },
 ];
 
-const tableStyle: React.CSSProperties = {
-  flexGrow: 1,
-  overflowX: 'auto',
-  boxSizing: 'border-box',
-  padding: '15px',
-};
+const tableStyle: React.CSSProperties = {};
 
 const Status = () => {
   const strings = useStrings();
@@ -42,12 +37,14 @@ const Status = () => {
     last: {} as Record<string, any>,
   });
   useEffect(() => {
+    let last = state.current;
     const update = async () => {
       const resp = await fetch(`${config.VITE_API_HOST}/status`);
       const json = await resp.json();
-      const nextState = { current: json, last: state.current };
-      return setState(nextState);
-
+      const nextState = { current: json, last };
+      setState(nextState);
+      // Save the value for the next update
+      last = nextState.current;
     };
     update();
     setInterval(update, 10000);
@@ -58,7 +55,7 @@ const Status = () => {
       },
       10 * 60 * 1000,
     );
-  });
+  }, []);
     return (
       <>
         <Helmet title={strings.title_status} />
@@ -99,20 +96,32 @@ const Status = () => {
             if (propName === 'health') {
               return (
                 <Table
+                  key={propName}
                   style={tableStyle}
                   data={Object.keys(state.current.health || {}).map(
                     (key) => ({
                       key,
-                      value: `${abbreviateNumber(state.current.health[key].metric)}/${abbreviateNumber(state.current.health[key].threshold)}`,
+                      value: state.current[propName]?.[key].metric,
+                      start:
+                        state.last?.[propName]?.[key].metric ??
+                        state.current[propName]?.[key].metric,
+                      end: state.current[propName]?.[key].metric,
+                      threshold: state.current[propName]?.[key].threshold,
                     }),
                   )}
-                  columns={columns}
+                  columns={[...columns, {
+                    displayName: 'limit', 
+                    field: 'threshold',
+                    displayFn: (row: any) => {
+                      return abbreviateNumber(row.threshold)
+                    },
+                  }]}
                 />
               );
             }
             return (
-              <div>
                 <Table
+                  key={propName}
                   style={tableStyle}
                   data={Object.keys(state.current[propName] || {})
                     .map((key) => ({
@@ -126,7 +135,6 @@ const Status = () => {
                     .filter((item) => item.value)}
                   columns={columns}
                 />
-              </div>
             );
           })}
         </div>

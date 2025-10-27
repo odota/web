@@ -374,6 +374,7 @@ class Table extends React.Component<TableProps, TableState> {
                           fieldEl && fieldEl.type && fieldEl.type.tdStyle;
                         return (
                           <td
+                            key={`${index}_${colIndex}`}
                             style={{ ...style, ...tdStyle }}
                             className={column.className}
                           >
