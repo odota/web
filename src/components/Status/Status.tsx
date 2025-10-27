@@ -65,7 +65,7 @@ class Status extends React.Component<{ strings: Strings }> {
     return (
       <>
         <Helmet title={strings.title_status} />
-        <div style={{ minWidth: '300px', width: '80vw', height: '300px' }}>
+        <div style={{ height: '300px' }}>
           {
             <ScrollFollow
               startFollowing={true}
