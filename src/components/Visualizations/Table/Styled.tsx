@@ -29,7 +29,7 @@ export const PercentContainer = styled.div`
   position: absolute;
   background-color: ${constants.colorMuted};
   align-self: flex-end;
-  bottom: -4px;
+  bottom: -6px;
   left: 0;
   pointer-events: auto !important;
 
