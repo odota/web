@@ -1,9 +1,6 @@
 import React from 'react';
 import { Autocomplete, Chip, TextField } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs from 'dayjs';
+import { DatePicker } from './DatePicker';
 
 type ExplorerFormFieldProps = {
   fields?: Record<string, any>;
@@ -14,7 +11,7 @@ type ExplorerFormFieldProps = {
     value: string[] | undefined,
   ) => void;
   isDateField?: boolean;
-  builder: Record<string, any>;
+  builder: Record<string, any[]>;
   chipLimit?: number;
   multipleSelect?: boolean;
 };
@@ -49,7 +46,7 @@ class ExplorerFormField extends React.Component<ExplorerFormFieldProps> {
     input: { label: string; id: string },
     limit: number,
   ) => {
-    const currentChips: string[] = [].concat(this.props.builder[name] || []);
+    const currentChips: string[] = ([] as any[]).concat(this.props.builder[name] || []);
     const newChips = currentChips.includes(input.id)
       ? currentChips
       : [input.id].concat(currentChips).slice(0, limit);
@@ -58,7 +55,7 @@ class ExplorerFormField extends React.Component<ExplorerFormFieldProps> {
   };
 
   deleteChip = (name: string, index: number) => {
-    const currentChips = [].concat(this.props.builder[name] || []);
+    const currentChips = ([] as any[]).concat(this.props.builder[name] || []);
     const newChips = [
       ...currentChips.slice(0, index),
       ...currentChips.slice(index + 1),
@@ -82,24 +79,21 @@ class ExplorerFormField extends React.Component<ExplorerFormFieldProps> {
     // const fieldWidth = 250;
     if (isDateField) {
       return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            label={label}
-            defaultValue={
-              builder[builderField] ? dayjs(builder[builderField]) : undefined
-            }
-            // onOpen={this.resetField}
-            onChange={(value) => {
-              handleFieldUpdate(
-                builderField,
-                value ? [value.toISOString()] : undefined,
-              );
-            }}
-          />
-        </LocalizationProvider>
+        <DatePicker
+          id={builderField}
+          label={label}
+          value={builder[builderField]} 
+          onChange={({date}: { date: Date | Date[] | undefined }) => {
+            const dateString = date && (date as Date).toISOString();
+            handleFieldUpdate(
+              builderField,
+              dateString ? [dateString] : undefined,
+            );
+          }}
+        />
       );
     }
-    const chipList = []
+    const chipList = ([] as any[])
       .concat(builder[builderField] || [])
       .map((id: string) => dataSource.find((d) => String(d.id) === String(id)))
       .filter(Boolean);

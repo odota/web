@@ -459,7 +459,6 @@ class Explorer extends React.Component<
             handleFieldUpdate={handleFieldUpdate}
             builder={builder}
           />
-          <div>
             <ExplorerFormField
               label={strings.explorer_min_date}
               builderField="minDate"
@@ -474,7 +473,6 @@ class Explorer extends React.Component<
               builder={builder}
               isDateField
             />
-          </div>
         </ExplorerControlSection>
         <div>
           <Button

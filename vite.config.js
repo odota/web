@@ -1,7 +1,7 @@
 export default {
   build: {
     outDir: 'build',
-    // sourcemap: true,
+    sourcemap: true,
   },
   server: {
     // https: true,
