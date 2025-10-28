@@ -1,5 +1,4 @@
 import { Selector } from 'testcafe';
-import { ReactSelector } from 'testcafe-react-selectors';
 import {
   fixtureBeforeHook,
   fixtureBeforeEachHook,
@@ -37,7 +36,7 @@ fixture`home/ paths`
   .after(fixtureAfterHook);
 
 paths.forEach((p) => {
-  test.page`${host}${p}`(p, async (t) => {
+  test.page(`${host}${p}`)(p, async (t) => {
     await t.hover(Selector('#root'));
   });
 });

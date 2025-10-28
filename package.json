@@ -9,7 +9,7 @@
     "start": "vite --host",
     "preview": "vite preview --host",
     "build": "vite build && npm run typecheck",
-    "test": "testcafe -c 4 chrome testcafe/ --app \"serve -s build\"",
+    "test": "testcafe -c 4 chrome:headless --skip-js-errors testcafe/ --app \"serve -s build -p 5000\"",
     "analyze": "npx source-map-explorer 'build/assets/*.js' --html result.html --no-border-checks",
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "lintfix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
@@ -71,12 +71,13 @@
     "@types/react-transition-group": "^2.9.2",
     "@types/styled-components": "4.0.3",
     "@types/wordcloud": "^1.1.1",
-    "sanitize-filename": "^1.6.3",
-    "testcafe": "^1.7.1",
-    "testcafe-react-selectors": "^3.3.0",
+    "sanitize-filename-ts": "^1.0.2",
+    "serve": "^14.2.5",
+    "testcafe": "^3.7.2",
+    "testcafe-react-selectors": "^5.0.3",
     "typescript": "^5.9.2",
     "vdf-parser": "^1.2.1",
-    "vite": "^7.1.7"
+    "vite": "^7.1.12"
   },
   "browserslist": [
     ">0.2%",

@@ -32,7 +32,7 @@ fixture`players/ paths`
   .after(fixtureAfterHook);
 
 paths.forEach((p) => {
-  test.page`${host}${p}`(p, async (t) => {
+  test.page(`${host}${p}`)(p, async (t) => {
     await t.hover(Selector('#root'));
   });
 });
