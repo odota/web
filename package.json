@@ -76,7 +76,7 @@
     "testcafe-react-selectors": "^3.3.0",
     "typescript": "^5.9.2",
     "vdf-parser": "^1.2.1",
-    "vite": "^7.1.7"
+    "vite": "^7.1.12"
   },
   "browserslist": [
     ">0.2%",
