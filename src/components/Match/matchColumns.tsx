@@ -133,7 +133,7 @@ export default (strings: Strings) => {
   ) => {
     let skipped = 0;
     let itemSkipCount = _itemSkipCount || 0;
-    const purchaseEvent = purchaseLog.findLast((item) => {
+    const purchaseEvent = purchaseLog?.findLast((item) => {
       if (item.key !== itemKey) {
         return false;
       }
