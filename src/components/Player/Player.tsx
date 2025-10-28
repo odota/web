@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { withRouter } from 'react-router-dom';
-import Long from 'long';
 import { getPlayer, getPlayerWinLoss } from '../../actions';
 import TabBar from '../TabBar';
 import Spinner from '../Spinner/Spinner';
@@ -43,9 +42,9 @@ class RequestLayer extends React.Component<PlayerProps> {
   render() {
     const { location, match, strings, isPlayerProfilePublic } = this.props;
     const { playerId } = this.props.match.params;
-    if (Long.fromString(playerId).greaterThan('76561197960265728')) {
+    if (BigInt(playerId) > BigInt('76561197960265728')) {
       this.props.history.push(
-        `/players/${Long.fromString(playerId).subtract('76561197960265728')}`,
+        `/players/${BigInt(playerId) - BigInt('76561197960265728')}`,
       );
     }
     const info = match.params.info || 'overview';
