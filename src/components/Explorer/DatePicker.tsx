@@ -7,7 +7,7 @@ import localeEn from 'air-datepicker/locale/en';
 export function DatePicker(props: { id: string, label: string, value: string[], onChange: ({ date, formattedDate, datepicker }: { date: Date | Date[] | undefined; formattedDate?: string | string[]; datepicker?: AirDatepicker<HTMLDivElement>; }) => void }) {
   let dp = useRef<AirDatepicker<HTMLDivElement>>();
 
-  const getProps = () => ({ startDate: props.value[0], onSelect: props.onChange, locale: localeEn });
+  const getProps = () => ({ startDate: props.value?.[0], onSelect: props.onChange, locale: localeEn });
   
   // Start init
   useEffect(() => {
