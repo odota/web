@@ -39,18 +39,6 @@ const Sponsors = () => {
     <StyledDiv>
       <div className="headline">{strings.home_sponsored_by}</div>
       <div className="images">
-        {config.VITE_ENABLE_DOTACOACH && (
-          <a
-            href="https://dota-coach.com?s=OpenDota&c=main"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="/assets/images/dotaCoachLogo.svg"
-              alt="Logo for sponsor, Dota-Coach.com"
-            />
-          </a>
-        )}
         <a
           href="https://www.openai.com/"
           target="_blank"
