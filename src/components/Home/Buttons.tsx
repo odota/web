@@ -9,6 +9,7 @@ import useStrings from '../../hooks/useStrings.hook';
 
 const Buttons = ({ user }: HomePageProps) => {
   const strings = useStrings();
+
   return (
     <div>
       {!user && (

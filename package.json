@@ -28,6 +28,7 @@
     "@mui/icons-material": "^7.3.4",
     "@mui/material": "^7.3.4",
     "@stripe/stripe-js": "^1.32.0",
+    "@tailwindcss/vite": "^4.1.16",
     "abcolor": "^0.5.5",
     "ace-builds": "^1.43.4",
     "air-datepicker": "^3.6.0",
@@ -57,6 +58,7 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "styled-components": "^4.4.1",
+    "tailwindcss": "^4.1.16",
     "wordcloud": "^1.1.1"
   },
   "devDependencies": {

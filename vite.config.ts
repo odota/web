@@ -1,3 +1,5 @@
+import tailwindcss from '@tailwindcss/vite';
+
 export default {
   build: {
     outDir: 'build',
@@ -7,4 +9,5 @@ export default {
     // https: true,
     allowedHosts: true,
   },
+  plugins: [tailwindcss()],
 };

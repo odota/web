@@ -1,3 +1,62 @@
+@import 'tailwindcss';
+
+/* Tailwind @theme block: declare color tokens only. Variables MUST start
+   with --color- as requested. Non-color tokens (fonts, sizes, widths,
+   transitions) intentionally omitted. */
+
+@theme {
+  /* Core colors */
+  --color-primary: rgba(0, 0, 0, 0.4);
+  --color-primary-solid: rgba(0, 0, 0, 0.37);
+  --color-dark-primary: rgba(0, 0, 0, 0.6);
+  --color-almost-black: rgba(0, 0, 0, 0.9);
+
+  /* Semantic */
+  --color-success: #66bb6a;
+  --color-danger: #ff4c4c;
+  --color-muted: #727272;
+  --color-blue: #6bf;
+  --color-green: #66bb6a;
+  --color-red: #ff4c4c;
+  --color-golden: rgb(201, 175, 29);
+  --color-yelor: #ffab40;
+
+  /* Text */
+  --color-text-primary: rgba(255, 255, 255, 0.87);
+  --color-text-secondary: rgba(255, 255, 255, 0.6);
+
+  /* Surfaces */
+  --color-surface-primary: rgb(22, 40, 62);
+  --color-surface-secondary: rgb(39, 39, 58);
+  --color-table-header-surface: rgba(0, 0, 0, 0.3);
+  --color-table-row-odd: rgba(255, 255, 255, 0.019);
+  --color-table-row-even: rgba(0, 0, 0, 0.019);
+
+  /* Rank / special colors */
+  --color-ranked: rgba(241, 170, 64, 0.81);
+
+  /* Attributes & damage types */
+  --color-attribute-str: #f44336;
+  --color-attribute-agi: #39d402;
+  --color-attribute-int: #01a9f4;
+  --color-damage-pure: #d8ae53;
+  --color-damage-magical: #5b93d1;
+  --color-damage-physical: #ae2f28;
+
+  /* Neutral items */
+  --color-neutral-2: #92e47e;
+  --color-neutral-3: #7f93fc;
+  --color-neutral-4: #d57bff;
+  --color-neutral-5: #ffe195;
+
+  /* Other colors */
+  --color-mana: #578dca;
+  --color-box-blue: rgba(71, 114, 179, 0.05);
+  --color-slider-ticks: #757575;
+  --color-slider-ticks-active: #337ab7;
+  --color-divider: rgb(52, 50, 50);
+}
+
 body {
   align-items: initial;
   background-color: initial;
