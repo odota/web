@@ -108,13 +108,7 @@ const Back2Top = styled.button<Back2TopStylesProps>`
 `;
 
 const StyledBodyDiv = styled.div`
-  padding: 0px 25px 25px 25px;
   flex-grow: 1;
-
-  @media only screen and (min-width: ${constants.appWidth}px) {
-    width: ${constants.appWidth}px;
-    margin: auto;
-  }
 `;
 
 const AdBannerDiv = styled.div`
@@ -173,7 +167,10 @@ const App = (props: AppProps) => {
   return (
     <ThemeProvider theme={darkTheme}>
       <Suspense fallback={<Spinner />}>
-        <StyledDiv {...props}>
+        <div
+          {...props}
+          className="transition-all duration-300 relative flex flex-col h-full"
+        >
           <Helmet
             defaultTitle={strings.title_default}
             titleTemplate={strings.title_template}
@@ -244,7 +241,7 @@ const App = (props: AppProps) => {
             <div>&#9650;</div>
             <div id="back2TopTxt">{strings.back2Top}</div>
           </Back2Top>
-        </StyledDiv>
+        </div>
       </Suspense>
     </ThemeProvider>
   );
