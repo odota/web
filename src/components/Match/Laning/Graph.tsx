@@ -32,6 +32,7 @@ const CustomizedTooltip = ({
   <StyledCustomizedTooltip>
     <div className="label">{label}</div>
     {payload
+      ?.sort((a, b) => b.value - a.value)
       ?.map((data, i) => (
         <div
           key={i}
@@ -40,8 +41,7 @@ const CustomizedTooltip = ({
         >
           {data.dataKey}: {data.value}
         </div>
-      ))
-      .sort((a, b) => b.props.value - a.props.value)}
+      ))}
   </StyledCustomizedTooltip>
 );
 
