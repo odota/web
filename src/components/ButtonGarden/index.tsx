@@ -13,7 +13,7 @@ const ButtonGarden = ({
 }) => {
   const strings = useStrings();
   return (
-    <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', padding: '4px' }}>
       {buttonNames.map((buttonName) => (
         <Button
           sx={{ width: '180px' }}
