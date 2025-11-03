@@ -193,7 +193,7 @@ class KeyManagement extends React.Component<
         </Helmet>
         <ApiContainer style={{ textAlign: 'center' }}>
           {this.state.error ? <div>{strings.api_error}</div> : <div />}
-          {this.state.openInvoices?.length ? <Alert severity="warning"><div>{strings.api_open_invoice}</div><div><a href={this.state.openInvoices?.[0]?.paymentLink}>{strings.api_invoice_link}</a></div></Alert> : null}
+          {this.state.openInvoices?.length ? <Alert severity="warning">{strings.api_open_invoice} <a href={this.state.openInvoices?.[0]?.paymentLink}>{strings.api_invoice_link}</a></Alert> : null}
           <h1>{strings.api_title}</h1>
           <h2>{strings.api_subtitle}</h2>
           {loading || this.state.loading || !Object.keys(strings).length ? (
