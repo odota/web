@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { CircularProgress } from '@mui/material';
+import { Alert, CircularProgress } from '@mui/material';
 import { Button } from '@mui/material';
 import styled from 'styled-components';
 import StripeCheckout, { Token } from 'react-stripe-checkout';
@@ -65,11 +65,12 @@ const DetailsContainer = styled.div`
 `;
 
 class KeyManagement extends React.Component<
-  { loading: boolean; user: any; strings: Strings },
+  { loading: boolean; metadata: any; strings: Strings },
   {
     error: boolean;
     loading: boolean;
     usage?: any[];
+    openInvoices?: { paymentLink: string }[];
     customer?: {
       api_key: string;
       current_period_end: number;
@@ -173,14 +174,15 @@ class KeyManagement extends React.Component<
   }
 
   render() {
-    const { loading, user, strings } = this.props;
+    const { loading, metadata, strings } = this.props;
+    const user = metadata?.user;
     const showLoginButton = !user;
     const showGetKeyButton =
       user && !(this.state.customer && this.state.customer.api_key);
     const premUnit = 100;
-    const freeCallLimit = 2000;
-    const freeRateLimit = 60;
-    const premRateLimit = 1200;
+    const freeCallLimit = metadata?.freeCallLimit;
+    const freeRateLimit = metadata?.freeRateLimit;
+    const premRateLimit = metadata?.premRateLimit;
     const premPrice = 0.01;
 
     return (
@@ -191,6 +193,7 @@ class KeyManagement extends React.Component<
         </Helmet>
         <ApiContainer style={{ textAlign: 'center' }}>
           {this.state.error ? <div>{strings.api_error}</div> : <div />}
+          {this.state.openInvoices?.length ? <Alert severity="warning"><div>{strings.api_open_invoice}</div><div><a href={this.state.openInvoices?.[0]?.paymentLink}>{strings.api_invoice_link}</a></div></Alert> : null}
           <h1>{strings.api_title}</h1>
           <h2>{strings.api_subtitle}</h2>
           {loading || this.state.loading || !Object.keys(strings).length ? (
@@ -416,7 +419,7 @@ const mapStateToProps = (state: any) => {
   return {
     loading,
     error,
-    user: data.user,
+    metadata: data,
     strings: state.app.strings,
   };
 };

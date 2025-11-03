@@ -71,6 +71,7 @@
     "@types/react-transition-group": "^2.9.2",
     "@types/styled-components": "4.0.3",
     "@types/wordcloud": "^1.1.1",
+    "dotenv": "^17.2.3",
     "sanitize-filename-ts": "^1.0.2",
     "serve": "^14.2.5",
     "testcafe": "^3.7.2",
