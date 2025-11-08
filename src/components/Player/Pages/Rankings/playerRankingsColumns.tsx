@@ -29,12 +29,12 @@ export default (strings: Strings) => [
     sortFn: true,
     percentBars: true,
   },
-  {
-    displayName: strings.th_rank,
-    field: 'card',
-    sortFn: (row: any) =>
-      Math.max(100, roundUp(Math.floor(row.card * (1 - row.percent_rank)))),
-    displayFn: (row: any) =>
-      `~${Math.max(100, roundUp(Math.floor(row.card * (1 - row.percent_rank))))}`,
-  },
+  // {
+  //   displayName: strings.th_rank,
+  //   field: 'card',
+  //   sortFn: (row: any) =>
+  //     Math.max(100, roundUp(Math.floor(row.card * (1 - row.percent_rank)))),
+  //   displayFn: (row: any) =>
+  //     `~${Math.max(100, roundUp(Math.floor(row.card * (1 - row.percent_rank))))}`,
+  // },
 ];
