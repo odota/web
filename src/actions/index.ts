@@ -240,7 +240,7 @@ export const getPlayerWordcloud = (accountId: string, params: any) =>
     'playerWordcloud',
     config.VITE_API_HOST,
     `api/players/${accountId}/wordcloud`,
-    { ...paramsWithTurbo(params), date: 365 },
+    paramsWithTurbo(params),
   );
 export const getPlayerTotals = (accountId: string, params: any) =>
   action(
