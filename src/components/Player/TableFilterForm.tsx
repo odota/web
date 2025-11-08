@@ -66,12 +66,10 @@ class TableFilterForm extends React.Component<
 
     const heroList = Object.keys(heroes)
       .map((id) => ({
-        label:
-          heroes[id as keyof Heroes] &&
-          heroes[id as keyof Heroes].localized_name,
+        label: heroes[id as keyof Heroes]?.localized_name,
         id: Number(id),
       }))
-      .sort((a: any, b: any) => a.text && a.text.localeCompare(b.text));
+      .sort((a: any, b: any) => a.label?.localeCompare(b.label));
 
     const laneList = Object.keys(strings)
       .filter((str) => str.indexOf('lane_role_') === 0)

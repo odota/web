@@ -53,7 +53,6 @@ type FormFieldProps = {
   deleteChip?: (name: string, index: number) => void;
   history?: any;
   label: string;
-  filter?: (searchText: string, key: string) => boolean;
   className?: string;
   maxSearchResults?: number;
   strings: Strings;
@@ -64,36 +63,15 @@ type FormFieldProps = {
 };
 
 class FormField extends React.Component<FormFieldProps> {
-  state = {
-    searchText: '',
-    errorText: '',
-    // selectedBundle: undefined,
-    // singleSelection: undefined,
-  };
   constructor(props: FormFieldProps) {
     super(props);
-    // const { formSelectionState, name } = this.props;
-    // const initialState =
-    //   formSelectionState[name] &&
-    //   this.findFromSource(
-    //     Array.isArray(formSelectionState[name])
-    //       ? formSelectionState[name][0]
-    //       : formSelectionState[name],
-    //   );
-
-    this.state = {
-      searchText: '',
-      errorText: '',
-      // selectedBundle: initialState && initialState.bundle,
-      // singleSelection: initialState && initialState.singleSelection,
-    };
   }
 
   handleSelect = (
     e: React.SyntheticEvent,
     value: string[] | { label: string; id: string | number }[],
   ) => {
-    const { name, limit, formSelectionState, addChip, history } = this.props;
+    const { name, limit, addChip, history } = this.props;
 
     let valueToAdd;
     if (typeof value[0] === 'string') {
@@ -111,12 +89,6 @@ class FormField extends React.Component<FormFieldProps> {
     }
     addChipToUrl(name, valueToAdd, limit, history);
     addChip && addChip(name, valueToAdd, limit);
-  };
-
-  handleUpdateInput = (e: any, searchText: string) => {
-    this.setState({
-      searchText,
-    });
   };
 
   findFromSource = (element: any) => {
@@ -138,8 +110,6 @@ class FormField extends React.Component<FormFieldProps> {
       history,
       formSelectionState,
     } = this.props;
-    const { searchText, errorText } = this.state;
-
     const selectedElements: number[] = [].concat(
       formSelectionState[name] || [],
     );
@@ -154,7 +124,6 @@ class FormField extends React.Component<FormFieldProps> {
           freeSolo={!this.props.strict}
           multiple={true}
           value={chipList}
-          inputValue={searchText}
           getOptionLabel={(option: any) => option.label}
           renderInput={(params) => <TextField {...params} label={label} />}
           renderValue={(value: any[], getItemProps) =>
@@ -175,7 +144,6 @@ class FormField extends React.Component<FormFieldProps> {
           openOnFocus
           options={dataSource}
           onChange={this.handleSelect}
-          onInputChange={this.handleUpdateInput}
         />
         {/* <ChipList
           name={name}
