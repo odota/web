@@ -34,8 +34,8 @@ const Styled = styled.div`
   }
 `;
 
-export const getOverviewTab = (strings: Strings) => {
-  const { overviewColumns, abilityColumns, abilityDraftColumns } = mcs(strings);
+export const getOverviewTab = (strings: Strings, beta = false) => {
+  const { overviewColumns, abilityColumns, abilityDraftColumns } = mcs(strings, beta);
   return {
     name: strings.tab_overview,
     key: 'overview',

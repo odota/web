@@ -43,6 +43,7 @@ const TickElement = (props: { x: number; y: number; payload: any }) => {
 
 const matchPages = (
   strings: Strings,
+  beta = false,
 ): {
   name: string;
   key: string;
@@ -66,10 +67,10 @@ const matchPages = (
     inflictorsColumns,
     castsColumns,
     fantasyColumns,
-  } = mcs(strings);
+  } = mcs(strings, beta);
 
   return [
-    getOverviewTab(strings),
+    getOverviewTab(strings, beta),
     {
       name: strings.tab_benchmarks,
       key: 'benchmarks',
@@ -515,8 +516,8 @@ const matchPages = (
   ];
 };
 
-export default (matchId: string, match: Match | null, strings: Strings) =>
-  matchPages(strings).map((page) => ({
+export default (matchId: string, match: Match | null, strings: Strings, beta = false) =>
+  matchPages(strings, beta).map((page) => ({
     // ...page,
     name: page.name,
     key: page.key,

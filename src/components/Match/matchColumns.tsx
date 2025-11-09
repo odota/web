@@ -51,7 +51,7 @@ const scepterTooltip = <ItemTooltip item={items.ultimate_scepter} />;
 const AGHANIMS_SHARD = 12;
 const AGHANIMS_SCEPTER = 2;
 
-export default (strings: Strings) => {
+export default (strings: Strings, beta = false) => {
   const heroTd = (
     row: MatchPlayer,
     col?: any,
@@ -72,7 +72,7 @@ export default (strings: Strings) => {
         accountId={row.account_id}
         playerSlot={row.player_slot}
         subtitle={
-          <CompetitiveRank rankTier={rankTierToString(row.rank_tier)} />
+          <CompetitiveRank rankTier={rankTierToString(row.rank_tier)} computedMmr={beta ? row.computed_mmr : undefined } />
         }
         hideText={hideName}
         confirmed={Boolean(row.account_id && row.name)}

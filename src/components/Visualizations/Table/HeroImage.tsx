@@ -783,7 +783,7 @@ export const Mmr = ({ number }: { number: number }) => {
   );
 };
 
-export const CompetitiveRank = ({ rankTier }: { rankTier: number }) => {
+export const CompetitiveRank = ({ rankTier, computedMmr }: { rankTier: number, computedMmr?: number }) => {
   const strings = useStrings();
   return (
     <span className="rank">
@@ -791,6 +791,7 @@ export const CompetitiveRank = ({ rankTier }: { rankTier: number }) => {
         <MilitaryTechIcon />
       </section>
       {rankTier}
+      {computedMmr ? ` (${Math.floor(computedMmr)})` : null}
     </span>
   );
 };

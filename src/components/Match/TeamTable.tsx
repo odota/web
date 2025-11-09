@@ -244,9 +244,7 @@ class TeamTable extends React.Component<TeamTableProps> {
 }
 
 const mapStateToProps = (state: any) => ({
-  loggedInId: state.app.metadata.data.user
-    ? state.app.metadata.data.user.account_id
-    : null,
+  loggedInId: state.app.metadata.data.user?.account_id,
 });
 
 export default connect(mapStateToProps)(TeamTable);

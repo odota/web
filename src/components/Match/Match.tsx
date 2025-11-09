@@ -22,6 +22,7 @@ type MatchProps = {
   getMatch: Function;
   matchId: string;
   strings: Strings;
+  beta: boolean;
 };
 
 class RequestLayer extends React.Component<MatchProps> {
@@ -36,10 +37,10 @@ class RequestLayer extends React.Component<MatchProps> {
   }
 
   render() {
-    const { loading, matchId, matchData, error, strings, match, user } =
+    const { loading, matchId, matchData, error, strings, match, user, beta } =
       this.props;
     const info = match.params.info || 'overview';
-    const page = matchPages(matchId, null, strings).find(
+    const page = matchPages(matchId, null, strings, beta).find(
       (_page) => _page.key.toLowerCase() === info,
     );
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
@@ -75,6 +76,7 @@ const mapStateToProps = (state: any) => ({
   error: state.app.match.error,
   user: state.app.metadata.data.user,
   strings: state.app.strings,
+  beta: state.app.metadata.data.beta,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
