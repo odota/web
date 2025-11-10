@@ -6,6 +6,7 @@ import { getPlayers } from '../../actions';
 import Heading from '../Heading';
 import Table, { TableLink } from '../Table';
 import { RankTierMedal } from '../Player/Header/PlayerHeader';
+import { Link } from 'react-router-dom';
 
 const columns = (strings: Strings) => [
   {
@@ -44,6 +45,15 @@ const columns = (strings: Strings) => [
     sortFn: true,
     relativeBars: true,
     displayFn: (row: any, col: number, field: any) => Math.floor(field),
+  },
+  {
+    displayName: strings.th_result,
+    field: 'match_id',
+    displayFn: (row: any, col: number, field: any) => (
+      <>
+      <Link to={'/matches/' + row.match_id}>{row.match_id}</Link>{row.delta && <span style={{ color: row.delta > 0 ? 'green' : 'red' }}>{` (${row.delta > 0 ? '+' : '-'}${row.delta.toFixed(1)})`}</span>}
+      </>
+    ),
   },
 ];
 
