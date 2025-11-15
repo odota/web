@@ -22,28 +22,33 @@ import useStrings from '../../../hooks/useStrings.hook';
 
 const formatGraphTime = (minutes: number) => `${minutes}:00`;
 
+// asdf
 const CustomizedTooltip = ({
   label,
   payload,
 }: {
   label?: string;
   payload?: any[];
-}) => (
-  <StyledCustomizedTooltip>
+}) => {
+  const origOrderMap: Record<string, number> = {};
+  payload?.forEach((p, i) => {
+    origOrderMap[p.dataKey] = i;
+  });
+  return <StyledCustomizedTooltip>
     <div className="label">{label}</div>
     {payload
       ?.sort((a, b) => b.value - a.value)
       ?.map((data, i) => (
         <div
           key={i}
-          className={`data ${i < 5 && 'isRadiant'}`}
+          className={`data ${origOrderMap[data.dataKey] < 5 && 'isRadiant'}`}
           style={{ borderLeft: `8px solid ${data.color}` }}
         >
           {data.dataKey}: {data.value}
         </div>
       ))}
-  </StyledCustomizedTooltip>
-);
+  </StyledCustomizedTooltip>;
+};
 
 const CustomizedDot = (props: {
   cx?: number;

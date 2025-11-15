@@ -50,8 +50,12 @@ const CustomizedTooltip = ({
 }: {
   label?: string;
   payload?: any[];
-}) => (
-  <StyledCustomizedTooltip>
+}) => {
+  const origOrderMap: Record<string, number> = {};
+  payload?.forEach((p, i) => {
+    origOrderMap[p.dataKey] = i;
+  });
+  return <StyledCustomizedTooltip>
     <div className="label">{label}</div>
     {payload
       ?.sort((a, b) => {
@@ -59,15 +63,15 @@ const CustomizedTooltip = ({
       })
       ?.map((data, i) => (
         <div
-          // value={data.value}
-          className={`data ${i < 5 && 'isRadiant'}`}
+          key={i}
+          className={`data ${origOrderMap[data.dataKey] < 5 && 'isRadiant'}`}
           style={{ borderLeft: `8px solid ${data.color}` }}
         >
           {data.dataKey}: {data.value}
         </div>
       ))}
-  </StyledCustomizedTooltip>
-);
+  </StyledCustomizedTooltip>;
+};
 
 const XpTooltipContent = ({ payload }: { payload?: any[] }) => {
   const strings = useStrings();
