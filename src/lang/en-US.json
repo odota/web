@@ -437,7 +437,7 @@
   "show_details": "Show details",
   "hide_details": "Hide details",
   "subheading_avg_and_max": "in last {0} displayed matches",
-  "subheading_records": "In ranked matches. Records reset monthly.",
+  "subheading_records": "In ranked matches. Records reset weekly.",
   "subheading_team_elo_rankings": "k=32, init=1000",
   "hero_pro_tab": "Professional",
   "hero_public_tab": "Public",
