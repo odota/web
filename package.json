@@ -24,6 +24,7 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "@mars3d/heatmap.js": "^2.0.7",
     "@melloware/react-logviewer": "^6.3.4",
     "@mui/icons-material": "^7.3.4",
     "@mui/material": "^7.3.4",
@@ -34,10 +35,9 @@
     "dota2-emoticons": "^1.0.4",
     "dotaconstants": "^10.6.0",
     "fuzzy": "^0.1.3",
-    "heatmap.js": "github:muyao1987/heatmap.js",
     "history": "^4.10.1",
     "nanoid": "^5.1.6",
-    "papaparse": "^5.1.1",
+    "papaparse": "^5.5.3",
     "querystring": "^0.2.1",
     "react": "^17.0.2",
     "react-content-loader": "^7.1.1",
@@ -60,9 +60,8 @@
     "wordcloud": "^1.1.1"
   },
   "devDependencies": {
-    "@types/heatmap.js": "^2.0.36",
-    "@types/node": "^24.5.2",
-    "@types/papaparse": "^5.0.3",
+    "@types/node": "^24.10.1",
+    "@types/papaparse": "^5.5.0",
     "@types/react": "^17.0.40",
     "@types/react-dom": "^17.0.13",
     "@types/react-helmet": "^6.1.11",
