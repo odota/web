@@ -19,9 +19,12 @@ async function fetchFromAPI(requestURL: string) {
 const logger = RequestLogger(/api.opendota.com\/api/);
 
 function path2file(url: string) {
+  if (url.startsWith('https://api.opendota.com/api/explorer')) {
+    return 'explorer';
+  }
   return sanitize(url.replace('https://api.opendota.com/api/', ''), {
     replacement: '_',
-  }).substr(0, 45);
+  }).substr(0, 200);
 }
 
 export const fixtureBeforeHook = async (ctx: any) => {
