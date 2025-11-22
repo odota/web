@@ -6,6 +6,7 @@ import Table from '../Table';
 import config from '../../config';
 import { LazyLog, ScrollFollow } from '@melloware/react-logviewer';
 import useStrings from '../../hooks/useStrings.hook';
+import { useFetch } from '../../hooks/useFetch.hook';
 
 const columns = [
   { displayName: 'key', field: 'key' },
@@ -95,7 +96,9 @@ const Status = () => {
             if (typeof state.current[propName] !== 'object') {
               return state.current[propName];
             }
-            if (typeof Object.values(state.current[propName])[0] !== 'number') {
+            if (propName === 'retrieverRegistry') {
+              return <RetrieverTable obj={state.current[propName]} />
+            } else if (typeof Object.values(state.current[propName])[0] !== 'number') {
               return (
                 <Table
                   key={propName}
@@ -140,6 +143,40 @@ const Status = () => {
         </div>
       </>
     );
+}
+
+const RetrieverTable = ({ obj }: { obj: Record<string, any> }) => {
+  let entries = Object.entries(obj);
+  const datas = entries.map(([k, v]) => ({ key: k, ...v, ...useFetch<any>('http://' + k)})).filter(Boolean);
+  return <Table
+    data={datas}
+    columns={[{
+      displayName: 'key',
+      field: 'key',
+    },
+    {
+      displayName: 'up',
+      field: 'uptime',
+      displayFn: (row: any) => Math.floor(row.uptime),
+    },
+    {
+      displayName: 'num',
+      field: 'numReadyAccounts',
+    },
+    {
+      displayName: 'suc',
+      field: 'matchSuccesses',
+    },
+    {
+      displayName: 'req',
+      field: 'matchRequests',
+    },
+    {
+      displayName: 'tot',
+      field: 'limit',
+    },
+  ]}
+  />
 }
 
 export default Status;
