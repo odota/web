@@ -27,8 +27,6 @@ const columns = [
   },
 ];
 
-const tableStyle: React.CSSProperties = {};
-
 const Status = () => {
   const strings = useStrings();
   const [ts, setTs] = useState(Number(new Date()));
@@ -86,7 +84,9 @@ const Status = () => {
         {/* <button style={{ width: '200px', height: '40px', margin: '8px' }} onClick={() => this.setState({ follow: !this.state.follow })}>{this.state.follow ? 'Stop' : 'Start'}</button> */}
         <div
           style={{
-            columnCount: window.innerWidth < 600 ? 1 : 3,
+            // columnCount: window.innerWidth < 600 ? 1 : 3,
+            display: 'flex',
+            flexWrap: 'wrap',
           }}
         >
           {Object.keys(state.current).map((propName) => {
@@ -97,7 +97,6 @@ const Status = () => {
               return (
                 <Table
                   key={propName}
-                  style={tableStyle}
                   data={Object.keys(state.current[propName] || {}).map(
                     (key) => ({
                       key,
@@ -122,7 +121,6 @@ const Status = () => {
             return (
                 <Table
                   key={propName}
-                  style={tableStyle}
                   data={Object.keys(state.current[propName] || {})
                     .map((key) => ({
                       key,
