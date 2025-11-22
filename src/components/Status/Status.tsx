@@ -93,12 +93,12 @@ const Status = () => {
             if (typeof state.current[propName] !== 'object') {
               return state.current[propName];
             }
-            if (propName === 'health') {
+            if (typeof Object.values(state.current[propName])[0] !== 'number') {
               return (
                 <Table
                   key={propName}
                   style={tableStyle}
-                  data={Object.keys(state.current.health || {}).map(
+                  data={Object.keys(state.current[propName] || {}).map(
                     (key) => ({
                       key,
                       value: state.current[propName]?.[key].metric,
@@ -106,14 +106,14 @@ const Status = () => {
                         state.last?.[propName]?.[key].metric ??
                         state.current[propName]?.[key].metric,
                       end: state.current[propName]?.[key].metric,
-                      threshold: state.current[propName]?.[key].threshold,
+                      limit: state.current[propName]?.[key].limit,
                     }),
                   )}
                   columns={[...columns, {
                     displayName: 'limit', 
-                    field: 'threshold',
+                    field: 'limit',
                     displayFn: (row: any) => {
-                      return abbreviateNumber(row.threshold)
+                      return abbreviateNumber(row.limit)
                     },
                   }]}
                 />
