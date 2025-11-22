@@ -86,7 +86,7 @@ const Status = () => {
           style={{
             // columnCount: window.innerWidth < 600 ? 1 : 3,
             display: 'flex',
-            flexWrap: 'wrap',
+            overflowX: 'scroll',
           }}
         >
           {Object.keys(state.current).map((propName) => {
