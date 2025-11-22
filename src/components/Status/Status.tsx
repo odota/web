@@ -39,7 +39,7 @@ const Status = () => {
   useEffect(() => {
     let last = state.current;
     const update = async () => {
-      const resp = await fetch(`${config.VITE_API_HOST}/status`);
+      const resp = await fetch(`${config.VITE_API_HOST}/status`, { credentials: 'include' });
       const json = await resp.json();
       const nextState = { current: json, last };
       setState(nextState);
