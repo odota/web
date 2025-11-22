@@ -38,9 +38,7 @@ export const fixtureBeforeEachHook = async () => {
 export const fixtureAfterHook = async (ctx: any) => {
   for (const request of logger.requests) {
     if (
-      existsSync(
-        `./testcafe/cachedAjax/${path2file(request.request.url)}.json`,
-      )
+      existsSync(`./testcafe/cachedAjax/${path2file(request.request.url)}.json`)
     ) {
       continue;
     }

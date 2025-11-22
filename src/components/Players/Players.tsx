@@ -51,7 +51,12 @@ const columns = (strings: Strings) => [
     field: 'match_id',
     displayFn: (row: any, col: number, field: any) => (
       <>
-      <Link to={'/matches/' + row.match_id}>{row.match_id}</Link>{row.delta && <span style={{ color: row.delta > 0 ? 'green' : 'red' }}>{` (${row.delta > 0 ? '+' : '-'}${row.delta.toFixed(1)})`}</span>}
+        <Link to={'/matches/' + row.match_id}>{row.match_id}</Link>
+        {row.delta && (
+          <span
+            style={{ color: row.delta > 0 ? 'green' : 'red' }}
+          >{` (${row.delta > 0 ? '+' : '-'}${row.delta.toFixed(1)})`}</span>
+        )}
       </>
     ),
   },

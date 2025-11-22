@@ -55,22 +55,24 @@ const CustomizedTooltip = ({
   payload?.forEach((p, i) => {
     origOrderMap[p.dataKey] = i;
   });
-  return <StyledCustomizedTooltip>
-    <div className="label">{label}</div>
-    {payload
-      ?.sort((a, b) => {
-        return b.value - a.value;
-      })
-      ?.map((data, i) => (
-        <div
-          key={i}
-          className={`data ${origOrderMap[data.dataKey] < 5 && 'isRadiant'}`}
-          style={{ borderLeft: `8px solid ${data.color}` }}
-        >
-          {data.dataKey}: {data.value}
-        </div>
-      ))}
-  </StyledCustomizedTooltip>;
+  return (
+    <StyledCustomizedTooltip>
+      <div className="label">{label}</div>
+      {payload
+        ?.sort((a, b) => {
+          return b.value - a.value;
+        })
+        ?.map((data, i) => (
+          <div
+            key={i}
+            className={`data ${origOrderMap[data.dataKey] < 5 && 'isRadiant'}`}
+            style={{ borderLeft: `8px solid ${data.color}` }}
+          >
+            {data.dataKey}: {data.value}
+          </div>
+        ))}
+    </StyledCustomizedTooltip>
+  );
 };
 
 const XpTooltipContent = ({ payload }: { payload?: any[] }) => {

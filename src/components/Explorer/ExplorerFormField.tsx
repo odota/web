@@ -46,7 +46,9 @@ class ExplorerFormField extends React.Component<ExplorerFormFieldProps> {
     input: { label: string; id: string },
     limit: number,
   ) => {
-    const currentChips: string[] = ([] as any[]).concat(this.props.builder[name] || []);
+    const currentChips: string[] = ([] as any[]).concat(
+      this.props.builder[name] || [],
+    );
     const newChips = currentChips.includes(input.id)
       ? currentChips
       : [input.id].concat(currentChips).slice(0, limit);
@@ -82,8 +84,8 @@ class ExplorerFormField extends React.Component<ExplorerFormFieldProps> {
         <DatePicker
           id={builderField}
           label={label}
-          value={builder[builderField]} 
-          onChange={({date}: { date: Date | Date[] | undefined }) => {
+          value={builder[builderField]}
+          onChange={({ date }: { date: Date | Date[] | undefined }) => {
             const dateString = date && (date as Date).toISOString();
             handleFieldUpdate(
               builderField,

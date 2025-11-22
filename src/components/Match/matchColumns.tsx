@@ -72,7 +72,10 @@ export default (strings: Strings, beta = false) => {
         accountId={row.account_id}
         playerSlot={row.player_slot}
         subtitle={
-          <CompetitiveRank rankTier={rankTierToString(row.rank_tier)} computedMmr={beta ? row.computed_mmr : undefined } />
+          <CompetitiveRank
+            rankTier={rankTierToString(row.rank_tier)}
+            computedMmr={beta ? row.computed_mmr : undefined}
+          />
         }
         hideText={hideName}
         confirmed={Boolean(row.account_id && row.name)}

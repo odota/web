@@ -783,7 +783,13 @@ export const Mmr = ({ number }: { number: number }) => {
   );
 };
 
-export const CompetitiveRank = ({ rankTier, computedMmr }: { rankTier: number, computedMmr?: number }) => {
+export const CompetitiveRank = ({
+  rankTier,
+  computedMmr,
+}: {
+  rankTier: number;
+  computedMmr?: number;
+}) => {
   const strings = useStrings();
   return (
     <span className="rank">

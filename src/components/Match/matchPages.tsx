@@ -516,7 +516,12 @@ const matchPages = (
   ];
 };
 
-export default (matchId: string, match: Match | null, strings: Strings, beta = false) =>
+export default (
+  matchId: string,
+  match: Match | null,
+  strings: Strings,
+  beta = false,
+) =>
   matchPages(strings, beta).map((page) => ({
     // ...page,
     name: page.name,
