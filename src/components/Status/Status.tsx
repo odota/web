@@ -101,12 +101,12 @@ const Status = () => {
                   data={Object.keys(state.current[propName] || {}).map(
                     (key) => ({
                       key,
-                      value: state.current[propName]?.[key].metric,
+                      value: state.current[propName]?.[key]?.metric,
                       start:
-                        state.last?.[propName]?.[key].metric ??
-                        state.current[propName]?.[key].metric,
-                      end: state.current[propName]?.[key].metric,
-                      limit: state.current[propName]?.[key].limit,
+                        state.last?.[propName]?.[key]?.metric ??
+                        state.current[propName]?.[key]?.metric,
+                      end: state.current[propName]?.[key]?.metric,
+                      limit: state.current[propName]?.[key]?.limit,
                     }),
                   )}
                   columns={[...columns, {
