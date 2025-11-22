@@ -84,9 +84,11 @@ const Status = () => {
         {/* <button style={{ width: '200px', height: '40px', margin: '8px' }} onClick={() => this.setState({ follow: !this.state.follow })}>{this.state.follow ? 'Stop' : 'Start'}</button> */}
         <div
           style={{
-            // columnCount: window.innerWidth < 600 ? 1 : 3,
             display: 'flex',
             overflowX: 'scroll',
+            // display: 'masonry',
+            // gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            // gap: '4px',
           }}
         >
           {Object.keys(state.current).map((propName) => {
