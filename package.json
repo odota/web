@@ -70,7 +70,6 @@
     "@types/react-transition-group": "^2.9.2",
     "@types/styled-components": "4.0.3",
     "@types/wordcloud": "^1.1.1",
-    "dotenv": "^17.2.3",
     "sanitize-filename-ts": "^1.0.2",
     "testcafe": "^3.7.2",
     "testcafe-react-selectors": "^5.0.3",
