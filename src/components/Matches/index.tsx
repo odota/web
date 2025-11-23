@@ -194,7 +194,7 @@ const getData = (props: MatchesProps) => {
   const route = props.match.params.matchId || 'pro';
   if (!Number.isInteger(Number(route))) {
     props.dispatchProMatches();
-    props.dispatchPublicMatches({ mmr_descending: 1 });
+    props.dispatchPublicMatches({ min_rank: 80 });
   }
 };
 
