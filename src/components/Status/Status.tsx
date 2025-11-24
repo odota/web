@@ -6,7 +6,6 @@ import Table from '../Table';
 import config from '../../config';
 import { LazyLog, ScrollFollow } from '@melloware/react-logviewer';
 import useStrings from '../../hooks/useStrings.hook';
-import { useFetch } from '../../hooks/useFetch.hook';
 import { VList } from 'virtua';
 
 const columns = [
@@ -28,6 +27,12 @@ const columns = [
       ),
   },
 ];
+
+const scrollStyle = (data: any[]): React.CSSProperties => ({
+  maxHeight: 1000,
+  overflowY: 'scroll',
+  scrollbarWidth: data.length ? undefined : 'none',
+});
 
 const Status = () => {
   const strings = useStrings();
@@ -95,7 +100,7 @@ const Status = () => {
           // gap: '4px',
         }}
       > */}
-      <VList horizontal style={{ height: 2000 }}>
+      <VList horizontal style={{ height: 1000 }}>
         {Object.keys(state.current).map((propName) => {
           if (typeof state.current[propName] !== 'object') {
             return state.current[propName];
@@ -148,13 +153,7 @@ const Status = () => {
               }),
             );
             return (
-              <div
-                style={{
-                  maxHeight: 2000,
-                  overflowY: 'scroll',
-                  scrollbarWidth: data.length ? undefined : 'none',
-                }}
-              >
+              <div style={scrollStyle(data)}>
                 <Table
                   key={propName}
                   data={data}
@@ -172,21 +171,18 @@ const Status = () => {
               </div>
             );
           }
+          const data = Object.keys(state.current[propName] || {})
+            .map((key) => ({
+              key,
+              value: state.current[propName]?.[key],
+              start:
+                state.last?.[propName]?.[key] ?? state.current[propName]?.[key],
+              end: state.current[propName]?.[key],
+            }));
           return (
-            <Table
-              key={propName}
-              data={Object.keys(state.current[propName] || {})
-                .map((key) => ({
-                  key,
-                  value: state.current[propName]?.[key],
-                  start:
-                    state.last?.[propName]?.[key] ??
-                    state.current[propName]?.[key],
-                  end: state.current[propName]?.[key],
-                }))
-                .filter((item) => item.value)}
-              columns={columns}
-            />
+            <div style={scrollStyle(data)}>
+              <Table key={propName} data={data} columns={columns} />
+            </div>
           );
         })}
       </VList>
