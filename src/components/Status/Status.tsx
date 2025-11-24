@@ -28,8 +28,9 @@ const columns = [
   },
 ];
 
+const maxHeight = 2400;
 const scrollStyle = (data: any[]): React.CSSProperties => ({
-  maxHeight: 1500,
+  maxHeight,
   overflowY: 'auto',
   // scrollbarWidth: data.length ? undefined : 'none',
 });
@@ -66,7 +67,7 @@ const Status = () => {
   return (
     <>
       <Helmet title={strings.title_status} />
-      <div style={{ height: '300px', overflow: 'hidden' }}>
+      <div style={{ height: '300px' }}>
         {
           <ScrollFollow
             startFollowing={true}
@@ -100,7 +101,7 @@ const Status = () => {
           // gap: '4px',
         }}
       > */}
-      <VList horizontal style={{ height: 1500 }}>
+      <VList horizontal style={{ height: maxHeight }}>
         {Object.keys(state.current).map((propName) => {
           if (typeof state.current[propName] !== 'object') {
             return state.current[propName];
