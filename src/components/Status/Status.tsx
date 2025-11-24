@@ -29,7 +29,7 @@ const columns = [
 ];
 
 const scrollStyle = (data: any[]): React.CSSProperties => ({
-  maxHeight: 1000,
+  maxHeight: 1500,
   overflowY: 'auto',
   // scrollbarWidth: data.length ? undefined : 'none',
 });
@@ -100,7 +100,7 @@ const Status = () => {
           // gap: '4px',
         }}
       > */}
-      <VList horizontal style={{ height: 1000 }}>
+      <VList horizontal style={{ height: 1500 }}>
         {Object.keys(state.current).map((propName) => {
           if (typeof state.current[propName] !== 'object') {
             return state.current[propName];
