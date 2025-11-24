@@ -30,8 +30,8 @@ const columns = [
 
 const scrollStyle = (data: any[]): React.CSSProperties => ({
   maxHeight: 1000,
-  overflowY: 'scroll',
-  scrollbarWidth: data.length ? undefined : 'none',
+  overflowY: 'auto',
+  // scrollbarWidth: data.length ? undefined : 'none',
 });
 
 const Status = () => {
