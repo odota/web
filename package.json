@@ -57,6 +57,7 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "styled-components": "^4.4.1",
+    "virtua": "^0.47.1",
     "wordcloud": "^1.1.1"
   },
   "devDependencies": {

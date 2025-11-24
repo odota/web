@@ -7,6 +7,7 @@ import config from '../../config';
 import { LazyLog, ScrollFollow } from '@melloware/react-logviewer';
 import useStrings from '../../hooks/useStrings.hook';
 import { useFetch } from '../../hooks/useFetch.hook';
+import { VList } from 'virtua';
 
 const columns = [
   { displayName: 'key', field: 'key' },
@@ -85,7 +86,7 @@ const Status = () => {
         }
       </div>
       {/* <button style={{ width: '200px', height: '40px', margin: '8px' }} onClick={() => this.setState({ follow: !this.state.follow })}>{this.state.follow ? 'Stop' : 'Start'}</button> */}
-      <div
+      {/* <div
         style={{
           display: 'flex',
           overflowX: 'scroll',
@@ -93,7 +94,8 @@ const Status = () => {
           // gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
           // gap: '4px',
         }}
-      >
+      > */}
+      <VList horizontal style={{ height: 2000 }}>
         {Object.keys(state.current).map((propName) => {
           if (typeof state.current[propName] !== 'object') {
             return state.current[propName];
@@ -134,29 +136,40 @@ const Status = () => {
           } else if (
             typeof Object.values(state.current[propName])[0] !== 'number'
           ) {
+            const data = Object.keys(state.current[propName] || {}).map(
+              (key) => ({
+                key,
+                value: state.current[propName]?.[key]?.metric,
+                start:
+                  state.last?.[propName]?.[key]?.metric ??
+                  state.current[propName]?.[key]?.metric,
+                end: state.current[propName]?.[key]?.metric,
+                limit: state.current[propName]?.[key]?.limit,
+              }),
+            );
             return (
-              <Table
-                key={propName}
-                data={Object.keys(state.current[propName] || {}).map((key) => ({
-                  key,
-                  value: state.current[propName]?.[key]?.metric,
-                  start:
-                    state.last?.[propName]?.[key]?.metric ??
-                    state.current[propName]?.[key]?.metric,
-                  end: state.current[propName]?.[key]?.metric,
-                  limit: state.current[propName]?.[key]?.limit,
-                }))}
-                columns={[
-                  ...columns,
-                  {
-                    displayName: 'limit',
-                    field: 'limit',
-                    displayFn: (row: any) => {
-                      return abbreviateNumber(row.limit);
+              <div
+                style={{
+                  maxHeight: 2000,
+                  overflowY: 'scroll',
+                  scrollbarWidth: data.length ? undefined : 'none',
+                }}
+              >
+                <Table
+                  key={propName}
+                  data={data}
+                  columns={[
+                    ...columns,
+                    {
+                      displayName: 'limit',
+                      field: 'limit',
+                      displayFn: (row: any) => {
+                        return abbreviateNumber(row.limit);
+                      },
                     },
-                  },
-                ]}
-              />
+                  ]}
+                />
+              </div>
             );
           }
           return (
@@ -176,7 +189,7 @@ const Status = () => {
             />
           );
         })}
-      </div>
+      </VList>
     </>
   );
 };

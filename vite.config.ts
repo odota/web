@@ -3,7 +3,7 @@ import fs from 'node:fs';
 
 try {
   loadEnvFile();
-} catch(e) {
+} catch (e) {
   console.log(e);
 }
 
