@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { getOrdinal, transformations } from '../../utility';
-import { getPlayers } from '../../actions';
+import { getPlayers, getPlayersTurbo } from '../../actions';
 import Heading from '../Heading';
-import Table, { TableLink } from '../Table';
+import Table from '../Table';
 import { RankTierMedal } from '../Player/Header/PlayerHeader';
 import { Link } from 'react-router-dom';
+import useStrings from '../../hooks/useStrings.hook';
 
 const columns = (strings: Strings) => [
   {
@@ -62,41 +63,55 @@ const columns = (strings: Strings) => [
   },
 ];
 
-interface RequestLayerProps {
+interface Props {
   dispatchPlayers: () => void;
+  dispatchPlayersTurbo: () => void;
   data: any[];
   loading: boolean;
-  strings: any;
+  dataTurbo: any[];
+  loadingTurbo: boolean;
 }
 
-class RequestLayer extends React.Component<RequestLayerProps> {
-  componentDidMount() {
-    this.props.dispatchPlayers();
-  }
-
-  render() {
-    const { strings, data, loading } = this.props;
-
-    return (
-      <div>
-        <Helmet title={strings.header_players} />
-        <Heading title={strings.heading_players} className="top-heading" />
-        <Table columns={columns(strings)} data={data} loading={loading} />
+const Players = (props: Props) => {
+  useEffect(() => {
+    props.dispatchPlayers();
+    props.dispatchPlayersTurbo();
+  }, []);
+  const strings = useStrings();
+  const { data, loading, dataTurbo, loadingTurbo } = props;
+  console.log(data, dataTurbo);
+  return (
+    <div>
+      <Helmet title={strings.header_players} />
+      <Heading title={strings.heading_players} className="top-heading" />
+      <div style={{ display: 'flex' }}>
+        <div>
+          <h3>{strings.lobby_type_7}</h3>
+          <Table columns={columns(strings)} data={data} loading={loading} />
+        </div>
+        <div>
+          <h3>{strings.game_mode_23}</h3>
+          <Table
+            columns={columns(strings)}
+            data={dataTurbo}
+            loading={loadingTurbo}
+          />
+        </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 const mapStateToProps = (state: any) => ({
   data: state.app.players.data,
   loading: state.app.players.loading,
-  strings: state.app.strings,
+  dataTurbo: state.app.playersTurbo.data,
+  loadingTurbo: state.app.playersTurbo.loading,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   dispatchPlayers: () => dispatch(getPlayers()),
+  dispatchPlayersTurbo: () => dispatch(getPlayersTurbo()),
 });
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export default connector(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(Players);

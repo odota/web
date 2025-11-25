@@ -86,6 +86,8 @@ export const getLeagues = () =>
   action('leagues', config.VITE_API_HOST, 'api/leagues');
 export const getPlayers = () =>
   action('players', config.VITE_API_HOST, 'api/topPlayers');
+export const getPlayersTurbo = () =>
+  action('playersTurbo', config.VITE_API_HOST, 'api/topPlayers', { turbo: 1 });
 export const getTeams = () =>
   action('teams', config.VITE_API_HOST, 'api/teams');
 export const getTeam = (teamId: string) =>

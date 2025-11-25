@@ -1,20 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { Button } from '@mui/material';
 import {
   getOrdinal,
   getTeamLogoUrl,
   fromNow,
-  subTextStyle,
 } from '../../utility';
 import { getTeams } from '../../actions';
 import Heading from '../Heading';
 import Team from '../Team';
 import Table, { TableLink } from '../Table';
 import { Logo } from '../Team/TeamStyled';
-import config from '../../config';
+import useStrings from '../../hooks/useStrings.hook';
 
 const TeamImageContainer = styled.div`
   display: flex;
@@ -53,7 +51,7 @@ interface Strings {
   subheading_team_elo_rankings: string;
 }
 
-interface RequestLayerProps {
+interface Props {
   dispatchTeams: () => void;
   data: TeamRow[];
   loading: boolean;
@@ -62,7 +60,6 @@ interface RequestLayerProps {
       teamId?: string;
     };
   };
-  strings: Strings;
 }
 
 const columns = (strings: Strings) => [
@@ -110,56 +107,34 @@ const columns = (strings: Strings) => [
   },
 ];
 
-class RequestLayer extends React.Component<RequestLayerProps> {
-  componentDidMount() {
-    this.props.dispatchTeams();
+const Teams = (props: Props) => {
+  useEffect(() => {
+    props.dispatchTeams();
+  }, []);
+  const strings = useStrings();
+  const { match, data, loading } = props;
+  const route = match.params.teamId;
+
+  if (route && Number.isInteger(Number(route))) {
+    return <Team {...props} />;
   }
 
-  render() {
-    const { strings, match, data, loading } = this.props;
-    const route = match.params.teamId;
-
-    if (route && Number.isInteger(Number(route))) {
-      return <Team {...this.props} />;
-    }
-
-    return (
-      <div>
-        <Helmet title={strings.header_teams} />
-        <div style={{ textAlign: 'center' }}>
-          {config.VITE_ENABLE_RIVALRY && (
-            <Button
-              variant="contained"
-              color="primary"
-              href="https://rivalry.com/opendota"
-              target="_blank"
-              rel="noopener noreferrer"
-              startIcon={
-                <img
-                  src="/assets/images/rivalry-icon.png"
-                  alt=""
-                  height="24px"
-                />
-              }
-            >
-              {strings.app_rivalry}
-            </Button>
-          )}
-        </div>
-        <Heading
-          title={strings.heading_team_elo_rankings}
-          subtitle={strings.subheading_team_elo_rankings}
-          className="top-heading"
-        />
-        <Table
-          columns={columns(strings)}
-          data={data.slice(0, 100)}
-          loading={loading}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Helmet title={strings.header_teams} />
+      <Heading
+        title={strings.heading_team_elo_rankings}
+        subtitle={strings.subheading_team_elo_rankings}
+        className="top-heading"
+      />
+      <Table
+        columns={columns(strings)}
+        data={data.slice(0, 500)}
+        loading={loading}
+      />
+    </div>
+  );
+};
 
 const mapStateToProps = (state: any) => ({
   data: state.app.teams.data.filter(
@@ -168,13 +143,10 @@ const mapStateToProps = (state: any) => ({
       new Date().getTime() / 1000 - 60 * 60 * 24 * 30 * 6,
   ),
   loading: state.app.teams.loading,
-  strings: state.app.strings,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   dispatchTeams: () => dispatch(getTeams()),
 });
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export default connector(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(Teams);

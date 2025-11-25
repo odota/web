@@ -645,7 +645,10 @@ export function rankTierToString(rankTier: number) {
     return strings.general_unknown;
   }
   const intRankTier = parseInt(String(rankTier), 10);
-  let rank = strings[`rank_tier_${parseInt(String(intRankTier / 10), 10)}` as keyof Strings];
+  let rank =
+    strings[
+      `rank_tier_${parseInt(String(intRankTier / 10), 10)}` as keyof Strings
+    ];
   if (intRankTier > 9 && intRankTier !== 80) {
     rank += ` [${parseInt(String(intRankTier % 10), 10)}]`;
   }
@@ -899,7 +902,8 @@ export const transformations = {
 
     return (
       <div>
-        {strings[`game_mode_${field}` as keyof Strings] && `${strings[`game_mode_${field}` as keyof Strings]}`}
+        {strings[`game_mode_${field}` as keyof Strings] &&
+          `${strings[`game_mode_${field}` as keyof Strings]}`}
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span style={skillStyle}>{rankTierToString(row.average_rank)}</span>
         </div>

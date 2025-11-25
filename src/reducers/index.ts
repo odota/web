@@ -45,6 +45,7 @@ export default combineReducers({
   teamMatches: reducer('teamMatches'),
   teamPlayers: reducer('teamPlayers'),
   players: reducer('players'),
+  playersTurbo: reducer('playersTurbo'),
   records: reducer('records'),
   ghPulls: reducer('ghPulls'),
   scenariosItemTimings: reducer('scenariosItemTimings'),
