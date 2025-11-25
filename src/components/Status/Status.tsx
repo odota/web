@@ -75,8 +75,8 @@ const Status = () => {
               <LazyLog
                 key={ts}
                 stream
-                url={`${config.VITE_API_HOST.replace('http', 'ws')}`}
-                websocket
+                url={`${config.VITE_API_HOST}/logs`}
+                eventsource
                 follow={follow}
                 onScroll={onScroll}
                 enableSearch
@@ -172,14 +172,15 @@ const Status = () => {
               </div>
             );
           }
-          const data = Object.keys(state.current[propName] || {})
-            .map((key) => ({
+          const data = Object.keys(state.current[propName] || {}).map(
+            (key) => ({
               key,
               value: state.current[propName]?.[key],
               start:
                 state.last?.[propName]?.[key] ?? state.current[propName]?.[key],
               end: state.current[propName]?.[key],
-            }));
+            }),
+          );
           return (
             <div style={scrollStyle(data)}>
               <Table key={propName} data={data} columns={columns} />

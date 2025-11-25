@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import reducer from './reducer';
-import request from './request';
 import form from './form';
 
 export default combineReducers({
@@ -48,7 +47,6 @@ export default combineReducers({
   strings: (state = {}, action) =>
     action && action.type === 'strings' ? action.payload : state,
   form,
-  request,
   scenariosItemTimings: reducer('scenariosItemTimings'),
   scenariosLaneRoles: reducer('scenariosLaneRoles'),
   scenariosMisc: reducer('scenariosMisc'),
