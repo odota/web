@@ -787,7 +787,7 @@ export const CompetitiveRank = ({
   rankTier,
   computedMmr,
 }: {
-  rankTier: number;
+  rankTier: string;
   computedMmr?: number;
 }) => {
   const strings = useStrings();

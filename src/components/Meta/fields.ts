@@ -22,7 +22,7 @@ const mmrs = Array(20).fill().map((e, i) => i * 500).map(element => ({
     .map((str) => {
       const num = str.substring('rank_tier_'.length);
       return {
-        text: `[${num}] ${strings[str]}`,
+        text: `[${num}] ${strings[str as keyof Strings]}`,
         value: num,
         key: String(num),
       };
@@ -54,13 +54,13 @@ const mmrs = Array(20).fill().map((e, i) => i * 500).map(element => ({
   }));
 
   const gameMode = Object.values(gameModeData).map((element) => ({
-    text: strings[`game_mode_${element.id}`],
+    text: strings[`game_mode_${element.id}` as keyof Strings],
     value: element.id,
     key: String(element.id),
   }));
 
   const lobbyType = Object.values(lobbyTypeData).map((element) => ({
-    text: strings[`lobby_type_${element.id}`],
+    text: strings[`lobby_type_${element.id}` as keyof Strings],
     value: element.id,
     key: String(element.id),
   }));

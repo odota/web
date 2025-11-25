@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux';
 import reducer from './reducer';
 import form from './form';
+import strings from './strings';
 
 export default combineReducers({
+  form,
+  strings,
   player: reducer('player'),
   playerWinLoss: reducer('playerWinLoss'),
   playerMatches: reducer('playerMatches'),
@@ -44,9 +47,6 @@ export default combineReducers({
   players: reducer('players'),
   records: reducer('records'),
   ghPulls: reducer('ghPulls'),
-  strings: (state = {}, action) =>
-    action && action.type === 'strings' ? action.payload : state,
-  form,
   scenariosItemTimings: reducer('scenariosItemTimings'),
   scenariosLaneRoles: reducer('scenariosLaneRoles'),
   scenariosMisc: reducer('scenariosMisc'),

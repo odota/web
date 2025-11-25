@@ -520,6 +520,7 @@
   "match_id": "Match ID",
   "match_region": "Region",
   "match_avg_mmr": "Avg MMR",
+  "match_avg_rank_tier": "Avg Rank",
   "match_button_parse": "Parse",
   "match_button_reparse": "Re-parse",
   "match_button_replay": "Replay",

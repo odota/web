@@ -531,7 +531,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
       },
     ],
     region: Object.keys(regionData).map((regionKey) => ({
-      text: strings[`region_${regionKey}`],
+      text: strings[`region_${regionKey}` as keyof Strings],
       value: Object.keys(clusterData).filter(
         (key) =>
           String(clusterData[key as keyof typeof clusterData]) === regionKey,
@@ -563,7 +563,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
       key: String(player.account_id),
     })),
     tier: ['premium', 'professional'].map((tier) => ({
-      text: strings[`tier_${tier}`],
+      text: strings[`tier_${tier}` as keyof Strings],
       value: tier,
       key: tier,
     })),
@@ -578,7 +578,7 @@ ${props.player && props.player.value ? '' : 'AND player_matches.account_id < pla
       .map((str) => {
         const laneRoleId = Number(str.substring('lane_role_'.length));
         return {
-          text: strings[str],
+          text: strings[str as keyof Strings],
           value: laneRoleId,
           key: String(laneRoleId),
         };

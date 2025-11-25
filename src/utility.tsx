@@ -645,7 +645,7 @@ export function rankTierToString(rankTier: number) {
     return strings.general_unknown;
   }
   const intRankTier = parseInt(String(rankTier), 10);
-  let rank = strings[`rank_tier_${parseInt(String(intRankTier / 10), 10)}`];
+  let rank = strings[`rank_tier_${parseInt(String(intRankTier / 10), 10)}` as keyof Strings];
   if (intRankTier > 9 && intRankTier !== 80) {
     rank += ` [${parseInt(String(intRankTier % 10), 10)}]`;
   }
@@ -735,7 +735,7 @@ export function displayHeroId(
         tooltip = strings.roaming;
         lane = 'roam';
       } else {
-        tooltip = strings[`lane_role_${row.lane_role}`];
+        tooltip = strings[`lane_role_${row.lane_role}` as keyof Strings];
         lane = row.lane_role;
       }
       const roleIconStyle: React.CSSProperties = {
@@ -873,7 +873,7 @@ export const transformations = {
           <span style={{ ...subTextStyle, marginTop: 1, display: 'inline' }}>
             {row.league_name
               ? row.league_name
-              : strings[`lobby_type_${row.lobby_type}`]}
+              : strings[`lobby_type_${row.lobby_type}` as keyof Strings]}
           </span>
           <span
             style={partyStyle}
@@ -899,7 +899,7 @@ export const transformations = {
 
     return (
       <div>
-        {strings[`game_mode_${field}`] && `${strings[`game_mode_${field}`]}`}
+        {strings[`game_mode_${field}` as keyof Strings] && `${strings[`game_mode_${field}` as keyof Strings]}`}
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span style={skillStyle}>{rankTierToString(row.average_rank)}</span>
         </div>

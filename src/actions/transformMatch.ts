@@ -182,7 +182,7 @@ function transformMatch(m: any) {
     const newPlayer = {
       ...player,
       desc: [
-        strings[`lane_role_${player.lane_role}`],
+        strings[`lane_role_${player.lane_role}` as keyof Strings],
         isSupport(player) ? 'Support' : 'Core',
       ].join('/'),
       multi_kills_max: getMaxKeyOfObject(player.multi_kills),
