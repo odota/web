@@ -79,24 +79,19 @@ const Players = (props: Props) => {
   }, []);
   const strings = useStrings();
   const { data, loading, dataTurbo, loadingTurbo } = props;
-  console.log(data, dataTurbo);
   return (
     <div>
       <Helmet title={strings.header_players} />
       <Heading title={strings.heading_players} className="top-heading" />
-      <div style={{ display: 'flex' }}>
-        <div>
-          <h3>{strings.lobby_type_7}</h3>
+      <div style={{ columnCount: 2, columnWidth: '400px' }}>
+          <div>{strings.lobby_type_7}</div>
           <Table columns={columns(strings)} data={data} loading={loading} />
-        </div>
-        <div>
-          <h3>{strings.game_mode_23}</h3>
+          <div>{strings.game_mode_23}</div>
           <Table
             columns={columns(strings)}
             data={dataTurbo}
             loading={loadingTurbo}
           />
-        </div>
       </div>
     </div>
   );

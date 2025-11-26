@@ -77,6 +77,7 @@ const Request = () => {
           type="submit"
           variant="contained"
           onClick={handleSubmit}
+          loading={loading}
           disabled={loading}
         >
           {strings.request_submit}
