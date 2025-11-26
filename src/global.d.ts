@@ -167,3 +167,9 @@ type RouterProps = {
 };
 
 type WardType = 'observer' | 'sentry';
+
+type VisionState = {
+  players: { observer: boolean[]; sentry: boolean[] };
+  teams: Record<string, any>;
+  currentTick?: number;
+};

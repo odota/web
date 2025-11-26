@@ -5,7 +5,6 @@ import Heading from '../../Heading/Heading';
 
 import PlayerThumb from '../PlayerThumb/PlayerThumb';
 import config from '../../../config';
-import { VisionState } from './Vision';
 
 const data = [
   {

@@ -8,7 +8,6 @@ import VisionItems from './VisionItems';
 import VisionMap from './VisionMap';
 import VisionLog from './VisionLog';
 import constants from '../../constants';
-import config from '../../../config';
 
 const Styled = styled.div`
   .visionLog {
@@ -133,12 +132,6 @@ const alive = (ward: any, time = 0) =>
 type VisionProps = {
   match: Match;
   strings: Strings;
-};
-
-export type VisionState = {
-  players: { observer: boolean[]; sentry: boolean[] };
-  teams: Record<string, any>;
-  currentTick?: number;
 };
 
 class Vision extends React.Component<VisionProps, VisionState> {
