@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { MMRGraph } from '../../../Visualizations';
 import { getPlayerMmr } from '../../../../actions';
-import Container from '../../../Container';
+import Container from '../../../Container/Container';
 import Info from '../../../Alerts/Info';
 import useStrings from '../../../../hooks/useStrings.hook';
 
@@ -83,4 +83,4 @@ const mapStateToProps = (state: any) => ({
   error: state.app.playerMmr.error,
 });
 
-export default connect(mapStateToProps, { getPlayerMmr })(RequestLayer);
+export const MMRPage = connect(mapStateToProps, { getPlayerMmr })(RequestLayer);

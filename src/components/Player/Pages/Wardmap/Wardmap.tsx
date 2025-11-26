@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { unpackPositionData } from '../../../../utility';
 import { getPlayerWardmap } from '../../../../actions';
 import Heatmap from '../../../Heatmap/Heatmap';
-import Container from '../../../Container';
+import Container from '../../../Container/Container';
 import constants from '../../../constants';
 
 const MAX_WIDTH = constants.appWidth;
@@ -146,4 +146,4 @@ const mapDispatchToProps = (dispatch: any) => ({
   updateWindowSize: () => dispatch(calculateResponsiveState(window)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export const WardmapPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

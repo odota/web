@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { item_ids as itemIds } from 'dotaconstants';
-import Table from '../Table';
+import Table from '../Table/Table';
 import inflictorWithValue from '../Visualizations/inflictorWithValue';
 import { getHeroItemSuggestions } from '../../actions';
 import TableSkeleton from '../Skeletons/TableSkeleton';

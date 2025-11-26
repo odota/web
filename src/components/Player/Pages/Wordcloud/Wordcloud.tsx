@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getPlayerWordcloud } from '../../../../actions';
-import Container from '../../../Container';
+import Container from '../../../Container/Container';
 import Wordcloud from '../../../Wordcloud/Wordcloud';
 
 type Props = {
@@ -70,4 +70,4 @@ const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(getPlayerWordcloud(playerId, options)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export const WordcloudPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

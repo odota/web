@@ -3,7 +3,7 @@ import { heroes } from 'dotaconstants';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import styled from 'styled-components';
-import Heading from '../../Heading';
+import Heading from '../../Heading/Heading';
 import { IconRadiant, IconDire } from '../../Icons';
 import { getTeamName } from '../../../utility';
 import constants from '../../constants';

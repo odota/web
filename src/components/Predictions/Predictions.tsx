@@ -1,7 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import Table from '../Table';
-import Heading from '../Heading';
+import Table from '../Table/Table';
+import Heading from '../Heading/Heading';
 import Warning from '../Alerts/Warning';
 
 // 60 days before

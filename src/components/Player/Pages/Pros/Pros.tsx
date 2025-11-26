@@ -2,8 +2,8 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { getPlayerPros } from '../../../../actions';
-import Table from '../../../Table';
-import Container from '../../../Container';
+import Table from '../../../Table/Table';
+import Container from '../../../Container/Container';
 import playerProsColumns from './playerProsColumns';
 import useStrings from '../../../../hooks/useStrings.hook';
 
@@ -66,4 +66,4 @@ const mapStateToProps = (state: any) => ({
   loading: state.app.playerPros.loading,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export const ProsPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

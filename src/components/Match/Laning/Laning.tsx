@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Heading from '../../Heading';
+import Heading from '../../Heading/Heading';
 import Heatmap from '../../Heatmap/Heatmap';
-import Table from '../../Table';
+import Table from '../../Table/Table';
 import { unpackPositionData } from '../../../utility';
 import mcs from '../matchColumns';
 import {

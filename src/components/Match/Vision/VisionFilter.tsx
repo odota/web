@@ -1,11 +1,11 @@
 import React from 'react';
 import { Checkbox } from '@mui/material';
-import Table from '../../Table';
-import Heading from '../../Heading';
+import Table from '../../Table/Table';
+import Heading from '../../Heading/Heading';
 
-import PlayerThumb from '../PlayerThumb';
+import PlayerThumb from '../PlayerThumb/PlayerThumb';
 import config from '../../../config';
-import { VisionState } from '.';
+import { VisionState } from './Vision';
 
 const data = [
   {

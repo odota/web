@@ -5,16 +5,17 @@ import { heroes } from 'dotaconstants';
 import styled from 'styled-components';
 import { transformations, subTextStyle, rankTierToString } from '../../utility';
 import { getProMatches, getPublicMatches } from '../../actions';
-import Table, { TableLink } from '../Table';
+import Table from '../Table/Table';
+import TableLink from '../Table/TableLink';
 // import Heading from '../Heading';
 import { IconTrophy } from '../Icons';
-import Match from '../Match';
-import TabBar from '../TabBar';
+import Match from '../Match/Match';
+import TabBar from '../TabBar/TabBar';
 import { StyledTeamIconContainer } from '../Match/StyledMatch';
 import constants from '../constants';
-import { FromNowTooltip } from '../Visualizations';
+import FromNowTooltip from '../Visualizations/FromNowTooltip';
 import HeroImage from '../Visualizations/HeroImage';
-import Heading from '../Heading';
+import Heading from '../Heading/Heading';
 
 export const WinnerSpan = styled.span`
   display: inline-block;

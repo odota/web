@@ -39,7 +39,7 @@ import {
 } from './StyledMatch';
 import TargetsBreakdown from './TargetsBreakdown';
 import HeroImage from './../Visualizations/HeroImage';
-import ItemTooltip from '../ItemTooltip';
+import ItemTooltip from '../ItemTooltip/ItemTooltip';
 import config from '../../config';
 import { items } from 'dotaconstants';
 

@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
 
 import constants from './components/constants';
-import { TableLink } from './components/Table';
+import TableLink from './components/Table/TableLink';
 import {
   FromNowTooltip,
   KDA,

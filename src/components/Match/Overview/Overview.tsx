@@ -5,9 +5,9 @@ import TeamTable from '../TeamTable';
 import AbilityDraftTable from '../AbilityDraftTable';
 import mcs from '../matchColumns';
 import BuildingMap from '../BuildingMap/BuildingMap';
-import Collapsible from './../../Collapsible/index';
+import Collapsible from '../../Collapsible/Collapsible';
 import AbilityBuildTable from '../AbilityBuildTable';
-import DeferredContainer from './../../DeferredContainer/index';
+import DeferredContainer from '../../DeferredContainer/DeferredContainer';
 import config from '../../../config';
 
 const Styled = styled.div`

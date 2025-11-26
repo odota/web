@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { nanoid } from 'nanoid';
 
-import TalentsTooltip from '../TalentsTooltip';
+import TalentsTooltip from '../TalentsTooltip/TalentsTooltip';
 import constants from '../constants';
 
 const Wrapper = styled.div`

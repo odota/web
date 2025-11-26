@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ActivityCalendar from './ActivityCalendar';
 import { getPlayerMatches } from '../../../../actions';
-import Container from '../../../Container';
+import Container from '../../../Container/Container';
 import useStrings from '../../../../hooks/useStrings.hook';
 
 const defaultOptions = {
@@ -70,4 +70,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerMatches(playerId, options)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export const ActivityPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

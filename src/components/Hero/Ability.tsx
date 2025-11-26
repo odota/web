@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import ReactTooltip from 'react-tooltip';
 
 import constants from '../constants';
-import AbilityTooltip from '../AbilityTooltip';
+import AbilityTooltip from '../AbilityTooltip/AbilityTooltip';
 import config from '../../config';
 
 const Wrapper = styled.div`

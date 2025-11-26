@@ -1,22 +1,18 @@
 import React from 'react';
-import {
-  PeersPage,
-  OverviewPage,
-  MatchesPage,
-  HeroesPage,
-  ProsPage,
-  RankingsPage,
-  HistogramsPage,
-  RecordsPage,
-  CountsPage,
-  TrendsPage,
-  // MMRPage,
-  // ItemsPage,
-  WardmapPage,
-  WordcloudPage,
-  TotalsPage,
-  ActivityPage,
-} from './Pages';
+import { OverviewPage } from './Pages/Overview/Overview';
+import { ActivityPage } from './Pages/Activity/Activity';
+import { CountsPage } from './Pages/Counts/Counts';
+import { HeroesPage } from './Pages/Heroes/Heroes';
+import { HistogramsPage } from './Pages/Histograms/Histograms';
+import { MatchesPage } from './Pages/Matches/Matches';
+import { PeersPage } from './Pages/Peers/Peers';
+import { ProsPage } from './Pages/Pros/Pros';
+import { RankingsPage } from './Pages/Rankings/Rankings';
+import { RecordsPage } from './Pages/Records/Records';
+import { TotalsPage } from './Pages/Totals/Totals';
+import { TrendsPage } from './Pages/Trends/Trends';
+import { WardmapPage } from './Pages/Wardmap/Wardmap';
+import { WordcloudPage } from './Pages/Wordcloud/Wordcloud';
 
 const playerPages = (strings: Strings) => [
   {

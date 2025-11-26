@@ -1,7 +1,7 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
 import h337 from '@mars3d/heatmap.js';
-import DotaMap from '../DotaMap';
+import DotaMap from '../DotaMap/DotaMap';
 
 type PointArray = { x: number; y: number; value: number }[];
 /**

@@ -1,6 +1,6 @@
 import React from 'react';
-import Container from '../Container';
-import Table from '../Table';
+import Container from '../Container/Container';
+import Table from '../Table/Table';
 import { matchColumns, memberColumns, heroColumns } from './teamDataColumns';
 import { Row, MatchesContainer, MemberAndHeroContainer } from './TeamStyled';
 

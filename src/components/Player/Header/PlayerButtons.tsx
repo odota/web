@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import styled from 'styled-components';
 import { toggleShowForm as toggleShowFormAction } from '../../../actions/formActions';
-import GamemodeToggle from '../../../components/GamemodeToggle';
+import GamemodeToggle from '../../GamemodeToggle/GamemodeToggle';
 import config from '../../../config';
 
 const Styled = styled.div`

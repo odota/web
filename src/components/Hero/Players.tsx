@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getHeroPlayers } from '../../actions';
-import Table, { TableLink } from '../Table';
+import Table from '../Table/Table';
+import TableLink from '../Table/TableLink';
 import PlayersSkeleton from '../Skeletons/PlayersSkeleton';
 import { wilsonScore } from '../../utility';
 import { proPlayersSelector } from '../../reducers/selectors';

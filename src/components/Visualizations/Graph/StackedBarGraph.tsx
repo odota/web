@@ -8,7 +8,7 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from 'recharts';
-import Heading from '../../Heading';
+import Heading from '../../Heading/Heading';
 import constants from '../../constants';
 import { StyledHolder } from './Styled';
 import useStrings from '../../../hooks/useStrings.hook';

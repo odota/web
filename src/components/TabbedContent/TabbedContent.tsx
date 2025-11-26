@@ -1,5 +1,5 @@
 import React from 'react';
-import TabBar from '../TabBar';
+import TabBar from '../TabBar/TabBar';
 import TableSkeleton from '../Skeletons/TableSkeleton';
 
 class RenderContent extends React.Component<{

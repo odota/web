@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { getPlayerHistograms } from '../../../../actions';
-import ButtonGarden from '../../../ButtonGarden';
-import Container from '../../../Container';
-import Heading from '../../../Heading';
+import ButtonGarden from '../../../ButtonGarden/ButtonGarden';
+import Container from '../../../Container/Container';
+import Heading from '../../../Heading/Heading';
 import { HistogramGraph } from '../../../Visualizations';
 import dataColumns from '../matchDataColumns';
 import { formatGraphValueData } from '../../../../utility';
@@ -133,6 +133,6 @@ const mapStateToProps = (
   error: state.app.playerHistograms.error,
 });
 
-export default withRouter(
+export const HistogramsPage = withRouter(
   connect(mapStateToProps, { getPlayerHistograms })(RequestLayer),
 );

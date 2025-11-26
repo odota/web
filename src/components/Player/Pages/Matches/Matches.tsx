@@ -2,8 +2,8 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { getPlayerMatches } from '../../../../actions';
-import Table from '../../../Table';
-import Container from '../../../Container';
+import Table from '../../../Table/Table';
+import Container from '../../../Container/Container';
 import playerMatchesColumns from './playerMatchesColumns';
 import useStrings from '../../../../hooks/useStrings.hook';
 
@@ -70,4 +70,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerMatches(playerId, options)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export const MatchesPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

@@ -4,7 +4,7 @@ import { heroes } from 'dotaconstants';
 import styled from 'styled-components';
 import { formatSeconds, isRadiant, jsonFn, getTeamName } from '../../utility';
 import { IconBloodDrop, IconRoshan, IconBattle } from '../Icons';
-import PlayerThumb from './PlayerThumb';
+import PlayerThumb from './PlayerThumb/PlayerThumb';
 import constants from '../constants';
 import config from '../../config';
 import useStrings from '../../hooks/useStrings.hook';

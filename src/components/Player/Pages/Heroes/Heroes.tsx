@@ -2,8 +2,8 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { getPlayerHeroes } from '../../../../actions';
-import Table from '../../../Table';
-import Container from '../../../Container';
+import Table from '../../../Table/Table';
+import Container from '../../../Container/Container';
 import { playerHeroesColumns } from './playerHeroesColumns';
 import useStrings from '../../../../hooks/useStrings.hook';
 
@@ -66,4 +66,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerHeroes(playerId, options)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export const HeroesPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

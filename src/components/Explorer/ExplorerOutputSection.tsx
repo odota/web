@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { displayHeroId, formatSeconds, IMAGESIZE_ENUM } from '../../utility';
-import Table from '../Table';
+import Table from '../Table/Table';
 import { IconRadiant, IconDire, IconTrophy } from '../Icons';
 import { TablePercent, inflictorWithValue } from '../Visualizations';
 // import redrawGraphs from './redrawGraphs';
 import constants from '../constants';
 import { StyledTeamIconContainer } from '../Match/StyledMatch';
 import HeroImage from './../Visualizations/HeroImage';
-import { WinnerSpan } from '../Matches';
+import { WinnerSpan } from '../Matches/Matches';
 import { items } from 'dotaconstants';
 
 /*

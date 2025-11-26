@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import Helmet from 'react-helmet';
 import querystring from 'querystring';
 import Papa from 'papaparse';
-import Heading from '../Heading';
+import Heading from '../Heading/Heading';
 import { getProPlayers, getLeagues, getTeams } from '../../actions';
 import queryTemplate from './queryTemplate';
 import ExplorerOutputButton from './ExplorerOutputButton';

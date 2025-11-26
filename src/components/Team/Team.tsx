@@ -8,7 +8,7 @@ import {
   getTeamPlayers,
 } from '../../actions';
 import Spinner from '../Spinner/Spinner';
-import TabBar from '../TabBar';
+import TabBar from '../TabBar/TabBar';
 import teamPages from './teamPages';
 import getTeamHeader from './TeamHeader';
 import { Column } from './TeamStyled';

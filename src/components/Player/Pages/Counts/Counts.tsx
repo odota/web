@@ -3,8 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { getPlayerCounts } from '../../../../actions';
-import Table from '../../../Table';
-import Container from '../../../Container';
+import Table from '../../../Table/Table';
+import Container from '../../../Container/Container';
 import playerCountsColumns from './playerCountsColumns';
 import useStrings from '../../../../hooks/useStrings.hook';
 
@@ -89,4 +89,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerCounts(playerId, options)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export const CountsPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

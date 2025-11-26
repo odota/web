@@ -6,7 +6,7 @@ import {
   subTextStyle,
   getTeamLogoUrl,
 } from '../../utility';
-import { TableLink } from '../Table';
+import TableLink from '../Table/TableLink';
 import constants from '../constants';
 import { TableRow, TableImage } from './TeamStyled';
 import proPlayerImages from './proPlayerImages';

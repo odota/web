@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { gameCoordToUV, getWardSize } from '../../../utility';
-import DotaMap from '../../DotaMap';
+import DotaMap from '../../DotaMap/DotaMap';
 import constants from '../../constants';
 
 const hoverMapStyle: React.CSSProperties = {

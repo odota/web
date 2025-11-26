@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { TrendGraph } from '../../../Visualizations';
 import { getPlayerTrends } from '../../../../actions';
-import ButtonGarden from '../../../ButtonGarden';
+import ButtonGarden from '../../../ButtonGarden/ButtonGarden';
 import trendNames from '../matchDataColumns';
-import Heading from '../../../Heading';
-import Container from '../../../Container';
+import Heading from '../../../Heading/Heading';
+import Container from '../../../Container/Container';
 import useStrings from '../../../../hooks/useStrings.hook';
 
 const Trend = ({
@@ -88,6 +88,6 @@ const mapStateToProps = (state: any) => ({
   error: state.app.playerTrends.error,
 });
 
-export default withRouter(
+export const TrendsPage = withRouter(
   connect(mapStateToProps, { getPlayerTrends })(RequestLayer),
 );

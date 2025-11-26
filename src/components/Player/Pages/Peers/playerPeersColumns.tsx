@@ -1,6 +1,6 @@
 import React from 'react';
 import { transformations } from '../../../../utility';
-import { TableLink } from '../../../Table';
+import TableLink from '../../../Table/TableLink';
 
 const avatarMatches = (playerId: string, strings: Strings) => [
   {

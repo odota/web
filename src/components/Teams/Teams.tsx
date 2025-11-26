@@ -8,9 +8,10 @@ import {
   fromNow,
 } from '../../utility';
 import { getTeams } from '../../actions';
-import Heading from '../Heading';
-import Team from '../Team';
-import Table, { TableLink } from '../Table';
+import Heading from '../Heading/Heading';
+import Team from '../Team/Team';
+import Table from '../Table/Table';
+import TableLink from '../Table/TableLink';
 import { Logo } from '../Team/TeamStyled';
 import useStrings from '../../hooks/useStrings.hook';
 

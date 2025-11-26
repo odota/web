@@ -11,9 +11,9 @@ import {
 import { IconRadiant, IconDire, IconDot } from '../../Icons';
 import TeamTable from '../TeamTable';
 import mcs from '../matchColumns';
-import PlayerThumb from '../PlayerThumb';
+import PlayerThumb from '../PlayerThumb/PlayerThumb';
 import Timeline from '../Timeline';
-import DotaMap from '../../DotaMap';
+import DotaMap from '../../DotaMap/DotaMap';
 import constants from '../../constants';
 import config from '../../../config';
 import useStrings from '../../../hooks/useStrings.hook';

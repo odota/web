@@ -9,8 +9,8 @@ import {
   getPlayerCounts,
   getPlayerMatches,
 } from '../../../../actions';
-import Table from '../../../Table';
-import Container from '../../../Container';
+import Table from '../../../Table/Table';
+import Container from '../../../Container/Container';
 import playerMatchesColumns from '../Matches/playerMatchesColumns';
 import { playerHeroesOverviewColumns } from '../Heroes/playerHeroesColumns';
 import { playerPeersOverviewColumns } from '../Peers/playerPeersColumns';
@@ -18,7 +18,7 @@ import SummOfRecMatches from './Summary';
 import constants from '../../../constants';
 import CountsSummary from './CountsSummary';
 import { formatTemplateToString } from '../../../../utility';
-import Collapsible from '../../../Collapsible';
+import Collapsible from '../../../Collapsible/Collapsible';
 import useStrings from '../../../../hooks/useStrings.hook';
 
 export const MAX_MATCHES_ROWS = 20;
@@ -411,4 +411,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerCounts(playerId, options)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export const OverviewPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

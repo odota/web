@@ -11,7 +11,7 @@ import querystring from 'querystring';
 import { connect } from 'react-redux';
 import HeroImage from '../Visualizations/HeroImage';
 import TableSkeleton from '../Skeletons/TableSkeleton';
-import Heading from '../Heading';
+import Heading from '../Heading/Heading';
 import ExplorerOutputSection from './../Explorer/ExplorerOutputSection';
 import getQueryString from './getQueryString';
 import {

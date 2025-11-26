@@ -1,5 +1,5 @@
 import React from 'react';
-import Heading from '../Heading';
+import Heading from '../Heading/Heading';
 import { IconButton } from '@mui/material';
 import MicIcon from '@mui/icons-material/Mic';
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { CardHeader } from '@mui/material';
-import Container from '../Container';
+import Container from '../Container/Container';
 import constants from '../constants';
 
 export const TeamStatsCard = styled(CardHeader)`

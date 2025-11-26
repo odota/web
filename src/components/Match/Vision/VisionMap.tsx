@@ -2,8 +2,8 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 import { gameCoordToUV, formatSeconds, getWardSize } from '../../../utility';
-import PlayerThumb from '../PlayerThumb';
-import DotaMap from '../../DotaMap';
+import PlayerThumb from '../PlayerThumb/PlayerThumb';
+import DotaMap from '../../DotaMap/DotaMap';
 import constants from '../../constants';
 import useStrings from '../../../hooks/useStrings.hook';
 

@@ -2,8 +2,8 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { getPlayerItems } from '../../../../actions';
-import Table from '../../../Table';
-import Container from '../../../Container';
+import Table from '../../../Table/Table';
+import Container from '../../../Container/Container';
 import playerItemsColumns from './playerItemsColumns';
 import useStrings from '../../../../hooks/useStrings.hook';
 
@@ -62,4 +62,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerItems(playerId, options)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export const ItemsPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

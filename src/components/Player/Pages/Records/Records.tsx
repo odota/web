@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getPlayerRecords } from '../../../../actions';
-import Table from '../../../Table';
-import Container from '../../../Container';
+import Table from '../../../Table/Table';
+import Container from '../../../Container/Container';
 import dataColumns from '../matchDataColumns';
-import ButtonGarden from '../../../ButtonGarden';
+import ButtonGarden from '../../../ButtonGarden/ButtonGarden';
 import playerRecordsColumns from './playerRecordsColumns';
 import useStrings from '../../../../hooks/useStrings.hook';
 
@@ -103,6 +103,6 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerRecords(playerId, options, subInfo)),
 });
 
-export default withRouter(
+export const RecordsPage = withRouter(
   connect(mapStateToProps, mapDispatchToProps)(RequestLayer),
 );

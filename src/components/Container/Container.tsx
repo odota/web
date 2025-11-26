@@ -1,5 +1,5 @@
 import React from 'react';
-import Heading from '../Heading';
+import Heading from '../Heading/Heading';
 import Error from '../Error/Error';
 import ContainerSkeleton from '../Skeletons/ContainerSkeleton';
 

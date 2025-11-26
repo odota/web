@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Table, { TableLink } from '../Table';
+import Table from '../Table/Table';
+import TableLink from '../Table/TableLink';
 import RecentSkeleton from '../Skeletons/RecentSkeleton';
 import ErrorBox from '../Error/ErrorBox';
 import { getHeroRecentGames } from '../../actions';

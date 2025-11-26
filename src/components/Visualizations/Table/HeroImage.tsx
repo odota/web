@@ -8,7 +8,7 @@ import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import SyncIcon from '@mui/icons-material/Sync';
 import styled from 'styled-components';
 import { subTextStyle, IMAGESIZE_ENUM } from '../../../utility';
-import { TableLink } from '../../Table';
+import TableLink from '../../Table/TableLink';
 import {
   IconDice,
   IconCrystalBall,

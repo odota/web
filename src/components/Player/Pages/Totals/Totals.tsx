@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import Card from './Card';
 import { getPlayerTotals } from '../../../../actions';
-import Container from '../../../Container';
+import Container from '../../../Container/Container';
 import useStrings from '../../../../hooks/useStrings.hook';
 
 const CardContainer = styled.div`
@@ -115,4 +115,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerTotals(playerId, options)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export const TotalsPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

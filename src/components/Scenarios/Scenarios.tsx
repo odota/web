@@ -12,9 +12,9 @@ import {
   getScenariosMisc,
   getScenariosLaneRoles,
 } from '../../actions/index';
-import Table from '../Table';
+import Table from '../Table/Table';
 import Error from '../Error/Error';
-import Heading from '../Heading';
+import Heading from '../Heading/Heading';
 import ScenariosSkeleton from '../Skeletons/ScenariosSkeleton';
 import { formatTemplateToString, groupByArray } from '../../utility';
 import { IconLaneRoles } from '../Icons';

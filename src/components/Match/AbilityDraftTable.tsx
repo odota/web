@@ -1,8 +1,8 @@
 import React from 'react';
 import { isRadiant, getTeamName } from '../../utility';
 import { IconRadiant, IconDire } from '../Icons';
-import Heading from '../Heading';
-import Table from '../Table';
+import Heading from '../Heading/Heading';
+import Table from '../Table/Table';
 
 const filterMatchPlayers = (players: MatchPlayer[], team = '') =>
   players

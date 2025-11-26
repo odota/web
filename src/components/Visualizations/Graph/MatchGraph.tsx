@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { heroes, player_colors as playerColors } from 'dotaconstants';
-import Heading from '../../Heading';
+import Heading from '../../Heading/Heading';
 import constants from '../../constants';
 import {
   StyledTooltip,

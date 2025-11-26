@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { isRadiant, getTeamName } from '../../utility';
-import Heading from '../Heading';
-import Table from '../Table';
+import Heading from '../Heading/Heading';
+import Table from '../Table/Table';
 import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
 
 const StyledDiv = styled.div`

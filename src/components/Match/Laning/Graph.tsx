@@ -13,7 +13,7 @@ import {
 } from 'recharts';
 
 import { getHeroIconUrlFromHeroKey } from '../../../utility';
-import Heading from '../../Heading';
+import Heading from '../../Heading/Heading';
 import {
   StyledCustomizedTooltip,
   StyledHolder,

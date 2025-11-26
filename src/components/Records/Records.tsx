@@ -8,11 +8,11 @@ import {
   displayHeroId,
 } from '../../utility';
 import { getRecords } from '../../actions';
-import Table from '../Table';
-import Heading from '../Heading';
+import Table from '../Table/Table';
+import Heading from '../Heading/Heading';
 // import { IconRadiant, IconDire, IconTrophy } from '../Icons';
-import Container from '../Container';
-import TabBar from '../TabBar';
+import Container from '../Container/Container';
+import TabBar from '../TabBar/TabBar';
 
 const matchesColumns = (field: string, strings: Strings) => [
   {

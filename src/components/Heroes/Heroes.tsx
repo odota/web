@@ -3,10 +3,10 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { heroes } from 'dotaconstants';
 import { getHeroStats, getProPlayers } from '../../actions';
-import Heading from '../Heading';
-import Table from '../Table';
-import TabBar from '../TabBar';
-import Hero from '../Hero';
+import Heading from '../Heading/Heading';
+import Table from '../Table/Table';
+import TabBar from '../TabBar/TabBar';
+import Hero from '../Hero/Hero';
 import { sum, abbreviateNumber } from '../../utility';
 import { HeroesTab, rankColumns } from './rankColumns';
 

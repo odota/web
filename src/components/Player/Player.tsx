@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { withRouter } from 'react-router-dom';
 import { getPlayer, getPlayerWinLoss } from '../../actions';
-import TabBar from '../TabBar';
+import TabBar from '../TabBar/TabBar';
 import Spinner from '../Spinner/Spinner';
 import TableFilterForm from './TableFilterForm';
 import PlayerHeader from './Header/PlayerHeader';

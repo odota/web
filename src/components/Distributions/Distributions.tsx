@@ -10,11 +10,11 @@ import {
   rankTierToString,
 } from '../../utility';
 import { getDistributions } from '../../actions';
-import Table from '../Table';
+import Table from '../Table/Table';
 // import Warning from '../Alerts/Warning';
-import TabBar from '../TabBar';
-import Heading from '../Heading';
-import { DistributionGraph } from '../Visualizations';
+import TabBar from '../TabBar/TabBar';
+import Heading from '../Heading/Heading';
+import DistributionGraph from '../Visualizations/Graph/DistributionGraph';
 import constants from '../constants';
 import DistributionsSkeleton from '../Skeletons/DistributionsSkeleton';
 import useStrings from '../../hooks/useStrings.hook';

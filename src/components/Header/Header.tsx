@@ -22,7 +22,7 @@ import config from '../../config';
 import AccountWidget from '../AccountWidget/AccountWidget';
 import AppLogo from '../App/AppLogo';
 import constants from '../constants';
-import LocalizationMenu from '../Localization';
+import LocalizationMenu from '../Localization/Localization';
 import SearchForm from '../Search/SearchForm';
 import useStrings from '../../hooks/useStrings.hook';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { threshold, formatSeconds } from '../../../utility';
-import Table from '../../Table';
-import Heading from '../../Heading';
+import Table from '../../Table/Table';
+import Heading from '../../Heading/Heading';
 import mcs from '../matchColumns';
 import constants from '../../constants';
 import LogHover from './LogHover';

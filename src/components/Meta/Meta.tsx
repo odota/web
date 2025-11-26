@@ -6,7 +6,7 @@ import querystring from 'querystring';
 import ExplorerOutputSection from '../Explorer/ExplorerOutputSection';
 import ExplorerControlSection from '../Explorer/ExplorerControlSection';
 import ExplorerFormField from '../Explorer/ExplorerFormField';
-import Heading from '../Heading';
+import Heading from '../Heading/Heading';
 import TableSkeleton from '../Skeletons/TableSkeleton';
 import queryTemplate from './queryTemplate';
 import getFields from './fields';

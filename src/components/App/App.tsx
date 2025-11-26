@@ -8,26 +8,26 @@ import Combos from '../Combos/Combos';
 import Api from '../Api/Api';
 import Subscription from '../Subscription/Subscription';
 import constants from '../constants';
-import Distributions from '../Distributions';
+import Distributions from '../Distributions/Distributions';
 import Footer from '../Footer/Footer';
 import FourOhFour from '../FourOhFour/FourOhFour';
 import Header from '../Header/Header';
-import Home from '../Home';
-import Matches from '../Matches';
-import Player from '../Player';
-import Records from '../Records';
+import Home from '../Home/Home';
+import Matches from '../Matches/Matches';
+import Player from '../Player/Player';
+import Records from '../Records/Records';
 import Request from '../Request/Request';
 import Scenarios from '../Scenarios/Scenarios';
 import Search from '../Search/Search';
-import Teams from '../Teams';
+import Teams from '../Teams/Teams';
 import config from '../../config';
 import Spinner from '../Spinner/Spinner';
 import Players from '../Players/Players';
-import Heroes from '../Heroes';
+import Heroes from '../Heroes/Heroes';
 import useStrings from '../../hooks/useStrings.hook';
 
 const Status = React.lazy(() => import('../Status/Status'));
-const Explorer = React.lazy(() => import('../Explorer'));
+const Explorer = React.lazy(() => import('../Explorer/Explorer'));
 
 const darkTheme = createTheme({
   palette: {

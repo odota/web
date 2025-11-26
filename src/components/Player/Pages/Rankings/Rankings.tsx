@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getPlayerRankings } from '../../../../actions';
-import Table from '../../../Table';
-import Container from '../../../Container';
+import Table from '../../../Table/Table';
+import Container from '../../../Container/Container';
 import playerRankingsColumns from './playerRankingsColumns';
 import useStrings from '../../../../hooks/useStrings.hook';
 
@@ -72,4 +72,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerRankings(playerId, options)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export const RankingsPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);

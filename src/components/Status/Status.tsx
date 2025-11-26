@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 import CountUp from 'react-countup';
 import { abbreviateNumber } from '../../utility';
-import Table from '../Table';
+import Table from '../Table/Table';
 import config from '../../config';
 import { LazyLog, ScrollFollow } from '@melloware/react-logviewer';
 import useStrings from '../../hooks/useStrings.hook';

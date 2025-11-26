@@ -1,6 +1,6 @@
 import React from 'react';
 import { displayHeroId } from '../../../../utility';
-import { TableLink } from '../../../Table';
+import TableLink from '../../../Table/TableLink';
 
 export const playerHeroesOverviewColumns = (
   playerId: string,
