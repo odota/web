@@ -14,6 +14,7 @@ import Table from '../Table/Table';
 import TableLink from '../Table/TableLink';
 import { Logo } from '../Team/TeamStyled';
 import useStrings from '../../hooks/useStrings.hook';
+import { Link } from 'react-router-dom';
 
 const TeamImageContainer = styled.div`
   display: flex;
@@ -38,18 +39,6 @@ interface TeamRow {
   rating: number;
   wins: number;
   losses: number;
-}
-
-interface Strings {
-  th_rank: string;
-  th_name: string;
-  th_rating: string;
-  th_wins: string;
-  th_losses: string;
-  header_teams: string;
-  app_rivalry: string;
-  heading_team_elo_rankings: string;
-  subheading_team_elo_rankings: string;
 }
 
 interface Props {
@@ -105,6 +94,20 @@ const columns = (strings: Strings) => [
     field: 'losses',
     sortFn: true,
     relativeBars: true,
+  },
+  {
+    displayName: strings.th_last_played,
+    field: 'match_id',
+    displayFn: (row: any, col: number, field: any) => (
+      <>
+        <Link to={'/matches/' + row.match_id}>{row.match_id}</Link>
+        {row.delta && (
+          <span
+            style={{ color: row.delta > 0 ? 'green' : 'red' }}
+          >{` (${row.delta > 0 ? '+' : '-'}${row.delta.toFixed(1)})`}</span>
+        )}
+      </>
+    ),
   },
 ];
 

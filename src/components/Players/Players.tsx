@@ -48,7 +48,7 @@ const columns = (strings: Strings) => [
     displayFn: (row: any, col: number, field: any) => Math.floor(field),
   },
   {
-    displayName: strings.th_result,
+    displayName: strings.th_last_played,
     field: 'match_id',
     displayFn: (row: any, col: number, field: any) => (
       <>
