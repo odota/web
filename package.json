@@ -55,7 +55,7 @@
     "redux": "^4.0.5",
     "redux-responsive": "^4.3.8",
     "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0",
+    "reselect": "^5.1.1",
     "styled-components": "^4.4.1",
     "virtua": "^0.47.1",
     "wordcloud": "^1.1.1"
