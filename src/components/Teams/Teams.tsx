@@ -104,7 +104,7 @@ const columns = (strings: Strings) => [
         {row.delta && (
           <span
             style={{ color: row.delta > 0 ? 'green' : 'red' }}
-          >{` (${row.delta > 0 ? '+' : '-'}${row.delta.toFixed(1)})`}</span>
+          >{` (${row.delta > 0 ? '+' : ''}${row.delta.toFixed(1)})`}</span>
         )}
       </>
     ),
