@@ -54,7 +54,7 @@
     "recharts": "^2.15.4",
     "redux": "^4.2.1",
     "redux-responsive": "^4.3.8",
-    "redux-thunk": "^2.3.0",
+    "redux-thunk": "^2.4.2",
     "reselect": "^4.0.0",
     "styled-components": "^4.4.1",
     "virtua": "^0.47.1",
