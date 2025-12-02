@@ -58,7 +58,7 @@
     "reselect": "^4.0.0",
     "styled-components": "^4.4.1",
     "virtua": "^0.47.1",
-    "wordcloud": "^1.1.1"
+    "wordcloud": "^1.2.3"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
@@ -70,7 +70,7 @@
     "@types/react-tooltip": "3.9.3",
     "@types/react-transition-group": "^2.9.2",
     "@types/styled-components": "4.0.3",
-    "@types/wordcloud": "^1.1.1",
+    "@types/wordcloud": "^1.2.2",
     "sanitize-filename-ts": "^1.0.2",
     "testcafe": "^3.7.2",
     "testcafe-react-selectors": "^5.0.3",
