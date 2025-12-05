@@ -30,7 +30,7 @@
     "@mui/material": "^7.3.4",
     "@stripe/stripe-js": "^1.32.0",
     "abcolor": "^0.5.5",
-    "ace-builds": "^1.43.4",
+    "ace-builds": "^1.43.5",
     "air-datepicker": "^3.6.0",
     "dota2-emoticons": "^1.0.4",
     "dotaconstants": "^10.6.0",
