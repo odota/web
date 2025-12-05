@@ -28,7 +28,7 @@
     "@melloware/react-logviewer": "^6.3.4",
     "@mui/icons-material": "^7.3.5",
     "@mui/material": "^7.3.4",
-    "@stripe/stripe-js": "^1.32.0",
+    "@stripe/stripe-js": "^8.5.3",
     "abcolor": "^0.5.5",
     "ace-builds": "^1.43.5",
     "air-datepicker": "^3.6.0",
