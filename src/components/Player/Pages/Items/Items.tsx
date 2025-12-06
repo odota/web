@@ -32,7 +32,7 @@ const getData = (props: ItemsProps) => {
   props.getPlayerItems(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component<ItemsProps> {
+class ItemsPage extends React.Component<ItemsProps> {
   componentDidMount() {
     getData(this.props);
   }
@@ -62,4 +62,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerItems(playerId, options)),
 });
 
-export const ItemsPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(ItemsPage);

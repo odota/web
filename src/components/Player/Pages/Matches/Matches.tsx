@@ -36,7 +36,7 @@ const getData = (props: MatchesProps) => {
   props.getPlayerMatches(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component<MatchesProps> {
+class MatchesPage extends React.Component<MatchesProps> {
   componentDidMount() {
     getData(this.props);
   }
@@ -70,4 +70,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerMatches(playerId, options)),
 });
 
-export const MatchesPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(MatchesPage);

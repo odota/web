@@ -1,18 +1,19 @@
 import React from 'react';
-import { OverviewPage } from './Pages/Overview/Overview';
-import { ActivityPage } from './Pages/Activity/Activity';
-import { CountsPage } from './Pages/Counts/Counts';
-import { HeroesPage } from './Pages/Heroes/Heroes';
-import { HistogramsPage } from './Pages/Histograms/Histograms';
-import { MatchesPage } from './Pages/Matches/Matches';
-import { PeersPage } from './Pages/Peers/Peers';
-import { ProsPage } from './Pages/Pros/Pros';
-import { RankingsPage } from './Pages/Rankings/Rankings';
-import { RecordsPage } from './Pages/Records/Records';
-import { TotalsPage } from './Pages/Totals/Totals';
-import { TrendsPage } from './Pages/Trends/Trends';
-import { WardmapPage } from './Pages/Wardmap/Wardmap';
-import { WordcloudPage } from './Pages/Wordcloud/Wordcloud';
+import OverviewPage from './Pages/Overview/Overview';
+import ActivityPage from './Pages/Activity/Activity';
+import CountsPage from './Pages/Counts/Counts';
+import HeroesPage from './Pages/Heroes/Heroes';
+import HistogramsPage from './Pages/Histograms/Histograms';
+import MatchesPage from './Pages/Matches/Matches';
+import PeersPage from './Pages/Peers/Peers';
+import ProsPage from './Pages/Pros/Pros';
+import RankingsPage from './Pages/Rankings/Rankings';
+import RecordsPage from './Pages/Records/Records';
+import TotalsPage from './Pages/Totals/Totals';
+import TrendsPage from './Pages/Trends/Trends';
+import WardmapPage from './Pages/Wardmap/Wardmap';
+import WordcloudPage from './Pages/Wordcloud/Wordcloud';
+import MMRPage from './Pages/MMR/MMR';
 
 const playerPages = (strings: Strings) => [
   {
@@ -107,16 +108,13 @@ const playerPages = (strings: Strings) => [
       <WordcloudPage playerId={playerId} location={location} />
     ),
   },
-  // {
-  //   name: strings.tab_mmr,
-  //   key: 'mmr',
-  //   content: (playerId: string, routeParams: any, location: any) => (
-  //     <MMRPage
-  //       playerId={playerId}
-  //       location={location}
-  //     />
-  //   ),
-  // },
+  {
+    name: strings.tab_mmr,
+    key: 'medals',
+    content: (playerId: string, routeParams: any, location: any) => (
+      <MMRPage playerId={playerId} location={location} />
+    ),
+  },
   {
     name: strings.tab_rankings,
     key: 'rankings',

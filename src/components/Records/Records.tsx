@@ -89,7 +89,7 @@ type RecordsProps = {
   loading: boolean;
 };
 
-class RequestLayer extends React.Component<RecordsProps> {
+class RecordsPage extends React.Component<RecordsProps> {
   componentDidMount() {
     getData(this.props);
   }
@@ -131,4 +131,4 @@ const mapDispatchToProps = (dispatch: any) => ({
   dispatchRecords: (info: string) => dispatch(getRecords(info)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(RecordsPage);

@@ -63,7 +63,7 @@ type TrendsProps = {
   trendName: string;
 } & RouterProps;
 
-class RequestLayer extends React.Component<TrendsProps> {
+class TrendsPage extends React.Component<TrendsProps> {
   componentDidMount() {
     getData(this.props);
   }
@@ -88,6 +88,6 @@ const mapStateToProps = (state: any) => ({
   error: state.app.playerTrends.error,
 });
 
-export const TrendsPage = withRouter(
-  connect(mapStateToProps, { getPlayerTrends })(RequestLayer),
+export default withRouter(
+  connect(mapStateToProps, { getPlayerTrends })(TrendsPage),
 );

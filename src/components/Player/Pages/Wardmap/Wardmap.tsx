@@ -51,7 +51,7 @@ type WardmapProps = {
   getPlayerWardmap: Function;
 };
 
-class RequestLayer extends React.Component<WardmapProps, { clicked?: string }> {
+class WardmapPage extends React.Component<WardmapProps, { clicked?: string }> {
   state = {
     clicked: undefined,
   };
@@ -146,4 +146,4 @@ const mapDispatchToProps = (dispatch: any) => ({
   updateWindowSize: () => dispatch(calculateResponsiveState(window)),
 });
 
-export const WardmapPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(WardmapPage);

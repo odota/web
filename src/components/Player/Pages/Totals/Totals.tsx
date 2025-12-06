@@ -85,7 +85,7 @@ const getData = (props: TotalsProps) => {
   props.getPlayerTotals(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component<TotalsProps> {
+class TotalsPage extends React.Component<TotalsProps> {
   componentDidMount() {
     getData(this.props);
   }
@@ -115,4 +115,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerTotals(playerId, options)),
 });
 
-export const TotalsPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(TotalsPage);

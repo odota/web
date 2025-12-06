@@ -24,7 +24,7 @@ type HeroesProps = {
   strings: Strings;
 };
 
-class RequestLayer extends React.Component<HeroesProps> {
+class HeroesPage extends React.Component<HeroesProps> {
   componentDidMount() {
     this.props.dispatchHeroStats();
     this.props.onGetProPlayers();
@@ -222,4 +222,4 @@ const mapDispatchToProps = {
   onGetProPlayers: getProPlayers,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(HeroesPage);

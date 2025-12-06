@@ -21,7 +21,7 @@ const getData = (props: Props) => {
   props.getPlayerWordcloud(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component<Props> {
+class WordcloudPage extends React.Component<Props> {
   componentDidMount() {
     getData(this.props);
   }
@@ -70,4 +70,4 @@ const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(getPlayerWordcloud(playerId, options)),
 });
 
-export const WordcloudPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(WordcloudPage);

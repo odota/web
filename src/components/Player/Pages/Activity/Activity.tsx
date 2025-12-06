@@ -40,7 +40,7 @@ type ActivityProps = {
   data: any[];
 };
 
-class RequestLayer extends React.Component<ActivityProps> {
+class ActivityPage extends React.Component<ActivityProps> {
   componentDidMount() {
     getData(this.props);
   }
@@ -70,4 +70,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerMatches(playerId, options)),
 });
 
-export const ActivityPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityPage);

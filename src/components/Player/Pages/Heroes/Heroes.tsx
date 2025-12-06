@@ -36,7 +36,7 @@ const getData = (props: HeroesProps) => {
   props.getPlayerHeroes(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component<HeroesProps> {
+class HeroesPage extends React.Component<HeroesProps> {
   componentDidMount() {
     getData(this.props);
   }
@@ -66,4 +66,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerHeroes(playerId, options)),
 });
 
-export const HeroesPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(HeroesPage);

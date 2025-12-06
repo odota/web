@@ -42,7 +42,7 @@ const getData = (props: RankingsProps) => {
   props.getPlayerRankings(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component<RankingsProps> {
+class RankingsPage extends React.Component<RankingsProps> {
   componentDidMount() {
     getData(this.props);
   }
@@ -72,4 +72,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerRankings(playerId, options)),
 });
 
-export const RankingsPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(RankingsPage);

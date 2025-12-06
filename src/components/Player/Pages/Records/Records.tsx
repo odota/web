@@ -73,7 +73,7 @@ type RecordsProps = {
   loading: boolean;
 } & RouterProps;
 
-class RequestLayer extends React.Component<RecordsProps> {
+class RecordsPage extends React.Component<RecordsProps> {
   componentDidMount() {
     getData(this.props);
   }
@@ -103,6 +103,6 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerRecords(playerId, options, subInfo)),
 });
 
-export const RecordsPage = withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(RequestLayer),
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(RecordsPage),
 );

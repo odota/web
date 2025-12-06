@@ -104,7 +104,7 @@ type HistogramsProps = {
   histogramName: string;
 } & RouterProps;
 
-class RequestLayer extends React.Component<HistogramsProps> {
+class HistogramsPage extends React.Component<HistogramsProps> {
   componentDidMount() {
     getData(this.props);
   }
@@ -133,6 +133,6 @@ const mapStateToProps = (
   error: state.app.playerHistograms.error,
 });
 
-export const HistogramsPage = withRouter(
-  connect(mapStateToProps, { getPlayerHistograms })(RequestLayer),
+export default withRouter(
+  connect(mapStateToProps, { getPlayerHistograms })(HistogramsPage),
 );

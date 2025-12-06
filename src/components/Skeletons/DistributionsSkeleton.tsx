@@ -2,14 +2,7 @@ import React from 'react';
 import ContentLoader from 'react-content-loader';
 
 const DistributionsSkeleton = (props: any) => (
-  <ContentLoader
-    height={200}
-    width={500}
-    primaryColor="#666"
-    secondaryColor="#ecebeb"
-    animate
-    {...props}
-  >
+  <ContentLoader height={200} width={500} animate {...props}>
     <rect x="150" y="50" rx="5" ry="5" width="5" height="100" />
     <rect x="160" y="45" rx="5" ry="5" width="5" height="105" />
     <rect x="170" y="41" rx="5" ry="5" width="5" height="109" />

@@ -37,7 +37,7 @@ const getData = (props: PeersProps) => {
   props.getPlayerPeers(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component<PeersProps> {
+class PeersPage extends React.Component<PeersProps> {
   componentDidMount() {
     getData(this.props);
   }
@@ -66,4 +66,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerPeers(playerId, options)),
 });
 
-export const PeersPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(PeersPage);

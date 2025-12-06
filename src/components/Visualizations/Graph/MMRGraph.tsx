@@ -9,29 +9,22 @@ import {
   Legend,
   Label,
   ResponsiveContainer,
-  Brush,
 } from 'recharts';
 import styled from 'styled-components';
-import constants from '../../constants';
 import useStrings from '../../../hooks/useStrings.hook';
+import { rankTierToString } from '../../../utility';
 
 const StyledGraphArea = styled.div`
   user-select: none;
 `;
 
-const filterZeroValues = (column: any) => ({
-  ...column,
-  solo_competitive_rank: column.solo_competitive_rank || null,
-  competitive_rank: column.competitive_rank || null,
-});
-
 const formatXTick = (time: number) => {
   const date = new Date(time);
   return `${date.getFullYear()}/${date.getMonth() + 1}`;
 };
-const formatXTickDetailed = (time: number) => {
-  const date = new Date(time);
-  return `${date.toLocaleString()}`;
+
+const formatYTick = (rank: number) => {
+  return rankTierToString(rank).split(' ')[0];
 };
 
 const MMRGraph = ({ columns }: { columns: any[] }) => {
@@ -40,7 +33,7 @@ const MMRGraph = ({ columns }: { columns: any[] }) => {
     <StyledGraphArea>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart
-          data={columns.map(filterZeroValues)}
+          data={columns}
           margin={{
             top: 5,
             right: 30,
@@ -48,41 +41,35 @@ const MMRGraph = ({ columns }: { columns: any[] }) => {
             bottom: 5,
           }}
         >
-          <XAxis dataKey="time" interval={49} tickFormatter={formatXTick}>
-            <Label value={strings.th_time} position="insideTopRight" />
-          </XAxis>
-          <YAxis type="number" domain={['dataMin - 100', 'dataMax + 100']} />
+          <XAxis dataKey="time" tickFormatter={formatXTick} />
+          <YAxis
+            type="number"
+            domain={[10, 80]}
+            tickCount={8}
+            tickFormatter={formatYTick}
+          />
           <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
 
           <Tooltip
-            wrapperStyle={{
-              backgroundColor: constants.darkPrimaryColor,
-              border: 'none',
-            }}
-            labelFormatter={formatXTickDetailed}
+            labelStyle={{ color: 'black' }}
+            labelFormatter={(time: number) => new Date(time).toDateString()}
+            formatter={rankTierToString}
           />
           <Line
             dot={false}
-            dataKey="solo_competitive_rank"
+            dataKey="rank_tier"
             stroke="#66BBFF"
             strokeWidth={2}
-            name={strings.th_solo_mmr}
+            name={strings.th_rank}
           />
-          <Line
-            dot={false}
-            dataKey="competitive_rank"
-            stroke="#FF4C4C"
-            strokeWidth={2}
-            name={strings.th_party_mmr}
-          />
-          <Legend verticalAlign="top" />
-          <Brush
+          <Legend verticalAlign="bottom" />
+          {/* <Brush
             dataKey="time"
             height={40}
             stroke={constants.primaryLinkColor}
             fill={constants.darkPrimaryColor}
             tickFormatter={formatXTick}
-          />
+          /> */}
         </LineChart>
       </ResponsiveContainer>
     </StyledGraphArea>

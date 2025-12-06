@@ -209,7 +209,7 @@ type MatchesProps = {
   loading: boolean;
 };
 
-class RequestLayer extends React.Component<MatchesProps> {
+class Matches extends React.Component<MatchesProps> {
   componentDidMount() {
     getData(this.props);
   }
@@ -251,4 +251,4 @@ const mapDispatchToProps = (dispatch: any) => ({
   dispatchPublicMatches: (options: any) => dispatch(getPublicMatches(options)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(Matches);

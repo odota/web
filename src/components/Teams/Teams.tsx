@@ -2,11 +2,7 @@ import React, { useEffect } from 'react';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import {
-  getOrdinal,
-  getTeamLogoUrl,
-  fromNow,
-} from '../../utility';
+import { getOrdinal, getTeamLogoUrl, fromNow } from '../../utility';
 import { getTeams } from '../../actions';
 import Heading from '../Heading/Heading';
 import Team from '../Team/Team';

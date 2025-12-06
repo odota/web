@@ -20,7 +20,7 @@ type PlayerProps = {
   getPlayerWinLoss: Function;
 } & RouterProps;
 
-class RequestLayer extends React.Component<PlayerProps> {
+class Player extends React.Component<PlayerProps> {
   componentDidMount() {
     const { props } = this;
     const { playerId } = props.match.params;
@@ -105,6 +105,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerWinLoss(playerId, options)),
 });
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(RequestLayer),
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Player));

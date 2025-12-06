@@ -284,7 +284,7 @@ const getData = (props: OverviewProps) => {
   props.getPlayerCounts(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component<
+class OverviewPage extends React.Component<
   OverviewProps,
   { showTurboGames: boolean }
 > {
@@ -411,4 +411,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerCounts(playerId, options)),
 });
 
-export const OverviewPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(OverviewPage);

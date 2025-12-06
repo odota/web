@@ -25,7 +25,7 @@ type MatchProps = {
   beta: boolean;
 };
 
-class RequestLayer extends React.Component<MatchProps> {
+class MatchPage extends React.Component<MatchProps> {
   componentDidMount() {
     this.props.getMatch(this.props.matchId);
   }
@@ -83,4 +83,4 @@ const mapDispatchToProps = (dispatch: any) => ({
   getMatch: (matchId: string) => dispatch(getMatch(matchId)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(MatchPage);

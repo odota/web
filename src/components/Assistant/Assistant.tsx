@@ -189,14 +189,16 @@ class Assistant extends React.Component<
     };
   }
   componentDidMount() {
-    //@ts-expect-error
-    recognition = new (window.SpeechRecognition ||
+    recognition = new (
+      //@ts-expect-error
+      window.SpeechRecognition ||
       //@ts-expect-error
       window.webkitSpeechRecognition ||
       //@ts-expect-error
       window.mozSpeechRecognition ||
       //@ts-expect-error
-      window.msSpeechRecognition)();
+      window.msSpeechRecognition
+    )();
     recognition.lang = 'en-US';
     recognition.interimResults = false;
     recognition.maxAlternatives = 5;

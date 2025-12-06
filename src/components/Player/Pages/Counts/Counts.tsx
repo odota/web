@@ -59,7 +59,7 @@ const getData = (props: CountsProps) => {
   props.getPlayerCounts(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component<CountsProps> {
+class CountsPage extends React.Component<CountsProps> {
   componentDidMount() {
     getData(this.props);
   }
@@ -89,4 +89,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(getPlayerCounts(playerId, options)),
 });
 
-export const CountsPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(CountsPage);

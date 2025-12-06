@@ -36,7 +36,7 @@ const getData = (props: ProsProps) => {
   props.getPlayerPros(props.playerId, props.location.search);
 };
 
-class RequestLayer extends React.Component<ProsProps> {
+class ProsPage extends React.Component<ProsProps> {
   componentDidMount() {
     getData(this.props);
   }
@@ -66,4 +66,4 @@ const mapStateToProps = (state: any) => ({
   loading: state.app.playerPros.loading,
 });
 
-export const ProsPage = connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(ProsPage);

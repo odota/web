@@ -99,7 +99,7 @@ const Announce = ({
   );
 };
 
-class RequestLayer extends React.Component<
+class AnnounceWrapper extends React.Component<
   {
     error: string;
     getPulls: Function;
@@ -173,4 +173,4 @@ const mapDispatchToProps = (dispatch: any) => ({
   getPulls: (repo: string) => dispatch(getGithubPulls(repo)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RequestLayer);
+export default connect(mapStateToProps, mapDispatchToProps)(AnnounceWrapper);
