@@ -56,7 +56,7 @@ const MMRGraph = ({ columns }: { columns: any[] }) => {
             formatter={rankTierToString}
           />
           <Line
-            dot={false}
+            dot={true}
             dataKey="rank_tier"
             stroke="#66BBFF"
             strokeWidth={2}
