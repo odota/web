@@ -17,10 +17,6 @@
     "update:emoticons": "npm r dota2-emoticons && npm i dota2-emoticons && node dev/updateEmoticons.js",
     "prettier": "npx prettier --write ."
   },
-  "repository": {
-    "type": "git",
-    "url": "http://github.com/odota/web"
-  },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
@@ -77,6 +73,10 @@
     "typescript": "^5.9.3",
     "vdf-parser": "^1.2.1",
     "vite": "^7.2.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/odota/web"
   },
   "browserslist": [
     ">0.2%",
