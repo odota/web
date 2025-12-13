@@ -1,14 +1,14 @@
-import React from 'react';
-import Container from '../Container/Container';
-import Table from '../Table/Table';
-import Overview from './Overview';
-import { matchColumns, memberColumns, heroColumns } from './teamDataColumns';
+import React from "react";
+import Container from "../Container/Container";
+import Table from "../Table/Table";
+import Overview from "./Overview";
+import { matchColumns, memberColumns, heroColumns } from "./teamDataColumns";
 
 const teamPages = (strings: Strings) => [
   Overview(strings),
   {
     name: strings.tab_matches,
-    key: 'matches',
+    key: "matches",
     content: (generalData: any, matchData: any) => (
       <Container
         title={strings.heading_matches}
@@ -26,7 +26,7 @@ const teamPages = (strings: Strings) => [
   },
   {
     name: strings.tab_heroes,
-    key: 'heroes',
+    key: "heroes",
     content: (generalData: any, matchData: any, heroData: any) => (
       <Container
         title={strings.heading_heroes}
@@ -44,7 +44,7 @@ const teamPages = (strings: Strings) => [
   },
   {
     name: strings.tab_players,
-    key: 'players',
+    key: "players",
     content: (
       generalData: any,
       matchData: any,

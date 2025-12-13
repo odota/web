@@ -1,7 +1,7 @@
-import React from 'react';
-import Table from '../Table/Table';
-import { transformations, getOrdinal, rankTierToString } from '../../utility';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import Table from "../Table/Table";
+import { transformations, getOrdinal, rankTierToString } from "../../utility";
+import useStrings from "../../hooks/useStrings.hook";
 
 const RankingTable = ({ rankings }: { rankings: any[] }) => {
   const strings = useStrings();
@@ -20,7 +20,7 @@ const RankingTable = ({ rankings }: { rankings: any[] }) => {
     },
     {
       displayName: strings.th_score,
-      field: 'score',
+      field: "score",
       displayFn: (row: any) => parseFloat(row.score).toFixed(),
       relativeBars: true,
     },

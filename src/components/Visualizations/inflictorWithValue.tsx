@@ -1,24 +1,24 @@
-import React from 'react';
-import ReactTooltip from 'react-tooltip';
-import { nanoid } from 'nanoid';
-import styled from 'styled-components';
-import ItemTooltip from '../ItemTooltip/ItemTooltip';
-import constants from '../constants';
-import AbilityTooltip from '../AbilityTooltip/AbilityTooltip';
-import config from '../../config';
-import useStrings from '../../hooks/useStrings.hook';
-import { useAbilities } from '../../hooks/useAbilities.hook';
-import { ability_ids as abilityIds } from 'dotaconstants';
-import { items } from 'dotaconstants';
+import React from "react";
+import ReactTooltip from "react-tooltip";
+import { nanoid } from "nanoid";
+import styled from "styled-components";
+import ItemTooltip from "../ItemTooltip/ItemTooltip";
+import constants from "../constants";
+import AbilityTooltip from "../AbilityTooltip/AbilityTooltip";
+import config from "../../config";
+import useStrings from "../../hooks/useStrings.hook";
+import { useAbilities } from "../../hooks/useAbilities.hook";
+import { ability_ids as abilityIds } from "dotaconstants";
+import { items } from "dotaconstants";
 
 const getInflictorImage = (inflictor: string) => {
-  if (inflictor.includes('recipe')) {
-    return 'recipe';
+  if (inflictor.includes("recipe")) {
+    return "recipe";
   }
   return inflictor;
 };
 
-const customImageIcon = ['refresher_shard'];
+const customImageIcon = ["refresher_shard"];
 
 const StyledDiv = styled.div`
   min-height: 1px;
@@ -51,7 +51,7 @@ const StyledDiv = styled.div`
       text-align: center;
     }
 
-    &:matches([data-tip='true']) {
+    &:matches([data-tip="true"]) {
       & > img {
         transition: ${constants.normalTransition};
       }
@@ -205,15 +205,15 @@ class InflictorWithValue extends React.Component<Props> {
       const ttId = nanoid();
 
       if (ability) {
-        if (resolvedInflictor.includes('attribute_bonus')) {
-          image = '/assets/images/stats.png';
-        } else if (resolvedInflictor.includes('special_bonus')) {
-          image = '/assets/images/dota2/talent_tree.svg';
+        if (resolvedInflictor.includes("attribute_bonus")) {
+          image = "/assets/images/stats.png";
+        } else if (resolvedInflictor.includes("special_bonus")) {
+          image = "/assets/images/dota2/talent_tree.svg";
         } else if (
           [
-            'ability_lamp_use',
-            'ability_pluck_famango',
-            'twin_gate_portal_warp',
+            "ability_lamp_use",
+            "ability_pluck_famango",
+            "twin_gate_portal_warp",
           ].includes(resolvedInflictor)
         ) {
           image = `/assets/images/dota2/abilities/${resolvedInflictor}.png`;
@@ -237,38 +237,38 @@ class InflictorWithValue extends React.Component<Props> {
           />
         );
       } else {
-        image = '/assets/images/default_attack.png';
+        image = "/assets/images/default_attack.png";
       }
       if (ptooltip) {
         tooltip = ptooltip;
       }
 
-      const fallbackImage = '/assets/images/Dota2Logo.svg';
+      const fallbackImage = "/assets/images/Dota2Logo.svg";
 
       return (
         <StyledDiv>
           <div
-            className={`inflictorWithValue ${type ? `${type}` : ''}`}
+            className={`inflictorWithValue ${type ? `${type}` : ""}`}
             data-tip={tooltip && true}
             data-for={ttId}
             onMouseEnter={this.setShowTooltip}
           >
             {(!type ||
-              type === 'purchase' ||
-              type === 'backpack' ||
-              type === 'neutral') && (
+              type === "purchase" ||
+              type === "backpack" ||
+              type === "neutral") && (
               <img
                 src={imageError ? fallbackImage : image}
-                alt={imageError ? 'Dota 2 Logo' : ''}
+                alt={imageError ? "Dota 2 Logo" : ""}
                 height="27px"
                 style={{
-                  filter: imageError ? 'grayscale(60%)' : undefined,
+                  filter: imageError ? "grayscale(60%)" : undefined,
                 }}
-                width={ability || imageError ? '27px' : '37px'}
+                width={ability || imageError ? "27px" : "37px"}
                 onError={() => this.setImageError(true)}
               />
             )}
-            {type === 'buff' && (
+            {type === "buff" && (
               <div
                 className="buff"
                 style={{
@@ -277,11 +277,11 @@ class InflictorWithValue extends React.Component<Props> {
               />
             )}
             {!type && <div className="overlay">{value}</div>}
-            {type === 'buff' && (
+            {type === "buff" && (
               <div className="buffOverlay">{Number(value) > 0 && value}</div>
             )}
             {charges && <div className="chargeOverlay">{charges}</div>}
-            {type === 'backpack' && (
+            {type === "backpack" && (
               <div className="backpackOverlay">
                 <span>{value}</span>
               </div>

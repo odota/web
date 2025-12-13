@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import GaugeChart from './../../../Visualizations/GaugeChart';
-import constants from '../../../constants';
+import GaugeChart from "./../../../Visualizations/GaugeChart";
+import constants from "../../../constants";
 
 const Styled = styled.div`
   border: 1px solid rgb(0, 0, 0, 0.12);
@@ -18,7 +18,7 @@ const Styled = styled.div`
 
   @media only screen and (min-width: ${constants.appWidth}px) {
     .gauge-chart:nth-child(even)::after {
-      content: '';
+      content: "";
       width: 2px;
       height: 300px;
       position: absolute;

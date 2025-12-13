@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import Ability from './Ability';
-import Talents from './Talents';
-import AghanimUpgrades from './AghanimUpgrades';
-import { useAbilities } from '../../hooks/useAbilities.hook';
-import { useHeroAbilities } from '../../hooks/useHeroAbilities.hook';
+import React from "react";
+import styled from "styled-components";
+import Ability from "./Ability";
+import Talents from "./Talents";
+import AghanimUpgrades from "./AghanimUpgrades";
+import { useAbilities } from "../../hooks/useAbilities.hook";
+import { useHeroAbilities } from "../../hooks/useHeroAbilities.hook";
 
 const Wrapper = styled.div`
   align-items: center;
@@ -40,8 +40,8 @@ const Abilities = ({ hero }: any) => {
   const filterAbilities = (toFilterAbs: any[]) =>
     toFilterAbs.filter(
       (ability) =>
-        ability !== 'generic_hidden' &&
-        abilities[ability].behavior !== 'Hidden',
+        ability !== "generic_hidden" &&
+        abilities[ability].behavior !== "Hidden",
     );
   const mapAbilities = (toFilterAbs: any[]) =>
     toFilterAbs.map((ability, id) => ({ data: abilities[ability], key: id }));

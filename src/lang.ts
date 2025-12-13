@@ -1,7 +1,7 @@
 export const langs = [
   {
-    value: 'en-US',
-    native: 'English (US)',
+    value: "en-US",
+    native: "English (US)",
   } /* {
     value: 'bg-BG',
     native: 'български bǎlgarski',
@@ -57,16 +57,16 @@ export const langs = [
   //   native: 'Polski',
   // },
   {
-    value: 'pt-BR',
-    native: 'Português Brasileiro',
+    value: "pt-BR",
+    native: "Português Brasileiro",
   },
   // {
   //   value: 'ro-RO',
   //   native: 'Română',
   // },
   {
-    value: 'ru-RU',
-    native: 'Русский',
+    value: "ru-RU",
+    native: "Русский",
   } /* {
     value: 'sv-SE',
     native: 'Svenska',
@@ -85,8 +85,8 @@ export const langs = [
     value: 'vi-VN',
     native: 'Tiếng Việt',
   }, */ {
-    value: 'zh-CN',
-    native: '中文',
+    value: "zh-CN",
+    native: "中文",
   } /* {
     value: 'zh-TW',
     native: '中文 (繁體字)',

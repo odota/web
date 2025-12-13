@@ -1,8 +1,8 @@
-import React from 'react';
-import { Drawer, Menu, MenuItem, IconButton } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import styled from 'styled-components';
-import constants from '../constants';
+import React from "react";
+import { Drawer, Menu, MenuItem, IconButton } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import styled from "styled-components";
+import constants from "../constants";
 
 const StyledDrawer = styled(Drawer)`
   background-color: ${constants.defaultPrimaryColor} !important;
@@ -35,7 +35,7 @@ export default class BurgerMenu extends React.Component<BurgerMenuProps> {
           <Menu open={this.state.open}>
             {this.props.menuItems.map((item) => {
               const linkElement = React.cloneElement(item, {
-                style: { width: '100%', display: 'block' },
+                style: { width: "100%", display: "block" },
               });
               return (
                 <StyledMenuItem key={item.key} onClick={this.handleClose}>

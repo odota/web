@@ -1,7 +1,7 @@
-import React from 'react';
-import { heroes } from 'dotaconstants';
-import { IMAGESIZE_ENUM } from '../../utility';
-import config from '../../config';
+import React from "react";
+import { heroes } from "dotaconstants";
+import { IMAGESIZE_ENUM } from "../../utility";
+import config from "../../config";
 
 const HeroImage = ({
   id,

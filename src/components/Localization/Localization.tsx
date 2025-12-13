@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   List,
   ListItem,
@@ -6,20 +6,20 @@ import {
   ListItemButton,
   ListItemText,
   Collapse,
-} from '@mui/material';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import Translate from '@mui/icons-material/Translate';
-import { langs } from '../../lang';
-import constants from '../constants';
-import { useStrings } from '../../hooks/useStrings.hook';
+} from "@mui/material";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import Translate from "@mui/icons-material/Translate";
+import { langs } from "../../lang";
+import constants from "../constants";
+import { useStrings } from "../../hooks/useStrings.hook";
 
 const setLocalization = (
   event: any,
   key: string | null,
   payload: { value: any },
 ) => {
-  window.localStorage.setItem('localization', payload.value);
+  window.localStorage.setItem("localization", payload.value);
   window.location.reload();
 };
 
@@ -37,7 +37,7 @@ const LocalizationMenu = React.forwardRef(() => {
   );
 
   return (
-    <div style={{ minWidth: '200px' }}>
+    <div style={{ minWidth: "200px" }}>
       <ListItemButton onClick={handleOnClick}>
         <ListItemIcon>
           <Translate />
@@ -50,7 +50,7 @@ const LocalizationMenu = React.forwardRef(() => {
           in={open}
           timeout="auto"
           unmountOnExit
-          style={{ maxHeight: 300, overflow: 'auto' }}
+          style={{ maxHeight: 300, overflow: "auto" }}
         >
           <List component="div" disablePadding>
             {langs.map((lang) => (

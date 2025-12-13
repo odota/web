@@ -6,25 +6,25 @@ import {
   Menu,
   MenuItem,
   SwipeableDrawer,
-} from '@mui/material';
-import BugReport from '@mui/icons-material/BugReport';
-import MenuIcon from '@mui/icons-material/Menu';
-import Settings from '@mui/icons-material/Settings';
-import LogoutIcon from '@mui/icons-material/Logout';
-import SearchIcon from '@mui/icons-material/Search';
-import { Toolbar } from '@mui/material';
-import React, { useCallback, useEffect, useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+} from "@mui/material";
+import BugReport from "@mui/icons-material/BugReport";
+import MenuIcon from "@mui/icons-material/Menu";
+import Settings from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
+import SearchIcon from "@mui/icons-material/Search";
+import { Toolbar } from "@mui/material";
+import React, { useCallback, useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-import config from '../../config';
-import AccountWidget from '../AccountWidget/AccountWidget';
-import AppLogo from '../App/AppLogo';
-import constants from '../constants';
-import LocalizationMenu from '../Localization/Localization';
-import SearchForm from '../Search/SearchForm';
-import useStrings from '../../hooks/useStrings.hook';
+import config from "../../config";
+import AccountWidget from "../AccountWidget/AccountWidget";
+import AppLogo from "../App/AppLogo";
+import constants from "../constants";
+import LocalizationMenu from "../Localization/Localization";
+import SearchForm from "../Search/SearchForm";
+import useStrings from "../../hooks/useStrings.hook";
 
 const REPORT_BUG_PATH = `//github.com/${config.GITHUB_REPO}/issues`;
 
@@ -121,12 +121,12 @@ const LinkGroup = ({ navbarPages }: { navbarPages: any[] }) => (
         {Boolean(page.feature) && (
           <div
             style={{
-              position: 'absolute',
-              textTransform: 'uppercase',
-              fontSize: '10px',
-              top: '-10px',
-              right: '0',
-              color: 'lightblue',
+              position: "absolute",
+              textTransform: "uppercase",
+              fontSize: "10px",
+              top: "-10px",
+              right: "0",
+              color: "lightblue",
             }}
           >
             {page.feature}
@@ -204,7 +204,7 @@ const LogoGroup = ({
 
 const SearchGroup = () => (
   <VerticalAlignToolbar>
-    <SearchIcon style={{ marginRight: 6, opacity: '.6' }} />
+    <SearchIcon style={{ marginRight: 6, opacity: ".6" }} />
     <SearchForm />
   </VerticalAlignToolbar>
 );
@@ -261,28 +261,28 @@ const Header = ({
   const strings = useStrings();
 
   useEffect(() => {
-    import('../Announce/Announce').then((ann: any) => setAnnounce(ann.default));
+    import("../Announce/Announce").then((ann: any) => setAnnounce(ann.default));
   }, []);
 
   const navbarPages = [
     {
-      key: 'header_request',
-      to: '/request',
+      key: "header_request",
+      to: "/request",
       label: strings.header_request,
     },
     {
-      key: 'header_matches',
-      to: '/matches',
+      key: "header_matches",
+      to: "/matches",
       label: strings.header_matches,
     },
     {
-      key: 'header_heroes',
-      to: '/heroes',
+      key: "header_heroes",
+      to: "/heroes",
       label: strings.header_heroes,
     },
     {
-      key: 'header_teams',
-      to: '/teams',
+      key: "header_teams",
+      to: "/teams",
       label: strings.header_teams,
     },
     // {
@@ -291,38 +291,38 @@ const Header = ({
     //   label: strings.header_players,
     // },
     {
-      key: 'header_explorer',
-      to: '/explorer',
+      key: "header_explorer",
+      to: "/explorer",
       label: strings.header_explorer,
     },
     {
-      key: 'header_combos',
-      to: '/combos',
+      key: "header_combos",
+      to: "/combos",
       label: strings.combos,
     },
     {
-      key: 'header_distributions',
-      to: '/distributions',
+      key: "header_distributions",
+      to: "/distributions",
       label: strings.header_distributions,
     },
     {
-      key: 'header_records',
-      to: '/records',
+      key: "header_records",
+      to: "/records",
       label: strings.header_records,
     },
     {
-      key: 'header_scenarios',
-      to: '/scenarios',
+      key: "header_scenarios",
+      to: "/scenarios",
       label: strings.header_scenarios,
     },
     {
-      key: 'header_api',
-      to: '/api-keys',
+      key: "header_api",
+      to: "/api-keys",
       label: strings.header_api,
     },
     {
-      key: 'header_subscribe',
-      to: '/subscribe',
+      key: "header_subscribe",
+      to: "/subscribe",
       label: strings.header_subscribe,
     },
     // {
@@ -343,10 +343,10 @@ const Header = ({
         </VerticalAlignDiv>
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            width: '100%',
-            gap: '4px',
+            display: "flex",
+            justifyContent: "flex-end",
+            width: "100%",
+            gap: "4px",
           }}
         >
           {!disableSearch && <SearchGroup />}
@@ -410,7 +410,7 @@ const Header = ({
           </MenuContent>
         </SwipeableDrawer>
       </ToolbarHeader>
-      {location.pathname !== '/' && Announce && <Announce />}
+      {location.pathname !== "/" && Announce && <Announce />}
     </>
   );
 };

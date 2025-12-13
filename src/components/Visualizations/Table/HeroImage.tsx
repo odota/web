@@ -1,36 +1,36 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
-import { Tooltip } from '@mui/material';
-import DoneAllIcon from '@mui/icons-material/DoneAll';
-import { player_colors as playerColors } from 'dotaconstants';
-import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
-import SyncIcon from '@mui/icons-material/Sync';
-import styled from 'styled-components';
-import { subTextStyle, IMAGESIZE_ENUM } from '../../../utility';
-import TableLink from '../../Table/TableLink';
+import React from "react";
+import { connect } from "react-redux";
+import ReactTooltip from "react-tooltip";
+import { Tooltip } from "@mui/material";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+import { player_colors as playerColors } from "dotaconstants";
+import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
+import SyncIcon from "@mui/icons-material/Sync";
+import styled from "styled-components";
+import { subTextStyle, IMAGESIZE_ENUM } from "../../../utility";
+import TableLink from "../../Table/TableLink";
 import {
   IconDice,
   IconCrystalBall,
   IconCheckCircle,
   IconContributor,
-} from '../../Icons';
-import constants from '../../constants';
-import AttrStrength from '../../Icons/AttrStrength';
-import AttrIntelligent from '../../Icons/AttrIntelligent';
-import AttrAgility from '../../Icons/AttrAgility';
-import AttrUniversal from '../../Icons/AttrUniversal';
-import HeroImage from '../HeroImage';
-import HeroFacet from './HeroFacet';
-import useStrings from '../../../hooks/useStrings.hook';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
+} from "../../Icons";
+import constants from "../../constants";
+import AttrStrength from "../../Icons/AttrStrength";
+import AttrIntelligent from "../../Icons/AttrIntelligent";
+import AttrAgility from "../../Icons/AttrAgility";
+import AttrUniversal from "../../Icons/AttrUniversal";
+import HeroImage from "../HeroImage";
+import HeroFacet from "./HeroFacet";
+import useStrings from "../../../hooks/useStrings.hook";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
 
 // hero to use as background image in tooltip
 const backgroundMapping = {
-  str: '2', // Axe
-  agi: '47', // Viper
-  int: '10', // Morphling
-  all: '91', // Io
+  str: "2", // Axe
+  agi: "47", // Viper
+  int: "10", // Morphling
+  all: "91", // Io
 };
 
 const Styled = styled.div`
@@ -420,10 +420,10 @@ const Trim = styled.hr`
 `;
 
 const expand: React.CSSProperties = {
-  display: 'flex',
-  position: 'relative',
-  height: '100%',
-  left: '-10px',
+  display: "flex",
+  position: "relative",
+  height: "100%",
+  left: "-10px",
 };
 
 type TableHeroImageProps = {
@@ -506,7 +506,7 @@ class TableHeroImage extends React.Component<
         <HeroImageContainer>
           {parsed !== undefined && (
             <div
-              className={parsed ? 'parsed' : 'unparsed'}
+              className={parsed ? "parsed" : "unparsed"}
               data-hint={parsed && strings.tooltip_parsed}
             >
               <DoneAllIcon />
@@ -522,7 +522,7 @@ class TableHeroImage extends React.Component<
                   className="image"
                   data-tip={hero?.id === undefined && null}
                   data-for={heroName}
-                  style={{ marginRight: facet ? '12px' : '7px' }}
+                  style={{ marginRight: facet ? "12px" : "7px" }}
                   {...heroImageEventProps}
                 />
               ) : (
@@ -531,14 +531,14 @@ class TableHeroImage extends React.Component<
                   className="image"
                   data-tip={hero?.id === undefined && null}
                   data-for={heroName !== undefined && heroName}
-                  style={{ marginRight: facet ? '12px' : '7px' }}
+                  style={{ marginRight: facet ? "12px" : "7px" }}
                   heroImageEventProps={heroImageEventProps}
                 />
               )}
               {leaverStatus !== undefined && leaverStatus > 1 && (
                 <span
                   className="abandoned"
-                  style={{ right: facet ? '12px' : '7px' }}
+                  style={{ right: facet ? "12px" : "7px" }}
                   data-hint={
                     strings[`leaver_status_${leaverStatus}` as keyof Strings]
                   }
@@ -556,7 +556,7 @@ class TableHeroImage extends React.Component<
                       playerColors[
                         playerSlot as unknown as keyof typeof playerColors
                       ],
-                    right: facet ? '12px' : '7px',
+                    right: facet ? "12px" : "7px",
                   }}
                 />
               )}
@@ -631,7 +631,7 @@ class TableHeroImage extends React.Component<
                     )}
                     {predictedVictory && (
                       <Tooltip title={strings.general_predicted_victory}>
-                        <span style={{ marginLeft: '4px' }}>
+                        <span style={{ marginLeft: "4px" }}>
                           <IconCrystalBall fill="currentcolor" />
                         </span>
                       </Tooltip>
@@ -647,10 +647,10 @@ class TableHeroImage extends React.Component<
                 <HeroToolTip>
                   <div
                     style={{
-                      overflow: 'hidden',
-                      position: 'absolute',
-                      height: '100%',
-                      width: '100%',
+                      overflow: "hidden",
+                      position: "absolute",
+                      height: "100%",
+                      width: "100%",
                     }}
                   >
                     <HeroImage
@@ -661,12 +661,12 @@ class TableHeroImage extends React.Component<
                       }
                       imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
                       style={{
-                        position: 'absolute',
+                        position: "absolute",
                         top: 40,
                         left: -60,
                         opacity: 0.3,
-                        filter: 'blur(10px)',
-                        transform: 'scale(1.5)',
+                        filter: "blur(10px)",
+                        transform: "scale(1.5)",
                       }}
                     />
                   </div>
@@ -676,16 +676,16 @@ class TableHeroImage extends React.Component<
                         id={heroID}
                         imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix}
                       />
-                      {hero?.primary_attr === 'str' && (
+                      {hero?.primary_attr === "str" && (
                         <AttrStrength id="heroImg-attribute" />
                       )}
-                      {hero?.primary_attr === 'agi' && (
+                      {hero?.primary_attr === "agi" && (
                         <AttrAgility id="heroImg-attribute" />
                       )}
-                      {hero?.primary_attr === 'int' && (
+                      {hero?.primary_attr === "int" && (
                         <AttrIntelligent id="heroImg-attribute" />
                       )}
-                      {hero?.primary_attr === 'all' && (
+                      {hero?.primary_attr === "all" && (
                         <AttrUniversal id="heroImg-attribute" />
                       )}
                       <div className="health-mana">
@@ -700,15 +700,15 @@ class TableHeroImage extends React.Component<
                     <div className="header-stats">
                       <div id="hero-name">{hero?.localized_name}</div>
                       <div id="hero-roles">
-                        {hero?.attack_type} -{' '}
-                        {hero?.roles && hero?.roles.join(', ')}
+                        {hero?.attack_type} -{" "}
+                        {hero?.roles && hero?.roles.join(", ")}
                       </div>
                       <div className="attributes-container">
                         <div className="attributes">
                           <AttrStrength
                             id="str"
                             className="attribute-img"
-                            main={`${hero?.primary_attr === 'str'}`}
+                            main={`${hero?.primary_attr === "str"}`}
                           />
                           <div className="attribute-text">
                             {hero?.base_str} +{hero?.str_gain}
@@ -718,7 +718,7 @@ class TableHeroImage extends React.Component<
                           <AttrAgility
                             id="agi"
                             className="attribute-img"
-                            main={`${hero?.primary_attr === 'agi'}`}
+                            main={`${hero?.primary_attr === "agi"}`}
                           />
                           <div className="attribute-text">
                             {hero?.base_agi} +{hero?.agi_gain}
@@ -728,7 +728,7 @@ class TableHeroImage extends React.Component<
                           <AttrIntelligent
                             id="int"
                             className="attribute-img"
-                            main={`${hero?.primary_attr === 'int'}`}
+                            main={`${hero?.primary_attr === "int"}`}
                           />
                           <div className="attribute-text">
                             {hero?.base_int} +{hero?.int_gain}

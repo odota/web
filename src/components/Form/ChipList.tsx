@@ -1,5 +1,5 @@
-import React from 'react';
-import { Chip } from '@mui/material';
+import React from "react";
+import { Chip } from "@mui/material";
 
 const ChipList = ({
   chipList,
@@ -12,7 +12,7 @@ const ChipList = ({
   name: string;
   history: any;
 }) => (
-  <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+  <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
     {chipList.map((chip, index) => (
       <Chip
         size="small"

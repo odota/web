@@ -1,24 +1,24 @@
-import { heroes } from 'dotaconstants';
+import { heroes } from "dotaconstants";
 import {
   isRadiant,
   isSupport,
   getLevelFromXp,
   unpackPositionData,
-} from '../utility';
-import analyzeMatch from './analyzeMatch';
-import store from '../store';
-import { ability_ids as abilityIds } from 'dotaconstants';
+} from "../utility";
+import analyzeMatch from "./analyzeMatch";
+import store from "../store";
+import { ability_ids as abilityIds } from "dotaconstants";
 
 let expandedUnitNames: Record<string, string> | null = null;
 
 function generateExpandedUnitNames(strings: any) {
   const expanded: Record<string, string> = {};
   Object.keys(strings)
-    .filter((str) => str.indexOf('npc_dota_') === 0)
+    .filter((str) => str.indexOf("npc_dota_") === 0)
     .forEach((key) => {
       // Currently, no unit goes up higher than 4
       for (let i = 1; i < 5; i += 1) {
-        expanded[key.replace('#', String(i))] = strings[key];
+        expanded[key.replace("#", String(i))] = strings[key];
       }
     });
   return expanded;
@@ -147,12 +147,12 @@ function generateVisionLog(match: Match) {
         };
       });
     const observers = extractVisionLog(
-      'observer',
+      "observer",
       safePlayer.obs_log,
       safePlayer.obs_left_log,
     );
     const sentries = extractVisionLog(
-      'sentry',
+      "sentry",
       safePlayer.sen_log,
       safePlayer.sen_left_log,
     );
@@ -183,8 +183,8 @@ function transformMatch(m: any) {
       ...player,
       desc: [
         strings[`lane_role_${player.lane_role}` as keyof Strings],
-        isSupport(player) ? 'Support' : 'Core',
-      ].join('/'),
+        isSupport(player) ? "Support" : "Core",
+      ].join("/"),
       multi_kills_max: getMaxKeyOfObject(player.multi_kills),
       kill_streaks_max: getMaxKeyOfObject(player.kill_streaks),
       lh_ten: (player.lh_t || [])[10],
@@ -198,7 +198,7 @@ function transformMatch(m: any) {
 
     // filter interval data to only be >= 0
     if (player.times) {
-      const intervals = ['lh_t', 'gold_t', 'xp_t', 'times'];
+      const intervals = ["lh_t", "gold_t", "xp_t", "times"];
       intervals.forEach((key) => {
         newPlayer[key] = player[key].filter(
           (el: number, i: number) => player.times[i] >= 0,
@@ -224,20 +224,20 @@ function transformMatch(m: any) {
       newPlayer.objective_damage = {};
       Object.keys(player.damage).forEach((key) => {
         let identifier = null;
-        if (key.indexOf('tower') !== -1) {
-          identifier = key.split('_').slice(3).join('_');
+        if (key.indexOf("tower") !== -1) {
+          identifier = key.split("_").slice(3).join("_");
         }
-        if (key.indexOf('rax') !== -1) {
-          identifier = key.split('_').slice(4).join('_');
+        if (key.indexOf("rax") !== -1) {
+          identifier = key.split("_").slice(4).join("_");
         }
-        if (key.indexOf('roshan') !== -1) {
-          identifier = 'roshan';
+        if (key.indexOf("roshan") !== -1) {
+          identifier = "roshan";
         }
-        if (key.indexOf('fort') !== -1) {
-          identifier = 'fort';
+        if (key.indexOf("fort") !== -1) {
+          identifier = "fort";
         }
-        if (key.indexOf('healers') !== -1) {
-          identifier = 'shrine';
+        if (key.indexOf("healers") !== -1) {
+          identifier = "shrine";
         }
         if (identifier) {
           newPlayer.objective_damage[identifier] = newPlayer.objective_damage[
@@ -278,7 +278,7 @@ function transformMatch(m: any) {
     newPlayer.total_gold = (player.gold_per_min * m.duration) / 60;
     if (
       m.game_mode === 18 &&
-      Object.prototype.hasOwnProperty.call(player, 'ability_upgrades_arr')
+      Object.prototype.hasOwnProperty.call(player, "ability_upgrades_arr")
     ) {
       const arr: any[] = [];
       if (player.ability_upgrades_arr) {
@@ -287,7 +287,7 @@ function transformMatch(m: any) {
             if (
               !arr.includes(ability) &&
               abilityIds[ability] &&
-              abilityIds[ability].indexOf('special_bonus') === -1
+              abilityIds[ability].indexOf("special_bonus") === -1
             ) {
               arr.push(ability);
             }

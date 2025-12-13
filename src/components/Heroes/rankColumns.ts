@@ -1,7 +1,7 @@
-import { heroes } from 'dotaconstants';
-import constants from '../constants';
-import { abbreviateNumber, displayHeroId } from '../../utility';
-import React from 'react';
+import { heroes } from "dotaconstants";
+import constants from "../constants";
+import { abbreviateNumber, displayHeroId } from "../../utility";
+import React from "react";
 
 type Props = {
   tabType: HeroesTab;
@@ -9,9 +9,9 @@ type Props = {
 };
 
 export enum HeroesTab {
-  PRO = 'pro',
-  PUBLIC = 'public',
-  TURBO = 'turbo',
+  PRO = "pro",
+  PUBLIC = "public",
+  TURBO = "turbo",
 }
 
 type ProColumn = {
@@ -66,7 +66,7 @@ const generateTurboTabColumns = (strings: Strings) => {
     heroColumn,
     {
       displayName: strings.hero_turbo_pick_rate,
-      field: 'pickRateTurbo',
+      field: "pickRateTurbo",
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
@@ -75,7 +75,7 @@ const generateTurboTabColumns = (strings: Strings) => {
     },
     {
       displayName: strings.hero_turbo_win_rate,
-      field: 'winRateTurbo',
+      field: "winRateTurbo",
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
@@ -94,28 +94,28 @@ const generateProTabColumns = (strings: Strings) => {
     heroColumn,
     {
       displayName: strings.hero_pick_ban_rate,
-      field: 'pickBanRatePro',
+      field: "pickBanRatePro",
       sortFn: true,
       percentBarsWithValue: (row: Row) =>
         decimalToCount(row.pickBanRatePro, row.matchCountPro),
     },
     {
       displayName: strings.hero_pick_rate,
-      field: 'pickRatePro',
+      field: "pickRatePro",
       sortFn: true,
       percentBarsWithValue: (row: Row) =>
         decimalToCount(row.pickRatePro, row.matchCountPro),
     },
     {
       displayName: strings.hero_ban_rate,
-      field: 'banRatePro',
+      field: "banRatePro",
       sortFn: true,
       percentBarsWithValue: (row: Row) =>
         decimalToCount(row.banRatePro, row.matchCountPro),
     },
     {
       displayName: strings.hero_win_rate,
-      field: 'winRatePro',
+      field: "winRatePro",
       sortFn: true,
       percentBarsWithValue: (row: Row) =>
         decimalToCount(row.winRatePro, row.pro_pick),
@@ -129,7 +129,7 @@ const generateHeroColumn = (strings: Strings): HeroColumn => {
   return {
     displayName: strings.th_hero_id,
     tooltip: strings.tooltip_hero_id,
-    field: 'hero_id',
+    field: "hero_id",
     displayFn: displayHeroId,
     sortFn: (row: Row) => {
       return heroes[row.hero_id as keyof Heroes]?.localized_name;
@@ -150,7 +150,7 @@ const generatePublicTabColumns = (strings: Strings) => {
   const columns = [
     {
       displayName: `${strings.rank_tier_overall} ${strings.abbr_pick}%`,
-      field: 'pickRatePub',
+      field: "pickRatePub",
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
@@ -159,7 +159,7 @@ const generatePublicTabColumns = (strings: Strings) => {
     },
     {
       displayName: `${strings.rank_tier_overall} ${strings.abbr_win}%`,
-      field: 'winRatePub',
+      field: "winRatePub",
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
@@ -169,7 +169,7 @@ const generatePublicTabColumns = (strings: Strings) => {
     {
       displayName: `${strings.rank_tier_high} ${strings.abbr_pick}%`,
       displayIcon: getRankIcon(8),
-      field: 'pickRateHigh',
+      field: "pickRateHigh",
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
@@ -180,7 +180,7 @@ const generatePublicTabColumns = (strings: Strings) => {
     {
       displayName: `${strings.rank_tier_high} ${strings.abbr_win}%`,
       displayIcon: getRankIcon(8),
-      field: 'winRateHigh',
+      field: "winRateHigh",
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
@@ -191,7 +191,7 @@ const generatePublicTabColumns = (strings: Strings) => {
     {
       displayName: `${strings.rank_tier_mid} ${strings.abbr_pick}%`,
       displayIcon: getRankIcon(5),
-      field: 'pickRateMid',
+      field: "pickRateMid",
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
@@ -202,7 +202,7 @@ const generatePublicTabColumns = (strings: Strings) => {
     {
       displayName: `${strings.rank_tier_mid} ${strings.abbr_win}%`,
       displayIcon: getRankIcon(5),
-      field: 'winRateMid',
+      field: "winRateMid",
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
@@ -213,7 +213,7 @@ const generatePublicTabColumns = (strings: Strings) => {
     {
       displayName: `${strings.rank_tier_low} ${strings.abbr_pick}%`,
       displayIcon: getRankIcon(3),
-      field: 'pickRateLow',
+      field: "pickRateLow",
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),
@@ -224,7 +224,7 @@ const generatePublicTabColumns = (strings: Strings) => {
     {
       displayName: `${strings.rank_tier_low} ${strings.abbr_win}%`,
       displayIcon: getRankIcon(3),
-      field: 'winRateLow',
+      field: "winRateLow",
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
         (field * 100).toFixed(1),

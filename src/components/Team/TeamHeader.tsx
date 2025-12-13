@@ -1,5 +1,5 @@
-import React from 'react';
-import { formatTemplateToString, getTeamLogoUrl } from '../../utility';
+import React from "react";
+import { formatTemplateToString, getTeamLogoUrl } from "../../utility";
 import {
   HeaderContainer,
   Logo,
@@ -7,8 +7,8 @@ import {
   TeamName,
   Row,
   TeamStatsCard,
-} from './TeamStyled';
-import config from '../../config';
+} from "./TeamStyled";
+import config from "../../config";
 
 export default (generalData: any, strings: Strings) => (
   <HeaderContainer loading={generalData.loading} error={generalData.error}>

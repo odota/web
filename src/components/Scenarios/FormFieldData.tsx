@@ -1,5 +1,5 @@
-import { heroes, items } from 'dotaconstants';
-import { getTimeRange } from './ScenariosColumns';
+import { heroes, items } from "dotaconstants";
+import { getTimeRange } from "./ScenariosColumns";
 
 export default function getFormFieldData(metadata: any, strings: Strings) {
   const { teamScenariosQueryParams, itemCost, gameDurationBucket, timings } =
@@ -18,7 +18,7 @@ export default function getFormFieldData(metadata: any, strings: Strings) {
       .filter(
         (item) =>
           (items[item as keyof Items]?.cost ?? 0) >= itemCost &&
-          !item.startsWith('recipe_'),
+          !item.startsWith("recipe_"),
       )
       .map((item) => ({
         //@ts-expect-error

@@ -1,10 +1,10 @@
-import React from 'react';
-import { player_colors as playerColors } from 'dotaconstants';
-import { heroes } from 'dotaconstants';
-import styled from 'styled-components';
-import constants from '../../constants';
-import config from '../../../config';
-import useStrings from '../../../hooks/useStrings.hook';
+import React from "react";
+import { player_colors as playerColors } from "dotaconstants";
+import { heroes } from "dotaconstants";
+import styled from "styled-components";
+import constants from "../../constants";
+import config from "../../../config";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const StyledAside = styled.aside`
   display: flex;
@@ -39,7 +39,7 @@ const PlayerThumb = (props: {
         src={
           heroes[heroId as keyof Heroes]
             ? `${config.VITE_IMAGE_CDN}${heroes[heroId as keyof Heroes].icon}`
-            : '/assets/images/blank-1x1.gif'
+            : "/assets/images/blank-1x1.gif"
         }
         alt=""
       />

@@ -1,8 +1,8 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import styled from 'styled-components';
-import constants from '../constants';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import Helmet from "react-helmet";
+import styled from "styled-components";
+import constants from "../constants";
+import useStrings from "../../hooks/useStrings.hook";
 
 const Styled = styled.div`
   .container {
@@ -26,7 +26,7 @@ const Styled = styled.div`
     color: var(--textColorSecondary);
     text-transform: uppercase;
     padding: 6px 10px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     font-weight: bold;
     margin: 30px auto 0;
     opacity: 0.6;
@@ -37,7 +37,7 @@ const Styled = styled.div`
   }
 `;
 
-const imageList = ['sad', 'bawl', 'charm-cry'];
+const imageList = ["sad", "bawl", "charm-cry"];
 
 const randomImage = imageList[Math.floor(Math.random() * imageList.length)];
 

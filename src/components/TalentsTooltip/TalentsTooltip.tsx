@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import ReactTooltip from 'react-tooltip';
+import React from "react";
+import styled from "styled-components";
+import ReactTooltip from "react-tooltip";
 
-import LevelGroup from './LevelGroup';
+import LevelGroup from "./LevelGroup";
 
 const Wrapper = styled.div`
   .__react_component_tooltip {
@@ -25,7 +25,7 @@ const Background = styled.div`
   bottom: 0px;
   height: 100%;
   width: 100%;
-  background-image: url('/assets/images/dota2/talent_tree.svg');
+  background-image: url("/assets/images/dota2/talent_tree.svg");
   background-repeat: no-repeat;
   background-position: center;
   opacity: 0.08;

@@ -1,7 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Autocomplete, TextField } from '@mui/material';
-import getFormFieldData from './FormFieldData';
+import React from "react";
+import { connect } from "react-redux";
+import { Autocomplete, TextField } from "@mui/material";
+import getFormFieldData from "./FormFieldData";
 
 const hintTexts = (strings: Strings) => ({
   itemTimings: {
@@ -20,11 +20,11 @@ const hintTexts = (strings: Strings) => ({
 });
 
 const customStyles = {
-  scenario: { width: '450px' },
+  scenario: { width: "450px" },
 };
 
 type ScenariosFormFieldProps = {
-  field: 'hero_id' | 'item' | 'time' | 'lane_role' | 'scenario';
+  field: "hero_id" | "item" | "time" | "lane_role" | "scenario";
   formFieldState: any;
   metadata: any;
   updateFormFieldState: Function;
@@ -105,7 +105,7 @@ class ScenarioFormField extends React.Component<
     }));
     return (
       <Autocomplete
-        sx={{ width: '300px' }}
+        sx={{ width: "300px" }}
         openOnFocus
         renderInput={(params) => <TextField {...params} label={label} />}
         options={options}

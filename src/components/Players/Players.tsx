@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import Helmet from 'react-helmet';
-import { connect } from 'react-redux';
-import { getOrdinal, transformations } from '../../utility';
-import { getPlayers, getPlayersTurbo } from '../../actions';
-import Heading from '../Heading/Heading';
-import Table from '../Table/Table';
-import { RankTierMedal } from '../Player/Header/PlayerHeader';
-import { Link } from 'react-router-dom';
-import useStrings from '../../hooks/useStrings.hook';
+import React, { useEffect } from "react";
+import Helmet from "react-helmet";
+import { connect } from "react-redux";
+import { getOrdinal, transformations } from "../../utility";
+import { getPlayers, getPlayersTurbo } from "../../actions";
+import Heading from "../Heading/Heading";
+import Table from "../Table/Table";
+import { RankTierMedal } from "../Player/Header/PlayerHeader";
+import { Link } from "react-router-dom";
+import useStrings from "../../hooks/useStrings.hook";
 
 const columns = (strings: Strings) => [
   {
@@ -17,7 +17,7 @@ const columns = (strings: Strings) => [
   },
   {
     displayName: strings.th_avatar,
-    field: 'personaname',
+    field: "personaname",
     displayFn: (row: any) =>
       transformations.player({
         ...row,
@@ -27,7 +27,7 @@ const columns = (strings: Strings) => [
   },
   {
     displayName: strings.th_rank,
-    field: 'rank_tier',
+    field: "rank_tier",
     sortFn: true,
     displayFn: (row: any, col: number, field: any) => (
       <div style={{ zoom: 0.5 }}>
@@ -42,21 +42,21 @@ const columns = (strings: Strings) => [
   },
   {
     displayName: strings.th_rating,
-    field: 'computed_mmr',
+    field: "computed_mmr",
     sortFn: true,
     relativeBars: true,
     displayFn: (row: any, col: number, field: any) => Math.floor(field),
   },
   {
     displayName: strings.th_last_played,
-    field: 'match_id',
+    field: "match_id",
     displayFn: (row: any, col: number, field: any) => (
       <>
-        <Link to={'/matches/' + row.match_id}>{row.match_id}</Link>
+        <Link to={"/matches/" + row.match_id}>{row.match_id}</Link>
         {row.delta && (
           <span
-            style={{ color: row.delta > 0 ? 'green' : 'red' }}
-          >{` (${row.delta > 0 ? '+' : ''}${row.delta.toFixed(1)})`}</span>
+            style={{ color: row.delta > 0 ? "green" : "red" }}
+          >{` (${row.delta > 0 ? "+" : ""}${row.delta.toFixed(1)})`}</span>
         )}
       </>
     ),
@@ -83,7 +83,7 @@ const Players = (props: Props) => {
     <div>
       <Helmet title={strings.header_players} />
       <Heading title={strings.heading_players} className="top-heading" />
-      <div style={{ columnCount: 2, columnWidth: '400px' }}>
+      <div style={{ columnCount: 2, columnWidth: "400px" }}>
         <div>{strings.lobby_type_7}</div>
         <Table columns={columns(strings)} data={data} loading={loading} />
         <div>{strings.game_mode_23}</div>

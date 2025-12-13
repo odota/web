@@ -1,14 +1,14 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import { connect } from 'react-redux';
-import { heroes } from 'dotaconstants';
-import { getHeroStats, getProPlayers } from '../../actions';
-import Heading from '../Heading/Heading';
-import Table from '../Table/Table';
-import TabBar from '../TabBar/TabBar';
-import Hero from '../Hero/Hero';
-import { sum, abbreviateNumber } from '../../utility';
-import { HeroesTab, rankColumns } from './rankColumns';
+import React from "react";
+import Helmet from "react-helmet";
+import { connect } from "react-redux";
+import { heroes } from "dotaconstants";
+import { getHeroStats, getProPlayers } from "../../actions";
+import Heading from "../Heading/Heading";
+import Table from "../Table/Table";
+import TabBar from "../TabBar/TabBar";
+import Hero from "../Hero/Hero";
+import { sum, abbreviateNumber } from "../../utility";
+import { HeroesTab, rankColumns } from "./rankColumns";
 
 type HeroesProps = {
   dispatchHeroStats: Function;
@@ -33,7 +33,7 @@ class HeroesPage extends React.Component<HeroesProps> {
   getMatchCountByRank = (json: any, rank: string) =>
     json.map((heroStat: any) => heroStat[rank] || 0).reduce(sum, 0) / 10;
 
-  createTab = (key: 'pro' | 'public' | 'turbo') => {
+  createTab = (key: "pro" | "public" | "turbo") => {
     const { strings } = this.props;
 
     const names = {
@@ -48,7 +48,7 @@ class HeroesPage extends React.Component<HeroesProps> {
       pro: strings.hero_pro_heading,
     };
 
-    const name = names[key ?? 'pro'];
+    const name = names[key ?? "pro"];
 
     return {
       name,
@@ -61,7 +61,7 @@ class HeroesPage extends React.Component<HeroesProps> {
   };
 
   render() {
-    const route = this.props.match.params.heroId || 'pro';
+    const route = this.props.match.params.heroId || "pro";
 
     if (Number.isInteger(Number(route))) {
       return <Hero {...this.props} />;
@@ -72,14 +72,14 @@ class HeroesPage extends React.Component<HeroesProps> {
     // Assemble the result data array
     const matchCountPro =
       json.map((heroStat: any) => heroStat.pro_pick || 0).reduce(sum, 0) / 10;
-    const matchCount8 = this.getMatchCountByRank(json, '8_pick');
-    const matchCount7 = this.getMatchCountByRank(json, '7_pick');
-    const matchCount6 = this.getMatchCountByRank(json, '6_pick');
-    const matchCount5 = this.getMatchCountByRank(json, '5_pick');
-    const matchCount4 = this.getMatchCountByRank(json, '4_pick');
-    const matchCount3 = this.getMatchCountByRank(json, '3_pick');
-    const matchCount2 = this.getMatchCountByRank(json, '2_pick');
-    const matchCount1 = this.getMatchCountByRank(json, '1_pick');
+    const matchCount8 = this.getMatchCountByRank(json, "8_pick");
+    const matchCount7 = this.getMatchCountByRank(json, "7_pick");
+    const matchCount6 = this.getMatchCountByRank(json, "6_pick");
+    const matchCount5 = this.getMatchCountByRank(json, "5_pick");
+    const matchCount4 = this.getMatchCountByRank(json, "4_pick");
+    const matchCount3 = this.getMatchCountByRank(json, "3_pick");
+    const matchCount2 = this.getMatchCountByRank(json, "2_pick");
+    const matchCount1 = this.getMatchCountByRank(json, "1_pick");
     const matchCountPublic =
       matchCount8 +
       matchCount7 +
@@ -99,36 +99,36 @@ class HeroesPage extends React.Component<HeroesProps> {
 
       const matchCountPub = matchCountPublic;
       const pickCountPub =
-        heroStat['8_pick'] +
-        heroStat['7_pick'] +
-        heroStat['6_pick'] +
-        heroStat['5_pick'] +
-        heroStat['4_pick'] +
-        heroStat['3_pick'] +
-        heroStat['2_pick'] +
-        heroStat['1_pick'];
+        heroStat["8_pick"] +
+        heroStat["7_pick"] +
+        heroStat["6_pick"] +
+        heroStat["5_pick"] +
+        heroStat["4_pick"] +
+        heroStat["3_pick"] +
+        heroStat["2_pick"] +
+        heroStat["1_pick"];
       const winCountPub =
-        heroStat['8_win'] +
-        heroStat['7_win'] +
-        heroStat['6_win'] +
-        heroStat['5_win'] +
-        heroStat['4_win'] +
-        heroStat['3_win'] +
-        heroStat['2_win'] +
-        heroStat['1_win'];
+        heroStat["8_win"] +
+        heroStat["7_win"] +
+        heroStat["6_win"] +
+        heroStat["5_win"] +
+        heroStat["4_win"] +
+        heroStat["3_win"] +
+        heroStat["2_win"] +
+        heroStat["1_win"];
       const matchCountHigh = matchCount8 + matchCount7 + matchCount6;
       const matchCountMid = matchCount5 + matchCount4;
       const matchCountLow = matchCount3 + matchCount2 + matchCount1;
       const pickCountHigh =
-        heroStat['8_pick'] + heroStat['7_pick'] + heroStat['6_pick'];
-      const pickCountMid = heroStat['5_pick'] + heroStat['4_pick'];
+        heroStat["8_pick"] + heroStat["7_pick"] + heroStat["6_pick"];
+      const pickCountMid = heroStat["5_pick"] + heroStat["4_pick"];
       const pickCountLow =
-        heroStat['3_pick'] + heroStat['2_pick'] + heroStat['1_pick'];
+        heroStat["3_pick"] + heroStat["2_pick"] + heroStat["1_pick"];
       const winCountHigh =
-        heroStat['8_win'] + heroStat['7_win'] + heroStat['6_win'];
-      const winCountMid = heroStat['5_win'] + heroStat['4_win'];
+        heroStat["8_win"] + heroStat["7_win"] + heroStat["6_win"];
+      const winCountMid = heroStat["5_win"] + heroStat["4_win"];
       const winCountLow =
-        heroStat['3_win'] + heroStat['2_win'] + heroStat['1_win'];
+        heroStat["3_win"] + heroStat["2_win"] + heroStat["1_win"];
 
       return {
         ...heroStat,
@@ -136,7 +136,7 @@ class HeroesPage extends React.Component<HeroesProps> {
         heroName:
           (heroes[heroStat.id as keyof Heroes] &&
             heroes[heroStat.id as keyof Heroes].localized_name) ||
-          '',
+          "",
         matchCountPro,
         pickBanRatePro: pickRatePro + banRatePro,
         pickRatePro,
@@ -181,9 +181,9 @@ class HeroesPage extends React.Component<HeroesProps> {
     const matchCount = matchCounts[route as keyof typeof matchCounts];
 
     const heroTabs = [
-      this.createTab('pro'),
-      this.createTab('public'),
-      this.createTab('turbo'),
+      this.createTab("pro"),
+      this.createTab("public"),
+      this.createTab("turbo"),
     ];
 
     const selectedTab = heroTabs.find((_tab) => _tab.key === route);

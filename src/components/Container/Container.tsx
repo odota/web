@@ -1,7 +1,7 @@
-import React from 'react';
-import Heading from '../Heading/Heading';
-import Error from '../Error/Error';
-import ContainerSkeleton from '../Skeletons/ContainerSkeleton';
+import React from "react";
+import Heading from "../Heading/Heading";
+import Error from "../Error/Error";
+import ContainerSkeleton from "../Skeletons/ContainerSkeleton";
 
 type ContainerProps = {
   title?: string;

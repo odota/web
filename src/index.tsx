@@ -1,14 +1,14 @@
-import React from 'react';
-import { createBrowserHistory } from 'history';
-import { render, hydrate } from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import ReactGA from 'react-ga';
-import store from './store';
-import { getMetadata, getStrings } from './actions';
-import App from './components/App/App';
+import React from "react";
+import { createBrowserHistory } from "history";
+import { render, hydrate } from "react-dom";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import ReactGA from "react-ga";
+import store from "./store";
+import { getMetadata, getStrings } from "./actions";
+import App from "./components/App/App";
 // import { unregister } from './common/serviceWorker';
-import './index.css';
+import "./index.css";
 
 // Fetch metadata (used on all pages)
 //@ts-expect-error
@@ -19,8 +19,8 @@ store.dispatch(getStrings());
 
 const history = createBrowserHistory();
 
-if (process.env.NODE_ENV === 'production') {
-  ReactGA.initialize('UA-55757642-1');
+if (process.env.NODE_ENV === "production") {
+  ReactGA.initialize("UA-55757642-1");
   ReactGA.pageview(window.location.pathname + window.location.search);
 
   history.listen((location) => {
@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 
 const app = (
   <Provider store={store}>
@@ -48,7 +48,7 @@ if (rootElement?.hasChildNodes()) {
 }
 
 // Remove loader
-const loader = document.getElementById('loader');
+const loader = document.getElementById("loader");
 if (loader) {
   loader.remove();
 }

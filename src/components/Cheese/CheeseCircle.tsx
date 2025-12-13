@@ -1,17 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { CircularProgress } from '@mui/material';
-import styled from 'styled-components';
-import Spinner from '../Spinner/Spinner';
-import Error from '../Error/Error';
-import { IconCheese } from '../Icons';
+import React from "react";
+import { connect } from "react-redux";
+import { CircularProgress } from "@mui/material";
+import styled from "styled-components";
+import Spinner from "../Spinner/Spinner";
+import Error from "../Error/Error";
+import { IconCheese } from "../Icons";
 
 const ProgressDiv = styled.div`
   position: relative;
   width: 90px;
   height: 90px;
 
-  & > div[mode='determinate'],
+  & > div[mode="determinate"],
   & div.cheeseDiv {
     position: absolute !important;
   }

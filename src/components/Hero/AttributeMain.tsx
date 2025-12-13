@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import constants from '../constants';
+import constants from "../constants";
 
 const Wrapper = styled.div`
   flex: 1 1 0;
@@ -83,14 +83,14 @@ const AttributeMain = ({
       }
       break;
 
-    case 'agi':
+    case "agi":
       attributeDotStyle.background = constants.colorAttributeAgi;
       if (isPrimary) {
         attributeValueStyle.color = constants.colorAttributeAgi;
       }
       break;
 
-    case 'int':
+    case "int":
       attributeDotStyle.background = constants.colorAttributeInt;
       if (isPrimary) {
         attributeValueStyle.color = constants.colorAttributeInt;

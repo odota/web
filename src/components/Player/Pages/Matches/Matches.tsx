@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import { connect } from 'react-redux';
-import { getPlayerMatches } from '../../../../actions';
-import Table from '../../../Table/Table';
-import Container from '../../../Container/Container';
-import playerMatchesColumns from './playerMatchesColumns';
-import useStrings from '../../../../hooks/useStrings.hook';
+import { connect } from "react-redux";
+import { getPlayerMatches } from "../../../../actions";
+import Table from "../../../Table/Table";
+import Container from "../../../Container/Container";
+import playerMatchesColumns from "./playerMatchesColumns";
+import useStrings from "../../../../hooks/useStrings.hook";
 
 const Matches = ({ data, error, loading }: MatchesProps) => {
   const strings = useStrings();

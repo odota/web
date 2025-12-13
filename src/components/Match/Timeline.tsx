@@ -1,17 +1,17 @@
-import React from 'react';
-import ReactTooltip from 'react-tooltip';
-import { heroes } from 'dotaconstants';
-import styled from 'styled-components';
-import { formatSeconds, isRadiant, jsonFn, getTeamName } from '../../utility';
-import { IconBloodDrop, IconRoshan, IconBattle } from '../Icons';
-import PlayerThumb from './PlayerThumb/PlayerThumb';
-import constants from '../constants';
-import config from '../../config';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import ReactTooltip from "react-tooltip";
+import { heroes } from "dotaconstants";
+import styled from "styled-components";
+import { formatSeconds, isRadiant, jsonFn, getTeamName } from "../../utility";
+import { IconBloodDrop, IconRoshan, IconBattle } from "../Icons";
+import PlayerThumb from "./PlayerThumb/PlayerThumb";
+import constants from "../constants";
+import config from "../../config";
+import useStrings from "../../hooks/useStrings.hook";
 
 const Styled = styled.div`
   .clickable {
-    &[data-tip='true'] {
+    &[data-tip="true"] {
       cursor: pointer;
     }
   }
@@ -124,7 +124,7 @@ const Styled = styled.div`
         }
       }
 
-      & div[data-id='tooltip'] {
+      & div[data-id="tooltip"] {
         /* Override react-tooltip */
         margin-top: 0 !important;
         padding: 2px 6px !important;
@@ -224,7 +224,7 @@ const Styled = styled.div`
 
   .goldChange {
     &::after {
-      content: '';
+      content: "";
       border-style: solid;
       display: inline-block;
     }
@@ -286,7 +286,7 @@ const Styled = styled.div`
 const heroesArr = jsonFn(heroes);
 
 const getWinnerStyle = (obj: any) =>
-  obj && obj.radiant_gold_advantage_delta >= 0 ? 'radiantWinner' : 'direWinner';
+  obj && obj.radiant_gold_advantage_delta >= 0 ? "radiantWinner" : "direWinner";
 
 const Timeline = ({
   match,
@@ -305,7 +305,7 @@ const Timeline = ({
   if (match.objectives && match.objectives.length > 0) {
     // Firstblood
     const fbIndex = match.objectives.findIndex(
-      (obj) => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD',
+      (obj) => obj.type === "CHAT_MESSAGE_FIRSTBLOOD",
     );
     let fbArr: {
       type: string;
@@ -316,7 +316,7 @@ const Timeline = ({
       start?: number;
       end?: number;
       deaths?: any[];
-    }[] = [{ type: 'firstblood', time: match.first_blood_time || 0 }];
+    }[] = [{ type: "firstblood", time: match.first_blood_time || 0 }];
 
     if (fbIndex > -1 && match.objectives[fbIndex].player_slot !== undefined) {
       const killer = match.players.find(
@@ -327,7 +327,7 @@ const Timeline = ({
 
       fbArr = [
         {
-          type: 'firstblood',
+          type: "firstblood",
           time: match.objectives[fbIndex].time,
           player_slot: match.objectives[fbIndex].player_slot,
           key: killerLog && killerLog[0] ? killerLog[0].key : null,
@@ -340,9 +340,9 @@ const Timeline = ({
       // Roshan kills, team 2 = radiant, 3 = dire
       .concat(
         match.objectives
-          .filter((obj) => obj.type === 'CHAT_MESSAGE_ROSHAN_KILL')
+          .filter((obj) => obj.type === "CHAT_MESSAGE_ROSHAN_KILL")
           .map((obj, i) => ({
-            type: 'roshan',
+            type: "roshan",
             time: obj.time,
             team: obj.team,
             key: i,
@@ -353,7 +353,7 @@ const Timeline = ({
       .concat(
         match.teamfights && match.teamfights.length > 0
           ? match.teamfights.map((fight) => ({
-              type: 'teamfight',
+              type: "teamfight",
               start: fight.start,
               end: fight.end,
               time: (fight.start + fight.end) / 2,
@@ -373,34 +373,34 @@ const Timeline = ({
     const aegis = (match.objectives || [])
       .filter(
         (obj) =>
-          obj.type === 'CHAT_MESSAGE_AEGIS' ||
-          obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' ||
-          obj.type === 'CHAT_MESSAGE_DENIED_AEGIS',
+          obj.type === "CHAT_MESSAGE_AEGIS" ||
+          obj.type === "CHAT_MESSAGE_AEGIS_STOLEN" ||
+          obj.type === "CHAT_MESSAGE_DENIED_AEGIS",
       )
       .map((obj) => ({
-        type: 'aegis',
-        act: ((obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' && 'stolen') ||
-          (obj.type === 'CHAT_MESSAGE_DENIED_AEGIS' && 'denied')) as string,
+        type: "aegis",
+        act: ((obj.type === "CHAT_MESSAGE_AEGIS_STOLEN" && "stolen") ||
+          (obj.type === "CHAT_MESSAGE_DENIED_AEGIS" && "denied")) as string,
         time: obj.time,
         player_slot: obj.player_slot,
       }));
 
     let fTower = match.objectives.findIndex(
       (o) =>
-        o.type === 'CHAT_MESSAGE_TOWER_KILL' ||
-        o.type === 'CHAT_MESSAGE_TOWER_DENY',
+        o.type === "CHAT_MESSAGE_TOWER_KILL" ||
+        o.type === "CHAT_MESSAGE_TOWER_DENY",
     );
     fTower = match.objectives[fTower] ? match.objectives[fTower].time : null;
 
     let fRax =
       match.objectives[
         match.objectives.findIndex(
-          (o) => o.type === 'CHAT_MESSAGE_BARRACKS_KILL',
+          (o) => o.type === "CHAT_MESSAGE_BARRACKS_KILL",
         )
       ] || null;
 
     return Math.abs(
-      events.filter((obj) => obj.type === 'firstblood')[0].time -
+      events.filter((obj) => obj.type === "firstblood")[0].time -
         match.first_blood_time,
     ) <= preHorn ? (
       // some old (source1) matches have wrong time in objectives, ex: 271008789.
@@ -414,7 +414,7 @@ const Timeline = ({
           </section>
           <div className="battle">
             <div className="line">
-              <section style={{ width: '100%' }} />
+              <section style={{ width: "100%" }} />
             </div>
             <div className="events">
               <mark
@@ -427,10 +427,10 @@ const Timeline = ({
                 const side =
                   (obj.player_slot && isRadiant(obj.player_slot)) ||
                   (obj.team && obj.team === 2)
-                    ? 'radiant'
-                    : 'dire';
+                    ? "radiant"
+                    : "dire";
                 const wTeamfight: number =
-                  obj.type === 'teamfight'
+                  obj.type === "teamfight"
                     ? //@ts-expect-error
                       (100 * (obj.end - obj.start)) / (match.duration + preHorn)
                     : 0;
@@ -438,7 +438,7 @@ const Timeline = ({
                 return (
                   <mark
                     key={`${obj.type}_${obj.time}`}
-                    className={obj.type === 'teamfight' ? 'teamfight' : side}
+                    className={obj.type === "teamfight" ? "teamfight" : side}
                     style={{
                       left:
                         obj.time &&
@@ -453,13 +453,13 @@ const Timeline = ({
                       // ),
                     }}
                   >
-                    {obj.type === 'firstblood' && (
+                    {obj.type === "firstblood" && (
                       <IconBloodDrop data-tip data-for={`event_${i}`} />
                     )}
-                    {obj.type === 'roshan' && (
+                    {obj.type === "roshan" && (
                       <IconRoshan data-tip data-for={`event_${i}`} />
                     )}
-                    {obj.type === 'teamfight' && (
+                    {obj.type === "teamfight" && (
                       <IconBattle
                         onClick={
                           onTeamfightClick && onTeamfightClick(obj.start)
@@ -473,24 +473,24 @@ const Timeline = ({
                         data-tip
                         data-for={`event_${i}`}
                         className={`iconBattle
-                            ${selectedTeamfight === obj.start ? 'selectedTeamfight' : getWinnerStyle(obj)}
-                            ${(selectedTeamfight || selectedTeamfight === 0) && 'clickable'}
+                            ${selectedTeamfight === obj.start ? "selectedTeamfight" : getWinnerStyle(obj)}
+                            ${(selectedTeamfight || selectedTeamfight === 0) && "clickable"}
                           `}
                       />
                     )}
                     <ReactTooltip
                       // Hide tooltip if it's not in objectives
                       id={
-                        obj.type === 'firstblood' &&
+                        obj.type === "firstblood" &&
                         !obj.key &&
                         !obj.player_slot
-                          ? ''
+                          ? ""
                           : `event_${i}`
                       }
                       effect="solid"
                       place="right"
                     >
-                      {obj.type === 'firstblood' && (
+                      {obj.type === "firstblood" && (
                         <section>
                           {match.players
                             .filter(
@@ -511,7 +511,7 @@ const Timeline = ({
                           {obj.key && (
                             <PlayerThumb
                               {...match.players.find((player) => {
-                                const foundHero = heroesArr('find')(
+                                const foundHero = heroesArr("find")(
                                   (hero: any) => hero.name === obj.key,
                                 );
                                 return (
@@ -522,7 +522,7 @@ const Timeline = ({
                           )}
                         </section>
                       )}
-                      {obj.type === 'roshan' &&
+                      {obj.type === "roshan" &&
                         aegis[obj.key as number] &&
                         match.players
                           .filter(
@@ -536,9 +536,9 @@ const Timeline = ({
                               <span>
                                 {!aegis[obj.key as number].act &&
                                   strings.timeline_aegis_picked_up}
-                                {aegis[obj.key as number].act === 'stolen' &&
+                                {aegis[obj.key as number].act === "stolen" &&
                                   strings.timeline_aegis_snatched}
-                                {aegis[obj.key as number].act === 'denied' &&
+                                {aegis[obj.key as number].act === "denied" &&
                                   strings.timeline_aegis_denied}
                               </span>
                               <img
@@ -547,13 +547,13 @@ const Timeline = ({
                               />
                             </section>
                           ))}
-                      {obj.type === 'teamfight' && (
+                      {obj.type === "teamfight" && (
                         <div>
                           <header>
                             {strings.timeline_teamfight_deaths}
                             <span className="subtitle">
-                              & {strings.timeline_teamfight_gold_delta},{' '}
-                              {formatSeconds(obj.start)} -{' '}
+                              & {strings.timeline_teamfight_gold_delta},{" "}
+                              {formatSeconds(obj.start)} -{" "}
                               {formatSeconds(obj.end)}
                             </span>
                           </header>
@@ -566,7 +566,7 @@ const Timeline = ({
                                   alt="Death icon"
                                 />
                               ) : (
-                                ''
+                                ""
                               )}
                               <span className="goldDelta">
                                 {death.gold_delta > 0 ? (
@@ -577,7 +577,7 @@ const Timeline = ({
                                 {/* nothing if === 0 */}
                                 {/*@ts-expect-error*/}
                                 <font style={{ color: constants.colorGolden }}>
-                                  {Math.abs(death.gold_delta)}{' '}
+                                  {Math.abs(death.gold_delta)}{" "}
                                   {/*@ts-expect-error*/}
                                 </font>
                                 <img
@@ -591,7 +591,7 @@ const Timeline = ({
                       )}
                     </ReactTooltip>
                     <time>
-                      {obj.type !== 'teamfight' && formatSeconds(obj.time)}
+                      {obj.type !== "teamfight" && formatSeconds(obj.time)}
                     </time>
                   </mark>
                 );
@@ -611,7 +611,7 @@ const Timeline = ({
             <div>
               <span>
                 {strings.match_first_barracks} (
-                {strings[`barracks_value_${fRax.key}` as keyof Strings]}){' '}
+                {strings[`barracks_value_${fRax.key}` as keyof Strings]}){" "}
               </span>
               {formatSeconds(fRax.time)}
             </div>

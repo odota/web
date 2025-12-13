@@ -1,15 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { getPlayerRecords } from '../../../../actions';
-import Table from '../../../Table/Table';
-import Container from '../../../Container/Container';
-import dataColumns from '../matchDataColumns';
-import ButtonGarden from '../../../ButtonGarden/ButtonGarden';
-import playerRecordsColumns from './playerRecordsColumns';
-import useStrings from '../../../../hooks/useStrings.hook';
+import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { getPlayerRecords } from "../../../../actions";
+import Table from "../../../Table/Table";
+import Container from "../../../Container/Container";
+import dataColumns from "../matchDataColumns";
+import ButtonGarden from "../../../ButtonGarden/ButtonGarden";
+import playerRecordsColumns from "./playerRecordsColumns";
+import useStrings from "../../../../hooks/useStrings.hook";
 
-const excludedColumns = ['win_rate', 'level'];
+const excludedColumns = ["win_rate", "level"];
 const recordsColumns = dataColumns.filter(
   (col) => !excludedColumns.includes(col),
 );
@@ -45,7 +45,7 @@ const Records = ({
             displayName:
               strings[`th_${selected}` as keyof Strings] || strings.th_record,
             displayFn: (row: any, col: any, field: number) =>
-              field && field.toFixed ? Number(field.toFixed(2)) : '',
+              field && field.toFixed ? Number(field.toFixed(2)) : "",
             field: selected,
             relativeBars: true,
           })}

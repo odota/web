@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import { connect } from 'react-redux';
-import { getPlayerHeroes } from '../../../../actions';
-import Table from '../../../Table/Table';
-import Container from '../../../Container/Container';
-import { playerHeroesColumns } from './playerHeroesColumns';
-import useStrings from '../../../../hooks/useStrings.hook';
+import { connect } from "react-redux";
+import { getPlayerHeroes } from "../../../../actions";
+import Table from "../../../Table/Table";
+import Container from "../../../Container/Container";
+import { playerHeroesColumns } from "./playerHeroesColumns";
+import useStrings from "../../../../hooks/useStrings.hook";
 
 const Heroes = ({ data, playerId, error, loading }: HeroesProps) => {
   const strings = useStrings();

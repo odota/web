@@ -1,14 +1,14 @@
-import React from 'react';
-import { Checkbox } from '@mui/material';
-import Table from '../../Table/Table';
-import Heading from '../../Heading/Heading';
+import React from "react";
+import { Checkbox } from "@mui/material";
+import Table from "../../Table/Table";
+import Heading from "../../Heading/Heading";
 
-import PlayerThumb from '../PlayerThumb/PlayerThumb';
-import config from '../../../config';
+import PlayerThumb from "../PlayerThumb/PlayerThumb";
+import config from "../../../config";
 
 const data = [
   {
-    type: 'observer',
+    type: "observer",
     image: (
       <img
         height="24"
@@ -18,7 +18,7 @@ const data = [
     ),
   },
   {
-    type: 'sentry',
+    type: "sentry",
     image: (
       <img
         height="24"
@@ -50,10 +50,10 @@ class VisionFilter extends React.Component<VisionFilterProps> {
       {
         displayName: (
           <Checkbox
-            checked={teams[index === 0 ? 'radiant' : 'dire']}
+            checked={teams[index === 0 ? "radiant" : "dire"]}
             onChange={(event, checked) => {
               this.props.parent.setTeam(
-                index === 0 ? 'radiant' : 'dire',
+                index === 0 ? "radiant" : "dire",
                 checked,
               );
             }}

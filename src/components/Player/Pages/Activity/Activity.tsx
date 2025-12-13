@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import { connect } from 'react-redux';
-import ActivityCalendar from './ActivityCalendar';
-import { getPlayerMatches } from '../../../../actions';
-import Container from '../../../Container/Container';
-import useStrings from '../../../../hooks/useStrings.hook';
+import { connect } from "react-redux";
+import ActivityCalendar from "./ActivityCalendar";
+import { getPlayerMatches } from "../../../../actions";
+import Container from "../../../Container/Container";
+import useStrings from "../../../../hooks/useStrings.hook";
 
 const defaultOptions = {
   limit: null,

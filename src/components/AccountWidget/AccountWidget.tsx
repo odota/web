@@ -1,13 +1,13 @@
-import { Button } from '@mui/material';
-import React from 'react';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
+import { Button } from "@mui/material";
+import React from "react";
+import { connect } from "react-redux";
+import styled from "styled-components";
 
-import config from '../../config';
-import Error from '../Error/Error';
-import { IconSteam } from '../Icons';
-import LoggedIn from './LoggedIn';
-import useStrings from '../../hooks/useStrings.hook';
+import config from "../../config";
+import Error from "../Error/Error";
+import { IconSteam } from "../Icons";
+import LoggedIn from "./LoggedIn";
+import useStrings from "../../hooks/useStrings.hook";
 
 const ButtonLabel = styled.span`
   margin-left: 4px;
@@ -36,7 +36,7 @@ const AccountWidget = ({
           <IconSteam />
           <ButtonLabel
             style={{
-              lineHeight: '1px',
+              lineHeight: "1px",
             }}
           >
             {strings.app_login}

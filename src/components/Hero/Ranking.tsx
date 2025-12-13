@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getRanking } from '../../actions';
-import RankingTable from './RankingTable';
-import RankingSkeleton from '../Skeletons/RankingSkeleton';
+import React from "react";
+import { connect } from "react-redux";
+import { getRanking } from "../../actions";
+import RankingTable from "./RankingTable";
+import RankingSkeleton from "../Skeletons/RankingSkeleton";
 
 const renderRanking = (hero: Hero | undefined, rankings: any[]) => (
   <div>

@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import ReactTooltip from 'react-tooltip';
-import constants from '../constants';
-import AghanimsTooltipHeader from './AghsTooltipHeader';
-import AghsTooltipBody from './AghsTooltipBody';
-import config from '../../config';
+import React from "react";
+import styled from "styled-components";
+import ReactTooltip from "react-tooltip";
+import constants from "../constants";
+import AghanimsTooltipHeader from "./AghsTooltipHeader";
+import AghsTooltipBody from "./AghsTooltipBody";
+import config from "../../config";
 
 const Wrapper = styled.div`
   width: 340px;
@@ -33,7 +33,7 @@ const AghanimsToolTip = ({
   let newShardAbility = null;
 
   const getAghsSkillObject = (skillName: string) => {
-    if (!skillName || skillName === '') return null;
+    if (!skillName || skillName === "") return null;
     const ability = skills.find((skill) => skill.data.dname === skillName);
     return ability.data;
   };
@@ -50,7 +50,7 @@ const AghanimsToolTip = ({
           <span>Aghanim&lsquo;s Shard</span>
         </AghanimsTooltipHeader>
         <AghsTooltipBody
-          icon={`${config.VITE_IMAGE_CDN}${newShardSkillObject ? newShardSkillObject.img : ''}`}
+          icon={`${config.VITE_IMAGE_CDN}${newShardSkillObject ? newShardSkillObject.img : ""}`}
           skillName={upgrades.shard_skill_name}
           hasUpgrade={upgrades.has_shard}
           isNewSkill={upgrades.shard_new_skill}
@@ -71,7 +71,7 @@ const AghanimsToolTip = ({
           <span>Aghanim&lsquo;s Scepter</span>
         </AghanimsTooltipHeader>
         <AghsTooltipBody
-          icon={`${config.VITE_IMAGE_CDN}${newScepterSkillObject ? newScepterSkillObject.img : ''}`}
+          icon={`${config.VITE_IMAGE_CDN}${newScepterSkillObject ? newScepterSkillObject.img : ""}`}
           skillName={upgrades.scepter_skill_name}
           hasUpgrade={upgrades.has_scepter}
           isNewSkill={upgrades.scepter_new_skill}

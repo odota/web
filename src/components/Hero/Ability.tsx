@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
-import { nanoid } from 'nanoid';
-import ReactTooltip from 'react-tooltip';
+import React from "react";
+import styled from "styled-components";
+import { nanoid } from "nanoid";
+import ReactTooltip from "react-tooltip";
 
-import constants from '../constants';
-import AbilityTooltip from '../AbilityTooltip/AbilityTooltip';
-import config from '../../config';
+import constants from "../constants";
+import AbilityTooltip from "../AbilityTooltip/AbilityTooltip";
+import config from "../../config";
 
 const Wrapper = styled.div`
   background: linear-gradient(
@@ -62,7 +62,7 @@ const Ability = (props: { mc: string[]; img: string }) => {
   let manaString: boolean | string = false;
 
   if (showMana) {
-    manaString = typeof props.mc === 'object' ? props.mc[0] : props.mc;
+    manaString = typeof props.mc === "object" ? props.mc[0] : props.mc;
   }
 
   return (

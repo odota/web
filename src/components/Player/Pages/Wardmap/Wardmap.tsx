@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import { connect } from 'react-redux';
-import { calculateResponsiveState } from 'redux-responsive';
-import styled from 'styled-components';
-import { unpackPositionData } from '../../../../utility';
-import { getPlayerWardmap } from '../../../../actions';
-import Heatmap from '../../../Heatmap/Heatmap';
-import Container from '../../../Container/Container';
-import constants from '../../../constants';
+import { connect } from "react-redux";
+import { calculateResponsiveState } from "redux-responsive";
+import styled from "styled-components";
+import { unpackPositionData } from "../../../../utility";
+import { getPlayerWardmap } from "../../../../actions";
+import Heatmap from "../../../Heatmap/Heatmap";
+import Container from "../../../Container/Container";
+import constants from "../../../constants";
 
 const MAX_WIDTH = constants.appWidth;
 const HALF_WIDTH = constants.appWidth * 0.483;
@@ -58,7 +58,7 @@ class WardmapPage extends React.Component<WardmapProps, { clicked?: string }> {
 
   componentDidMount() {
     getData(this.props);
-    window.addEventListener('resize', this.props.updateWindowSize);
+    window.addEventListener("resize", this.props.updateWindowSize);
   }
 
   componentDidUpdate(prevProps: WardmapProps) {
@@ -71,15 +71,15 @@ class WardmapPage extends React.Component<WardmapProps, { clicked?: string }> {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.props.updateWindowSize);
+    window.removeEventListener("resize", this.props.updateWindowSize);
   }
 
   getClickProperties(mapId: string) {
     return {
       className:
         this.state.clicked && this.state.clicked !== mapId
-          ? 'heatmap-clicked'
-          : 'heatmap',
+          ? "heatmap-clicked"
+          : "heatmap",
       onClick: this.handleClick(mapId),
     };
   }
@@ -95,7 +95,7 @@ class WardmapPage extends React.Component<WardmapProps, { clicked?: string }> {
     const heatmapWidth = browser.width - 50;
     return (
       <StyledContainer>
-        <div {...this.getClickProperties('observers')}>
+        <div {...this.getClickProperties("observers")}>
           <Container
             title={strings.th_ward_observer}
             error={error}
@@ -104,14 +104,14 @@ class WardmapPage extends React.Component<WardmapProps, { clicked?: string }> {
             <Heatmap
               points={unpackPositionData(data.obs)}
               width={Math.min(
-                this.state.clicked === 'observers' ? MAX_WIDTH : HALF_WIDTH,
+                this.state.clicked === "observers" ? MAX_WIDTH : HALF_WIDTH,
                 heatmapWidth,
               )}
               key={this.state.clicked} // force update
             />
           </Container>
         </div>
-        <div {...this.getClickProperties('sentries')}>
+        <div {...this.getClickProperties("sentries")}>
           <Container
             title={strings.th_ward_sentry}
             error={error}
@@ -120,7 +120,7 @@ class WardmapPage extends React.Component<WardmapProps, { clicked?: string }> {
             <Heatmap
               points={unpackPositionData(data.sen)}
               width={Math.min(
-                this.state.clicked === 'sentries' ? MAX_WIDTH : HALF_WIDTH,
+                this.state.clicked === "sentries" ? MAX_WIDTH : HALF_WIDTH,
                 heatmapWidth,
               )}
               key={this.state.clicked}

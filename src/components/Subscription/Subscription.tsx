@@ -1,13 +1,13 @@
-import React, { useCallback } from 'react';
-import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
-import styled from 'styled-components';
-import { loadStripe } from '@stripe/stripe-js';
-import { Button } from '@mui/material';
-import { IconSteam } from '../Icons';
+import React, { useCallback } from "react";
+import { connect } from "react-redux";
+import Helmet from "react-helmet";
+import styled from "styled-components";
+import { loadStripe } from "@stripe/stripe-js";
+import { Button } from "@mui/material";
+import { IconSteam } from "../Icons";
 
-import { useStrings } from '../../hooks/useStrings.hook';
-import config from '../../config';
+import { useStrings } from "../../hooks/useStrings.hook";
+import config from "../../config";
 
 const stripePromise = config.VITE_STRIPE_PUBLIC_KEY
   ? loadStripe(config.VITE_STRIPE_PUBLIC_KEY)
@@ -38,7 +38,7 @@ const PageContainer = styled.div`
 
 const SubHeader = styled.div`
   width: 100%;
-  background-image: url('/assets/images/carry-header.jpg');
+  background-image: url("/assets/images/carry-header.jpg");
   background-position: 50% 0px;
   margin: 20px 0;
   text-shadow: 1px 1px 1px #000;
@@ -71,7 +71,7 @@ const SubRight = styled.div`
 
 const handleSubscribe = async (user: any) => {
   if (!stripePromise) {
-    console.warn('Stripe integration is not configured, cannot subscribe');
+    console.warn("Stripe integration is not configured, cannot subscribe");
     return;
   }
   const stripe = await stripePromise;
@@ -79,13 +79,13 @@ const handleSubscribe = async (user: any) => {
     lineItems: [
       {
         price:
-          process.env.NODE_ENV === 'development'
-            ? 'price_1LE6FHCHN72mG1oK4E4NdERI'
-            : 'price_1LE5NqCHN72mG1oKg2Y9pqXb',
+          process.env.NODE_ENV === "development"
+            ? "price_1LE6FHCHN72mG1oK4E4NdERI"
+            : "price_1LE5NqCHN72mG1oKg2Y9pqXb",
         quantity: 1,
       },
     ],
-    mode: 'subscription',
+    mode: "subscription",
     successUrl: `${config.VITE_API_HOST}/subscribeSuccess?session_id={CHECKOUT_SESSION_ID}`,
     cancelUrl: window.location.href,
     clientReferenceId: `${user.account_id}`,
@@ -109,11 +109,11 @@ const Subscription = ({
   const handleManage = useCallback(async () => {
     const res = await fetch(`${config.VITE_API_HOST}/manageSub`, {
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      credentials: 'include',
-      method: 'POST',
+      credentials: "include",
+      method: "POST",
       body: JSON.stringify({
         return_url: window.location.href,
       }),
@@ -134,7 +134,7 @@ const Subscription = ({
         <h1>{strings.subscriptions_h1}</h1>
         <h2>{strings.subscriptions_h2}</h2>
         <Attribution>
-          Picture by{' '}
+          Picture by{" "}
           <a
             href="http://entroz.deviantart.com/"
             target="_blank"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const ProgressBar = ({
   percent,
@@ -12,8 +12,8 @@ const ProgressBar = ({
       style={{
         bottom: -height,
         marginTop: -height,
-        position: 'relative',
-        zIndex: '1',
+        position: "relative",
+        zIndex: "1",
       }}
     >
       {(percent * 100).toFixed(2)}%

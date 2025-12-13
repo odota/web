@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import Transition from 'react-transition-group/Transition';
-import { IconPlusSquare, IconMinusSquare } from '../Icons';
-import constants from '../constants';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import styled from "styled-components";
+import Transition from "react-transition-group/Transition";
+import { IconPlusSquare, IconMinusSquare } from "../Icons";
+import constants from "../constants";
+import useStrings from "../../hooks/useStrings.hook";
 
 const ButtonContainer = styled.div`
   position: absolute;
@@ -77,7 +77,7 @@ class Collapsible extends React.Component<
   constructor(props: any) {
     super(props);
     this.state = {
-      collapsed: localStorage.getItem(`${props.name}Collapsed`) === 'true',
+      collapsed: localStorage.getItem(`${props.name}Collapsed`) === "true",
       hovered: false,
     };
   }
@@ -105,7 +105,7 @@ class Collapsible extends React.Component<
         style={{
           border:
             !collapsed && hovered
-              ? '1px dashed rgba(255, 255, 255, 0.1)'
+              ? "1px dashed rgba(255, 255, 255, 0.1)"
               : undefined,
         }}
       >
@@ -124,10 +124,10 @@ class Collapsible extends React.Component<
           {(status) => (
             <div
               style={{
-                transition: 'max-height 300ms ease-in-out',
-                overflow: 'hidden',
+                transition: "max-height 300ms ease-in-out",
+                overflow: "hidden",
                 maxHeight:
-                  status === 'entered' ? initialMaxHeight || '100%' : 0,
+                  status === "entered" ? initialMaxHeight || "100%" : 0,
               }}
             >
               {this.props.children}

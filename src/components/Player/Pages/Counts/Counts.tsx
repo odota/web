@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { getPlayerCounts } from '../../../../actions';
-import Table from '../../../Table/Table';
-import Container from '../../../Container/Container';
-import playerCountsColumns from './playerCountsColumns';
-import useStrings from '../../../../hooks/useStrings.hook';
+import { connect } from "react-redux";
+import styled from "styled-components";
+import { getPlayerCounts } from "../../../../actions";
+import Table from "../../../Table/Table";
+import Container from "../../../Container/Container";
+import playerCountsColumns from "./playerCountsColumns";
+import useStrings from "../../../../hooks/useStrings.hook";
 
 const StyledContainer = styled.div`
   display: flex;

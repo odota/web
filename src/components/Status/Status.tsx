@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import Helmet from 'react-helmet';
-import CountUp from 'react-countup';
-import { abbreviateNumber } from '../../utility';
-import Table from '../Table/Table';
-import config from '../../config';
-import { LazyLog, ScrollFollow } from '@melloware/react-logviewer';
-import useStrings from '../../hooks/useStrings.hook';
-import { VList } from 'virtua';
+import React, { useEffect, useState } from "react";
+import Helmet from "react-helmet";
+import CountUp from "react-countup";
+import { abbreviateNumber } from "../../utility";
+import Table from "../Table/Table";
+import config from "../../config";
+import { LazyLog, ScrollFollow } from "@melloware/react-logviewer";
+import useStrings from "../../hooks/useStrings.hook";
+import { VList } from "virtua";
 
 const columns = [
-  { displayName: 'key', field: 'key' },
+  { displayName: "key", field: "key" },
   {
-    displayName: 'value',
-    field: 'value',
+    displayName: "value",
+    field: "value",
     displayFn: (row: any) =>
       row.end != null ? (
         <CountUp
@@ -31,7 +31,7 @@ const columns = [
 const maxHeight = 2400;
 const scrollStyle = (data: any[]): React.CSSProperties => ({
   maxHeight,
-  overflowY: 'auto',
+  overflowY: "auto",
   // scrollbarWidth: data.length ? undefined : 'none',
 });
 
@@ -46,7 +46,7 @@ const Status = () => {
     let last = state.current;
     const update = async () => {
       const resp = await fetch(`${config.VITE_API_HOST}/status`, {
-        credentials: 'include',
+        credentials: "include",
       });
       const json = await resp.json();
       const nextState = { current: json, last };
@@ -67,7 +67,7 @@ const Status = () => {
   return (
     <>
       <Helmet title={strings.title_status} />
-      <div style={{ height: '300px' }}>
+      <div style={{ height: "300px" }}>
         {
           <ScrollFollow
             startFollowing={true}
@@ -103,44 +103,44 @@ const Status = () => {
       > */}
       <VList horizontal style={{ height: maxHeight }}>
         {Object.keys(state.current).map((propName) => {
-          if (typeof state.current[propName] !== 'object') {
+          if (typeof state.current[propName] !== "object") {
             return state.current[propName];
           }
-          if (propName === 'retrieverRegistry') {
+          if (propName === "retrieverRegistry") {
             return (
               <Table
                 data={Object.values(state.current[propName])}
                 columns={[
                   {
-                    displayName: 'key',
-                    field: 'key',
+                    displayName: "key",
+                    field: "key",
                   },
                   {
-                    displayName: 'up',
-                    field: 'uptime',
+                    displayName: "up",
+                    field: "uptime",
                     displayFn: (row: any) => Math.floor(row.uptime),
                   },
                   {
-                    displayName: 'num',
-                    field: 'numReadyAccounts',
+                    displayName: "num",
+                    field: "numReadyAccounts",
                   },
                   {
-                    displayName: 'suc',
-                    field: 'matchSuccesses',
+                    displayName: "suc",
+                    field: "matchSuccesses",
                   },
                   {
-                    displayName: 'req',
-                    field: 'matchRequests',
+                    displayName: "req",
+                    field: "matchRequests",
                   },
                   {
-                    displayName: 'tot',
-                    field: 'limit',
+                    displayName: "tot",
+                    field: "limit",
                   },
                 ]}
               />
             );
           } else if (
-            typeof Object.values(state.current[propName])[0] !== 'number'
+            typeof Object.values(state.current[propName])[0] !== "number"
           ) {
             const data = Object.keys(state.current[propName] || {}).map(
               (key) => ({
@@ -161,8 +161,8 @@ const Status = () => {
                   columns={[
                     ...columns,
                     {
-                      displayName: 'limit',
-                      field: 'limit',
+                      displayName: "limit",
+                      field: "limit",
                       displayFn: (row: any) => {
                         return abbreviateNumber(row.limit);
                       },

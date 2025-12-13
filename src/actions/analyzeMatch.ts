@@ -1,6 +1,6 @@
-import { skillshots } from 'dotaconstants';
-import { isSupport, getObsWardsPlaced, isRoshHero } from '../utility';
-import store from '../store';
+import { skillshots } from "dotaconstants";
+import { isSupport, getObsWardsPlaced, isRoshHero } from "../utility";
+import store from "../store";
 
 export default function analyzeMatch(match: any, _pm: any) {
   const { strings } = store.getState().app;

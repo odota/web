@@ -1,25 +1,25 @@
-import React from 'react';
+import React from "react";
 
-import { connect } from 'react-redux';
-import styled from 'styled-components';
+import { connect } from "react-redux";
+import styled from "styled-components";
 import {
   getPlayerRecentMatches,
   getPlayerHeroes,
   getPlayerPeers,
   getPlayerCounts,
   getPlayerMatches,
-} from '../../../../actions';
-import Table from '../../../Table/Table';
-import Container from '../../../Container/Container';
-import playerMatchesColumns from '../Matches/playerMatchesColumns';
-import { playerHeroesOverviewColumns } from '../Heroes/playerHeroesColumns';
-import { playerPeersOverviewColumns } from '../Peers/playerPeersColumns';
-import SummOfRecMatches from './Summary';
-import constants from '../../../constants';
-import CountsSummary from './CountsSummary';
-import { formatTemplateToString } from '../../../../utility';
-import Collapsible from '../../../Collapsible/Collapsible';
-import useStrings from '../../../../hooks/useStrings.hook';
+} from "../../../../actions";
+import Table from "../../../Table/Table";
+import Container from "../../../Container/Container";
+import playerMatchesColumns from "../Matches/playerMatchesColumns";
+import { playerHeroesOverviewColumns } from "../Heroes/playerHeroesColumns";
+import { playerPeersOverviewColumns } from "../Peers/playerPeersColumns";
+import SummOfRecMatches from "./Summary";
+import constants from "../../../constants";
+import CountsSummary from "./CountsSummary";
+import { formatTemplateToString } from "../../../../utility";
+import Collapsible from "../../../Collapsible/Collapsible";
+import useStrings from "../../../../hooks/useStrings.hook";
 
 export const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
@@ -207,7 +207,7 @@ const Overview = ({
           subtitle={strings.th_win}
           loaderWidth={250}
           loaderHeight={30}
-          style={{ width: '100%' }}
+          style={{ width: "100%" }}
           key="counts"
         >
           <CountsSummary data={countsData} />
@@ -335,30 +335,30 @@ const filterCounts = (counts: Record<string, any>) => {
 
   const limitCount = (key: string, field: string, lim: number) =>
     counts[key].list
-      .filter((el: any) => el.category !== 'Unknown')
+      .filter((el: any) => el.category !== "Unknown")
       .sort((a: any, b: any) => b[field] - a[field])
       .slice(0, lim);
 
   Object.keys(counts).forEach((key) => {
     switch (key) {
-      case 'is_radiant':
+      case "is_radiant":
         countMap[key] = counts[key].list;
         break;
 
-      case 'game_mode':
-        countMap[key] = limitCount(key, 'matches', 2);
+      case "game_mode":
+        countMap[key] = limitCount(key, "matches", 2);
         break;
 
-      case 'patch':
-        countMap[key] = limitCount(key, 'category', 2);
+      case "patch":
+        countMap[key] = limitCount(key, "category", 2);
         break;
 
-      case 'region':
-        countMap[key] = limitCount(key, 'matches', 2);
+      case "region":
+        countMap[key] = limitCount(key, "matches", 2);
         break;
 
-      case 'lane_role':
-        countMap[key] = limitCount(key, 'matches', 2);
+      case "lane_role":
+        countMap[key] = limitCount(key, "matches", 2);
         break;
 
       default:

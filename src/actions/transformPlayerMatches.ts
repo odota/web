@@ -1,4 +1,4 @@
-import { isRadiant } from '../utility';
+import { isRadiant } from "../utility";
 
 export default function transformPlayerMatches(fields: any) {
   return (response: any[]) => {

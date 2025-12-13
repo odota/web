@@ -1,10 +1,10 @@
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import { createStore, applyMiddleware, combineReducers, compose } from "redux";
+import thunkMiddleware from "redux-thunk";
 import {
   createResponsiveStoreEnhancer,
   createResponsiveStateReducer,
-} from 'redux-responsive';
-import app from './reducers';
+} from "redux-responsive";
+import app from "./reducers";
 
 const reducer = combineReducers({
   app,

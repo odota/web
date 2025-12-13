@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
-import Helmet from 'react-helmet';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { getOrdinal, getTeamLogoUrl, fromNow } from '../../utility';
-import { getTeams } from '../../actions';
-import Heading from '../Heading/Heading';
-import Team from '../Team/Team';
-import Table from '../Table/Table';
-import TableLink from '../Table/TableLink';
-import { Logo } from '../Team/TeamStyled';
-import useStrings from '../../hooks/useStrings.hook';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from "react";
+import Helmet from "react-helmet";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import { getOrdinal, getTeamLogoUrl, fromNow } from "../../utility";
+import { getTeams } from "../../actions";
+import Heading from "../Heading/Heading";
+import Team from "../Team/Team";
+import Table from "../Table/Table";
+import TableLink from "../Table/TableLink";
+import { Logo } from "../Team/TeamStyled";
+import useStrings from "../../hooks/useStrings.hook";
+import { Link } from "react-router-dom";
 
 const TeamImageContainer = styled.div`
   display: flex;
@@ -56,7 +56,7 @@ const columns = (strings: Strings) => [
   },
   {
     displayName: strings.th_name,
-    field: 'name',
+    field: "name",
     displayFn: (row: TeamRow, col: number, field: any) => (
       <TeamImageContainer>
         <Logo
@@ -65,7 +65,7 @@ const columns = (strings: Strings) => [
         />
         <div>
           <TableLink to={`/teams/${row.team_id}`}>{field}</TableLink>
-          <span style={{ display: 'block', marginTop: 1 }}>
+          <span style={{ display: "block", marginTop: 1 }}>
             {fromNow(row.last_match_time)}
           </span>
         </div>
@@ -74,33 +74,33 @@ const columns = (strings: Strings) => [
   },
   {
     displayName: strings.th_rating,
-    field: 'rating',
+    field: "rating",
     sortFn: true,
     relativeBars: true,
     displayFn: (row: TeamRow, col: number, field: any) => Math.floor(field),
   },
   {
     displayName: strings.th_wins,
-    field: 'wins',
+    field: "wins",
     sortFn: true,
     relativeBars: true,
   },
   {
     displayName: strings.th_losses,
-    field: 'losses',
+    field: "losses",
     sortFn: true,
     relativeBars: true,
   },
   {
     displayName: strings.th_last_played,
-    field: 'match_id',
+    field: "match_id",
     displayFn: (row: any, col: number, field: any) => (
       <>
-        <Link to={'/matches/' + row.match_id}>{row.match_id}</Link>
+        <Link to={"/matches/" + row.match_id}>{row.match_id}</Link>
         {row.delta && (
           <span
-            style={{ color: row.delta > 0 ? 'green' : 'red' }}
-          >{` (${row.delta > 0 ? '+' : ''}${row.delta.toFixed(1)})`}</span>
+            style={{ color: row.delta > 0 ? "green" : "red" }}
+          >{` (${row.delta > 0 ? "+" : ""}${row.delta.toFixed(1)})`}</span>
         )}
       </>
     ),

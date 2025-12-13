@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { nanoid } from 'nanoid';
+import React from "react";
+import styled from "styled-components";
+import { nanoid } from "nanoid";
 
-import TalentsTooltip from '../TalentsTooltip/TalentsTooltip';
-import constants from '../constants';
+import TalentsTooltip from "../TalentsTooltip/TalentsTooltip";
+import constants from "../constants";
 
 const Wrapper = styled.div`
   background: linear-gradient(

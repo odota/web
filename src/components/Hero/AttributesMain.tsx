@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import AttributeMain from './AttributeMain';
-import constants from '../constants';
+import React from "react";
+import styled from "styled-components";
+import AttributeMain from "./AttributeMain";
+import constants from "../constants";
 
 const AttributesWrapper = styled.div`
   background: rgba(0, 0, 0, 0.45);
@@ -25,19 +25,19 @@ const HeroAttributes = ({ hero }: { hero: Hero }) => (
     <MainAttributesBlock>
       <AttributeMain
         attribute="str"
-        isPrimary={hero.primary_attr === 'str'}
+        isPrimary={hero.primary_attr === "str"}
         base={hero.base_str}
         gain={hero.str_gain}
       />
       <AttributeMain
         attribute="agi"
-        isPrimary={hero.primary_attr === 'agi'}
+        isPrimary={hero.primary_attr === "agi"}
         base={hero.base_agi}
         gain={hero.agi_gain}
       />
       <AttributeMain
         attribute="int"
-        isPrimary={hero.primary_attr === 'int'}
+        isPrimary={hero.primary_attr === "int"}
         base={hero.base_int}
         gain={hero.int_gain}
       />

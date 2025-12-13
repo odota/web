@@ -1,10 +1,10 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getPlayerRankings } from '../../../../actions';
-import Table from '../../../Table/Table';
-import Container from '../../../Container/Container';
-import playerRankingsColumns from './playerRankingsColumns';
-import useStrings from '../../../../hooks/useStrings.hook';
+import React from "react";
+import { connect } from "react-redux";
+import { getPlayerRankings } from "../../../../actions";
+import Table from "../../../Table/Table";
+import Container from "../../../Container/Container";
+import playerRankingsColumns from "./playerRankingsColumns";
+import useStrings from "../../../../hooks/useStrings.hook";
 
 const Rankings = ({ data, error, loading }: RankingsProps) => {
   const strings = useStrings();

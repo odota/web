@@ -1,9 +1,9 @@
-import { RequestMock, RequestLogger } from 'testcafe';
-import { writeFileSync, readFileSync, existsSync } from 'node:fs';
-import { sanitize } from 'sanitize-filename-ts';
-import { waitForReact } from 'testcafe-react-selectors';
+import { RequestMock, RequestLogger } from "testcafe";
+import { writeFileSync, readFileSync, existsSync } from "node:fs";
+import { sanitize } from "sanitize-filename-ts";
+import { waitForReact } from "testcafe-react-selectors";
 
-export const host = 'http://localhost:5000';
+export const host = "http://localhost:5000";
 
 async function fetchFromAPI(requestURL: string) {
   const response = await fetch(requestURL);
@@ -12,18 +12,18 @@ async function fetchFromAPI(requestURL: string) {
   console.log(`writing ./testcafe/cachedAjax/${path2file(requestURL)}.json`);
   writeFileSync(
     `./testcafe/cachedAjax/${path2file(requestURL)}.json`,
-    JSON.stringify(jsonData, null, '\t'),
+    JSON.stringify(jsonData, null, "\t"),
   );
 }
 
 const logger = RequestLogger(/api.opendota.com\/api/);
 
 function path2file(url: string) {
-  if (url.startsWith('https://api.opendota.com/api/explorer')) {
-    return 'explorer';
+  if (url.startsWith("https://api.opendota.com/api/explorer")) {
+    return "explorer";
   }
-  return sanitize(url.replace('https://api.opendota.com/api/', ''), {
-    replacement: '_',
+  return sanitize(url.replace("https://api.opendota.com/api/", ""), {
+    replacement: "_",
   }).substr(0, 200);
 }
 
@@ -53,10 +53,10 @@ const mock = RequestMock()
   .respond((req, res) => {
     const data = readFileSync(
       `./testcafe/cachedAjax/${path2file(req.url)}.json`,
-      'utf8',
+      "utf8",
     );
 
-    res.headers['Access-Control-Allow-Origin'] = '*';
+    res.headers["Access-Control-Allow-Origin"] = "*";
     res.statusCode = 200;
     res.setBody(data);
   });

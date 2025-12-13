@@ -1,15 +1,15 @@
-import React from 'react';
-import Container from '../Container/Container';
-import Table from '../Table/Table';
-import { matchColumns, memberColumns, heroColumns } from './teamDataColumns';
-import { Row, MatchesContainer, MemberAndHeroContainer } from './TeamStyled';
+import React from "react";
+import Container from "../Container/Container";
+import Table from "../Table/Table";
+import { matchColumns, memberColumns, heroColumns } from "./teamDataColumns";
+import { Row, MatchesContainer, MemberAndHeroContainer } from "./TeamStyled";
 
 const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
 
 export default (strings: Strings) => ({
   name: strings.tab_overview,
-  key: 'overview',
+  key: "overview",
   content: (
     generalData: any,
     matchData: any,

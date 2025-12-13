@@ -1,7 +1,7 @@
-import React from 'react';
-import { gradient } from 'abcolor';
-import { StyledContainer, PercentContainer, TitleContainer } from './Styled';
-import constants from '../../constants';
+import React from "react";
+import { gradient } from "abcolor";
+import { StyledContainer, PercentContainer, TitleContainer } from "./Styled";
+import constants from "../../constants";
 
 const Percent = ({
   percent,

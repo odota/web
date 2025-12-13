@@ -1,6 +1,6 @@
-import React from 'react';
-import constants from '../constants';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import constants from "../constants";
+import useStrings from "../../hooks/useStrings.hook";
 
 const Error = (props: { text?: string }) => {
   const strings = useStrings();
@@ -8,8 +8,8 @@ const Error = (props: { text?: string }) => {
     <div
       style={{
         backgroundColor: constants.colorDanger,
-        padding: '15px',
-        color: 'white',
+        padding: "15px",
+        color: "white",
       }}
     >
       Whoops! Something went wrong. (

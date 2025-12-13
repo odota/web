@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import React from 'react';
-import { TextField } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import styled from "styled-components";
+import React from "react";
+import { TextField } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
 const StyledHorizontalMenuFilter = styled.div`
   display: flex;
@@ -32,7 +32,7 @@ const HorizontalMenuFilter = ({
   filterText: string;
 }) => (
   <StyledHorizontalMenuFilter>
-    <SearchIcon style={{ marginRight: 6, opacity: '.6' }} />
+    <SearchIcon style={{ marginRight: 6, opacity: ".6" }} />
     <TextField
       helperText={filterText}
       value={value}
@@ -70,7 +70,7 @@ class HorizontalMenu extends React.Component<{
   horizontalMenuRef: any = null;
 
   state = {
-    searchValue: '',
+    searchValue: "",
   };
 
   onWheel = (e: any) => {
@@ -82,11 +82,11 @@ class HorizontalMenu extends React.Component<{
   };
 
   componentDidMount() {
-    this.horizontalMenuRef?.addEventListener('wheel', this.onWheel);
+    this.horizontalMenuRef?.addEventListener("wheel", this.onWheel);
   }
 
   componentWillUnmount() {
-    this.horizontalMenuRef?.removeEventListener('wheel', this.onWheel);
+    this.horizontalMenuRef?.removeEventListener("wheel", this.onWheel);
   }
 
   sethorizontalMenuRef = (node: any) => {
@@ -97,7 +97,7 @@ class HorizontalMenu extends React.Component<{
     if (this.state.searchValue.length > 0) {
       this.inputRef?.focus();
     }
-    this.setState({ searchValue: '' });
+    this.setState({ searchValue: "" });
   };
 
   handleChange = (e: any) => this.setState({ searchValue: e.target.value });

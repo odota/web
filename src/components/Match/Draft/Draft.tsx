@@ -1,14 +1,14 @@
-import React from 'react';
-import { heroes } from 'dotaconstants';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import styled from 'styled-components';
-import Heading from '../../Heading/Heading';
-import { IconRadiant, IconDire } from '../../Icons';
-import { getTeamName } from '../../../utility';
-import constants from '../../constants';
-import config from '../../../config';
-import useStrings from '../../../hooks/useStrings.hook';
+import React from "react";
+import { heroes } from "dotaconstants";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import styled from "styled-components";
+import Heading from "../../Heading/Heading";
+import { IconRadiant, IconDire } from "../../Icons";
+import { getTeamName } from "../../../utility";
+import constants from "../../constants";
+import config from "../../../config";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const Styled = styled.div`
   max-width: 800px;
@@ -55,17 +55,17 @@ const DraftCell = styled.div`
   display: flex;
   width: fit-content;
   margin-left: ${(props: { radiant: boolean }) =>
-    props.radiant ? '0' : 'auto'};
+    props.radiant ? "0" : "auto"};
   justify-content: ${(props: { radiant: boolean }) =>
-    props.radiant ? 'flex-start' : 'flex-end'};
+    props.radiant ? "flex-start" : "flex-end"};
 
   .time-tracker {
     display: flex;
     flex-direction: column;
     align-items: ${(props: { radiant: boolean }) =>
-      props.radiant ? 'flex-start' : 'flex-end'};
+      props.radiant ? "flex-start" : "flex-end"};
     justify-content: space-around;
-    order: ${(props: { radiant: boolean }) => (props.radiant ? '1' : '-1')};
+    order: ${(props: { radiant: boolean }) => (props.radiant ? "1" : "-1")};
     padding: 8px;
   }
 
@@ -96,7 +96,7 @@ const HeroIcon = styled.div`
 
   img {
     width: 100px;
-    &[data-ispick='false'] {
+    &[data-ispick="false"] {
       filter: grayscale(100%);
     }
   }
@@ -119,12 +119,12 @@ const HeroIcon = styled.div`
 
 const LeftArrow = styled(KeyboardArrowLeftIcon)`
   visibility: ${(props: { visible: string }) =>
-    props.visible === 'true' ? 'visible' : 'hidden'};
+    props.visible === "true" ? "visible" : "hidden"};
 `;
 
 const RightArrow = styled(KeyboardArrowRightIcon)`
   visibility: ${(props: { visible: string }) =>
-    props.visible === 'true' ? 'visible' : 'hidden'};
+    props.visible === "true" ? "visible" : "hidden"};
 `;
 
 const TimeTracker = ({
@@ -138,9 +138,9 @@ const TimeTracker = ({
 }) => (
   <div className="time-tracker">
     <span className="taken">
-      <span className={pb.total_time_taken > 30 ? 'extra-used' : ''}>
+      <span className={pb.total_time_taken > 30 ? "extra-used" : ""}>
         {pb.total_time_taken}s
-      </span>{' '}
+      </span>{" "}
       used
     </span>
     {isCaptains && (
@@ -285,7 +285,7 @@ const Draft = ({
                 ? draft.map((pb) => (
                     <tr
                       key={pb.order}
-                      className={`${radiantOrder.includes(pb.order) ? 'radiant' : 'dire'} draft-row`}
+                      className={`${radiantOrder.includes(pb.order) ? "radiant" : "dire"} draft-row`}
                     >
                       <td style={{ paddingLeft: 0 }}>
                         {radiantPick(pb) && (
@@ -302,25 +302,25 @@ const Draft = ({
                         {picks.includes(pb.order) ? (
                           <Pick>
                             <LeftArrow
-                              style={{ color: 'inherit' }}
-                              visible={radiantPick(pb) ? 'true' : 'false'}
+                              style={{ color: "inherit" }}
+                              visible={radiantPick(pb) ? "true" : "false"}
                             />
                             Pick {pb.order}
                             <RightArrow
-                              style={{ color: 'inherit' }}
-                              visible={radiantPick(pb) ? 'false' : 'true'}
+                              style={{ color: "inherit" }}
+                              visible={radiantPick(pb) ? "false" : "true"}
                             />
                           </Pick>
                         ) : (
                           <Ban>
                             <LeftArrow
-                              style={{ color: 'inherit' }}
-                              visible={radiantPick(pb) ? 'true' : 'false'}
+                              style={{ color: "inherit" }}
+                              visible={radiantPick(pb) ? "true" : "false"}
                             />
                             Ban {pb.order}
                             <RightArrow
-                              style={{ color: 'inherit' }}
-                              visible={radiantPick(pb) ? 'false' : 'true'}
+                              style={{ color: "inherit" }}
+                              visible={radiantPick(pb) ? "false" : "true"}
                             />
                           </Ban>
                         )}
@@ -343,7 +343,7 @@ const Draft = ({
                     .map((pb) => (
                       <tr
                         key={pb.order}
-                        className={`${radiantOrder.includes(pb.order) ? 'radiant' : 'dire'} draft-row`}
+                        className={`${radiantOrder.includes(pb.order) ? "radiant" : "dire"} draft-row`}
                       >
                         <td style={{ paddingLeft: 0 }}>
                           {radiantPick(pb) && (

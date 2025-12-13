@@ -1,6 +1,6 @@
-import React from 'react';
-import { Autocomplete, Chip, TextField } from '@mui/material';
-import { DatePicker } from './DatePicker';
+import React from "react";
+import { Autocomplete, Chip, TextField } from "@mui/material";
+import { DatePicker } from "./DatePicker";
 
 type ExplorerFormFieldProps = {
   fields?: Record<string, any>;
@@ -32,7 +32,7 @@ class ExplorerFormField extends React.Component<ExplorerFormFieldProps> {
               (element: any) => element.key === builder[builderField],
             ) || {}
           ).text
-        : '';
+        : "";
       if (searchText) {
         this.autocomplete.setState({
           searchText,
@@ -104,7 +104,7 @@ class ExplorerFormField extends React.Component<ExplorerFormFieldProps> {
       <Autocomplete
         multiple
         clearIcon={null}
-        sx={{ width: '250px' }}
+        sx={{ width: "250px" }}
         value={chipList}
         fullWidth
         renderInput={(params) => <TextField {...params} label={label} />}

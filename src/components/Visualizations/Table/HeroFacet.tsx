@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactTooltip from 'react-tooltip';
-import styled from 'styled-components';
-import { heroes } from 'dotaconstants';
-import config from '../../../config';
-import { useHeroAbilities } from '../../../hooks/useHeroAbilities.hook';
+import React from "react";
+import ReactTooltip from "react-tooltip";
+import styled from "styled-components";
+import { heroes } from "dotaconstants";
+import config from "../../../config";
+import { useHeroAbilities } from "../../../hooks/useHeroAbilities.hook";
 
 const Facet = styled.div`
   .facet {
@@ -170,16 +170,16 @@ const HeroFacet = ({ heroID, facet }: { heroID?: string; facet?: number }) => {
             <div
               className={`facetTooltip ${colorClass}`}
               style={{
-                height: '100%',
-                width: '100%',
+                height: "100%",
+                width: "100%",
               }}
             >
               <div className="facetHeader">
                 <div
                   style={{
-                    padding: '10px',
+                    padding: "10px",
                     background:
-                      'linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1))',
+                      "linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1))",
                   }}
                 >
                   <img src={imageURL} alt="" />

@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import { heroes } from 'dotaconstants';
-import ReactTooltip from 'react-tooltip';
-import { abbreviateNumber } from '../../utility';
-import { IconRadiant, IconDire } from '../Icons';
-import constants from '../constants';
-import HeroImage from '../Visualizations/HeroImage';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import styled from "styled-components";
+import { heroes } from "dotaconstants";
+import ReactTooltip from "react-tooltip";
+import { abbreviateNumber } from "../../utility";
+import { IconRadiant, IconDire } from "../Icons";
+import constants from "../constants";
+import HeroImage from "../Visualizations/HeroImage";
+import useStrings from "../../hooks/useStrings.hook";
 
 const StyledDiv = styled.div`
   table {
@@ -207,7 +207,7 @@ const CrossTable = ({
                             color:
                               pvalue1 > pvalue2
                                 ? constants.primaryTextColor
-                                : '',
+                                : "",
                           }}
                         >
                           <span>{abbreviateNumber(pvalue1)}</span>
@@ -218,7 +218,7 @@ const CrossTable = ({
                             color:
                               pvalue2 > pvalue1
                                 ? constants.primaryTextColor
-                                : '',
+                                : "",
                           }}
                         >
                           <span>{abbreviateNumber(pvalue2)}</span>
@@ -265,7 +265,7 @@ const CrossTable = ({
                         className="value-1"
                         style={{
                           color:
-                            ptotal1 > ptotal2 ? constants.primaryTextColor : '',
+                            ptotal1 > ptotal2 ? constants.primaryTextColor : "",
                         }}
                       >
                         <span>{abbreviateNumber(ptotal1)}</span>
@@ -274,7 +274,7 @@ const CrossTable = ({
                         className="value-1"
                         style={{
                           color:
-                            ptotal2 > ptotal1 ? constants.primaryTextColor : '',
+                            ptotal2 > ptotal1 ? constants.primaryTextColor : "",
                         }}
                       >
                         <span>{abbreviateNumber(ptotal2)}</span>
@@ -331,7 +331,7 @@ const CrossTable = ({
                         className="value-1"
                         style={{
                           color:
-                            ptotal2 > ptotal1 ? constants.primaryTextColor : '',
+                            ptotal2 > ptotal1 ? constants.primaryTextColor : "",
                         }}
                       >
                         <span>{abbreviateNumber(ptotal2)}</span>
@@ -340,7 +340,7 @@ const CrossTable = ({
                         className="value-1"
                         style={{
                           color:
-                            ptotal1 > ptotal2 ? constants.primaryTextColor : '',
+                            ptotal1 > ptotal2 ? constants.primaryTextColor : "",
                         }}
                       >
                         <span>{abbreviateNumber(ptotal1)}</span>
@@ -390,7 +390,7 @@ const CrossTable = ({
                         color:
                           radiantTotal > direTotal
                             ? constants.primaryTextColor
-                            : '',
+                            : "",
                       }}
                     >
                       <span>{abbreviateNumber(radiantTotal)}</span>
@@ -401,7 +401,7 @@ const CrossTable = ({
                         color:
                           direTotal > radiantTotal
                             ? constants.primaryTextColor
-                            : '',
+                            : "",
                       }}
                     >
                       <span>{abbreviateNumber(direTotal)}</span>

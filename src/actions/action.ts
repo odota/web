@@ -1,5 +1,5 @@
-import querystring from 'querystring';
-import config from '../config';
+import querystring from "querystring";
+import config from "../config";
 
 export default function action(
   type: string,
@@ -9,7 +9,7 @@ export default function action(
   transform?: (value: any) => any,
 ) {
   return (dispatch: Function) => {
-    const url = `${host}/${path}?${typeof params === 'string' ? params.substring(1) : querystring.stringify(params)}`;
+    const url = `${host}/${path}?${typeof params === "string" ? params.substring(1) : querystring.stringify(params)}`;
     const getDataStart = () => ({
       type: `REQUEST/${type}`,
     });
@@ -24,7 +24,7 @@ export default function action(
     const fetchDataWithRetry = (delay: number) =>
       fetch(
         url,
-        url.startsWith(config.VITE_API_HOST) ? { credentials: 'include' } : {},
+        url.startsWith(config.VITE_API_HOST) ? { credentials: "include" } : {},
       )
         .then((response) => {
           if (!response.ok || !response.status) {
@@ -33,9 +33,9 @@ export default function action(
             dispatch(getError(response.status));
             if (response.status >= 400 && response.status < 500) {
               err.clientError = true;
-              err.message = 'fetch failed - client error';
+              err.message = "fetch failed - client error";
             } else {
-              err.message = 'fetch failed - retrying';
+              err.message = "fetch failed - retrying";
             }
             throw err;
           }

@@ -1,12 +1,12 @@
-import React from 'react';
-import { Tooltip } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { StyledDiv, TwoLineDiv } from './Styled';
-import { Button } from '@mui/material';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import { Tooltip } from "@mui/material";
+import { Link } from "react-router-dom";
+import { StyledDiv, TwoLineDiv } from "./Styled";
+import { Button } from "@mui/material";
+import useStrings from "../../hooks/useStrings.hook";
 
 const Heading = ({
-  title = '',
+  title = "",
   titleTo,
   icon,
   subtitle,
@@ -14,7 +14,7 @@ const Heading = ({
   buttonTo,
   buttonIcon,
   twoLine,
-  info = '',
+  info = "",
   winner,
   className,
 }: {
@@ -41,7 +41,7 @@ const Heading = ({
       <span className="subtitle">
         {subtitle}
         <Tooltip title={info}>
-          <span className="info" style={{ display: info ? 'inline' : 'none' }}>
+          <span className="info" style={{ display: info ? "inline" : "none" }}>
             (?)
           </span>
         </Tooltip>

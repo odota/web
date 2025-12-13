@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
-import { gameCoordToUV, getWardSize } from '../../../utility';
-import DotaMap from '../../DotaMap/DotaMap';
-import constants from '../../constants';
+import React from "react";
+import styled from "styled-components";
+import { gameCoordToUV, getWardSize } from "../../../utility";
+import DotaMap from "../../DotaMap/DotaMap";
+import constants from "../../constants";
 
 const hoverMapStyle: React.CSSProperties = {
   height: 300,
-  position: 'absolute',
-  bottom: '25px',
-  left: '25px',
-  border: '5px solid rgb(21, 23, 27)',
-  outline: '1px solid #0E0E0E',
+  position: "absolute",
+  bottom: "25px",
+  left: "25px",
+  border: "5px solid rgb(21, 23, 27)",
+  outline: "1px solid #0E0E0E",
 };
 
 const Styled = styled.div`
@@ -64,7 +64,7 @@ const wardStyle = (width: number, log: any): React.CSSProperties => {
 
   const wardSize = getWardSize(log.type, width);
 
-  if (log.type === 'observer') {
+  if (log.type === "observer") {
     fill = constants.colorYelorMuted;
     strokeWidth = 2.5;
   } else {
@@ -73,22 +73,22 @@ const wardStyle = (width: number, log: any): React.CSSProperties => {
   }
 
   return {
-    position: 'absolute',
+    position: "absolute",
     width: wardSize,
     height: wardSize,
     top: (width / 127) * gamePos.y - wardSize / 2,
     left: (width / 127) * gamePos.x - wardSize / 2,
     background: fill,
-    borderRadius: '50%',
+    borderRadius: "50%",
     border: `${strokeWidth}px solid ${stroke}`,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   };
 };
 
 const wardIcon = (log: any) => {
-  const side = log.entered.player_slot < 5 ? 'goodguys' : 'badguys';
+  const side = log.entered.player_slot < 5 ? "goodguys" : "badguys";
   return `/assets/images/dota2/map/${side}_${log.type}.png`;
 };
 
@@ -97,7 +97,7 @@ export const WardPin = ({ width, log }: { width: number; log: any }) => {
   return (
     <Styled>
       <div style={wardStyle(width, log)} data-tip data-for={id}>
-        <img src={wardIcon(log)} alt={log.type === 'observer' ? 'O' : 'S'} />
+        <img src={wardIcon(log)} alt={log.type === "observer" ? "O" : "S"} />
       </div>
     </Styled>
   );

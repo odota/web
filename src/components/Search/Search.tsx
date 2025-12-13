@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
-import fuzzy from 'fuzzy';
-import { withRouter } from 'react-router-dom';
-import { getSearchResultAndPros } from '../../actions';
-import SearchResult from './SearchResult';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import { connect } from "react-redux";
+import Helmet from "react-helmet";
+import fuzzy from "fuzzy";
+import { withRouter } from "react-router-dom";
+import { getSearchResultAndPros } from "../../actions";
+import SearchResult from "./SearchResult";
+import useStrings from "../../hooks/useStrings.hook";
 
 const extract = (item: any) => `${item.name}${item.team_name}`;
 

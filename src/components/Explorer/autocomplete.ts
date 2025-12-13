@@ -1,27 +1,27 @@
-import { heroes, items } from 'dotaconstants';
-import store from '../../store';
+import { heroes, items } from "dotaconstants";
+import store from "../../store";
 // import fields from './fields';
 
-const sqlfs = ['SELECT', 'WHERE', 'GROUP BY', 'ORDER BY'];
-const sqlts = ['FROM', 'JOIN', 'LEFT JOIN'];
+const sqlfs = ["SELECT", "WHERE", "GROUP BY", "ORDER BY"];
+const sqlts = ["FROM", "JOIN", "LEFT JOIN"];
 const tables = [
-  'matches',
-  'player_matches',
-  'teams',
-  'match_logs',
-  'public_matches',
-  'public_player_matches',
+  "matches",
+  "player_matches",
+  "teams",
+  "match_logs",
+  "public_matches",
+  "public_player_matches",
 ];
-const sqlks = ['OFFSET', 'LIMIT', 'DISTINCT', 'IN'];
+const sqlks = ["OFFSET", "LIMIT", "DISTINCT", "IN"];
 const sqlfuncs = [
-  'to_timestamp()',
-  'count()',
-  'avg()',
-  'sum()',
-  'stddev()',
-  'min()',
-  'max()',
-  'using()',
+  "to_timestamp()",
+  "count()",
+  "avg()",
+  "sum()",
+  "stddev()",
+  "min()",
+  "max()",
+  "using()",
 ];
 
 const autocomplete = (
@@ -48,7 +48,7 @@ const autocomplete = (
       meta: `${t.team_id.toString()} (${strings.explorer_organization})`,
     }));
   const filteredLeagues = leagues
-    .filter((l) => l.tier === 'premium' || l.tier === 'professional')
+    .filter((l) => l.tier === "premium" || l.tier === "professional")
     .map((l) => ({
       value: l.name,
       snippet: l.leagueid.toString(),
@@ -75,7 +75,7 @@ const autocomplete = (
           )
           .concat(
             Object.keys(items)
-              .filter((k) => k.indexOf('recipe_') !== 0)
+              .filter((k) => k.indexOf("recipe_") !== 0)
               .map((k) => ({
                 //@ts-expect-error
                 caption: items[k as keyof typeof items].dname,

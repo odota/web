@@ -1,17 +1,17 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import { connect } from 'react-redux';
+import React from "react";
+import Helmet from "react-helmet";
+import { connect } from "react-redux";
 import {
   getTeam,
   getTeamHeroes,
   getTeamMatches,
   getTeamPlayers,
-} from '../../actions';
-import Spinner from '../Spinner/Spinner';
-import TabBar from '../TabBar/TabBar';
-import teamPages from './teamPages';
-import getTeamHeader from './TeamHeader';
-import { Column } from './TeamStyled';
+} from "../../actions";
+import Spinner from "../Spinner/Spinner";
+import TabBar from "../TabBar/TabBar";
+import teamPages from "./teamPages";
+import getTeamHeader from "./TeamHeader";
+import { Column } from "./TeamStyled";
 
 const getData = (props: TeamProps) => {
   const { teamId } = props.match.params;
@@ -78,7 +78,7 @@ class Team extends React.Component<TeamProps> {
   render() {
     const { strings } = this.props;
     const { teamId } = this.props.match.params;
-    const info = this.props.match.params.info || 'overview';
+    const info = this.props.match.params.info || "overview";
     const page = teamPages(teamId, strings).find((_page) => _page.key === info);
     const teamName = this.props.generalData.data.name;
     const title = page ? `${teamName} - ${page.name}` : teamName;

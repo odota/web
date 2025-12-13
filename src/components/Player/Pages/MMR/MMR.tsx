@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { MMRGraph } from '../../../Visualizations';
-import { getPlayerMmr } from '../../../../actions';
-import Container from '../../../Container/Container';
+import React from "react";
+import { connect } from "react-redux";
+import { MMRGraph } from "../../../Visualizations";
+import { getPlayerMmr } from "../../../../actions";
+import Container from "../../../Container/Container";
 
 const getData = (props: MMRProps) => {
   props.getPlayerMmr(props.playerId, props.location.search);

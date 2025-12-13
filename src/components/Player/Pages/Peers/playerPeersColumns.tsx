@@ -1,18 +1,18 @@
-import React from 'react';
-import { transformations } from '../../../../utility';
-import TableLink from '../../../Table/TableLink';
+import React from "react";
+import { transformations } from "../../../../utility";
+import TableLink from "../../../Table/TableLink";
 
 const avatarMatches = (playerId: string, strings: Strings) => [
   {
     displayName: strings.th_avatar,
-    field: 'last_played',
+    field: "last_played",
     displayFn: transformations.player,
     sortFn: true,
   },
   {
     displayName: strings.th_games,
     tooltip: strings.tooltip_matches,
-    field: 'matches',
+    field: "matches",
     sortFn: (row: any) => row.with_games + row.against_games,
     relativeBars: true,
     displayFn: (row: any) => (
@@ -29,7 +29,7 @@ const matchesWith = (strings: Strings) => [
   {
     displayName: strings.th_with_games,
     tooltip: strings.tooltip_played_with,
-    field: 'with_games',
+    field: "with_games",
     sortFn: true,
     relativeBars: true,
   },
@@ -39,7 +39,7 @@ const winsWith = (strings: Strings) => [
   {
     displayName: strings.th_with_win,
     tooltip: strings.tooltip_win_pct_with,
-    field: 'with_win',
+    field: "with_win",
     sortFn: (row: any) => row.with_win / row.with_games,
     percentBars: true,
   },
@@ -49,27 +49,27 @@ const restColumns = (strings: Strings) => [
   {
     displayName: strings.th_against_games,
     tooltip: strings.tooltip_played_against,
-    field: 'against_games',
+    field: "against_games",
     sortFn: true,
     relativeBars: true,
   },
   {
     displayName: strings.th_against_win,
     tooltip: strings.tooltip_win_pct_against,
-    field: 'against_win',
+    field: "against_win",
     sortFn: (row: any) => row.against_win / row.against_games,
     percentBars: true,
   },
   {
     displayName: strings.th_gpm_with,
-    field: 'with_gpm_sum',
+    field: "with_gpm_sum",
     displayFn: (row: any) => (row.with_gpm_sum / row.with_games).toFixed(0),
     sortFn: (row: any) => row.with_gpm_sum / row.with_games,
     relativeBars: true,
   },
   {
     displayName: strings.th_xpm_with,
-    field: 'with_xpm_sum',
+    field: "with_xpm_sum",
     displayFn: (row: any) => (row.with_xpm_sum / row.with_games).toFixed(0),
     sortFn: (row: any) => row.with_xpm_sum / row.with_games,
     relativeBars: true,

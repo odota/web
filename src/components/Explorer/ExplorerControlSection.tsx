@@ -1,6 +1,6 @@
-import React from 'react';
-import { FormControlLabel, Switch } from '@mui/material';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import { FormControlLabel, Switch } from "@mui/material";
+import useStrings from "../../hooks/useStrings.hook";
 
 const ExplorerControlSection = ({
   showToggle,
@@ -16,7 +16,7 @@ const ExplorerControlSection = ({
   const strings = useStrings();
   return (
     <div>
-      <div style={{ width: '180px', margin: '10px' }}>
+      <div style={{ width: "180px", margin: "10px" }}>
         <div>{/* drawOmnibox(this, expandedFields) */}</div>
         {showToggle && (
           <FormControlLabel
@@ -29,20 +29,20 @@ const ExplorerControlSection = ({
       </div>
       <div
         style={{
-          display: showEditor ? 'none' : 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          gap: '8px',
+          display: showEditor ? "none" : "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          gap: "8px",
         }}
       >
         {children}
       </div>
-      <div style={{ display: showEditor ? 'block' : 'none' }}>
+      <div style={{ display: showEditor ? "block" : "none" }}>
         <div
           id="editor"
           style={{
             height: 100,
-            width: '100%',
+            width: "100%",
           }}
         />
       </div>

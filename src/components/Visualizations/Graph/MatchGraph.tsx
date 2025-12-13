@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   ReferenceArea,
   XAxis,
@@ -10,10 +10,10 @@ import {
   ReferenceLine,
   Legend,
   ResponsiveContainer,
-} from 'recharts';
-import { heroes, player_colors as playerColors } from 'dotaconstants';
-import Heading from '../../Heading/Heading';
-import constants from '../../constants';
+} from "recharts";
+import { heroes, player_colors as playerColors } from "dotaconstants";
+import Heading from "../../Heading/Heading";
+import constants from "../../constants";
 import {
   StyledTooltip,
   StyledTooltipTeam,
@@ -24,9 +24,9 @@ import {
   XpSpan,
   StyledTooltipGold,
   StyledCustomizedTooltip,
-} from './Styled';
-import config from '../../../config';
-import useStrings from '../../../hooks/useStrings.hook';
+} from "./Styled";
+import config from "../../../config";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const formatGraphTime = (minutes: number) => `${minutes}:00`;
 
@@ -65,7 +65,7 @@ const CustomizedTooltip = ({
         ?.map((data, i) => (
           <div
             key={i}
-            className={`data ${origOrderMap[data.dataKey] < 5 && 'isRadiant'}`}
+            className={`data ${origOrderMap[data.dataKey] < 5 && "isRadiant"}`}
             style={{ borderLeft: `8px solid ${data.color}` }}
           >
             {data.dataKey}: {data.value}
@@ -300,7 +300,7 @@ const MatchGraph = ({
   width?: number;
 }) => {
   const strings = useStrings();
-  if (type === 'difference') {
+  if (type === "difference") {
     return (
       <XpNetworthGraph
         match={match}
@@ -310,7 +310,7 @@ const MatchGraph = ({
         // sponsorIcon={sponsorIcon}
       />
     );
-  } else if (type === 'gold' || type === 'xp' || type === 'lh') {
+  } else if (type === "gold" || type === "xp" || type === "lh") {
     return <PlayersGraph type={type} match={match} strings={strings} />;
   }
   return null;

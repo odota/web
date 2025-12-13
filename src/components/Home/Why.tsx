@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import { IconOpenSource, IconStatsBars, IconWand } from '../Icons';
-import constants from '../constants';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import styled from "styled-components";
+import { IconOpenSource, IconStatsBars, IconWand } from "../Icons";
+import constants from "../constants";
+import useStrings from "../../hooks/useStrings.hook";
 
 const StyledDiv = styled.div`
   margin: 50px auto 0;

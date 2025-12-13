@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getPlayerWordcloud } from '../../../../actions';
-import Container from '../../../Container/Container';
-import Wordcloud from '../../../Wordcloud/Wordcloud';
+import React from "react";
+import { connect } from "react-redux";
+import { getPlayerWordcloud } from "../../../../actions";
+import Container from "../../../Container/Container";
+import Wordcloud from "../../../Wordcloud/Wordcloud";
 
 type Props = {
   playerId: string;

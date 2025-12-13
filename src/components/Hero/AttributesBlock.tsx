@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import constants from '../constants';
-import Attribute from './Attribute';
-import { compileLevelOneStats } from '../../utility';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import styled from "styled-components";
+import constants from "../constants";
+import Attribute from "./Attribute";
+import { compileLevelOneStats } from "../../utility";
+import useStrings from "../../hooks/useStrings.hook";
 
 const AttributesWrapper = styled.div`
   display: flex;
@@ -49,7 +49,7 @@ const HeroAttributes = ({ hero }: { hero: Hero }) => {
     <AttributesWrapper>
       <AttributeBlock>
         <Attribute>
-          <Label>{strings.heading_attack}:</Label>{' '}
+          <Label>{strings.heading_attack}:</Label>{" "}
           {`${h.base_attack_min} - ${h.base_attack_max}`}
         </Attribute>
         <Attribute>
@@ -60,7 +60,7 @@ const HeroAttributes = ({ hero }: { hero: Hero }) => {
         </Attribute>
         {h.projectile_speed !== 0 && (
           <Attribute>
-            <Label>{strings.heading_projectile_speed}:</Label>{' '}
+            <Label>{strings.heading_projectile_speed}:</Label>{" "}
             {h.projectile_speed}
           </Attribute>
         )}
@@ -70,7 +70,7 @@ const HeroAttributes = ({ hero }: { hero: Hero }) => {
           <Label>{strings.heading_base_health}:</Label> {h.base_health}
         </Attribute>
         <Attribute>
-          <Label>{strings.heading_base_health_regen}:</Label>{' '}
+          <Label>{strings.heading_base_health_regen}:</Label>{" "}
           {h.base_health_regen}
         </Attribute>
         <Attribute>
@@ -82,7 +82,7 @@ const HeroAttributes = ({ hero }: { hero: Hero }) => {
       </AttributeBlock>
       <AttributeBlock>
         <Attribute>
-          <Label>{strings.heading_base_armor}:</Label>{' '}
+          <Label>{strings.heading_base_armor}:</Label>{" "}
           {`${h.base_armor} (${calcArmorPercent(h.base_armor)}%)`}
         </Attribute>
         <Attribute>
@@ -100,7 +100,7 @@ const HeroAttributes = ({ hero }: { hero: Hero }) => {
           <Label>{strings.heading_legs}:</Label> {h.legs}
         </Attribute>
         <Attribute>
-          <Label>{strings.heading_cm_enabled}:</Label>{' '}
+          <Label>{strings.heading_cm_enabled}:</Label>{" "}
           {h.cm_enabled ? strings.yes : strings.no}
         </Attribute>
       </AttributeBlock>

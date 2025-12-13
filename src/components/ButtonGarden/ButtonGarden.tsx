@@ -1,6 +1,6 @@
-import React from 'react';
-import { Button } from '@mui/material';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import { Button } from "@mui/material";
+import useStrings from "../../hooks/useStrings.hook";
 
 const ButtonGarden = ({
   buttonNames,
@@ -14,13 +14,13 @@ const ButtonGarden = ({
   const strings = useStrings();
   return (
     <div
-      style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', padding: '4px' }}
+      style={{ display: "flex", gap: "4px", flexWrap: "wrap", padding: "4px" }}
     >
       {buttonNames.map((buttonName) => (
         <Button
-          sx={{ width: '180px' }}
+          sx={{ width: "180px" }}
           size="small"
-          variant={selectedButton === buttonName ? 'contained' : 'outlined'}
+          variant={selectedButton === buttonName ? "contained" : "outlined"}
           onClick={(e) => onClick(buttonName)}
           key={buttonName}
         >

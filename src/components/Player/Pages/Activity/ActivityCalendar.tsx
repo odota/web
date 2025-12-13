@@ -1,13 +1,13 @@
-import React from 'react';
-import ReactTooltip from 'react-tooltip';
-import constants from '../../../constants';
+import React from "react";
+import ReactTooltip from "react-tooltip";
+import constants from "../../../constants";
 import {
   getDOY,
   getLocalizedWeekdayStrings,
   getLocalizedMonthStrings,
-} from './../../../../utility';
-import Table from './../../../Table/Table';
-import playerMatchesColumns from '../Matches/playerMatchesColumns';
+} from "./../../../../utility";
+import Table from "./../../../Table/Table";
+import playerMatchesColumns from "../Matches/playerMatchesColumns";
 import {
   WeeksContainer,
   DayContainer,
@@ -15,10 +15,10 @@ import {
   Styled,
   Content,
   WeekDayLabels,
-} from './Styled';
-import useStrings from '../../../../hooks/useStrings.hook';
+} from "./Styled";
+import useStrings from "../../../../hooks/useStrings.hook";
 
-const langCode = window.localStorage.getItem('localization') || 'en-US';
+const langCode = window.localStorage.getItem("localization") || "en-US";
 const weekDayStrings = getLocalizedWeekdayStrings();
 const monthStrings = getLocalizedMonthStrings();
 
@@ -35,7 +35,7 @@ const circleRadius = (dayData: any, normalizationRatio: number) => {
 
 const circleColor = (dayData: any) => {
   if (!dayData) {
-    return 'transparent';
+    return "transparent";
   }
   const { win, loss } = dayData;
   const sum = win + loss;
@@ -59,9 +59,9 @@ const getTooltip = (date: Date, data: any) => {
   const dateString =
     date &&
     date.toLocaleDateString(langCode, {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
+      day: "numeric",
+      month: "short",
+      year: "numeric",
     });
   if (!date) {
     return null;
@@ -108,9 +108,9 @@ const Day = ({
   return (
     <DayContainer
       onClick={data && handleDayClick(doy)}
-      className={date && 'active'}
+      className={date && "active"}
       style={{
-        opacity: hoveredMonth !== null && hoveredMonth !== month ? '0.2' : '1',
+        opacity: hoveredMonth !== null && hoveredMonth !== month ? "0.2" : "1",
         outline:
           doy === clickedDay ? `1px solid ${constants.colorBlue}` : undefined,
       }}
@@ -233,10 +233,10 @@ class Weeks extends React.Component<
         ))}
         <div
           style={{
-            transition: 'opacity 300ms ease-in-out',
+            transition: "opacity 300ms ease-in-out",
             opacity: !clickedDay && 0,
-            pointerEvents: clickedDay ? 'auto' : 'none',
-            outline: 'none',
+            pointerEvents: clickedDay ? "auto" : "none",
+            outline: "none",
           }}
           id="hide-table"
           onClick={this.hideTable}
@@ -248,14 +248,14 @@ class Weeks extends React.Component<
         </div>
         <div
           style={{
-            transition: 'height 300ms ease-in-out',
+            transition: "height 300ms ease-in-out",
             height:
               clickedDay !== null
                 ? `${data[clickedDay].matches.length * 48 + 48}px`
                 : 0,
             width: 940,
             marginLeft: 44,
-            overflow: 'hidden',
+            overflow: "hidden",
           }}
         >
           {clickedDay !== null && (
@@ -282,7 +282,7 @@ const aggregateByYear = (matches: any[]) => {
       data[year] = data[year] || [];
       data[year][doy] = data[year][doy] || { win: 0, loss: 0, matches: [] };
       data[year][doy].matches.push(match);
-      data[year][doy][radiantWin === playerSlot < 5 ? 'win' : 'loss'] += 1;
+      data[year][doy][radiantWin === playerSlot < 5 ? "win" : "loss"] += 1;
     }
   });
 

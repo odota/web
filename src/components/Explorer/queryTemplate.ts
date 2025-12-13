@@ -3,7 +3,7 @@ function conjoin(
   value: { value: any }[] | { value: any } | string,
 ) {
   if (!value) {
-    return '';
+    return "";
   }
   const str0 = strings[0];
   const str1 = strings[1];
@@ -11,12 +11,12 @@ function conjoin(
     const o = value.map((x) => x.value);
     const r: any[] = [];
     if (!value.length) {
-      return '';
+      return "";
     }
     o.forEach((s) => {
       r.push(`${str0}${s}${str1}`);
     });
-    return `AND (${r.join(' OR ')})`;
+    return `AND (${r.join(" OR ")})`;
   }
   //@ts-expect-error
   return `AND ${str0}${value.value !== undefined ? value.value : value}${str1}`;
@@ -97,7 +97,7 @@ const queryTemplate = (props: Record<string, any[]>) => {
         alias: x.alias,
         key: `key${index.toString()}`,
       };
-      if (x.groupKey === 'key') {
+      if (x.groupKey === "key") {
         const p = x;
         a.value = `key${index.toString()}.key`;
         p.value = `key${index.toString()}.key`;
@@ -109,7 +109,7 @@ const queryTemplate = (props: Record<string, any[]>) => {
   });
   if (
     validateArray(selectArray) &&
-    selectArray.some((p) => p.template === 'picks_bans')
+    selectArray.some((p) => p.template === "picks_bans")
   ) {
     query = `SELECT
 hero_id, 
@@ -132,7 +132,7 @@ JOIN leagues using(leagueid)
 JOIN team_match using(match_id)
 JOIN teams using(team_id)
 WHERE TRUE
-${validateArray(selectArray) && selectArray.find((x) => x.where) !== undefined ? selectArray.find((x) => x.where).where : ''}
+${validateArray(selectArray) && selectArray.find((x) => x.where) !== undefined ? selectArray.find((x) => x.where).where : ""}
 ${conjoin`team_id = ${organization}`}
 ${conjoin`match_patch.patch >= '${minPatch}'`}
 ${conjoin`match_patch.patch <= '${maxPatch}'`}
@@ -142,22 +142,22 @@ ${conjoin`matches.duration <= ${maxDuration}`}
 ${conjoin`team_match.radiant = ${side}`}
 ${conjoin`(team_match.radiant = matches.radiant_win) = ${result}`}
 ${conjoin`matches.cluster IN (${region})`}
-${minDate?.[0] ? conjoin`matches.start_time >= extract(epoch from timestamp '${minDate[0]}')` : ''}
-${maxDate?.[0] ? conjoin`matches.start_time <= extract(epoch from timestamp '${maxDate[0]}')` : ''}
+${minDate?.[0] ? conjoin`matches.start_time >= extract(epoch from timestamp '${minDate[0]}')` : ""}
+${maxDate?.[0] ? conjoin`matches.start_time <= extract(epoch from timestamp '${maxDate[0]}')` : ""}
 ${conjoin`leagues.tier = '${tier}'`}
-${isTiTeam?.[0] ? `AND teams.team_id IN (${tiTeams.join(',')})` : ''}
-${megaWin?.[0] ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))' : ''}
-${maxGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage[0].value}` : ''}
-${minGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage[0].value}` : ''}
+${isTiTeam?.[0] ? `AND teams.team_id IN (${tiTeams.join(",")})` : ""}
+${megaWin?.[0] ? "AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))" : ""}
+${maxGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage[0].value}` : ""}
+${minGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage[0].value}` : ""}
 GROUP BY hero_id
-ORDER BY total ${order?.[0]?.value ?? 'DESC'}`;
+ORDER BY total ${order?.[0]?.value ?? "DESC"}`;
   } else {
     const selectVal: any = {};
     const groupVal: any = {};
     if (validateArray(groupArray)) {
       groupArray.forEach((x) => {
         groupVal[x.key] =
-          `${x.value}${x.bucket ? ` / ${x.bucket} * ${x.bucket}` : ''}`;
+          `${x.value}${x.bucket ? ` / ${x.bucket} * ${x.bucket}` : ""}`;
       });
     }
     if (validateArray(selectArray)) {
@@ -166,29 +166,29 @@ ORDER BY total ${order?.[0]?.value ?? 'DESC'}`;
       });
     }
     query = `SELECT
-    ${validateArray(selectArray) ? selectArray.map((x) => (x.distinct && !validateArray(groupArray) ? `DISTINCT ON (${x.value})` : '')).join('') : ''}\
+    ${validateArray(selectArray) ? selectArray.map((x) => (x.distinct && !validateArray(groupArray) ? `DISTINCT ON (${x.value})` : "")).join("") : ""}\
     ${
       validateArray(groupArray)
         ? groupArray
             .map((x) =>
-              [`${x.groupKeySelect || groupVal[x.key]} ${x.alias || ''},`]
+              [`${x.groupKeySelect || groupVal[x.key]} ${x.alias || ""},`]
                 .filter(Boolean)
-                .join(',\n'),
+                .join(",\n"),
             )
-            .join('')
-        : ''
+            .join("")
+        : ""
     }
 ${
   validateArray(groupArray)
     ? (validateArray(selectArray) &&
         selectArray.map((x) =>
           [
-            (x && x.countValue) || '',
+            (x && x.countValue) || "",
             x && x.avgPerMatch
               ? `sum(${selectVal[x.key]})::numeric/count(distinct matches.match_id) "AVG ${x.text}"`
               : `${x && x.avg ? x.avg : `avg(${selectVal[x.key]})`} "AVG ${x.text}"`,
-            'count(distinct matches.match_id) count',
-            'sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate',
+            "count(distinct matches.match_id) count",
+            "sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1) winrate",
             `((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) 
 + 1.96 * 1.96 / (2 * count(1)) 
 - 1.96 * sqrt((((sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1)) * (1 - (sum(case when (player_matches.player_slot < 128) = radiant_win then 1 else 0 end)::float/count(1))) + 1.96 * 1.96 / (4 * count(1))) / count(1))))
@@ -200,27 +200,27 @@ ${
   `,
           ]
             .filter(Boolean)
-            .join(',\n'),
+            .join(",\n"),
         )) ||
-      ''
-    : ''
+      ""
+    : ""
 }
 ${
   !validateArray(groupArray)
     ? [
         validateArray(selectArray)
-          ? selectArray.map((x) => `${x.value} ${x.alias || ''}`)
-          : '',
-        'matches.match_id',
-        'matches.start_time',
-        '((player_matches.player_slot < 128) = matches.radiant_win) win',
-        'player_matches.hero_id',
-        'player_matches.account_id',
-        'leagues.name leaguename',
+          ? selectArray.map((x) => `${x.value} ${x.alias || ""}`)
+          : "",
+        "matches.match_id",
+        "matches.start_time",
+        "((player_matches.player_slot < 128) = matches.radiant_win) win",
+        "player_matches.hero_id",
+        "player_matches.account_id",
+        "leagues.name leaguename",
       ]
         .filter(Boolean)
-        .join(',\n')
-    : ''
+        .join(",\n")
+    : ""
 }
 FROM matches
 JOIN match_patch using(match_id)
@@ -234,14 +234,14 @@ ${
   (groupArray !== null &&
     groupArray.length > 0 &&
     groupArray[0] &&
-    groupArray.some((x) => x.key === 'organization'))
-    ? 'JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant JOIN teams teams2 ON team_match.team_id = teams2.team_id'
-    : ''
+    groupArray.some((x) => x.key === "organization"))
+    ? "JOIN team_match ON matches.match_id = team_match.match_id AND (player_matches.player_slot < 128) = team_match.radiant JOIN teams teams2 ON team_match.team_id = teams2.team_id"
+    : ""
 }
-${validateArray(selectArray) ? selectArray.map((x) => (x.joinFn ? x.joinFn(props) : '')).join('') : ''}
-${validateArray(selectArray) ? selectArray.map((x) => (x.join ? x.join : '')).join('') : ''}
+${validateArray(selectArray) ? selectArray.map((x) => (x.joinFn ? x.joinFn(props) : "")).join("") : ""}
+${validateArray(selectArray) ? selectArray.map((x) => (x.join ? x.join : "")).join("") : ""}
 WHERE TRUE
-${validateArray(selectArray) ? selectArray.map((x) => `AND ${x.value} IS NOT NULL `).join('') : ''}
+${validateArray(selectArray) ? selectArray.map((x) => `AND ${x.value} IS NOT NULL `).join("") : ""}
 ${conjoin`match_patch.patch >= '${minPatch}'`}
 ${conjoin`match_patch.patch <= '${maxPatch}'`}
 ${conjoin`player_matches.hero_id = ${hero}`}
@@ -256,38 +256,38 @@ ${conjoin`notable_players.team_id = ${team}`}
 ${conjoin`team_match.team_id = ${organization} AND (player_matches.player_slot < 128) = team_match.radiant`}
 ${conjoin`player_matches.lane_role = ${laneRole}`}
 ${conjoin`matches.cluster IN (${region})`}
-${minDate?.[0] ? conjoin`matches.start_time >= extract(epoch from timestamp '${minDate[0]}')` : ''}
-${maxDate?.[0] ? conjoin`matches.start_time <= extract(epoch from timestamp '${maxDate[0]}')` : ''}
+${minDate?.[0] ? conjoin`matches.start_time >= extract(epoch from timestamp '${minDate[0]}')` : ""}
+${maxDate?.[0] ? conjoin`matches.start_time <= extract(epoch from timestamp '${maxDate[0]}')` : ""}
 ${conjoin`leagues.tier = '${tier}'`}
-${isTiTeam?.[0] ? `AND teams.team_id IN (${tiTeams.join(',')})` : ''}
-${megaWin?.[0] ? 'AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))' : ''}
-${maxGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage[0].value}` : ''}
-${minGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage[0].value}` : ''}
-${validateArray(groupArray) ? 'GROUP BY' : ''}${(validateArray(groupArray) && groupArray.map((x) => ` ${groupVal[x.key]}`)) || ''}
-${validateArray(groupArray) ? `HAVING count(distinct matches.match_id) >= ${having?.[0].value ?? '1'}` : ''}
+${isTiTeam?.[0] ? `AND teams.team_id IN (${tiTeams.join(",")})` : ""}
+${megaWin?.[0] ? "AND ((matches.barracks_status_radiant = 0 AND matches.radiant_win) OR (matches.barracks_status_dire = 0 AND NOT matches.radiant_win))" : ""}
+${maxGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] <= ${maxGoldAdvantage[0].value}` : ""}
+${minGoldAdvantage?.[0] ? `AND @ matches.radiant_gold_adv[array_upper(matches.radiant_gold_adv, 1)] >= ${minGoldAdvantage[0].value}` : ""}
+${validateArray(groupArray) ? "GROUP BY" : ""}${(validateArray(groupArray) && groupArray.map((x) => ` ${groupVal[x.key]}`)) || ""}
+${validateArray(groupArray) ? `HAVING count(distinct matches.match_id) >= ${having?.[0].value ?? "1"}` : ""}
 ORDER BY ${[
       `${
         (validateArray(groupArray) &&
           validateArray(selectArray) &&
           selectArray.map(
-            (x) => `"AVG ${x.text}" ${order?.[0]?.value ?? 'DESC'}`,
+            (x) => `"AVG ${x.text}" ${order?.[0]?.value ?? "DESC"}`,
           )) ||
         (validateArray(selectArray) &&
           selectArray
-            .map((x) => `${x.value} ${order?.[0]?.value ?? 'DESC'}`)
-            .join(',')) ||
-        'matches.match_id DESC'
+            .map((x) => `${x.value} ${order?.[0]?.value ?? "DESC"}`)
+            .join(",")) ||
+        "matches.match_id DESC"
       }`,
-      validateArray(groupArray) ? 'count DESC' : '',
+      validateArray(groupArray) ? "count DESC" : "",
     ]
       .filter(Boolean)
-      .join(',')} NULLS LAST
+      .join(",")} NULLS LAST
 LIMIT ${limit?.[0]?.value ?? 200}`;
   }
   return (
     query
       // Remove extra newlines
-      .replace(/\n{2,}/g, '\n')
+      .replace(/\n{2,}/g, "\n")
   );
 };
 

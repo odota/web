@@ -1,7 +1,7 @@
-import React from 'react';
-import { KDAContainer, TitleContainer, KDAPercentContainer } from './Styled';
-import constants from '../../constants';
-import useStrings from '../../../hooks/useStrings.hook';
+import React from "react";
+import { KDAContainer, TitleContainer, KDAPercentContainer } from "./Styled";
+import constants from "../../constants";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const KDA = ({
   kills,
@@ -17,7 +17,7 @@ const KDA = ({
 
   return (
     <KDAContainer>
-      <TitleContainer style={{ marginLeft: '10px' }}>{kills}</TitleContainer>
+      <TitleContainer style={{ marginLeft: "10px" }}>{kills}</TitleContainer>
       <KDAPercentContainer
         data-hint={`${strings.th_kda}: ${Number(((kills + assists) / (deaths + 1)).toFixed(2))}`}
         data-hint-position="top"

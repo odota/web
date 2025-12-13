@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactTooltip from 'react-tooltip';
-import styled from 'styled-components';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { inflictorWithValue } from '../Visualizations';
-import { sumValues, getHeroesById, abbreviateNumber } from '../../utility';
-import { StyledDmgTargetInflictor, StyledDmgTargetRow } from './StyledMatch';
-import constants from '../constants';
-import HeroImage from '../Visualizations/HeroImage';
+import React from "react";
+import ReactTooltip from "react-tooltip";
+import styled from "styled-components";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { inflictorWithValue } from "../Visualizations";
+import { sumValues, getHeroesById, abbreviateNumber } from "../../utility";
+import { StyledDmgTargetInflictor, StyledDmgTargetRow } from "./StyledMatch";
+import constants from "../constants";
+import HeroImage from "../Visualizations/HeroImage";
 
 const Dummy = styled.div`
   height: 30px;
@@ -15,31 +15,31 @@ const Dummy = styled.div`
 `;
 
 const dmgTargetValueStyle: React.CSSProperties = {
-  position: 'absolute',
-  left: '0px',
-  width: '30px',
-  height: '10px',
-  bottom: '3px',
-  fontSize: '10px',
-  textAlign: 'center',
-  lineHeight: '0.9',
+  position: "absolute",
+  left: "0px",
+  width: "30px",
+  height: "10px",
+  bottom: "3px",
+  fontSize: "10px",
+  textAlign: "center",
+  lineHeight: "0.9",
   fontWeight: constants.fontWeightMedium,
-  verticalAlign: 'center',
-  zIndex: '1',
+  verticalAlign: "center",
+  zIndex: "1",
   backgroundColor: constants.darkPrimaryColor,
 };
 
 const dmgTargetIconStyle = {
-  height: '30px',
-  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  height: "30px",
+  backgroundColor: "rgba(255, 255, 255, 0.1)",
 };
 
 const arrowStyle: React.CSSProperties = {
-  position: 'relative',
-  top: '4px',
-  height: '20px',
-  opacity: '0.3',
-  transition: 'none',
+  position: "relative",
+  top: "4px",
+  height: "20px",
+  opacity: "0.3",
+  transition: "none",
 };
 
 const processCasts = (uses: Record<string, number>, targets: any) => {
@@ -64,8 +64,8 @@ const damageTargetIcons = (t: any) => {
         <div
           id="target"
           style={{
-            float: 'left',
-            position: 'relative',
+            float: "left",
+            position: "relative",
           }}
           data-tip
           data-for={`${hero.localized_name}`}
@@ -91,10 +91,10 @@ const damageTargetIcons = (t: any) => {
   return (
     <div
       style={{
-        paddingRight: '15px',
-        display: 'flex',
+        paddingRight: "15px",
+        display: "flex",
         width: `${30 * 5}px`,
-        flexWrap: 'wrap',
+        flexWrap: "wrap",
       }}
     >
       {targets.sort((a, b) => b[1] - a[1]).map((x) => x[0])}
@@ -126,7 +126,7 @@ const TargetsBreakdown = ({
         ? f[inflictor].totalCasts
         : sumValues(f[inflictor]);
       r.push(
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: "flex" }}>
           <StyledDmgTargetInflictor id="target">
             {inflictorWithValue(inflictor, abbreviateNumber(valueOverall))}
           </StyledDmgTargetInflictor>
@@ -139,7 +139,7 @@ const TargetsBreakdown = ({
       <StyledDmgTargetRow>
         <div>
           {r.map((row) => (
-            <div style={{ display: 'flex', flexDirection: 'column' }} id="row">
+            <div style={{ display: "flex", flexDirection: "column" }} id="row">
               {row}
             </div>
           ))}

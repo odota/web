@@ -1,13 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
-import TabbedContent from '../TabbedContent/TabbedContent';
-import { getMatch } from '../../actions';
-import MatchHeader from './MatchHeader/MatchHeader';
-import matchPages from './matchPages';
-import FourOhFour from '../../components/FourOhFour/FourOhFour';
-import ErrorBox from '../Error/ErrorBox';
-import Spinner from '../Spinner/Spinner';
+import React from "react";
+import { connect } from "react-redux";
+import Helmet from "react-helmet";
+import TabbedContent from "../TabbedContent/TabbedContent";
+import { getMatch } from "../../actions";
+import MatchHeader from "./MatchHeader/MatchHeader";
+import matchPages from "./matchPages";
+import FourOhFour from "../../components/FourOhFour/FourOhFour";
+import ErrorBox from "../Error/ErrorBox";
+import Spinner from "../Spinner/Spinner";
 
 type MatchProps = {
   loading: boolean;
@@ -39,13 +39,13 @@ class MatchPage extends React.Component<MatchProps> {
   render() {
     const { loading, matchId, matchData, error, strings, match, user, beta } =
       this.props;
-    const info = match.params.info || 'overview';
+    const info = match.params.info || "overview";
     const page = matchPages(matchId, null, strings, beta).find(
       (_page) => _page.key.toLowerCase() === info,
     );
     const pageTitle = page ? `${matchId} - ${page.name}` : matchId;
     // Server error or rate limit
-    if (String(error) === '429' || String(error) === '500') {
+    if (String(error) === "429" || String(error) === "500") {
       return <ErrorBox text={error} />;
     }
     // Can't find the match

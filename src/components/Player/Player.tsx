@@ -1,14 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
-import { withRouter } from 'react-router-dom';
-import { getPlayer, getPlayerWinLoss } from '../../actions';
-import TabBar from '../TabBar/TabBar';
-import Spinner from '../Spinner/Spinner';
-import TableFilterForm from './TableFilterForm';
-import PlayerHeader from './Header/PlayerHeader';
-import playerPages from './playerPages';
-import PlayerProfilePrivate from './PlayerProfilePrivate';
+import React from "react";
+import { connect } from "react-redux";
+import Helmet from "react-helmet";
+import { withRouter } from "react-router-dom";
+import { getPlayer, getPlayerWinLoss } from "../../actions";
+import TabBar from "../TabBar/TabBar";
+import Spinner from "../Spinner/Spinner";
+import TableFilterForm from "./TableFilterForm";
+import PlayerHeader from "./Header/PlayerHeader";
+import playerPages from "./playerPages";
+import PlayerProfilePrivate from "./PlayerProfilePrivate";
 
 type PlayerProps = {
   officialPlayerName: string;
@@ -42,12 +42,12 @@ class Player extends React.Component<PlayerProps> {
   render() {
     const { location, match, strings, isPlayerProfilePublic } = this.props;
     const { playerId } = this.props.match.params;
-    if (BigInt(playerId) > BigInt('76561197960265728')) {
+    if (BigInt(playerId) > BigInt("76561197960265728")) {
       this.props.history.push(
-        `/players/${BigInt(playerId) - BigInt('76561197960265728')}`,
+        `/players/${BigInt(playerId) - BigInt("76561197960265728")}`,
       );
     }
-    const info = match.params.info || 'overview';
+    const info = match.params.info || "overview";
     const page = playerPages(playerId, strings).find(
       (_page) => _page.key === info,
     );

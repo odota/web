@@ -1,9 +1,9 @@
-import { Tab, Tabs, Tooltip } from '@mui/material';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import styled from 'styled-components';
+import { Tab, Tabs, Tooltip } from "@mui/material";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import styled from "styled-components";
 
-import constants from '../constants';
-import { withRouter } from 'react-router-dom';
+import constants from "../constants";
+import { withRouter } from "react-router-dom";
 
 const StyledMain = styled.main`
   position: relative;
@@ -66,7 +66,7 @@ const TabBar = ({
   const handleTabClick = useCallback(
     (e, tab, index) => {
       e.preventDefault();
-      history.push(e.currentTarget.getAttribute('href'));
+      history.push(e.currentTarget.getAttribute("href"));
       setTabValue(index);
     },
     [history],

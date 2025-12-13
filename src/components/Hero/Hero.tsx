@@ -1,22 +1,22 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Button } from '@mui/material';
-import Helmet from 'react-helmet';
-import styled from 'styled-components';
-import { heroSelector } from '../../reducers/selectors';
-import Heading from '../Heading/Heading';
-import TabBar from '../TabBar/TabBar';
-import Spinner from '../Spinner/Spinner';
-import ErrorBox from '../Error/ErrorBox';
-import Header from './Header';
-import Ranking from './Ranking';
-import Benchmark from './Benchmark';
-import Recent from './Recent';
-import Matchups from './Matchups';
-import AttributesBlock from './AttributesBlock';
-import Durations from './Durations';
-import Players from './Players';
-import ItemsSuggestion from './ItemSuggestion';
+import React from "react";
+import { connect } from "react-redux";
+import { Button } from "@mui/material";
+import Helmet from "react-helmet";
+import styled from "styled-components";
+import { heroSelector } from "../../reducers/selectors";
+import Heading from "../Heading/Heading";
+import TabBar from "../TabBar/TabBar";
+import Spinner from "../Spinner/Spinner";
+import ErrorBox from "../Error/ErrorBox";
+import Header from "./Header";
+import Ranking from "./Ranking";
+import Benchmark from "./Benchmark";
+import Recent from "./Recent";
+import Matchups from "./Matchups";
+import AttributesBlock from "./AttributesBlock";
+import Durations from "./Durations";
+import Players from "./Players";
+import ItemsSuggestion from "./ItemSuggestion";
 
 const HeroBlock = styled.div`
   margin-bottom: 8px;
@@ -65,7 +65,7 @@ class Hero extends React.Component<HeroProps> {
 
   render() {
     const { strings } = this.props;
-    const route = this.props.match.params.info || 'rankings';
+    const route = this.props.match.params.info || "rankings";
     const { heroId } = this.props.match.params;
     const hero = heroSelector(this.props.heroes, heroId);
 
@@ -81,7 +81,7 @@ class Hero extends React.Component<HeroProps> {
     const tabs = (tabsHeroId: string) => [
       {
         name: strings.tab_rankings,
-        key: 'rankings',
+        key: "rankings",
         content: (props: HeroProps) => (
           <div>
             <Heading
@@ -95,7 +95,7 @@ class Hero extends React.Component<HeroProps> {
       },
       {
         name: strings.tab_benchmarks,
-        key: 'benchmarks',
+        key: "benchmarks",
         content: (props: HeroProps) => (
           <div>
             <Heading
@@ -109,7 +109,7 @@ class Hero extends React.Component<HeroProps> {
       },
       {
         name: strings.tab_recent,
-        key: 'recent',
+        key: "recent",
         content: (props: HeroProps) => (
           <div>
             <Heading
@@ -123,7 +123,7 @@ class Hero extends React.Component<HeroProps> {
       },
       {
         name: strings.tab_matchups,
-        key: 'matchups',
+        key: "matchups",
         content: (props: HeroProps) => (
           <div>
             <Heading
@@ -137,7 +137,7 @@ class Hero extends React.Component<HeroProps> {
       },
       {
         name: strings.tab_durations,
-        key: 'durations',
+        key: "durations",
         content: (props: HeroProps) => (
           <div>
             <Heading
@@ -151,7 +151,7 @@ class Hero extends React.Component<HeroProps> {
       },
       {
         name: strings.tab_players,
-        key: 'players',
+        key: "players",
         content: (props: HeroProps) => (
           <div>
             <Heading
@@ -165,7 +165,7 @@ class Hero extends React.Component<HeroProps> {
       },
       {
         name: strings.tab_items,
-        key: 'items',
+        key: "items",
         content: (props: HeroProps) => (
           <>
             <Heading

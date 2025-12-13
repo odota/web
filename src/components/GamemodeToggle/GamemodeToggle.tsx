@@ -1,23 +1,23 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { FormControlLabel, Switch } from '@mui/material';
+import { FormControlLabel, Switch } from "@mui/material";
 
-import { useStrings } from '../../hooks/useStrings.hook';
+import { useStrings } from "../../hooks/useStrings.hook";
 
 const GamemodeToggle = () => {
   const strings = useStrings();
   const [modeFilter, setModeFilter] = React.useState(
-    window.localStorage.getItem('modeFilter'),
+    window.localStorage.getItem("modeFilter"),
   );
 
   const handleToggle = React.useCallback(() => {
-    if (modeFilter === 'turbo') {
-      setModeFilter('');
-      window.localStorage.setItem('modeFilter', '');
+    if (modeFilter === "turbo") {
+      setModeFilter("");
+      window.localStorage.setItem("modeFilter", "");
       window.location.reload();
     } else {
-      setModeFilter('turbo');
-      window.localStorage.setItem('modeFilter', 'turbo');
+      setModeFilter("turbo");
+      window.localStorage.setItem("modeFilter", "turbo");
       window.location.reload();
     }
   }, [modeFilter, setModeFilter]);
@@ -28,7 +28,7 @@ const GamemodeToggle = () => {
       control={
         <Switch
           color="primary"
-          checked={modeFilter === 'turbo'}
+          checked={modeFilter === "turbo"}
           onChange={handleToggle}
         />
       }

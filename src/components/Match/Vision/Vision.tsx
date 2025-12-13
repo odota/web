@@ -1,13 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Slider } from '@mui/material';
-import styled from 'styled-components';
-import { formatSeconds, rangeStep } from '../../../utility';
-import VisionFilter from './VisionFilter';
-import VisionItems from './VisionItems';
-import VisionMap from './VisionMap';
-import VisionLog from './VisionLog';
-import constants from '../../constants';
+import React from "react";
+import { connect } from "react-redux";
+import { Slider } from "@mui/material";
+import styled from "styled-components";
+import { formatSeconds, rangeStep } from "../../../utility";
+import VisionFilter from "./VisionFilter";
+import VisionItems from "./VisionItems";
+import VisionMap from "./VisionMap";
+import VisionLog from "./VisionLog";
+import constants from "../../constants";
 
 const Styled = styled.div`
   .visionLog {
@@ -98,10 +98,10 @@ const SliderTicks = ({
     <div className="sliderTicks">
       {ticks.map((tick) => {
         const percent = 100 * ((tick - min) / (max - min));
-        const classNames = ['sliderTick'];
+        const classNames = ["sliderTick"];
 
         if (tick <= value) {
-          classNames.push('active');
+          classNames.push("active");
         }
 
         return (
@@ -111,7 +111,7 @@ const SliderTicks = ({
             key={tick}
             onClick={() => onTickClick(tick)}
             onKeyPress={() => {}}
-            className={classNames.join(' ')}
+            className={classNames.join(" ")}
             style={{ left: `${percent}%` }}
           >
             {formatSeconds(tick)}
@@ -161,7 +161,7 @@ class Vision extends React.Component<VisionProps, VisionState> {
 
   onCheckAllWardsTeam(index: number, end: number) {
     const { players } = this.state;
-    const [observer, sentry]: WardType[] = ['observer', 'sentry'];
+    const [observer, sentry]: WardType[] = ["observer", "sentry"];
     const allWardsTeam = players[observer]
       .slice(index, end)
       .concat(players[sentry].slice(index, end));
@@ -179,14 +179,14 @@ class Vision extends React.Component<VisionProps, VisionState> {
       ...this.state,
       teams: {
         ...this.state.teams,
-        [index === 0 ? 'radiant' : 'dire']: newTeam,
+        [index === 0 ? "radiant" : "dire"]: newTeam,
       },
       players: { ...this.state.players, [type]: newArray },
     });
   }
 
   setTeam(team: string, value: boolean) {
-    const start = team === 'radiant' ? 0 : 5;
+    const start = team === "radiant" ? 0 : 5;
     const end = start + 5;
     const newPlayerObs = this.state.players.observer;
     const newPlayerSentry = this.state.players.sentry;
@@ -214,7 +214,7 @@ class Vision extends React.Component<VisionProps, VisionState> {
       ...this.state,
       teams: {
         ...this.state.teams,
-        [index === 0 ? 'radiant' : 'dire']: newTeam,
+        [index === 0 ? "radiant" : "dire"]: newTeam,
       },
       players,
     };
@@ -251,11 +251,11 @@ class Vision extends React.Component<VisionProps, VisionState> {
 
     return (
       <div>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          <div style={{ margin: '10px', flexGrow: '1' }}>
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <div style={{ margin: "10px", flexGrow: "1" }}>
             <VisionMap match={match} wards={visibleWards} />
           </div>
-          <div style={{ flexGrow: '2' }}>
+          <div style={{ flexGrow: "2" }}>
             {/* <Heading
               buttonLabel={
                 config.VITE_ENABLE_GOSUAI ? strings.gosu_vision : null

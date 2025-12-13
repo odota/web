@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
-import AppLogo from '../App/AppLogo';
-import PageLinks from './PageLinks';
-import SocialLinks from './SocialLinks';
-import { IconSteam } from '../Icons';
-import constants from '../constants';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import styled from "styled-components";
+import AppLogo from "../App/AppLogo";
+import PageLinks from "./PageLinks";
+import SocialLinks from "./SocialLinks";
+import { IconSteam } from "../Icons";
+import constants from "../constants";
+import useStrings from "../../hooks/useStrings.hook";
 
 const StyledFooter = styled.footer`
   padding: 0px 50px 15px;
@@ -44,7 +44,7 @@ const StyledFooter = styled.footer`
       & a {
         cursor: pointer;
 
-        &[data-hint-position='top'] {
+        &[data-hint-position="top"] {
           &::before {
             margin-left: 18px;
           }
@@ -88,7 +88,7 @@ const StyledFooter = styled.footer`
         }
 
         &::after {
-          content: '•';
+          content: "•";
           margin: 0 8px;
           opacity: 0.6;
           color: ${constants.primaryTextColor};
@@ -96,7 +96,7 @@ const StyledFooter = styled.footer`
 
         &:last-child {
           &::after {
-            content: '';
+            content: "";
             margin: 0;
           }
         }
@@ -164,7 +164,7 @@ const Footer = () => {
         </div>
         <small className="about">
           <span id="app-description">{strings.app_description}</span>
-          {' - '}
+          {" - "}
           <span id="app-powered-by">{strings.app_powered_by}</span>
           <a
             href="http://steampowered.com"

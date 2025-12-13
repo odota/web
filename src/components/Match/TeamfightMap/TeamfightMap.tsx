@@ -1,22 +1,22 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
-import styled from 'styled-components';
+import React from "react";
+import { connect } from "react-redux";
+import ReactTooltip from "react-tooltip";
+import styled from "styled-components";
 import {
   formatSeconds,
   calculateDistance,
   calculateRelativeXY,
   bindWidth,
-} from '../../../utility';
-import { IconRadiant, IconDire, IconDot } from '../../Icons';
-import TeamTable from '../TeamTable';
-import mcs from '../matchColumns';
-import PlayerThumb from '../PlayerThumb/PlayerThumb';
-import Timeline from '../Timeline';
-import DotaMap from '../../DotaMap/DotaMap';
-import constants from '../../constants';
-import config from '../../../config';
-import useStrings from '../../../hooks/useStrings.hook';
+} from "../../../utility";
+import { IconRadiant, IconDire, IconDot } from "../../Icons";
+import TeamTable from "../TeamTable";
+import mcs from "../matchColumns";
+import PlayerThumb from "../PlayerThumb/PlayerThumb";
+import Timeline from "../Timeline";
+import DotaMap from "../../DotaMap/DotaMap";
+import constants from "../../constants";
+import config from "../../../config";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const Styled = styled.div`
   .parentContainer {
@@ -279,20 +279,20 @@ export const GoldDelta = ({
 );
 
 const getIconStyle = (radiantGoldDelta: number) =>
-  isRadiant(radiantGoldDelta) ? 'radiant' : 'dire';
+  isRadiant(radiantGoldDelta) ? "radiant" : "dire";
 const getSelectedStyle = (radiantGoldDelta: number) =>
-  isRadiant(radiantGoldDelta) ? 'radiantSelected' : 'direSelected';
+  isRadiant(radiantGoldDelta) ? "radiantSelected" : "direSelected";
 
 const getTombStyle = (position: any[]) =>
   position.reduce(
     (str, _position) => {
-      const radStr = _position.isRadiant ? 'radiant' : 'dire';
+      const radStr = _position.isRadiant ? "radiant" : "dire";
       if (str !== radStr) {
-        return 'both';
+        return "both";
       }
       return str;
     },
-    position[0].isRadiant ? 'radiant' : 'dire',
+    position[0].isRadiant ? "radiant" : "dire",
   );
 
 export const Tombstones = ({
@@ -364,7 +364,7 @@ export const Teamfight = ({
     <div>
       <div className={getIconStyle(radiantGoldDelta)}>
         <div
-          className={`teamfightIconSvg ${hovered && 'hovered'} ${selected && 'selected'}`}
+          className={`teamfightIconSvg ${hovered && "hovered"} ${selected && "selected"}`}
         >
           <TeamfightIcon
             position={position}
@@ -564,7 +564,7 @@ class TeamfightMap extends React.Component<
               </DotaMap>
               <header className="header">
                 <div className="muted">
-                  {formatSeconds(teamfight.start)} -{' '}
+                  {formatSeconds(teamfight.start)} -{" "}
                   {formatSeconds(teamfight.end)}
                 </div>
                 <div className="headerSubInfo">

@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { abbreviateNumber } from '../../utility';
+import React from "react";
+import styled from "styled-components";
+import { abbreviateNumber } from "../../utility";
 
 const Styled = styled.div<{ percent?: number; meterColor?: string }>`
   font-size: 60%;
@@ -25,7 +25,7 @@ const Styled = styled.div<{ percent?: number; meterColor?: string }>`
   .meter {
     position: absolute;
     display: block;
-    content: '';
+    content: "";
   }
 
   .gauge:before,
@@ -105,7 +105,7 @@ const Styled = styled.div<{ percent?: number; meterColor?: string }>`
       position: absolute;
       bottom: 1.8em;
       left: 8px;
-      content: 'W';
+      content: "W";
       color: white;
       text-shadow: 1px 1px black;
     }
@@ -123,7 +123,7 @@ const Styled = styled.div<{ percent?: number; meterColor?: string }>`
       position: absolute;
       bottom: 1.8em;
       right: 8px;
-      content: 'L';
+      content: "L";
       color: white;
       text-shadow: 1px 1px black;
     }
@@ -134,13 +134,13 @@ const computeMeterPercent = (value: number) => 0.005 * value;
 
 const computeMeterColor = (value: number) => {
   if (value < 45) {
-    return 'rgb(179,132,91)';
+    return "rgb(179,132,91)";
   } else if (value < 50) {
-    return 'rgb(156,148,96)';
+    return "rgb(156,148,96)";
   } else if (value < 53) {
-    return 'rgb(140,159,99)';
+    return "rgb(140,159,99)";
   }
-  return 'rgb(117,176,103)';
+  return "rgb(117,176,103)";
 };
 
 const GaugeChart = ({

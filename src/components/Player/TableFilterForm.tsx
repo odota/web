@@ -1,14 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import querystring from 'querystring';
-import { heroes, patch, region } from 'dotaconstants';
-import { toggleShowForm } from '../../actions/formActions';
-import FormField from '../Form/FormField';
-import constants from '../constants';
-import config from '../../config';
+import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import querystring from "querystring";
+import { heroes, patch, region } from "dotaconstants";
+import { toggleShowForm } from "../../actions/formActions";
+import FormField from "../Form/FormField";
+import constants from "../constants";
+import config from "../../config";
 
-const textFieldStyle = { width: 53, fontSize: 9, height: 'auto' };
+const textFieldStyle = { width: 53, fontSize: 9, height: "auto" };
 
 const getPeers = async (props: TableFilterFormProps, context: any) => {
   const resp = await fetch(
@@ -72,8 +72,8 @@ class TableFilterForm extends React.Component<
       .sort((a: any, b: any) => a.label?.localeCompare(b.label));
 
     const laneList = Object.keys(strings)
-      .filter((str) => str.indexOf('lane_role_') === 0)
-      .map((str) => str.substring('lane_role_'.length))
+      .filter((str) => str.indexOf("lane_role_") === 0)
+      .map((str) => str.substring("lane_role_".length))
       .map((id) => ({
         label: strings[`lane_role_${id}` as keyof Strings],
         id: Number(id),
@@ -87,16 +87,16 @@ class TableFilterForm extends React.Component<
       .reverse();
 
     const modeList = Object.keys(strings)
-      .filter((str) => str.indexOf('game_mode_') === 0)
-      .map((str) => str.substring('game_mode_'.length))
+      .filter((str) => str.indexOf("game_mode_") === 0)
+      .map((str) => str.substring("game_mode_".length))
       .map((id) => ({
         label: strings[`game_mode_${id}` as keyof Strings],
         id: Number(id),
       }));
 
     const lobbyTypeList = Object.keys(strings)
-      .filter((str) => str.indexOf('lobby_type_') === 0)
-      .map((str) => str.substring('lobby_type_'.length))
+      .filter((str) => str.indexOf("lobby_type_") === 0)
+      .map((str) => str.substring("lobby_type_".length))
       .map((id) => ({
         label: strings[`lobby_type_${id}` as keyof Strings],
         id: Number(id),
@@ -161,85 +161,85 @@ class TableFilterForm extends React.Component<
 
     const gamesPlayedList = [
       {
-        label: '5',
+        label: "5",
         id: 5,
       },
       {
-        label: '10',
+        label: "10",
         id: 10,
       },
       {
-        label: '15',
+        label: "15",
         id: 15,
       },
       {
-        label: '20',
+        label: "20",
         id: 20,
       },
       {
-        label: '25',
+        label: "25",
         id: 25,
       },
     ];
 
     const partySize = [
       {
-        label: '1',
+        label: "1",
         id: 1,
       },
       {
-        label: '2',
+        label: "2",
         id: 2,
       },
       {
-        label: '3',
+        label: "3",
         id: 3,
       },
       {
-        label: '4',
+        label: "4",
         id: 4,
       },
       {
-        label: '5',
+        label: "5",
         id: 5,
       },
     ];
 
     const roleList = [
       {
-        label: 'Carry',
+        label: "Carry",
         id: 1,
       },
       {
-        label: 'Nuker',
+        label: "Nuker",
         id: 2,
       },
       {
-        label: 'Initiator',
+        label: "Initiator",
         id: 3,
       },
       {
-        label: 'Disabler',
+        label: "Disabler",
         id: 4,
       },
       {
-        label: 'Durable',
+        label: "Durable",
         id: 5,
       },
       {
-        label: 'Escape',
+        label: "Escape",
         id: 6,
       },
       {
-        label: 'Support',
+        label: "Support",
         id: 7,
       },
       {
-        label: 'Pusher',
+        label: "Pusher",
         id: 8,
       },
       {
-        label: 'Jungler',
+        label: "Jungler",
         id: 9,
       },
     ];
@@ -265,10 +265,10 @@ class TableFilterForm extends React.Component<
     return (
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          gap: '8px',
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          gap: "8px",
         }}
       >
         <CustomFormField

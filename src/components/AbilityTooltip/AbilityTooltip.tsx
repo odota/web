@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import constants from '../constants';
-import { styleValues, formatValues } from '../../utility';
-import AbilityBehaviour from './AbilityBehaviour';
-import config from '../../config';
+import React from "react";
+import styled from "styled-components";
+import constants from "../constants";
+import { styleValues, formatValues } from "../../utility";
+import AbilityBehaviour from "./AbilityBehaviour";
+import config from "../../config";
 
 const Wrapper = styled.div`
   position: relative;
@@ -140,7 +140,7 @@ const AbilityTooltip = ({
     <Header>
       <HeaderBgImg img={ability.img} />
       <HeaderContent>
-        {inflictor && inflictor.startsWith('special_') ? (
+        {inflictor && inflictor.startsWith("special_") ? (
           <img
             id="ability-img"
             src="/assets/images/dota2/talent_tree.svg"
@@ -176,7 +176,7 @@ const AbilityTooltip = ({
               <div className="attribute" key={attrib.key}>
                 <span id="header">{attrib.header} </span>
                 <span id="value">{formatValues(attrib.value)}</span>
-                <span id="footer"> {attrib.footer || ''}</span>
+                <span id="footer"> {attrib.footer || ""}</span>
               </div>
             ))}
             {ability.dmg ? (
@@ -184,7 +184,7 @@ const AbilityTooltip = ({
                 DAMAGE: <span id="value">{formatValues(ability.dmg)}</span>
               </div>
             ) : (
-              ''
+              ""
             )}
           </div>
         </Attributes>

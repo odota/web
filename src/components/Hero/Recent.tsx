@@ -1,12 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Table from '../Table/Table';
-import TableLink from '../Table/TableLink';
-import RecentSkeleton from '../Skeletons/RecentSkeleton';
-import ErrorBox from '../Error/ErrorBox';
-import { getHeroRecentGames } from '../../actions';
-import { transformations } from '../../utility';
-import { proPlayersSelector } from '../../reducers/selectors';
+import React from "react";
+import { connect } from "react-redux";
+import Table from "../Table/Table";
+import TableLink from "../Table/TableLink";
+import RecentSkeleton from "../Skeletons/RecentSkeleton";
+import ErrorBox from "../Error/ErrorBox";
+import { getHeroRecentGames } from "../../actions";
+import { transformations } from "../../utility";
+import { proPlayersSelector } from "../../reducers/selectors";
 
 class Recent extends React.Component<{
   isLoading: boolean;
@@ -42,7 +42,7 @@ class Recent extends React.Component<{
     const matchesColumns = [
       {
         displayName: strings.th_account_id,
-        field: 'account_id',
+        field: "account_id",
         displayFn: (row: any, col: any, field: string) => (
           <div>
             <TableLink to={`/players/${field}`}>
@@ -54,33 +54,33 @@ class Recent extends React.Component<{
       {
         displayName: strings.th_duration,
         tooltip: strings.tooltip_duration,
-        field: 'duration',
+        field: "duration",
         sortFn: true,
         displayFn: transformations.duration,
       },
       {
         displayName: strings.th_result,
         tooltip: strings.tooltip_result,
-        field: 'radiant_win',
+        field: "radiant_win",
         displayFn: transformations.radiant_win_and_game_mode,
       },
       {
         displayName: strings.th_kills,
         tooltip: strings.tooltip_kills,
-        field: 'kills',
+        field: "kills",
         sortFn: true,
         displayFn: transformations.kda,
       },
       {
         displayName: strings.th_deaths,
         tooltip: strings.tooltip_deaths,
-        field: 'deaths',
+        field: "deaths",
         sortFn: true,
       },
       {
         displayName: strings.th_assists,
         tooltip: strings.tooltip_assists,
-        field: 'assists',
+        field: "assists",
         sortFn: true,
       },
     ];

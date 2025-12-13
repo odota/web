@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getHeroPlayers } from '../../actions';
-import Table from '../Table/Table';
-import TableLink from '../Table/TableLink';
-import PlayersSkeleton from '../Skeletons/PlayersSkeleton';
-import { wilsonScore } from '../../utility';
-import { proPlayersSelector } from '../../reducers/selectors';
+import React from "react";
+import { connect } from "react-redux";
+import { getHeroPlayers } from "../../actions";
+import Table from "../Table/Table";
+import TableLink from "../Table/TableLink";
+import PlayersSkeleton from "../Skeletons/PlayersSkeleton";
+import { wilsonScore } from "../../utility";
+import { proPlayersSelector } from "../../reducers/selectors";
 
 class Players extends React.Component<{
   isLoading: boolean;
@@ -36,20 +36,20 @@ class Players extends React.Component<{
 
     const playersColumns = [
       {
-        field: 'account_id',
+        field: "account_id",
         displayName: strings.th_account_id,
         displayFn: (row: any, col: any, field: string) => (
           <TableLink to={`/players/${field}`}>{row.name || field}</TableLink>
         ),
       },
       {
-        field: 'games_played',
+        field: "games_played",
         displayName: strings.th_games_played,
         relativeBars: true,
         sortFn: true,
       },
       {
-        field: 'wins',
+        field: "wins",
         displayName: strings.th_win,
         relativeBars: true,
         sortFn: true,
@@ -57,7 +57,7 @@ class Players extends React.Component<{
       },
       {
         tooltip: strings.tooltip_advantage,
-        field: 'advantage',
+        field: "advantage",
         displayName: strings.th_advantage,
         relativeBars: true,
         sortFn: true,

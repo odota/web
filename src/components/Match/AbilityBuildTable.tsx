@@ -1,23 +1,23 @@
-import React from 'react';
-import { isRadiant, getTeamName } from '../../utility';
-import { IconRadiant, IconDire } from '../Icons';
-import Heading from '../Heading/Heading';
-import Table from '../Table/Table';
+import React from "react";
+import { isRadiant, getTeamName } from "../../utility";
+import { IconRadiant, IconDire } from "../Icons";
+import Heading from "../Heading/Heading";
+import Table from "../Table/Table";
 
-const filterMatchPlayers = (players: MatchPlayer[], team = '') =>
+const filterMatchPlayers = (players: MatchPlayer[], team = "") =>
   players
     .filter(
       (player) =>
-        (team === 'radiant' && isRadiant(player.player_slot)) ||
-        (team === 'dire' && !isRadiant(player.player_slot)) ||
-        team === '',
+        (team === "radiant" && isRadiant(player.player_slot)) ||
+        (team === "dire" && !isRadiant(player.player_slot)) ||
+        team === "",
     )
     .sort((a, b) => a.player_slot - b.player_slot);
 
 const AbilityBuildTable = ({
   players = [],
   columns,
-  heading = '',
+  heading = "",
   radiantTeam = {},
   direTeam = {},
   summable = false,
@@ -35,7 +35,7 @@ const AbilityBuildTable = ({
       icon={<IconRadiant />}
     />
     <Table
-      data={filterMatchPlayers(players, 'radiant')}
+      data={filterMatchPlayers(players, "radiant")}
       columns={columns}
       summable={summable}
     />
@@ -44,7 +44,7 @@ const AbilityBuildTable = ({
       icon={<IconDire />}
     />
     <Table
-      data={filterMatchPlayers(players, 'dire')}
+      data={filterMatchPlayers(players, "dire")}
       columns={columns}
       summable={summable}
     />

@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Tooltip } from '@mui/material';
-import { StyledHeaderCell } from './Styled';
-import { getSortIcon } from './tableHelpers';
-import { getColStyle } from '../../utility';
+import React from "react";
+import styled from "styled-components";
+import { Tooltip } from "@mui/material";
+import { StyledHeaderCell } from "./Styled";
+import { getSortIcon } from "./tableHelpers";
+import { getColStyle } from "../../utility";
 
 const HeaderCellContent = styled.div`
   position: relative;
@@ -39,7 +39,7 @@ const TableHeaderColumn = ({
   index: number;
 }) => {
   const style: React.CSSProperties = {
-    justifyContent: column.center ? 'center' : undefined,
+    justifyContent: column.center ? "center" : undefined,
   };
   return (
     <th
@@ -58,7 +58,7 @@ const TableHeaderColumn = ({
         <div
           style={{
             color: column.color,
-            width: '100%',
+            width: "100%",
             textAlign: getColStyle(column).textAlign,
           }}
         >

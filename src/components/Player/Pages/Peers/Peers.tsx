@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import { connect } from 'react-redux';
-import { getPlayerPeers } from '../../../../actions';
-import Table from '../../../Table/Table';
-import Container from '../../../Container/Container';
-import { playerPeersColumns } from './playerPeersColumns';
-import useStrings from '../../../../hooks/useStrings.hook';
+import { connect } from "react-redux";
+import { getPlayerPeers } from "../../../../actions";
+import Table from "../../../Table/Table";
+import Container from "../../../Container/Container";
+import { playerPeersColumns } from "./playerPeersColumns";
+import useStrings from "../../../../hooks/useStrings.hook";
 
 const Peers = ({ data, playerId, error, loading }: PeersProps) => {
   const strings = useStrings();

@@ -1,33 +1,33 @@
-import { Selector } from 'testcafe';
+import { Selector } from "testcafe";
 import {
   fixtureBeforeHook,
   fixtureBeforeEachHook,
   fixtureAfterHook,
   fixtureRequestHooks,
   host,
-} from './../testsUtility';
+} from "./../testsUtility";
 
 const pathSuffixes = [
-  'overview',
-  'benchmarks',
-  'draft',
-  'performances',
-  'laning',
-  'combat',
-  'farm',
-  'purchases',
-  'graphs',
-  'casts',
-  'objectives',
-  'vision',
-  'actions',
-  'teamfights',
-  'analysis',
-  'cosmetics',
-  'log',
-  'fantasy',
-  'chat',
-  'story',
+  "overview",
+  "benchmarks",
+  "draft",
+  "performances",
+  "laning",
+  "combat",
+  "farm",
+  "purchases",
+  "graphs",
+  "casts",
+  "objectives",
+  "vision",
+  "actions",
+  "teamfights",
+  "analysis",
+  "cosmetics",
+  "log",
+  "fantasy",
+  "chat",
+  "story",
 ];
 
 fixture`matches/ paths`
@@ -38,7 +38,7 @@ fixture`matches/ paths`
 
 pathSuffixes.forEach((suffix) => {
   test.page(`${host}/matches/4080856812/${suffix}`)(suffix, async (t) => {
-    await t.hover(Selector('#root'));
+    await t.hover(Selector("#root"));
   });
 });
 
@@ -50,6 +50,6 @@ fixture`matches/ paths (legacy)`
 
 pathSuffixes.forEach((suffix) => {
   test.page(`${host}/matches/2472899185/${suffix}`)(suffix, async (t) => {
-    await t.hover(Selector('#root'));
+    await t.hover(Selector("#root"));
   });
 });

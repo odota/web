@@ -1,37 +1,37 @@
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import React, { Suspense } from 'react';
-import Helmet from 'react-helmet';
-import { Route, Switch, withRouter } from 'react-router-dom';
-import styled from 'styled-components';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import React, { Suspense } from "react";
+import Helmet from "react-helmet";
+import { Route, Switch, withRouter } from "react-router-dom";
+import styled from "styled-components";
 
-import Combos from '../Combos/Combos';
-import Api from '../Api/Api';
-import Subscription from '../Subscription/Subscription';
-import constants from '../constants';
-import Distributions from '../Distributions/Distributions';
-import Footer from '../Footer/Footer';
-import FourOhFour from '../FourOhFour/FourOhFour';
-import Header from '../Header/Header';
-import Home from '../Home/Home';
-import Matches from '../Matches/Matches';
-import Player from '../Player/Player';
-import Records from '../Records/Records';
-import Request from '../Request/Request';
-import Scenarios from '../Scenarios/Scenarios';
-import Search from '../Search/Search';
-import Teams from '../Teams/Teams';
-import config from '../../config';
-import Spinner from '../Spinner/Spinner';
-import Players from '../Players/Players';
-import Heroes from '../Heroes/Heroes';
-import useStrings from '../../hooks/useStrings.hook';
+import Combos from "../Combos/Combos";
+import Api from "../Api/Api";
+import Subscription from "../Subscription/Subscription";
+import constants from "../constants";
+import Distributions from "../Distributions/Distributions";
+import Footer from "../Footer/Footer";
+import FourOhFour from "../FourOhFour/FourOhFour";
+import Header from "../Header/Header";
+import Home from "../Home/Home";
+import Matches from "../Matches/Matches";
+import Player from "../Player/Player";
+import Records from "../Records/Records";
+import Request from "../Request/Request";
+import Scenarios from "../Scenarios/Scenarios";
+import Search from "../Search/Search";
+import Teams from "../Teams/Teams";
+import config from "../../config";
+import Spinner from "../Spinner/Spinner";
+import Players from "../Players/Players";
+import Heroes from "../Heroes/Heroes";
+import useStrings from "../../hooks/useStrings.hook";
 
-const Status = React.lazy(() => import('../Status/Status'));
-const Explorer = React.lazy(() => import('../Explorer/Explorer'));
+const Status = React.lazy(() => import("../Status/Status"));
+const Explorer = React.lazy(() => import("../Explorer/Explorer"));
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
   },
 });
 
@@ -59,16 +59,16 @@ const StyledDiv = styled.div<AppStylesProps>`
   display: flex;
   flex-direction: column;
   height: 100%;
-  left: ${(props) => (props.open ? '256px' : '0px')};
+  left: ${(props) => (props.open ? "256px" : "0px")};
   margin-top: 0px;
 
   background-image: ${(props) =>
-    props.location?.pathname === '/'
+    props.location?.pathname === "/"
       ? `url("/assets/images/home-background.png")`
-      : ''};
+      : ""};
   background-position: center top -8px;
   background-repeat: ${(props) =>
-    props.location?.pathname === '/' ? 'no-repeat' : ''};
+    props.location?.pathname === "/" ? "no-repeat" : ""};
 `;
 
 const Back2Top = styled.button<Back2TopStylesProps>`
@@ -145,11 +145,11 @@ const App = (props: AppProps) => {
           document.body.scrollTop > 1000 ||
           document.documentElement.scrollTop > 1000
         ) {
-          current.style.opacity = '1';
-          current.style.pointerEvents = 'auto';
+          current.style.opacity = "1";
+          current.style.pointerEvents = "auto";
         } else {
-          current.style.opacity = '0';
-          current.style.pointerEvents = 'none';
+          current.style.opacity = "0";
+          current.style.pointerEvents = "none";
         }
       }
       setTimeout(() => {
@@ -157,10 +157,10 @@ const App = (props: AppProps) => {
       }, 300);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   });
 
@@ -168,7 +168,7 @@ const App = (props: AppProps) => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  const includeAds = !['/', '/api-keys', '/status'].includes(location.pathname);
+  const includeAds = !["/", "/api-keys", "/status"].includes(location.pathname);
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -216,7 +216,7 @@ const App = (props: AppProps) => {
           </StyledBodyDiv>
           <AdBannerDiv>
             {includeAds && config.VITE_ENABLE_RIVALRY && (
-              <div style={{ fontSize: '12px' }}>
+              <div style={{ fontSize: "12px" }}>
                 <a href="https://www.rivalry.com/opendota">
                   <img
                     src="/assets/images/rivalry-banner.gif"
@@ -224,7 +224,7 @@ const App = (props: AppProps) => {
                   />
                 </a>
                 <div>
-                  {strings.home_sponsored_by}{' '}
+                  {strings.home_sponsored_by}{" "}
                   <a href="https://www.rivalry.com/opendota">Rivalry</a>
                 </div>
               </div>

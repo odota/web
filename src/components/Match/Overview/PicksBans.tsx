@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import constants from '../../constants';
-import { IMAGESIZE_ENUM } from '../../../utility';
-import HeroImage from './../../Visualizations/HeroImage';
-import useStrings from '../../../hooks/useStrings.hook';
+import React from "react";
+import styled from "styled-components";
+import constants from "../../constants";
+import { IMAGESIZE_ENUM } from "../../../utility";
+import HeroImage from "./../../Visualizations/HeroImage";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const Styled = styled.div`
   display: inline-block;
@@ -42,7 +42,7 @@ const Styled = styled.div`
     margin-right: 0;
     z-index: 0;
 
-    &[data-isPick='false'] {
+    &[data-isPick="false"] {
       filter: grayscale(100%);
     }
 
@@ -103,7 +103,7 @@ const PicksBans = ({
               />
               {!pb.is_pick && <div className="ban" />}
               <aside>
-                {pb.is_pick ? strings.match_pick : strings.match_ban}{' '}
+                {pb.is_pick ? strings.match_pick : strings.match_ban}{" "}
                 <b>{orderNumber}</b>
               </aside>
             </section>

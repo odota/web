@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import { connect } from 'react-redux';
-import Card from './Card';
-import { getPlayerTotals } from '../../../../actions';
-import Container from '../../../Container/Container';
-import useStrings from '../../../../hooks/useStrings.hook';
+import React from "react";
+import styled from "styled-components";
+import { connect } from "react-redux";
+import Card from "./Card";
+import { getPlayerTotals } from "../../../../actions";
+import Container from "../../../Container/Container";
+import useStrings from "../../../../hooks/useStrings.hook";
 
 const CardContainer = styled.div`
   display: flex;
@@ -24,16 +24,16 @@ const totalsToShow: Record<string, number | string> = {
   hero_damage: 1,
   tower_damage: 1,
   hero_healing: 1,
-  stuns: 'parsed',
-  tower_kills: 'parsed',
-  neutral_kills: 'parsed',
-  courier_kills: 'parsed',
-  purchase_tpscroll: 'parsed',
-  purchase_ward_observer: 'parsed',
-  purchase_ward_sentry: 'parsed',
-  purchase_gem: 'parsed',
-  purchase_rapier: 'parsed',
-  pings: 'parsed',
+  stuns: "parsed",
+  tower_kills: "parsed",
+  neutral_kills: "parsed",
+  courier_kills: "parsed",
+  purchase_tpscroll: "parsed",
+  purchase_ward_observer: "parsed",
+  purchase_ward_sentry: "parsed",
+  purchase_gem: "parsed",
+  purchase_rapier: "parsed",
+  pings: "parsed",
 };
 
 const drawElement = (element: any, type: number | string) => {
@@ -62,7 +62,7 @@ const Totals = ({ data, error, loading }: TotalsProps) => {
         loading={loading}
       >
         <CardContainer>
-          {data.map((element) => drawElement(element, 'parsed'))}
+          {data.map((element) => drawElement(element, "parsed"))}
         </CardContainer>
       </Container>
     </div>

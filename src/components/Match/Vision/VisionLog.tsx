@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
-import { threshold, formatSeconds } from '../../../utility';
-import Table from '../../Table/Table';
-import Heading from '../../Heading/Heading';
-import mcs from '../matchColumns';
-import constants from '../../constants';
-import LogHover from './LogHover';
-import config from '../../../config';
-import useStrings from '../../../hooks/useStrings.hook';
+import React from "react";
+import styled from "styled-components";
+import { threshold, formatSeconds } from "../../../utility";
+import Table from "../../Table/Table";
+import Heading from "../../Heading/Heading";
+import mcs from "../matchColumns";
+import constants from "../../constants";
+import LogHover from "./LogHover";
+import config from "../../../config";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const Styled = styled.div`
   display: inline-block;
@@ -48,7 +48,7 @@ const columns = (strings: Strings) => {
   return [
     {
       displayName: strings.ward_log_type,
-      field: 'type',
+      field: "type",
     },
     {
       ...heroTdColumn,
@@ -58,28 +58,28 @@ const columns = (strings: Strings) => {
     {
       center: true,
       displayName: strings.ward_log_entered_at,
-      field: 'enter_time',
-      textAlign: 'center',
+      field: "enter_time",
+      textAlign: "center",
     },
     {
       center: true,
       displayName: strings.ward_log_left_at,
-      field: 'left_time',
-      textAlign: 'center',
+      field: "left_time",
+      textAlign: "center",
     },
     {
       center: true,
       displayName: strings.ward_log_duration,
-      field: 'duration',
-      textAlign: 'center',
+      field: "duration",
+      textAlign: "center",
     },
     {
       displayName: strings.ward_log_killed_by,
-      field: 'killer',
+      field: "killer",
     },
     {
       displayName: strings.placement,
-      field: 'placement',
+      field: "placement",
     },
   ];
 };
@@ -90,7 +90,7 @@ function logWard(log: any, startTime: number) {
       <div className="minimap">
         <img
           src="/assets/images/dota2/map/minimap2.jpg"
-          style={{ height: '30px' }}
+          style={{ height: "30px" }}
           alt="Minimap"
         />
         <div className="placement">{LogHover(log, startTime)}</div>
@@ -107,11 +107,11 @@ const generateData = (match: Match, strings: Strings) => (log: any) => {
     (match && match.duration - log.entered.time);
 
   // necessary until https://github.com/odota/parser/pull/3 is implemented
-  const lifetime = log.type === 'observer' ? 360 : 420;
+  const lifetime = log.type === "observer" ? 360 : 420;
   const discrepancy = duration - Math.min(lifetime, duration);
 
   const durationColor =
-    log.type === 'observer'
+    log.type === "observer"
       ? durationObserverColor(duration)
       : durationSentryColor(duration);
 
@@ -133,7 +133,7 @@ const generateData = (match: Match, strings: Strings) => (log: any) => {
       formatSeconds(
         ((log.left && log.left.time) || (match && match.duration)) -
           discrepancy,
-      ) || '-',
+      ) || "-",
     duration: (
       <span style={{ color: durationColor }}>
         {formatSeconds(duration - discrepancy)}

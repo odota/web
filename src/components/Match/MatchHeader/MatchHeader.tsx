@@ -1,17 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
-import styled from 'styled-components';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import DataObjectIcon from '@mui/icons-material/DataObject';
-import DownloadIcon from '@mui/icons-material/Download';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { transformations, isRadiant, sum } from '../../../utility';
-import { IconRadiant, IconDire } from '../../Icons';
-import Warning from '../../Alerts/Warning';
-import constants from '../../constants';
-import config from '../../../config';
-import useStrings from '../../../hooks/useStrings.hook';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import styled from "styled-components";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import DataObjectIcon from "@mui/icons-material/DataObject";
+import DownloadIcon from "@mui/icons-material/Download";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { transformations, isRadiant, sum } from "../../../utility";
+import { IconRadiant, IconDire } from "../../Icons";
+import Warning from "../../Alerts/Warning";
+import constants from "../../constants";
+import config from "../../../config";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const Styled = styled.header`
   width: 100vw;
@@ -267,9 +267,9 @@ const Styled = styled.header`
 
 const getWinnerStyle = (radiantWin: boolean | undefined) => {
   if (radiantWin === null || radiantWin === undefined) {
-    return 'nowinner';
+    return "nowinner";
   }
-  return radiantWin ? 'radiant' : 'dire';
+  return radiantWin ? "radiant" : "dire";
 };
 
 const MatchHeader = ({ match }: { match: Match }) => {
@@ -315,7 +315,7 @@ const MatchHeader = ({ match }: { match: Match }) => {
           <div className="killsRadiant">
             {match.radiant_score ||
               match.players
-                .map(mapPlayers('kills' as keyof MatchPlayer, true))
+                .map(mapPlayers("kills" as keyof MatchPlayer, true))
                 .reduce(sum, 0)}
           </div>
           <div className="gmde">
@@ -326,7 +326,7 @@ const MatchHeader = ({ match }: { match: Match }) => {
               {transformations.duration(null, null, match.duration)}
             </span>
             <span className="ended">
-              {strings.match_ended}{' '}
+              {strings.match_ended}{" "}
               {transformations.start_time(
                 null,
                 null,
@@ -337,7 +337,7 @@ const MatchHeader = ({ match }: { match: Match }) => {
           <div className="killsDire">
             {match.dire_score ||
               match.players
-                .map(mapPlayers('kills' as keyof MatchPlayer, false))
+                .map(mapPlayers("kills" as keyof MatchPlayer, false))
                 .reduce(sum, 0)}
           </div>
         </div>

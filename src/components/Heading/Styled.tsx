@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import constants from '../constants';
+import styled from "styled-components";
+import constants from "../constants";
 
 export const StyledDiv = styled.div`
   &.top-heading {
@@ -36,7 +36,7 @@ export const StyledDiv = styled.div`
     right: 100%;
     top: 50%;
     border: solid transparent;
-    content: ' ';
+    content: " ";
     height: 0;
     width: 0;
     position: absolute;
@@ -77,7 +77,7 @@ export const StyledDiv = styled.div`
     letter-spacing: 1px;
 
     &::before {
-      content: '▶';
+      content: "▶";
       margin-right: 4px;
     }
   }

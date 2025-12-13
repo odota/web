@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import constants from '../constants';
-import AttributesMain from './AttributesMain';
-import Abilities from './Abilities';
-import config from '../../config';
+import React from "react";
+import styled from "styled-components";
+import constants from "../constants";
+import AttributesMain from "./AttributesMain";
+import Abilities from "./Abilities";
+import config from "../../config";
 
 const getHeroImgSrc = (src: string) => config.VITE_IMAGE_CDN + src;
 
@@ -122,7 +122,7 @@ const Header = ({ hero }: { hero: Hero }) => (
         <HeroDetails>
           <HeroName>{hero.localized_name}</HeroName>
           <HeroRoleInformations>
-            {hero.attack_type} - <HeroRoles>{hero.roles.join(', ')}</HeroRoles>
+            {hero.attack_type} - <HeroRoles>{hero.roles.join(", ")}</HeroRoles>
           </HeroRoleInformations>
         </HeroDetails>
         <HeroStatsWrapper>

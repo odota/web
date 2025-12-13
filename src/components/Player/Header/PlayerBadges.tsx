@@ -1,17 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import Error from '../../Error/Error';
-import Spinner from '../../Spinner/Spinner';
+import React from "react";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import Error from "../../Error/Error";
+import Spinner from "../../Spinner/Spinner";
 import {
   IconCheese,
   IconSteam,
   IconContributor,
   IconCheckCircle,
-} from '../../Icons';
-import constants from '../../constants';
-import useStrings from '../../../hooks/useStrings.hook';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
+} from "../../Icons";
+import constants from "../../constants";
+import useStrings from "../../../hooks/useStrings.hook";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
 
 const Styled = styled.div`
   .iconButton {
@@ -82,7 +82,7 @@ const Styled = styled.div`
         }
       }
 
-      &[data-hint-position='top'] {
+      &[data-hint-position="top"] {
         &::before {
           margin-left: 8px;
         }
@@ -102,7 +102,7 @@ const Styled = styled.div`
         fill: ${constants.colorBlue};
       }
 
-      &[data-hint-position='top'] {
+      &[data-hint-position="top"] {
         &::before {
           margin-left: 11px;
           top: -1px;
@@ -223,8 +223,8 @@ const RegisteredBadge = ({ registered }: { registered: boolean }) => {
   return registered ? (
     <div
       style={{
-        marginLeft: '8px',
-        paddingTop: '8px',
+        marginLeft: "8px",
+        paddingTop: "8px",
         color: constants.colorSuccess,
       }}
       data-hint={strings.tooltip_registered_user}

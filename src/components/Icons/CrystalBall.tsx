@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default (props: any) => (
   <svg {...props} viewBox="16 16 96 96">

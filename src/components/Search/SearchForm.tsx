@@ -1,10 +1,10 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { TextField } from '@mui/material';
-import querystring from 'querystring';
-import { getSearchResultAndPros, setSearchQuery } from '../../actions';
-import constants from '../constants';
+import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { TextField } from "@mui/material";
+import querystring from "querystring";
+import { getSearchResultAndPros, setSearchQuery } from "../../actions";
+import constants from "../constants";
 
 type SearchFormProps = {
   dispatchSearch: Function;
@@ -22,7 +22,7 @@ class SearchForm extends React.Component<SearchFormProps, { query?: string }> {
 
     const params = querystring.parse(window.location.search.substring(1));
     const { pathname } = window.location;
-    if (params.q && pathname === '/search') {
+    if (params.q && pathname === "/search") {
       this.props.dispatchSearch(params.q);
       this.state = {
         query: params.q as string,
@@ -35,7 +35,7 @@ class SearchForm extends React.Component<SearchFormProps, { query?: string }> {
   formSubmit = (e: any) => {
     const { query } = this.state;
     e.preventDefault();
-    this.props.history.push(`/search?q=${encodeURIComponent(query ?? '')}`);
+    this.props.history.push(`/search?q=${encodeURIComponent(query ?? "")}`);
     this.props.dispatchSearch(query);
   };
 
@@ -53,7 +53,7 @@ class SearchForm extends React.Component<SearchFormProps, { query?: string }> {
     return (
       <form
         onSubmit={this.formSubmit}
-        style={{ width: small ? '260px' : 'auto' }}
+        style={{ width: small ? "260px" : "auto" }}
       >
         <TextField
           id="searchField"
@@ -67,7 +67,7 @@ class SearchForm extends React.Component<SearchFormProps, { query?: string }> {
           onChange={this.handleChange}
           fullWidth
           size="small"
-          style={{ whiteSpace: 'nowrap', overflow: 'hidden', display: 'flex' }}
+          style={{ whiteSpace: "nowrap", overflow: "hidden", display: "flex" }}
         />
       </form>
     );

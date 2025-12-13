@@ -1,7 +1,7 @@
-import { patch } from 'dotaconstants';
-import { region } from 'dotaconstants';
-import { getPercentWin } from '../utility';
-import store from '../store';
+import { patch } from "dotaconstants";
+import { region } from "dotaconstants";
+import { getPercentWin } from "../utility";
+import store from "../store";
 
 const patchLookup: Record<string, string> = {};
 patch.forEach((patchElement, index) => {

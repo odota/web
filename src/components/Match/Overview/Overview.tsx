@@ -1,14 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
-import MatchGraph from '../../Visualizations/Graph/MatchGraph';
-import TeamTable from '../TeamTable';
-import AbilityDraftTable from '../AbilityDraftTable';
-import mcs from '../matchColumns';
-import BuildingMap from '../BuildingMap/BuildingMap';
-import Collapsible from '../../Collapsible/Collapsible';
-import AbilityBuildTable from '../AbilityBuildTable';
-import DeferredContainer from '../../DeferredContainer/DeferredContainer';
-import config from '../../../config';
+import React from "react";
+import styled from "styled-components";
+import MatchGraph from "../../Visualizations/Graph/MatchGraph";
+import TeamTable from "../TeamTable";
+import AbilityDraftTable from "../AbilityDraftTable";
+import mcs from "../matchColumns";
+import BuildingMap from "../BuildingMap/BuildingMap";
+import Collapsible from "../../Collapsible/Collapsible";
+import AbilityBuildTable from "../AbilityBuildTable";
+import DeferredContainer from "../../DeferredContainer/DeferredContainer";
+import config from "../../../config";
 
 const Styled = styled.div`
   width: 100%;
@@ -41,7 +41,7 @@ export const getOverviewTab = (strings: Strings, beta = false) => {
   );
   return {
     name: strings.tab_overview,
-    key: 'overview',
+    key: "overview",
     parsed: false,
     skeleton: true,
     content: (match: Match) => (

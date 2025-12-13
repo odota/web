@@ -1,7 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Autocomplete, Chip, TextField } from '@mui/material';
-import querystring from 'querystring';
+import React from "react";
+import { connect } from "react-redux";
+import { Autocomplete, Chip, TextField } from "@mui/material";
+import querystring from "querystring";
 // import ChipList from './ChipList';
 // import constants from '../constants';
 
@@ -58,7 +58,7 @@ type FormFieldProps = {
   strings: Strings;
   resetField?: Function;
   textFieldStyle?: any;
-  size?: 'small' | 'medium';
+  size?: "small" | "medium";
   width?: number;
 };
 
@@ -74,7 +74,7 @@ class FormField extends React.Component<FormFieldProps> {
     const { name, limit, addChip, history } = this.props;
 
     let valueToAdd;
-    if (typeof value[0] === 'string') {
+    if (typeof value[0] === "string") {
       // free input mode
       valueToAdd = {
         label: value[0],
@@ -120,7 +120,7 @@ class FormField extends React.Component<FormFieldProps> {
         <Autocomplete
           clearIcon={null}
           sx={{ width: this.props.width ? `${this.props.width}px` : undefined }}
-          size={this.props.size ?? 'medium'}
+          size={this.props.size ?? "medium"}
           freeSolo={!this.props.strict}
           multiple={true}
           value={chipList}

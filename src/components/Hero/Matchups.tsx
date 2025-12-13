@@ -1,12 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { getHeroMatchups } from '../../actions';
-import Table from '../Table/Table';
-import TableLink from '../Table/TableLink';
-import MatchupsSkeleton from '../Skeletons/MatchupsSkeleton';
-import { wilsonScore } from '../../utility';
-import config from '../../config';
+import React from "react";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import { getHeroMatchups } from "../../actions";
+import Table from "../Table/Table";
+import TableLink from "../Table/TableLink";
+import MatchupsSkeleton from "../Skeletons/MatchupsSkeleton";
+import { wilsonScore } from "../../utility";
+import config from "../../config";
 
 const HeroImage = styled.img`
   width: 50px;
@@ -25,7 +25,7 @@ const getMatchupsColumns = (heroes: Hero[], strings: Strings) => {
 
   return [
     {
-      field: 'hero_id',
+      field: "hero_id",
       displayName: strings.th_hero_id,
       displayFn: (row: any, col: any, field: string) => {
         const hero = heroMap.get(field) || {};
@@ -43,20 +43,20 @@ const getMatchupsColumns = (heroes: Hero[], strings: Strings) => {
       },
     },
     {
-      field: 'games_played',
+      field: "games_played",
       displayName: strings.th_games_played,
       relativeBars: true,
       sortFn: true,
     },
     {
-      field: 'win_rate',
+      field: "win_rate",
       displayName: strings.th_win,
       relativeBars: true,
       sortFn: true,
     },
     {
       tooltip: strings.tooltip_advantage,
-      field: 'advantage',
+      field: "advantage",
       displayName: strings.th_advantage,
       relativeBars: true,
       sortFn: true,

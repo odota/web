@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import AirDatepicker from 'air-datepicker';
-import 'air-datepicker/air-datepicker.css';
-import { TextField } from '@mui/material';
-import localeEn from 'air-datepicker/locale/en';
+import React, { useEffect, useRef } from "react";
+import AirDatepicker from "air-datepicker";
+import "air-datepicker/air-datepicker.css";
+import { TextField } from "@mui/material";
+import localeEn from "air-datepicker/locale/en";
 
 export function DatePicker(props: {
   id: string;
@@ -29,7 +29,7 @@ export function DatePicker(props: {
   // Start init
   useEffect(() => {
     // Save instance for the further update
-    dp.current = new AirDatepicker('#' + props.id, getProps());
+    dp.current = new AirDatepicker("#" + props.id, getProps());
   }, []);
 
   useEffect(() => {
@@ -40,11 +40,11 @@ export function DatePicker(props: {
   return (
     <TextField
       size="small"
-      sx={{ width: '250px' }}
+      sx={{ width: "250px" }}
       onChange={(e) => props.onChange({ date: undefined })}
       id={props.id}
       label={props.label}
-      value={props.value?.[0] || ''}
+      value={props.value?.[0] || ""}
     />
   );
 }

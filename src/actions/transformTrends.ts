@@ -8,7 +8,7 @@ export default function transformTrends(fieldName: string) {
     const trends = response.reverse().reduce((dataList, match) => {
       const win = match.player_slot < 128 === match.radiant_win;
       const currentValue =
-        fieldName === 'win_rate'
+        fieldName === "win_rate"
           ? Number(win) * 100 // true -> 100 false -> 0
           : match[fieldName];
 

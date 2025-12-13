@@ -1,7 +1,7 @@
-import React from 'react';
-import InfoIcon from '@mui/icons-material/Info';
-import styled from 'styled-components';
-import constants from '../constants';
+import React from "react";
+import InfoIcon from "@mui/icons-material/Info";
+import styled from "styled-components";
+import constants from "../constants";
 
 const StyledDiv = styled.div`
   & a {

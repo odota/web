@@ -1,5 +1,5 @@
-import React from 'react';
-import TableHeaderColumn from './TableHeaderColumn';
+import React from "react";
+import TableHeaderColumn from "./TableHeaderColumn";
 
 const TableHeader = ({
   columns,

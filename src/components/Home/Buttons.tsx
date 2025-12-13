@@ -1,11 +1,11 @@
-import React from 'react';
-import { Button } from '@mui/material';
-import { connect } from 'react-redux';
-import { IconSteam } from '../Icons';
-import config from '../../config';
+import React from "react";
+import { Button } from "@mui/material";
+import { connect } from "react-redux";
+import { IconSteam } from "../Icons";
+import config from "../../config";
 
-import { HomePageProps } from './Home';
-import useStrings from '../../hooks/useStrings.hook';
+import { HomePageProps } from "./Home";
+import useStrings from "../../hooks/useStrings.hook";
 
 const Buttons = ({ user }: HomePageProps) => {
   const strings = useStrings();

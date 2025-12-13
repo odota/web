@@ -1,15 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Button } from '@mui/material';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import constants from '../constants';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import styled from "styled-components";
+import { Button } from "@mui/material";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import constants from "../constants";
+import useStrings from "../../hooks/useStrings.hook";
 
 const StyledContainer = styled.div<{ top?: boolean }>`
   display: flex;
   flex-direction: column;
-  align-items: ${(props) => (props.top ? 'flex-end' : 'center')};
+  align-items: ${(props) => (props.top ? "flex-end" : "center")};
   ${(props) =>
     props.top &&
     `position:relative;
@@ -146,8 +146,8 @@ const Pagination = ({
   const strings = useStrings();
   if (numPages > 1) {
     return (
-      <StyledContainer top={place === 'top'}>
-        <StyledPagination top={place === 'top'}>
+      <StyledContainer top={place === "top"}>
+        <StyledPagination top={place === "top"}>
           {currentPage > 0 && (
             <StyledPage onClick={() => setCurrentPage(0)}>
               {strings.pagination_first}
@@ -182,15 +182,15 @@ const Pagination = ({
             </StyledPage>
           )}
         </StyledPagination>
-        {place === 'bot' && (
+        {place === "bot" && (
           <StyledInfo>
-            {(pageLength * currentPage + 1).toLocaleString('en-US')}
-            {' - '}
+            {(pageLength * currentPage + 1).toLocaleString("en-US")}
+            {" - "}
             {Math.min(
               pageLength * currentPage + pageLength,
               length,
-            ).toLocaleString('en-US')}{' '}
-            {strings.pagination_of} {length.toLocaleString('en-US')}
+            ).toLocaleString("en-US")}{" "}
+            {strings.pagination_of} {length.toLocaleString("en-US")}
           </StyledInfo>
         )}
       </StyledContainer>

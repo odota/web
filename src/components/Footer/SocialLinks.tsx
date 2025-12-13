@@ -1,7 +1,7 @@
-import React from 'react';
-import { IconGithub, IconDiscord } from '../Icons';
-import config from '../../config';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import { IconGithub, IconDiscord } from "../Icons";
+import config from "../../config";
+import useStrings from "../../hooks/useStrings.hook";
 
 export default () => {
   const strings = useStrings();

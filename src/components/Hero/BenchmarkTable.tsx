@@ -1,6 +1,6 @@
-import React from 'react';
-import Table from '../Table/Table';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import Table from "../Table/Table";
+import useStrings from "../../hooks/useStrings.hook";
 
 const BenchmarkTable = ({ data }: { data: any[] }) => {
   const strings = useStrings();
@@ -10,9 +10,9 @@ const BenchmarkTable = ({ data }: { data: any[] }) => {
       tooltip: strings[`tooltip_${stat}` as keyof Strings],
       field: stat,
       displayFn: (row: any, col: any, field: any) =>
-        stat === 'percentile'
+        stat === "percentile"
           ? `${field * 100}%`
-          : typeof field === 'number' && Number(field.toFixed(2)),
+          : typeof field === "number" && Number(field.toFixed(2)),
     }));
   return <Table data={data} columns={columns(data)} />;
 };

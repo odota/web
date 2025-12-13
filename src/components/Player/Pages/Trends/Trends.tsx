@@ -1,13 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { TrendGraph } from '../../../Visualizations';
-import { getPlayerTrends } from '../../../../actions';
-import ButtonGarden from '../../../ButtonGarden/ButtonGarden';
-import trendNames from '../matchDataColumns';
-import Heading from '../../../Heading/Heading';
-import Container from '../../../Container/Container';
-import useStrings from '../../../../hooks/useStrings.hook';
+import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { TrendGraph } from "../../../Visualizations";
+import { getPlayerTrends } from "../../../../actions";
+import ButtonGarden from "../../../ButtonGarden/ButtonGarden";
+import trendNames from "../matchDataColumns";
+import Heading from "../../../Heading/Heading";
+import Container from "../../../Container/Container";
+import useStrings from "../../../../hooks/useStrings.hook";
 
 const Trend = ({
   routeParams,

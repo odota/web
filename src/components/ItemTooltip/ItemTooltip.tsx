@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
-import constants from '../constants';
-import { styleValues } from '../../utility';
-import config from '../../config';
-import AbilityBehaviour from '../AbilityTooltip/AbilityBehaviour';
-import { usePatchnotes } from '../../hooks/usePatchnotes.hook';
-import { items } from 'dotaconstants';
+import React from "react";
+import styled from "styled-components";
+import constants from "../constants";
+import { styleValues } from "../../utility";
+import config from "../../config";
+import AbilityBehaviour from "../AbilityTooltip/AbilityBehaviour";
+import { usePatchnotes } from "../../hooks/usePatchnotes.hook";
+import { items } from "dotaconstants";
 
 // Get patchnotes from up to two last letter patches
 function getRecentChanges(item?: keyof Items, patchnotes?: PatchNotes) {
@@ -29,9 +29,9 @@ function getRecentChanges(item?: keyof Items, patchnotes?: PatchNotes) {
 }
 
 const textHighlightColors = {
-  use: '#95c07a',
-  active: '#9f9fcf',
-  passive: '#7e8c9d',
+  use: "#95c07a",
+  active: "#9f9fcf",
+  passive: "#7e8c9d",
 };
 
 const Wrapper = styled.div`
@@ -369,7 +369,7 @@ const Ability = (
   hasNonPassive: boolean,
 ) => {
   const styleType: keyof typeof textHighlightColors =
-    abilityType[type] || 'passive';
+    abilityType[type] || "passive";
   const highlightStyle = `font-weight:500;color:${textHighlightColors[styleType]};text-shadow:2px 2px 0 #00000090;`;
   return (
     <AbilityComponent>
@@ -377,7 +377,7 @@ const Ability = (
         <div className="header">
           <span className="ability-name">{`${capitalizeFirstLetter(type)}: ${title}`}</span>
           <div>
-            {item.mc && styleType !== 'passive' && (
+            {item.mc && styleType !== "passive" && (
               <span className="entry">
                 <ResourceIcon
                   src="/assets/images/dota2/ability_manacost.png"
@@ -386,7 +386,7 @@ const Ability = (
                 <span className="values">{item.mc}</span>
               </span>
             )}
-            {item.hc && styleType !== 'passive' && (
+            {item.hc && styleType !== "passive" && (
               <span className="entry">
                 <ResourceIcon
                   src="/assets/images/dota2/ability_healthcost.png"
@@ -396,8 +396,8 @@ const Ability = (
               </span>
             )}
             {item.cd &&
-              ((!hasNonPassive && styleType === 'passive') ||
-                styleType !== 'passive') && (
+              ((!hasNonPassive && styleType === "passive") ||
+                styleType !== "passive") && (
                 <span className="entry">
                   <ResourceIcon
                     src="/assets/images/dota2/ability_cooldown.png"
@@ -426,7 +426,7 @@ const AttributeContainer = ({ stats = [] }: any) => (
     {stats?.map((attrib: any) => (
       <div key={attrib.key}>
         <div id="header" ref={(el) => styleValues(el)}>
-          {attrib.display.replace('{value}', attrib.value)}
+          {attrib.display.replace("{value}", attrib.value)}
         </div>
       </div>
     ))}
@@ -438,15 +438,15 @@ const EnhancementContainer = ({ enhancement }: any) => (
     <div className="enhancement-header">
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'baseline',
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "baseline",
         }}
       >
         <hr />
         <span className="enhancement-title">{`Enchantment`}</span>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         <img
           id="enhancement-img"
           src={`${config.VITE_IMAGE_CDN}${enhancement.img}`}
@@ -461,19 +461,19 @@ const EnhancementContainer = ({ enhancement }: any) => (
 
 // How each type should be styled
 const abilityType: Record<string, keyof typeof textHighlightColors> = {
-  active: 'active',
-  toggle: 'active',
-  passive: 'passive',
-  upgrade: 'passive',
-  use: 'use',
+  active: "active",
+  toggle: "active",
+  passive: "passive",
+  upgrade: "passive",
+  use: "use",
 };
 
 const itemStats = (item: any) => {
   const upperCaseStats: string[] = [];
   const stats = item?.attrib
-    .filter((a: any) => a.hasOwnProperty('display'))
+    .filter((a: any) => a.hasOwnProperty("display"))
     .filter((a: any) => {
-      if (!/[a-z]/.test(a.display.replace('{value}', ''))) {
+      if (!/[a-z]/.test(a.display.replace("{value}", ""))) {
         upperCaseStats.push(a);
         return false;
       }
@@ -487,7 +487,7 @@ const ItemTooltip = ({
   inflictor,
   value,
 }: {
-  item: Items['blink'] & any;
+  item: Items["blink"] & any;
   inflictor?: keyof Items;
   value?: keyof Items;
 }) => {
@@ -497,7 +497,7 @@ const ItemTooltip = ({
   const [stats, upperCaseStats] = itemStats(item);
   const abilities = item.abilities || [];
   const hasNonPassive = abilities.some((a: { type: string }) =>
-    ['active', 'use'].includes(a.type),
+    ["active", "use"].includes(a.type),
   );
   return (
     <Wrapper>
@@ -562,7 +562,7 @@ const ItemTooltip = ({
         <GameplayChanges>
           {recentChanges.map(({ patch, note }) => (
             <GameplayChange>
-              <span className="patch">{`${patch.replace('_', '.')}:`}</span>
+              <span className="patch">{`${patch.replace("_", ".")}:`}</span>
               <span className="note">{note}</span>
             </GameplayChange>
           ))}

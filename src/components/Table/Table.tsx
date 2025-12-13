@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 import {
   abbreviateNumber,
   SORT_ENUM,
   defaultSort,
   getColStyle,
-} from '../../utility';
-import { TablePercent, TableSparkline } from '../Visualizations';
-import Pagination from './Pagination';
-import TableHeader from './TableHeader';
-import Error from '../Error/Error';
-import TableSkeleton from '../Skeletons/TableSkeleton';
-import { StyledBody, StyledContainer } from './Styled';
+} from "../../utility";
+import { TablePercent, TableSparkline } from "../Visualizations";
+import Pagination from "./Pagination";
+import TableHeader from "./TableHeader";
+import Error from "../Error/Error";
+import TableSkeleton from "../Skeletons/TableSkeleton";
+import { StyledBody, StyledContainer } from "./Styled";
 
 const getColumnMax = (data: any[], field: string, getValue: Function) => {
   const valuesArr = data.reduce((arr, row) => {
@@ -40,8 +40,8 @@ const getColumnMin = (data: any[], field: string, getValue: Function) => {
 
 const initialState = {
   currentPage: 0,
-  sortState: '',
-  sortField: '',
+  sortState: "",
+  sortField: "",
   sortFn: (f: any) => f,
 };
 
@@ -82,7 +82,7 @@ class Table extends React.Component<TableProps, TableState> {
           let total = 0;
           if (column.sumFn) {
             const sumFn =
-              typeof column.sumFn === 'function'
+              typeof column.sumFn === "function"
                 ? column.sumFn
                 : (acc: any, row: any) => acc + (row[column.field] || 0);
             total = data.reduce(sumFn, null);
@@ -220,9 +220,9 @@ class Table extends React.Component<TableProps, TableState> {
           )}
           {!loading && !error && dataLength > 0 && (
             <div
-              className={`innerContainer ${scrolled && 'scrolled'} ${
-                this.doShrink && 'shrink'
-              } ${overflowAuto && 'table-container-overflow-auto'}`}
+              className={`innerContainer ${scrolled && "scrolled"} ${
+                this.doShrink && "shrink"
+              } ${overflowAuto && "table-container-overflow-auto"}`}
               ref={this.setTableRef}
             >
               <table className={className}>
@@ -256,20 +256,20 @@ class Table extends React.Component<TableProps, TableState> {
                         } = column;
                         const columnSortFn = column.sortFn;
                         const getValue =
-                          typeof columnSortFn === 'function'
+                          typeof columnSortFn === "function"
                             ? columnSortFn
                             : null;
                         const value = getValue ? getValue(row) : row[field];
                         const style = {
-                          overflow: `${field === 'kills' ? 'visible' : null}`,
+                          overflow: `${field === "kills" ? "visible" : null}`,
                           marginBottom: 0,
-                          textUnderlinePosition: 'under',
-                          textDecorationColor: 'rgb(140, 140, 140)',
+                          textUnderlinePosition: "under",
+                          textDecorationColor: "rgb(140, 140, 140)",
                           ...getColStyle(column),
                         };
 
                         if (center) {
-                          style.textAlign = 'center';
+                          style.textAlign = "center";
                         }
                         if (!row) {
                           return (
@@ -286,7 +286,7 @@ class Table extends React.Component<TableProps, TableState> {
                           relativeBars || percentBars || percentBarsWithValue;
                         if (bars) {
                           const altValue =
-                            typeof bars === 'function' && percentBarsWithValue
+                            typeof bars === "function" && percentBarsWithValue
                               ? bars(row)
                               : null;
                           let valEl = null;
@@ -359,16 +359,16 @@ class Table extends React.Component<TableProps, TableState> {
                           fieldEl = value;
                         }
                         if (
-                          (underline === 'max' || underline === 'min') &&
-                          typeof isBestValueInMatch === 'function'
+                          (underline === "max" || underline === "min") &&
+                          typeof isBestValueInMatch === "function"
                         ) {
                           style.textDecoration = isBestValueInMatch(
                             field,
                             row,
                             underline,
                           )
-                            ? 'underline'
-                            : 'none';
+                            ? "underline"
+                            : "none";
                         }
                         const tdStyle =
                           fieldEl && fieldEl.type && fieldEl.type.tdStyle;

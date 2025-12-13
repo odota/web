@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   XAxis,
   YAxis,
@@ -7,23 +7,23 @@ import {
   BarChart,
   CartesianGrid,
   ResponsiveContainer,
-} from 'recharts';
-import Heading from '../../Heading/Heading';
-import constants from '../../constants';
-import { StyledHolder } from './Styled';
-import useStrings from '../../../hooks/useStrings.hook';
+} from "recharts";
+import Heading from "../../Heading/Heading";
+import constants from "../../constants";
+import { StyledHolder } from "./Styled";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const category10 = [
-  '#1f77b4',
-  '#ff7f0e',
-  '#2ca02c',
-  '#d62728',
-  '#9467bd',
-  '#8c564b',
-  '#e377c2',
-  '#7f7f7f',
-  '#bcbd22',
-  '#17becf',
+  "#1f77b4",
+  "#ff7f0e",
+  "#2ca02c",
+  "#d62728",
+  "#9467bd",
+  "#8c564b",
+  "#e377c2",
+  "#7f7f7f",
+  "#bcbd22",
+  "#17becf",
 ];
 
 const StackedBarGraph = ({
@@ -62,7 +62,7 @@ const StackedBarGraph = ({
   return (
     <StyledHolder>
       <Heading title={heading} />
-      <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
+      <div style={{ overflowX: "auto", overflowY: "hidden" }}>
         <ResponsiveContainer width="100%" height={400} minWidth={1000}>
           <BarChart
             height={400}
@@ -78,10 +78,10 @@ const StackedBarGraph = ({
             <YAxis />
             <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
             <Tooltip
-              cursor={{ opacity: '0.06' }}
+              cursor={{ opacity: "0.06" }}
               wrapperStyle={{
                 backgroundColor: constants.darkPrimaryColor,
-                border: 'none',
+                border: "none",
               }}
               {...tooltipProps}
             />
@@ -92,9 +92,9 @@ const StackedBarGraph = ({
                   dataKey={gr.substring(`${type}_`.length)}
                   name={strings[gr as keyof Strings]}
                   stackId={
-                    gr === 'gold_reasons_1' || gr === 'gold_reasons_2'
-                      ? 'a'
-                      : 'b'
+                    gr === "gold_reasons_1" || gr === "gold_reasons_2"
+                      ? "a"
+                      : "b"
                   }
                   fill={category10[i]}
                 />

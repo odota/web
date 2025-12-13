@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import { YAxis, BarChart, Bar, Cell, ReferenceLine, Tooltip } from 'recharts';
-import { StyledContainer, SparklineContainer } from './Styled';
-import { StyledCustomizedTooltip } from '../../Visualizations/Graph/Styled';
-import constants from '../../constants';
-import useStrings from '../../../hooks/useStrings.hook';
+import { YAxis, BarChart, Bar, Cell, ReferenceLine, Tooltip } from "recharts";
+import { StyledContainer, SparklineContainer } from "./Styled";
+import { StyledCustomizedTooltip } from "../../Visualizations/Graph/Styled";
+import constants from "../../constants";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const CustomizedTooltip = ({
   label,

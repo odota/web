@@ -1,10 +1,10 @@
-import React from 'react';
-import { TextField } from '@mui/material';
-import editDistance from './editDistance';
+import React from "react";
+import { TextField } from "@mui/material";
+import editDistance from "./editDistance";
 
 const ExplorerOmnibox = (context: any, expandedFields: any) => (
   <TextField
-    style={{ display: 'none' }}
+    style={{ display: "none" }}
     onChange={(event: any) => {
       const value = event.target.value;
       // Sample input 'dendi antimage'
@@ -13,7 +13,7 @@ const ExplorerOmnibox = (context: any, expandedFields: any) => (
       // TODO handle multi-word phrases like 'evil geniuses', 'gold per min'
       const result: any[] = [];
       Object.keys(expandedFields).forEach((field) => {
-        value.split(' ').forEach((token: string) => {
+        value.split(" ").forEach((token: string) => {
           const distances = expandedFields[field].map((element: any) => ({
             field,
             token,

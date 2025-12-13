@@ -1,11 +1,11 @@
-import React from 'react';
-import querystring from 'querystring';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { PlayerStatsCard } from './Styled';
-import constants from '../../constants';
-import config from '../../../config';
-import { paramsWithTurbo } from '../../../utility.js';
+import React from "react";
+import querystring from "querystring";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { PlayerStatsCard } from "./Styled";
+import constants from "../../constants";
+import config from "../../../config";
+import { paramsWithTurbo } from "../../../utility.js";
 
 const shouldShow = (props: PlayedWithProps) =>
   props.loggedInId && props.loggedInId !== props.playerId;
@@ -23,7 +23,7 @@ const getData = async (props: PlayedWithProps, context: any) => {
   }
 };
 
-const inlineStyle = { display: 'inline' };
+const inlineStyle = { display: "inline" };
 
 type PlayedWithProps = {
   playerId: string;
@@ -53,8 +53,8 @@ class PlayedWith extends React.Component<PlayedWithProps, PlayedWithState> {
     return (
       <div
         style={{
-          display: shouldShow(this.props) ? 'inline' : 'none',
-          marginLeft: '10px',
+          display: shouldShow(this.props) ? "inline" : "none",
+          marginLeft: "10px",
         }}
       >
         <PlayerStatsCard

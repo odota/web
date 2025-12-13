@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button } from '@mui/material';
+import React from "react";
+import { Button } from "@mui/material";
 
 const ExplorerOutputButton = ({
   defaultSelected,
@@ -33,8 +33,8 @@ const ExplorerOutputButton = ({
   }
   return (
     <Button
-      style={{ margin: '5px' }}
-      href={href ?? ''}
+      style={{ margin: "5px" }}
+      href={href ?? ""}
       download={download}
       onClick={clickFn}
     >

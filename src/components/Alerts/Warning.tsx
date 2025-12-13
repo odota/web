@@ -1,7 +1,7 @@
-import React from 'react';
-import WarningIcon from '@mui/icons-material/Warning';
-import styled from 'styled-components';
-import constants from '../constants';
+import React from "react";
+import WarningIcon from "@mui/icons-material/Warning";
+import styled from "styled-components";
+import constants from "../constants";
 
 const StyledDiv = styled.div`
   font-weight: ${constants.fontWeightLight};

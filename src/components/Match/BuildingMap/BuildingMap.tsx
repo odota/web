@@ -1,21 +1,21 @@
-import React from 'react';
-import { player_colors as playerColors } from 'dotaconstants';
-import { heroes } from 'dotaconstants';
-import ReactTooltip from 'react-tooltip';
-import styled from 'styled-components';
-import { pad, sum, isRadiant, patchDate } from '../../../utility';
-import Heading from '../../Heading/Heading';
-import DotaMap from '../../DotaMap/DotaMap';
-import HeroImage from '../../Visualizations/HeroImage';
-import buildingDataOld from './buildingData';
-import buildingData733 from './buildingData733';
-import constants from '../../constants';
-import config from '../../../config';
-import useStrings from '../../../hooks/useStrings.hook';
+import React from "react";
+import { player_colors as playerColors } from "dotaconstants";
+import { heroes } from "dotaconstants";
+import ReactTooltip from "react-tooltip";
+import styled from "styled-components";
+import { pad, sum, isRadiant, patchDate } from "../../../utility";
+import Heading from "../../Heading/Heading";
+import DotaMap from "../../DotaMap/DotaMap";
+import HeroImage from "../../Visualizations/HeroImage";
+import buildingDataOld from "./buildingData";
+import buildingData733 from "./buildingData733";
+import constants from "../../constants";
+import config from "../../../config";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const buildingDataByPatch = [
-  { patch: '7.33', data: buildingData733 },
-  { patch: '6.70', data: buildingDataOld },
+  { patch: "7.33", data: buildingData733 },
+  { patch: "6.70", data: buildingDataOld },
 ];
 
 const getBuildingData = (startTime: number) => {
@@ -280,7 +280,7 @@ const BuildingMap = ({ match }: { match: Match }) => {
   bits += pad(match.barracks_status_radiant.toString(2), 8).slice(2);
   bits += pad(match.tower_status_dire.toString(2), 16).slice(5);
   bits += pad(match.barracks_status_dire.toString(2), 8).slice(2);
-  bits += match.radiant_win ? '10' : '01';
+  bits += match.radiant_win ? "10" : "01";
   const icons = [];
   // concat, iterate through bits of all four status values
   // if 1, create image
@@ -290,25 +290,25 @@ const BuildingMap = ({ match }: { match: Match }) => {
     let type: string = buildingData[i].id.slice(0, 1);
     //@ts-expect-error
     type =
-      (type === 't' && 'tower') ||
-      (type === 'b' &&
-        (buildingData[i].id.slice(1, 2) === 'm' ? 'melee_rax' : 'range_rax')) ||
-      (type === 'a' && 'fort');
-    const side = buildingData[i].id.slice(-1) === 'r' ? 'good' : 'bad';
-    const tier = Number(buildingData[i].id.slice(1, 2)) || '';
+      (type === "t" && "tower") ||
+      (type === "b" &&
+        (buildingData[i].id.slice(1, 2) === "m" ? "melee_rax" : "range_rax")) ||
+      (type === "a" && "fort");
+    const side = buildingData[i].id.slice(-1) === "r" ? "good" : "bad";
+    const tier = Number(buildingData[i].id.slice(1, 2)) || "";
     let lane = buildingData[i].id.slice(2, 3);
     lane =
       (tier !== 4 &&
-        ((lane === 't' && 'top') ||
-          (lane === 'm' && 'mid') ||
-          (lane === 'b' && 'bot') ||
-          '')) ||
-      '';
+        ((lane === "t" && "top") ||
+          (lane === "m" && "mid") ||
+          (lane === "b" && "bot") ||
+          "")) ||
+      "";
 
     const key = `npc_dota_${side}guys_${type}${tier}${lane && `_${lane}`}`;
     const title =
       strings[
-        `${type.includes('rax') ? 'building_' : 'objective_'}${type}${tier}${type.includes('rax') ? '' : lane && `_${lane}`}` as keyof Strings
+        `${type.includes("rax") ? "building_" : "objective_"}${type}${tier}${type.includes("rax") ? "" : lane && `_${lane}`}` as keyof Strings
       ];
 
     const destroyedBy = match.players
@@ -327,16 +327,16 @@ const BuildingMap = ({ match }: { match: Match }) => {
     let damageByCreeps = damage.map((player) => player.damage).reduce(sum, 0);
     damageByCreeps =
       //@ts-expect-error
-      buildingsHealth[type === 'tower' ? `tower${tier}` : type] -
+      buildingsHealth[type === "tower" ? `tower${tier}` : type] -
       damageByCreeps;
 
     const props = {
       key: buildingData[i].id,
-      src: `/assets/images/dota2/map/${side}guys_${type.includes('rax') ? 'rax' : type}${lane === 'mid' ? '_angle' : ''}.png`,
+      src: `/assets/images/dota2/map/${side}guys_${type.includes("rax") ? "rax" : type}${lane === "mid" ? "_angle" : ""}.png`,
       style: {
         span: {
           ...buildingData[i].style,
-          position: 'absolute',
+          position: "absolute",
           width: 0,
           height: 0,
         } as React.CSSProperties,
@@ -344,13 +344,13 @@ const BuildingMap = ({ match }: { match: Match }) => {
           // TODO scale based on client width
           // d.style += 'zoom: ' + document.getElementById(map').clientWidth / 600 + ';';
           height:
-            (type === 'fort' && 25) ||
-            (type === 'tower' && 16) ||
-            (type.includes('rax') && 12),
+            (type === "fort" && 25) ||
+            (type === "tower" && 16) ||
+            (type.includes("rax") && 12),
           filter:
-            bits[i] === '1'
-              ? 'contrast(150%)'
-              : 'grayscale(100%) brightness(70%)',
+            bits[i] === "1"
+              ? "contrast(150%)"
+              : "grayscale(100%) brightness(70%)",
         } as React.CSSProperties,
       },
     };
@@ -372,8 +372,8 @@ const BuildingMap = ({ match }: { match: Match }) => {
                   className="buildingHealth"
                   style={{
                     backgroundColor:
-                      (bits[i] === '1' && constants.colorMuted) ||
-                      (side === 'good'
+                      (bits[i] === "1" && constants.colorMuted) ||
+                      (side === "good"
                         ? constants.colorRed
                         : constants.colorGreen),
                   }}
@@ -382,7 +382,7 @@ const BuildingMap = ({ match }: { match: Match }) => {
                     <div
                       key={player.hero_id}
                       style={{
-                        width: `${(Number(player.damage) * 100) / buildingsHealth[(type === 'tower' ? `tower${tier}` : type) as keyof typeof buildingsHealth]}%`,
+                        width: `${(Number(player.damage) * 100) / buildingsHealth[(type === "tower" ? `tower${tier}` : type) as keyof typeof buildingsHealth]}%`,
                         backgroundColor:
                           playerColors[
                             player.player_slot as unknown as keyof typeof playerColors
@@ -416,16 +416,16 @@ const BuildingMap = ({ match }: { match: Match }) => {
                       {destroyedBy &&
                         destroyedBy.player_slot === player.player_slot && (
                           <span className="lasthit">
-                            {(side === 'good' &&
+                            {(side === "good" &&
                               isRadiant(destroyedBy.player_slot)) ||
-                            (side === 'bad' &&
+                            (side === "bad" &&
                               !isRadiant(destroyedBy.player_slot)) ? (
                               <span className="deny">
                                 {strings.building_denied}
                               </span>
                             ) : (
                               <span>
-                                {type !== 'fort' && (
+                                {type !== "fort" && (
                                   <img
                                     src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/tooltips/gold.png`}
                                     alt=""
@@ -438,23 +438,23 @@ const BuildingMap = ({ match }: { match: Match }) => {
                         )}
                     </div>
                   ))}
-                  {damageByCreeps > 0 && bits[i] !== '1' && (
+                  {damageByCreeps > 0 && bits[i] !== "1" && (
                     <div className="creeps">
                       <img
                         src="/assets/images/blank-1x1.gif"
                         alt=""
                         style={{
-                          backgroundImage: `url(/assets/images/dota2/${side === 'good' ? 'bad' : 'good'}guys_creep.png)`,
-                          backgroundPosition: 'center',
-                          backgroundRepeat: 'no-repeat',
-                          backgroundSize: 'contain',
+                          backgroundImage: `url(/assets/images/dota2/${side === "good" ? "bad" : "good"}guys_creep.png)`,
+                          backgroundPosition: "center",
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "contain",
                         }}
                       />
                       <span className="damageValue">{damageByCreeps}</span>
                       <span
                         style={{
                           color:
-                            side === 'good'
+                            side === "good"
                               ? constants.colorRed
                               : constants.colorGreen,
                         }}
@@ -509,12 +509,12 @@ const BuildingMap = ({ match }: { match: Match }) => {
           }
           effect="solid"
         >
-          <span className={match.players[i].isRadiant ? 'radiant' : 'dire'}>
+          <span className={match.players[i].isRadiant ? "radiant" : "dire"}>
             {heroes[match.players[i].hero_id] &&
               heroes[match.players[i].hero_id].localized_name}
           </span>
           <br />
-          {match.players[i].is_roaming ? roaming : ''}
+          {match.players[i].is_roaming ? roaming : ""}
           {match.players[i].desc}
         </ReactTooltip>
       </div>

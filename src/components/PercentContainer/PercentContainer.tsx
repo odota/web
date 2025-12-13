@@ -1,8 +1,8 @@
-import React from 'react';
-import { LinearProgress } from '@mui/material';
-import styled from 'styled-components';
-import { getPercentWin } from '../../utility';
-import constants from '../constants';
+import React from "react";
+import { LinearProgress } from "@mui/material";
+import styled from "styled-components";
+import { getPercentWin } from "../../utility";
+import constants from "../constants";
 // const getPercentWin = (wins, games) => (games ? Math.ceil(1000 * (wins / games)) / 10 : 0);
 
 const StyledPercentContainer = styled.div`

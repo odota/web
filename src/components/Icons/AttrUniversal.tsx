@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default (props: any) => (
   // Generated with vectorizer.ai

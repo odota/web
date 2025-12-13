@@ -1,17 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Heading from '../../Heading/Heading';
-import Heatmap from '../../Heatmap/Heatmap';
-import Table from '../../Table/Table';
-import { unpackPositionData } from '../../../utility';
-import mcs from '../matchColumns';
+import React from "react";
+import { connect } from "react-redux";
+import Heading from "../../Heading/Heading";
+import Heatmap from "../../Heatmap/Heatmap";
+import Table from "../../Table/Table";
+import { unpackPositionData } from "../../../utility";
+import mcs from "../matchColumns";
 import {
   StyledFlexContainer,
   StyledFlexElement,
   StyledFlexElementFullWidth,
-} from '../StyledMatch';
-import Graph from './Graph';
-import config from '../../../config';
+} from "../StyledMatch";
+import Graph from "./Graph";
+import config from "../../../config";
 
 type LaningProps = {
   match: Match;

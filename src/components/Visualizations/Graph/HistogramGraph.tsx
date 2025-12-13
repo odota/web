@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Bar,
   BarChart,
@@ -9,15 +9,15 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from 'recharts';
+} from "recharts";
 
-import { formatGraphValueData, hsvToRgb } from '../../../utility';
-import { StyledTooltip } from './Styled';
-import useStrings from '../../../hooks/useStrings.hook';
+import { formatGraphValueData, hsvToRgb } from "../../../utility";
+import { StyledTooltip } from "./Styled";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const HistogramTooltipContent = ({
   payload,
-  xAxisLabel = '',
+  xAxisLabel = "",
   histogramName,
 }: {
   payload?: any;
@@ -41,7 +41,7 @@ const graphHeight = 400;
 
 const HistogramGraph = ({
   columns,
-  xAxisLabel = '',
+  xAxisLabel = "",
   histogramName,
 }: {
   columns: any[];
@@ -80,7 +80,7 @@ const HistogramGraph = ({
             histogramName={histogramName}
           />
         }
-        cursor={{ fill: 'rgba(255, 255, 255, .35)' }}
+        cursor={{ fill: "rgba(255, 255, 255, .35)" }}
       />
       <Bar dataKey="games">
         {columns.map((entry) => {

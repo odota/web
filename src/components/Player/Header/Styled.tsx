@@ -1,5 +1,5 @@
-import { CardHeader } from '@mui/material';
-import styled from 'styled-components';
+import { CardHeader } from "@mui/material";
+import styled from "styled-components";
 
 export const PlayerStatsCard = styled(CardHeader)`
   & span:last-child {

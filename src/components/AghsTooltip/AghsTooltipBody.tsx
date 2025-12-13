@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import constants from '../constants';
-import { formatSkillOrAttributeValues } from '../../utility';
+import React from "react";
+import styled from "styled-components";
+import constants from "../constants";
+import { formatSkillOrAttributeValues } from "../../utility";
 
 const Ability = styled.div`
   margin-left: 8px;
@@ -100,7 +100,7 @@ const getAghsAttributes = (skillObject: any) => {
     <div className="attribute" key={attrib.key}>
       <span id="header">{attrib.header} </span>
       <span id="value">{formatSkillOrAttributeValues(attrib.value)}</span>
-      <span id="footer"> {attrib.footer || ''}</span>
+      <span id="footer"> {attrib.footer || ""}</span>
     </div>
   ));
   return (
@@ -108,13 +108,13 @@ const getAghsAttributes = (skillObject: any) => {
       {attributes}
       {skillObject.dmg ? (
         <div className="attribute">
-          DAMAGE:{' '}
+          DAMAGE:{" "}
           <span id="value">
             {formatSkillOrAttributeValues(skillObject.dmg)}
           </span>
         </div>
       ) : (
-        ''
+        ""
       )}
     </>
   );

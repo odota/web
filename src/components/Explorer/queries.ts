@@ -10,7 +10,7 @@ ORDER BY match_id DESC
 `,
   },
   heroes_most_picked_banned: {
-    name: 'Heroes, most picked/banned',
+    name: "Heroes, most picked/banned",
     sql: `
 SELECT h.localized_name,
 sum(case when ((pm.player_slot < 128) = m.radiant_win) then 1 else 0 end) wins, 
@@ -29,7 +29,7 @@ ORDER BY picks DESC;
             `,
   },
   heroes_most_midas: {
-    name: 'Heroes, most Hand of Midas built',
+    name: "Heroes, most Hand of Midas built",
     sql: `
 SELECT h.localized_name, sum((purchase->>'hand_of_midas')::int)
 FROM player_matches pm
@@ -40,7 +40,7 @@ ORDER by sum DESC NULLS LAST;
     `,
   },
   matches_most_recent: {
-    name: 'Matches, most recent',
+    name: "Matches, most recent",
     sql: `
 SELECT match_id, t1.name AS radiant_team_name, t2.name AS dire_team_name, le.name, start_time, duration
 FROM matches ma

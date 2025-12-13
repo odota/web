@@ -1,9 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getBenchmark } from '../../actions';
-import BenchmarkTable from './BenchmarkTable';
-import BenchmarkGraphs from './BenchmarkGraphs';
-import BenchmarkSkeleton from '../Skeletons/BenchmarkSkeleton';
+import React from "react";
+import { connect } from "react-redux";
+import { getBenchmark } from "../../actions";
+import BenchmarkTable from "./BenchmarkTable";
+import BenchmarkGraphs from "./BenchmarkGraphs";
+import BenchmarkSkeleton from "../Skeletons/BenchmarkSkeleton";
 
 class Benchmark extends React.Component<{
   match: {

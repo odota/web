@@ -39,7 +39,7 @@ li {
   cursor: help;
 }
 
-[data-id='tooltip'] {
+[data-id="tooltip"] {
   padding: 8px 12px !important;
   border-radius: 2px !important;
   background-color: rgba(0, 0, 0, 0.9) !important;
@@ -75,7 +75,7 @@ li {
   }
 
   &::before {
-    content: '';
+    content: "";
     width: 0;
     height: 0;
   }
@@ -107,7 +107,7 @@ li {
   }
 }
 
-[data-hint-position='top'] {
+[data-hint-position="top"] {
   &::after {
     bottom: 100%;
     margin-bottom: 3px;
@@ -122,7 +122,7 @@ li {
   }
 }
 
-[data-hint-position='bottom'] {
+[data-hint-position="bottom"] {
   &::after {
     top: 100%;
     margin-top: 3px;
@@ -178,7 +178,7 @@ th {
   filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
     drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
 
-  &[data-hint-position='top'] {
+  &[data-hint-position="top"] {
     &::after {
       margin-bottom: 3px;
       margin-left: 52px;

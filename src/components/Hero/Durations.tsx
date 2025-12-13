@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getHeroDurations } from '../../actions';
-import { HistogramGraph } from '../Visualizations';
-import DurationsSkeleton from '../Skeletons/DurationsSkeleton';
+import React from "react";
+import { connect } from "react-redux";
+import { getHeroDurations } from "../../actions";
+import { HistogramGraph } from "../Visualizations";
+import DurationsSkeleton from "../Skeletons/DurationsSkeleton";
 
 class Durations extends React.Component<{
   match: {

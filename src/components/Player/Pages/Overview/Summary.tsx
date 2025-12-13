@@ -1,16 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { heroes } from 'dotaconstants';
+import React from "react";
+import { Link } from "react-router-dom";
+import { heroes } from "dotaconstants";
 import {
   isRadiant,
   sum,
   formatSeconds,
   abbreviateNumber,
-} from '../../../../utility';
-import { MAX_MATCHES_ROWS } from './Overview';
-import constants from '../../../constants';
-import HeroImage from '../../../Visualizations/HeroImage';
-import useStrings from '../../../../hooks/useStrings.hook';
+} from "../../../../utility";
+import { MAX_MATCHES_ROWS } from "./Overview";
+import constants from "../../../constants";
+import HeroImage from "../../../Visualizations/HeroImage";
+import useStrings from "../../../../hooks/useStrings.hook";
 
 const SummOfRecMatches = ({ matchesData }: { matchesData: any[] }) => {
   const strings = useStrings();
@@ -38,7 +38,7 @@ const SummOfRecMatches = ({ matchesData }: { matchesData: any[] }) => {
 
   matchesData.forEach((match) => {
     dataKeys.forEach((key) => {
-      if (key === 'wins') {
+      if (key === "wins") {
         data.wins.push(match.radiant_win === isRadiant(match.player_slot));
       } else {
         data[key].push(match[key]);
@@ -47,7 +47,7 @@ const SummOfRecMatches = ({ matchesData }: { matchesData: any[] }) => {
   });
 
   dataKeys.map((key) => {
-    if (key !== 'wins') {
+    if (key !== "wins") {
       const avg = data[key].reduce(sum, 0) / numRows;
       const max = Math.max(...data[key]);
       const maxMatch = matchesData.find((match) => match[key] === max) || {};
@@ -55,20 +55,20 @@ const SummOfRecMatches = ({ matchesData }: { matchesData: any[] }) => {
       let color;
 
       switch (key) {
-        case 'kills':
-          color = 'green';
+        case "kills":
+          color = "green";
           break;
-        case 'deaths':
-          color = 'red';
+        case "deaths":
+          color = "red";
           break;
-        case 'assists':
-          color = 'lightGray';
+        case "assists":
+          color = "lightGray";
           break;
-        case 'gold_per_min':
-          color = 'golden';
+        case "gold_per_min":
+          color = "golden";
           break;
         default:
-          color = 'textColorPrimary';
+          color = "textColorPrimary";
       }
 
       computed[key] = {
@@ -97,7 +97,7 @@ const SummOfRecMatches = ({ matchesData }: { matchesData: any[] }) => {
             <span>{strings.th_winrate}</span>
             <p>{winrate}%</p>
           </li>
-        ) : null}{' '}
+        ) : null}{" "}
         {Object.keys(computed).map((key) => {
           const c = computed[key];
 
@@ -114,12 +114,12 @@ const SummOfRecMatches = ({ matchesData }: { matchesData: any[] }) => {
                       } as React.CSSProperties
                     }
                   >
-                    {key === 'duration'
+                    {key === "duration"
                       ? formatSeconds(c.avg)
                       : abbreviateNumber(c.avg)}
                     &nbsp;
                     <span>
-                      {key === 'duration'
+                      {key === "duration"
                         ? formatSeconds(c.max.value)
                         : abbreviateNumber(c.max.value)}
                       <HeroImage

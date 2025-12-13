@@ -1,18 +1,18 @@
-import React, { createElement } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import { Checkbox, FormControlLabel } from '@mui/material';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { heroes, player_colors as playerColors } from 'dotaconstants';
-import emotes from 'dota2-emoticons/resources/json/charname.json';
-import styled from 'styled-components';
-import { isRadiant, formatSeconds } from '../../../utility';
-import { IconRadiant, IconDire } from '../../Icons';
-import constants from '../../constants';
-import HeroImage from './../../Visualizations/HeroImage';
-import { chat_wheel as chatWheelMessages } from 'dotaconstants';
+import React, { createElement } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import { Checkbox, FormControlLabel } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { heroes, player_colors as playerColors } from "dotaconstants";
+import emotes from "dota2-emoticons/resources/json/charname.json";
+import styled from "styled-components";
+import { isRadiant, formatSeconds } from "../../../utility";
+import { IconRadiant, IconDire } from "../../Icons";
+import constants from "../../constants";
+import HeroImage from "./../../Visualizations/HeroImage";
+import { chat_wheel as chatWheelMessages } from "dotaconstants";
 
 const StyledDiv = styled.div`
   padding-left: 32px;
@@ -297,17 +297,17 @@ class Chat extends React.Component<ChatProps, ChatState> {
         arr.filter(
           (msg) => isRadiant(msg.player_slot) || isSpectator(msg.slot),
         ),
-      type: 'faction',
+      type: "faction",
       disabled: () => !this.state.dire,
     },
     dire: {
       f: (arr = this.raw) => arr.filter((msg) => !isRadiant(msg.player_slot)),
-      type: 'faction',
+      type: "faction",
       disabled: () => !this.state.radiant,
     },
     text: {
-      f: (arr = this.raw) => arr.filter((msg) => msg.type === 'chat'),
-      type: 'type',
+      f: (arr = this.raw) => arr.filter((msg) => msg.type === "chat"),
+      type: "type",
       disabled: () =>
         this.state.phrases === false && this.state.audio === false,
     },
@@ -315,42 +315,42 @@ class Chat extends React.Component<ChatProps, ChatState> {
       f: (arr = this.raw) =>
         arr.filter(
           (msg) =>
-            msg.type === 'chatwheel' &&
+            msg.type === "chatwheel" &&
             !getChatWheel(msg.key).sound_ext &&
             !getChatWheel(msg.key).image,
         ),
-      type: 'type',
+      type: "type",
       disabled: () => this.state.text === false && this.state.audio === false,
     },
     audio: {
       f: (arr = this.raw) =>
         arr.filter(
-          (msg) => msg.type === 'chatwheel' && getChatWheel(msg.key).sound_ext,
+          (msg) => msg.type === "chatwheel" && getChatWheel(msg.key).sound_ext,
         ),
-      type: 'type',
+      type: "type",
       disabled: () => this.state.phrases === false && this.state.text === false,
     },
     all: {
       f: (arr = this.raw) =>
         arr.filter(
           (msg) =>
-            msg.type === 'chat' ||
-            (msg.type === 'chatwheel' && getChatWheel(msg.key).all_chat),
+            msg.type === "chat" ||
+            (msg.type === "chatwheel" && getChatWheel(msg.key).all_chat),
         ),
-      type: 'target',
+      type: "target",
       disabled: () => !this.state.allies,
     },
     allies: {
       f: (arr = this.raw) =>
         arr.filter(
-          (msg) => msg.type === 'chatwheel' && !getChatWheel(msg.key).all_chat,
+          (msg) => msg.type === "chatwheel" && !getChatWheel(msg.key).all_chat,
         ),
-      type: 'target',
+      type: "target",
       disabled: () => !this.state.all,
     },
     spam: {
       f: (arr = this.raw) => arr.filter((msg) => msg.spam),
-      type: 'other',
+      type: "other",
       disabled: () => false,
     },
   };
@@ -370,7 +370,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
           }
         }
         // ex: 3334005345
-        if (curr.type === 'chat' && next.type === 'chat') {
+        if (curr.type === "chat" && next.type === "chat") {
           // for some reason some strings have trailing space
           curr.key = curr.key.trim();
           next.key = next.key.trim();
@@ -459,16 +459,16 @@ class Chat extends React.Component<ChatProps, ChatState> {
             const spec = isSpectator(msg.slot);
 
             let message: any[] = null as unknown as any[];
-            if (msg.type === 'chatwheel') {
+            if (msg.type === "chatwheel") {
               const messageInfo = getChatWheel(msg.key);
-              message = [(messageInfo.message || '').replace(/%s1/, 'A hero')];
+              message = [(messageInfo.message || "").replace(/%s1/, "A hero")];
               if (messageInfo.sound_ext) {
                 message.unshift(
                   <VolumeUpIcon
                     key={messageInfo.id}
                     viewBox="-2 -2 28 28"
                     onClick={() => this.audio(messageInfo, index)}
-                    className={`play ${this.state.playing === index ? 'playing' : ''}`}
+                    className={`play ${this.state.playing === index ? "playing" : ""}`}
                   />,
                 );
               } else {
@@ -481,15 +481,15 @@ class Chat extends React.Component<ChatProps, ChatState> {
                   />,
                 );
               }
-            } else if (msg.type === 'chat') {
-              const messageRaw = msg.key.split('').map((char: any) => {
+            } else if (msg.type === "chat") {
+              const messageRaw = msg.key.split("").map((char: any) => {
                 //@ts-expect-error
                 const emote = emotes[emoteKeys[emoteKeys.indexOf(char)]];
                 if (emote) {
-                  return createElement('img', {
+                  return createElement("img", {
                     alt: emote,
                     src: `/assets/images/dota2/emoticons/${emote}.gif`,
-                    className: 'emote',
+                    className: "emote",
                   });
                 }
                 return char;
@@ -498,18 +498,18 @@ class Chat extends React.Component<ChatProps, ChatState> {
               let buffer: any[] = [];
               message = [];
               messageRaw.forEach((char: any) => {
-                if (typeof char === 'object') {
-                  message.push(buffer.join(''), char);
+                if (typeof char === "object") {
+                  message.push(buffer.join(""), char);
                   buffer = [];
                 } else {
                   buffer.push(char);
                 }
               });
-              message.push(buffer.join(''));
+              message.push(buffer.join(""));
             }
 
             let target = strings.chat_filter_all;
-            if (msg.type === 'chatwheel' && !getChatWheel(msg.key)) {
+            if (msg.type === "chatwheel" && !getChatWheel(msg.key)) {
               target = strings.chat_filter_allies;
             }
             if (spec) {
@@ -535,8 +535,8 @@ class Chat extends React.Component<ChatProps, ChatState> {
               <li
                 id={String(index)}
                 className={`
-                  ${rad ? 'radiant' : 'dire'}
-                  ${msg.spam ? 'spam' : ''}
+                  ${rad ? "radiant" : "dire"}
+                  ${msg.spam ? "spam" : ""}
                 `.trim()}
               >
                 {icon}
@@ -555,9 +555,9 @@ class Chat extends React.Component<ChatProps, ChatState> {
                     color:
                       playerColors[
                         msg.player_slot as keyof typeof playerColors
-                      ] || 'red',
+                      ] || "red",
                   }}
-                  className={`author ${msg.accountID ? '' : 'disabled'}`}
+                  className={`author ${msg.accountID ? "" : "disabled"}`}
                 >
                   {msg.name || msg.unit}
                 </Link>
@@ -611,7 +611,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
                                   strings[
                                     `general_${filter.name}` as keyof Strings
                                   ]}
-                                <b style={{ marginLeft: '1em' }}>{len}</b>
+                                <b style={{ marginLeft: "1em" }}>{len}</b>
                               </div>
                               {/* <small>
                               {strings.chat_filtered.toLowerCase()}{' '}

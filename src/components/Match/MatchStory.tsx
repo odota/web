@@ -1,15 +1,15 @@
-import React from 'react';
-import { Tooltip } from '@mui/material';
-import { heroes, item_colors as itemColors } from 'dotaconstants';
-import emotes from 'dota2-emoticons/resources/json/charname.json';
-import { IconRadiant, IconDire } from '../Icons';
-import HeroImage from '../Visualizations/HeroImage';
+import React from "react";
+import { Tooltip } from "@mui/material";
+import { heroes, item_colors as itemColors } from "dotaconstants";
+import emotes from "dota2-emoticons/resources/json/charname.json";
+import { IconRadiant, IconDire } from "../Icons";
+import HeroImage from "../Visualizations/HeroImage";
 import {
   formatSeconds,
   jsonFn,
   formatTemplate,
   formatTemplateToString,
-} from '../../utility';
+} from "../../utility";
 import {
   StyledEmote,
   StyledStoryNetWorthBar,
@@ -17,11 +17,11 @@ import {
   StyledStoryGoldAmount,
   StyledStorySpan,
   StyledStoryWrapper,
-} from './StyledMatch';
-import constants from '../constants';
-import config from '../../config';
-import { items } from 'dotaconstants';
-import useStrings from '../../hooks/useStrings.hook';
+} from "./StyledMatch";
+import constants from "../constants";
+import config from "../../config";
+import { items } from "dotaconstants";
+import useStrings from "../../hooks/useStrings.hook";
 
 const heroesArr = jsonFn(heroes);
 
@@ -41,7 +41,7 @@ const GoldSpan = (amount: number) => {
         height="17px"
         alt={` ${strings.story_gold}`}
         src="/assets/images/dota2/gold.png"
-        style={{ marginLeft: '3px' }}
+        style={{ marginLeft: "3px" }}
       />
     </StyledStorySpan>
   );
@@ -52,7 +52,7 @@ const TeamSpan = (isRadiant?: boolean) => {
   return (
     <StyledStorySpan
       isRadiant={isRadiant}
-      key={`team_${isRadiant ? 'radiant' : 'dire'}`}
+      key={`team_${isRadiant ? "radiant" : "dire"}`}
     >
       {isRadiant ? <IconRadiant /> : <IconDire />}
       {isRadiant ? strings.general_radiant : strings.general_dire}
@@ -102,7 +102,7 @@ const ItemSpan = (item: keyof Items) => (
       src={
         items[item]
           ? `${config.VITE_IMAGE_CDN}${items[item].img}`
-          : '/assets/images/blank-1x1.gif'
+          : "/assets/images/blank-1x1.gif"
       }
       //@ts-expect-error
       alt={(items[item] || {}).dname}
@@ -113,7 +113,7 @@ const ItemSpan = (item: keyof Items) => (
 );
 
 const capitalizeFirst = (list: any): string[] => {
-  if (typeof list[0] === 'string' || list[0] instanceof String) {
+  if (typeof list[0] === "string" || list[0] instanceof String) {
     if (list[0].length > 0) {
       // MORE STUFF HERE
       return [list[0][0].toUpperCase() + list[0].slice(1)].concat(
@@ -143,7 +143,7 @@ const articleFor = (followingWord: string) => {
 
   // Whether we use a or an depends on the sound of the following word, but that's much hardder to detect programmatically,
   // so we're looking solely at vowel usage for now.
-  if (['A', 'E', 'I', 'O', 'U'].includes(followingWord.charAt(0))) {
+  if (["A", "E", "I", "O", "U"].includes(followingWord.charAt(0))) {
     return strings.article_before_vowel_sound;
   }
 
@@ -205,31 +205,31 @@ const evaluateSentiment = (event: any, lastMessage: any) => {
   const strings = useStrings();
 
   const { message, player, time } = event;
-  const sentiment = isQuestion(message) ? ['question'] : ['statement'];
+  const sentiment = isQuestion(message) ? ["question"] : ["statement"];
 
   if (lastMessage && lastMessage.time + 130 > time) {
     if (player && lastMessage.player_slot === player.player_slot) {
-      sentiment.push('continued');
+      sentiment.push("continued");
     } else if (isQuestion(lastMessage.key)) {
-      sentiment.push('response');
+      sentiment.push("response");
     }
   }
 
-  if (message.split(' ').length > 10) {
-    sentiment.push('long');
+  if (message.split(" ").length > 10) {
+    sentiment.push("long");
   } else if (
-    ['XD', ':D', 'LOL'].includes(message.replace('?', '').toUpperCase())
+    ["XD", ":D", "LOL"].includes(message.replace("?", "").toUpperCase())
   ) {
-    sentiment.push('laughed');
+    sentiment.push("laughed");
   } else if (message.toUpperCase() === message && /\w/.test(message)) {
-    sentiment.push('shouted');
+    sentiment.push("shouted");
   } else if (/(\?|!|@|~|#|\$){2,}/.test(message)) {
-    sentiment.push('excited');
+    sentiment.push("excited");
   } else {
-    sentiment.push('normal');
+    sentiment.push("normal");
   }
 
-  return strings[sentiment.join('_') as keyof Strings];
+  return strings[sentiment.join("_") as keyof Strings];
 };
 
 const emoteKeys = Object.keys(emotes);
@@ -270,13 +270,13 @@ class IntroEvent extends StoryEvent {
       ),
       game_mode: strings[`game_mode_${this.game_mode}` as keyof Strings],
       date: this.date.toLocaleDateString(
-        (window.localStorage && window.localStorage.getItem('localization')) ||
-          'en-US',
+        (window.localStorage && window.localStorage.getItem("localization")) ||
+          "en-US",
         {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
         },
       ),
       region: strings[`region_${this.region}` as keyof Strings],
@@ -300,7 +300,7 @@ class FirstbloodEvent extends StoryEvent {
       const killerLog = this.killer?.kills_log;
       const victimHero =
         Array.isArray(killerLog) && killerLog[0] ? killerLog[0].key : null;
-      const foundHero = heroesArr('find')(
+      const foundHero = heroesArr("find")(
         (hero: any) => hero.name === victimHero,
       );
       this.victim = match.players.find(
@@ -339,7 +339,7 @@ class ChatMessageEvent extends StoryEvent {
 
     return formatTemplate(strings.story_chatmessage, {
       player: PlayerSpan(this.player),
-      message: this.message.split('').map((char) => {
+      message: this.message.split("").map((char) => {
         //@ts-expect-error
         const emote = emotes[emoteKeys[emoteKeys.indexOf(char)]];
         if (emote) {
@@ -368,11 +368,11 @@ class AegisEvent extends StoryEvent {
     const strings = useStrings();
 
     return (
-      (this.action === 'CHAT_MESSAGE_AEGIS' &&
+      (this.action === "CHAT_MESSAGE_AEGIS" &&
         strings.timeline_aegis_picked_up) ||
-      (this.action === 'CHAT_MESSAGE_AEGIS_STOLEN' &&
+      (this.action === "CHAT_MESSAGE_AEGIS_STOLEN" &&
         strings.timeline_aegis_snatched) ||
-      (this.action === 'CHAT_MESSAGE_DENIED_AEGIS' &&
+      (this.action === "CHAT_MESSAGE_DENIED_AEGIS" &&
         strings.timeline_aegis_denied)
     );
   }
@@ -677,29 +677,29 @@ class TowerEvent extends StoryEvent {
   player?: MatchPlayer;
   constructor(match: Match, obj: any) {
     super(obj.time);
-    if (obj.type === 'building_kill') {
+    if (obj.type === "building_kill") {
       const groups =
         /npc_dota_(good|bad)guys_tower(1|2|3|4)_?(bot|mid|top|)/.exec(obj.key)!;
-      this.team = groups[1] === 'good';
+      this.team = groups[1] === "good";
       this.tier = parseInt(groups[2], 10);
       this.lane = {
         bot: 1,
         mid: 2,
         top: 3,
-        '': 2,
+        "": 2,
       }[groups[3]];
       this.player = match.players.find(
         (player) => player.player_slot === obj.player_slot,
       );
     } else if (
-      obj.type === 'CHAT_MESSAGE_TOWER_KILL' ||
-      obj.type === 'CHAT_MESSAGE_TOWER_DENY'
+      obj.type === "CHAT_MESSAGE_TOWER_KILL" ||
+      obj.type === "CHAT_MESSAGE_TOWER_DENY"
     ) {
       this.player = match.players.find(
         (player) => player.player_slot === obj.player_slot,
       );
       this.team =
-        obj.type === 'CHAT_MESSAGE_TOWER_DENY'
+        obj.type === "CHAT_MESSAGE_TOWER_DENY"
           ? this.player?.isRadiant
           : obj.team !== 2;
     }
@@ -732,13 +732,13 @@ class BarracksEvent extends StoryEvent {
   constructor(match: Match, obj: any) {
     super(obj.time);
     this.key = 0;
-    if (obj.type === 'building_kill') {
+    if (obj.type === "building_kill") {
       const groups =
         /npc_dota_(good|bad)guys_(range|melee)_rax_(bot|mid|top)/.exec(
           obj.key,
         )!;
-      this.team = groups[1] === 'good';
-      this.is_melee = groups[2] === 'melee';
+      this.team = groups[1] === "good";
+      this.is_melee = groups[2] === "melee";
       this.lane = {
         bot: 1,
         mid: 2,
@@ -747,7 +747,7 @@ class BarracksEvent extends StoryEvent {
       this.player = match.players.find(
         (player) => player.player_slot === obj.player_slot,
       );
-    } else if (obj.type === 'CHAT_MESSAGE_BARRACKS_KILL') {
+    } else if (obj.type === "CHAT_MESSAGE_BARRACKS_KILL") {
       this.team = obj.key >= 64;
       this.key = obj.key < 64 ? obj.key : obj.key / 64;
       const power = Math.log2(this.key);
@@ -845,7 +845,7 @@ class TeamfightEvent extends StoryEvent {
   lose_dead: any[];
   during_events: any[];
   after_events: any[];
-  constructor(match: Match, fight: Match['teamfights'][number]) {
+  constructor(match: Match, fight: Match["teamfights"][number]) {
     super(fight.start);
     this.time_end = fight.end;
 
@@ -1014,7 +1014,7 @@ class TimeMarkerEvent extends StoryEvent {
           {GoldSpan(this.radiant_gold)}
         </StyledStoryNetWorthText>
         <StyledStoryNetWorthText
-          style={{ backgroundColor: 'rgba(0,0,0,0)' }}
+          style={{ backgroundColor: "rgba(0,0,0,0)" }}
           color={
             this.radiant_gold > this.dire_gold
               ? constants.colorGreen
@@ -1111,7 +1111,7 @@ const generateStory = (match: Match) => {
 
   // Firstblood
   const fbIndex = match.objectives.findIndex(
-    (obj) => obj.type === 'CHAT_MESSAGE_FIRSTBLOOD',
+    (obj) => obj.type === "CHAT_MESSAGE_FIRSTBLOOD",
   );
 
   if (fbIndex > -1) {
@@ -1120,7 +1120,7 @@ const generateStory = (match: Match) => {
 
   // Chat messages
   const chatMessageEvents = match.chat
-    .filter((obj) => obj.type === 'chat')
+    .filter((obj) => obj.type === "chat")
     .map(
       (obj, i, array) =>
         new ChatMessageEvent(match, obj, i > 0 && array[i - 1]),
@@ -1131,23 +1131,23 @@ const generateStory = (match: Match) => {
   const aegisEvents = match.objectives
     .filter(
       (obj) =>
-        obj.type === 'CHAT_MESSAGE_AEGIS' ||
-        obj.type === 'CHAT_MESSAGE_AEGIS_STOLEN' ||
-        obj.type === 'CHAT_MESSAGE_DENIED_AEGIS',
+        obj.type === "CHAT_MESSAGE_AEGIS" ||
+        obj.type === "CHAT_MESSAGE_AEGIS_STOLEN" ||
+        obj.type === "CHAT_MESSAGE_DENIED_AEGIS",
     )
     .map((obj, index) => new AegisEvent(match, obj, index));
 
   // Roshan kills, team 2 = radiant, 3 = dire
   events = events.concat(
     match.objectives
-      .filter((obj) => obj.type === 'CHAT_MESSAGE_ROSHAN_KILL')
+      .filter((obj) => obj.type === "CHAT_MESSAGE_ROSHAN_KILL")
       .map((obj, index) => new RoshanEvent(match, obj, index, aegisEvents)),
   );
 
   // Courier kills
   events = events.concat(
     match.objectives
-      .filter((obj) => obj.type === 'CHAT_MESSAGE_COURIER_LOST')
+      .filter((obj) => obj.type === "CHAT_MESSAGE_COURIER_LOST")
       .map((obj) => new CourierKillEvent(match, obj)),
   );
 
@@ -1165,11 +1165,11 @@ const generateStory = (match: Match) => {
 
   // New Buildings Events
   match.objectives
-    .filter((obj) => obj.type === 'building_kill')
+    .filter((obj) => obj.type === "building_kill")
     .forEach((obj) => {
-      if (obj.key.includes('tower')) {
+      if (obj.key.includes("tower")) {
         events.push(new TowerEvent(match, obj));
-      } else if (obj.key.includes('rax')) {
+      } else if (obj.key.includes("rax")) {
         events.push(new BarracksEvent(match, obj));
       }
     });
@@ -1180,15 +1180,15 @@ const generateStory = (match: Match) => {
     match.objectives
       .filter(
         (obj) =>
-          obj.type === 'CHAT_MESSAGE_TOWER_KILL' ||
-          obj.type === 'CHAT_MESSAGE_TOWER_DENY',
+          obj.type === "CHAT_MESSAGE_TOWER_KILL" ||
+          obj.type === "CHAT_MESSAGE_TOWER_DENY",
       )
       .map((obj) => new TowerEvent(match, obj)),
   );
   // Barracks
   events = events.concat(
     match.objectives
-      .filter((obj) => obj.type === 'CHAT_MESSAGE_BARRACKS_KILL')
+      .filter((obj) => obj.type === "CHAT_MESSAGE_BARRACKS_KILL")
       .map((obj) => new BarracksEvent(match, obj)),
   );
 
@@ -1200,7 +1200,7 @@ const generateStory = (match: Match) => {
   // Rapiers
   match.players.forEach((player) => {
     player.purchase_log.forEach((purchase) => {
-      if (purchase.key === 'rapier') {
+      if (purchase.key === "rapier") {
         events.push(new ItemPurchaseEvent(player, purchase));
       }
     });
@@ -1272,7 +1272,7 @@ const MatchStory = ({ match }: { match: Match }) => {
       </StyledStoryWrapper>
     );
   } catch (e: any) {
-    let exmsg = 'Story Tab Error:\n';
+    let exmsg = "Story Tab Error:\n";
     if (e.message) {
       exmsg += e.message;
     }

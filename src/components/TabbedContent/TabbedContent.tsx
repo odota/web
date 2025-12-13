@@ -1,6 +1,6 @@
-import React from 'react';
-import TabBar from '../TabBar/TabBar';
-import TableSkeleton from '../Skeletons/TableSkeleton';
+import React from "react";
+import TabBar from "../TabBar/TabBar";
+import TableSkeleton from "../Skeletons/TableSkeleton";
 
 class RenderContent extends React.Component<{
   skeleton?: boolean;
@@ -24,7 +24,7 @@ class RenderContent extends React.Component<{
     return render && content ? (
       content
     ) : (
-      <div style={{ width: '100%', height: 1200 }}>
+      <div style={{ width: "100%", height: 1200 }}>
         <PlaceHolder />
       </div>
     );

@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { item_ids as itemIds } from 'dotaconstants';
-import Table from '../Table/Table';
-import inflictorWithValue from '../Visualizations/inflictorWithValue';
-import { getHeroItemSuggestions } from '../../actions';
-import TableSkeleton from '../Skeletons/TableSkeleton';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { item_ids as itemIds } from "dotaconstants";
+import Table from "../Table/Table";
+import inflictorWithValue from "../Visualizations/inflictorWithValue";
+import { getHeroItemSuggestions } from "../../actions";
+import TableSkeleton from "../Skeletons/TableSkeleton";
 
 type ItemSuggestionProps = {
   match: {
@@ -32,23 +32,23 @@ function ItemSuggestion(props: ItemSuggestionProps) {
 
   const itemSuggestionColumns = [
     {
-      field: 'start_game_items',
-      displayName: 'Start Game',
+      field: "start_game_items",
+      displayName: "Start Game",
       displayFn,
     },
     {
-      field: 'early_game_items',
-      displayName: 'Early Game',
+      field: "early_game_items",
+      displayName: "Early Game",
       displayFn,
     },
     {
-      field: 'mid_game_items',
-      displayName: 'Mid Game',
+      field: "mid_game_items",
+      displayName: "Mid Game",
       displayFn,
     },
     {
-      field: 'late_game_items',
-      displayName: 'Late Game',
+      field: "late_game_items",
+      displayName: "Late Game",
       displayFn,
     },
   ];

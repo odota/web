@@ -1,5 +1,5 @@
-import React from 'react';
-import ContentLoader from 'react-content-loader';
+import React from "react";
+import ContentLoader from "react-content-loader";
 
 const AbilityBuildTableSkeleton = () => (
   <ContentLoader height={600} width={1200} animate>

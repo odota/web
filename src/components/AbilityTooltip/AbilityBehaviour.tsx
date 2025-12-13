@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import constants from '../constants';
-import { formatValues } from '../../utility';
-import React from 'react';
+import styled from "styled-components";
+import constants from "../constants";
+import { formatValues } from "../../utility";
+import React from "react";
 
 const Behavior = styled.div`
   position: relative;
@@ -13,22 +13,22 @@ const Behavior = styled.div`
       color: ${constants.primaryTextColor};
       font-weight: 500;
     }
-    &[type='Yes'] {
+    &[type="Yes"] {
       color: ${constants.colorGreen};
     }
-    &[type='Strong Dispels Only'] {
+    &[type="Strong Dispels Only"] {
       color: darkred;
     }
-    &[type='No'] {
+    &[type="No"] {
       color: ${constants.colorRed};
     }
-    &[type='Pure'] {
+    &[type="Pure"] {
       color: ${constants.colorDamageTypePure};
     }
-    &[type='Physical'] {
+    &[type="Physical"] {
       color: ${constants.colorDamageTypePhysical};
     }
-    &[type='Magical'] {
+    &[type="Magical"] {
       color: ${constants.colorDamageTypeMagical};
     }
   }
@@ -51,7 +51,7 @@ const AbilityBehaviour = ({
         <span>{formatValues(ability.behavior)}</span>
       </div>
     ) : (
-      ''
+      ""
     )}
     {ability.dmg_type ? (
       <div>
@@ -60,7 +60,7 @@ const AbilityBehaviour = ({
         <span type={ability.dmg_type}>{`${ability.dmg_type}`}</span>
       </div>
     ) : (
-      ''
+      ""
     )}
     {ability.bkbpierce ? (
       <div>
@@ -69,7 +69,7 @@ const AbilityBehaviour = ({
         <span type={ability.bkbpierce}>{`${ability.bkbpierce}`}</span>
       </div>
     ) : (
-      ''
+      ""
     )}
     {ability.dispellable ? (
       <div>
@@ -78,7 +78,7 @@ const AbilityBehaviour = ({
         <span type={ability.dispellable}>{`${ability.dispellable}`}</span>
       </div>
     ) : (
-      ''
+      ""
     )}
   </Behavior>
 );

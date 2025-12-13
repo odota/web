@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import constants from '../../constants';
+import styled from "styled-components";
+import constants from "../../constants";
 
 export const StyledContainer = styled.div`
   display: flex;
@@ -46,7 +46,7 @@ export const SparklineContainer = styled.div`
 export const KDAPercentContainer = styled(PercentContainer)`
   display: flex;
 
-  &[data-hint-position='top'] {
+  &[data-hint-position="top"] {
     &::before {
       top: -8px;
       margin-left: 10px;

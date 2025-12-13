@@ -1,64 +1,64 @@
-import React from 'react';
-import Heading from '../Heading/Heading';
-import { IconButton } from '@mui/material';
-import MicIcon from '@mui/icons-material/Mic';
+import React from "react";
+import Heading from "../Heading/Heading";
+import { IconButton } from "@mui/material";
+import MicIcon from "@mui/icons-material/Mic";
 
 // Test
 // window.speechSynthesis.speak(new window.SpeechSynthesisUtterance('some text here'))
 const responses = [
-  'Did you say furion can you tp top furion can you tp top furion can you tp top furion can you tp top',
+  "Did you say furion can you tp top furion can you tp top furion can you tp top furion can you tp top",
   "Unfortunately, this software is an ass, and we won't be working with it again.",
-  'Sorry, I am currently busy placing a bet of $322 on a professional game.',
-  'Despite the odds, I was hit by a Sheever ravage and am currently unavailable',
-  'Currently stuck in a PGG Black Hole.  Please try again later.',
-  'This will start working soon, it will!  Wow!',
-  'wwwwwwwwwwwww',
-  'No one has ever said that in the history of Dota',
-  '10% of capacity was diverted and your request cannot be served at this time.',
-  'I am currently unavailable for pressing ceremonial reasons.',
-  'Sorry, I am still in beta. The technology is not there yet.',
-  'The song is Sand King - Sandstorm',
-  '༼ つ ◕_◕ ༽つ Give DIRETIDE',
-  'I only have 13 mana right now and cannot service your request.',
-  'Sylar to fall, Liquid are doing it',
-  'Improve your Michael skills to increase your level of play.',
-  'pls no copy pasterino',
-  'Source 3 will fix the assistant.',
-  'Sorry, currently looking for a missing keyboard.',
-  'I am a good assistant, a bit overrated in my opinion. But definitely okay to be in a top team!',
-  'When the frist hit strikes wtih desolator, the hit stirkes as if the - armor debuff had already been placed?',
-  'Busy freeing a cat trapped under a couch. Try again later.',
-  '10 years since this worked.',
+  "Sorry, I am currently busy placing a bet of $322 on a professional game.",
+  "Despite the odds, I was hit by a Sheever ravage and am currently unavailable",
+  "Currently stuck in a PGG Black Hole.  Please try again later.",
+  "This will start working soon, it will!  Wow!",
+  "wwwwwwwwwwwww",
+  "No one has ever said that in the history of Dota",
+  "10% of capacity was diverted and your request cannot be served at this time.",
+  "I am currently unavailable for pressing ceremonial reasons.",
+  "Sorry, I am still in beta. The technology is not there yet.",
+  "The song is Sand King - Sandstorm",
+  "༼ つ ◕_◕ ༽つ Give DIRETIDE",
+  "I only have 13 mana right now and cannot service your request.",
+  "Sylar to fall, Liquid are doing it",
+  "Improve your Michael skills to increase your level of play.",
+  "pls no copy pasterino",
+  "Source 3 will fix the assistant.",
+  "Sorry, currently looking for a missing keyboard.",
+  "I am a good assistant, a bit overrated in my opinion. But definitely okay to be in a top team!",
+  "When the frist hit strikes wtih desolator, the hit stirkes as if the - armor debuff had already been placed?",
+  "Busy freeing a cat trapped under a couch. Try again later.",
+  "10 years since this worked.",
   "I'm voice assistant, come from China",
-  'I am currently staying in the trees and cannot answer.',
-  'I am earning real money and will be available later.',
-  'Currently selling mayonnaise.',
+  "I am currently staying in the trees and cannot answer.",
+  "I am earning real money and will be available later.",
+  "Currently selling mayonnaise.",
   "Scientists baffled by why this isn't working",
-  'There is a 17% chance that this will work if you try again.',
-  'Currently playing Necrophos in the jungle. Try again later.',
-  'Hello. I am voice assistant. I wanted to ask if you give me permission to sometimes use your stream content in my answers.',
-  'Thanks Purge',
-  'Brutal. Savage. Rekt.',
+  "There is a 17% chance that this will work if you try again.",
+  "Currently playing Necrophos in the jungle. Try again later.",
+  "Hello. I am voice assistant. I wanted to ask if you give me permission to sometimes use your stream content in my answers.",
+  "Thanks Purge",
+  "Brutal. Savage. Rekt.",
   'Sorry bad englandsky. I grow up in small farm to have make potatos. Father say "Potato harvest is bad. Need you to have play professional DOTO2 in Amerikanski for make money for head-scarf for babushka."',
-  'This answer is literally nothing.',
-  'Ask Arteezy for advice on how to play Riki',
-  '-w33fresh this page and something will happen. Maybe.',
+  "This answer is literally nothing.",
+  "Ask Arteezy for advice on how to play Riki",
+  "-w33fresh this page and something will happen. Maybe.",
   "You are playing against Alliance. You do not ban Furion because you can counter it. Alliance instantly picks Furion. You lose against Alliance. You ban Furion next time you play against Alliance because you're not stupid",
-  'Service currently paused by Puppey.',
-  'Service denied by kYxY.',
-  'Cooldown increased from 28 to 28.0 seconds',
-  'Just ward his jungle, or jungle his wards.',
+  "Service currently paused by Puppey.",
+  "Service denied by kYxY.",
+  "Cooldown increased from 28 to 28.0 seconds",
+  "Just ward his jungle, or jungle his wards.",
   "You're a flower. You're also a rainbow and a river.",
-  'If you buy the compendium, you get all the previous rewards.',
-  'From the Ghastly Eyrie I can see to the ends of the world, and from this vantage point I declare with utter certainty that this one is in the bag!',
-  'KA LE',
-  'Sorry, not finished farming yet.',
-  'we lost',
-  'LMFAO wHo cAREAS HAHA Xd.',
+  "If you buy the compendium, you get all the previous rewards.",
+  "From the Ghastly Eyrie I can see to the ends of the world, and from this vantage point I declare with utter certainty that this one is in the bag!",
+  "KA LE",
+  "Sorry, not finished farming yet.",
+  "we lost",
+  "LMFAO wHo cAREAS HAHA Xd.",
   "Don't questionmark me",
-  'Delete your lies and apologize',
-  'Your stick your stick your stick, drop your stick',
-  'nice la',
+  "Delete your lies and apologize",
+  "Your stick your stick your stick, drop your stick",
+  "nice la",
   "It's a disastah",
   // 'They storm up the river, patience from Zhou, waiting in the wings, NaVi\'s about to be caught.
   // Oh there\'s the sleep, the surge, he catches everyone! Oh this could be a total disaster!
@@ -189,18 +189,14 @@ class Assistant extends React.Component<
     };
   }
   componentDidMount() {
-    recognition = new 
+    recognition = new
     (
-      //@ts-expect-error
-      window.SpeechRecognition ||
-      //@ts-expect-error
-      window.webkitSpeechRecognition ||
-      //@ts-expect-error
-      window.mozSpeechRecognition ||
-      //@ts-expect-error
-      window.msSpeechRecognition
+      (window as any).SpeechRecognition ||
+      (window as any).webkitSpeechRecognition ||
+      (window as any).mozSpeechRecognition ||
+      (window as any).msSpeechRecognition
     )();
-    recognition.lang = 'en-US';
+    recognition.lang = "en-US";
     recognition.interimResults = false;
     recognition.maxAlternatives = 5;
     synth = window.speechSynthesis;
@@ -220,7 +216,7 @@ class Assistant extends React.Component<
           className=""
           subtitle="Your personal voice assistant to the world of Dota 2. Click the microphone and start speaking."
         />
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: "center" }}>
           <div>
             <IconButton
               style={{
@@ -235,7 +231,7 @@ class Assistant extends React.Component<
               // }}
               onClick={() => {
                 this.setState(
-                  { listening: true, recognizedSpeech: '', responseSpeech: '' },
+                  { listening: true, recognizedSpeech: "", responseSpeech: "" },
                   () => {
                     recognition.start();
                     recognition.onend = () => {

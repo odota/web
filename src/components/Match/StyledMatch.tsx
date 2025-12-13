@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import constants from '../constants';
+import styled from "styled-components";
+import constants from "../constants";
 
 export const StyledAbilityUpgrades = styled.div`
   margin: -8px;
@@ -300,8 +300,8 @@ export const StyledStoryNetWorthText = styled.div<{
   position: relative;
   display: flex;
   text-align: center;
-  ${(props) => (props.color ? `background-color:${props.color}` : '')};
-  ${(props) => (props.left ? `left:${props.left}%` : '')};
+  ${(props) => (props.color ? `background-color:${props.color}` : "")};
+  ${(props) => (props.left ? `left:${props.left}%` : "")};
   width: ${(props) => props.width}%;
 
   > div {

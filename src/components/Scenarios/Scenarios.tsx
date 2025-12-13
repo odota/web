@@ -1,56 +1,56 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
-import querystring from 'querystring';
-import { Button } from '@mui/material';
-import { Tabs, Tab } from '@mui/material';
-import ScenariosFormField from './ScenariosFormField';
-import getColumns from './ScenariosColumns';
-import { buttonStyle, formFieldStyle, StyledDiv, tabsStyle } from './Styles';
+import React from "react";
+import { connect } from "react-redux";
+import { withRouter, Link } from "react-router-dom";
+import querystring from "querystring";
+import { Button } from "@mui/material";
+import { Tabs, Tab } from "@mui/material";
+import ScenariosFormField from "./ScenariosFormField";
+import getColumns from "./ScenariosColumns";
+import { buttonStyle, formFieldStyle, StyledDiv, tabsStyle } from "./Styles";
 import {
   getScenariosItemTimings,
   getScenariosMisc,
   getScenariosLaneRoles,
-} from '../../actions/index';
-import Table from '../Table/Table';
-import Error from '../Error/Error';
-import Heading from '../Heading/Heading';
-import ScenariosSkeleton from '../Skeletons/ScenariosSkeleton';
-import { formatTemplateToString, groupByArray } from '../../utility';
-import { IconLaneRoles } from '../Icons';
+} from "../../actions/index";
+import Table from "../Table/Table";
+import Error from "../Error/Error";
+import Heading from "../Heading/Heading";
+import ScenariosSkeleton from "../Skeletons/ScenariosSkeleton";
+import { formatTemplateToString, groupByArray } from "../../utility";
+import { IconLaneRoles } from "../Icons";
 
 const minSampleSize = (row: any) => row.games > 10;
 
 const forms: Record<string, any> = {
   itemTimings: {
-    queryForms: ['hero_id', 'item'],
-    filterForms: ['time'],
-    initialQuery: { hero_id: '1', item: 'bfury' },
+    queryForms: ["hero_id", "item"],
+    filterForms: ["time"],
+    initialQuery: { hero_id: "1", item: "bfury" },
   },
   laneRoles: {
-    queryForms: ['hero_id', 'lane_role'],
-    filterForms: ['time'],
-    initialQuery: { hero_id: '101', lane_role: '2' },
+    queryForms: ["hero_id", "lane_role"],
+    filterForms: ["time"],
+    initialQuery: { hero_id: "101", lane_role: "2" },
   },
   misc: {
-    queryForms: ['scenario'],
+    queryForms: ["scenario"],
   },
 };
 
 const tabItems = (strings: Strings) => [
   {
     text: strings.scenarios_item_timings,
-    value: 'itemTimings',
+    value: "itemTimings",
     // icon: <Schedule />,
   },
   {
     text: strings.heading_lane_role,
-    value: 'laneRoles',
+    value: "laneRoles",
     // icon: <IconLaneRoles style={{}} />,
   },
   {
     text: strings.scenarios_misc,
-    value: 'misc',
+    value: "misc",
     // icon: <Grain />,
   },
 ];
@@ -107,7 +107,7 @@ class Scenarios extends React.Component<ScenariosProps, ScenariosState> {
   constructor(props: ScenariosProps) {
     super(props);
 
-    const selectedTab = this.props.match.params.info || 'itemTimings';
+    const selectedTab = this.props.match.params.info || "itemTimings";
     const params = this.props.location.search.substring(1);
 
     const initialQueries: Record<string, any> = {};
@@ -226,8 +226,8 @@ class Scenarios extends React.Component<ScenariosProps, ScenariosState> {
                     metadata={metadata}
                     className={
                       filterForms && filterForms.includes(field)
-                        ? 'filter'
-                        : 'query'
+                        ? "filter"
+                        : "query"
                     }
                     incrementTableKey={this.incrementTableKey}
                   />
@@ -283,7 +283,7 @@ const mapStateToProps = (state: any) => {
         error: scenariosLaneRoles.error,
       },
       misc: {
-        data: reduceRows(groupByArray(scenariosMisc.data, 'scenario')),
+        data: reduceRows(groupByArray(scenariosMisc.data, "scenario")),
         loading: scenariosMisc.loading,
         error: scenariosMisc.error,
       },

@@ -1,22 +1,22 @@
 /* global ace */
-import React from 'react';
-import { connect } from 'react-redux';
-import { Button } from '@mui/material';
-import Helmet from 'react-helmet';
-import querystring from 'querystring';
-import Papa from 'papaparse';
-import Heading from '../Heading/Heading';
-import { getProPlayers, getLeagues, getTeams } from '../../actions';
-import queryTemplate from './queryTemplate';
-import ExplorerOutputButton from './ExplorerOutputButton';
-import ExplorerOutputSection from './ExplorerOutputSection';
-import ExplorerControlSection from './ExplorerControlSection';
-import ExplorerFormField from './ExplorerFormField';
-import getFields from './fields';
-import autocomplete from './autocomplete';
-import TableSkeleton from '../Skeletons/TableSkeleton';
-import { formatTemplateToString } from '../../utility';
-import config from '../../config';
+import React from "react";
+import { connect } from "react-redux";
+import { Button } from "@mui/material";
+import Helmet from "react-helmet";
+import querystring from "querystring";
+import Papa from "papaparse";
+import Heading from "../Heading/Heading";
+import { getProPlayers, getLeagues, getTeams } from "../../actions";
+import queryTemplate from "./queryTemplate";
+import ExplorerOutputButton from "./ExplorerOutputButton";
+import ExplorerOutputSection from "./ExplorerOutputSection";
+import ExplorerControlSection from "./ExplorerControlSection";
+import ExplorerFormField from "./ExplorerFormField";
+import getFields from "./fields";
+import autocomplete from "./autocomplete";
+import TableSkeleton from "../Skeletons/TableSkeleton";
+import { formatTemplateToString } from "../../utility";
+import config from "../../config";
 
 const playerMapping: Record<string, string> = {};
 const teamMapping: Record<string, string> = {};
@@ -27,7 +27,7 @@ function expandBuilderState(
 ) {
   const expandedBuilder: any = {};
   Object.keys(builder).forEach((key) => {
-    if (key === 'minDate' || key === 'maxDate') {
+    if (key === "minDate" || key === "maxDate") {
       expandedBuilder[key] = builder[key];
     } else {
       expandedBuilder[key] = builder[key].map(
@@ -66,7 +66,7 @@ class Explorer extends React.Component<
   constructor(props: ExplorerProps) {
     super(props);
     let urlState: Record<string, string[]> = {};
-    let sqlState = '';
+    let sqlState = "";
     try {
       const params = querystring.parse(window.location.search.substring(1));
       sqlState = params.sql as string;
@@ -94,11 +94,11 @@ class Explorer extends React.Component<
     this.props.dispatchProPlayers();
     this.props.dispatchLeagues();
     this.props.dispatchTeams();
-    await import('ace-builds/src-noconflict/ace');
+    await import("ace-builds/src-noconflict/ace");
     await Promise.all([
-      import('ace-builds/src-noconflict/ext-language_tools'),
-      import('ace-builds/src-noconflict/theme-monokai'),
-      import('ace-builds/src-noconflict/mode-sql'),
+      import("ace-builds/src-noconflict/ext-language_tools"),
+      import("ace-builds/src-noconflict/theme-monokai"),
+      import("ace-builds/src-noconflict/mode-sql"),
     ]);
     this.instantiateEditor();
   }
@@ -179,7 +179,7 @@ class Explorer extends React.Component<
         {
           builder: {
             ...builder,
-            select: 'kills',
+            select: "kills",
           },
         },
         () => {
@@ -206,9 +206,9 @@ class Explorer extends React.Component<
 
   instantiateEditor = () => {
     //@ts-expect-error
-    const editor = ace.edit('editor');
-    editor.setTheme('ace/theme/monokai');
-    editor.getSession().setMode('ace/mode/sql');
+    const editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/sql");
     editor.setOptions({
       minLines: 10,
       maxLines: Infinity,
@@ -235,7 +235,7 @@ class Explorer extends React.Component<
       ? { sql: sqlString, format: this.state.builder.format }
       : this.state.builder;
     const stringToSerialize = `?${querystring.stringify(objectToSerialize)}`;
-    window.history.pushState('', '', stringToSerialize);
+    window.history.pushState("", "", stringToSerialize);
   };
 
   toggleEditor = () => {
@@ -488,12 +488,12 @@ class Explorer extends React.Component<
           <Button
             variant="outlined"
             target="_blank"
-            style={{ margin: '5px' }}
+            style={{ margin: "5px" }}
             href="https://github.com/odota/core/blob/master/sql/create_tables.sql"
           >
             {strings.explorer_schema}
           </Button>
-          <span style={{ float: 'right' }}>
+          <span style={{ float: "right" }}>
             {/*
             <ExplorerOutputButton
               defaultSelected
@@ -529,7 +529,7 @@ class Explorer extends React.Component<
               onClick={() =>
                 window.open(
                   `${config.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(getSqlString())}`,
-                  '_blank',
+                  "_blank",
                 )
               }
               context={explorer}
@@ -540,7 +540,7 @@ class Explorer extends React.Component<
           title={strings.explorer_results}
           subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`}
         />
-        <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
+        <pre style={{ color: "red" }}>{this.state.result.err}</pre>
         {this.state.loading ? <TableSkeleton /> : null}
         {!this.state.loading && (
           <ExplorerOutputSection

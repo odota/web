@@ -1,12 +1,12 @@
-import React from 'react';
-import constants from '../constants';
+import React from "react";
+import constants from "../constants";
 
 export default (props: any) => (
   <svg
     {...props}
     viewBox="0 0 300 300"
     style={{
-      fill: 'none',
+      fill: "none",
       stroke: constants.textColorPrimary,
       strokeWidth: 10,
     }}

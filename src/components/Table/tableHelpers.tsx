@@ -1,6 +1,6 @@
-import React from 'react';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import React from "react";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 const getTotalWidth = (columns: any[]) =>
   columns.reduce((prev, current) => prev + current.width, 0);
@@ -16,10 +16,10 @@ const getSortIcon = (
   style: React.CSSProperties,
 ) => {
   if (isSortField(sortField, field)) {
-    if (sortState === 'asc') {
+    if (sortState === "asc") {
       return <ArrowUpwardIcon style={style} />;
     }
-    if (sortState === 'desc') {
+    if (sortState === "desc") {
       return <ArrowDownwardIcon style={style} />;
     }
   }

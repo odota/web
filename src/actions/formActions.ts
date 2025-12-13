@@ -1,4 +1,4 @@
-const TOGGLE_SHOW_FORM = 'form/TOGGLE_SHOW_FORM';
+const TOGGLE_SHOW_FORM = "form/TOGGLE_SHOW_FORM";
 
 export const formActions = {
   TOGGLE_SHOW_FORM,

@@ -1,5 +1,5 @@
-import { heroes, player_colors as playerColors } from 'dotaconstants';
-import React from 'react';
+import { heroes, player_colors as playerColors } from "dotaconstants";
+import React from "react";
 import {
   Brush,
   CartesianGrid,
@@ -10,15 +10,15 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from 'recharts';
+} from "recharts";
 
-import { getHeroIconUrlFromHeroKey } from '../../../utility';
-import Heading from '../../Heading/Heading';
+import { getHeroIconUrlFromHeroKey } from "../../../utility";
+import Heading from "../../Heading/Heading";
 import {
   StyledCustomizedTooltip,
   StyledHolder,
-} from '../../Visualizations/Graph/Styled';
-import useStrings from '../../../hooks/useStrings.hook';
+} from "../../Visualizations/Graph/Styled";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const formatGraphTime = (minutes: number) => `${minutes}:00`;
 
@@ -42,7 +42,7 @@ const CustomizedTooltip = ({
         ?.map((data, i) => (
           <div
             key={i}
-            className={`data ${origOrderMap[data.dataKey] < 5 && 'isRadiant'}`}
+            className={`data ${origOrderMap[data.dataKey] < 5 && "isRadiant"}`}
             style={{ borderLeft: `8px solid ${data.color}` }}
           >
             {data.dataKey}: {data.value}

@@ -1,9 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { FormControlLabel, Switch } from '@mui/material';
-import TeamTable from '../TeamTable';
-import mcs from '../matchColumns';
-import config from '../../../config';
+import React from "react";
+import { connect } from "react-redux";
+import { FormControlLabel, Switch } from "@mui/material";
+import TeamTable from "../TeamTable";
+import mcs from "../matchColumns";
+import config from "../../../config";
 
 type PurchasesProps = {
   match: Match;
@@ -30,7 +30,7 @@ class Purchases extends React.Component<
     const { match, strings } = this.props;
     const { purchaseTimesColumns } = mcs(strings);
     return (
-      <div style={{ position: 'relative' }}>
+      <div style={{ position: "relative" }}>
         <FormControlLabel
           label={strings.show_consumables_items}
           control={

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default (props: any) => (
   // Taked from http://game-icons.net/lorc/originals/wizard-staff.html

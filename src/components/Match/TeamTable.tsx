@@ -1,10 +1,10 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { isRadiant, getTeamName } from '../../utility';
-import Heading from '../Heading/Heading';
-import Table from '../Table/Table';
-import PicksBans from './Overview/PicksBans'; // Displayed only on `Overview` page
+import React from "react";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import { isRadiant, getTeamName } from "../../utility";
+import Heading from "../Heading/Heading";
+import Table from "../Table/Table";
+import PicksBans from "./Overview/PicksBans"; // Displayed only on `Overview` page
 
 const StyledDiv = styled.div`
   .teamtable {
@@ -25,7 +25,7 @@ const isBestValueInMatch =
   (field: keyof MatchPlayer, row: any, underline: string) => {
     const values = players.map((player) => player[field]);
     const bestValue =
-      underline === 'max' ? Math.max(...values) : Math.min(...values);
+      underline === "max" ? Math.max(...values) : Math.min(...values);
 
     return bestValue === row[field];
   };
@@ -36,21 +36,21 @@ const getHighlightFn = (loggedInId: number) => (row: any) => {
   const s: { style: React.CSSProperties } = { style: {} };
   if (loggedInId && row.account_id === loggedInId) {
     if (row.player_slot < 5) {
-      s.style.backgroundColor = 'rgba(18, 156, 40, 0.09)';
+      s.style.backgroundColor = "rgba(18, 156, 40, 0.09)";
     } else {
-      s.style.backgroundColor = 'rgba(156, 18, 18, 0.09)';
+      s.style.backgroundColor = "rgba(156, 18, 18, 0.09)";
     }
   }
   return s;
 };
 
-const filterMatchPlayers = (players: MatchPlayer[], team = '') =>
+const filterMatchPlayers = (players: MatchPlayer[], team = "") =>
   players
     .filter(
       (player) =>
-        (team === 'radiant' && isRadiant(player.player_slot)) ||
-        (team === 'dire' && !isRadiant(player.player_slot)) ||
-        team === '',
+        (team === "radiant" && isRadiant(player.player_slot)) ||
+        (team === "dire" && !isRadiant(player.player_slot)) ||
+        team === "",
     )
     .sort((a, b) => a.player_slot - b.player_slot);
 
@@ -94,7 +94,7 @@ class TeamTable extends React.Component<TeamTableProps> {
 
   addListeners() {
     const tableCells = this.teamTableRef.querySelectorAll(
-      'td:not(.no-col-hover), th:not(.no-col-hover)',
+      "td:not(.no-col-hover), th:not(.no-col-hover)",
     );
 
     for (let i = 0; i < tableCells.length; i += 1) {
@@ -104,7 +104,7 @@ class TeamTable extends React.Component<TeamTableProps> {
           `td:nth-child(${cellIndex + 1}), th:nth-child(${cellIndex + 1})`,
         );
         for (let j = 0; j < rowCells.length; j += 1) {
-          rowCells[j].classList.add('col_highlight');
+          rowCells[j].classList.add("col_highlight");
         }
       };
 
@@ -114,7 +114,7 @@ class TeamTable extends React.Component<TeamTableProps> {
           `td:nth-child(${cellIndex + 1}), th:nth-child(${cellIndex + 1})`,
         );
         for (let j = 0; j < rowCells.length; j += 1) {
-          rowCells[j].classList.remove('col_highlight');
+          rowCells[j].classList.remove("col_highlight");
         }
       };
     }
@@ -125,7 +125,7 @@ class TeamTable extends React.Component<TeamTableProps> {
       gameMode,
       players = [],
       columns,
-      heading = '',
+      heading = "",
       picksBans = [],
       radiantTeam = {},
       direTeam = {},
@@ -156,14 +156,14 @@ class TeamTable extends React.Component<TeamTableProps> {
       <StyledDiv ref={this.setTeamTableRef}>
         <Heading
           title={`${getTeamName(radiantTeam, true)} - ${heading}`}
-          buttonLabel={buttonLabel || ''}
-          buttonTo={buttonTo || ''}
-          buttonIcon={buttonIcon || ''}
+          buttonLabel={buttonLabel || ""}
+          buttonTo={buttonTo || ""}
+          buttonIcon={buttonIcon || ""}
           winner={!hideWinnerTag && radiantWin}
         />
         <div className="teamtable teamtable-radiant">
           <Table
-            data={filterMatchPlayers(players, 'radiant')}
+            data={filterMatchPlayers(players, "radiant")}
             {...tableProps}
           />
         </div>
@@ -204,7 +204,7 @@ class TeamTable extends React.Component<TeamTableProps> {
           winner={!hideWinnerTag && !radiantWin}
         />
         <div className="teamtable teamtable-dire">
-          <Table data={filterMatchPlayers(players, 'dire')} {...tableProps} />
+          <Table data={filterMatchPlayers(players, "dire")} {...tableProps} />
         </div>
         {
           gameMode === 22 ? (

@@ -1,14 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
-import { Alert, CircularProgress } from '@mui/material';
-import { Button } from '@mui/material';
-import styled from 'styled-components';
-import StripeCheckout, { Token } from 'react-stripe-checkout';
-import config from '../../config';
-import { IconSteam } from '../Icons';
+import React from "react";
+import { connect } from "react-redux";
+import Helmet from "react-helmet";
+import { Alert, CircularProgress } from "@mui/material";
+import { Button } from "@mui/material";
+import styled from "styled-components";
+import StripeCheckout, { Token } from "react-stripe-checkout";
+import config from "../../config";
+import { IconSteam } from "../Icons";
 
-const path = '/keys';
+const path = "/keys";
 
 const ApiContainer = styled.div`
   width: 80%;
@@ -94,8 +94,8 @@ class KeyManagement extends React.Component<
 
   componentDidMount() {
     fetch(`${config.VITE_API_HOST}${path}`, {
-      credentials: 'include',
-      method: 'GET',
+      credentials: "include",
+      method: "GET",
     })
       .then((res) => {
         if (res.ok) {
@@ -114,11 +114,11 @@ class KeyManagement extends React.Component<
   handleSubmit(token: Token) {
     this.setState({ loading: true });
     fetch(`${config.VITE_API_HOST}${path}`, {
-      credentials: 'include',
-      method: 'POST',
+      credentials: "include",
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         token,
@@ -137,8 +137,8 @@ class KeyManagement extends React.Component<
   handleDelete() {
     this.setState({ loading: true });
     fetch(`${config.VITE_API_HOST}${path}`, {
-      credentials: 'include',
-      method: 'DELETE',
+      credentials: "include",
+      method: "DELETE",
     })
       .then((res) => {
         if (res.ok) {
@@ -153,11 +153,11 @@ class KeyManagement extends React.Component<
   handleUpdate(token: Token) {
     this.setState({ loading: true });
     fetch(`${config.VITE_API_HOST}${path}`, {
-      credentials: 'include',
-      method: 'PUT',
+      credentials: "include",
+      method: "PUT",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         token,
@@ -191,11 +191,11 @@ class KeyManagement extends React.Component<
           <title>{strings.title_api}</title>
           <meta name="description" content={strings.api_meta_description} />
         </Helmet>
-        <ApiContainer style={{ textAlign: 'center' }}>
+        <ApiContainer style={{ textAlign: "center" }}>
           {this.state.error ? <div>{strings.api_error}</div> : <div />}
           {this.state.openInvoices?.length ? (
             <Alert severity="warning">
-              {strings.api_open_invoice}{' '}
+              {strings.api_open_invoice}{" "}
               <a href={this.state.openInvoices?.[0]?.paymentLink}>
                 {strings.api_invoice_link}
               </a>
@@ -212,7 +212,7 @@ class KeyManagement extends React.Component<
                   variant="contained"
                   startIcon={<IconSteam />}
                   href={`${config.VITE_API_HOST}/login`}
-                  style={{ margin: '5px 5px' }}
+                  style={{ margin: "5px 5px" }}
                 >
                   {strings.api_login}
                 </Button>
@@ -229,7 +229,7 @@ class KeyManagement extends React.Component<
                   zipCode
                   locale="auto"
                 >
-                  <Button variant="contained" style={{ margin: '5px 5px' }}>
+                  <Button variant="contained" style={{ margin: "5px 5px" }}>
                     {strings.api_get_key}
                   </Button>
                 </StripeCheckout>
@@ -239,7 +239,7 @@ class KeyManagement extends React.Component<
               <Button
                 href="//docs.opendota.com"
                 target="_blank"
-                style={{ margin: '5px 5px' }}
+                style={{ margin: "5px 5px" }}
               >
                 {strings.api_docs}
               </Button>
@@ -251,11 +251,11 @@ class KeyManagement extends React.Component<
                       <KeyContainer>{this.state.customer.api_key}</KeyContainer>
                       <p>
                         {strings.api_key_usage.replace(
-                          '$param',
-                          'api_key=XXXX',
+                          "$param",
+                          "api_key=XXXX",
                         )}
                       </p>
-                      <div style={{ overflow: 'hidden' }}>
+                      <div style={{ overflow: "hidden" }}>
                         <a
                           href={`https://api.opendota.com/api/matches/271145478?api_key=${this.state.customer.api_key}`}
                         >
@@ -264,26 +264,26 @@ class KeyManagement extends React.Component<
                       </div>
                       <p>
                         {`${strings.api_billing_cycle.replace(
-                          '$date',
+                          "$date",
                           new Date(
                             this.state.customer.current_period_end * 1000,
                           ).toLocaleDateString(),
                         )} ${strings.api_billed_to
-                          .replace('$brand', this.state.customer.credit_brand)
+                          .replace("$brand", this.state.customer.credit_brand)
                           .replace(
-                            '$last4',
+                            "$last4",
                             this.state.customer.credit_last4,
                           )}`}
                       </p>
                       <p>
                         {strings.api_support.replace(
-                          '$email',
-                          'api@opendota.com',
+                          "$email",
+                          "api@opendota.com",
                         )}
                       </p>
                       <Button
                         variant="contained"
-                        style={{ margin: '5px 5px' }}
+                        style={{ margin: "5px 5px" }}
                         onClick={this.handleDelete}
                       >
                         {strings.api_delete}
@@ -299,7 +299,7 @@ class KeyManagement extends React.Component<
                       >
                         <Button
                           variant="contained"
-                          style={{ margin: '5px 5px' }}
+                          style={{ margin: "5px 5px" }}
                         >
                           {strings.api_update_billing}
                         </Button>
@@ -356,8 +356,8 @@ class KeyManagement extends React.Component<
                       <td>{strings.api_details_price_free}</td>
                       <td>
                         {strings.api_details_price_prem
-                          .replace('price', String(premPrice))
-                          .replace('$unit', String(premUnit))}
+                          .replace("price", String(premPrice))
+                          .replace("$unit", String(premUnit))}
                       </td>
                     </tr>
                     <tr>
@@ -369,7 +369,7 @@ class KeyManagement extends React.Component<
                       <th>{strings.api_details_call_limit}</th>
                       <td>
                         {strings.api_details_call_limit_free_day.replace(
-                          '$limit',
+                          "$limit",
                           String(freeCallLimit),
                         )}
                       </td>
@@ -379,13 +379,13 @@ class KeyManagement extends React.Component<
                       <th>{strings.api_details_rate_limit}</th>
                       <td>
                         {strings.api_details_rate_limit_val.replace(
-                          '$num',
+                          "$num",
                           String(freeRateLimit),
                         )}
                       </td>
                       <td>
                         {strings.api_details_rate_limit_val.replace(
-                          '$num',
+                          "$num",
                           String(premRateLimit),
                         )}
                       </td>
@@ -395,7 +395,7 @@ class KeyManagement extends React.Component<
                       <td>{strings.api_details_support_free}</td>
                       <td>{strings.api_details_support_prem}</td>
                     </tr>
-                    <tr style={{ height: '24px' }} />
+                    <tr style={{ height: "24px" }} />
                   </tbody>
                 </table>
               </TableContainer>
@@ -405,7 +405,7 @@ class KeyManagement extends React.Component<
                 <ul>
                   <li>
                     {strings.api_charging.replace(
-                      '$cost',
+                      "$cost",
                       `$${premPrice / premUnit}`,
                     )}
                   </li>

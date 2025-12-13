@@ -1,12 +1,12 @@
-import React from 'react';
-import wordcloud from 'wordcloud';
-import { nanoid } from 'nanoid';
+import React from "react";
+import wordcloud from "wordcloud";
+import { nanoid } from "nanoid";
 
 const stopWords =
-  'a,am,an,and,are,as,at,be,by,for,from,how,i,im,in,is,it,not,of,on,or,that,the,this,to,was,what,when,where,who,will,with';
+  "a,am,an,and,are,as,at,be,by,for,from,how,i,im,in,is,it,not,of,on,or,that,the,this,to,was,what,when,where,who,will,with";
 
 function isStopWord(word: string) {
-  const regex = new RegExp(`\\b${word}\\b`, 'i');
+  const regex = new RegExp(`\\b${word}\\b`, "i");
   return !(stopWords.search(regex) < 0);
 }
 
@@ -60,8 +60,8 @@ function updateWordCloud(
   //@ts-expect-error
   wordcloud(document.getElementById(cloudDomId), {
     list: wordList,
-    backgroundColor: 'transparent',
-    color: 'random-light',
+    backgroundColor: "transparent",
+    color: "random-light",
     wait: 1,
   });
 }
@@ -85,7 +85,7 @@ class Wordcloud extends React.Component<WordcloudProps> {
         width={width}
         height={height}
         id={this.id}
-        style={{ display: 'block', margin: '0 auto' }}
+        style={{ display: "block", margin: "0 auto" }}
       />
     );
   }

@@ -1,7 +1,7 @@
-import React from 'react';
-import TeamTable from '../TeamTable';
-import mcs from '../matchColumns';
-import useStrings from '../../../hooks/useStrings.hook';
+import React from "react";
+import TeamTable from "../TeamTable";
+import mcs from "../matchColumns";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const VisionItems = ({ match }: { match: Match }) => {
   const strings = useStrings();

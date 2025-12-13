@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import constants from '../constants';
+import styled from "styled-components";
+import constants from "../constants";
 
 export const StyledCombos = styled.div`
   margin-bottom: 150px;

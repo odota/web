@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   XAxis,
   YAxis,
@@ -9,13 +9,13 @@ import {
   Legend,
   Label,
   ResponsiveContainer,
-} from 'recharts';
-import { heroes } from 'dotaconstants';
-import styled from 'styled-components';
-import { formatSeconds, fromNow, formatGraphValueData } from '../../../utility';
-import constants from '../../constants';
-import HeroImage from '../HeroImage';
-import useStrings from '../../../hooks/useStrings.hook';
+} from "recharts";
+import { heroes } from "dotaconstants";
+import styled from "styled-components";
+import { formatSeconds, fromNow, formatGraphValueData } from "../../../utility";
+import constants from "../../constants";
+import HeroImage from "../HeroImage";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const TooltipStylesDiv = styled.div`
   .tooltipWrapper {
@@ -84,18 +84,18 @@ const TrendTooltipContent = ({
   if (data) {
     const hero = heroes[data.hero_id as keyof Heroes] || {};
     const trendStr = strings[`heading_${name}` as keyof Strings];
-    const unit = data.name === 'win_rate' ? '%' : '';
+    const unit = data.name === "win_rate" ? "%" : "";
     return (
       <TooltipStylesDiv>
         <div className="tooltipWrapper">
           <div className="value">
-            {data.name === 'win_rate' ? '' : strings.trends_tooltip_average}
+            {data.name === "win_rate" ? "" : strings.trends_tooltip_average}
             {` ${trendStr}: ${formatGraphValueData(Number(data.value.toFixed(2)), name)}${unit}`}
           </div>
           <div className="match">
             <div>
               <div>
-                <span className={data.win ? 'win' : 'loss'}>
+                <span className={data.win ? "win" : "loss"}>
                   {data.win ? strings.td_win : strings.td_loss}
                 </span>
                 <span className="time">{` ${fromNow(data.start_time)}`}</span>
@@ -104,8 +104,8 @@ const TrendTooltipContent = ({
                 {strings[`game_mode_${data.game_mode}` as keyof Strings]}
               </div>
               <div>{formatSeconds(data.duration)}</div>
-              {data.name === 'win_rate' || name === 'duration' ? (
-                ''
+              {data.name === "win_rate" || name === "duration" ? (
+                ""
               ) : (
                 <div className="matchValue">
                   {`${trendStr}: ${formatGraphValueData(Number(data.independent_value.toFixed(2)), name)}${unit}`}
@@ -139,7 +139,7 @@ const TrendGraph = ({ columns, name }: { columns: any[]; name: string }) => {
         <XAxis interval={49}>
           <Label value="" position="insideTopRight" />
         </XAxis>
-        <YAxis domain={['auto', 'auto']} />
+        <YAxis domain={["auto", "auto"]} />
         <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
 
         <Tooltip content={<TrendTooltipContent name={name} />} />

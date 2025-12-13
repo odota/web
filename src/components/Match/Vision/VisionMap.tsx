@@ -1,11 +1,11 @@
-import React from 'react';
-import ReactTooltip from 'react-tooltip';
-import styled from 'styled-components';
-import { gameCoordToUV, formatSeconds, getWardSize } from '../../../utility';
-import PlayerThumb from '../PlayerThumb/PlayerThumb';
-import DotaMap from '../../DotaMap/DotaMap';
-import constants from '../../constants';
-import useStrings from '../../../hooks/useStrings.hook';
+import React from "react";
+import ReactTooltip from "react-tooltip";
+import styled from "styled-components";
+import { gameCoordToUV, formatSeconds, getWardSize } from "../../../utility";
+import PlayerThumb from "../PlayerThumb/PlayerThumb";
+import DotaMap from "../../DotaMap/DotaMap";
+import constants from "../../constants";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const Styled = styled.div`
   .tooltipContainer {
@@ -58,7 +58,7 @@ const wardStyle = (width: number, log: any): React.CSSProperties => {
 
   const wardSize = getWardSize(log.type, width);
 
-  if (log.type === 'observer') {
+  if (log.type === "observer") {
     fill = constants.colorYelorMuted;
     strokeWidth = 2.5;
   } else {
@@ -67,22 +67,22 @@ const wardStyle = (width: number, log: any): React.CSSProperties => {
   }
 
   return {
-    position: 'absolute',
+    position: "absolute",
     width: wardSize,
     height: wardSize,
     top: (width / 127) * gamePos.y - wardSize / 2,
     left: (width / 127) * gamePos.x - wardSize / 2,
     background: fill,
-    borderRadius: '50%',
+    borderRadius: "50%",
     border: `${strokeWidth}px solid ${stroke}`,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   };
 };
 
 const wardIcon = (log: any) => {
-  const side = log.entered.player_slot < 5 ? 'goodguys' : 'badguys';
+  const side = log.entered.player_slot < 5 ? "goodguys" : "badguys";
   return `/assets/images/dota2/map/${side}_${log.type}.png`;
 };
 
@@ -98,7 +98,7 @@ const WardTooltipEnter = ({
     <div className="tooltipContainer">
       <PlayerThumb {...player} />
       <div>
-        {log.type === 'observer'
+        {log.type === "observer"
           ? strings.vision_placed_observer
           : strings.vision_placed_sentry}
       </div>
@@ -112,7 +112,7 @@ const WardTooltipLeft = ({ log }: { log: any }) => {
   let expired;
   const age = log.left.time - log.entered.time;
 
-  if (log.type === 'observer') {
+  if (log.type === "observer") {
     expired = age > 360;
   } else {
     expired = age > 240;
@@ -137,12 +137,12 @@ const WardPin = ({
 }) => {
   const strings = useStrings();
   const id = `ward-${log.entered.player_slot}-${log.entered.time}`;
-  const sideName = log.entered.player_slot < 5 ? 'radiant' : 'dire';
+  const sideName = log.entered.player_slot < 5 ? "radiant" : "dire";
 
   return (
     <Styled>
       <div style={wardStyle(width, log)} data-tip data-for={id}>
-        <img src={wardIcon(log)} alt={log.type === 'observer' ? 'O' : 'S'} />
+        <img src={wardIcon(log)} alt={log.type === "observer" ? "O" : "S"} />
       </div>
       <ReactTooltip
         id={id}

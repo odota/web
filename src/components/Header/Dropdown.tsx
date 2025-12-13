@@ -1,5 +1,5 @@
-import React from 'react';
-import { Menu, MenuItem, Popover } from '@mui/material';
+import React from "react";
+import { Menu, MenuItem, Popover } from "@mui/material";
 // import styled from 'styled-components';
 // import constants from '../constants';
 
@@ -50,7 +50,7 @@ class Dropdown extends React.Component<DropdownProps> {
         <Popover
           open={open}
           anchorEl={this.state.anchorEl}
-          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+          anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
           // targetOrigin={{ horizontal: 'left', vertical: 'top' }}
           onClose={this.handleRequestClose}
           // className={styles.popoverContainer}

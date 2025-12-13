@@ -3,24 +3,24 @@ import {
   item_ids as itemIds,
   patch,
   xp_level as xpLevel,
-} from 'dotaconstants';
-import GroupIcon from '@mui/icons-material/Group';
-import PersonIcon from '@mui/icons-material/Person';
-import querystring from 'querystring';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
+} from "dotaconstants";
+import GroupIcon from "@mui/icons-material/Group";
+import PersonIcon from "@mui/icons-material/Person";
+import querystring from "querystring";
+import React from "react";
+import { Link } from "react-router-dom";
+import ReactTooltip from "react-tooltip";
 
-import constants from './components/constants';
-import TableLink from './components/Table/TableLink';
+import constants from "./components/constants";
+import TableLink from "./components/Table/TableLink";
 import {
   FromNowTooltip,
   KDA,
   TableHeroImage,
-} from './components/Visualizations';
-import store from './store';
-import config from './config';
-import { items } from 'dotaconstants';
+} from "./components/Visualizations";
+import store from "./store";
+import config from "./config";
+import { items } from "dotaconstants";
 
 const second = 1;
 const minute = second * 60;
@@ -30,25 +30,25 @@ const month = day * 30;
 const year = month * 12;
 
 export const iconStyle: React.CSSProperties = {
-  position: 'relative',
+  position: "relative",
   width: 16,
   height: 16,
-  verticalAlign: 'bottom',
+  verticalAlign: "bottom",
 };
 
 export const subTextStyle: React.CSSProperties = {
-  position: 'relative',
-  fontSize: '12px',
+  position: "relative",
+  fontSize: "12px",
   color: constants.colorMutedLight,
-  textOverflow: 'initial',
-  display: 'block',
-  marginTop: '1px',
+  textOverflow: "initial",
+  display: "block",
+  marginTop: "1px",
 };
 
 // TODO - add in the relevant text invocations of TableHeroImage
 export const isRadiant = (playerSlot: number) => playerSlot < 128;
 
-export function pad(n: string | number, width: number, z = '0') {
+export function pad(n: string | number, width: number, z = "0") {
   const str = `${n}`;
   return str.length >= width
     ? str
@@ -65,18 +65,18 @@ export function formatSeconds(input: number | undefined) {
     const minutes = Math.floor(absTime / 60);
     const seconds = pad(Math.floor(absTime % 60), 2);
 
-    let time = input < 0 ? '-' : '';
+    let time = input < 0 ? "-" : "";
     time += `${minutes}:${seconds}`;
 
     return time;
   }
 
-  return '';
+  return "";
 }
 
 export function formatSkillOrAttributeValues(values: string[]) {
   if (Array.isArray(values)) {
-    return values.filter((value) => value).join(' / ');
+    return values.filter((value) => value).join(" / ");
   }
   return values;
 }
@@ -132,11 +132,11 @@ export const getPercentWin = (wins: number, games: number) =>
 export const camelToSnake = (str: string) =>
   str
     .replace(/\.?([A-Z]+)/g, (match, group) => `_${group.toLowerCase()}`)
-    .replace(/^_/, '');
+    .replace(/^_/, "");
 
 export const getOrdinal = (n: number) => {
   // TODO localize
-  const s = ['th', 'st', 'nd', 'rd'];
+  const s = ["th", "st", "nd", "rd"];
   const v = n % 100;
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
@@ -148,53 +148,53 @@ export const jsonFn = (json: any) => (arrayFn: any) => (fn: any) =>
 export const percentile = (pct: number) => {
   if (pct >= 0.8) {
     return {
-      color: 'green',
-      grade: 'A',
+      color: "green",
+      grade: "A",
     };
   } else if (pct >= 0.6) {
     return {
-      color: 'blue',
-      grade: 'B',
+      color: "blue",
+      grade: "B",
     };
   } else if (pct >= 0.4) {
     return {
-      color: 'golden',
-      grade: 'C',
+      color: "golden",
+      grade: "C",
     };
   } else if (pct >= 0.2) {
     return {
-      color: 'yelor',
-      grade: 'D',
+      color: "yelor",
+      grade: "D",
     };
   }
   return {
-    color: 'red',
-    grade: 'F',
+    color: "red",
+    grade: "F",
   };
 };
 
 export const IMAGESIZE_ENUM = {
   SMALL: {
     // ~10KB
-    suffix: 'sb.png',
+    suffix: "sb.png",
     width: 59,
     height: 33,
   },
   MEDIUM: {
     // ~41KB
-    suffix: 'lg.png',
+    suffix: "lg.png",
     width: 205,
     height: 115,
   },
   LARGE: {
     // ~52KB
-    suffix: 'full.png',
+    suffix: "full.png",
     width: 256,
     height: 144,
   },
   VERT: {
     // ~18KB note that this is a jpg
-    suffix: 'vert.jpg',
+    suffix: "vert.jpg",
     width: 235,
     height: 272,
   },
@@ -223,7 +223,7 @@ export const getHeroIconUrlFromHeroKey = (heroKey: string) => {
     return `${config.VITE_IMAGE_CDN}${heroes[heroId].icon}`;
   }
 
-  return '/assets/images/blank-1x1.gif';
+  return "/assets/images/blank-1x1.gif";
 };
 
 // Fills in a template with the values provided in the dict
@@ -238,7 +238,7 @@ export const getHeroIconUrlFromHeroKey = (heroKey: string) => {
 // returns [ "{person} name is ", <font color={styles.golden}>{"Gaben"}</font> ]
 export const formatTemplate = (template: string, dict: any, ...rest: any[]) => {
   if (!template) {
-    return ['(invalid template)'];
+    return ["(invalid template)"];
   }
   let tmplValues = dict;
   // If the 2nd argument isn't a dictionary, then we will gather arguments 1 => end into an object.
@@ -254,7 +254,7 @@ export const formatTemplate = (template: string, dict: any, ...rest: any[]) => {
       result[i] = tmplValues[result[i].slice(1, -1)];
     }
   }
-  result = result.filter((part) => part !== '');
+  result = result.filter((part) => part !== "");
   return result;
 };
 
@@ -262,7 +262,7 @@ export const formatTemplateToString = (
   template: string,
   dict: any,
   ...rest: any[]
-) => formatTemplate(template, dict, ...rest).join('');
+) => formatTemplate(template, dict, ...rest).join("");
 
 export const defaultSort = (
   array: any[],
@@ -271,17 +271,17 @@ export const defaultSort = (
   sortFn: Function,
 ) =>
   array.sort((a, b) => {
-    const sortFnExists = typeof sortFn === 'function';
+    const sortFnExists = typeof sortFn === "function";
     const aVal = (sortFnExists ? sortFn(a) : a[sortField]) || 0;
     const bVal = (sortFnExists ? sortFn(b) : b[sortField]) || 0;
     const desc = aVal < bVal ? 1 : -1;
     const asc = aVal < bVal ? -1 : 1;
-    return sortState === 'desc' ? desc : asc;
+    return sortState === "desc" ? desc : asc;
   });
 
 export const SORT_ENUM = {
-  0: 'desc',
-  1: 'asc',
+  0: "desc",
+  1: "asc",
   asc: 1,
   desc: 0,
   //@ts-expect-error
@@ -336,7 +336,7 @@ export const gameCoordToUV = (x: string, y: string) => ({
  * subtracting y from 127 inverts from bottom/left origin to top/left origin
  * */
 export function unpackPositionData(input: any) {
-  if (typeof input === 'object' && !Array.isArray(input)) {
+  if (typeof input === "object" && !Array.isArray(input)) {
     const result: { x: number; y: number; value: number }[] = [];
 
     Object.keys(input).forEach((x) => {
@@ -357,7 +357,7 @@ export function unpackPositionData(input: any) {
 export const threshold =
   (start: number, limits: number[], values: string[]) => (value: number) => {
     if (limits.length !== values.length)
-      throw new Error('Limits must be the same as functions.');
+      throw new Error("Limits must be the same as functions.");
 
     const limitsWithStart = limits.slice(0);
     limitsWithStart.unshift(start);
@@ -369,7 +369,7 @@ export const threshold =
 
 export const getTeamLogoUrl = (logoUrl: string) => {
   if (!logoUrl) {
-    return '';
+    return "";
   }
   // Use proxy layer to serve team logos
   // if (logoUrl.indexOf('/ugc') !== -1) {
@@ -566,7 +566,7 @@ export function compileLevelOneStats(hero: any) {
     hero.base_int,
   ];
   const primaryAttrValue =
-    primary_attr === 'all'
+    primary_attr === "all"
       ? agiValue + strValue + intValue
       : hero[`base_${primary_attr}`];
 
@@ -625,7 +625,7 @@ export const getTeamName = (team?: { name: string }, _isRadiant?: boolean) => {
 export function abbreviateNumber(num: number) {
   const { strings } = store.getState().app;
   if (!num) {
-    return '-';
+    return "-";
   } else if (num >= 1000 && num < 1000000) {
     return `${Number((num / 1000).toFixed(1))}k`;
   } else if (num >= 1000000 && num < 1000000000) {
@@ -716,7 +716,7 @@ export function fromNow(time: number) {
     }
   }
 
-  return '';
+  return "";
 }
 
 export function displayHeroId(
@@ -736,21 +736,21 @@ export function displayHeroId(
       let tooltip;
       if (row.is_roaming) {
         tooltip = strings.roaming;
-        lane = 'roam';
+        lane = "roam";
       } else {
         tooltip = strings[`lane_role_${row.lane_role}` as keyof Strings];
         lane = row.lane_role;
       }
       const roleIconStyle: React.CSSProperties = {
-        float: 'right',
-        marginTop: '2px',
-        height: '14px',
+        float: "right",
+        marginTop: "2px",
+        height: "14px",
       };
 
       return (
         <div>
           {row && (
-            <span style={{ float: 'left' }}>
+            <span style={{ float: "left" }}>
               <FromNowTooltip timestamp={row.start_time + row.duration} />
             </span>
           )}
@@ -758,7 +758,7 @@ export function displayHeroId(
             <span
               data-hint={tooltip}
               data-hint-position="top"
-              style={{ float: 'right' }}
+              style={{ float: "right" }}
             >
               <img
                 src={`/assets/images/dota2/lane_${lane}.svg`}
@@ -767,7 +767,7 @@ export function displayHeroId(
               />
             </span>
           ) : (
-            ''
+            ""
           )}
         </div>
       );
@@ -807,7 +807,7 @@ export const transformations = {
   match_id_with_time: (row: any, col: any, field: any) => (
     <div>
       <TableLink to={`/matches/${field}`}>{field}</TableLink>
-      <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+      <span style={{ ...subTextStyle, display: "block", marginTop: 1 }}>
         {fromNow(row.start_time)}
       </span>
     </div>
@@ -829,12 +829,12 @@ export const transformations = {
       return won ? strings.td_win : strings.td_loss;
     };
     const partyTextStyle: React.CSSProperties = {
-      fontSize: '9px',
-      position: 'absolute',
-      lineHeight: '3px',
-      textAlign: 'center',
-      width: '100%',
-      fontFamily: 'Tahoma',
+      fontSize: "9px",
+      position: "absolute",
+      lineHeight: "3px",
+      textAlign: "center",
+      width: "100%",
+      fontFamily: "Tahoma",
     };
 
     const partySize = (_partySize: number) => {
@@ -844,7 +844,7 @@ export const transformations = {
         return null;
       }
       return (
-        <div style={{ float: 'right', marginTop: '-3px', marginRight: '2px' }}>
+        <div style={{ float: "right", marginTop: "-3px", marginRight: "2px" }}>
           <GroupIcon style={iconStyle} />
           <div style={partyTextStyle}>{`x${row.party_size}`}</div>
         </div>
@@ -852,8 +852,8 @@ export const transformations = {
     };
     const partyStyle: React.CSSProperties = {
       ...subTextStyle,
-      float: 'right',
-      marginRight: '-14px',
+      float: "right",
+      marginRight: "-14px",
     };
 
     const sameTeam = (_sameTeam: any) => {
@@ -873,7 +873,7 @@ export const transformations = {
           <span style={{ color: getColor(field) }}>{getString(field)}</span>
         </TableLink>
         <div>
-          <span style={{ ...subTextStyle, marginTop: 1, display: 'inline' }}>
+          <span style={{ ...subTextStyle, marginTop: 1, display: "inline" }}>
             {row.league_name
               ? row.league_name
               : strings[`lobby_type_${row.lobby_type}` as keyof Strings]}
@@ -895,8 +895,8 @@ export const transformations = {
 
     const skillStyle: React.CSSProperties = {
       ...subTextStyle,
-      display: 'inline',
-      float: 'left',
+      display: "inline",
+      float: "left",
       opacity: `${!row.average_rank ? 0.6 : 1}`,
     };
 
@@ -904,7 +904,7 @@ export const transformations = {
       <div>
         {strings[`game_mode_${field}` as keyof Strings] &&
           `${strings[`game_mode_${field}` as keyof Strings]}`}
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           <span style={skillStyle}>{rankTierToString(row.average_rank)}</span>
         </div>
         <ReactTooltip place="top" effect="solid" />
@@ -919,9 +919,9 @@ export const transformations = {
   ),
   duration: (row: any, col: any, field: any) => {
     const { strings } = store.getState().app;
-    const playerSideExists = row && typeof row.player_slot !== 'undefined';
+    const playerSideExists = row && typeof row.player_slot !== "undefined";
     const playerIsRadiant = playerSideExists && isRadiant(row.player_slot);
-    const teamSideExists = row && typeof row.radiant !== 'undefined';
+    const teamSideExists = row && typeof row.radiant !== "undefined";
     const teamIsRadiant = teamSideExists && row.radiant;
     const displaySide = playerSideExists || teamSideExists;
 
@@ -1017,12 +1017,12 @@ export function getDOY(date: Date) {
 // find and style/highlight number values in tooltip descriptions
 export function styleValues(
   el: HTMLElement | null,
-  style = 'font-weight:500;color:#F5F5F5',
+  style = "font-weight:500;color:#F5F5F5",
 ) {
   if (el) {
     const element = el;
     element.innerHTML = el.innerHTML
-      .replace(/(,)(\d)/gm, ' / $2')
+      .replace(/(,)(\d)/gm, " / $2")
       .replace(/\s?-?\s?\d+\.?%?\d*%?x?/gm, `<span style=${style}>$&</span>`);
   }
   return null;
@@ -1030,7 +1030,7 @@ export function styleValues(
 
 export function formatValues(values: any[]) {
   if (Array.isArray(values)) {
-    return values.filter((value) => value).join(' / ');
+    return values.filter((value) => value).join(" / ");
   }
   return values;
 }
@@ -1038,42 +1038,42 @@ export function formatValues(values: any[]) {
 // handles table cell custom and default styling
 export function getColStyle(column: any): React.CSSProperties {
   return {
-    textAlign: column.textAlign || 'initial',
+    textAlign: column.textAlign || "initial",
     paddingRight: column.paddingRight !== undefined ? column.paddingRight : 8,
     paddingLeft: column.paddingLeft !== undefined ? column.paddingLeft : 8,
-    width: column.key === 'heroTd' && !column.width ? '1px' : column.width,
+    width: column.key === "heroTd" && !column.width ? "1px" : column.width,
     borderLeft: column.borderLeft,
     borderRight: column.borderRight,
     backgroundColor: column.colColor,
-    direction: column.textAlign === 'right' ? 'rtl' : undefined,
+    direction: column.textAlign === "right" ? "rtl" : undefined,
     color: column.color || constants.secondaryTextColor,
   };
 }
 
 export function getLocalizedWeekdayStrings() {
-  const langCode = window.localStorage.getItem('localization') || 'en-US';
+  const langCode = window.localStorage.getItem("localization") || "en-US";
   const d = new Date();
   return [...Array(7)].map((_, i) =>
     new Date(d.setDate(d.getDate() - d.getDay() + i)).toLocaleDateString(
       langCode,
-      { weekday: 'short' },
+      { weekday: "short" },
     ),
   );
 }
 
 export function getLocalizedMonthStrings() {
-  const langCode = window.localStorage.getItem('localization') || 'en-US';
+  const langCode = window.localStorage.getItem("localization") || "en-US";
   const d = new Date();
   return [...Array(12)].map((_, i) =>
-    new Date(d.setMonth(i)).toLocaleDateString(langCode, { month: 'short' }),
+    new Date(d.setMonth(i)).toLocaleDateString(langCode, { month: "short" }),
   );
 }
 
 export function formatGraphValueData(data: number, histogramName?: string) {
-  if (data !== 0 && !data) return '';
+  if (data !== 0 && !data) return "";
 
   switch (histogramName) {
-    case 'duration':
+    case "duration":
       return formatSeconds(data);
 
     default:
@@ -1082,7 +1082,7 @@ export function formatGraphValueData(data: number, histogramName?: string) {
 }
 
 export function escapeRegExp(stringToGoIntoTheRegex: string) {
-  return stringToGoIntoTheRegex.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'); // eslint-disable-line no-useless-escape
+  return stringToGoIntoTheRegex.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"); // eslint-disable-line no-useless-escape
 }
 
 /**
@@ -1090,9 +1090,9 @@ export function escapeRegExp(stringToGoIntoTheRegex: string) {
  * @param params A string of URL query params
  */
 export function paramsWithTurbo(params: any) {
-  const isTurboMode = window.localStorage.getItem('modeFilter') === 'turbo';
+  const isTurboMode = window.localStorage.getItem("modeFilter") === "turbo";
   let objParams = params ?? {};
-  if (typeof params === 'string' && params) {
+  if (typeof params === "string" && params) {
     objParams = querystring.parse(params.slice(1));
   }
   if (!isTurboMode) {
@@ -1109,7 +1109,7 @@ patch.forEach((patchElement) => {
 export function getWardSize(type: string, mapSize: number) {
   const originMapSize = 12000;
 
-  if (type === 'observer') {
+  if (type === "observer") {
     return (mapSize * 1600) / originMapSize;
   } else {
     return (mapSize * 1000) / originMapSize;

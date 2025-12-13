@@ -1,25 +1,25 @@
-import React from 'react';
-import { heroes } from 'dotaconstants';
-import Heading from '../Heading/Heading';
-import Table from '../Table/Table';
-import TeamfightMap from './TeamfightMap/TeamfightMap';
-import Purchases from './Purchases/Purchases';
-import Timeline from './Timeline';
-import MatchGraph from '../Visualizations/Graph/MatchGraph';
-import StackedBarGraph from '../Visualizations/Graph/StackedBarGraph';
-import Draft from './Draft/Draft';
-import Vision from './Vision/Vision';
-import Laning from './Laning/Laning';
-import CrossTable from './CrossTable';
-import MatchLog from './MatchLog';
-import MatchStory from './MatchStory';
-import mcs from './matchColumns';
-import { getOverviewTab } from './Overview/Overview';
-import TeamTable from './TeamTable';
-import Chat from './Chat/Chat';
-import { StyledFlexContainer, StyledFlexElement } from './StyledMatch';
-import { getHeroImageUrl, IMAGESIZE_ENUM } from '../../utility';
-import config from '../../config';
+import React from "react";
+import { heroes } from "dotaconstants";
+import Heading from "../Heading/Heading";
+import Table from "../Table/Table";
+import TeamfightMap from "./TeamfightMap/TeamfightMap";
+import Purchases from "./Purchases/Purchases";
+import Timeline from "./Timeline";
+import MatchGraph from "../Visualizations/Graph/MatchGraph";
+import StackedBarGraph from "../Visualizations/Graph/StackedBarGraph";
+import Draft from "./Draft/Draft";
+import Vision from "./Vision/Vision";
+import Laning from "./Laning/Laning";
+import CrossTable from "./CrossTable";
+import MatchLog from "./MatchLog";
+import MatchStory from "./MatchStory";
+import mcs from "./matchColumns";
+import { getOverviewTab } from "./Overview/Overview";
+import TeamTable from "./TeamTable";
+import Chat from "./Chat/Chat";
+import { StyledFlexContainer, StyledFlexElement } from "./StyledMatch";
+import { getHeroImageUrl, IMAGESIZE_ENUM } from "../../utility";
+import config from "../../config";
 
 const TickElement = (props: { x: number; y: number; payload: any }) => {
   const { x, y, payload } = props;
@@ -73,7 +73,7 @@ const matchPages = (
     getOverviewTab(strings, beta),
     {
       name: strings.tab_benchmarks,
-      key: 'benchmarks',
+      key: "benchmarks",
       parsed: false,
       content: (match: Match) => (
         <div>
@@ -96,7 +96,7 @@ const matchPages = (
     },
     {
       name: strings.tab_drafts,
-      key: 'draft',
+      key: "draft",
       parsed: true,
       hidden: (match: Match) => match.game_mode !== 2,
       content: (match: Match) => (
@@ -115,7 +115,7 @@ const matchPages = (
     },
     {
       name: strings.tab_performances,
-      key: 'performances',
+      key: "performances",
       parsed: true,
       content: (match: Match) => (
         <div>
@@ -139,7 +139,7 @@ const matchPages = (
     },
     {
       name: strings.tab_laning,
-      key: 'laning',
+      key: "laning",
       parsed: true,
       content: (match: Match) => (
         <div>
@@ -149,7 +149,7 @@ const matchPages = (
     },
     {
       name: strings.tab_combat,
-      key: 'combat',
+      key: "combat",
       skeleton: true,
       parsed: true,
       content: (match: Match) => (
@@ -184,7 +184,7 @@ const matchPages = (
     },
     {
       name: strings.tab_farm,
-      key: 'farm',
+      key: "farm",
       skeleton: true,
       parsed: true,
       content: (match: Match) => (
@@ -259,7 +259,7 @@ const matchPages = (
     },
     {
       name: strings.tab_items,
-      key: 'purchases',
+      key: "purchases",
       skeleton: true,
       parsed: true,
       content: (match: Match) => (
@@ -274,7 +274,7 @@ const matchPages = (
     },
     {
       name: strings.tab_graphs,
-      key: 'graphs',
+      key: "graphs",
       skeleton: true,
       parsed: true,
       content: (match: Match) => (
@@ -294,7 +294,7 @@ const matchPages = (
     },
     {
       name: strings.tab_casts,
-      key: 'casts',
+      key: "casts",
       skeleton: true,
       parsed: true,
       content: (match: Match) => (
@@ -317,7 +317,7 @@ const matchPages = (
     },
     {
       name: strings.tab_objectives,
-      key: 'objectives',
+      key: "objectives",
       skeleton: true,
       parsed: true,
       content: (match: Match) => (
@@ -350,7 +350,7 @@ const matchPages = (
     },
     {
       name: strings.tab_vision,
-      key: 'vision',
+      key: "vision",
       skeleton: true,
       parsed: true,
       content: (match: Match) => (
@@ -363,7 +363,7 @@ const matchPages = (
     },
     {
       name: strings.tab_actions,
-      key: 'actions',
+      key: "actions",
       parsed: true,
       content: (match: Match) => (
         <div>
@@ -386,7 +386,7 @@ const matchPages = (
     },
     {
       name: strings.tab_teamfights,
-      key: 'teamfights',
+      key: "teamfights",
       skeleton: true,
       parsed: true,
       content: (match: Match) => (
@@ -424,7 +424,7 @@ const matchPages = (
     // },
     {
       name: strings.tab_fantasy,
-      key: 'fantasy',
+      key: "fantasy",
       parsed: true,
       content: (match: Match) => (
         <div>
@@ -447,7 +447,7 @@ const matchPages = (
     },
     {
       name: strings.tab_chat,
-      key: 'chat',
+      key: "chat",
       parsed: true,
       content: (match: Match) => {
         const data = (match.chat || []).map((msg) => {
@@ -473,7 +473,7 @@ const matchPages = (
     },
     {
       name: strings.tab_story,
-      key: 'story',
+      key: "story",
       parsed: true,
       content: (match: Match) => (
         <div>
@@ -483,7 +483,7 @@ const matchPages = (
     },
     {
       name: strings.tab_log,
-      key: 'log',
+      key: "log",
       skeleton: true,
       parsed: true,
       content: (match: Match) => (
@@ -494,7 +494,7 @@ const matchPages = (
     },
     {
       name: strings.tab_cosmetics,
-      key: 'cosmetics',
+      key: "cosmetics",
       parsed: true,
       content: (match: Match) => (
         <div>

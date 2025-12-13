@@ -1,12 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Box } from '@mui/material';
-import { Button } from '@mui/material';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import styled from 'styled-components';
-import { toggleShowForm as toggleShowFormAction } from '../../../actions/formActions';
-import GamemodeToggle from '../../GamemodeToggle/GamemodeToggle';
-import config from '../../../config';
+import React from "react";
+import { connect } from "react-redux";
+import { Box } from "@mui/material";
+import { Button } from "@mui/material";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import styled from "styled-components";
+import { toggleShowForm as toggleShowFormAction } from "../../../actions/formActions";
+import GamemodeToggle from "../../GamemodeToggle/GamemodeToggle";
+import config from "../../../config";
 
 const Styled = styled.div`
   display: flex;
@@ -56,7 +56,7 @@ class PlayerButtons extends React.Component<
             disabled={this.state.disableRefresh}
             onClick={() => {
               fetch(`${config.VITE_API_HOST}/api/players/${playerId}/refresh`, {
-                method: 'POST',
+                method: "POST",
               });
               this.setState({ disableRefresh: true });
             }}
@@ -78,7 +78,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  toggleShowForm: () => dispatch(toggleShowFormAction('tableFilter')),
+  toggleShowForm: () => dispatch(toggleShowFormAction("tableFilter")),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerButtons);

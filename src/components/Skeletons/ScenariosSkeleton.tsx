@@ -1,5 +1,5 @@
-import React from 'react';
-import ContentLoader from 'react-content-loader';
+import React from "react";
+import ContentLoader from "react-content-loader";
 
 const ScenariosSkeleton = () => (
   <ContentLoader height={300} width={800} animate>

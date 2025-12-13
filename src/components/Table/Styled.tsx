@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import constants from '../constants';
+import styled from "styled-components";
+import constants from "../constants";
 
 export const StyledBody = styled.div<{
   customWidth?: number;
@@ -15,7 +15,7 @@ export const StyledBody = styled.div<{
         ? `
       table-layout: fixed !important;
       `
-        : ''}
+        : ""}
 
     thead {
       border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
@@ -74,7 +74,7 @@ export const StyledBody = styled.div<{
         }
       }
 
-      & div[data-id='tooltip'] {
+      & div[data-id="tooltip"] {
         text-transform: none !important;
         font-weight: var(--fontWeightNormal);
         text-align: left;
@@ -142,7 +142,7 @@ export const StyledBody = styled.div<{
      color: ${constants.textColorPrimary} !important;
   }
   `
-      : ''};
+      : ""};
 
   /* -- scrolling behavior -- */
   .scrolled.shrink .textContainer {

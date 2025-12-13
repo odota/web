@@ -1,39 +1,39 @@
-import React from 'react';
+import React from "react";
 import {
   Button,
   FormControlLabel,
   Radio as RadioButton,
   RadioGroup as RadioButtonGroup,
   TextField,
-} from '@mui/material';
-import { heroes } from 'dotaconstants';
-import querystring from 'querystring';
-import { connect } from 'react-redux';
-import HeroImage from '../Visualizations/HeroImage';
-import TableSkeleton from '../Skeletons/TableSkeleton';
-import Heading from '../Heading/Heading';
-import ExplorerOutputSection from './../Explorer/ExplorerOutputSection';
-import getQueryString from './getQueryString';
+} from "@mui/material";
+import { heroes } from "dotaconstants";
+import querystring from "querystring";
+import { connect } from "react-redux";
+import HeroImage from "../Visualizations/HeroImage";
+import TableSkeleton from "../Skeletons/TableSkeleton";
+import Heading from "../Heading/Heading";
+import ExplorerOutputSection from "./../Explorer/ExplorerOutputSection";
+import getQueryString from "./getQueryString";
 import {
   StyledHeroSelector,
   StyledSelectedHeroes,
   StyledCombos,
   StyledInputFilter,
-} from './Styles';
+} from "./Styles";
 import {
   formatTemplateToString,
   escapeRegExp,
   IMAGESIZE_ENUM,
-} from '../../utility';
-import config from '../../config';
-import useStrings from '../../hooks/useStrings.hook';
+} from "../../utility";
+import config from "../../config";
+import useStrings from "../../hooks/useStrings.hook";
 
 const styles = {
   radioButton: {
     root: {
-      display: 'inline-block',
-      width: 'auto',
-      whiteSpace: 'nowrap',
+      display: "inline-block",
+      width: "auto",
+      whiteSpace: "nowrap",
       marginRight: 5,
     },
     icon: {
@@ -55,7 +55,7 @@ const InputFilter = ({
   reset: any;
   filterText: string;
 }) => (
-  <div style={{ textAlign: 'center' }}>
+  <div style={{ textAlign: "center" }}>
     <TextField
       aria-label={filterText}
       ref={setInputRef}
@@ -93,24 +93,24 @@ const HeroSelector = ({
       id={id}
       imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
       style={{
-        position: 'absolute',
+        position: "absolute",
         width: 200,
         left: -30,
         opacity: 0.5,
-        filter: 'blur(5px)',
+        filter: "blur(5px)",
       }}
     />
     <HeroImage
       id={id}
       imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
-      style={{ width: 'auto', height: 40, zIndex: 2 }}
+      style={{ width: "auto", height: 40, zIndex: 2 }}
     />
-    <div className={`ts-container ${selected ? 'selected' : ''}`}>
+    <div className={`ts-container ${selected ? "selected" : ""}`}>
       <div
         aria-label={`${heroName} team A`}
-        className={`ts ts-left ${teamAFull ? 'no-event' : ''}`}
-        onClick={handleHeroSelection(id, 'teamA')}
-        onKeyPress={handleHeroSelection(id, 'teamA')}
+        className={`ts ts-left ${teamAFull ? "no-event" : ""}`}
+        onClick={handleHeroSelection(id, "teamA")}
+        onKeyPress={handleHeroSelection(id, "teamA")}
         role="button"
         tabIndex={0}
       >
@@ -118,9 +118,9 @@ const HeroSelector = ({
       </div>
       <div
         aria-label={`${heroName} team B`}
-        className={`ts ts-right ${teamBFull ? 'no-event' : ''}`}
-        onClick={handleHeroSelection(id, 'teamB')}
-        onKeyPress={handleHeroSelection(id, 'teamB')}
+        className={`ts ts-right ${teamBFull ? "no-event" : ""}`}
+        onClick={handleHeroSelection(id, "teamB")}
+        onKeyPress={handleHeroSelection(id, "teamB")}
         role="button"
         tabIndex={0}
       >
@@ -144,7 +144,7 @@ const SelectedHeroes = ({
     <StyledSelectedHeroes>
       <div className="team-container left">
         <div className="team-title team-a">
-          {formatTemplateToString(strings.team, 'A')}
+          {formatTemplateToString(strings.team, "A")}
         </div>
         <div>
           {[4, 3, 2, 1, 0].map((i) =>
@@ -152,7 +152,7 @@ const SelectedHeroes = ({
               <HeroImage
                 id={String(teamA[i])}
                 className="hero-img"
-                onClick={handleHeroDeSelection(i, 'teamA')}
+                onClick={handleHeroDeSelection(i, "teamA")}
               />
             ) : (
               <div className="hero-placeholder hero-img" />
@@ -163,7 +163,7 @@ const SelectedHeroes = ({
       <div className="seperator" />
       <div className="team-container right">
         <div className="team-title team-b">
-          {formatTemplateToString(strings.team, 'B')}
+          {formatTemplateToString(strings.team, "B")}
         </div>
         <div>
           {[0, 1, 2, 3, 4].map((i) =>
@@ -171,7 +171,7 @@ const SelectedHeroes = ({
               <HeroImage
                 id={String(teamB[i])}
                 className="hero-img"
-                onClick={handleHeroDeSelection(i, 'teamB')}
+                onClick={handleHeroDeSelection(i, "teamB")}
               />
             ) : (
               <div className="hero-placeholder hero-img" />
@@ -195,12 +195,12 @@ class Combos extends React.Component<{ strings: Strings }> {
   inputRef: any;
 
   state = {
-    queryType: this.parsedUrlQuery.queryType || 'public',
+    queryType: this.parsedUrlQuery.queryType || "public",
     teamA: asArray(this.parsedUrlQuery.teamA).map(Number),
     teamB: asArray(this.parsedUrlQuery.teamB).map(Number),
     queryResult: {} as { rows: any[]; fields: any[]; err: string },
     loading: false,
-    searchValue: '',
+    searchValue: "",
   };
 
   componentDidMount() {
@@ -217,14 +217,14 @@ class Combos extends React.Component<{ strings: Strings }> {
     if (this.state.searchValue.length > 0) {
       this.inputRef.focus();
     }
-    this.setState({ searchValue: '' });
+    this.setState({ searchValue: "" });
   };
 
   handleChange = (e: any) => this.setState({ searchValue: e.target.value });
 
   handleHeroSelection =
     (resetSearchValue: any) =>
-    (heroID: number, team: 'teamA' | 'teamB') =>
+    (heroID: number, team: "teamA" | "teamB") =>
     () => {
       if (this.state.loading) {
         return;
@@ -243,7 +243,7 @@ class Combos extends React.Component<{ strings: Strings }> {
       }
     };
 
-  handleHeroDeSelection = (index: number, team: 'teamA' | 'teamB') => () => {
+  handleHeroDeSelection = (index: number, team: "teamA" | "teamB") => () => {
     if (this.state.loading) {
       return;
     }
@@ -290,7 +290,7 @@ class Combos extends React.Component<{ strings: Strings }> {
       });
     }
 
-    if (this.state.queryType === 'public') {
+    if (this.state.queryType === "public") {
       // adapt json format so ExplorerOutputSection can process it
       data = {};
       data.rows = json.map((el: any) => ({
@@ -301,10 +301,10 @@ class Combos extends React.Component<{ strings: Strings }> {
       }));
       data.rowCount = json.length;
       data.fields = [
-        'match_id',
-        'start_time',
-        'team_a_composition',
-        'team_b_composition',
+        "match_id",
+        "start_time",
+        "team_a_composition",
+        "team_b_composition",
       ].map((el) => ({
         name: el,
       }));
@@ -319,7 +319,7 @@ class Combos extends React.Component<{ strings: Strings }> {
       fetch(
         `${config.VITE_API_HOST}/api/` +
           `${
-            this.state.queryType === 'pro'
+            this.state.queryType === "pro"
               ? `explorer?sql=${encodeURIComponent(this.buildQueryString())}`
               : `findMatches?${querystring.stringify({ teamA, teamB })}`
           }`,
@@ -332,8 +332,8 @@ class Combos extends React.Component<{ strings: Strings }> {
   handleSubmit = () => {
     const { teamA, teamB, queryType } = this.state;
     window.history.pushState(
-      '',
-      '',
+      "",
+      "",
       `?${querystring.stringify({ teamA, teamB, queryType })}`,
     );
     this.sendRequest();
@@ -358,7 +358,7 @@ class Combos extends React.Component<{ strings: Strings }> {
         teamAFull={this.state.teamA.length > 4}
         teamBFull={this.state.teamB.length > 4}
         isFiltered={
-          !new RegExp(escapeRegExp(searchValue), 'i').test(hero.localized_name)
+          !new RegExp(escapeRegExp(searchValue), "i").test(hero.localized_name)
         }
       />
     ));
@@ -420,7 +420,7 @@ class Combos extends React.Component<{ strings: Strings }> {
               //     ? '#822e2e'
               //     : 'rgba(23, 59, 90, 0.8)',
               // }}
-              style={{ display: 'block', marginTop: 5 }}
+              style={{ display: "block", marginTop: 5 }}
               disabled={noHeroesSelected}
             >
               {this.state.loading
@@ -429,7 +429,7 @@ class Combos extends React.Component<{ strings: Strings }> {
             </Button>
           </div>
         </div>
-        <pre style={{ color: 'red' }}>
+        <pre style={{ color: "red" }}>
           {this.state.queryResult && this.state.queryResult.err}
         </pre>
         <Heading
@@ -446,7 +446,7 @@ class Combos extends React.Component<{ strings: Strings }> {
             fields={
               this.state.queryResult.fields &&
               this.state.queryResult.fields.filter(
-                (field) => field.name !== 'team_a_win',
+                (field) => field.name !== "team_a_win",
               )
             }
           />

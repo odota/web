@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import Helmet from 'react-helmet';
-import { Button } from '@mui/material';
-import { TextField } from '@mui/material';
-import Heading from '../Heading/Heading';
-import { LazyLog, ScrollFollow } from '@melloware/react-logviewer';
-import useStrings from '../../hooks/useStrings.hook';
-import config from '../../config';
+import React, { useCallback, useEffect, useState } from "react";
+import Helmet from "react-helmet";
+import { Button } from "@mui/material";
+import { TextField } from "@mui/material";
+import Heading from "../Heading/Heading";
+import { LazyLog, ScrollFollow } from "@melloware/react-logviewer";
+import useStrings from "../../hooks/useStrings.hook";
+import config from "../../config";
 
 const Request = () => {
   const strings = useStrings();
@@ -16,7 +16,7 @@ const Request = () => {
   const handleSubmit = useCallback(async () => {
     setLoading(true);
     const resp = await fetch(`${config.VITE_API_HOST}/api/request/${matchId}`, {
-      method: 'post',
+      method: "post",
     });
     const json = await resp.json();
     if (json?.job?.jobId) {
@@ -26,7 +26,7 @@ const Request = () => {
           `${config.VITE_API_HOST}/api/request/${json.job.jobId}`,
         );
         const job = await resp2.json();
-        if (!job || job.state === 'completed') {
+        if (!job || job.state === "completed") {
           break;
         } else {
           await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -53,14 +53,14 @@ const Request = () => {
       <Heading title={strings.request_title} className="top-heading" />
       <form
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          maxWidth: '100vw',
+          display: "flex",
+          flexDirection: "column",
+          maxWidth: "100vw",
           width: 600,
-          height: '600px',
-          gap: '8px',
-          margin: '0 auto',
-          marginTop: '10px',
+          height: "600px",
+          gap: "8px",
+          margin: "0 auto",
+          marginTop: "10px",
         }}
       >
         <TextField
@@ -82,7 +82,7 @@ const Request = () => {
         >
           {strings.request_submit}
         </Button>
-        <div style={{ height: '300px', display: jobId ? 'block' : 'none' }}>
+        <div style={{ height: "300px", display: jobId ? "block" : "none" }}>
           {
             <ScrollFollow
               startFollowing={true}

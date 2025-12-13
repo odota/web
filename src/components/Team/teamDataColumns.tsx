@@ -1,34 +1,34 @@
-import React from 'react';
-import { heroes } from 'dotaconstants';
+import React from "react";
+import { heroes } from "dotaconstants";
 import {
   transformations,
   displayHeroId,
   subTextStyle,
   getTeamLogoUrl,
-} from '../../utility';
-import TableLink from '../Table/TableLink';
-import constants from '../constants';
-import { TableRow, TableImage } from './TeamStyled';
-import proPlayerImages from './proPlayerImages';
-import { FromNowTooltip } from '../Visualizations';
+} from "../../utility";
+import TableLink from "../Table/TableLink";
+import constants from "../constants";
+import { TableRow, TableImage } from "./TeamStyled";
+import proPlayerImages from "./proPlayerImages";
+import { FromNowTooltip } from "../Visualizations";
 
 const getPlayerImageUrl = (accountId: number) => {
   if (proPlayerImages[accountId as keyof typeof proPlayerImages]) {
     return `/assets/images/dota2/players/${accountId}.png`;
   }
-  return '/assets/images/dota2/players/portrait.png';
+  return "/assets/images/dota2/players/portrait.png";
 };
 
 export const matchColumns = (strings: Strings) => [
   {
     displayName: strings.th_match_id,
-    field: 'match_id',
+    field: "match_id",
     sortFn: true,
     displayFn: (row: any, col: any, field: any) => (
       <div>
         <TableLink to={`/matches/${field}`}>{field}</TableLink>
         <div style={{ ...subTextStyle }}>
-          <div style={{ float: 'left' }}>
+          <div style={{ float: "left" }}>
             <FromNowTooltip timestamp={row.start_time + row.duration} />
           </div>
           <span style={{ marginLeft: 1, marginRight: 1 }}>/</span>
@@ -40,7 +40,7 @@ export const matchColumns = (strings: Strings) => [
   {
     displayName: strings.th_duration,
     tooltip: strings.tooltip_duration,
-    field: 'duration',
+    field: "duration",
     sortFn: true,
     displayFn: transformations.duration,
   },
@@ -55,7 +55,7 @@ export const matchColumns = (strings: Strings) => [
   },
   {
     displayName: strings.th_opposing_team,
-    field: 'opposing_team_name',
+    field: "opposing_team_name",
     sortFn: true,
     displayFn: (row: any, col: any, field: any) => (
       <TableRow>
@@ -71,7 +71,7 @@ export const matchColumns = (strings: Strings) => [
 export const memberColumns = (strings: Strings) => [
   {
     displayName: strings.th_name,
-    field: 'name',
+    field: "name",
     sortFn: true,
     displayFn: (row: any, col: any, field: any) => (
       <TableRow>
@@ -84,13 +84,13 @@ export const memberColumns = (strings: Strings) => [
   },
   {
     displayName: strings.th_games_played,
-    field: 'games_played',
+    field: "games_played",
     sortFn: true,
     relativeBars: true,
   },
   {
     displayName: strings.th_winrate,
-    field: 'wins',
+    field: "wins",
     sortFn: (row: any) => row.wins / row.games_played,
     percentBars: true,
   },
@@ -99,7 +99,7 @@ export const memberColumns = (strings: Strings) => [
 export const heroColumns = (strings: Strings) => [
   {
     displayName: strings.th_hero_id,
-    field: 'hero_id',
+    field: "hero_id",
     displayFn: displayHeroId,
     sortFn: (row: any) =>
       heroes[row.hero_id as keyof Heroes] &&
@@ -107,13 +107,13 @@ export const heroColumns = (strings: Strings) => [
   },
   {
     displayName: strings.th_games_played,
-    field: 'games_played',
+    field: "games_played",
     sortFn: true,
     relativeBars: true,
   },
   {
     displayName: strings.th_winrate,
-    field: 'wins',
+    field: "wins",
     sortFn: (row: any) => row.wins / row.games_played,
     percentBars: true,
   },

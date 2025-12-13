@@ -1,16 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { displayHeroId, formatSeconds, IMAGESIZE_ENUM } from '../../utility';
-import Table from '../Table/Table';
-import { IconRadiant, IconDire, IconTrophy } from '../Icons';
-import { TablePercent, inflictorWithValue } from '../Visualizations';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { displayHeroId, formatSeconds, IMAGESIZE_ENUM } from "../../utility";
+import Table from "../Table/Table";
+import { IconRadiant, IconDire, IconTrophy } from "../Icons";
+import { TablePercent, inflictorWithValue } from "../Visualizations";
 // import redrawGraphs from './redrawGraphs';
-import constants from '../constants';
-import { StyledTeamIconContainer } from '../Match/StyledMatch';
-import HeroImage from './../Visualizations/HeroImage';
-import { WinnerSpan } from '../Matches/Matches';
-import { items } from 'dotaconstants';
+import constants from "../constants";
+import { StyledTeamIconContainer } from "../Match/StyledMatch";
+import HeroImage from "./../Visualizations/HeroImage";
+import { WinnerSpan } from "../Matches/Matches";
+import { items } from "dotaconstants";
 
 /*
 function resolveId(key, value, mappings) {
@@ -60,11 +60,11 @@ class ExplorerOutputSection extends React.Component<ExplorerOutputSectionProps> 
       )), firstCol, (expandedBuilder.select && expandedBuilder.select.key) || strings.th_count);
     }, 100);
       */
-    if (format === 'donut') {
+    if (format === "donut") {
       return <div id="donut" />;
-    } else if (format === 'bar') {
+    } else if (format === "bar") {
       return <div id="bar" />;
-    } else if (format === 'timeseries') {
+    } else if (format === "timeseries") {
       return <div id="timeseries" />;
     }
     return (
@@ -73,25 +73,25 @@ class ExplorerOutputSection extends React.Component<ExplorerOutputSectionProps> 
         columns={(fields || [])
           .map((column) => ({
             displayName:
-              column.name === 'count' ? strings.general_matches : column.name,
+              column.name === "count" ? strings.general_matches : column.name,
             field: column.name,
           }))
           .map((column) => ({
             ...column,
             displayFn: (row: any, col: any, field: any) => {
-              if (column.field === 'match_id') {
+              if (column.field === "match_id") {
                 return <Link to={`/matches/${field}`}>{field}</Link>;
-              } else if (column.field.indexOf('hero_id') === 0) {
+              } else if (column.field.indexOf("hero_id") === 0) {
                 return displayHeroId(row, col, field);
-              } else if (column.field.indexOf('_composition') !== -1) {
+              } else if (column.field.indexOf("_composition") !== -1) {
                 return (
                   <React.Fragment>
                     {row.team_a_win ===
-                      (column.field.indexOf('team_a') === 0) && (
-                      <WinnerSpan style={{ position: 'relative' }}>
+                      (column.field.indexOf("team_a") === 0) && (
+                      <WinnerSpan style={{ position: "relative" }}>
                         <IconTrophy
                           style={{
-                            position: 'absolute',
+                            position: "absolute",
                             left: -12,
                             bottom: 12,
                           }}
@@ -107,41 +107,41 @@ class ExplorerOutputSection extends React.Component<ExplorerOutputSectionProps> 
                     ))}
                   </React.Fragment>
                 );
-              } else if (column.field.indexOf('account_id') === 0) {
+              } else if (column.field.indexOf("account_id") === 0) {
                 return (
                   <Link to={`/players/${field}`}>
                     {playerMapping[field] || field}
                   </Link>
                 );
               } else if (
-                column.field.indexOf('winrate') === 0 ||
-                column.field.indexOf('pickrate') === 0 ||
-                column.field === 'winrate_wilson'
+                column.field.indexOf("winrate") === 0 ||
+                column.field.indexOf("pickrate") === 0 ||
+                column.field === "winrate_wilson"
               ) {
                 return field >= 0 && field <= 1 ? (
                   <TablePercent percent={Number((field * 100).toFixed(2))} />
                 ) : null;
-              } else if (column.field === 'rune_id') {
+              } else if (column.field === "rune_id") {
                 return strings[`rune_${field}` as keyof Strings];
-              } else if (column.field === 'item_name') {
+              } else if (column.field === "item_name") {
                 return items[field as keyof typeof items]
                   ? //@ts-expect-error
                     items[field as keyof typeof items].dname
                   : field;
               } else if (
-                column.field === 'time' ||
-                (column.field === 'avg' &&
+                column.field === "time" ||
+                (column.field === "avg" &&
                   expandedBuilder.select &&
                   expandedBuilder.select.formatSeconds)
               ) {
                 return formatSeconds(field);
-              } else if (column.field === 'inflictor') {
+              } else if (column.field === "inflictor") {
                 return (
                   <span>
                     {inflictorWithValue(field)} {field}
                   </span>
                 );
-              } else if (column.field === 'win') {
+              } else if (column.field === "win") {
                 return (
                   <span
                     style={{
@@ -153,7 +153,7 @@ class ExplorerOutputSection extends React.Component<ExplorerOutputSectionProps> 
                     {field ? strings.td_win : strings.td_loss}
                   </span>
                 );
-              } else if (column.field === 'is_radiant') {
+              } else if (column.field === "is_radiant") {
                 return field ? (
                   <StyledTeamIconContainer>
                     <IconRadiant width={30} />
@@ -165,18 +165,18 @@ class ExplorerOutputSection extends React.Component<ExplorerOutputSectionProps> 
                     {strings.general_dire}
                   </StyledTeamIconContainer>
                 );
-              } else if (column.field === 'start_time') {
-                return new Date(field * 1000).toLocaleDateString('en-US', {
-                  day: 'numeric',
-                  month: 'short',
-                  year: 'numeric',
+              } else if (column.field === "start_time") {
+                return new Date(field * 1000).toLocaleDateString("en-US", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
                 });
-              } else if (column.field === 'game_mode') {
+              } else if (column.field === "game_mode") {
                 return strings[`game_mode_${field}` as keyof Strings];
-              } else if (column.field === 'lobby_type') {
+              } else if (column.field === "lobby_type") {
                 return strings[`lobby_type_${field}` as keyof Strings];
               }
-              if (typeof field === 'string') {
+              if (typeof field === "string") {
                 return field;
               }
               return JSON.stringify(field);
@@ -184,7 +184,7 @@ class ExplorerOutputSection extends React.Component<ExplorerOutputSectionProps> 
             sortFn: (row: any) => {
               if (
                 row[column.field] === null ||
-                typeof row[column.field] === 'boolean' ||
+                typeof row[column.field] === "boolean" ||
                 Number.isNaN(Number(row[column.field]))
               ) {
                 return row[column.field];

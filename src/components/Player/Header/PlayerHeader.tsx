@@ -1,15 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Avatar } from '@mui/material';
-import styled from 'styled-components';
-import { Facebook } from 'react-content-loader';
-import { rankTierToString } from '../../../utility';
-import ErrorBox from '../../Error/ErrorBox';
-import PlayerStats from './PlayerStats';
-import PlayerBadges from './PlayerBadges';
-import PlayerButtons from './PlayerButtons';
-import constants from '../../constants';
-import useStrings from '../../../hooks/useStrings.hook';
+import React from "react";
+import { connect } from "react-redux";
+import { Avatar } from "@mui/material";
+import styled from "styled-components";
+import { Facebook } from "react-content-loader";
+import { rankTierToString } from "../../../utility";
+import ErrorBox from "../../Error/ErrorBox";
+import PlayerStats from "./PlayerStats";
+import PlayerBadges from "./PlayerBadges";
+import PlayerButtons from "./PlayerButtons";
+import constants from "../../constants";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const Styled = styled.div`
   width: 100vw;
@@ -101,7 +101,7 @@ const Styled = styled.div`
       flex-wrap: nowrap;
     }
 
-    &[data-hint-position='top'] {
+    &[data-hint-position="top"] {
       &::after {
         margin-bottom: 3px;
         margin-left: 52px;
@@ -152,11 +152,11 @@ export const RankTierMedal = ({
       // if the player is on leaderboard ie. immortal
       if (leaderboardRank <= 10) {
         // top 10 and top 100 positions have different icons
-        iconPath = '/assets/images/dota2/rank_icons/rank_icon_8c.png';
+        iconPath = "/assets/images/dota2/rank_icons/rank_icon_8c.png";
       } else if (leaderboardRank <= 100) {
-        iconPath = '/assets/images/dota2/rank_icons/rank_icon_8b.png';
+        iconPath = "/assets/images/dota2/rank_icons/rank_icon_8b.png";
       } else {
-        iconPath = '/assets/images/dota2/rank_icons/rank_icon_8.png';
+        iconPath = "/assets/images/dota2/rank_icons/rank_icon_8.png";
       }
       medalElement = (
         <div className="rankTierContainer">
@@ -209,7 +209,7 @@ export const RankTierMedal = ({
                 alt="Ranked medal stars "
               />
             ) : (
-              ''
+              ""
             )}
             {leaderboardRank && (
               <span className="rankMedal-board">{leaderboardRank}</span>
@@ -220,7 +220,7 @@ export const RankTierMedal = ({
     }
   } else {
     // uncalibrated players
-    const iconPath = '/assets/images/dota2/rank_icons/rank_icon_0.png';
+    const iconPath = "/assets/images/dota2/rank_icons/rank_icon_0.png";
     medalElement = (
       <div className="rankTierContainer">
         <div
@@ -304,7 +304,7 @@ const PlayerHeader = ({
             />
             <PlayerButtons playerId={playerId} />
           </div>
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: "flex" }}>
             <DotaPlusBadge plus={plus} />
             <RankTierMedal
               rankTier={rankTier}

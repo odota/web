@@ -1,5 +1,5 @@
-import React from 'react';
-import ContentLoader from 'react-content-loader';
+import React from "react";
+import ContentLoader from "react-content-loader";
 
 const TableSkeleton = (props: any) => (
   <ContentLoader height={300} width={600} animate {...props}>

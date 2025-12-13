@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import AghsTooltip from '../AghsTooltip/AghsTooltip';
-import constants from '../constants';
-import { aghs_desc as aghsDesc } from 'dotaconstants';
+import React from "react";
+import styled from "styled-components";
+import AghsTooltip from "../AghsTooltip/AghsTooltip";
+import constants from "../constants";
+import { aghs_desc as aghsDesc } from "dotaconstants";
 
 const Wrapper = styled.div`
   background: linear-gradient(

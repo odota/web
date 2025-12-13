@@ -1,13 +1,13 @@
-import fs from 'fs';
+import fs from "fs";
 
 process.chdir(__dirname);
 
 try {
   fs.copyFileSync(
-    '../node_modules/dota2-emoticons/resources/images/emoticons',
-    '../assets/images/dota2/emoticons',
+    "../node_modules/dota2-emoticons/resources/images/emoticons",
+    "../assets/images/dota2/emoticons",
   );
-  console.log('Success!');
+  console.log("Success!");
 } catch (err) {
   console.error(err);
 }

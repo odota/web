@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const icon = (props: any) => (
   <svg {...props} viewBox="0 0 110 110">

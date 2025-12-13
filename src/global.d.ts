@@ -1,13 +1,13 @@
-declare module 'ace-builds/src-noconflict/ace';
-declare module 'ace-builds/src-noconflict/ext-language_tools';
-declare module 'ace-builds/src-noconflict/theme-monokai';
-declare module 'ace-builds/src-noconflict/mode-sql';
-declare module 'abcolor';
+declare module "ace-builds/src-noconflict/ace";
+declare module "ace-builds/src-noconflict/ext-language_tools";
+declare module "ace-builds/src-noconflict/theme-monokai";
+declare module "ace-builds/src-noconflict/mode-sql";
+declare module "abcolor";
 
-type ScenariosTab = 'itemTimings' | 'laneRoles' | 'misc';
-type Strings = typeof import('./lang/en-US.json');
-type Heroes = typeof import('dotaconstants/build/heroes.json');
-type Items = typeof import('dotaconstants/build/items.json');
+type ScenariosTab = "itemTimings" | "laneRoles" | "misc";
+type Strings = typeof import("./lang/en-US.json");
+type Heroes = typeof import("dotaconstants/build/heroes.json");
+type Items = typeof import("dotaconstants/build/items.json");
 type PatchNotes =
   | Record<
       string,
@@ -153,7 +153,7 @@ type MatchPlayer = {
 };
 
 type RouterProps = {
-  location: import('history').Location;
+  location: import("history").Location;
   match: {
     params: {
       playerId: string;
@@ -163,10 +163,10 @@ type RouterProps = {
     path: string;
     url: string;
   };
-  history: import('history').History;
+  history: import("history").History;
 };
 
-type WardType = 'observer' | 'sentry';
+type WardType = "observer" | "sentry";
 
 type VisionState = {
   players: { observer: boolean[]; sentry: boolean[] };

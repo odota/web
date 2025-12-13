@@ -1,14 +1,14 @@
-import React from 'react';
-import Buttons from './Buttons';
-import Why from './Why';
-import Sponsors from './Sponsors';
+import React from "react";
+import Buttons from "./Buttons";
+import Why from "./Why";
+import Sponsors from "./Sponsors";
 import {
   HeadContainerDiv,
   HeadlineDiv,
   DescriptionDiv,
   BottomTextDiv,
-} from './Styled';
-import useStrings from '../../hooks/useStrings.hook';
+} from "./Styled";
+import useStrings from "../../hooks/useStrings.hook";
 
 export interface HomePageProps {
   user?: string;
@@ -38,7 +38,7 @@ const Home = () => {
           aria-describedby="bg-image-description"
           aria-label="Mike Azevedo on artstation.com"
         >
-          {' '}
+          {" "}
           Mike Azevedo
         </a>
       </BottomTextDiv>

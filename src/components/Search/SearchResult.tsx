@@ -1,21 +1,21 @@
-import React from 'react';
-import { heroes } from 'dotaconstants';
-import { transformations, fromNow, subTextStyle } from '../../utility';
-import Table from '../Table/Table';
-import TableLink from '../Table/TableLink';
-import Container from '../Container/Container';
-import { StyledTeamIconContainer } from '../../components/Match/StyledMatch';
-import HeroImage from '../Visualizations/HeroImage';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import { heroes } from "dotaconstants";
+import { transformations, fromNow, subTextStyle } from "../../utility";
+import Table from "../Table/Table";
+import TableLink from "../Table/TableLink";
+import Container from "../Container/Container";
+import { StyledTeamIconContainer } from "../../components/Match/StyledMatch";
+import HeroImage from "../Visualizations/HeroImage";
+import useStrings from "../../hooks/useStrings.hook";
 
 const searchColumns = (strings: Strings) => [
   {
     displayName: strings.th_name,
-    field: 'personaname',
+    field: "personaname",
     displayFn: (row: any, col: any, field: any) => {
       const subtitle = row.last_match_time
         ? fromNow(Number(new Date(row.last_match_time)) / 1000)
-        : '';
+        : "";
       return transformations.player({
         ...row,
         subtitle,
@@ -27,7 +27,7 @@ const searchColumns = (strings: Strings) => [
 const proColumns = (strings: Strings) => [
   {
     displayName: strings.th_name,
-    field: 'name',
+    field: "name",
     displayFn: (row: any, col: any, field: any) =>
       transformations.player({
         ...row,
@@ -35,7 +35,7 @@ const proColumns = (strings: Strings) => [
   },
   {
     displayName: strings.th_team_name,
-    field: 'team_name',
+    field: "team_name",
     displayFn: (row: any, col: any, field: any) => (
       <TableLink to={`/teams/${row.team_id}`}>
         {field || strings.general_unknown}
@@ -47,12 +47,12 @@ const proColumns = (strings: Strings) => [
 const matchColumns = (strings: Strings) => [
   {
     displayName: strings.th_match_id,
-    field: 'match_id',
+    field: "match_id",
     sortFn: true,
     displayFn: (row: any, col: any, field: any) => (
       <div>
         <TableLink to={`/matches/${field}`}>{field}</TableLink>
-        <span style={{ ...subTextStyle, display: 'block', marginTop: 1 }}>
+        <span style={{ ...subTextStyle, display: "block", marginTop: 1 }}>
           {row.skill && strings[`skill_${row.skill}` as keyof Strings]}
         </span>
       </div>
@@ -61,7 +61,7 @@ const matchColumns = (strings: Strings) => [
   {
     displayName: strings.th_duration,
     tooltip: strings.tooltip_duration,
-    field: 'duration',
+    field: "duration",
     sortFn: true,
     displayFn: transformations.duration,
   },
@@ -71,14 +71,14 @@ const matchColumns = (strings: Strings) => [
         {strings.general_radiant}
       </StyledTeamIconContainer>
     ),
-    field: 'players',
+    field: "players",
     displayFn: (row: any, col: any, field: any) =>
       [0, 1, 2, 3, 4].map((player) =>
         heroes[field[player].hero_id as keyof Heroes] ? (
           <HeroImage
             id={field[player].hero_id}
             key={field[player].hero_id}
-            style={{ width: '50px' }}
+            style={{ width: "50px" }}
             alt=""
           />
         ) : null,
@@ -88,14 +88,14 @@ const matchColumns = (strings: Strings) => [
     displayName: (
       <StyledTeamIconContainer>{strings.general_dire}</StyledTeamIconContainer>
     ),
-    field: 'players',
+    field: "players",
     displayFn: (row: any, col: any, field: any) =>
       [5, 6, 7, 8, 9].map((player) =>
         heroes[field[player].hero_id as keyof Heroes] ? (
           <HeroImage
             id={field[player].hero_id}
             key={field[player].hero_id}
-            style={{ width: '50px' }}
+            style={{ width: "50px" }}
             alt=""
           />
         ) : null,

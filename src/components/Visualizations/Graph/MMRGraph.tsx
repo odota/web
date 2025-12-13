@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   XAxis,
   YAxis,
@@ -9,10 +9,10 @@ import {
   Legend,
   Label,
   ResponsiveContainer,
-} from 'recharts';
-import styled from 'styled-components';
-import useStrings from '../../../hooks/useStrings.hook';
-import { rankTierToString } from '../../../utility';
+} from "recharts";
+import styled from "styled-components";
+import useStrings from "../../../hooks/useStrings.hook";
+import { rankTierToString } from "../../../utility";
 
 const StyledGraphArea = styled.div`
   user-select: none;
@@ -24,7 +24,7 @@ const formatXTick = (time: number) => {
 };
 
 const formatYTick = (rank: number) => {
-  return rankTierToString(rank).split(' ')[0];
+  return rankTierToString(rank).split(" ")[0];
 };
 
 const MMRGraph = ({ columns }: { columns: any[] }) => {
@@ -51,7 +51,7 @@ const MMRGraph = ({ columns }: { columns: any[] }) => {
           <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
 
           <Tooltip
-            labelStyle={{ color: 'black' }}
+            labelStyle={{ color: "black" }}
             labelFormatter={(time: number) => new Date(time).toDateString()}
             formatter={rankTierToString}
           />

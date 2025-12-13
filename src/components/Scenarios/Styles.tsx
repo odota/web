@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import constants from '../constants';
+import styled from "styled-components";
+import constants from "../constants";
 
 export const StyledDiv = styled.div`
   .filter > label {
@@ -31,25 +31,25 @@ export const StyledDiv = styled.div`
 `;
 
 export const buttonStyle: React.CSSProperties = {
-  marginTop: '20px',
-  marginBottom: '20px',
+  marginTop: "20px",
+  marginBottom: "20px",
 };
 
 export const formFieldStyle: React.CSSProperties = {
-  display: 'flex',
-  flexWrap: 'wrap',
-  marginTop: '20px',
-  gap: '8px',
+  display: "flex",
+  flexWrap: "wrap",
+  marginTop: "20px",
+  gap: "8px",
 };
 
 export const tabsStyle: React.CSSProperties = {
-  marginBottom: '50px',
-  marginTop: '10px',
+  marginBottom: "50px",
+  marginTop: "10px",
   borderBottom: `1px solid ${constants.dividerColor}`,
 };
 
 export const listStyle: React.CSSProperties = {
-  backgroundColor: 'rgba(0, 0, 0, 0.35)',
+  backgroundColor: "rgba(0, 0, 0, 0.35)",
   maxHeight: 400,
-  overflow: 'auto',
+  overflow: "auto",
 };

@@ -1,16 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Button } from '@mui/material';
-import Helmet from 'react-helmet';
-import querystring from 'querystring';
-import ExplorerOutputSection from '../Explorer/ExplorerOutputSection';
-import ExplorerControlSection from '../Explorer/ExplorerControlSection';
-import ExplorerFormField from '../Explorer/ExplorerFormField';
-import Heading from '../Heading/Heading';
-import TableSkeleton from '../Skeletons/TableSkeleton';
-import queryTemplate from './queryTemplate';
-import getFields from './fields';
-import config from '../../config';
+import React from "react";
+import { connect } from "react-redux";
+import { Button } from "@mui/material";
+import Helmet from "react-helmet";
+import querystring from "querystring";
+import ExplorerOutputSection from "../Explorer/ExplorerOutputSection";
+import ExplorerControlSection from "../Explorer/ExplorerControlSection";
+import ExplorerFormField from "../Explorer/ExplorerFormField";
+import Heading from "../Heading/Heading";
+import TableSkeleton from "../Skeletons/TableSkeleton";
+import queryTemplate from "./queryTemplate";
+import getFields from "./fields";
+import config from "../../config";
 
 function expandBuilderState(
   builder: Record<string, any>,
@@ -47,7 +47,7 @@ class Meta extends React.Component<
       loading: false,
       result: {},
       builder: urlState,
-      sql: '',
+      sql: "",
     };
   }
   componentDidMount() {
@@ -106,7 +106,7 @@ class Meta extends React.Component<
   syncWindowHistory = () => {
     const objectToSerialize = this.state.builder;
     const stringToSerialize = `?${querystring.stringify(objectToSerialize)}`;
-    window.history.pushState('', '', stringToSerialize);
+    window.history.pushState("", "", stringToSerialize);
   };
 
   render() {
@@ -219,7 +219,7 @@ class Meta extends React.Component<
           title={strings.explorer_results}
           subtitle={`${(this.state.result.rows || []).length} ${strings.explorer_num_rows}`}
         />
-        <pre style={{ color: 'red' }}>{this.state.result.err}</pre>
+        <pre style={{ color: "red" }}>{this.state.result.err}</pre>
         {this.state.loading ? <TableSkeleton /> : null}
         <ExplorerOutputSection
           rows={this.state.result.rows}

@@ -1,8 +1,8 @@
 const playerItemsColumns = (strings: Strings) => [
   {
-    displayName: 'Name',
+    displayName: "Name",
     tooltip: strings.items_name,
-    field: 'name',
+    field: "name",
     width: 1,
   },
 ];

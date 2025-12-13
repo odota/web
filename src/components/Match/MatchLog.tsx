@@ -1,20 +1,20 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import ReactTooltip from 'react-tooltip';
-import { Tooltip } from '@mui/material';
-import { heroes } from 'dotaconstants';
+import React from "react";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import ReactTooltip from "react-tooltip";
+import { Tooltip } from "@mui/material";
+import { heroes } from "dotaconstants";
 import {
   formatSeconds,
   getHeroesById,
   formatTemplateToString,
-} from '../../utility';
-import FormField from '../Form/FormField';
-import { StyledLogFilterForm } from './StyledMatch';
-import HeroImage from '../Visualizations/HeroImage';
-import sword from '../Icons/Sword.svg';
-import { IconBloodDrop, IconRoshan } from '../Icons';
-import lightning from '../Icons/Lightning.svg';
+} from "../../utility";
+import FormField from "../Form/FormField";
+import { StyledLogFilterForm } from "./StyledMatch";
+import HeroImage from "../Visualizations/HeroImage";
+import sword from "../Icons/Sword.svg";
+import { IconBloodDrop, IconRoshan } from "../Icons";
+import lightning from "../Icons/Lightning.svg";
 
 const StyledLogContainer = styled.div`
   display: flex;
@@ -142,11 +142,11 @@ const isRadiant = (entry: any) => {
   if (entry.isRadiant) {
     return true;
   }
-  if (entry.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
+  if (entry.alt_key === "CHAT_MESSAGE_COURIER_LOST") {
     return entry.team !== 2;
   }
   return (
-    (entry.unit && entry.unit.indexOf('goodguys') !== -1) || entry.team === 2
+    (entry.unit && entry.unit.indexOf("goodguys") !== -1) || entry.team === 2
   );
 };
 
@@ -157,16 +157,16 @@ const typeConfig = {
   runes: 2,
 };
 const getObjectiveDesc = (objective: any, strings: Strings) =>
-  objective.key && objective.type === 'CHAT_MESSAGE_BARRACKS_KILL'
+  objective.key && objective.type === "CHAT_MESSAGE_BARRACKS_KILL"
     ? strings[`barracks_value_${objective.key}` as keyof Strings]
-    : '';
+    : "";
 const getObjectiveBase = (objective: any, strings: Strings) => {
-  if (objective.type === 'building_kill') {
+  if (objective.type === "building_kill") {
     const desc =
-      objective.key.indexOf('npc_dota_badguys') === 0
+      objective.key.indexOf("npc_dota_badguys") === 0
         ? strings.general_dire
         : strings.general_radiant;
-    return `${desc} ${(objective.key.split('guys_') || [])[1]}`;
+    return `${desc} ${(objective.key.split("guys_") || [])[1]}`;
   }
   return (
     strings[(objective.subtype || objective.type) as keyof Strings] ||
@@ -197,7 +197,7 @@ const generateLog = (
           }
         }
         */
-        if (objective.type === 'CHAT_MESSAGE_COURIER_LOST') {
+        if (objective.type === "CHAT_MESSAGE_COURIER_LOST") {
           // Adjust for incorrect data from post 7.23 core bug
           // Here the team value is killer id
           if (objective.killer === undefined) {
@@ -216,7 +216,7 @@ const generateLog = (
         objectivesLog.push({
           ...objective,
           ...matchPlayers[objective.slot],
-          type: 'objectives',
+          type: "objectives",
           alt_key: objective.type,
           detail: `${getObjectiveDesc(objective, strings)} ${getObjectiveBase(
             objective,
@@ -234,7 +234,7 @@ const generateLog = (
         (player.kills_log || []).map((entry) => ({
           ...entry,
           ...player,
-          type: 'kills',
+          type: "kills",
           detail: `${entry.key}`,
         })),
       );
@@ -245,7 +245,7 @@ const generateLog = (
         (player.runes_log || []).map((entry) => ({
           ...entry,
           ...player,
-          type: 'runes',
+          type: "runes",
           detail: `${entry.key}`,
         })),
       );
@@ -302,7 +302,7 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
     input: { label: string; id: number },
     limit?: number,
   ) => {
-    const currentChips = this.state[name as 'types' | 'players'];
+    const currentChips = this.state[name as "types" | "players"];
     if (!currentChips.includes(input.id)) {
       const newChips = [input.id].concat(currentChips).slice(0, limit);
       this.setState({ [name]: newChips });
@@ -310,7 +310,7 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
   };
 
   deleteChip = (name: string, index: number) => {
-    const currentChips = this.state[name as 'types' | 'players'];
+    const currentChips = this.state[name as "types" | "players"];
     const newChips = [
       ...currentChips.slice(0, index),
       ...currentChips.slice(index + 1),
@@ -321,7 +321,7 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
   render() {
     const { strings } = this.props;
     const runeTooltips = Object.keys(strings)
-      .filter((str) => str.indexOf('rune_') === 0)
+      .filter((str) => str.indexOf("rune_") === 0)
       .map((runeKey) => {
         const runeString = strings[runeKey as keyof Strings];
         return (
@@ -378,7 +378,7 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
                 renderFirst = (
                   <img
                     src={`/assets/images/${
-                      isRadiant(renderEntries[0]) ? 'radiant' : 'dire'
+                      isRadiant(renderEntries[0]) ? "radiant" : "dire"
                     }.png`}
                     alt=""
                     className="heroImage"
@@ -404,7 +404,7 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
               let renderSecond = (
                 <div
                   className={`entryMessagesContainer ${
-                    isRadiant(renderEntries[0]) ? 'radiant' : 'dire'
+                    isRadiant(renderEntries[0]) ? "radiant" : "dire"
                   }`}
                 >
                   {renderEntries.map((e) => {
@@ -444,8 +444,8 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
                     className="entry"
                     style={{
                       justifyContent: isRadiant(renderEntries[0])
-                        ? 'flex-start'
-                        : 'flex-end',
+                        ? "flex-start"
+                        : "flex-end",
                     }}
                   >
                     {renderFirst}
@@ -466,7 +466,7 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
 function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
   const translateBuildings = (isRad: boolean, key: string) => {
     const team = isRad ? strings.general_radiant : strings.general_dire;
-    const k = key.split('_').slice(3).join('_');
+    const k = key.split("_").slice(3).join("_");
     const dict = {
       fort: ` ${strings.building_ancient}`,
       healers: ` ${strings.heading_shrine}`,
@@ -483,18 +483,18 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
       tower3_bot: ` ${strings.bot_tower} ${strings.tier3}`,
       towerenderSecond_bot: ` ${strings.bot_tower}`,
       tower4: ` ${strings.heading_tower} ${strings.tier4}`,
-      melee_rax_top: ` ${'Top'} ${strings.building_melee_rax}`,
-      melee_rax_mid: ` ${'Mid'} ${strings.building_melee_rax}`,
-      melee_rax_bot: ` ${'Bot'} ${strings.building_melee_rax}`,
-      range_rax_top: ` ${'Top'} ${strings.building_range_rax}`,
-      range_rax_mid: ` ${'Mid'} ${strings.building_range_rax}`,
-      range_rax_bot: ` ${'Bot'} ${strings.building_range_rax}`,
+      melee_rax_top: ` ${"Top"} ${strings.building_melee_rax}`,
+      melee_rax_mid: ` ${"Mid"} ${strings.building_melee_rax}`,
+      melee_rax_bot: ` ${"Bot"} ${strings.building_melee_rax}`,
+      range_rax_top: ` ${"Top"} ${strings.building_range_rax}`,
+      range_rax_mid: ` ${"Mid"} ${strings.building_range_rax}`,
+      range_rax_bot: ` ${"Bot"} ${strings.building_range_rax}`,
     };
     return team + dict[k as keyof typeof dict];
   };
 
   switch (entry.type) {
-    case 'kills': {
+    case "kills": {
       const hero = heroNames[entry.detail] || {};
       return (
         <>
@@ -505,7 +505,7 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
         </>
       );
     }
-    case 'runes': {
+    case "runes": {
       const runeType = entry.detail;
       const runeString = strings[`rune_${runeType}` as keyof Strings];
       return (
@@ -519,7 +519,7 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
           </Tooltip>
           <span
             className="smallMutedText"
-            style={{ textTransform: 'lowercase' }}
+            style={{ textTransform: "lowercase" }}
           >
             {strings.activated}&nbsp;
           </span>
@@ -529,8 +529,8 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
         </>
       );
     }
-    case 'objectives':
-      if (entry.alt_key === 'CHAT_MESSAGE_FIRSTBLOOD') {
+    case "objectives":
+      if (entry.alt_key === "CHAT_MESSAGE_FIRSTBLOOD") {
         return (
           <>
             <IconBloodDrop className="dropIcon icon" />
@@ -538,7 +538,7 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
           </>
         );
       }
-      if (entry.alt_key === 'building_kill') {
+      if (entry.alt_key === "building_kill") {
         return (
           <>
             {/* #e5cf11 */}
@@ -547,24 +547,24 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
               className="icon"
               style={{
                 filter:
-                  'invert(87%) sepia(98%) saturate(4073%) hue-rotate(341deg) brightness(90%) contrast(100%)',
+                  "invert(87%) sepia(98%) saturate(4073%) hue-rotate(341deg) brightness(90%) contrast(100%)",
               }}
             />
             <span className="smallMutedText">{strings.destroyed}&nbsp;</span>
             <span className="smallBoldText">
               {translateBuildings(
-                entry.key.indexOf('goodguys') !== -1,
+                entry.key.indexOf("goodguys") !== -1,
                 entry.key,
-              )}{' '}
-              {(isRadiant(entry) && entry.key.indexOf('goodguys') !== -1) ||
-              (!isRadiant(entry) && entry.key.indexOf('badguys') !== -1)
+              )}{" "}
+              {(isRadiant(entry) && entry.key.indexOf("goodguys") !== -1) ||
+              (!isRadiant(entry) && entry.key.indexOf("badguys") !== -1)
                 ? `(${strings.building_denied})`
-                : ''}
+                : ""}
             </span>
           </>
         );
       }
-      if (entry.alt_key === 'CHAT_MESSAGE_AEGIS') {
+      if (entry.alt_key === "CHAT_MESSAGE_AEGIS") {
         return (
           <>
             <img
@@ -576,7 +576,7 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
           </>
         );
       }
-      if (entry.alt_key === 'CHAT_MESSAGE_AEGIS_STOLEN') {
+      if (entry.alt_key === "CHAT_MESSAGE_AEGIS_STOLEN") {
         return (
           <>
             <img
@@ -590,7 +590,7 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
           </>
         );
       }
-      if (entry.alt_key === 'CHAT_MESSAGE_ROSHAN_KILL') {
+      if (entry.alt_key === "CHAT_MESSAGE_ROSHAN_KILL") {
         return (
           <>
             <IconRoshan className="roshanIcon icon" />
@@ -598,7 +598,7 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
           </>
         );
       }
-      if (entry.alt_key === 'CHAT_MESSAGE_MINIBOSS_KILL') {
+      if (entry.alt_key === "CHAT_MESSAGE_MINIBOSS_KILL") {
         return (
           <>
             <img
@@ -610,7 +610,7 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
           </>
         );
       }
-      if (entry.alt_key === 'CHAT_MESSAGE_COURIER_LOST') {
+      if (entry.alt_key === "CHAT_MESSAGE_COURIER_LOST") {
         const team =
           entry.team === 2 ? strings.general_radiant : strings.general_dire;
         return (
@@ -619,7 +619,7 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
             <span className="smallMutedText">{strings.killed}</span>
             <img
               src={`/assets/images/dota2/${
-                entry.team === 2 ? 'radiant' : 'dire'
+                entry.team === 2 ? "radiant" : "dire"
               }courier.png`}
               alt="Courier"
               className="detailIcon"

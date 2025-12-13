@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import constants from '../constants';
+import React from "react";
+import styled from "styled-components";
+import constants from "../constants";
 
 const Header = styled.div`
   font-size: ${constants.fontSizeCommon};

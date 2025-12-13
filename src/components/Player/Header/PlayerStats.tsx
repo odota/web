@@ -1,12 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import Spinner from '../../Spinner/Spinner';
-import Error from '../../Error/Error';
-import PlayedWith from './PlayedWith';
-import { PlayerStatsCard } from './Styled';
-import constants from '../../constants';
-import useStrings from '../../../hooks/useStrings.hook';
+import React from "react";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import Spinner from "../../Spinner/Spinner";
+import Error from "../../Error/Error";
+import PlayedWith from "./PlayedWith";
+import { PlayerStatsCard } from "./Styled";
+import constants from "../../constants";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const Styled = styled.div`
   .container {
@@ -39,7 +39,7 @@ const Styled = styled.div`
       margin-top: -13px;
     }
 
-    &[data-hint-position='top'] {
+    &[data-hint-position="top"] {
       &::after {
         margin-bottom: 19px;
         margin-left: -2px;
@@ -83,14 +83,14 @@ export const PlayerStatsCards = ({
         <div
           style={
             {
-              justifyContent: compact ? 'center' : undefined,
-              display: 'flex',
+              justifyContent: compact ? "center" : undefined,
+              display: "flex",
             } as React.CSSProperties
           }
         >
           <PlayerStatsCard
             subheader={<div className="textSuccess">{wins}</div>}
-            sx={{ paddingLeft: '0px' }}
+            sx={{ paddingLeft: "0px" }}
             title={strings.th_wins}
           />
           <PlayerStatsCard

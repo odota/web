@@ -1,6 +1,6 @@
-import React from 'react';
-import { nanoid } from 'nanoid';
-import styled from 'styled-components';
+import React from "react";
+import { nanoid } from "nanoid";
+import styled from "styled-components";
 import {
   XAxis,
   YAxis,
@@ -9,8 +9,8 @@ import {
   AreaChart,
   CartesianGrid,
   ResponsiveContainer,
-} from 'recharts';
-import constants from '../constants';
+} from "recharts";
+import constants from "../constants";
 
 const Wrapper = styled.div`
   box-sizing: border-box;
@@ -47,7 +47,7 @@ const tooltipWrapperStyle = {
 };
 
 const tooltipContentStyle = {
-  background: 'transparent',
+  background: "transparent",
   border: 0,
 };
 

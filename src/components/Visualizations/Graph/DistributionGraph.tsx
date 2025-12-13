@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   XAxis,
   YAxis,
@@ -9,9 +9,9 @@ import {
   CartesianGrid,
   Label,
   ResponsiveContainer,
-} from 'recharts';
-import { StyledTooltip } from './Styled';
-import useStrings from '../../../hooks/useStrings.hook';
+} from "recharts";
+import { StyledTooltip } from "./Styled";
+import useStrings from "../../../hooks/useStrings.hook";
 
 const DistributionTooltipContent = ({
   payload,
@@ -30,7 +30,7 @@ const DistributionTooltipContent = ({
         {data && data.count} {strings.th_players}
       </div>
       <div>
-        {data && ((data.cumulative_sum / total) * 100).toFixed(2)}{' '}
+        {data && ((data.cumulative_sum / total) * 100).toFixed(2)}{" "}
         {strings.th_percentile}
       </div>
     </StyledTooltip>

@@ -1,15 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-import { getPlayerHistograms } from '../../../../actions';
-import ButtonGarden from '../../../ButtonGarden/ButtonGarden';
-import Container from '../../../Container/Container';
-import Heading from '../../../Heading/Heading';
-import { HistogramGraph } from '../../../Visualizations';
-import dataColumns from '../matchDataColumns';
-import { formatGraphValueData } from '../../../../utility';
-import useStrings from '../../../../hooks/useStrings.hook';
+import { getPlayerHistograms } from "../../../../actions";
+import ButtonGarden from "../../../ButtonGarden/ButtonGarden";
+import Container from "../../../Container/Container";
+import Heading from "../../../Heading/Heading";
+import { HistogramGraph } from "../../../Visualizations";
+import dataColumns from "../matchDataColumns";
+import { formatGraphValueData } from "../../../../utility";
+import useStrings from "../../../../hooks/useStrings.hook";
 
 const getMedian = (columns: any[], midpoint: number) => {
   let sum = 0;
@@ -28,13 +28,13 @@ const getSubtitleStats = (
   const total = columns.reduce((sum, col) => sum + col.games, 0);
   let median = getMedian(columns, total / 2);
   median = formatGraphValueData(median, histogramName);
-  return `(${strings.heading_total_matches}: ${total}${median !== undefined ? `, ${strings.heading_median}: ${median})` : ''}`;
+  return `(${strings.heading_total_matches}: ${total}${median !== undefined ? `, ${strings.heading_median}: ${median})` : ""}`;
 };
 
 const getSubtitleDescription = (histogramName: string, strings: Strings) =>
-  strings[`histograms_${histogramName}_description` as keyof Strings] || '';
+  strings[`histograms_${histogramName}_description` as keyof Strings] || "";
 
-const histogramNames = dataColumns.filter((col) => col !== 'win_rate');
+const histogramNames = dataColumns.filter((col) => col !== "win_rate");
 
 const Histogram = ({
   routeParams,
@@ -67,13 +67,13 @@ const Histogram = ({
             title={strings[`heading_${histogramName}` as keyof Strings]}
             subtitle={
               loading
-                ? ''
+                ? ""
                 : [
                     getSubtitleDescription(histogramName, strings),
                     getSubtitleStats(columns, strings, histogramName),
                   ]
                     .filter(Boolean)
-                    .join(' ')
+                    .join(" ")
             }
           />
           <HistogramGraph

@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Button } from '@mui/material';
-import LockIcon from '@mui/icons-material/Lock';
-import config from '../../config';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import styled from "styled-components";
+import { Button } from "@mui/material";
+import LockIcon from "@mui/icons-material/Lock";
+import config from "../../config";
+import useStrings from "../../hooks/useStrings.hook";
 
 const Styled = styled.div`
   text-align: center;
@@ -39,7 +39,7 @@ const PlayerProfilePrivate = () => {
     window.location.href = `${config.VITE_API_HOST}/login`;
   };
   const playerProfilePrivateTitle = (
-    strings.player_profile_private_title || ''
+    strings.player_profile_private_title || ""
   ).toUpperCase();
 
   return (

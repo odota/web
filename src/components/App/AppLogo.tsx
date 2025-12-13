@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import constants from '../constants';
-import useStrings from '../../hooks/useStrings.hook';
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import constants from "../constants";
+import useStrings from "../../hooks/useStrings.hook";
 
 const StyledLink = styled(Link)`
   font-weight: ${constants.fontWeightMedium};
@@ -28,7 +28,7 @@ const AppLogo = ({ size, onClick }: AppLogoProps) => {
       to="/"
       onClick={onClick}
     >
-      <span style={{ fontSize: size, whiteSpace: 'nowrap' }}>
+      <span style={{ fontSize: size, whiteSpace: "nowrap" }}>
         {strings.app_name && `<${strings.app_name}/>`}
       </span>
     </StyledLink>

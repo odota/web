@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import { shape } from 'prop-types';
-import { formatTemplateToString } from '../../../../utility';
-import useStrings from '../../../../hooks/useStrings.hook';
+import React from "react";
+import styled from "styled-components";
+import { shape } from "prop-types";
+import { formatTemplateToString } from "../../../../utility";
+import useStrings from "../../../../hooks/useStrings.hook";
 
 const fastPlurality = (val: number, singular: string, plural: string) =>
   val === 1 ? singular : plural;
@@ -29,7 +29,7 @@ const formatDurationString = (sec: number, strings: Strings) => {
       fastPlurality(seconds, strings.time_abbr_s, strings.time_abbr_ss),
       seconds,
     ),
-  ].join(' ');
+  ].join(" ");
 };
 
 const Wrapper = styled.div`
@@ -89,7 +89,7 @@ const Card = ({ total }: { total: { field: string; sum: number } }) => {
       <Box>
         <Header>{strings[`heading_${total.field}` as keyof Strings]}</Header>
         <Value>
-          {total.field === 'duration'
+          {total.field === "duration"
             ? formatDurationString(total.sum, strings)
             : Math.floor(total.sum).toLocaleString()}
         </Value>

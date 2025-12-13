@@ -1,11 +1,11 @@
-import React, { MouseEventHandler } from 'react';
-import { Button } from '@mui/material';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import ReactMarkdown from 'react-markdown';
-import { getGithubPulls } from '../../actions';
-import constants from '../constants';
-import useStrings from '../../hooks/useStrings.hook';
+import React, { MouseEventHandler } from "react";
+import { Button } from "@mui/material";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import ReactMarkdown from "react-markdown";
+import { getGithubPulls } from "../../actions";
+import constants from "../constants";
+import useStrings from "../../hooks/useStrings.hook";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -116,7 +116,7 @@ class AnnounceWrapper extends React.Component<
 
   dismiss = (value: string) => {
     if (localStorage) {
-      localStorage.setItem('dismiss', value);
+      localStorage.setItem("dismiss", value);
     }
     this.setState({ dismissed: true });
   };
@@ -124,7 +124,7 @@ class AnnounceWrapper extends React.Component<
   getDate = (days: number) => {
     const msPerDay = 24 * 60 * 60 * 1000;
     const date = new Date(Number(new Date()) - msPerDay * days);
-    return date.toISOString().split('T')[0];
+    return date.toISOString().split("T")[0];
   };
 
   componentDidMount() {
@@ -141,7 +141,7 @@ class AnnounceWrapper extends React.Component<
         if (
           localStorage &&
           !this.state.dismissed &&
-          Number(localStorage.getItem('dismiss')) < number
+          Number(localStorage.getItem("dismiss")) < number
         ) {
           return (
             <Announce

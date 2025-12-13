@@ -1,5 +1,5 @@
-import React from 'react';
-import ContentLoader from 'react-content-loader';
+import React from "react";
+import ContentLoader from "react-content-loader";
 
 const BenchmarkSkeleton = (props: any) => (
   <ContentLoader width={400} animate {...props}>
