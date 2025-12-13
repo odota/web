@@ -189,8 +189,8 @@ class Assistant extends React.Component<
     };
   }
   componentDidMount() {
-    recognition = new (
-      //@ts-expect-error
+    recognition = new //@ts-expect-error
+    (
       window.SpeechRecognition ||
       //@ts-expect-error
       window.webkitSpeechRecognition ||
