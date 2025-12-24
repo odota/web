@@ -68,7 +68,7 @@
     "@types/styled-components": "4.0.3",
     "@types/wordcloud": "^1.2.2",
     "sanitize-filename-ts": "^1.0.2",
-    "testcafe": "^3.7.2",
+    "testcafe": "^3.7.3",
     "testcafe-react-selectors": "^5.0.3",
     "typescript": "^5.9.3",
     "vdf-parser": "^1.2.1",
