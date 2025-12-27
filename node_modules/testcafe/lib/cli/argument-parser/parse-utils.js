@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.parseList = exports.parsePortNumber = void 0;
+const type_assertions_1 = require("../../errors/runtime/type-assertions");
+function parsePortNumber(value) {
+    (0, type_assertions_1.assertType)(type_assertions_1.is.nonNegativeNumberString, null, 'The port number', value);
+    return parseInt(value, 10);
+}
+exports.parsePortNumber = parsePortNumber;
+function parseList(val) {
+    return val.split(',');
+}
+exports.parseList = parseList;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicGFyc2UtdXRpbHMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvY2xpL2FyZ3VtZW50LXBhcnNlci9wYXJzZS11dGlscy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFBQSwwRUFBc0U7QUFFdEUsU0FBZ0IsZUFBZSxDQUFFLEtBQWE7SUFDMUMsSUFBQSw0QkFBVSxFQUFDLG9CQUFFLENBQUMsdUJBQXVCLEVBQUUsSUFBSSxFQUFFLGlCQUFpQixFQUFFLEtBQUssQ0FBQyxDQUFDO0lBRXZFLE9BQU8sUUFBUSxDQUFDLEtBQUssRUFBRSxFQUFFLENBQUMsQ0FBQztBQUMvQixDQUFDO0FBSkQsMENBSUM7QUFFRCxTQUFnQixTQUFTLENBQUUsR0FBVztJQUNsQyxPQUFPLEdBQUcsQ0FBQyxLQUFLLENBQUMsR0FBRyxDQUFDLENBQUM7QUFDMUIsQ0FBQztBQUZELDhCQUVDIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgYXNzZXJ0VHlwZSwgaXMgfSBmcm9tICcuLi8uLi9lcnJvcnMvcnVudGltZS90eXBlLWFzc2VydGlvbnMnO1xuXG5leHBvcnQgZnVuY3Rpb24gcGFyc2VQb3J0TnVtYmVyICh2YWx1ZTogc3RyaW5nKTogbnVtYmVyIHtcbiAgICBhc3NlcnRUeXBlKGlzLm5vbk5lZ2F0aXZlTnVtYmVyU3RyaW5nLCBudWxsLCAnVGhlIHBvcnQgbnVtYmVyJywgdmFsdWUpO1xuXG4gICAgcmV0dXJuIHBhcnNlSW50KHZhbHVlLCAxMCk7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiBwYXJzZUxpc3QgKHZhbDogc3RyaW5nKTogc3RyaW5nW10ge1xuICAgIHJldHVybiB2YWwuc3BsaXQoJywnKTtcbn1cblxuIl19
