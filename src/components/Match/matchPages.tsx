@@ -94,25 +94,23 @@ const matchPages = (
         </div>
       ),
     },
-    {
-      name: strings.tab_drafts,
-      key: "draft",
-      parsed: true,
-      hidden: (match: Match) => match.game_mode !== 2,
-      content: (match: Match) => (
-        <div>
-          <Draft
-            gameMode={match.game_mode}
-            radiantTeam={match.radiant_team}
-            direTeam={match.dire_team}
-            draft={match.draft_timings}
-            startTime={match.start_time}
-            // sponsorIcon={gosuIcon}
-            // sponsorURL={gosuUrl}
-          />
-        </div>
-      ),
-    },
+    // {
+    //   name: strings.tab_drafts,
+    //   key: "draft",
+    //   parsed: true,
+    //   hidden: (match: Match) => match.game_mode !== 2,
+    //   content: (match: Match) => (
+    //     <div>
+    //       <Draft
+    //         gameMode={match.game_mode}
+    //         radiantTeam={match.radiant_team}
+    //         direTeam={match.dire_team}
+    //         draft={match.draft_timings}
+    //         startTime={match.start_time}
+    //       />
+    //     </div>
+    //   ),
+    // },
     {
       name: strings.tab_performances,
       key: "performances",
