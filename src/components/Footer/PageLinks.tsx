@@ -24,10 +24,10 @@ const PageLinks = () => {
       name: strings.app_translate,
       path: "//translate.opendota.com/",
     },
-    {
-      name: strings.app_netlify,
-      path: "//www.netlify.com",
-    },
+    // {
+    //   name: strings.app_netlify,
+    //   path: "//www.netlify.com",
+    // },
   ];
   return (
     <>
