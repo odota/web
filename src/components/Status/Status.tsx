@@ -81,7 +81,7 @@ const Status = () => {
                 onScroll={onScroll}
                 enableSearch
                 selectableLines
-                wrapLines
+                // wrapLines
                 onLoad={() => {
                   // Trigger a reload since socket connection ended
                   setTs(Number(new Date()));
