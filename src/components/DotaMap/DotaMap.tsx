@@ -11,6 +11,13 @@ const setMapSizeStyle = (width: number, maxWidth: number) => ({
 
 const dotaMaps = [
   {
+    patch: "7.40",
+    images: {
+      jpg: "/assets/images/dota2/map/detailed_740.jpg",
+      webp: "/assets/images/dota2/map/detailed_740.webp",
+    },
+  },
+  {
     patch: "7.38",
     images: {
       jpg: "/assets/images/dota2/map/detailed_738.jpg",
