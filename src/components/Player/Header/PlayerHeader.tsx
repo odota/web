@@ -147,8 +147,9 @@ export const RankTierMedal = ({
   if (rankTier) {
     // if the players ranktier is 0 they are uncalibrated
     let iconPath;
+    const intRankTier = parseInt(String(rankTier), 10);
 
-    if (leaderboardRank) {
+    if (leaderboardRank && intRankTier == 80) {
       // if the player is on leaderboard ie. immortal
       if (leaderboardRank <= 10) {
         // top 10 and top 100 positions have different icons
@@ -178,7 +179,6 @@ export const RankTierMedal = ({
       );
     } else {
       // everyone who isn't immortal has an icon and some number of stars
-      const intRankTier = parseInt(String(rankTier), 10);
       let star = intRankTier % 10;
 
       if (star < 1) {
@@ -211,7 +211,7 @@ export const RankTierMedal = ({
             ) : (
               ""
             )}
-            {leaderboardRank && (
+            {leaderboardRank && intRankTier == 80 && (
               <span className="rankMedal-board">{leaderboardRank}</span>
             )}
           </div>
