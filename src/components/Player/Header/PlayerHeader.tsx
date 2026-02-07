@@ -149,7 +149,7 @@ export const RankTierMedal = ({
     let iconPath;
     const intRankTier = parseInt(String(rankTier), 10);
 
-    if (leaderboardRank && intRankTier == 80) {
+    if (leaderboardRank && intRankTier === 80) {
       // if the player is on leaderboard ie. immortal
       if (leaderboardRank <= 10) {
         // top 10 and top 100 positions have different icons
@@ -211,7 +211,7 @@ export const RankTierMedal = ({
             ) : (
               ""
             )}
-            {leaderboardRank && intRankTier == 80 && (
+            {leaderboardRank && intRankTier === 80 && (
               <span className="rankMedal-board">{leaderboardRank}</span>
             )}
           </div>
