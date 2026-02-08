@@ -1,0 +1,308 @@
+'use client';
+
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
+import refType from '@mui/utils/refType';
+import composeClasses from '@mui/utils/composeClasses';
+import SwitchBase from "../internal/SwitchBase.js";
+import RadioButtonIcon from "./RadioButtonIcon.js";
+import capitalize from "../utils/capitalize.js";
+import createChainedFunction from "../utils/createChainedFunction.js";
+import useFormControl from "../FormControl/useFormControl.js";
+import useRadioGroup from "../RadioGroup/useRadioGroup.js";
+import radioClasses, { getRadioUtilityClass } from "./radioClasses.js";
+import rootShouldForwardProp from "../styles/rootShouldForwardProp.js";
+import { styled } from "../zero-styled/index.js";
+import memoTheme from "../utils/memoTheme.js";
+import createSimplePaletteValueFilter from "../utils/createSimplePaletteValueFilter.js";
+import useSlot from "../utils/useSlot.js";
+import { useDefaultProps } from "../DefaultPropsProvider/index.js";
+import { jsx as _jsx } from "react/jsx-runtime";
+const useUtilityClasses = ownerState => {
+  const {
+    classes,
+    color,
+    size
+  } = ownerState;
+  const slots = {
+    root: ['root', `color${capitalize(color)}`, size !== 'medium' && `size${capitalize(size)}`]
+  };
+  return {
+    ...classes,
+    ...composeClasses(slots, getRadioUtilityClass, classes)
+  };
+};
+const RadioRoot = styled(SwitchBase, {
+  shouldForwardProp: prop => rootShouldForwardProp(prop) || prop === 'classes',
+  name: 'MuiRadio',
+  slot: 'Root',
+  overridesResolver: (props, styles) => {
+    const {
+      ownerState
+    } = props;
+    return [styles.root, ownerState.size !== 'medium' && styles[`size${capitalize(ownerState.size)}`], styles[`color${capitalize(ownerState.color)}`]];
+  }
+})(memoTheme(({
+  theme
+}) => ({
+  color: (theme.vars || theme).palette.text.secondary,
+  [`&.${radioClasses.disabled}`]: {
+    color: (theme.vars || theme).palette.action.disabled
+  },
+  variants: [{
+    props: {
+      color: 'default',
+      disabled: false,
+      disableRipple: false
+    },
+    style: {
+      '&:hover': {
+        backgroundColor: theme.alpha((theme.vars || theme).palette.action.active, (theme.vars || theme).palette.action.hoverOpacity)
+      }
+    }
+  }, ...Object.entries(theme.palette).filter(createSimplePaletteValueFilter()).map(([color]) => ({
+    props: {
+      color,
+      disabled: false,
+      disableRipple: false
+    },
+    style: {
+      '&:hover': {
+        backgroundColor: theme.alpha((theme.vars || theme).palette[color].main, (theme.vars || theme).palette.action.hoverOpacity)
+      }
+    }
+  })), ...Object.entries(theme.palette).filter(createSimplePaletteValueFilter()).map(([color]) => ({
+    props: {
+      color,
+      disabled: false
+    },
+    style: {
+      [`&.${radioClasses.checked}`]: {
+        color: (theme.vars || theme).palette[color].main
+      }
+    }
+  })), {
+    // Should be last to override other colors
+    props: {
+      disableRipple: false
+    },
+    style: {
+      // Reset on touch devices, it doesn't add specificity
+      '&:hover': {
+        '@media (hover: none)': {
+          backgroundColor: 'transparent'
+        }
+      }
+    }
+  }]
+})));
+function areEqualValues(a, b) {
+  if (typeof b === 'object' && b !== null) {
+    return a === b;
+  }
+
+  // The value could be a number, the DOM will stringify it anyway.
+  return String(a) === String(b);
+}
+const defaultCheckedIcon = /*#__PURE__*/_jsx(RadioButtonIcon, {
+  checked: true
+});
+const defaultIcon = /*#__PURE__*/_jsx(RadioButtonIcon, {});
+const Radio = /*#__PURE__*/React.forwardRef(function Radio(inProps, ref) {
+  const props = useDefaultProps({
+    props: inProps,
+    name: 'MuiRadio'
+  });
+  const {
+    checked: checkedProp,
+    checkedIcon = defaultCheckedIcon,
+    color = 'primary',
+    icon = defaultIcon,
+    name: nameProp,
+    onChange: onChangeProp,
+    size = 'medium',
+    className,
+    disabled: disabledProp,
+    disableRipple = false,
+    slots = {},
+    slotProps = {},
+    inputProps,
+    ...other
+  } = props;
+  const muiFormControl = useFormControl();
+  let disabled = disabledProp;
+  if (muiFormControl) {
+    if (typeof disabled === 'undefined') {
+      disabled = muiFormControl.disabled;
+    }
+  }
+  disabled ??= false;
+  const ownerState = {
+    ...props,
+    disabled,
+    disableRipple,
+    color,
+    size
+  };
+  const classes = useUtilityClasses(ownerState);
+  const radioGroup = useRadioGroup();
+  let checked = checkedProp;
+  const onChange = createChainedFunction(onChangeProp, radioGroup && radioGroup.onChange);
+  let name = nameProp;
+  if (radioGroup) {
+    if (typeof checked === 'undefined') {
+      checked = areEqualValues(radioGroup.value, props.value);
+    }
+    if (typeof name === 'undefined') {
+      name = radioGroup.name;
+    }
+  }
+  const externalInputProps = slotProps.input ?? inputProps;
+  const [RootSlot, rootSlotProps] = useSlot('root', {
+    ref,
+    elementType: RadioRoot,
+    className: clsx(classes.root, className),
+    shouldForwardComponentProp: true,
+    externalForwardedProps: {
+      slots,
+      slotProps,
+      ...other
+    },
+    getSlotProps: handlers => ({
+      ...handlers,
+      onChange: (event, ...args) => {
+        handlers.onChange?.(event, ...args);
+        onChange(event, ...args);
+      }
+    }),
+    ownerState,
+    additionalProps: {
+      type: 'radio',
+      icon: /*#__PURE__*/React.cloneElement(icon, {
+        fontSize: icon.props.fontSize ?? size
+      }),
+      checkedIcon: /*#__PURE__*/React.cloneElement(checkedIcon, {
+        fontSize: checkedIcon.props.fontSize ?? size
+      }),
+      disabled,
+      name,
+      checked,
+      slots,
+      slotProps: {
+        // Do not forward `slotProps.root` again because it's already handled by the `RootSlot` in this file.
+        input: typeof externalInputProps === 'function' ? externalInputProps(ownerState) : externalInputProps
+      }
+    }
+  });
+  return /*#__PURE__*/_jsx(RootSlot, {
+    ...rootSlotProps,
+    classes: classes
+  });
+});
+process.env.NODE_ENV !== "production" ? Radio.propTypes /* remove-proptypes */ = {
+  // ┌────────────────────────────── Warning ──────────────────────────────┐
+  // │ These PropTypes are generated from the TypeScript type definitions. │
+  // │    To update them, edit the d.ts file and run `pnpm proptypes`.     │
+  // └─────────────────────────────────────────────────────────────────────┘
+  /**
+   * If `true`, the component is checked.
+   */
+  checked: PropTypes.bool,
+  /**
+   * The icon to display when the component is checked.
+   * @default <RadioButtonIcon checked />
+   */
+  checkedIcon: PropTypes.node,
+  /**
+   * Override or extend the styles applied to the component.
+   */
+  classes: PropTypes.object,
+  /**
+   * @ignore
+   */
+  className: PropTypes.string,
+  /**
+   * The color of the component.
+   * It supports both default and custom theme colors, which can be added as shown in the
+   * [palette customization guide](https://mui.com/material-ui/customization/palette/#custom-colors).
+   * @default 'primary'
+   */
+  color: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['default', 'primary', 'secondary', 'error', 'info', 'success', 'warning']), PropTypes.string]),
+  /**
+   * If `true`, the component is disabled.
+   */
+  disabled: PropTypes.bool,
+  /**
+   * If `true`, the ripple effect is disabled.
+   * @default false
+   */
+  disableRipple: PropTypes.bool,
+  /**
+   * The icon to display when the component is unchecked.
+   * @default <RadioButtonIcon />
+   */
+  icon: PropTypes.node,
+  /**
+   * The id of the `input` element.
+   */
+  id: PropTypes.string,
+  /**
+   * [Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes) applied to the `input` element.
+   * @deprecated Use `slotProps.input` instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](/material-ui/migration/migrating-from-deprecated-apis/) for more details.
+   */
+  inputProps: PropTypes.object,
+  /**
+   * Pass a ref to the `input` element.
+   * @deprecated Use `slotProps.input.ref` instead. This prop will be removed in a future major release. See [Migrating from deprecated APIs](/material-ui/migration/migrating-from-deprecated-apis/) for more details.
+   */
+  inputRef: refType,
+  /**
+   * Name attribute of the `input` element.
+   */
+  name: PropTypes.string,
+  /**
+   * Callback fired when the state is changed.
+   *
+   * @param {React.ChangeEvent<HTMLInputElement>} event The event source of the callback.
+   * You can pull out the new value by accessing `event.target.value` (string).
+   * You can pull out the new checked state by accessing `event.target.checked` (boolean).
+   */
+  onChange: PropTypes.func,
+  /**
+   * If `true`, the `input` element is required.
+   * @default false
+   */
+  required: PropTypes.bool,
+  /**
+   * The size of the component.
+   * `small` is equivalent to the dense radio styling.
+   * @default 'medium'
+   */
+  size: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([PropTypes.oneOf(['medium', 'small']), PropTypes.string]),
+  /**
+   * The props used for each slot inside.
+   * @default {}
+   */
+  slotProps: PropTypes.shape({
+    input: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+    root: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  }),
+  /**
+   * The components used for each slot inside.
+   * @default {}
+   */
+  slots: PropTypes.shape({
+    input: PropTypes.elementType,
+    root: PropTypes.elementType
+  }),
+  /**
+   * The system prop that allows defining system overrides as well as additional CSS styles.
+   */
+  sx: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])), PropTypes.func, PropTypes.object]),
+  /**
+   * The value of the component. The DOM API casts this to a string.
+   */
+  value: PropTypes.any
+} : void 0;
+export default Radio;

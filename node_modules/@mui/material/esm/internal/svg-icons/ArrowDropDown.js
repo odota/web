@@ -1,0 +1,11 @@
+'use client';
+
+import createSvgIcon from "../../utils/createSvgIcon.js";
+
+/**
+ * @ignore - internal component.
+ */
+import { jsx as _jsx } from "react/jsx-runtime";
+export default createSvgIcon(/*#__PURE__*/_jsx("path", {
+  d: "M7 10l5 5 5-5z"
+}), 'ArrowDropDown');

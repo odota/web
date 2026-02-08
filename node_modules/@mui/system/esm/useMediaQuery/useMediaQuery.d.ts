@@ -1,0 +1,32 @@
+export interface UseMediaQueryOptions {
+  /**
+   * As `window.matchMedia()` is unavailable on the server,
+   * it returns a default matches during the first mount.
+   * @default false
+   */
+  defaultMatches?: boolean;
+  /**
+   * You can provide your own implementation of matchMedia.
+   * This can be used for handling an iframe content window.
+   */
+  matchMedia?: typeof window.matchMedia;
+  /**
+   * To perform the server-side hydration, the hook needs to render twice.
+   * A first time with `defaultMatches`, the value of the server, and a second time with the resolved value.
+   * This double pass rendering cycle comes with a drawback: it's slower.
+   * You can set this option to `true` if you use the returned value **only** client-side.
+   * @default false
+   */
+  noSsr?: boolean;
+  /**
+   * You can provide your own implementation of `matchMedia`, it's used when rendering server-side.
+   */
+  ssrMatchMedia?: (query: string) => {
+    matches: boolean;
+  };
+}
+export declare function unstable_createUseMediaQuery(params?: {
+  themeId?: string;
+}): <Theme = unknown>(queryInput: string | ((theme: Theme) => string), options?: UseMediaQueryOptions) => boolean;
+declare const useMediaQuery: <Theme = unknown>(queryInput: string | ((theme: Theme) => string), options?: UseMediaQueryOptions) => boolean;
+export default useMediaQuery;
