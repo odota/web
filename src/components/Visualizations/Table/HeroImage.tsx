@@ -419,8 +419,11 @@ const HeroToolTip = styled.div`
   .role-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
-    margin-top: 5px;
+    align-items: center;
+    align-content: flex-start;
+    gap: 3px;
+    margin-top: 4px;
+    line-height: 1;
   }
 
   .role-tag {
@@ -429,8 +432,9 @@ const HeroToolTip = styled.div`
     color: rgba(255, 255, 255, 0.62);
     font-size: 8px;
     font-weight: 700;
-    letter-spacing: 0.12em;
-    padding: 3px 6px;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    line-height: 1;
     text-transform: uppercase;
   }
 
@@ -672,7 +676,7 @@ class TableHeroImage extends React.Component<
             : AttrUniversal;
     const roleTags = [
       hero?.attack_type,
-      ...(hero?.roles ? hero.roles.slice(0, 2) : []),
+      ...(hero?.roles ? hero.roles.slice(0, 6) : []),
     ].filter(Boolean) as string[];
     const attributeRows = [
       {
