@@ -6,6 +6,9 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { player_colors as playerColors } from "dotaconstants";
 import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 import SyncIcon from "@mui/icons-material/Sync";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined";
+import StraightenIcon from "@mui/icons-material/Straighten";
 import styled from "styled-components";
 import { subTextStyle, IMAGESIZE_ENUM } from "../../../utility";
 import TableLink from "../../Table/TableLink";
@@ -14,6 +17,9 @@ import {
   IconCrystalBall,
   IconCheckCircle,
   IconContributor,
+  IconBloodDrop,
+  IconWand,
+  IconBattle,
 } from "../../Icons";
 import constants from "../../constants";
 import AttrStrength from "../../Icons/AttrStrength";
@@ -33,10 +39,52 @@ const backgroundMapping = {
   all: "91", // Io
 };
 
+const heroTooltipAccentMap = {
+  str: {
+    color: constants.colorAttributeStr,
+    surface: "rgba(244, 67, 54, 0.12)",
+    glow: "rgba(244, 67, 54, 0.35)",
+  },
+  agi: {
+    color: constants.colorAttributeAgi,
+    surface: "rgba(57, 212, 2, 0.12)",
+    glow: "rgba(57, 212, 2, 0.35)",
+  },
+  int: {
+    color: constants.colorAttributeInt,
+    surface: "rgba(1, 169, 244, 0.12)",
+    glow: "rgba(1, 169, 244, 0.35)",
+  },
+  all: {
+    color: "#26e030",
+    surface: "rgba(38, 224, 48, 0.12)",
+    glow: "rgba(38, 224, 48, 0.35)",
+  },
+};
+
+const formatTooltipNumber = (value?: number) => {
+  if (typeof value !== "number" || Number.isNaN(value)) {
+    return "-";
+  }
+
+  if (Number.isInteger(value)) {
+    return String(value);
+  }
+
+  return value.toFixed(1).replace(/\.0$/, "");
+};
+
 const Styled = styled.div`
   .hero-tooltip .__react_component_tooltip {
     opacity: 1 !important;
     padding: 0px !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .hero-tooltip .__react_component_tooltip::after {
+    display: none !important;
   }
 
   .subTextContainer {
@@ -244,6 +292,12 @@ const Styled = styled.div`
   }
 `;
 
+const attributeAccentMap = {
+  str: heroTooltipAccentMap.str,
+  agi: heroTooltipAccentMap.agi,
+  int: heroTooltipAccentMap.int,
+};
+
 const HeroImageContainer = styled.div`
   display: flex;
   position: relative;
@@ -252,171 +306,285 @@ const HeroImageContainer = styled.div`
 `;
 
 const HeroToolTip = styled.div`
-  width: 290px;
+  width: 278px;
   overflow: hidden;
-  background-color: #131519;
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(2, 6, 23, 0.98) 100%);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 
-  .header {
-    height: 120px;
+  .backdrop {
+    position: absolute;
+    inset: 0;
     overflow: hidden;
+    pointer-events: none;
   }
 
-  .heroImg {
+  .backdrop::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 85% 18%, var(--tooltip-accent-soft) 0%, rgba(0, 0, 0, 0) 40%),
+      linear-gradient(180deg, rgba(2, 6, 23, 0.15) 0%, rgba(2, 6, 23, 0.88) 100%);
+  }
+
+  .backdrop img {
+    position: absolute;
+    top: 24px;
+    left: -44px;
+    opacity: 0.22;
+    filter: blur(9px);
+    transform: scale(1.3);
+  }
+
+  .content {
     position: relative;
-    float: left;
-    top: 12px;
-
-    & .health-mana {
-      position: relative;
-      left: 10px;
-      bottom: 6px;
-      line-height: 30px;
-      width: 86px;
-      text-align: center;
-      z-index: 2;
-      background: rgba(0, 0, 0, 0.6);
-
-      & #health {
-        color: ${constants.colorGreen};
-
-        &::after {
-          content: "/";
-          color: ${constants.colorMuted};
-        }
-
-        &::before {
-          content: "HP";
-          color: #488249;
-        }
-      }
-      
-      & #mana {
-        color: ${constants.colorMana};
-
-        &::before {
-          content: "MP";
-          color: #3C638E;
-        }
-      }
-    }
-
-    & #heroImg-attribute {
-      height: 15px;
-      position: absolute;
-      z-index: 2;
-      left: 4px;
-      top: 5px;
-      background: rgba(0, 0, 0, 0.65);
-    }
-
-    & img {
-      width: 86px;
-      margin-left: 10px;
-      margin-top: 10px;
-      display: inline-block;
-    }
+    z-index: 1;
   }
 
-  .header-stats {
-    height: 100px;
-    width: 180px;
-    margin-left: 8px;
-    margin-bottom: 1px;
-    display: inline-block;
-    
-    & #hero-name {
-      color: ${constants.primaryTextColor};
-      text-shadow: 1px 1px ${constants.colorMuted};
-      margin-left: 7px;
-      font-size: ${constants.fontSizeCommon};
-      margin-top: 6px;
-      letter-spacing: 1px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    & #hero-roles {
-      font-size: ${constants.fontSizeTiny}
-      color: #829091;
-      margin-left: 7px;
-      line-height: 10px;
-      position: relative;
-      top: -2px;
-      height: 18px;
-      letter-spacing: 1px;
-    }
-
-    & .attributes-container {
-      height: 50px;
-      width: 180px;
-      display: flex;
-      margin-top: 10px;
-      justify-content: space-between;
-      position: relative;
-
-      & .attributes {
-      width: 50px;
-      height: 50px;
-      z-index: 100;
-
-      & .attribute-img {
-        display: block;
-        height: 35px;
-        margin-left: auto;
-        margin-right: auto;
-        border: 2px solid ${constants.colorMuted};
-        border-radius: 50%;
-        box-sizing: border-box;
-        background: #111111;
-
-        &[main="true"] {
-          border: 2px solid ${constants.primaryTextColor};
-        }
-      }
-
-      & .attribute-text {
-        text-align: center;
-        font-size: 12px;
-        margin-top: 2px;
-      }
-    }
-    }
+  .hero-top {
+    display: flex;
+    gap: 10px;
+    padding: 10px 12px 8px;
   }
 
-  .stats {
-    margin-bottom: 9px;
+  .portrait {
+    position: relative;
+    width: 68px;
+    min-width: 68px;
+    height: 84px;
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    background: rgba(2, 6, 23, 0.92);
+    box-shadow: inset 0 0 36px rgba(2, 6, 23, 0.92);
+  }
 
-    & div {
-      margin-left: 9px;
-    }
+  .portrait::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 -22px 26px rgba(2, 6, 23, 0.96);
+    pointer-events: none;
+  }
 
-    & span:last-child {
-      font-size: larger;
-      margin-right: 11px;
-    }
-    
-    & .stat {
-      display: flex;
-      align-items: baseline;
+  .portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(18%) brightness(0.88);
+  }
 
-      & .dots {
-      border-bottom: 1px dashed rgba(114, 114, 114, 0.23);
-      flex: 1;
-      margin-right: 8px;
-      margin-left: 8px;
-      padding-bottom: 10px;
-      }
-    }
-  } 
-`;
+  .portrait-attribute {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 22px;
+    height: 22px;
+    padding: 3px;
+    background: rgba(15, 23, 42, 0.42);
+    border-left: 1px solid rgba(255, 255, 255, 0.14);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(3px);
+  }
 
-const Trim = styled.hr`
-  border: 0;
-  height: 1px;
-  margin-left: 10px;
-  margin-right: 10px;
-  background-color: ${constants.colorMuted};
+  .portrait-attribute svg {
+    width: 100%;
+    height: 100%;
+    filter:
+      drop-shadow(0 0 6px var(--tooltip-accent-glow))
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.18));
+  }
+
+  .hero-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-name {
+    color: ${constants.primaryTextColor};
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    word-break: break-word;
+  }
+
+  .role-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 5px;
+  }
+
+  .role-tag {
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    background: rgba(15, 23, 42, 0.82);
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 3px 6px;
+    text-transform: uppercase;
+  }
+
+  .attribute-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-top: 6px;
+  }
+
+  .attribute-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px 7px;
+    background: rgba(15, 23, 42, 0.76);
+    border: 1px solid rgba(148, 163, 184, 0.08);
+  }
+
+  .attribute-row.primary {
+    border-color: rgba(255, 255, 255, 0.06);
+    border-left: 2px solid var(--tooltip-accent);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  }
+
+  .attribute-meta {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+  }
+
+  .attribute-icon {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+  }
+
+  .attribute-label {
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .attribute-value {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    white-space: nowrap;
+  }
+
+  .attribute-value strong {
+    color: ${constants.primaryTextColor};
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .attribute-row.primary .attribute-value strong {
+    color: var(--tooltip-accent);
+    text-shadow: 0 0 10px var(--tooltip-accent-glow);
+  }
+
+  .attribute-gain {
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 8px;
+    font-weight: 500;
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: rgba(148, 163, 184, 0.12);
+  }
+
+  .resource-card {
+    padding: 7px 8px 8px;
+    text-align: center;
+    background: rgba(17, 24, 39, 0.96);
+  }
+
+  .resource-label {
+    display: block;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+  }
+
+  .resource-value {
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .resource-card.health .resource-label,
+  .resource-card.health .resource-value {
+    color: ${constants.colorGreen};
+  }
+
+  .resource-card.mana .resource-label,
+  .resource-card.mana .resource-value {
+    color: ${constants.colorMana};
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: rgba(148, 163, 184, 0.12);
+  }
+
+  .stat-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 7px 9px;
+    background: rgba(11, 17, 32, 0.98);
+  }
+
+  .stat-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .stat-icon {
+    width: 12px;
+    height: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    fill: rgba(255, 255, 255, 0.6);
+    flex-shrink: 0;
+  }
+
+  .stat-label {
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .stat-value {
+    color: ${constants.primaryTextColor};
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
 `;
 
 const expand: React.CSSProperties = {
@@ -491,6 +659,80 @@ class TableHeroImage extends React.Component<
       hero,
     } = this.props;
     const { tooltipVisible } = this.state;
+    const primaryAttr = hero?.primary_attr as keyof typeof heroTooltipAccentMap;
+    const primaryAccent =
+      heroTooltipAccentMap[primaryAttr] || heroTooltipAccentMap.all;
+    const PrimaryAttributeIcon =
+      hero?.primary_attr === "str"
+        ? AttrStrength
+        : hero?.primary_attr === "agi"
+          ? AttrAgility
+          : hero?.primary_attr === "int"
+            ? AttrIntelligent
+            : AttrUniversal;
+    const roleTags = [
+      hero?.attack_type,
+      ...(hero?.roles ? hero.roles.slice(0, 2) : []),
+    ].filter(Boolean) as string[];
+    const attributeRows = [
+      {
+        key: "str",
+        label: "STR",
+        Icon: AttrStrength,
+        value: hero?.base_str,
+        gain: hero?.str_gain,
+        isPrimary: hero?.primary_attr === "str" || hero?.primary_attr === "all",
+        accent: attributeAccentMap.str,
+      },
+      {
+        key: "agi",
+        label: "AGI",
+        Icon: AttrAgility,
+        value: hero?.base_agi,
+        gain: hero?.agi_gain,
+        isPrimary: hero?.primary_attr === "agi" || hero?.primary_attr === "all",
+        accent: attributeAccentMap.agi,
+      },
+      {
+        key: "int",
+        label: "INT",
+        Icon: AttrIntelligent,
+        value: hero?.base_int,
+        gain: hero?.int_gain,
+        isPrimary: hero?.primary_attr === "int" || hero?.primary_attr === "all",
+        accent: attributeAccentMap.int,
+      },
+    ];
+    const stats = [
+      {
+        label: "Attack",
+        Icon: IconBattle,
+        value:
+          hero?.base_attack_min !== undefined && hero?.base_attack_max !== undefined
+            ? `${formatTooltipNumber(hero.base_attack_min)} - ${formatTooltipNumber(hero.base_attack_max)}`
+            : "-",
+      },
+      {
+        label: "Armor",
+        Icon: ShieldOutlinedIcon,
+        value: formatTooltipNumber(hero?.base_armor),
+      },
+      {
+        label: "Range",
+        Icon: StraightenIcon,
+        value: formatTooltipNumber(hero?.attack_range),
+      },
+      {
+        label: "Speed",
+        Icon: DirectionsRunIcon,
+        value: formatTooltipNumber(hero?.move_speed),
+      },
+    ];
+    const tooltipStyle = {
+      "--tooltip-accent": primaryAccent.color,
+      "--tooltip-accent-soft": "rgba(102, 187, 255, 0.12)",
+      "--tooltip-accent-glow": primaryAccent.glow,
+    } as React.CSSProperties;
 
     const heroImageEventProps = {
       onMouseEnter: () => {
@@ -644,15 +886,8 @@ class TableHeroImage extends React.Component<
           {tooltipVisible && (
             <div className="hero-tooltip">
               <ReactTooltip id={heroName} effect="solid" place="right">
-                <HeroToolTip>
-                  <div
-                    style={{
-                      overflow: "hidden",
-                      position: "absolute",
-                      height: "100%",
-                      width: "100%",
-                    }}
-                  >
+                <HeroToolTip style={tooltipStyle}>
+                  <div className="backdrop">
                     <HeroImage
                       id={
                         backgroundMapping[
@@ -660,104 +895,108 @@ class TableHeroImage extends React.Component<
                         ]
                       }
                       imageSizeSuffix={IMAGESIZE_ENUM.SMALL.suffix}
-                      style={{
-                        position: "absolute",
-                        top: 40,
-                        left: -60,
-                        opacity: 0.3,
-                        filter: "blur(10px)",
-                        transform: "scale(1.5)",
-                      }}
                     />
                   </div>
-                  <div className="header">
-                    <div className="heroImg">
-                      <HeroImage
-                        id={heroID}
-                        imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix}
-                      />
-                      {hero?.primary_attr === "str" && (
-                        <AttrStrength id="heroImg-attribute" />
-                      )}
-                      {hero?.primary_attr === "agi" && (
-                        <AttrAgility id="heroImg-attribute" />
-                      )}
-                      {hero?.primary_attr === "int" && (
-                        <AttrIntelligent id="heroImg-attribute" />
-                      )}
-                      {hero?.primary_attr === "all" && (
-                        <AttrUniversal id="heroImg-attribute" />
-                      )}
-                      <div className="health-mana">
-                        <span id="health">
+                  <div className="content">
+                    <div className="hero-top">
+                      <div className="portrait">
+                        <HeroImage
+                          id={heroID}
+                          imageSizeSuffix={IMAGESIZE_ENUM.VERT.suffix}
+                        />
+                        <div className="portrait-attribute">
+                          <PrimaryAttributeIcon />
+                        </div>
+                      </div>
+                      <div className="hero-main">
+                        <div className="hero-name">
+                          {hero?.localized_name || heroName}
+                        </div>
+                        {roleTags.length > 0 && (
+                          <div className="role-tags">
+                            {roleTags.map((tag) => (
+                              <span className="role-tag" key={tag}>
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        <div className="attribute-stack">
+                          {attributeRows.map((attribute) => {
+                            const AttributeIcon = attribute.Icon;
+                            return (
+                              <div
+                                className={`attribute-row${attribute.isPrimary ? " primary" : ""}`}
+                                key={attribute.key}
+                                style={
+                                  attribute.isPrimary
+                                    ? ({
+                                        backgroundColor: attribute.accent.surface,
+                                        borderLeftColor: attribute.accent.color,
+                                      } as React.CSSProperties)
+                                    : undefined
+                                }
+                              >
+                                <div className="attribute-meta">
+                                  <AttributeIcon className="attribute-icon" />
+                                  <span className="attribute-label">
+                                    {attribute.label}
+                                  </span>
+                                </div>
+                                <div className="attribute-value">
+                                  <strong
+                                    style={
+                                      attribute.isPrimary
+                                        ? ({
+                                            color: attribute.accent.color,
+                                            textShadow: `0 0 10px ${attribute.accent.glow}`,
+                                          } as React.CSSProperties)
+                                        : undefined
+                                    }
+                                  >
+                                    {formatTooltipNumber(attribute.value)}
+                                  </strong>
+                                  <span className="attribute-gain">
+                                    +{formatTooltipNumber(attribute.gain)}
+                                  </span>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="resource-grid">
+                      <div className="resource-card health">
+                        <span className="resource-label">
+                          Health
+                        </span>
+                        <span className="resource-value">
                           {Math.floor(hero?.base_health ?? 0)}
                         </span>
-                        <span id="mana">
+                      </div>
+                      <div className="resource-card mana">
+                        <span className="resource-label">
+                          Mana
+                        </span>
+                        <span className="resource-value">
                           {Math.floor(hero?.base_mana ?? 0)}
                         </span>
                       </div>
                     </div>
-                    <div className="header-stats">
-                      <div id="hero-name">{hero?.localized_name}</div>
-                      <div id="hero-roles">
-                        {hero?.attack_type} -{" "}
-                        {hero?.roles && hero?.roles.join(", ")}
-                      </div>
-                      <div className="attributes-container">
-                        <div className="attributes">
-                          <AttrStrength
-                            id="str"
-                            className="attribute-img"
-                            main={`${hero?.primary_attr === "str"}`}
-                          />
-                          <div className="attribute-text">
-                            {hero?.base_str} +{hero?.str_gain}
+                    <div className="stats-grid">
+                      {stats.map((stat) => {
+                        const StatIcon = stat.Icon;
+                        return (
+                        <div className="stat-card" key={stat.label}>
+                          <div className="stat-meta">
+                            <StatIcon className="stat-icon" />
+                            <span className="stat-label">{stat.label}</span>
                           </div>
+                          <span className="stat-value">{stat.value}</span>
                         </div>
-                        <div className="attributes">
-                          <AttrAgility
-                            id="agi"
-                            className="attribute-img"
-                            main={`${hero?.primary_attr === "agi"}`}
-                          />
-                          <div className="attribute-text">
-                            {hero?.base_agi} +{hero?.agi_gain}
-                          </div>
-                        </div>
-                        <div className="attributes">
-                          <AttrIntelligent
-                            id="int"
-                            className="attribute-img"
-                            main={`${hero?.primary_attr === "int"}`}
-                          />
-                          <div className="attribute-text">
-                            {hero?.base_int} +{hero?.int_gain}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <Trim />
-                  <div className="stats">
-                    <div className="stat">
-                      <span>{`${strings.heading_move_speed}:`}</span>
-                      <span className="dots" />
-                      <span>{hero?.move_speed}</span>
-                    </div>
-                    <div className="stat">
-                      <span>{`${strings.heading_attack}:`}</span>
-                      <span className="dots" />
-                      <span>{`${hero?.base_attack_min}-${hero?.base_attack_max}`}</span>
-                    </div>
-                    <div className="stat">
-                      <span>{`${strings.heading_base_armor}:`}</span>
-                      <span className="dots" />
-                      <span>{hero?.base_armor}</span>
-                    </div>
-                    <div className="stat">
-                      <span>{`${strings.heading_attack_range}:`}</span>
-                      <span className="dots" />
-                      <span>{hero?.attack_range}</span>
+                        );
+                      })}
                     </div>
                   </div>
                 </HeroToolTip>
