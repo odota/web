@@ -21,7 +21,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mars3d/heatmap.js": "^2.0.7",
-    "@melloware/react-logviewer": "^6.3.4",
+    "@melloware/react-logviewer": "^6.4.1",
     "@mui/icons-material": "^7.3.5",
     "@mui/material": "^7.3.6",
     "@stripe/stripe-js": "^1.32.0",
