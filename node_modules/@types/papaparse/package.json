@@ -1,0 +1,73 @@
+{
+    "name": "@types/papaparse",
+    "version": "5.5.2",
+    "description": "TypeScript definitions for papaparse",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/papaparse",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Pedro Flemming",
+            "githubUsername": "torpedro",
+            "url": "https://github.com/torpedro"
+        },
+        {
+            "name": "Rain Shen",
+            "githubUsername": "rainshen49",
+            "url": "https://github.com/rainshen49"
+        },
+        {
+            "name": "João Loff",
+            "githubUsername": "jfloff",
+            "url": "https://github.com/jfloff"
+        },
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly",
+            "url": "https://github.com/johnnyreilly"
+        },
+        {
+            "name": "Alberto Restifo",
+            "githubUsername": "albertorestifo",
+            "url": "https://github.com/albertorestifo"
+        },
+        {
+            "name": "Janne Liuhtonen",
+            "githubUsername": "jliuhtonen",
+            "url": "https://github.com/jliuhtonen"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz",
+            "url": "https://github.com/peterblazejewicz"
+        },
+        {
+            "name": "Emmanuel Gautier",
+            "githubUsername": "emmanuelgautier",
+            "url": "https://github.com/emmanuelgautier"
+        },
+        {
+            "name": "Opportunity Liu",
+            "githubUsername": "OpportunityLiu",
+            "url": "https://github.com/OpportunityLiu"
+        },
+        {
+            "name": "Kohei Matsubara",
+            "githubUsername": "matsuby",
+            "url": "https://github.com/matsuby"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/papaparse"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "peerDependencies": {},
+    "typesPublisherContentHash": "b6d18ada3a1bcc9a59ffdb456f791819e57e8743c98c00f569f0b787a2777232",
+    "typeScriptVersion": "5.2"
+}

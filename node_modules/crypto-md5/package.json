@@ -1,0 +1,32 @@
+{
+  "name": "crypto-md5",
+  "version": "1.0.0",
+  "description": "Simply expose crypto md5 as a single function",
+  "author": "Jerome Touffe-Blin <jtblin@gmail.com> (http://about.me/jtblin)",
+  "homepage": "https://github.com/jtblin/crypto-md5",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jtblin/crypto-md5.git"
+  },
+  "main": "md5.js",
+  "engines": {
+    "node": ">=0.5.2",
+    "iojs": ">=1.0.0"
+  },
+  "keywords": [
+    "crypto",
+    "md5",
+    "hash"
+  ],
+  "license": "BSD",
+  "devDependencies": {
+    "chai": "^2.2.0",
+    "istanbul": "^0.3.13",
+    "mocha": "^2.2.1"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test mocha -w test/",
+    "cov": "istanbul cover _mocha",
+    "viewcov": "open test/coverage/lcov-report/index.html"
+  }
+}
