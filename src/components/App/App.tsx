@@ -62,10 +62,12 @@ const StyledDiv = styled.div<AppStylesProps>`
   left: ${(props) => (props.open ? "256px" : "0px")};
   margin-top: 0px;
 
-  background-image: ${(props) =>
-    props.location?.pathname === "/"
-      ? `url("/assets/images/home-background.png")`
-      : ""};
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+    ${(props) =>
+      props.location?.pathname === "/"
+        ? `url("/assets/images/home-background.png")`
+        : ""};
   background-position: center top -8px;
   background-repeat: ${(props) =>
     props.location?.pathname === "/" ? "no-repeat" : ""};

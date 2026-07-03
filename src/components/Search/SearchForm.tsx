@@ -67,7 +67,21 @@ class SearchForm extends React.Component<SearchFormProps, { query?: string }> {
           onChange={this.handleChange}
           fullWidth
           size="small"
-          style={{ whiteSpace: "nowrap", overflow: "hidden", display: "flex" }}
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            display: "flex",
+          }}
+          sx={{
+            "& .MuiInputBase-input": {
+              fontSize: "0.8rem",
+              color: "#f0f0f0",
+            },
+            "& .MuiInputBase-input::placeholder": {
+              color: "#bebebe",
+              fontSize: "0.8rem",
+            },
+          }}
         />
       </form>
     );
