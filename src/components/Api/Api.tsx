@@ -64,6 +64,10 @@ const DetailsContainer = styled.div`
   }
 `;
 
+const List = styled.ul`
+  line-height: 1.6;
+`;
+
 class KeyManagement extends React.Component<
   { loading: boolean; metadata: any; strings: Strings },
   {
@@ -402,7 +406,7 @@ class KeyManagement extends React.Component<
 
               <h3>{strings.api_header_details}</h3>
               <DetailsContainer>
-                <ul>
+                <List>
                   <li>
                     {strings.api_charging.replace(
                       "$cost",
@@ -411,7 +415,7 @@ class KeyManagement extends React.Component<
                   </li>
                   <li>{strings.api_credit_required}</li>
                   <li>{strings.api_failure}</li>
-                </ul>
+                </List>
               </DetailsContainer>
             </div>
           )}
