@@ -13,11 +13,14 @@ export const HeadContainerDiv = styled.div`
   }
 `;
 export const HeadlineDiv = styled.div`
+  margin-top: 10%;
   text-transform: uppercase;
-  font-size: 90px;
+  font-size: 4rem;
+  font-family: ${constants.fontFamilySerif};
   font-weight: ${constants.fontWeightMedium};
   line-height: 1.2;
-  text-shadow: #000 0 0 3px;
+  letter-spacing: 0.02em;
+  text-shadow: #b0aeae 0 0 3px;
 
   & h1 {
     all: inherit;
@@ -25,6 +28,7 @@ export const HeadlineDiv = styled.div`
 
   @media only screen and (max-width: 425px) {
     font-size: 60px;
+    margin-left: -2%;
   }
 
   @media only screen and (max-width: 375px) {
@@ -32,7 +36,7 @@ export const HeadlineDiv = styled.div`
   }
 `;
 export const DescriptionDiv = styled.div`
-  font-size: 32px;
+  font-size: 1.25rem;
   font-weight: ${constants.fontWeightLight};
   margin-bottom: 20px;
   text-shadow: #000 0 0 3px;
@@ -50,4 +54,8 @@ export const BottomTextDiv = styled.div`
   opacity: 0.6;
   font-weight: ${constants.fontWeightLight};
   text-align: right;
+
+  @media only screen and (max-width: 425px) {
+    text-align: center;
+  }
 `;

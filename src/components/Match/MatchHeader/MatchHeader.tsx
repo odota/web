@@ -45,14 +45,15 @@ const Styled = styled.header`
     margin-right: 30px;
     margin-left: 30px;
     justify-self: flex-end;
-    font-weight: 700;
+    font-weight: 400;
+    font-family: "Roboto Serif";
 
     @media only screen and (max-width: 1023px) {
       flex-basis: 100%;
       max-width: 100%;
       justify-self: auto;
     }
-    font-size: 28px;
+    font-size: 24px;
 
     @media only screen and (max-width: 1023px) {
       text-align: center;

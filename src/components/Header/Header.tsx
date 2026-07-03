@@ -80,6 +80,7 @@ const ToolbarHeader = styled(Toolbar)`
   z-index: 200;
 
   & a {
+    font-size: 0.875rem;
     color: ${constants.primaryTextColor};
 
     &:hover {

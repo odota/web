@@ -4,6 +4,7 @@ import { transformations, fromNow, subTextStyle } from "../../utility";
 import Table from "../Table/Table";
 import TableLink from "../Table/TableLink";
 import Container from "../Container/Container";
+import { Spacer } from "../Spacer/Spacer";
 import { StyledTeamIconContainer } from "../../components/Match/StyledMatch";
 import HeroImage from "../Visualizations/HeroImage";
 import useStrings from "../../hooks/useStrings.hook";
@@ -134,6 +135,7 @@ const Search = ({
       >
         <Table data={[matchData]} columns={matchColumns(strings)} />
       </Container>
+      <Spacer variant="3" />
       <Container
         loading={prosLoading}
         error={prosError}
@@ -147,6 +149,7 @@ const Search = ({
           columns={proColumns(strings)}
         />
       </Container>
+      <Spacer variant="1" />
       <Container
         loading={playersLoading}
         error={playersError}

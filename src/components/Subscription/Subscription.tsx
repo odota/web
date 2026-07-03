@@ -69,6 +69,10 @@ const SubRight = styled.div`
   align-items: center;
 `;
 
+const List = styled.ul`
+  line-height: 1.6;
+`;
+
 const handleSubscribe = async (user: any) => {
   if (!stripePromise) {
     console.warn("Stripe integration is not configured, cannot subscribe");
@@ -148,13 +152,13 @@ const Subscription = ({
       <SubContainer>
         <SubLeft>
           <h3>{strings.subscriptions_h3}</h3>
-          <ul>
+          <List>
             <li>{strings.subscriptions_li1}</li>
             <li>{strings.subscriptions_li2}</li>
             <li>{strings.subscriptions_li3}</li>
             <li>{strings.subscriptions_li4}</li>
             <li>{strings.subscriptions_li5}</li>
-          </ul>
+          </List>
         </SubLeft>
         <SubRight>
           {user && isSubscriber && (

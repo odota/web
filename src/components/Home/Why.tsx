@@ -30,17 +30,20 @@ const StyledDiv = styled.div`
       }
 
       & svg {
-        width: 85px;
-        height: 85px;
+        width: 48px;
+        height: 48px;
         fill: ${constants.colorBlue};
       }
 
       & .headline {
-        font-size: 24px;
+        margin-top: 8px;
+        font-family: ${constants.fontFamilySerif};
+        font-size: 1.25rem;
         line-height: 2;
       }
 
       & .description {
+        font-size: 0.875rem;
         font-weight: ${constants.fontWeightLight};
         line-height: 1.5;
         color: rgb(190, 190, 190);
