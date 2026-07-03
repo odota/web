@@ -28,6 +28,7 @@ export const HeadlineDiv = styled.div`
 
   @media only screen and (max-width: 425px) {
     font-size: 60px;
+    margin-left: -2%;
   }
 
   @media only screen and (max-width: 375px) {
@@ -53,4 +54,8 @@ export const BottomTextDiv = styled.div`
   opacity: 0.6;
   font-weight: ${constants.fontWeightLight};
   text-align: right;
+
+  @media only screen and (max-width: 425px) {
+    text-align: center;
+  }
 `;
