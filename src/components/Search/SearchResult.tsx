@@ -4,7 +4,7 @@ import { transformations, fromNow, subTextStyle } from "../../utility";
 import Table from "../Table/Table";
 import TableLink from "../Table/TableLink";
 import Container from "../Container/Container";
-import { Spacer } from "../Spacer";
+import { Spacer } from "../Spacer/Spacer";
 import { StyledTeamIconContainer } from "../../components/Match/StyledMatch";
 import HeroImage from "../Visualizations/HeroImage";
 import useStrings from "../../hooks/useStrings.hook";
