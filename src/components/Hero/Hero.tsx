@@ -17,6 +17,7 @@ import AttributesBlock from "./AttributesBlock";
 import Durations from "./Durations";
 import Players from "./Players";
 import ItemsSuggestion from "./ItemSuggestion";
+import { LoadingOverlayUpper30 } from "../LoadingOverlay";
 
 const HeroBlock = styled.div`
   margin-bottom: 8px;
@@ -70,7 +71,7 @@ class Hero extends React.Component<HeroProps> {
     const hero = heroSelector(this.props.heroes, heroId);
 
     if (this.props.heroes.length === 0) {
-      return <Spinner />;
+      return <LoadingOverlayUpper30 text="Loading..." />;
     }
 
     if (!hero) {
