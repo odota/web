@@ -49,6 +49,7 @@ type TableProps = {
   data: any[];
   columns: any[];
   loading?: boolean;
+  loadingText?: string;
   error?: boolean;
   summable?: boolean;
   maxRows?: number;
@@ -169,6 +170,7 @@ class Table extends React.Component<TableProps, TableState> {
     const {
       columns,
       loading,
+      loadingText,
       error,
       summable,
       maxRows,
@@ -213,7 +215,7 @@ class Table extends React.Component<TableProps, TableState> {
           />
         )}
         <StyledContainer>
-          {loading && <TableSkeleton />}
+          {loading && <TableSkeleton text={loadingText} />}
           {!loading && error && <Error />}
           {!loading && !error && dataLength <= 0 && (
             <div>{placeholderMessage}</div>

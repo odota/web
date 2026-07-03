@@ -18,6 +18,7 @@ import DistributionGraph from "../Visualizations/Graph/DistributionGraph";
 import constants from "../constants";
 import DistributionsSkeleton from "../Skeletons/DistributionsSkeleton";
 import useStrings from "../../hooks/useStrings.hook";
+import useTransitionLoader from "../../hooks/useTransitionLoader.hook";
 
 const CountryDiv = styled.div`
   & img {
@@ -137,7 +138,8 @@ const Distributions = (props: {
   );
   const data = props.data;
   const key = info;
-  return loading ? (
+  const shouldShowLoader = useTransitionLoader(loading);
+  return shouldShowLoader ? (
     <DistributionsSkeleton />
   ) : (
     <div>

@@ -11,6 +11,7 @@ import TableLink from "../Table/TableLink";
 import { Logo } from "../Team/TeamStyled";
 import useStrings from "../../hooks/useStrings.hook";
 import { Link } from "react-router-dom";
+import useTransitionLoader from "../../hooks/useTransitionLoader.hook";
 
 const TeamImageContainer = styled.div`
   display: flex;
@@ -114,6 +115,7 @@ const Teams = (props: Props) => {
   const strings = useStrings();
   const { match, data, loading } = props;
   const route = match.params.teamId;
+  const shouldShowLoader = useTransitionLoader(loading);
 
   if (route && Number.isInteger(Number(route))) {
     return <Team {...props} />;
@@ -130,7 +132,8 @@ const Teams = (props: Props) => {
       <Table
         columns={columns(strings)}
         data={data.slice(0, 500)}
-        loading={loading}
+        loading={shouldShowLoader}
+        loadingText="Loading team elos..."
       />
     </div>
   );

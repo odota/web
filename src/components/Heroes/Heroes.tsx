@@ -54,7 +54,12 @@ class HeroesPage extends React.Component<HeroesProps> {
       name,
       key,
       content: (data: any, _columns: any[], loading: boolean) => (
-        <Table data={data} columns={_columns} loading={loading} />
+        <Table
+          data={data}
+          columns={_columns}
+          loading={loading}
+          loadingText="Loading heroes from professional matches..."
+        />
       ),
       route: `/heroes/${key}`,
     };
