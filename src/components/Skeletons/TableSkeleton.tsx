@@ -1,16 +1,8 @@
 import React from "react";
-import ContentLoader from "react-content-loader";
+import { LoadingOverlayUpper30 } from "../LoadingOverlay";
 
-const TableSkeleton = (props: any) => (
-  <ContentLoader height={300} width={600} animate {...props}>
-    <rect x="0" y="10" rx="5" ry="5" width="500" height="10" />
-    <rect x="0" y="25" rx="5" ry="5" width="500" height="10" />
-    <rect x="0" y="40" rx="5" ry="5" width="500" height="10" />
-    <rect x="0" y="55" rx="5" ry="5" width="500" height="10" />
-    <rect x="0" y="70" rx="5" ry="5" width="500" height="10" />
-    <rect x="0" y="85" rx="5" ry="5" width="500" height="10" />
-    <rect x="0" y="100" rx="5" ry="5" width="500" height="10" />
-  </ContentLoader>
+const TableSkeleton = ({ text = "Loading..." }: { text?: string }) => (
+  <LoadingOverlayUpper30 text={text} />
 );
 
 export default TableSkeleton;
