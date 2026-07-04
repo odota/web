@@ -30,6 +30,11 @@ const StyledDiv = styled.div`
   }
 
   & .Chat {
+    .chat-item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
     & .radiant {
       & svg.icon {
         fill: ${constants.colorSuccess};
@@ -46,10 +51,6 @@ const StyledDiv = styled.div`
       display: flex;
       align-items: flex-end;
       flex-wrap: wrap;
-
-      &:not(:last-of-type) {
-        padding-bottom: 10px;
-      }
 
       & svg.icon {
         width: 16px;
@@ -86,14 +87,21 @@ const StyledDiv = styled.div`
       }
 
       & .target {
-        font-size: ${constants.fontSizeMedium};
         margin-left: 8px;
+        margin-bottom: 2px;
+        font-size: ${constants.fontSizeSmall};
+        color: ${constants.colorMutedLight};
+        letter-spacing: 0.09em;
       }
 
       & .author {
+        margin: 0 8px 2px;
         font-size: ${constants.fontSizeMedium};
         font-weight: ${constants.fontWeightMedium};
-        margin: 0 8px;
+      }
+
+      .message {
+        font-size: ${constants.fontSizeMedium};
       }
 
       & article {
@@ -242,6 +250,12 @@ const StyledDiv = styled.div`
       }
     }
   }
+`;
+
+const MessagesList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
 
 const isSpectator = (slot: number) => slot > 9 && slot < 128;
@@ -452,7 +466,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
 
     const Messages = ({ strings }: { strings: Strings }) => (
       <div>
-        <ul className="Chat">
+        <MessagesList className="Chat">
           {this.state.messages?.map((msg, index) => {
             const hero = heroes[msg.heroID as keyof Heroes];
             const rad = isRadiant(msg.player_slot);
@@ -535,6 +549,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
               <li
                 id={String(index)}
                 className={`
+                  chat-item
                   ${rad ? "radiant" : "dire"}
                   ${msg.spam ? "spam" : ""}
                 `.trim()}
@@ -561,11 +576,11 @@ class Chat extends React.Component<ChatProps, ChatState> {
                 >
                   {msg.name || msg.unit}
                 </Link>
-                <article>{message}</article>
+                <article className="message">{message}</article>
               </li>
             );
           })}
-        </ul>
+        </MessagesList>
       </div>
     );
 
@@ -604,7 +619,7 @@ class Chat extends React.Component<ChatProps, ChatState> {
                         <FormControlLabel
                           label={
                             <>
-                              <div>
+                              <div style={{ fontSize: "0.875rem" }}>
                                 {strings[
                                   `chat_filter_${filter.name}` as keyof Strings
                                 ] ||
@@ -625,8 +640,8 @@ class Chat extends React.Component<ChatProps, ChatState> {
                                 this.state[filter.name as keyof ChatState]
                               }
                               onChange={() => this.toggleFilter(filter.name)}
-                              checkedIcon={<VisibilityIcon />}
-                              icon={<VisibilityOffIcon />}
+                              checkedIcon={<VisibilityIcon width="small" />}
+                              icon={<VisibilityOffIcon fontSize="small" />}
                               disabled={filter.disabled()}
                             />
                           }
