@@ -63,7 +63,7 @@ const StyledDiv = styled.div<AppStylesProps>`
   margin-top: 0px;
 
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     ${(props) =>
       props.location?.pathname === "/"
         ? `url("/assets/images/home-background.png")`

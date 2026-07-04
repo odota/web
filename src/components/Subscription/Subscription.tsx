@@ -30,7 +30,7 @@ const PageContainer = styled.div`
 const SubHeader = styled.div`
   width: 100%;
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url("/assets/images/carry-header.jpg");
   background-position: 50% 0px;
   margin: 20px 0;
