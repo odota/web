@@ -12,6 +12,7 @@ export default {
   colorYelor: "#FFAB40",
   colorGolden: "rgb(201, 175, 29)",
   colorBlueGray: "#7c99a8",
+  colorWhite: "#fff",
   green: "#66BB6A",
   blue: "#6BF",
   golden: "rgb(201, 175, 29)",

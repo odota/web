@@ -38,30 +38,25 @@ const Styled = styled.header`
 
   .team {
     box-sizing: border-box;
-    border: 1px solid rgba(255, 255, 255, 6%);
-    background: rgba(0, 0, 0, 23%);
-    padding: 8px;
-    border-radius: 3px;
     margin-right: 30px;
     margin-left: 30px;
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
     justify-self: flex-end;
+    border: 1px solid rgba(255, 255, 255, 6%);
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 23%);
+    font-size: 1.5rem;
     font-weight: 400;
-    font-family: "Roboto Serif";
+    font-family: ${constants.fontFamilySerif};
+    letter-spacing: 1px;
 
     @media only screen and (max-width: 1023px) {
-      flex-basis: 100%;
-      max-width: 100%;
-      justify-self: auto;
-    }
-    font-size: 24px;
-
-    @media only screen and (max-width: 1023px) {
-      text-align: center;
       margin: 10px 0;
-    }
-
-    & > span {
-      letter-spacing: 1px;
+      justify-self: auto;
     }
 
     &.radiant {
@@ -75,14 +70,10 @@ const Styled = styled.header`
     & svg {
       width: 32px;
       height: 32px;
-      margin-right: 10px;
-      vertical-align: sub;
 
       @media only screen and (max-width: 1023px) {
-        display: block;
-        margin: 0 auto;
-        width: 48px;
-        height: 48px;
+        width: 36px;
+        height: 36px;
       }
     }
   }
@@ -134,7 +125,9 @@ const Styled = styled.header`
     }
 
     & .gameMode {
-      font-size: ${constants.fontSizeMedium};
+      font-family: ${constants.fontFamilySerif};
+      font-size: ${constants.fontSizeSmall};
+      letter-spacing: 0.02rem;
     }
 
     & .duration {
@@ -156,24 +149,18 @@ const Styled = styled.header`
     }
   }
 
-  .killsRadiant {
-    font-size: 48px;
+  .killScore {
+    font-family: ${constants.fontFamilySerif};
+    font-size: 2.5rem;
     text-align: center;
 
-    @media only screen and (max-width: 400px) {
-      font-size: 40px;
+    &.killsRadiant {
+      color: ${constants.colorSuccess};
     }
-    color: ${constants.colorSuccess};
-  }
 
-  .killsDire {
-    font-size: 48px;
-    text-align: center;
-
-    @media only screen and (max-width: 400px) {
-      font-size: 40px;
+    &.killsDire {
+      color: ${constants.colorDanger};
     }
-    color: ${constants.colorDanger};
   }
 
   .additionalInfo {
@@ -205,19 +192,27 @@ const Styled = styled.header`
       & li {
         display: inline-block;
         margin-left: 20px;
-
-        & > span {
-          display: block;
-          text-transform: uppercase;
-          font-size: ${constants.fontSizeSmall};
-          color: ${constants.colorMutedLight};
-        }
       }
 
       & li:first-child {
         margin-left: 0;
       }
     }
+  }
+
+  .infoKey {
+    display: block;
+    text-transform: uppercase;
+    font-size: ${constants.fontSizeSmall};
+    color: ${constants.colorMutedLight};
+  }
+
+  .infoValue {
+    margin-top: 8px;
+    display: block;
+    font-family: ${constants.fontFamilySerif};
+    font-size: ${constants.fontSizeSmall};
+    color: ${constants.colorWhite};
   }
 
   .matchButtons {
@@ -290,19 +285,19 @@ const MatchHeader = ({ match }: { match: Match }) => {
         : 0;
 
   const victorySection = match.radiant_win ? (
-    <span>
+    <>
       <IconRadiant />
       {match.radiant_team && match.radiant_team.name
         ? `${match.radiant_team.name} ${strings.match_team_win}`
         : strings.match_radiant_win}
-    </span>
+    </>
   ) : (
-    <span>
+    <>
       <IconDire />
       {match.dire_team && match.dire_team.name
         ? `${match.dire_team.name} ${strings.match_team_win}`
         : strings.match_dire_win}
-    </span>
+    </>
   );
   return (
     <Styled>
@@ -313,7 +308,7 @@ const MatchHeader = ({ match }: { match: Match }) => {
             : victorySection}
         </div>
         <div className="mainInfo">
-          <div className="killsRadiant">
+          <div className="killScore killsRadiant">
             {match.radiant_score ||
               match.players
                 .map(mapPlayers("kills" as keyof MatchPlayer, true))
@@ -335,7 +330,7 @@ const MatchHeader = ({ match }: { match: Match }) => {
               )}
             </span>
           </div>
-          <div className="killsDire">
+          <div className="killScore killsDire">
             {match.dire_score ||
               match.players
                 .map(mapPlayers("kills" as keyof MatchPlayer, false))
@@ -346,27 +341,33 @@ const MatchHeader = ({ match }: { match: Match }) => {
           <ul>
             {match.league && (
               <li>
-                <span>league</span>
-                {match.league.name}
+                <span className="infoKey">league</span>
+                <span className="infoValue">{match.league.name}</span>
               </li>
             )}
             <li>
-              <span>{strings.match_id}</span>
+              <span className="infoKey">{strings.match_id}</span>
               <Button
                 onClick={copyMatchId}
-                endIcon={
+                startIcon={
                   <ContentCopyIcon
                     viewBox="0 -3 30 30"
                     style={{ height: 18, width: 18 }}
                   />
                 }
+                sx={{
+                  fontFamily: constants.fontFamilySerif,
+                  fontSize: constants.fontSizeSmall,
+                }}
               >
                 {match.match_id}
               </Button>
             </li>
             <li>
-              <span>{strings.match_region}</span>
-              {strings[`region_${match.region}` as keyof Strings]}
+              <span className="infoKey">{strings.match_region}</span>
+              <span className="infoValue">
+                {strings[`region_${match.region}` as keyof Strings]}
+              </span>
             </li>
           </ul>
         </div>
