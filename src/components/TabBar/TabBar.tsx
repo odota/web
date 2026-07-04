@@ -92,6 +92,11 @@ const TabBar = ({
               onClick={(e) => handleTabClick(e, tab, i)}
               label={tab.name}
               disabled={tab.disabled}
+              sx={{
+                fontFamily: constants.fontFamilySerif,
+                letterSpacing: "0.02em",
+                textTransform: "capitalize",
+              }}
             />
           </TabTooltip>
         ))}
