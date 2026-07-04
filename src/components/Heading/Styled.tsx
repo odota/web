@@ -66,13 +66,8 @@ export const StyledDiv = styled.div`
     }
   }
 
-  & .title {
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 1px;
-  }
-
-  &.top-heading .title {
+  .title {
+    font-family: ${constants.fontFamilySerif};
     font-size: 1rem;
     font-weight: 400;
     letter-spacing: 0.002em;
@@ -84,7 +79,8 @@ export const StyledDiv = styled.div`
     }
   }
 
-  &.top-heading .subtitle {
+  .subtitle {
+    margin-left: 4px;
     font-size: 13px;
     color: rgba(255, 255, 255, 0.5);
     letter-spacing: normal;

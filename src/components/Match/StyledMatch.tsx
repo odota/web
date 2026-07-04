@@ -208,7 +208,7 @@ export const StyledFlexElement = styled.div`
   flex: 1;
   margin-right: 5px;
 `;
-export const StyledFlexElementFullWidth = styled.div`-
+export const StyledFlexElementFullWidth = styled.div`
   margin-right: 5px;
   width: 100%;
 `;
@@ -249,8 +249,12 @@ export const StyledStorySpan = styled.span<{ isRadiant?: boolean }>`
   img {
     vertical-align: middle;
     max-height: 20px;
-    margin-right: 2px;
+    margin-right: 4px;
     fill: ${constants.textColorPrimary};
+
+    @media only screen and (max-width: 768px) {
+      height: 16px;
+    }
   }
   svg {
     opacity: 0.8;
@@ -258,14 +262,35 @@ export const StyledStorySpan = styled.span<{ isRadiant?: boolean }>`
   }
 `;
 export const StyledStoryWrapper = styled.div`
-  line-height: 30px;
+  margin: auto;
+  width: 50vw;
+  padding: 24px 36px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  font-family: ${constants.fontFamily};
+  font-size: ${constants.fontSizeCommon};
+  line-height: 2;
 
-  > div {
-    margin-bottom: 20px;
+  .event {
+    ul {
+      li {
+        margin-top: 8px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    width: 90vw;
+    font-size: ${constants.fontSizeMedium};
   }
 `;
 export const StyledStoryNetWorthBar = styled.div`
-
+  margin-top: 8px;
+  margin-bottom: 24px;
   display: flex;
   position: relative;
 
@@ -279,18 +304,24 @@ export const StyledStoryNetWorthBar = styled.div`
     margin-left: -2px;
   }
 
- > div {
-  display: inline-block;
-  height: 7px;
+  > div {
+    display: inline-block;
+    height: 5px;
 
- > div:first-child {
-  border-bottom-left-radius: 3px;
-  border-top-left-radius: 3px;
+    @media only screen and (max-width: 768px) {
+      height: 3px;
+    }
+  }
 
- > div:last-child {
-  border-bottom-right-radius: 3px;
-  border-top-right-radius: 3px;
-}
+  > div:first-child {
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+  }
+
+  > div:last-child {
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+  }
 `;
 export const StyledStoryNetWorthText = styled.div<{
   color?: string;
@@ -303,6 +334,7 @@ export const StyledStoryNetWorthText = styled.div<{
   ${(props) => (props.color ? `background-color:${props.color}` : "")};
   ${(props) => (props.left ? `left:${props.left}%` : "")};
   width: ${(props) => props.width}%;
+  font-weight: 600;
 
   > div {
     display: inline-block;

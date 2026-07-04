@@ -170,6 +170,7 @@ const matchTabs = (strings: Strings) => [
           data={propsPar.proData}
           columns={matchesColumns(strings)}
           loading={propsPar.loading}
+          loadingText="Loading professional matches..."
         />
       </div>
     ),
@@ -184,6 +185,7 @@ const matchTabs = (strings: Strings) => [
           data={propsPar.publicData}
           columns={publicMatchesColumns(strings)}
           loading={propsPar.loading}
+          loadingText="Loading top public matches..."
         />
       </div>
     ),

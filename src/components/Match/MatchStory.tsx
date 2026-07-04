@@ -35,7 +35,6 @@ const GoldSpan = (amount: number) => {
   const strings = useStrings();
   return (
     <StyledStorySpan key={`gold_${amount}`}>
-      <StyledStoryGoldAmount>{amount.toLocaleString()}</StyledStoryGoldAmount>
       <img
         width="25px"
         height="17px"
@@ -43,6 +42,7 @@ const GoldSpan = (amount: number) => {
         src="/assets/images/dota2/gold.png"
         style={{ marginLeft: "3px" }}
       />
+      <StyledStoryGoldAmount>{amount.toLocaleString()}</StyledStoryGoldAmount>
     </StyledStorySpan>
   );
 };
@@ -245,7 +245,11 @@ abstract class StoryEvent {
     return toSentence(this.format());
   }
   render() {
-    return <div key={`event_at_${this.time}`}>{this.formatSentence()}</div>;
+    return (
+      <div className="event" key={`event_at_${this.time}`}>
+        {this.formatSentence()}
+      </div>
+    );
   }
 }
 
@@ -1006,7 +1010,10 @@ class TimeMarkerEvent extends StoryEvent {
     const strings = useStrings();
 
     return [
-      <h3 key={`minute_${this.minutes}_subheading`} style={{ marginBottom: 0 }}>
+      <h3
+        key={`minute_${this.minutes}_subheading`}
+        style={{ fontSize: "1rem", fontWeight: 500, marginBottom: 8 }}
+      >
         {formatTemplate(strings.story_time_marker, { minutes: this.minutes })}
       </h3>,
       <StyledStoryNetWorthText key={`minute_${this.minutes}_networth_text`}>

@@ -85,7 +85,12 @@ const Players = (props: Props) => {
       <Heading title={strings.heading_players} className="top-heading" />
       <div style={{ columnCount: 2, columnWidth: "400px" }}>
         <div>{strings.lobby_type_7}</div>
-        <Table columns={columns(strings)} data={data} loading={loading} />
+        <Table
+          columns={columns(strings)}
+          data={data}
+          loading={loading}
+          loadingText="Loading players..."
+        />
         <div>{strings.game_mode_23}</div>
         <Table
           columns={columns(strings)}
