@@ -6,6 +6,7 @@ import {
   HeadContainerDiv,
   HeadlineDiv,
   DescriptionDiv,
+  ButtonContainer,
   BottomTextDiv,
 } from "./Styled";
 import useStrings from "../../hooks/useStrings.hook";
@@ -25,7 +26,9 @@ const Home = () => {
         <DescriptionDiv>
           <h2>{strings.app_description}</h2>
         </DescriptionDiv>
-        <Buttons />
+        <ButtonContainer>
+          <Buttons />
+        </ButtonContainer>
       </HeadContainerDiv>
       <Why />
       <Sponsors />

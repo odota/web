@@ -5,9 +5,9 @@ import styled from "styled-components";
 import { loadStripe } from "@stripe/stripe-js";
 import { Button } from "@mui/material";
 import { IconSteam } from "../Icons";
-
 import { useStrings } from "../../hooks/useStrings.hook";
 import config from "../../config";
+import constants from "../constants";
 
 const stripePromise = config.VITE_STRIPE_PUBLIC_KEY
   ? loadStripe(config.VITE_STRIPE_PUBLIC_KEY)
@@ -19,26 +19,19 @@ const PageContainer = styled.div`
 
   @media only screen and (max-width: 768px) {
     width: 100%;
+    font-size: 0.75rem;
   }
 
   & li {
     list-style-type: initial;
   }
-
-  h1,
-  h2 {
-    text-align: center;
-  }
-
-  & h2 {
-    font-size: 1.17em;
-    margin: 0 5px;
-  }
 `;
 
 const SubHeader = styled.div`
   width: 100%;
-  background-image: url("/assets/images/carry-header.jpg");
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("/assets/images/carry-header.jpg");
   background-position: 50% 0px;
   margin: 20px 0;
   text-shadow: 1px 1px 1px #000;
@@ -47,30 +40,72 @@ const SubHeader = styled.div`
   justify-content: center;
 `;
 
+const BannerTitle = styled.h1`
+  margin: 48px 0 8px;
+  font-family: ${constants.fontFamilySerif};
+  font-size: 2.25rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-align: center;
+  line-height: 1.6;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 1.625rem;
+  }
+`;
+
+const BannerDescription = styled.h2`
+  margin: 0 0 24px;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 0.75rem;
+  }
+`;
+
 const Attribution = styled.p`
   font-size: 14px;
   margin-right: 10px;
   align-self: flex-end;
 `;
 
-const SubContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+const Paragraph = styled.p`
+  line-height: 1.6;
 `;
 
-const SubLeft = styled.div`
-  margin: 8px;
+const SubContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SubLeft = styled.div``;
+
+const SubscriptionTitle = styled.h3`
+  margin: 24px 0 8px;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
 `;
 
 const SubRight = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  a {
+    width: fit-content;
+  }
+`;
+
+const ThankYouTitle = styled.h4`
+  font-family: ${constants.fontFamilySerif};
+  font-weight: 400;
 `;
 
 const List = styled.ul`
-  line-height: 1.6;
+  li {
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
 `;
 
 const handleSubscribe = async (user: any) => {
@@ -135,8 +170,8 @@ const Subscription = ({
         <meta name="description" content={strings.api_meta_description} />
       </Helmet>
       <SubHeader>
-        <h1>{strings.subscriptions_h1}</h1>
-        <h2>{strings.subscriptions_h2}</h2>
+        <BannerTitle>{strings.subscriptions_h1}</BannerTitle>
+        <BannerDescription>{strings.subscriptions_h2}</BannerDescription>
         <Attribution>
           Picture by{" "}
           <a
@@ -148,10 +183,10 @@ const Subscription = ({
           </a>
         </Attribution>
       </SubHeader>
-      <p>{strings.subscriptions_body1}</p>
+      <Paragraph>{strings.subscriptions_body1}</Paragraph>
       <SubContainer>
         <SubLeft>
-          <h3>{strings.subscriptions_h3}</h3>
+          <SubscriptionTitle>{strings.subscriptions_h3}</SubscriptionTitle>
           <List>
             <li>{strings.subscriptions_li1}</li>
             <li>{strings.subscriptions_li2}</li>
@@ -163,7 +198,7 @@ const Subscription = ({
         <SubRight>
           {user && isSubscriber && (
             <>
-              <h4>{strings.subscriptions_h4}</h4>
+              <ThankYouTitle>{strings.subscriptions_h4}</ThankYouTitle>
               <Button variant="contained" onClick={handleManage}>
                 {strings.subscriptions_button_manage}
               </Button>

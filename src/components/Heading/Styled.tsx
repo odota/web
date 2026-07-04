@@ -16,6 +16,7 @@ export const StyledDiv = styled.div`
     letter-spacing: 10px;
     font-weight: bold;
     background-color: rgba(14, 84, 113, 37%);
+    font-family: ${constants.fontFamilySerif};
   }
 
   .winner {
@@ -72,25 +73,20 @@ export const StyledDiv = styled.div`
   }
 
   &.top-heading .title {
-    font-size: 20px;
-    font-weight: 500;
-    letter-spacing: 1px;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.002em;
+    line-height: 1.6;
 
     &::before {
-      content: "▶";
-      margin-right: 4px;
+      margin-right: 8px;
+      font-size: 1rem;
     }
   }
 
-  & .subtitle {
-    margin-left: 5px;
-    font-size: ${constants.fontSizeMedium};
-    color: ${constants.colorMutedLight};
-  }
-
   &.top-heading .subtitle {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
     letter-spacing: normal;
     font-weight: normal;
     overflow-wrap: normal;
