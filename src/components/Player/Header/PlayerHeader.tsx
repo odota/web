@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Avatar } from "@mui/material";
 import styled from "styled-components";
-import { Facebook } from "react-content-loader";
 import { rankTierToString } from "../../../utility";
 import ErrorBox from "../../Error/ErrorBox";
 import PlayerStats from "./PlayerStats";
@@ -10,6 +9,7 @@ import PlayerBadges from "./PlayerBadges";
 import PlayerButtons from "./PlayerButtons";
 import constants from "../../constants";
 import useStrings from "../../../hooks/useStrings.hook";
+import { LoadingOverlayUpper30 } from "../../LoadingOverlay";
 
 const Styled = styled.div`
   width: 100vw;
@@ -270,7 +270,7 @@ const PlayerHeader = ({
     return <ErrorBox />;
   }
   if (loading) {
-    return <Facebook width={400} height={60} animate />;
+    return <LoadingOverlayUpper30 />;
   }
 
   const avatarStyle = {

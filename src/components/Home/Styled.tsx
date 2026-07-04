@@ -27,7 +27,7 @@ export const HeadlineDiv = styled.div`
   }
 
   @media only screen and (max-width: 425px) {
-    font-size: 60px;
+    font-size: 50px;
     margin-left: -2%;
   }
 
@@ -36,17 +36,28 @@ export const HeadlineDiv = styled.div`
   }
 `;
 export const DescriptionDiv = styled.div`
-  font-size: 1.25rem;
   font-weight: ${constants.fontWeightLight};
   margin-bottom: 20px;
   text-shadow: #000 0 0 3px;
 
   & h2 {
     all: inherit;
+    font-size: 1.125rem;
+    line-height: 1.6;
   }
 
   @media only screen and (max-width: 768px) {
-    font-size: 25px;
+    & h2 {
+      margin-top: 8px;
+      font-size: 1rem;
+    }
+  }
+`;
+export const ButtonContainer = styled.div`
+  margin-top: 28px;
+
+  @media only screen and (max-width: 768px) {
+    margin-top: 24px;
   }
 `;
 export const BottomTextDiv = styled.div`

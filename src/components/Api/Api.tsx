@@ -5,14 +5,16 @@ import { Alert, CircularProgress } from "@mui/material";
 import { Button } from "@mui/material";
 import styled from "styled-components";
 import StripeCheckout, { Token } from "react-stripe-checkout";
-import config from "../../config";
+import { LoadingOverlayUpper30 } from "../LoadingOverlay";
 import { IconSteam } from "../Icons";
+import config from "../../config";
+import constants from "../constants";
 
 const path = "/keys";
 
 const ApiContainer = styled.div`
   width: 80%;
-  margin: 0 auto;
+  margin: 6vh auto 0;
 
   @media only screen and (max-width: 768px) {
     width: 100%;
@@ -22,15 +24,45 @@ const ApiContainer = styled.div`
     list-style-type: initial;
   }
 
-  & h2 {
-    font-size: 1.17em;
+  & h1 {
+    font-family: ${constants.fontFamilySerif};
+    font-weight: 400;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 1.625rem;
+    }
   }
+
+  & h2 {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.4;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 0.75rem;
+    }
+  }
+`;
+
+const Body = styled.div`
+  padding-top: 8px;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const KeyContainer = styled.pre`
   background: grey;
   display: inline;
   padding: 10px;
+`;
+
+const TableTitle = styled.h2`
+  margin: 16px 0;
 `;
 
 const TableContainer = styled.div`
@@ -64,8 +96,16 @@ const DetailsContainer = styled.div`
   }
 `;
 
+const DetailsTitle = styled.h3`
+  font-size: 1rem;
+  font-weight: 400;
+`;
+
 const List = styled.ul`
-  line-height: 1.6;
+  li {
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
 `;
 
 class KeyManagement extends React.Component<
@@ -208,45 +248,47 @@ class KeyManagement extends React.Component<
           <h1>{strings.api_title}</h1>
           <h2>{strings.api_subtitle}</h2>
           {loading || this.state.loading || !Object.keys(strings).length ? (
-            <CircularProgress />
+            <LoadingOverlayUpper30 text="Loading API details..." />
           ) : (
-            <div>
-              {showLoginButton ? (
+            <Body>
+              <ButtonGroup>
+                {showLoginButton ? (
+                  <Button
+                    variant="contained"
+                    startIcon={<IconSteam />}
+                    href={`${config.VITE_API_HOST}/login`}
+                    style={{ margin: "5px 5px" }}
+                  >
+                    {strings.api_login}
+                  </Button>
+                ) : (
+                  <div />
+                )}
+                {showGetKeyButton ? (
+                  <StripeCheckout
+                    name="OpenDota"
+                    description={strings.api_title}
+                    billingAddress
+                    stripeKey={config.VITE_STRIPE_PUBLIC_KEY}
+                    token={this.handleSubmit}
+                    zipCode
+                    locale="auto"
+                  >
+                    <Button variant="contained" style={{ margin: "5px 5px" }}>
+                      {strings.api_get_key}
+                    </Button>
+                  </StripeCheckout>
+                ) : (
+                  <span />
+                )}
                 <Button
-                  variant="contained"
-                  startIcon={<IconSteam />}
-                  href={`${config.VITE_API_HOST}/login`}
+                  href="//docs.opendota.com"
+                  target="_blank"
                   style={{ margin: "5px 5px" }}
                 >
-                  {strings.api_login}
+                  {strings.api_docs}
                 </Button>
-              ) : (
-                <div />
-              )}
-              {showGetKeyButton ? (
-                <StripeCheckout
-                  name="OpenDota"
-                  description={strings.api_title}
-                  billingAddress
-                  stripeKey={config.VITE_STRIPE_PUBLIC_KEY}
-                  token={this.handleSubmit}
-                  zipCode
-                  locale="auto"
-                >
-                  <Button variant="contained" style={{ margin: "5px 5px" }}>
-                    {strings.api_get_key}
-                  </Button>
-                </StripeCheckout>
-              ) : (
-                <span />
-              )}
-              <Button
-                href="//docs.opendota.com"
-                target="_blank"
-                style={{ margin: "5px 5px" }}
-              >
-                {strings.api_docs}
-              </Button>
+              </ButtonGroup>
               {this.state.customer ? (
                 <div>
                   {this.state.customer.api_key ? (
@@ -343,7 +385,7 @@ class KeyManagement extends React.Component<
               ) : (
                 <div />
               )}
-              <h2>{strings.api_header_table}</h2>
+              <TableTitle>{strings.api_header_table}</TableTitle>
               <TableContainer>
                 <table>
                   <thead>
@@ -403,9 +445,8 @@ class KeyManagement extends React.Component<
                   </tbody>
                 </table>
               </TableContainer>
-
-              <h3>{strings.api_header_details}</h3>
               <DetailsContainer>
+                <DetailsTitle>{strings.api_header_details}</DetailsTitle>
                 <List>
                   <li>
                     {strings.api_charging.replace(
@@ -417,7 +458,7 @@ class KeyManagement extends React.Component<
                   <li>{strings.api_failure}</li>
                 </List>
               </DetailsContainer>
-            </div>
+            </Body>
           )}
         </ApiContainer>
       </div>
