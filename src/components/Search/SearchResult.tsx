@@ -138,6 +138,7 @@ const Search = ({
       <Spacer variant="3" />
       <Container
         loading={prosLoading}
+        text="Loading pro players..."
         error={prosError}
         title={strings.app_pro_players}
         hide={!pros || pros.length === 0}
@@ -152,6 +153,7 @@ const Search = ({
       <Spacer variant="1" />
       <Container
         loading={playersLoading}
+        text="Loading public players..."
         error={playersError}
         title={strings.app_public_players}
         subtitle={`${players?.length} ${strings.app_results}`}
