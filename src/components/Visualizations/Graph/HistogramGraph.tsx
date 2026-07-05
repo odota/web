@@ -2,7 +2,6 @@ import React from "react";
 import {
   Bar,
   BarChart,
-  CartesianGrid,
   Cell,
   Label,
   ResponsiveContainer,
@@ -10,10 +9,13 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-
-import { formatGraphValueData, hsvToRgb } from "../../../utility";
-import { StyledTooltip } from "./Styled";
+import { formatGraphValueData, percentile } from "../../../utility";
+import { StyledTooltip, TooltipLabel, HistogramTooltipDiv } from "./Styled";
+import Grid from "./Grid";
 import useStrings from "../../../hooks/useStrings.hook";
+import constants from "../../constants";
+
+const formatPercent = (percentile: number) => (percentile * 100)?.toFixed(2);
 
 const HistogramTooltipContent = ({
   payload,
@@ -26,13 +28,24 @@ const HistogramTooltipContent = ({
 }) => {
   const strings = useStrings();
   const data = payload && payload[0] && payload[0].payload;
+  const winratePercentile = data && data?.games > 0 && data?.win / data?.games;
+  const winratePercent = formatPercent(winratePercentile);
+  const grade = percentile(winratePercentile);
+  const numWins = data?.win;
+  const numLosses = data?.games - data?.win;
+  const color = String(constants[grade.color as keyof typeof constants]);
   return (
     <StyledTooltip>
-      <div>{`${formatGraphValueData(data && data.x, histogramName)} ${xAxisLabel}`}</div>
-      <div>{`${data && data.games} ${strings.th_matches}`}</div>
-      {data && data.games > 0 && (
-        <div>{`${((data.win / data.games) * 100).toFixed(2)} ${strings.th_win}`}</div>
-      )}
+      <TooltipLabel>
+        {`${formatGraphValueData(data && data.x, histogramName)} ${xAxisLabel} ${histogramName}`}
+      </TooltipLabel>
+      <HistogramTooltipDiv
+        fontSize="medium"
+        color={color}
+      >{`${winratePercent} ${strings.th_win}`}</HistogramTooltipDiv>
+      <HistogramTooltipDiv>{`${data && data.games} ${strings.th_matches}`}</HistogramTooltipDiv>
+      <HistogramTooltipDiv>{numWins} wins</HistogramTooltipDiv>
+      <HistogramTooltipDiv>{numLosses} losses</HistogramTooltipDiv>
     </StyledTooltip>
   );
 };
@@ -53,26 +66,38 @@ const HistogramGraph = ({
       height={graphHeight}
       data={columns}
       margin={{
-        top: 0,
-        right: 0,
-        left: 0,
-        bottom: 0,
+        top: 20,
+        right: 40,
+        left: 20,
+        bottom: 20,
       }}
+      barCategoryGap="18%"
     >
       <XAxis
         dataKey="x"
         interval={1}
         tickFormatter={(val) => formatGraphValueData(val, histogramName)}
+        tick={{
+          fontFamily: constants.fontFamilySerif,
+          fontSize: 12,
+          fill: constants.colorGreyMuted,
+        }}
+        axisLine={false}
+        tickLine={false}
       >
         <Label value="" position="insideTopRight" />
       </XAxis>
-      <YAxis />
-      <CartesianGrid
-        stroke="rgba(255, 255, 255, .2)"
-        strokeWidth={1}
-        opacity={0.5}
+      <YAxis
+        tick={{
+          fontFamily: constants.fontFamilySerif,
+          fontSize: 12,
+          fill: constants.colorGreyMuted,
+        }}
+        tickFormatter={(value) => value?.toLocaleString()}
+        axisLine={false}
+        tickLine={false}
       />
-
+      <Grid />
       <Tooltip
         content={
           <HistogramTooltipContent
@@ -82,17 +107,17 @@ const HistogramGraph = ({
         }
         cursor={{ fill: "rgba(255, 255, 255, .35)" }}
       />
-      <Bar dataKey="games">
+      <Bar dataKey="games" radius={[4, 4, 0, 0]} animationDuration={700}>
         {columns.map((entry) => {
           const { win, games, x } = entry;
           const percent = win / games;
-          const adjustedVal =
-            percent >= 0.5
-              ? percent + (1 - percent) / 5
-              : percent - percent / 5;
-          const rgb = hsvToRgb(adjustedVal * (1 / 3), 0.9, 0.9);
-          const stroke = `rgba(${Math.floor(rgb[0])}, ${Math.floor(rgb[1])}, ${Math.floor(rgb[2])}, .8)`;
-          const color = `rgba(${Math.floor(rgb[0])}, ${Math.floor(rgb[1])}, ${Math.floor(rgb[2])}, .5)`;
+          const grade = percentile(percent);
+          const stroke = String(
+            constants[grade.color as keyof typeof constants],
+          );
+          const color = String(
+            constants[grade.color as keyof typeof constants],
+          );
           return <Cell fill={color} stroke={stroke} strokeWidth="2" key={x} />;
         })}
       </Bar>

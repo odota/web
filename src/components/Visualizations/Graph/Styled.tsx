@@ -127,3 +127,11 @@ export const NumPlayers = styled.div`
 export const Percentile = styled.div`
   font-size: ${constants.fontSizeMedium};
 `;
+export const HistogramTooltipDiv = styled.div<{
+  color?: string;
+  fontSize?: "small" | "medium";
+}>`
+  font-size: ${({ fontSize }) =>
+    fontSize === "medium" ? constants.fontSizeMedium : constants.fontSizeSmall};
+  color: ${({ color }) => color};
+`;

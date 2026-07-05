@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-
 import { getPlayerHistograms } from "../../../../actions";
 import ButtonGarden from "../../../ButtonGarden/ButtonGarden";
 import Container from "../../../Container/Container";
@@ -10,6 +9,7 @@ import { HistogramGraph } from "../../../Visualizations";
 import dataColumns from "../matchDataColumns";
 import { formatGraphValueData } from "../../../../utility";
 import useStrings from "../../../../hooks/useStrings.hook";
+import { Spacer } from "../../../Spacer/Spacer";
 
 const getMedian = (columns: any[], midpoint: number) => {
   let sum = 0;
@@ -46,6 +46,9 @@ const Histogram = ({
   history,
 }: HistogramsProps) => {
   const strings = useStrings();
+  const match = window.location.pathname.match(/\/histograms\/([^/?]+)/);
+  const buttonKey = match?.[1];
+  const buttonName = strings[`heading_${buttonKey}` as keyof Strings];
   return (
     <div>
       <Heading
@@ -61,7 +64,7 @@ const Histogram = ({
         buttonNames={histogramNames}
         selectedButton={routeParams.subInfo || histogramNames[0]}
       />
-      <Container error={error} loading={loading}>
+      <Container error={error} loading={loading} text="Loading histogram...">
         <div>
           <Heading
             title={strings[`heading_${histogramName}` as keyof Strings]}
@@ -76,10 +79,8 @@ const Histogram = ({
                     .join(" ")
             }
           />
-          <HistogramGraph
-            columns={columns || []}
-            histogramName={histogramName}
-          />
+          <Spacer variant="1" />
+          <HistogramGraph columns={columns || []} histogramName={buttonName} />
         </div>
       </Container>
     </div>

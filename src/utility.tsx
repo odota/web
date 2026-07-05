@@ -1077,7 +1077,7 @@ export function formatGraphValueData(data: number, histogramName?: string) {
       return formatSeconds(data);
 
     default:
-      return String(data);
+      return String(data?.toLocaleString());
   }
 }
 
