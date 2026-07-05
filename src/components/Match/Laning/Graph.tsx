@@ -21,6 +21,7 @@ import {
 import useStrings from "../../../hooks/useStrings.hook";
 import { Spacer } from "../../Spacer/Spacer";
 import constants from "../../constants";
+import Grid from "../../Visualizations/Graph/Grid";
 
 const formatGraphTime = (minutes: number) => `${minutes}:00`;
 
@@ -149,13 +150,7 @@ const Graph = (props: GraphProps) => {
               axisLine={false}
               tickLine={false}
             />
-            <CartesianGrid
-              strokeWidth={1}
-              stroke="#2a2a2a"
-              strokeDasharray="3 3"
-              opacity={0.4}
-            />
-
+            <Grid />
             <Tooltip content={<CustomizedTooltip />} />
             {match.players.map((player) => {
               const hero = heroes[player.hero_id] || {};

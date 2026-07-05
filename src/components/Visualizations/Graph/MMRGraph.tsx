@@ -13,6 +13,7 @@ import {
 import styled from "styled-components";
 import useStrings from "../../../hooks/useStrings.hook";
 import { rankTierToString } from "../../../utility";
+import Grid from "./Grid";
 
 const StyledGraphArea = styled.div`
   user-select: none;
@@ -48,8 +49,7 @@ const MMRGraph = ({ columns }: { columns: any[] }) => {
             tickCount={8}
             tickFormatter={formatYTick}
           />
-          <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
-
+          <Grid />
           <Tooltip
             labelStyle={{ color: "black" }}
             labelFormatter={(time: number) => new Date(time).toDateString()}

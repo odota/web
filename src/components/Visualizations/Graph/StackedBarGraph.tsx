@@ -12,6 +12,7 @@ import Heading from "../../Heading/Heading";
 import constants from "../../constants";
 import { StyledHolder } from "./Styled";
 import useStrings from "../../../hooks/useStrings.hook";
+import Grid from "./Grid";
 
 const category10 = [
   "#1f77b4",
@@ -76,7 +77,7 @@ const StackedBarGraph = ({
           >
             <XAxis dataKey="name" {...xAxisProps} />
             <YAxis />
-            <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
+            <Grid />
             <Tooltip
               cursor={{ opacity: "0.06" }}
               wrapperStyle={{

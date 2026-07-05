@@ -11,6 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import constants from "../constants";
+import Grid from "../Visualizations/Graph/Grid";
 
 const Wrapper = styled.div`
   box-sizing: border-box;
@@ -78,7 +79,7 @@ const BenchmarkGraph = ({ data }: { data: any }) => {
               <stop offset="100%" stopColor={data.color} stopOpacity="0" />
             </linearGradient>
           </defs>
-          <CartesianGrid stroke="rgba(255, 255, 255, .1)" strokeDasharray="0" />
+          <Grid />
           <XAxis dataKey="Percentage" />
           <YAxis />
           <Area

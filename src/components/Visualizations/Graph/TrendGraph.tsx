@@ -16,6 +16,7 @@ import { formatSeconds, fromNow, formatGraphValueData } from "../../../utility";
 import constants from "../../constants";
 import HeroImage from "../HeroImage";
 import useStrings from "../../../hooks/useStrings.hook";
+import Grid from "./Grid";
 
 const TooltipStylesDiv = styled.div`
   .tooltipWrapper {
@@ -140,8 +141,7 @@ const TrendGraph = ({ columns, name }: { columns: any[]; name: string }) => {
           <Label value="" position="insideTopRight" />
         </XAxis>
         <YAxis domain={["auto", "auto"]} />
-        <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
-
+        <Grid />
         <Tooltip content={<TrendTooltipContent name={name} />} />
         <Line
           dot={false}

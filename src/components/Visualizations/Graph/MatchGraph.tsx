@@ -6,7 +6,6 @@ import {
   Tooltip,
   Line,
   LineChart,
-  CartesianGrid,
   ReferenceLine,
   Legend,
   ResponsiveContainer,
@@ -33,6 +32,7 @@ import {
 import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
 import { Spacer } from "../../Spacer/Spacer";
+import Grid from "./Grid";
 
 const formatGraphTime = (minutes: number) => `${minutes}:00`;
 
@@ -125,15 +125,6 @@ const XpTooltipContent = ({ payload }: { payload?: any[] }) => {
   }
 };
 
-const Grid = () => (
-  <CartesianGrid
-    strokeWidth={1}
-    stroke="#2a2a2a"
-    strokeDasharray="3 3"
-    opacity={0.4}
-  />
-);
-
 const XpNetworthGraph = ({ match }: { match: Match }) => {
   const strings = useStrings();
   if (!match.radiant_gold_adv || !match.radiant_xp_adv) {
@@ -184,7 +175,6 @@ const XpNetworthGraph = ({ match }: { match: Match }) => {
           />
           <YAxis
             domain={[minY, maxY]}
-            mirror
             tick={{
               fontFamily: constants.fontFamilySerif,
               fontSize: 12,
