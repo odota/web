@@ -20,6 +20,7 @@ import CountsSummary from "./CountsSummary";
 import { formatTemplateToString } from "../../../../utility";
 import Collapsible from "../../../Collapsible/Collapsible";
 import useStrings from "../../../../hooks/useStrings.hook";
+import { Spacer } from "../../../Spacer/Spacer";
 
 export const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
@@ -162,6 +163,7 @@ const Overview = ({
         initialMaxHeight={800}
         buttonStyle={{ top: 8 }}
       >
+        <Spacer variant="1" />
         <SummaryContainer
           title={strings.heading_avg_and_max}
           titleTo={`/players/${playerId}/records`}
@@ -200,6 +202,7 @@ const Overview = ({
             )}
           />
         </SummaryContainer>
+        <Spacer variant="1" />
         <SummaryContainer
           title={strings.tab_counts}
           loading={countsLoading}
@@ -213,6 +216,7 @@ const Overview = ({
           <CountsSummary data={countsData} />
         </SummaryContainer>
       </Collapsible>
+      <Spacer variant="1" />
       <MatchesContainer>
         <Container
           title={strings.heading_matches}
@@ -230,7 +234,7 @@ const Overview = ({
           />
         </Container>
       </MatchesContainer>
-
+      <Spacer variant="1" />
       <HeroesContainer>
         <Collapsible
           name="overviewPeers"

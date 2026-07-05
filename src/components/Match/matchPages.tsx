@@ -20,6 +20,7 @@ import Chat from "./Chat/Chat";
 import { StyledFlexContainer, StyledFlexElement } from "./StyledMatch";
 import { getHeroImageUrl, IMAGESIZE_ENUM } from "../../utility";
 import config from "../../config";
+import { Spacer } from "../Spacer/Spacer";
 
 const TickElement = (props: { x: number; y: number; payload: any }) => {
   const { x, y, payload } = props;
@@ -278,14 +279,18 @@ const matchPages = (
       content: (match: Match) => (
         <div>
           <Timeline match={match} />
+          <Spacer variant="2" />
           <MatchGraph
             match={match}
             type="difference"
             // sponsorURL={gosuUrl}
             // sponsorIcon={gosuIcon}
           />
+          <Spacer variant="2" />
           <MatchGraph match={match} type="gold" />
+          <Spacer variant="2" />
           <MatchGraph match={match} type="xp" />
+          <Spacer variant="2" />
           <MatchGraph match={match} type="lh" />
         </div>
       ),

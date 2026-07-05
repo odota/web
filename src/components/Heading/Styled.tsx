@@ -2,6 +2,9 @@ import styled from "styled-components";
 import constants from "../constants";
 
 export const StyledDiv = styled.div`
+  display: flex;
+  align-items: center;
+
   &.top-heading {
     width: 100vw;
     position: relative;
@@ -22,8 +25,11 @@ export const StyledDiv = styled.div`
   .winner {
     position: relative;
     bottom: 1px;
-    background: rgb(25, 25, 25);
+    color: ${constants.colorGreenDark};
+    background: ${constants.colorGreen};
+    border: 0px solid ${constants.colorGreen};
     font-size: 10px;
+    font-weight: 600;
     padding: 1px;
     padding-right: 4px;
     margin-left: 10px;
@@ -42,7 +48,7 @@ export const StyledDiv = styled.div`
     width: 0;
     position: absolute;
     pointer-events: none;
-    border-right-color: rgb(25, 25, 25);
+    border-right-color: ${constants.colorGreen};
     border-width: 8px;
     margin-top: -8px;
   }
@@ -50,9 +56,6 @@ export const StyledDiv = styled.div`
   & svg {
     height: 20px !important;
     width: 20px !important;
-    position: relative;
-    margin-right: 6px;
-    top: 2px;
     opacity: 0.8;
     fill: ${constants.textColorPrimary};
   }
@@ -67,6 +70,9 @@ export const StyledDiv = styled.div`
   }
 
   .title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-family: ${constants.fontFamilySerif};
     font-size: 1rem;
     font-weight: 400;

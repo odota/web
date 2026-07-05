@@ -3,6 +3,7 @@ import { isRadiant, getTeamName } from "../../utility";
 import { IconRadiant, IconDire } from "../Icons";
 import Heading from "../Heading/Heading";
 import Table from "../Table/Table";
+import { Spacer } from "../Spacer/Spacer";
 
 const filterMatchPlayers = (players: MatchPlayer[], team = "") =>
   players
@@ -34,6 +35,7 @@ const AbilityBuildTable = ({
       title={`${getTeamName(radiantTeam, true)} - ${heading}`}
       icon={<IconRadiant />}
     />
+    <Spacer variant="1" />
     <Table
       data={filterMatchPlayers(players, "radiant")}
       columns={columns}
@@ -43,6 +45,7 @@ const AbilityBuildTable = ({
       title={`${getTeamName(direTeam, false)} - ${heading}`}
       icon={<IconDire />}
     />
+    <Spacer variant="1" />
     <Table
       data={filterMatchPlayers(players, "dire")}
       columns={columns}

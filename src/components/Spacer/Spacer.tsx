@@ -1,3 +1,5 @@
+import constants from "../constants";
+
 import React from "react";
 
 interface SpacerProps {
@@ -6,13 +8,13 @@ interface SpacerProps {
 const getHeight = (variant: SpacerProps["variant"]) => {
   switch (variant) {
     case "1":
-      return 8;
+      return constants.verticalSpaceSmall;
     case "2":
-      return 16;
+      return constants.verticalSpaceMedium;
     case "3":
-      return 24;
+      return constants.verticalSpaceLarge;
     default:
-      return 8;
+      return constants.verticalSpaceSmall;
   }
 };
 const Spacer = ({ variant }: SpacerProps) => {
