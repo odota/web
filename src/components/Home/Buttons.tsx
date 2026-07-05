@@ -12,15 +12,13 @@ const Buttons = ({ user }: HomePageProps) => {
   return (
     <div>
       {!user && (
-        <div>
-          <Button
-            variant="contained"
-            startIcon={<IconSteam />}
-            href={`${config.VITE_API_HOST}/login`}
-          >
-            {strings.home_login}
-          </Button>
-        </div>
+        <Button
+          variant="contained"
+          startIcon={<IconSteam />}
+          href={`${config.VITE_API_HOST}/login`}
+        >
+          {strings.home_login}
+        </Button>
       )}
     </div>
   );

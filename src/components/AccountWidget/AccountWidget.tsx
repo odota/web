@@ -32,15 +32,11 @@ const AccountWidget = ({
       {!error && !loading && user ? (
         <LoggedIn style={style} playerId={user.account_id} />
       ) : (
-        <Button href={`${config.VITE_API_HOST}/login`}>
-          <IconSteam />
-          <ButtonLabel
-            style={{
-              lineHeight: "1px",
-            }}
-          >
-            {strings.app_login}
-          </ButtonLabel>
+        <Button
+          startIcon={<IconSteam />}
+          href={`${config.VITE_API_HOST}/login`}
+        >
+          {strings.app_login}
         </Button>
       )}
     </div>

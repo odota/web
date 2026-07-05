@@ -33,6 +33,30 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          display: "flex-inline",
+          alignItems: "center",
+          textTransform: "none",
+          fontFamily: constants.fontFamilySerif,
+          fontSize: constants.fontSizeSmall,
+          fontWeight: 300,
+          "&:hover": {
+            backgroundColor: "transparent",
+            filter: "brightness(0.85)",
+          },
+        },
+        startIcon: {
+          marginRight: 2,
+          "& .MuiSvgIcon-root": {
+            fontSize: "1rem",
+          },
+        },
+      },
+    },
+  },
 });
 
 type AppStylesProps = {
