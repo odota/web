@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { CircularProgress } from "@mui/material";
 import styled from "styled-components";
 import constants from "../constants";
@@ -24,13 +24,14 @@ const SpinnerContainer = styled.div`
 `;
 
 const SpinnerText = styled.span`
-  font-size: 0.8rem;
+  font-family: ${constants.fontFamilyFuturistic};
+  font-size: ${constants.fontSizeSmall};
   letter-spacing: 0.05em;
   color: ${constants.colorBlue};
 `;
 
 const Spinner = ({
-  size = 32,
+  size = 24,
   text,
 }: {
   size?: number;

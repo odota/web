@@ -16,6 +16,7 @@ const stripePromise = config.VITE_STRIPE_PUBLIC_KEY
 const PageContainer = styled.div`
   width: 80%;
   margin: 0 auto;
+  font-family: ${constants.fontFamilyFuturistic};
 
   @media only screen and (max-width: 768px) {
     width: 100%;
@@ -211,7 +212,7 @@ const Subscription = ({
           )}
           {!user && (
             <Button
-              variant="contained"
+              variant="outlined"
               href={`${config.VITE_API_HOST}/login`}
               startIcon={<IconSteam />}
             >

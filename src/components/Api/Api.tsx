@@ -15,6 +15,7 @@ const path = "/keys";
 const ApiContainer = styled.div`
   width: 80%;
   margin: 6vh auto 0;
+  font-family: ${constants.fontFamilyFuturistic};
 
   @media only screen and (max-width: 768px) {
     width: 100%;
@@ -254,10 +255,16 @@ class KeyManagement extends React.Component<
               <ButtonGroup>
                 {showLoginButton ? (
                   <Button
-                    variant="contained"
+                    variant="outlined"
                     startIcon={<IconSteam />}
                     href={`${config.VITE_API_HOST}/login`}
                     style={{ margin: "5px 5px" }}
+                    sx={{
+                      backgroundColor: constants.primarySurfaceColor,
+                      "&:hover": {
+                        backgroundColor: constants.primarySurfaceColor,
+                      },
+                    }}
                   >
                     {strings.api_login}
                   </Button>

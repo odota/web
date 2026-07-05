@@ -7,7 +7,6 @@ import {
   Tooltip,
   Area,
   AreaChart,
-  CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
 import constants from "../constants";

@@ -40,8 +40,9 @@ const darkTheme = createTheme({
           display: "flex-inline",
           alignItems: "center",
           textTransform: "none",
-          fontFamily: constants.fontFamilySerif,
+          fontFamily: constants.fontFamilyFuturistic,
           fontSize: constants.fontSizeSmall,
+          color: constants.colorWhite,
           fontWeight: 300,
           "&:hover": {
             backgroundColor: "transparent",

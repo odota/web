@@ -112,13 +112,23 @@ const DrawerLink = styled(Link)`
     background-color: rgba(0, 0, 0, 0.08);
     transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
+
+  span {
+    font-family: ${constants.fontFamilyFuturistic};
+    font-size: ${constants.fontSizeSmall};
+  }
+`;
+
+const LinkGroupLink = styled(Link)`
+  font-family: ${constants.fontFamilyFuturistic};
+  font-size: ${constants.fontSizeSmall} !important;
 `;
 
 const LinkGroup = ({ navbarPages }: { navbarPages: any[] }) => (
   <VerticalAlignToolbar>
     {navbarPages.map((page: any) => (
       <TabContainer key={page.key}>
-        <Link to={page.to}>{page.label}</Link>
+        <LinkGroupLink to={page.to}>{page.label}</LinkGroupLink>
         {Boolean(page.feature) && (
           <div
             style={{

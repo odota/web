@@ -36,6 +36,7 @@ export const HeadlineDiv = styled.div`
   }
 `;
 export const DescriptionDiv = styled.div`
+  font-family: ${constants.fontFamilyFuturistic};
   font-weight: ${constants.fontWeightLight};
   margin-bottom: 20px;
   text-shadow: #000 0 0 3px;

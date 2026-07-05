@@ -58,6 +58,8 @@ export const StyledBody = styled.div<{
 
     & th {
       position: relative;
+      font-family: ${constants.fontFamilyFuturistic};
+      font-size: ${constants.fontSizeSmall};
 
       svg {
         position: absolute;
