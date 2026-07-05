@@ -2,6 +2,7 @@ import React from "react";
 import Heading from "../Heading/Heading";
 import Error from "../Error/Error";
 import { LoadingOverlayUpper30 } from "../LoadingOverlay";
+import { Spacer } from "../Spacer/Spacer";
 
 type ContainerProps = {
   title?: string;
@@ -37,7 +38,12 @@ const Container = ({
       {title && <Heading title={title} subtitle={subtitle} titleTo={titleTo} />}
       {error && <Error />}
       {!error && loading && <LoadingOverlayUpper30 text={text} />}
-      {!error && !loading && children}
+      {!error && !loading && (
+        <>
+          <Spacer variant="1" />
+          {children}
+        </>
+      )}
     </div>
   ) : null;
 

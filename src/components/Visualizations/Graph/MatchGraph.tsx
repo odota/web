@@ -22,11 +22,17 @@ import {
   StyledHolder,
   GoldSpan,
   XpSpan,
-  StyledTooltipGold,
+  StyledTooltipTime,
+  StyledTooltipNetworthLineEntry,
   StyledCustomizedTooltip,
+  TooltipLabel,
+  TooltipLineEntry,
+  TooltipLineEntryHeroName,
+  TooltipLineEntryValue,
 } from "./Styled";
 import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
+import { Spacer } from "../../Spacer/Spacer";
 
 const formatGraphTime = (minutes: number) => `${minutes}:00`;
 
@@ -44,7 +50,7 @@ const generateDiffData = (match: Match) => {
   return data;
 };
 
-const CustomizedTooltip = ({
+const PlayerGraphTooltip = ({
   label,
   payload,
 }: {
@@ -55,22 +61,26 @@ const CustomizedTooltip = ({
   payload?.forEach((p, i) => {
     origOrderMap[p.dataKey] = i;
   });
+  const descendingOrder = payload?.sort((a, b) => {
+    return b.value - a.value;
+  });
   return (
     <StyledCustomizedTooltip>
-      <div className="label">{label}</div>
-      {payload
-        ?.sort((a, b) => {
-          return b.value - a.value;
-        })
-        ?.map((data, i) => (
-          <div
-            key={i}
-            className={`data ${origOrderMap[data.dataKey] < 5 && "isRadiant"}`}
-            style={{ borderLeft: `8px solid ${data.color}` }}
-          >
-            {data.dataKey}: {data.value}
-          </div>
-        ))}
+      <TooltipLabel>{label}</TooltipLabel>
+      {descendingOrder?.map((data, i) => (
+        <TooltipLineEntry
+          key={i}
+          className={`data ${origOrderMap[data.dataKey] < 5 ? "isRadiant" : "isDire"}`}
+          color={data.color}
+        >
+          <TooltipLineEntryHeroName color={data.color}>
+            {data.dataKey}
+          </TooltipLineEntryHeroName>
+          <TooltipLineEntryValue>
+            {data.value?.toLocaleString()}
+          </TooltipLineEntryValue>
+        </TooltipLineEntry>
+      ))}
     </StyledCustomizedTooltip>
   );
 };
@@ -82,11 +92,10 @@ const XpTooltipContent = ({ payload }: { payload?: any[] }) => {
     const { rXpAdv, rGoldAdv, time } = data;
     return (
       <StyledTooltip>
-        <StyledTooltipGold>
+        <StyledTooltipTime>
           <span>{`${formatGraphTime(time)}`}</span>
-        </StyledTooltipGold>
-        <br />
-        <StyledTooltipGold>
+        </StyledTooltipTime>
+        <StyledTooltipNetworthLineEntry>
           <StyledTooltipTeam
             color={
               rGoldAdv > 0 ? constants.colorSuccess : constants.colorDanger
@@ -95,26 +104,35 @@ const XpTooltipContent = ({ payload }: { payload?: any[] }) => {
             {rGoldAdv > 0 ? strings.general_radiant : strings.general_dire}
           </StyledTooltipTeam>
           <GoldSpan>
-            {Math.abs(rGoldAdv)} {strings.heading_graph_gold}
+            {Math.abs(rGoldAdv)?.toLocaleString()} {strings.heading_graph_gold}
           </GoldSpan>
-        </StyledTooltipGold>
+        </StyledTooltipNetworthLineEntry>
         <br />
-        <StyledTooltipGold>
+        <StyledTooltipNetworthLineEntry>
           <StyledTooltipTeam
             color={rXpAdv > 0 ? constants.colorSuccess : constants.colorDanger}
           >
             {rXpAdv > 0 ? strings.general_radiant : strings.general_dire}
           </StyledTooltipTeam>
           <XpSpan>
-            {Math.abs(rXpAdv)} {strings.heading_graph_xp}
+            {Math.abs(rXpAdv)?.toLocaleString()} {strings.heading_graph_xp}
           </XpSpan>
-        </StyledTooltipGold>
+        </StyledTooltipNetworthLineEntry>
       </StyledTooltip>
     );
   } catch (e) {
     return null;
   }
 };
+
+const Grid = () => (
+  <CartesianGrid
+    strokeWidth={1}
+    stroke="#2a2a2a"
+    strokeDasharray="3 3"
+    opacity={0.4}
+  />
+);
 
 const XpNetworthGraph = ({ match }: { match: Match }) => {
   const strings = useStrings();
@@ -132,14 +150,15 @@ const XpNetworthGraph = ({ match }: { match: Match }) => {
     ) * 5000;
   return (
     <StyledHolder>
-      <StyledRadiant>{strings.general_radiant}</StyledRadiant>
-      <StyledDire>{strings.general_dire}</StyledDire>
+      <StyledRadiant>The {strings.general_radiant}</StyledRadiant>
+      <StyledDire>The {strings.general_dire}</StyledDire>
       <Heading
         title={strings.heading_graph_difference}
         // buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
         // buttonTo={`${sponsorURL}Graphs`}
         // buttonIcon={sponsorIcon}
       />
+      <Spacer variant="1" />
       <ResponsiveContainer width="100%" height={400}>
         <LineChart
           data={matchData}
@@ -152,31 +171,53 @@ const XpNetworthGraph = ({ match }: { match: Match }) => {
         >
           <ReferenceArea y1={0} y2={maxY} fill="rgba(102, 187, 106, 0.12)" />
           <ReferenceArea y1={0} y2={minY} fill="rgba(255, 76, 76, 0.12)" />
-          <XAxis dataKey="time" tickFormatter={formatGraphTime} />
+          <XAxis
+            dataKey="time"
+            tickFormatter={formatGraphTime}
+            tick={{
+              fontFamily: constants.fontFamilySerif,
+              fontSize: 12,
+              fill: constants.colorGreyMuted,
+            }}
+            axisLine={false}
+            tickLine={false}
+          />
           <YAxis
             domain={[minY, maxY]}
-            mirror={true}
-            padding={{ top: 5, bottom: 5 }}
+            mirror
+            tick={{
+              fontFamily: constants.fontFamilySerif,
+              fontSize: 12,
+              fill: constants.colorGreyMuted,
+            }}
+            tickFormatter={(value) => value?.toLocaleString()}
+            axisLine={false}
+            tickLine={false}
           />
           <ReferenceLine y={0} stroke="#505050" strokeWidth={2} opacity={1} />
-          <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
-
+          <Grid />
           <Tooltip content={<XpTooltipContent />} />
           <Line
             dot={false}
             dataKey="rXpAdv"
-            stroke="#acc9ed"
+            stroke={constants.colorGraphBlue}
             strokeWidth={2}
             name={strings.heading_graph_xp}
           />
           <Line
             dot={false}
             dataKey="rGoldAdv"
-            stroke="#ffd455"
+            stroke={constants.colorGraphYellow}
             strokeWidth={2}
             name={strings.heading_graph_gold}
           />
-          <Legend />
+          <Legend
+            wrapperStyle={{
+              fontFamily: constants.fontFamilySerif,
+              fontSize: 13,
+              color: constants.colorGreyMuted,
+            }}
+          />
         </LineChart>
       </ResponsiveContainer>
     </StyledHolder>
@@ -239,6 +280,7 @@ class PlayersGraph extends React.Component<
       return (
         <StyledHolder>
           <Heading title={strings[`heading_graph_${type}` as keyof Strings]} />
+          <Spacer variant="1" />
           <ResponsiveContainer width="100%" height={400}>
             <LineChart
               data={matchData}
@@ -249,11 +291,29 @@ class PlayersGraph extends React.Component<
                 bottom: 5,
               }}
             >
-              <XAxis dataKey="time" />
-              <YAxis mirror={true} />
-              <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
-
-              <Tooltip content={<CustomizedTooltip />} />
+              <XAxis
+                dataKey="time"
+                tick={{
+                  fontFamily: constants.fontFamilySerif,
+                  fontSize: 12,
+                  fill: constants.colorGreyMuted,
+                }}
+                axisLine={false}
+                tickLine={false}
+              />
+              <YAxis
+                mirror
+                tick={{
+                  fontFamily: constants.fontFamilySerif,
+                  fontSize: 12,
+                  fill: constants.colorGreyMuted,
+                }}
+                tickFormatter={(value) => value?.toLocaleString()}
+                axisLine={false}
+                tickLine={false}
+              />
+              <Grid />
+              <Tooltip content={<PlayerGraphTooltip />} />
               {match.players.map((player) => {
                 const hero = heroes[player.hero_id] || {};
                 const playerColor =
@@ -279,6 +339,11 @@ class PlayersGraph extends React.Component<
               <Legend
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
+                wrapperStyle={{
+                  fontFamily: constants.fontFamilySerif,
+                  fontSize: 13,
+                  color: constants.colorGreyMuted,
+                }}
               />
             </LineChart>
           </ResponsiveContainer>

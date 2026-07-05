@@ -9,6 +9,7 @@ import Collapsible from "../../Collapsible/Collapsible";
 import AbilityBuildTable from "../AbilityBuildTable";
 import DeferredContainer from "../../DeferredContainer/DeferredContainer";
 import config from "../../../config";
+import { Spacer } from "../../Spacer/Spacer";
 
 const Styled = styled.div`
   width: 100%;
@@ -73,6 +74,7 @@ export const getOverviewTab = (strings: Strings, beta = false) => {
             summable
           />
         )}
+        <Spacer variant="1" />
         <DeferredContainer>
           <Collapsible name="abilityBuilds" initialMaxHeight={800}>
             <AbilityBuildTable

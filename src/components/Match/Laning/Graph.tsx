@@ -19,6 +19,8 @@ import {
   StyledHolder,
 } from "../../Visualizations/Graph/Styled";
 import useStrings from "../../../hooks/useStrings.hook";
+import { Spacer } from "../../Spacer/Spacer";
+import constants from "../../constants";
 
 const formatGraphTime = (minutes: number) => `${minutes}:00`;
 
@@ -116,6 +118,7 @@ const Graph = (props: GraphProps) => {
     return (
       <StyledHolder>
         <Heading title={strings.heading_graph_cs} />
+        <Spacer variant="1" />
         <ResponsiveContainer width="100%" height={400}>
           <LineChart
             data={matchData}
@@ -126,9 +129,32 @@ const Graph = (props: GraphProps) => {
               bottom: 5,
             }}
           >
-            <XAxis dataKey="time" />
-            <YAxis mirror />
-            <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
+            <XAxis
+              dataKey="time"
+              tick={{
+                fontFamily: constants.fontFamilySerif,
+                fontSize: 12,
+                fill: constants.colorGreyMuted,
+              }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              mirror
+              tick={{
+                fontFamily: constants.fontFamilySerif,
+                fontSize: 12,
+                fill: constants.colorGreyMuted,
+              }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <CartesianGrid
+              strokeWidth={1}
+              stroke="#2a2a2a"
+              strokeDasharray="3 3"
+              opacity={0.4}
+            />
 
             <Tooltip content={<CustomizedTooltip />} />
             {match.players.map((player) => {
@@ -158,7 +184,13 @@ const Graph = (props: GraphProps) => {
                 />
               );
             })}
-            <Legend />
+            <Legend
+              wrapperStyle={{
+                fontFamily: constants.fontFamilySerif,
+                fontSize: 13,
+                color: constants.colorGreyMuted,
+              }}
+            />
             <Brush endIndex={12} height={20} />
           </LineChart>
         </ResponsiveContainer>

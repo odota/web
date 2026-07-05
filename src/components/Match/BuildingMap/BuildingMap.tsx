@@ -12,6 +12,7 @@ import buildingData733 from "./buildingData733";
 import constants from "../../constants";
 import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
+import { Spacer } from "../../Spacer/Spacer";
 
 const buildingDataByPatch = [
   { patch: "7.33", data: buildingData733 },
@@ -560,6 +561,7 @@ const BuildingMap = ({ match }: { match: Match }) => {
   return (
     <StyledDiv>
       <Heading title={strings.heading_buildings} />
+      <Spacer variant="1" />
       <DotaMap startTime={match.start_time} maxWidth={300}>
         {icons}
         <div className="hero-icons radiant-safe">{radiantSafe}</div>

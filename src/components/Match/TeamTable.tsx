@@ -5,6 +5,7 @@ import { isRadiant, getTeamName } from "../../utility";
 import Heading from "../Heading/Heading";
 import Table from "../Table/Table";
 import PicksBans from "./Overview/PicksBans"; // Displayed only on `Overview` page
+import { Spacer } from "../Spacer/Spacer";
 
 const StyledDiv = styled.div`
   .teamtable {
@@ -161,12 +162,14 @@ class TeamTable extends React.Component<TeamTableProps> {
           buttonIcon={buttonIcon || ""}
           winner={!hideWinnerTag && radiantWin}
         />
+        <Spacer variant="1" />
         <div className="teamtable teamtable-radiant">
           <Table
             data={filterMatchPlayers(players, "radiant")}
             {...tableProps}
           />
         </div>
+        <Spacer variant="1" />
         {
           gameMode === 22 ? (
             <>
@@ -199,13 +202,16 @@ class TeamTable extends React.Component<TeamTableProps> {
             )
           ) /* team 0 - radiant */
         }
+        <Spacer variant="1" />
         <Heading
           title={`${getTeamName(direTeam, false)} - ${heading}`}
           winner={!hideWinnerTag && !radiantWin}
         />
+        <Spacer variant="1" />
         <div className="teamtable teamtable-dire">
           <Table data={filterMatchPlayers(players, "dire")} {...tableProps} />
         </div>
+        <Spacer variant="1" />
         {
           gameMode === 22 ? (
             <>
