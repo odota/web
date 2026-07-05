@@ -4,59 +4,74 @@ import constants from "../../constants";
 export const StyledTooltip = styled.div`
   position: relative;
   width: auto;
-  display: block;
-  padding: 0.5em;
-  background-color: ${constants.darkPrimaryColor};
+  padding: 16px 24px;
+  box-sizing: border-box;
+  background: #111827;
+  border: 1px solid #374151;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  font-family: ${constants.fontFamilySerif};
+  font-size: 14px;
+  line-height: 1.6;
+  color: #e5e7eb;
 `;
-
 export const StyledTooltipTeam = styled.span`
   position: relative;
-  margin-right: 0.3em;
+  margin-right: 8px;
   color: ${(props) => props.color};
+  font-size: ${constants.fontSizeMedium};
+  font-weight: 500;
 `;
-
 export const StyledRadiant = styled.span`
-  color: white;
   position: absolute;
-  top: 52px;
-  left: 100px;
+  top: 48px;
+  left: 60px;
   filter: drop-shadow(0 0 5px ${constants.colorSuccess});
+  font-family: ${constants.fontFamilySerif};
+  font-size: ${constants.fontSizeMedium};
+  color: ${constants.colorWhite};
 `;
 export const StyledDire = styled.span`
   position: absolute;
   bottom: 60px;
-  left: 100px;
-  color: white;
+  left: 60px;
   filter: drop-shadow(0 0 5px ${constants.colorDanger});
+  font-family: ${constants.fontFamilySerif};
+  font-size: ${constants.fontSizeMedium};
+  color: ${constants.colorWhite};
 `;
-
 export const StyledCustomizedTooltip = styled.div`
-  background-color: #131519;
-  border: 2px solid #27292b;
-  bottom: 25px;
   position: relative;
+  bottom: 25px;
+  padding: 16px 24px;
+  box-sizing: border-box;
+  background: #111827;
+  border: 1px solid #374151;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  font-family: ${constants.fontFamilySerif};
+  font-size: 14px;
+  line-height: 1.6;
+  color: #e5e7eb;
 
   div {
     margin-bottom: 5px;
   }
 
-  .label {
-    text-align: center;
-    border-bottom: 1px solid #505459;
-  }
-
   .data {
-    line-height: 30px;
-    padding-right: 7px;
-    padding-left: 7px;
-    background: linear-gradient(to right, rgba(82, 51, 50, 0.8), transparent);
+    font-size: ${constants.fontSizeSmall};
+    line-height: 1.6;
+    padding: 7px;
 
     &.isRadiant {
-      background: linear-gradient(to right, rgba(50, 82, 51, 0.8), transparent);
+      background: linear-gradient(to right, rgba(50, 82, 51, 0.2), transparent);
+    }
+
+    &.isDire {
+      background: linear-gradient(to right, rgba(82, 51, 50, 0.2), transparent);
     }
   }
 `;
-
 export const StyledHolder = styled.div`
   position: relative;
 `;
@@ -68,4 +83,32 @@ export const XpSpan = styled.span`
 `;
 export const StyledTooltipGold = styled.div`
   display: inline-flex;
+  align-items: center;
+  font-size: ${constants.fontSizeSmall};
+`;
+export const StyledTooltipTime = styled.div`
+  display: inline-flex;
+  font-weight: 600;
+`;
+export const TooltipLabel = styled.div`
+  padding-bottom: 4px;
+  border-bottom: 1px solid #505459;
+  font-size: ${constants.fontSizeMedium};
+  text-align: center;
+`;
+export const TooltipLineEntry = styled.div<{ color: string }>`
+  padding: 4px 0;
+  display: flex;
+  border-left: ${({ color }) => `8px solid ${color}`};
+`;
+export const TooltipLineEntryHeroName = styled.span<{ color: string }>`
+  margin-right: 8px;
+  font-size: ${constants.fontSizeMedium};
+  color: ${({ color }) => color};
+`;
+export const TooltipLineEntryValue = styled.span`
+  margin-left: auto;
+  display: inline-block;
+  font-size: ${constants.fontSizeMedium};
+  color: ${constants.colorWhite};
 `;
