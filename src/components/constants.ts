@@ -66,6 +66,8 @@ export default {
   colorNeutralTier5: "#FFE195",
   colorMana: "#578dca",
   colorBoxBlue: "rgba(71, 114, 179, 0.05)",
+  colorGraphYellow: "rgb(223,217,94)",
+  colorGraphBlue: "rgb(192,217,220)",
   sliderTicksColor: "#757575",
   sliderTicksColorActive: "#337AB7",
   dividerColor: "rgb(52, 50, 50)",

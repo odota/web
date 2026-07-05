@@ -11,9 +11,9 @@ export const StyledTooltip = styled.div`
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   font-family: ${constants.fontFamilySerif};
-  font-size: 14px;
+  font-size: ${constants.fontSizeMedium};
   line-height: 1.6;
-  color: #e5e7eb;
+  color: ${constants.colorWhite};
 `;
 export const StyledTooltipTeam = styled.span`
   position: relative;
@@ -28,7 +28,7 @@ export const StyledRadiant = styled.span`
   left: 60px;
   filter: drop-shadow(0 0 5px ${constants.colorSuccess});
   font-family: ${constants.fontFamilySerif};
-  font-size: ${constants.fontSizeMedium};
+  font-size: ${constants.fontSizeCommon};
   color: ${constants.colorWhite};
 `;
 export const StyledDire = styled.span`
@@ -37,7 +37,7 @@ export const StyledDire = styled.span`
   left: 60px;
   filter: drop-shadow(0 0 5px ${constants.colorDanger});
   font-family: ${constants.fontFamilySerif};
-  font-size: ${constants.fontSizeMedium};
+  font-size: ${constants.fontSizeCommon};
   color: ${constants.colorWhite};
 `;
 export const StyledCustomizedTooltip = styled.div`
@@ -52,8 +52,7 @@ export const StyledCustomizedTooltip = styled.div`
   font-family: ${constants.fontFamilySerif};
   font-size: 14px;
   line-height: 1.6;
-  color: #e5e7eb;
-
+  color: ${constants.colorWhite};
   div {
     margin-bottom: 5px;
   }
@@ -81,14 +80,18 @@ export const GoldSpan = styled.span`
 export const XpSpan = styled.span`
   color: #acc9ed;
 `;
-export const StyledTooltipGold = styled.div`
+export const StyledTooltipNetworthLineEntry = styled.div`
   display: inline-flex;
   align-items: center;
-  font-size: ${constants.fontSizeSmall};
+  font-size: ${constants.fontSizeMedium};
 `;
 export const StyledTooltipTime = styled.div`
-  display: inline-flex;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #505459;
+  font-size: ${constants.fontSizeMedium};
   font-weight: 600;
+  text-align: center;
 `;
 export const TooltipLabel = styled.div`
   padding-bottom: 4px;
@@ -111,4 +114,16 @@ export const TooltipLineEntryValue = styled.span`
   display: inline-block;
   font-size: ${constants.fontSizeMedium};
   color: ${constants.colorWhite};
+`;
+export const BinName = styled.div`
+  color: ${constants.colorWhite};
+  font-size: ${constants.fontSizeCommon};
+  font-weight: 600;
+  text-decoration: underline;
+`;
+export const NumPlayers = styled.div`
+  font-size: ${constants.fontSizeMedium};
+`;
+export const Percentile = styled.div`
+  font-size: ${constants.fontSizeMedium};
 `;

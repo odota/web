@@ -88,7 +88,7 @@ export const StyledDiv = styled.div`
   .subtitle {
     margin-left: 4px;
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.5);
+    color: ${constants.colorGreyMuted};
     letter-spacing: normal;
     font-weight: normal;
     overflow-wrap: normal;

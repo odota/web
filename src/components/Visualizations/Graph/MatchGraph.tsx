@@ -23,7 +23,7 @@ import {
   GoldSpan,
   XpSpan,
   StyledTooltipTime,
-  StyledTooltipGold,
+  StyledTooltipNetworthLineEntry,
   StyledCustomizedTooltip,
   TooltipLabel,
   TooltipLineEntry,
@@ -95,8 +95,7 @@ const XpTooltipContent = ({ payload }: { payload?: any[] }) => {
         <StyledTooltipTime>
           <span>{`${formatGraphTime(time)}`}</span>
         </StyledTooltipTime>
-        <br />
-        <StyledTooltipGold>
+        <StyledTooltipNetworthLineEntry>
           <StyledTooltipTeam
             color={
               rGoldAdv > 0 ? constants.colorSuccess : constants.colorDanger
@@ -107,9 +106,9 @@ const XpTooltipContent = ({ payload }: { payload?: any[] }) => {
           <GoldSpan>
             {Math.abs(rGoldAdv)?.toLocaleString()} {strings.heading_graph_gold}
           </GoldSpan>
-        </StyledTooltipGold>
+        </StyledTooltipNetworthLineEntry>
         <br />
-        <StyledTooltipGold>
+        <StyledTooltipNetworthLineEntry>
           <StyledTooltipTeam
             color={rXpAdv > 0 ? constants.colorSuccess : constants.colorDanger}
           >
@@ -118,7 +117,7 @@ const XpTooltipContent = ({ payload }: { payload?: any[] }) => {
           <XpSpan>
             {Math.abs(rXpAdv)?.toLocaleString()} {strings.heading_graph_xp}
           </XpSpan>
-        </StyledTooltipGold>
+        </StyledTooltipNetworthLineEntry>
       </StyledTooltip>
     );
   } catch (e) {
@@ -151,8 +150,8 @@ const XpNetworthGraph = ({ match }: { match: Match }) => {
     ) * 5000;
   return (
     <StyledHolder>
-      <StyledRadiant>{strings.general_radiant}</StyledRadiant>
-      <StyledDire>{strings.general_dire}</StyledDire>
+      <StyledRadiant>The {strings.general_radiant}</StyledRadiant>
+      <StyledDire>The {strings.general_dire}</StyledDire>
       <Heading
         title={strings.heading_graph_difference}
         // buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
@@ -191,6 +190,7 @@ const XpNetworthGraph = ({ match }: { match: Match }) => {
               fontSize: 12,
               fill: constants.colorGreyMuted,
             }}
+            tickFormatter={(value) => value?.toLocaleString()}
             axisLine={false}
             tickLine={false}
           />
@@ -200,14 +200,14 @@ const XpNetworthGraph = ({ match }: { match: Match }) => {
           <Line
             dot={false}
             dataKey="rXpAdv"
-            stroke="#acc9ed"
+            stroke={constants.colorGraphBlue}
             strokeWidth={2}
             name={strings.heading_graph_xp}
           />
           <Line
             dot={false}
             dataKey="rGoldAdv"
-            stroke="#ffd455"
+            stroke={constants.colorGraphYellow}
             strokeWidth={2}
             name={strings.heading_graph_gold}
           />
@@ -308,6 +308,7 @@ class PlayersGraph extends React.Component<
                   fontSize: 12,
                   fill: constants.colorGreyMuted,
                 }}
+                tickFormatter={(value) => value?.toLocaleString()}
                 axisLine={false}
                 tickLine={false}
               />
