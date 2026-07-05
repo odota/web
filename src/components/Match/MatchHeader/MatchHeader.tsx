@@ -55,7 +55,7 @@ const Styled = styled.header`
     letter-spacing: 1px;
 
     @media only screen and (max-width: 1023px) {
-      margin: 10px 0;
+      margin: 10px 0 20px;
       justify-self: auto;
     }
 
@@ -128,10 +128,12 @@ const Styled = styled.header`
       font-family: ${constants.fontFamilySerif};
       font-size: ${constants.fontSizeSmall};
       letter-spacing: 0.02rem;
+      margin-top: -16px;
     }
 
     & .duration {
-      font-size: 28px;
+      margin-top: 6px;
+      font-size: 32px;
 
       @media only screen and (max-width: 400px) {
         font-size: 24px;
@@ -141,7 +143,7 @@ const Styled = styled.header`
     & .ended {
       font-size: ${constants.fontSizeSmall};
       color: ${constants.colorMutedLight};
-      margin-top: 3px;
+      margin-top: 6px;
 
       & > div {
         display: inline-block;
@@ -250,15 +252,15 @@ const Styled = styled.header`
       padding: 0px !important;
       padding-right: 4px !important;
     }
-    
+
     svg {
-      margin: 0px  !important;
-      margin-left: 4px  !important;
+      margin: 0px !important;
+      margin-left: 4px !important;
     }
 
     line-height: 0px !important;
     height: 20px !important;
-  },
+  }
 `;
 
 const getWinnerStyle = (radiantWin: boolean | undefined) => {
@@ -355,10 +357,6 @@ const MatchHeader = ({ match }: { match: Match }) => {
                     style={{ height: 18, width: 18 }}
                   />
                 }
-                sx={{
-                  fontFamily: constants.fontFamilySerif,
-                  fontSize: constants.fontSizeSmall,
-                }}
               >
                 {match.match_id}
               </Button>
@@ -366,7 +364,7 @@ const MatchHeader = ({ match }: { match: Match }) => {
             <li>
               <span className="infoKey">{strings.match_region}</span>
               <span className="infoValue">
-                {strings[`region_${match.region}` as keyof Strings]}
+                {strings[`region_${match.region}` as keyof Strings] || "-"}
               </span>
             </li>
           </ul>
