@@ -126,6 +126,10 @@ const StyledFooter = styled.footer`
     }
   }
 
+  .about {
+    font-family: ${constants.fontFamilyFuturistic};
+  }
+
   @media only screen and (max-width: 960px) {
     padding: 20px 25px 15px;
     flex-direction: column;

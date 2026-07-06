@@ -42,7 +42,6 @@ const darkTheme = createTheme({
           textTransform: "none",
           fontFamily: constants.fontFamilyFuturistic,
           fontSize: constants.fontSizeSmall,
-          color: constants.colorWhite,
           fontWeight: 300,
           "&:hover": {
             backgroundColor: "transparent",

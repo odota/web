@@ -63,9 +63,9 @@ export const ButtonContainer = styled.div`
 `;
 export const BottomTextDiv = styled.div`
   font-size: ${constants.fontSizeMedium};
-  opacity: 0.6;
   font-weight: ${constants.fontWeightLight};
   text-align: right;
+  opacity: 0.6;
 
   @media only screen and (max-width: 425px) {
     text-align: center;
