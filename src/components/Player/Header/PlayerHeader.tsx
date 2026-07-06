@@ -31,12 +31,14 @@ const Styled = styled.div`
   }
 
   .playerName {
+    font-family: ${constants.fontFamilyFuturistic};
     color: rgba(245, 245, 245, 0.870588);
     font-size: 28px;
     text-align: center;
   }
 
   .titleNameButtons {
+    margin-left: 8px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -302,7 +304,9 @@ const PlayerHeader = ({
               loggedInId={loggedInUser && String(loggedInUser.account_id)}
               compact={!small}
             />
-            <PlayerButtons playerId={playerId} />
+            <div style={{ marginLeft: 8 }}>
+              <PlayerButtons playerId={playerId} />
+            </div>
           </div>
           <div style={{ display: "flex" }}>
             <DotaPlusBadge plus={plus} />
