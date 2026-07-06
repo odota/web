@@ -6,6 +6,8 @@ import Heading from "../Heading/Heading";
 import { LazyLog, ScrollFollow } from "@melloware/react-logviewer";
 import useStrings from "../../hooks/useStrings.hook";
 import config from "../../config";
+import constants from "../constants";
+import { Spacer } from "../Spacer/Spacer";
 
 const Request = () => {
   const strings = useStrings();
@@ -51,6 +53,7 @@ const Request = () => {
     <div>
       <Helmet title={strings.title_request} />
       <Heading title={strings.request_title} className="top-heading" />
+      <Spacer variant="2" />
       <form
         style={{
           display: "flex",
@@ -72,10 +75,20 @@ const Request = () => {
           onChange={(e) => {
             setMatchId(e.target.value);
           }}
+          sx={{
+            "& .MuiInputLabel-root": {
+              fontFamily: constants.fontFamilyFuturistic,
+              fontSize: constants.fontSizeSmall,
+            },
+            "& .MuiInputBase-input": {
+              fontFamily: constants.fontFamilyFuturistic,
+              fontSize: constants.fontSizeSmall,
+            },
+          }}
         />
         <Button
           type="submit"
-          variant="contained"
+          variant="outlined"
           onClick={handleSubmit}
           loading={loading}
           disabled={loading}
