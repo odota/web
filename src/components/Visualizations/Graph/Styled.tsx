@@ -10,7 +10,7 @@ export const StyledTooltip = styled.div`
   border: 1px solid #374151;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  font-family: ${constants.fontFamilySerif};
+  font-family: ${constants.fontFamilyFuturistic};
   font-size: ${constants.fontSizeMedium};
   line-height: 1.6;
   color: ${constants.colorWhite};
@@ -49,7 +49,7 @@ export const StyledCustomizedTooltip = styled.div`
   border: 1px solid #374151;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  font-family: ${constants.fontFamilySerif};
+  font-family: ${constants.fontFamilyFuturistic};
   font-size: 14px;
   line-height: 1.6;
   color: ${constants.colorWhite};
