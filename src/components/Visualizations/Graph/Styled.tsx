@@ -25,7 +25,7 @@ export const StyledTooltipTeam = styled.span`
 export const StyledRadiant = styled.span`
   position: absolute;
   top: 48px;
-  left: 60px;
+  left: 100px;
   filter: drop-shadow(0 0 5px ${constants.colorSuccess});
   font-family: ${constants.fontFamilySerif};
   font-size: ${constants.fontSizeCommon};
@@ -34,7 +34,7 @@ export const StyledRadiant = styled.span`
 export const StyledDire = styled.span`
   position: absolute;
   bottom: 60px;
-  left: 60px;
+  left: 100px;
   filter: drop-shadow(0 0 5px ${constants.colorDanger});
   font-family: ${constants.fontFamilySerif};
   font-size: ${constants.fontSizeCommon};
