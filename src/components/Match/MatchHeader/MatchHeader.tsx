@@ -181,10 +181,6 @@ const Styled = styled.header`
 
     @media only screen and (max-width: 1023px) {
       text-align: center;
-
-      & span {
-        margin-bottom: 5px;
-      }
     }
 
     & ul {
