@@ -205,6 +205,7 @@ const Styled = styled.header`
   .infoKey {
     display: block;
     text-transform: uppercase;
+    font-family: ${constants.fontFamilyFuturistic};
     font-size: ${constants.fontSizeSmall};
     color: ${constants.colorMutedLight};
   }
