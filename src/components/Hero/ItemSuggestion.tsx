@@ -54,7 +54,7 @@ function ItemSuggestion(props: ItemSuggestionProps) {
   ];
   const itemsPopularityData = props.data;
   return props.isLoading ? (
-    <TableSkeleton />
+    <TableSkeleton text="Loading item suggestions..." />
   ) : (
     <Table data={itemsPopularityData} columns={itemSuggestionColumns} />
   );

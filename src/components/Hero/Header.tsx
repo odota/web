@@ -73,6 +73,7 @@ const HeroAvatar = styled.img`
 `;
 
 const HeroName = styled.div`
+  font-family: ${constants.fontFamilyFuturistic};
   font-size: 40px;
   font-weight: ${constants.fontWeightMedium};
   line-height: 40px;
@@ -85,7 +86,8 @@ const HeroName = styled.div`
 
 const HeroRoleInformations = styled.div`
   color: ${constants.primaryTextColor};
-  font-size: 12px;
+  font-family: ${constants.fontFamilyFuturistic};
+  font-size: ${constants.fontSizeSmall};
   letter-spacing: 1px;
   margin: 8px 0;
   text-transform: uppercase;

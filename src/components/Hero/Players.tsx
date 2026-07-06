@@ -9,6 +9,7 @@ import { proPlayersSelector } from "../../reducers/selectors";
 
 class Players extends React.Component<{
   isLoading: boolean;
+  loadingText?: string;
   data: {
     account_id: number;
     games_played: number;
@@ -32,7 +33,7 @@ class Players extends React.Component<{
   }
 
   render() {
-    const { data, isLoading, proPlayers, strings } = this.props;
+    const { data, isLoading, proPlayers, strings, loadingText } = this.props;
 
     const playersColumns = [
       {
@@ -66,7 +67,7 @@ class Players extends React.Component<{
     ];
 
     if (isLoading) {
-      return <PlayersSkeleton />;
+      return <PlayersSkeleton loadingText={loadingText} />;
     }
 
     const preparedData = data

@@ -47,6 +47,7 @@ const tooltipWrapperStyle = {
 };
 
 const tooltipContentStyle = {
+  fontFamily: constants.fontFamilyFuturistic,
   background: "transparent",
   border: 0,
 };
@@ -79,8 +80,28 @@ const BenchmarkGraph = ({ data }: { data: any }) => {
             </linearGradient>
           </defs>
           <Grid />
-          <XAxis dataKey="Percentage" />
-          <YAxis />
+          <XAxis
+            dataKey="Percentage"
+            tick={{
+              fontFamily: constants.fontFamilySerif,
+              fontSize: 13,
+              fill: "#B0B0B0",
+            }}
+            tickFormatter={(value) => value?.toLocaleString()}
+            axisLine={false}
+            tickLine={false}
+          />
+          <YAxis
+            width={50}
+            tick={{
+              fontFamily: constants.fontFamilySerif,
+              fontSize: 13,
+              fill: "#B0B0B0",
+            }}
+            tickFormatter={(value) => value?.toLocaleString()}
+            axisLine={false}
+            tickLine={false}
+          />
           <Area
             dataKey="Value"
             name={data.title}

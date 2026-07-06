@@ -37,7 +37,7 @@ const HistogramTooltipContent = ({
   return (
     <StyledTooltip>
       <TooltipLabel>
-        {`${formatGraphValueData(data && data.x, histogramName)} ${xAxisLabel} ${histogramName}`}
+        {`${formatGraphValueData(data && data.x, histogramName)} ${xAxisLabel} ${histogramName || ""}`}
       </TooltipLabel>
       <HistogramTooltipDiv
         fontSize="medium"
