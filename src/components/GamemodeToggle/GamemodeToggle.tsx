@@ -3,6 +3,7 @@ import * as React from "react";
 import { FormControlLabel, Switch } from "@mui/material";
 
 import { useStrings } from "../../hooks/useStrings.hook";
+import constants from "../constants";
 
 const GamemodeToggle = () => {
   const strings = useStrings();
@@ -25,9 +26,15 @@ const GamemodeToggle = () => {
   return (
     <FormControlLabel
       label={strings.app_show_turbo_stats}
+      sx={{
+        "& .MuiFormControlLabel-label": {
+          fontFamily: constants.fontFamilySerif,
+          fontSize: constants.fontSizeSmall,
+        },
+      }}
       control={
         <Switch
-          color="primary"
+          size="small"
           checked={modeFilter === "turbo"}
           onChange={handleToggle}
         />
