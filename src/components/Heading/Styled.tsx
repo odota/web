@@ -74,7 +74,7 @@ export const StyledDiv = styled.div`
     align-items: center;
     gap: 8px;
     font-family: ${constants.fontFamilySerif};
-    font-size: 1rem;
+    font-size: ${constants.fontSizeCommon};
     font-weight: 400;
     letter-spacing: 0.002em;
     line-height: 1.6;
@@ -86,8 +86,9 @@ export const StyledDiv = styled.div`
   }
 
   .subtitle {
-    margin-left: 4px;
-    font-size: 13px;
+    margin-left: 8px;
+    font-family: ${constants.fontFamilyFuturistic};
+    font-size: ${constants.fontSizeSmall};
     color: ${constants.colorGreyMuted};
     letter-spacing: normal;
     font-weight: normal;
