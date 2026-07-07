@@ -44,8 +44,12 @@ const HistogramTooltipContent = ({
         color={color}
       >{`${winratePercent} ${strings.th_win}`}</HistogramTooltipDiv>
       <HistogramTooltipDiv>{`${data && data.games} ${strings.th_matches}`}</HistogramTooltipDiv>
-      <HistogramTooltipDiv>{numWins} wins</HistogramTooltipDiv>
-      <HistogramTooltipDiv>{numLosses} losses</HistogramTooltipDiv>
+      <HistogramTooltipDiv>
+        {numWins} {strings.th_wins}
+      </HistogramTooltipDiv>
+      <HistogramTooltipDiv>
+        {numLosses} {strings.th_losses}
+      </HistogramTooltipDiv>
     </StyledTooltip>
   );
 };
