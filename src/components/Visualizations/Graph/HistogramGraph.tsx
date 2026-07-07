@@ -82,8 +82,8 @@ const HistogramGraph = ({
         interval={1}
         tickFormatter={(val) => formatGraphValueData(val, histogramName)}
         tick={{
-          fontFamily: constants.fontFamilySerif,
-          fontSize: 12,
+          fontFamily: constants.fontFamilyFuturistic,
+          fontSize: constants.fontSizeSmall,
           fill: constants.colorGreyMuted,
         }}
         axisLine={false}
@@ -93,8 +93,8 @@ const HistogramGraph = ({
       </XAxis>
       <YAxis
         tick={{
-          fontFamily: constants.fontFamilySerif,
-          fontSize: 12,
+          fontFamily: constants.fontFamilyFuturistic,
+          fontSize: constants.fontSizeSmall,
           fill: constants.colorGreyMuted,
         }}
         tickFormatter={(value) => value?.toLocaleString()}
