@@ -18,6 +18,7 @@ import Heading from "../Heading/Heading";
 import ScenariosSkeleton from "../Skeletons/ScenariosSkeleton";
 import { formatTemplateToString, groupByArray } from "../../utility";
 import { IconLaneRoles } from "../Icons";
+import { Spacer } from "../Spacer/Spacer";
 
 const minSampleSize = (row: any) => row.games > 10;
 
@@ -242,10 +243,12 @@ class Scenarios extends React.Component<ScenariosProps, ScenariosState> {
               // hoverColor="rgba(220, 220, 220, 0.2)"
               // icon={<ActionSearch />}
             >{strings.explorer_query_button}</Button> */}
+            <Spacer variant="1" />
             <Heading
               title={strings.explorer_results}
               subtitle={`${data?.filter(minSampleSize).length} ${strings.explorer_num_rows}`}
             />
+            <Spacer variant="1" />
             <Table
               key={selectedTab + this.tableKey}
               data={data.filter(minSampleSize)}
