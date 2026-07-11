@@ -28,7 +28,6 @@ const GamemodeToggle = () => {
       label={strings.app_show_turbo_stats}
       sx={{
         "& .MuiFormControlLabel-label": {
-          fontFamily: constants.fontFamilySerif,
           fontSize: constants.fontSizeSmall,
         },
       }}

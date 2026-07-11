@@ -4,7 +4,7 @@ import constants from "../../constants";
 
 export const PlayerStatsCard = styled(CardHeader)`
   & span:last-child {
-    font-family: ${constants.fontFamilySerif};
+    font-family: ${constants.fontFamilyFuturistic};
     font-size: 24px !important;
     color: rgba(255, 255, 255, 0.87) !important;
     line-height: 36px !important;

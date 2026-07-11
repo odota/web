@@ -19,7 +19,7 @@ export const StyledDiv = styled.div`
     letter-spacing: 10px;
     font-weight: bold;
     background-color: rgba(14, 84, 113, 37%);
-    font-family: ${constants.fontFamilySerif};
+    font-family: ${constants.fontFamilyFuturistic};
   }
 
   .winner {
@@ -73,7 +73,7 @@ export const StyledDiv = styled.div`
     display: flex;
     align-items: center;
     gap: 8px;
-    font-family: ${constants.fontFamilySerif};
+    font-family: ${constants.fontFamilyFuturistic};
     font-size: ${constants.fontSizeCommon};
     font-weight: 400;
     letter-spacing: 0.002em;

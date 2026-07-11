@@ -16,7 +16,7 @@ export const HeadlineDiv = styled.div`
   margin-top: 10%;
   text-transform: uppercase;
   font-size: 4rem;
-  font-family: ${constants.fontFamilySerif};
+  font-family: ${constants.fontFamilyFuturistic};
   font-weight: ${constants.fontWeightMedium};
   line-height: 1.2;
   letter-spacing: 0.02em;

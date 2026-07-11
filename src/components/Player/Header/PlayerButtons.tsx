@@ -62,9 +62,6 @@ class PlayerButtons extends React.Component<
               });
               this.setState({ disableRefresh: true });
             }}
-            sx={{
-              fontFamily: constants.fontFamilySerif,
-            }}
           >
             {strings.app_refresh_label}
           </Button>
