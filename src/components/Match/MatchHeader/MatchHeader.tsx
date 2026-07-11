@@ -141,7 +141,8 @@ const Styled = styled.header`
     }
 
     & .ended {
-      font-size: ${constants.fontSizeSmall};
+      font-family: ${constants.fontFamilyFuturistic};
+      font-size: ${constants.fontSizeTiny};
       color: ${constants.colorMutedLight};
       margin-top: 6px;
 
