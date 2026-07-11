@@ -26,7 +26,7 @@ const ApiContainer = styled.div`
   }
 
   & h1 {
-    font-family: ${constants.fontFamilySerif};
+    font-family: ${constants.fontFamilyFuturistic};
     font-weight: 400;
 
     @media only screen and (max-width: 768px) {

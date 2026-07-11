@@ -37,12 +37,13 @@ const StyledDiv = styled.div`
 
       & .headline {
         margin-top: 8px;
-        font-family: ${constants.fontFamilySerif};
+        font-family: ${constants.fontFamilyFuturistic};
         font-size: 1.25rem;
         line-height: 2;
       }
 
       & .description {
+        font-family: ${constants.fontFamilyFuturistic};
         font-size: 0.875rem;
         font-weight: ${constants.fontWeightLight};
         line-height: 1.5;

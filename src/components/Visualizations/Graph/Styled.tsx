@@ -27,7 +27,7 @@ export const StyledRadiant = styled.span`
   top: 48px;
   left: 100px;
   filter: drop-shadow(0 0 5px ${constants.colorSuccess});
-  font-family: ${constants.fontFamilySerif};
+  font-family: ${constants.fontFamilyFuturistic};
   font-size: ${constants.fontSizeCommon};
   color: ${constants.colorWhite};
 `;
@@ -36,7 +36,7 @@ export const StyledDire = styled.span`
   bottom: 60px;
   left: 100px;
   filter: drop-shadow(0 0 5px ${constants.colorDanger});
-  font-family: ${constants.fontFamilySerif};
+  font-family: ${constants.fontFamilyFuturistic};
   font-size: ${constants.fontSizeCommon};
   color: ${constants.colorWhite};
 `;

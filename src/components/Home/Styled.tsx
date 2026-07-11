@@ -62,6 +62,7 @@ export const ButtonContainer = styled.div`
   }
 `;
 export const BottomTextDiv = styled.div`
+  font-family: ${constants.fontFamilyFuturistic};
   font-size: ${constants.fontSizeMedium};
   font-weight: ${constants.fontWeightLight};
   text-align: right;
