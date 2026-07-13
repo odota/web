@@ -16,6 +16,7 @@ const stripePromise = config.VITE_STRIPE_PUBLIC_KEY
 const PageContainer = styled.div`
   width: 80%;
   margin: 0 auto;
+  font-family: ${constants.fontFamilyFuturistic};
 
   @media only screen and (max-width: 768px) {
     width: 100%;
@@ -42,7 +43,7 @@ const SubHeader = styled.div`
 
 const BannerTitle = styled.h1`
   margin: 48px 0 8px;
-  font-family: ${constants.fontFamilySerif};
+  font-family: ${constants.fontFamilyFuturistic};
   font-size: 2.25rem;
   font-weight: 400;
   letter-spacing: 0.02em;
@@ -97,7 +98,7 @@ const SubRight = styled.div`
 `;
 
 const ThankYouTitle = styled.h4`
-  font-family: ${constants.fontFamilySerif};
+  font-family: ${constants.fontFamilyFuturistic};
   font-weight: 400;
 `;
 
@@ -211,7 +212,7 @@ const Subscription = ({
           )}
           {!user && (
             <Button
-              variant="contained"
+              variant="outlined"
               href={`${config.VITE_API_HOST}/login`}
               startIcon={<IconSteam />}
             >

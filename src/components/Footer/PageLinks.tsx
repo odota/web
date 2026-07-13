@@ -1,5 +1,6 @@
 import React from "react";
 import useStrings from "../../hooks/useStrings.hook";
+import constants from "../constants";
 
 const PageLinks = () => {
   const strings = useStrings();
@@ -37,6 +38,10 @@ const PageLinks = () => {
           key={link.path}
           target="_blank"
           rel="noopener noreferrer"
+          style={{
+            fontFamily: constants.fontFamilyFuturistic,
+            fontSize: constants.fontSizeSmall,
+          }}
         >
           {link.name}
         </a>

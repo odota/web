@@ -10,6 +10,11 @@ export const StyledBody = styled.div<{
     font-family: ${constants.tableFontFamily} !important;
     box-sizing: border-box;
 
+    a {
+      font-family: ${constants.fontFamilyFuturistic};
+      font-size: ${constants.fontSizeSmall};
+    }
+
     ${(props) =>
       props.customWidth
         ? `
@@ -58,6 +63,8 @@ export const StyledBody = styled.div<{
 
     & th {
       position: relative;
+      font-family: ${constants.fontFamilyFuturistic};
+      font-size: ${constants.fontSizeSmall};
 
       svg {
         position: absolute;

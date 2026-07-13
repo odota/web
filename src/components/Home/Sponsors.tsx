@@ -2,7 +2,6 @@ import React from "react";
 import { Button } from "@mui/material";
 import styled from "styled-components";
 import config from "../../config";
-
 import useStrings from "../../hooks/useStrings.hook";
 
 const StyledDiv = styled.div`

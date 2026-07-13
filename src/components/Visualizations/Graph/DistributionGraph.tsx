@@ -6,11 +6,11 @@ import {
   Bar,
   Line,
   ComposedChart,
-  CartesianGrid,
   Label,
   ResponsiveContainer,
 } from "recharts";
 import { StyledTooltip, BinName, NumPlayers, Percentile } from "./Styled";
+import Grid from "./Grid";
 import useStrings from "../../../hooks/useStrings.hook";
 import constants from "../../constants";
 
@@ -100,12 +100,7 @@ const DistributionGraph = ({
             orientation="right"
             stroke="#4cffc0"
           />
-          <CartesianGrid
-            stroke="#404040"
-            strokeDasharray="4 4"
-            vertical={false}
-            opacity={0.25}
-          />
+          <Grid />
           <Tooltip
             content={<DistributionTooltipContent array={data} />}
             contentStyle={{

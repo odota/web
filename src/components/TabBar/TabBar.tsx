@@ -93,7 +93,8 @@ const TabBar = ({
               label={tab.name}
               disabled={tab.disabled}
               sx={{
-                fontFamily: constants.fontFamilySerif,
+                fontFamily: constants.fontFamilyFuturistic,
+                fontSize: constants.fontSizeSmall,
                 letterSpacing: "0.02em",
                 textTransform: "capitalize",
               }}

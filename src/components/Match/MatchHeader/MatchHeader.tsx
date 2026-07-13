@@ -51,7 +51,7 @@ const Styled = styled.header`
     background: rgba(0, 0, 0, 23%);
     font-size: 1.5rem;
     font-weight: 400;
-    font-family: ${constants.fontFamilySerif};
+    font-family: ${constants.fontFamilyFuturistic};
     letter-spacing: 1px;
 
     @media only screen and (max-width: 1023px) {
@@ -125,7 +125,7 @@ const Styled = styled.header`
     }
 
     & .gameMode {
-      font-family: ${constants.fontFamilySerif};
+      font-family: ${constants.fontFamilyFuturistic};
       font-size: ${constants.fontSizeSmall};
       letter-spacing: 0.02rem;
       margin-top: -16px;
@@ -141,7 +141,8 @@ const Styled = styled.header`
     }
 
     & .ended {
-      font-size: ${constants.fontSizeSmall};
+      font-family: ${constants.fontFamilyFuturistic};
+      font-size: ${constants.fontSizeTiny};
       color: ${constants.colorMutedLight};
       margin-top: 6px;
 
@@ -152,7 +153,7 @@ const Styled = styled.header`
   }
 
   .killScore {
-    font-family: ${constants.fontFamilySerif};
+    font-family: ${constants.fontFamilyFuturistic};
     font-size: 2.5rem;
     text-align: center;
 
@@ -181,10 +182,6 @@ const Styled = styled.header`
 
     @media only screen and (max-width: 1023px) {
       text-align: center;
-
-      & span {
-        margin-bottom: 5px;
-      }
     }
 
     & ul {
@@ -205,6 +202,7 @@ const Styled = styled.header`
   .infoKey {
     display: block;
     text-transform: uppercase;
+    font-family: ${constants.fontFamilyFuturistic};
     font-size: ${constants.fontSizeSmall};
     color: ${constants.colorMutedLight};
   }
@@ -212,7 +210,7 @@ const Styled = styled.header`
   .infoValue {
     margin-top: 8px;
     display: block;
-    font-family: ${constants.fontFamilySerif};
+    font-family: ${constants.fontFamilyFuturistic};
     font-size: ${constants.fontSizeSmall};
     color: ${constants.colorWhite};
   }

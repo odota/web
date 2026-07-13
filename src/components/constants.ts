@@ -74,6 +74,7 @@ export default {
   fontFamily: "Roboto",
   fontFamilySerif: "Roboto Serif",
   tableFontFamily: "Roboto",
+  fontFamilyFuturistic: "Quantico",
   fontWeightLight: "300",
   fontWeightNormal: "400",
   fontWeightMedium: "500",

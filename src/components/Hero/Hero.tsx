@@ -24,6 +24,8 @@ const HeroBlock = styled.div`
 `;
 
 const HeroFooter = styled.div`
+  margin-top: 8px;
+  padding: 8px 0;
   text-align: center;
 `;
 
@@ -159,7 +161,10 @@ class Hero extends React.Component<HeroProps> {
               title={strings.tab_players}
               subtitle={strings.hero_disclaimer_pro}
             />
-            <Players {...props} />
+            <Players
+              {...props}
+              loadingText={`Loading ${hero?.localized_name} players...`}
+            />
           </div>
         ),
         route: `/heroes/${tabsHeroId}/players`,

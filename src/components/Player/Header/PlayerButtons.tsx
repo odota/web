@@ -7,10 +7,12 @@ import styled from "styled-components";
 import { toggleShowForm as toggleShowFormAction } from "../../../actions/formActions";
 import GamemodeToggle from "../../GamemodeToggle/GamemodeToggle";
 import config from "../../../config";
+import constants from "../../constants";
 
 const Styled = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   flex-wrap: nowrap;
   font-size: 14px;
 
@@ -52,7 +54,7 @@ class PlayerButtons extends React.Component<
       <Styled>
         <div data-hint={strings.app_refresh} data-hint-position="top">
           <Button
-            startIcon={<RefreshIcon />}
+            startIcon={<RefreshIcon style={{ marginRight: 4 }} />}
             disabled={this.state.disableRefresh}
             onClick={() => {
               fetch(`${config.VITE_API_HOST}/api/players/${playerId}/refresh`, {

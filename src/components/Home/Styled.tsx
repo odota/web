@@ -16,7 +16,7 @@ export const HeadlineDiv = styled.div`
   margin-top: 10%;
   text-transform: uppercase;
   font-size: 4rem;
-  font-family: ${constants.fontFamilySerif};
+  font-family: ${constants.fontFamilyFuturistic};
   font-weight: ${constants.fontWeightMedium};
   line-height: 1.2;
   letter-spacing: 0.02em;
@@ -36,6 +36,7 @@ export const HeadlineDiv = styled.div`
   }
 `;
 export const DescriptionDiv = styled.div`
+  font-family: ${constants.fontFamilyFuturistic};
   font-weight: ${constants.fontWeightLight};
   margin-bottom: 20px;
   text-shadow: #000 0 0 3px;
@@ -61,10 +62,11 @@ export const ButtonContainer = styled.div`
   }
 `;
 export const BottomTextDiv = styled.div`
+  font-family: ${constants.fontFamilyFuturistic};
   font-size: ${constants.fontSizeMedium};
-  opacity: 0.6;
   font-weight: ${constants.fontWeightLight};
   text-align: right;
+  opacity: 0.6;
 
   @media only screen and (max-width: 425px) {
     text-align: center;

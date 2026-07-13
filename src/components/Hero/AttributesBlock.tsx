@@ -9,6 +9,8 @@ const AttributesWrapper = styled.div`
   display: flex;
   margin-left: -8px;
   margin-right: -8px;
+  font-family: ${constants.fontFamilyFuturistic};
+  font-size: ${constants.fontSizeSmall};
 
   @media screen and (max-width: ${constants.wrapMobile}) {
     flex-wrap: wrap;

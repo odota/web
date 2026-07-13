@@ -7,10 +7,10 @@ import {
   Tooltip,
   Area,
   AreaChart,
-  CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
 import constants from "../constants";
+import Grid from "../Visualizations/Graph/Grid";
 
 const Wrapper = styled.div`
   box-sizing: border-box;
@@ -47,6 +47,7 @@ const tooltipWrapperStyle = {
 };
 
 const tooltipContentStyle = {
+  fontFamily: constants.fontFamilyFuturistic,
   background: "transparent",
   border: 0,
 };
@@ -78,9 +79,29 @@ const BenchmarkGraph = ({ data }: { data: any }) => {
               <stop offset="100%" stopColor={data.color} stopOpacity="0" />
             </linearGradient>
           </defs>
-          <CartesianGrid stroke="rgba(255, 255, 255, .1)" strokeDasharray="0" />
-          <XAxis dataKey="Percentage" />
-          <YAxis />
+          <Grid />
+          <XAxis
+            dataKey="Percentage"
+            tick={{
+              fontFamily: constants.fontFamilySerif,
+              fontSize: 13,
+              fill: "#B0B0B0",
+            }}
+            tickFormatter={(value) => value?.toLocaleString()}
+            axisLine={false}
+            tickLine={false}
+          />
+          <YAxis
+            width={50}
+            tick={{
+              fontFamily: constants.fontFamilySerif,
+              fontSize: 13,
+              fill: "#B0B0B0",
+            }}
+            tickFormatter={(value) => value?.toLocaleString()}
+            axisLine={false}
+            tickLine={false}
+          />
           <Area
             dataKey="Value"
             name={data.title}

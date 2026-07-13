@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import { connect } from "react-redux";
 import { IconSteam } from "../Icons";
 import config from "../../config";
+import constants from "../constants";
 
 import { HomePageProps } from "./Home";
 import useStrings from "../../hooks/useStrings.hook";
@@ -13,9 +14,15 @@ const Buttons = ({ user }: HomePageProps) => {
     <div>
       {!user && (
         <Button
-          variant="contained"
+          variant="outlined"
           startIcon={<IconSteam />}
           href={`${config.VITE_API_HOST}/login`}
+          sx={{
+            backgroundColor: constants.primarySurfaceColor,
+            "&:hover": {
+              backgroundColor: constants.primarySurfaceColor,
+            },
+          }}
         >
           {strings.home_login}
         </Button>

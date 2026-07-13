@@ -10,7 +10,7 @@ export const StyledTooltip = styled.div`
   border: 1px solid #374151;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  font-family: ${constants.fontFamilySerif};
+  font-family: ${constants.fontFamilyFuturistic};
   font-size: ${constants.fontSizeMedium};
   line-height: 1.6;
   color: ${constants.colorWhite};
@@ -25,18 +25,18 @@ export const StyledTooltipTeam = styled.span`
 export const StyledRadiant = styled.span`
   position: absolute;
   top: 48px;
-  left: 60px;
+  left: 100px;
   filter: drop-shadow(0 0 5px ${constants.colorSuccess});
-  font-family: ${constants.fontFamilySerif};
+  font-family: ${constants.fontFamilyFuturistic};
   font-size: ${constants.fontSizeCommon};
   color: ${constants.colorWhite};
 `;
 export const StyledDire = styled.span`
   position: absolute;
   bottom: 60px;
-  left: 60px;
+  left: 100px;
   filter: drop-shadow(0 0 5px ${constants.colorDanger});
-  font-family: ${constants.fontFamilySerif};
+  font-family: ${constants.fontFamilyFuturistic};
   font-size: ${constants.fontSizeCommon};
   color: ${constants.colorWhite};
 `;
@@ -49,7 +49,7 @@ export const StyledCustomizedTooltip = styled.div`
   border: 1px solid #374151;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  font-family: ${constants.fontFamilySerif};
+  font-family: ${constants.fontFamilyFuturistic};
   font-size: 14px;
   line-height: 1.6;
   color: ${constants.colorWhite};
@@ -126,4 +126,12 @@ export const NumPlayers = styled.div`
 `;
 export const Percentile = styled.div`
   font-size: ${constants.fontSizeMedium};
+`;
+export const HistogramTooltipDiv = styled.div<{
+  color?: string;
+  fontSize?: "small" | "medium";
+}>`
+  font-size: ${({ fontSize }) =>
+    fontSize === "medium" ? constants.fontSizeMedium : constants.fontSizeSmall};
+  color: ${({ color }) => color};
 `;

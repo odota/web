@@ -16,13 +16,15 @@ import { formatSeconds, fromNow, formatGraphValueData } from "../../../utility";
 import constants from "../../constants";
 import HeroImage from "../HeroImage";
 import useStrings from "../../../hooks/useStrings.hook";
+import Grid from "./Grid";
 
 const TooltipStylesDiv = styled.div`
   .tooltipWrapper {
-    background-color: ${constants.defaultPrimaryColor};
-    color: ${constants.textColorPrimary} !important;
-    font-size: ${constants.fontSizeMedium};
     min-width: 250px;
+    font-family: ${constants.fontFamilyFuturistic};
+    font-size: ${constants.fontSizeMedium};
+    color: ${constants.textColorPrimary} !important;
+    background-color: ${constants.defaultPrimaryColor};
   }
 
   .value {
@@ -136,12 +138,32 @@ const TrendGraph = ({ columns, name }: { columns: any[]; name: string }) => {
           bottom: 5,
         }}
       >
-        <XAxis interval={49}>
+        <XAxis
+          interval={49}
+          tick={{
+            fontFamily: constants.fontFamilySerif,
+            fontSize: 13,
+            fill: "#B0B0B0",
+          }}
+          tickFormatter={(value) => value?.toLocaleString()}
+          axisLine={false}
+          tickLine={false}
+        >
           <Label value="" position="insideTopRight" />
         </XAxis>
-        <YAxis domain={["auto", "auto"]} />
-        <CartesianGrid stroke="#505050" strokeWidth={1} opacity={0.5} />
-
+        <YAxis
+          domain={["auto", "auto"]}
+          width={50}
+          tick={{
+            fontFamily: constants.fontFamilySerif,
+            fontSize: 13,
+            fill: "#B0B0B0",
+          }}
+          tickFormatter={(value) => value?.toLocaleString()}
+          axisLine={false}
+          tickLine={false}
+        />
+        <Grid />
         <Tooltip content={<TrendTooltipContent name={name} />} />
         <Line
           dot={false}
