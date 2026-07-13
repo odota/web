@@ -133,6 +133,13 @@ const Styled = styled.div<{ percent?: number; meterColor?: string }>`
       text-shadow: none;
     }
   }
+
+  .total-matches {
+    font-family: ${constants.fontFamilyFuturistic};
+    font-size: 9px;
+    color: ${constants.colorGreyMuted};
+    text-align: center;
+  }
 `;
 
 const computeMeterPercent = (value: number) => 0.005 * value;
@@ -177,6 +184,7 @@ const GaugeChart = ({
     <div className="loss-number">
       {abbreviateNumber(Math.round((number / 100) * (100 - percent)))}
     </div>
+    <div className="total-matches">{number}</div>
   </Styled>
 );
 

@@ -94,7 +94,7 @@ const SummOfRecMatches = ({ matchesData }: { matchesData: any[] }) => {
           color = "red";
           break;
         case "assists":
-          color = "lightGray";
+          color = "colorNeutralTier3";
           break;
         case "gold_per_min":
           color = "golden";
@@ -146,12 +146,12 @@ const SummOfRecMatches = ({ matchesData }: { matchesData: any[] }) => {
                     {key === "duration"
                       ? formatSeconds(c.avg)
                       : abbreviateNumber(c.avg)}
-                    <span>
-                      {key === "duration"
-                        ? formatSeconds(c.max.value)
-                        : abbreviateNumber(c.max.value)}
-                    </span>
                   </StatList>
+                  <span>
+                    {key === "duration"
+                      ? formatSeconds(c.max.value)
+                      : abbreviateNumber(c.max.value)}
+                  </span>
                   <HeroImage
                     id={String(hero.id)}
                     isIcon
