@@ -9,7 +9,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { formatGraphValueData, percentile } from "../../../utility";
+import { formatGraphValueData, getPercentileColor } from "../../../utility";
 import { StyledTooltip, TooltipLabel, HistogramTooltipDiv } from "./Styled";
 import Grid from "./Grid";
 import useStrings from "../../../hooks/useStrings.hook";
@@ -30,10 +30,9 @@ const HistogramTooltipContent = ({
   const data = payload && payload[0] && payload[0].payload;
   const winratePercentile = data && data?.games > 0 && data?.win / data?.games;
   const winratePercent = formatPercent(winratePercentile);
-  const grade = percentile(winratePercentile);
   const numWins = data?.win;
   const numLosses = data?.games - data?.win;
-  const color = String(constants[grade.color as keyof typeof constants]);
+  const color = getPercentileColor(winratePercentile);
   return (
     <StyledTooltip>
       <TooltipLabel>
@@ -115,14 +114,8 @@ const HistogramGraph = ({
         {columns.map((entry) => {
           const { win, games, x } = entry;
           const percent = win / games;
-          const grade = percentile(percent);
-          const stroke = String(
-            constants[grade.color as keyof typeof constants],
-          );
-          const color = String(
-            constants[grade.color as keyof typeof constants],
-          );
-          return <Cell fill={color} stroke={stroke} strokeWidth="2" key={x} />;
+          const color = getPercentileColor(percent);
+          return <Cell fill={color} stroke={color} strokeWidth="2" key={x} />;
         })}
       </Bar>
     </BarChart>
