@@ -54,13 +54,18 @@ class PlayerButtons extends React.Component<
       <Styled>
         <div data-hint={strings.app_refresh} data-hint-position="top">
           <Button
-            startIcon={<RefreshIcon style={{ marginRight: 4 }} />}
+            startIcon={<RefreshIcon />}
             disabled={this.state.disableRefresh}
             onClick={() => {
               fetch(`${config.VITE_API_HOST}/api/players/${playerId}/refresh`, {
                 method: "POST",
               });
               this.setState({ disableRefresh: true });
+            }}
+            sx={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "4px",
             }}
           >
             {strings.app_refresh_label}
