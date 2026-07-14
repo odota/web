@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 const StyledMain = styled.main`
   position: relative;
   margin: 0px 0px 30px 0px;
-  background-color: rgba(14, 84, 113, 37%);
+  background-color: ${constants.colorOpenDotaBlue};
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   width: 100vw;
   left: 50%;
