@@ -20,7 +20,7 @@ const Styled = styled.header`
   left: 50%;
   right: 50%;
   padding-top: 35px;
-  background-color: rgba(14, 84, 113, 37%);
+  background-color: ${constants.colorHeaderSection};
 
   .matchInfo {
     display: grid;

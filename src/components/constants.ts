@@ -68,6 +68,8 @@ export default {
   colorBoxBlue: "rgba(71, 114, 179, 0.05)",
   colorGraphYellow: "rgb(223,217,94)",
   colorGraphBlue: "rgb(192,217,220)",
+  colorHeaderSection: "rgba(14, 84, 113, 37%)",
+  colorHeaderToolbar: "rgba(19, 111, 149, 37%)",
   sliderTicksColor: "#757575",
   sliderTicksColorActive: "#337AB7",
   dividerColor: "rgb(52, 50, 50)",

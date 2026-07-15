@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { abbreviateNumber } from "../../utility";
+import constants from "../constants";
 
 const Styled = styled.div<{ percent?: number; meterColor?: string }>`
   font-size: 60%;
@@ -69,78 +70,89 @@ const Styled = styled.div<{ percent?: number; meterColor?: string }>`
   }
 
   .percentage-indicator {
-    font: bold 1.25em/1.6 sans-serif;
+    font-family: ${constants.fontFamilyFuturistic};
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.75;
     color: ${(props) => props.meterColor};
-
-    white-space: pre;
-    vertical-align: baseline;
-    user-select: none;
+    font-variant-numeric: tabular-nums;
     text-align: center;
   }
 
   .caption {
-    position: relative;
+    color: #9ca3af;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
     text-align: center;
-    color: rgb(179, 179, 179);
-    font-size: 12px;
-    bottom: 5px;
     text-transform: uppercase;
-    width: 96px;
-    max-height: 16px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    margin-top: 2px;
+    padding-bottom: 5px;
   }
 
   .win-number {
+    width: 24px;
     position: absolute;
     left: 0px;
+    font-family: ${constants.fontFamilyFuturistic};
+    font-size: 0.95em;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: #a8adb8;
     text-align: center;
-    color: rgb(144, 144, 144);
-    font-family: Tahoma;
-    width: 24px;
 
     ::before {
+      content: "W";
       position: absolute;
       bottom: 1.8em;
       left: 8px;
-      content: "W";
-      color: white;
-      text-shadow: 1px 1px black;
+      font-family: ${constants.fontFamilyFuturistic};
+      color: ${constants.colorWhite};
+      text-shadow: none;
     }
   }
 
   .loss-number {
+    width: 24px;
     position: absolute;
     right: 0px;
+    font-family: ${constants.fontFamilyFuturistic};
+    font-size: 0.95em;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: #a8adb8;
     text-align: center;
-    color: rgb(144, 144, 144);
-    font-family: Tahoma;
-    width: 24px;
 
     ::before {
+      content: "L";
       position: absolute;
       bottom: 1.8em;
       right: 8px;
-      content: "L";
-      color: white;
-      text-shadow: 1px 1px black;
+      font-family: ${constants.fontFamilyFuturistic};
+      color: ${constants.colorWhite};
+      text-shadow: none;
     }
+  }
+
+  .total-matches {
+    font-family: ${constants.fontFamilyFuturistic};
+    font-size: 9px;
+    color: ${constants.colorGreyMuted};
+    text-align: center;
   }
 `;
 
 const computeMeterPercent = (value: number) => 0.005 * value;
 
 const computeMeterColor = (value: number) => {
-  if (value < 45) {
-    return "rgb(179,132,91)";
-  } else if (value < 50) {
-    return "rgb(156,148,96)";
-  } else if (value < 53) {
-    return "rgb(140,159,99)";
+  if (value < 20) {
+    return "#1769AA";
+  } else if (value < 40) {
+    return "#0078D4";
+  } else if (value < 80) {
+    return "#149BD7";
   }
-  return "rgb(117,176,103)";
+  return "#50E6FF";
 };
 
 const GaugeChart = ({
@@ -172,6 +184,7 @@ const GaugeChart = ({
     <div className="loss-number">
       {abbreviateNumber(Math.round((number / 100) * (100 - percent)))}
     </div>
+    <div className="total-matches">{number}</div>
   </Styled>
 );
 

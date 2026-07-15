@@ -18,7 +18,7 @@ export const StyledDiv = styled.div`
     align-items: baseline;
     letter-spacing: 10px;
     font-weight: bold;
-    background-color: rgba(14, 84, 113, 37%);
+    background-color: ${constants.colorHeaderSection};
     font-family: ${constants.fontFamilyFuturistic};
   }
 

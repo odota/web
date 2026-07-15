@@ -36,6 +36,7 @@ const SummaryContainer = styled(Container)`
 
   & ul {
     border: 1px solid rgb(0, 0, 0, 0.12);
+    border-radius: 2px;
     background-color: rgba(255, 255, 255, 0.03);
     margin: 0;
     padding-left: 5px;
@@ -112,7 +113,7 @@ type OverviewProps = {
   peersData: any[];
   peersLoading: boolean;
   peersError: string;
-  countsData: any[];
+  countsData: Record<string, { label: string; data: any[] }>;
   countsLoading: boolean;
   countsError: string;
   location: {
@@ -160,7 +161,7 @@ const Overview = ({
     <OverviewContainer>
       <Collapsible
         name="playerSummary"
-        initialMaxHeight={800}
+        initialMaxHeight={1200}
         buttonStyle={{ top: 8 }}
       >
         <Spacer variant="1" />
@@ -370,13 +371,28 @@ const filterCounts = (counts: Record<string, any>) => {
     }
   });
 
-  return [
-    ...countMap.is_radiant,
-    ...countMap.game_mode,
-    ...countMap.region,
-    ...countMap.lane_role,
-    ...countMap.patch,
-  ];
+  return {
+    game_mode: {
+      label: "Game Mode",
+      data: countMap.game_mode,
+    },
+    is_radiant: {
+      label: "Team",
+      data: countMap.is_radiant,
+    },
+    region: {
+      label: "Region",
+      data: countMap.region,
+    },
+    lane_role: {
+      label: "Role",
+      data: countMap.lane_role,
+    },
+    patch: {
+      label: "Patch",
+      data: countMap.patch,
+    },
+  };
 };
 
 const mapStateToProps = (state: any) => ({

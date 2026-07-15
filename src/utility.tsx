@@ -145,6 +145,12 @@ export const jsonFn = (json: any) => (arrayFn: any) => (fn: any) =>
   //@ts-expect-error
   json[Object.keys(json)[arrayFn]((key, index) => fn(json[key], index))];
 
+/**
+ * Get percentile grade data for a proportion.
+ *
+ * @param pct Percent should be between 0 and 1.0.
+ * @returns Object containing `color` and `grade` for the percentile.
+ */
 export const percentile = (pct: number) => {
   if (pct >= 0.8) {
     return {
@@ -171,6 +177,18 @@ export const percentile = (pct: number) => {
     color: "red",
     grade: "F",
   };
+};
+
+/**
+ * Get color based on percentile.
+ *
+ * @param percent Percent should be between 0 and 1.0.
+ * @returns Color string for the percentile grade.
+ */
+export const getPercentileColor = (percent: number) => {
+  const grade = percentile(percent);
+  const color = String(constants[grade.color as keyof typeof constants]);
+  return color;
 };
 
 export const IMAGESIZE_ENUM = {
