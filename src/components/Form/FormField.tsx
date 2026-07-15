@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Autocomplete, Chip, TextField } from "@mui/material";
 import querystring from "querystring";
+import constants from "../constants";
 // import ChipList from './ChipList';
 // import constants from '../constants';
 
@@ -125,7 +126,29 @@ class FormField extends React.Component<FormFieldProps> {
           multiple={true}
           value={chipList}
           getOptionLabel={(option: any) => option.label}
-          renderInput={(params) => <TextField {...params} label={label} />}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={label}
+              slotProps={{
+                inputLabel: {
+                  sx: {
+                    fontSize: constants.fontSizeSmall,
+                  },
+                },
+              }}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  paddingTop: "2px",
+                  paddingBottom: "2px",
+                },
+                "& .MuiInputBase-input": {
+                  padding: "6px 10px",
+                  fontSize: constants.fontSizeSmall,
+                },
+              }}
+            />
+          )}
           renderValue={(value: any[], getItemProps) =>
             value.map((v, index) => {
               return (
@@ -137,6 +160,15 @@ class FormField extends React.Component<FormFieldProps> {
                     deleteChipFromUrl(name, index, history);
                     this.props.deleteChip && this.props.deleteChip(name, index);
                   }}
+                  sx={{
+                    height: 22,
+                    "& .MuiChip-label": {
+                      fontSize: constants.fontSizeSmall,
+                    },
+                    "& .MuiChip-deleteIcon": {
+                      fontSize: constants.fontSizeSmall,
+                    },
+                  }}
                 />
               );
             })
@@ -144,6 +176,17 @@ class FormField extends React.Component<FormFieldProps> {
           openOnFocus
           options={dataSource}
           onChange={this.handleSelect}
+          slotProps={{
+            listbox: {
+              sx: {
+                "& .MuiAutocomplete-option": {
+                  fontSize: constants.fontSizeSmall,
+                  padding: "4px 10px",
+                  minHeight: "unset",
+                },
+              },
+            },
+          }}
         />
         {/* <ChipList
           name={name}
