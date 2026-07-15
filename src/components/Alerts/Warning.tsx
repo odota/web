@@ -11,8 +11,8 @@ const StyledDiv = styled.div`
   & svg {
     vertical-align: sub;
     margin-right: 5px;
-    width: 20px !important;
-    height: 20px !important;
+    width: 16px !important;
+    height: 16px !important;
     fill: ${constants.colorYelor} !important;
   }
   color: ${constants.colorYelor};
