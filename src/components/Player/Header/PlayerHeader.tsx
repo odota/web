@@ -19,7 +19,7 @@ const Styled = styled.div`
   right: 50%;
   display: grid;
   padding-top: 35px;
-  background-color: ${constants.colorOpenDotaBlue};
+  background-color: ${constants.colorHeaderSection};
   grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
 
   .container {

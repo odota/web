@@ -25,10 +25,13 @@ li {
   list-style-type: none;
 }
 
+:root {
+  --base-background: var(--opendota-blue);
+  --opendota-blue: #071f2b;
+}
+
 #root {
-  background-color: #192023;
-  background-image: -webkit-linear-gradient(to right, #1a2b3e, #141e30);
-  background-image: linear-gradient(to right, #1a2b3e, #141e30);
+  background: var(--base-background);
   color: rgba(255, 255, 255, 0.87);
   height: 100%;
   min-height: 100vh;

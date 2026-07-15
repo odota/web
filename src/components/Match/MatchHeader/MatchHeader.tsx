@@ -20,7 +20,7 @@ const Styled = styled.header`
   left: 50%;
   right: 50%;
   padding-top: 35px;
-  background-color: ${constants.colorOpenDotaBlue};
+  background-color: ${constants.colorHeaderSection};
 
   .matchInfo {
     display: grid;

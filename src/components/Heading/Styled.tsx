@@ -18,7 +18,7 @@ export const StyledDiv = styled.div`
     align-items: baseline;
     letter-spacing: 10px;
     font-weight: bold;
-    background-color: ${constants.colorOpenDotaBlue}
+    background-color: ${constants.colorHeaderSection};
     font-family: ${constants.fontFamilyFuturistic};
   }
 
