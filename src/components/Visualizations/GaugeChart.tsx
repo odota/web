@@ -145,14 +145,14 @@ const Styled = styled.div<{ percent?: number; meterColor?: string }>`
 const computeMeterPercent = (value: number) => 0.005 * value;
 
 const computeMeterColor = (value: number) => {
-  if (value < 45) {
-    return "#ef5350";
-  } else if (value < 50) {
-    return "#ffa726";
-  } else if (value < 53) {
-    return "#9ccc65";
+  if (value < 20) {
+    return "#1769AA";
+  } else if (value < 40) {
+    return "#0078D4";
+  } else if (value < 80) {
+    return "#149BD7";
   }
-  return "#66bb6a";
+  return "#50E6FF";
 };
 
 const GaugeChart = ({
