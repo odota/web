@@ -5,12 +5,14 @@ import Card from "./Card";
 import { getPlayerTotals } from "../../../../actions";
 import Container from "../../../Container/Container";
 import useStrings from "../../../../hooks/useStrings.hook";
+import constants from "../../../constants";
 
 const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-left: -8px;
   margin-right: -8px;
+  font-family: ${constants.fontFamilyFuturistic};
 `;
 
 const totalsToShow: Record<string, number | string> = {
