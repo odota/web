@@ -116,9 +116,14 @@ const Styled = styled.div`
     }
 
     & img {
-      width: 65px;
-      height: 75px;
+      width: 52px;
+      height: 58px;
     }
+  }
+
+  .rankMedal-board {
+    font-family: ${constants.fontFamilyFuturistic};
+    font-size: ${constants.fontSizeCommon} !important;
   }
 `;
 
