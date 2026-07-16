@@ -1,0 +1,47 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.writePng = exports.readPngFile = exports.readPng = exports.sendMessageToChildProcess = exports.exec = exports.deleteFile = exports.readFile = exports.writeFile = exports.stat = exports.readDir = void 0;
+const child_process_1 = __importDefault(require("child_process"));
+const graceful_fs_1 = __importDefault(require("graceful-fs"));
+const pngjs_1 = require("pngjs");
+const promisify_event_1 = __importDefault(require("promisify-event"));
+const util_1 = require("util");
+exports.readDir = (0, util_1.promisify)(graceful_fs_1.default.readdir);
+exports.stat = (0, util_1.promisify)(graceful_fs_1.default.stat);
+exports.writeFile = (0, util_1.promisify)(graceful_fs_1.default.writeFile);
+exports.readFile = (0, util_1.promisify)(graceful_fs_1.default.readFile);
+exports.deleteFile = (0, util_1.promisify)(graceful_fs_1.default.unlink);
+exports.exec = (0, util_1.promisify)(child_process_1.default.exec);
+exports.sendMessageToChildProcess = (0, util_1.promisify)((process, ...args) => process.send(...args));
+function readPng(buffer) {
+    const png = new pngjs_1.PNG();
+    const parsedPromise = Promise.race([
+        (0, promisify_event_1.default)(png, 'parsed'),
+        (0, promisify_event_1.default)(png, 'error'),
+    ]);
+    png.parse(buffer);
+    return parsedPromise
+        .then(() => png);
+}
+exports.readPng = readPng;
+async function readPngFile(filePath) {
+    const buffer = await (0, exports.readFile)(filePath);
+    return await readPng(buffer);
+}
+exports.readPngFile = readPngFile;
+function writePng(filePath, png) {
+    const outStream = graceful_fs_1.default.createWriteStream(filePath);
+    const pngStream = png.pack();
+    const finishPromise = Promise.race([
+        (0, promisify_event_1.default)(outStream, 'finish'),
+        (0, promisify_event_1.default)(outStream, 'error'),
+        (0, promisify_event_1.default)(pngStream, 'error'),
+    ]);
+    pngStream.pipe(outStream);
+    return finishPromise;
+}
+exports.writePng = writePng;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHJvbWlzaWZpZWQtZnVuY3Rpb25zLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vc3JjL3V0aWxzL3Byb21pc2lmaWVkLWZ1bmN0aW9ucy5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxrRUFBeUM7QUFDekMsOERBQTZCO0FBQzdCLGlDQUE0QjtBQUM1QixzRUFBNkM7QUFDN0MsK0JBQWlDO0FBRXBCLFFBQUEsT0FBTyxHQUFNLElBQUEsZ0JBQVMsRUFBQyxxQkFBRSxDQUFDLE9BQU8sQ0FBQyxDQUFDO0FBQ25DLFFBQUEsSUFBSSxHQUFTLElBQUEsZ0JBQVMsRUFBQyxxQkFBRSxDQUFDLElBQUksQ0FBQyxDQUFDO0FBQ2hDLFFBQUEsU0FBUyxHQUFJLElBQUEsZ0JBQVMsRUFBQyxxQkFBRSxDQUFDLFNBQVMsQ0FBQyxDQUFDO0FBQ3JDLFFBQUEsUUFBUSxHQUFLLElBQUEsZ0JBQVMsRUFBQyxxQkFBRSxDQUFDLFFBQVEsQ0FBQyxDQUFDO0FBQ3BDLFFBQUEsVUFBVSxHQUFHLElBQUEsZ0JBQVMsRUFBQyxxQkFBRSxDQUFDLE1BQU0sQ0FBQyxDQUFDO0FBRWxDLFFBQUEsSUFBSSxHQUFHLElBQUEsZ0JBQVMsRUFBQyx1QkFBWSxDQUFDLElBQUksQ0FBQyxDQUFDO0FBRXBDLFFBQUEseUJBQXlCLEdBQUcsSUFBQSxnQkFBUyxFQUFDLENBQUMsT0FBTyxFQUFFLEdBQUcsSUFBSSxFQUFFLEVBQUUsQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLEdBQUcsSUFBSSxDQUFDLENBQUMsQ0FBQztBQUVoRyxTQUFnQixPQUFPLENBQUUsTUFBTTtJQUMzQixNQUFNLEdBQUcsR0FBRyxJQUFJLFdBQUcsRUFBRSxDQUFDO0lBRXRCLE1BQU0sYUFBYSxHQUFHLE9BQU8sQ0FBQyxJQUFJLENBQUM7UUFDL0IsSUFBQSx5QkFBYyxFQUFDLEdBQUcsRUFBRSxRQUFRLENBQUM7UUFDN0IsSUFBQSx5QkFBYyxFQUFDLEdBQUcsRUFBRSxPQUFPLENBQUM7S0FDL0IsQ0FBQyxDQUFDO0lBRUgsR0FBRyxDQUFDLEtBQUssQ0FBQyxNQUFNLENBQUMsQ0FBQztJQUVsQixPQUFPLGFBQWE7U0FDZixJQUFJLENBQUMsR0FBRyxFQUFFLENBQUMsR0FBRyxDQUFDLENBQUM7QUFDekIsQ0FBQztBQVpELDBCQVlDO0FBRU0sS0FBSyxVQUFVLFdBQVcsQ0FBRSxRQUFRO0lBQ3ZDLE1BQU0sTUFBTSxHQUFHLE1BQU0sSUFBQSxnQkFBUSxFQUFDLFFBQVEsQ0FBQyxDQUFDO0lBRXhDLE9BQU8sTUFBTSxPQUFPLENBQUMsTUFBTSxDQUFDLENBQUM7QUFDakMsQ0FBQztBQUpELGtDQUlDO0FBRUQsU0FBZ0IsUUFBUSxDQUFFLFFBQVEsRUFBRSxHQUFHO0lBQ25DLE1BQU0sU0FBUyxHQUFHLHFCQUFFLENBQUMsaUJBQWlCLENBQUMsUUFBUSxDQUFDLENBQUM7SUFDakQsTUFBTSxTQUFTLEdBQUcsR0FBRyxDQUFDLElBQUksRUFBRSxDQUFDO0lBRTdCLE1BQU0sYUFBYSxHQUFHLE9BQU8sQ0FBQyxJQUFJLENBQUM7UUFDL0IsSUFBQSx5QkFBYyxFQUFDLFNBQVMsRUFBRSxRQUFRLENBQUM7UUFDbkMsSUFBQSx5QkFBYyxFQUFDLFNBQVMsRUFBRSxPQUFPLENBQUM7UUFDbEMsSUFBQSx5QkFBYyxFQUFDLFNBQVMsRUFBRSxPQUFPLENBQUM7S0FDckMsQ0FBQyxDQUFDO0lBRUgsU0FBUyxDQUFDLElBQUksQ0FBQyxTQUFTLENBQUMsQ0FBQztJQUUxQixPQUFPLGFBQWEsQ0FBQztBQUN6QixDQUFDO0FBYkQsNEJBYUMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgY2hpbGRQcm9jZXNzIGZyb20gJ2NoaWxkX3Byb2Nlc3MnO1xuaW1wb3J0IGZzIGZyb20gJ2dyYWNlZnVsLWZzJztcbmltcG9ydCB7IFBORyB9IGZyb20gJ3BuZ2pzJztcbmltcG9ydCBwcm9taXNpZnlFdmVudCBmcm9tICdwcm9taXNpZnktZXZlbnQnO1xuaW1wb3J0IHsgcHJvbWlzaWZ5IH0gZnJvbSAndXRpbCc7XG5cbmV4cG9ydCBjb25zdCByZWFkRGlyICAgID0gcHJvbWlzaWZ5KGZzLnJlYWRkaXIpO1xuZXhwb3J0IGNvbnN0IHN0YXQgICAgICAgPSBwcm9taXNpZnkoZnMuc3RhdCk7XG5leHBvcnQgY29uc3Qgd3JpdGVGaWxlICA9IHByb21pc2lmeShmcy53cml0ZUZpbGUpO1xuZXhwb3J0IGNvbnN0IHJlYWRGaWxlICAgPSBwcm9taXNpZnkoZnMucmVhZEZpbGUpO1xuZXhwb3J0IGNvbnN0IGRlbGV0ZUZpbGUgPSBwcm9taXNpZnkoZnMudW5saW5rKTtcblxuZXhwb3J0IGNvbnN0IGV4ZWMgPSBwcm9taXNpZnkoY2hpbGRQcm9jZXNzLmV4ZWMpO1xuXG5leHBvcnQgY29uc3Qgc2VuZE1lc3NhZ2VUb0NoaWxkUHJvY2VzcyA9IHByb21pc2lmeSgocHJvY2VzcywgLi4uYXJncykgPT4gcHJvY2Vzcy5zZW5kKC4uLmFyZ3MpKTtcblxuZXhwb3J0IGZ1bmN0aW9uIHJlYWRQbmcgKGJ1ZmZlcikge1xuICAgIGNvbnN0IHBuZyA9IG5ldyBQTkcoKTtcblxuICAgIGNvbnN0IHBhcnNlZFByb21pc2UgPSBQcm9taXNlLnJhY2UoW1xuICAgICAgICBwcm9taXNpZnlFdmVudChwbmcsICdwYXJzZWQnKSxcbiAgICAgICAgcHJvbWlzaWZ5RXZlbnQocG5nLCAnZXJyb3InKSxcbiAgICBdKTtcblxuICAgIHBuZy5wYXJzZShidWZmZXIpO1xuXG4gICAgcmV0dXJuIHBhcnNlZFByb21pc2VcbiAgICAgICAgLnRoZW4oKCkgPT4gcG5nKTtcbn1cblxuZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHJlYWRQbmdGaWxlIChmaWxlUGF0aCkge1xuICAgIGNvbnN0IGJ1ZmZlciA9IGF3YWl0IHJlYWRGaWxlKGZpbGVQYXRoKTtcblxuICAgIHJldHVybiBhd2FpdCByZWFkUG5nKGJ1ZmZlcik7XG59XG5cbmV4cG9ydCBmdW5jdGlvbiB3cml0ZVBuZyAoZmlsZVBhdGgsIHBuZykge1xuICAgIGNvbnN0IG91dFN0cmVhbSA9IGZzLmNyZWF0ZVdyaXRlU3RyZWFtKGZpbGVQYXRoKTtcbiAgICBjb25zdCBwbmdTdHJlYW0gPSBwbmcucGFjaygpO1xuXG4gICAgY29uc3QgZmluaXNoUHJvbWlzZSA9IFByb21pc2UucmFjZShbXG4gICAgICAgIHByb21pc2lmeUV2ZW50KG91dFN0cmVhbSwgJ2ZpbmlzaCcpLFxuICAgICAgICBwcm9taXNpZnlFdmVudChvdXRTdHJlYW0sICdlcnJvcicpLFxuICAgICAgICBwcm9taXNpZnlFdmVudChwbmdTdHJlYW0sICdlcnJvcicpLFxuICAgIF0pO1xuXG4gICAgcG5nU3RyZWFtLnBpcGUob3V0U3RyZWFtKTtcblxuICAgIHJldHVybiBmaW5pc2hQcm9taXNlO1xufVxuIl19

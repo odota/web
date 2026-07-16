@@ -1,0 +1,27 @@
+{
+  "name": "url-to-options",
+  "description": "Convert a WHATWG URL to an http(s).request options object.",
+  "version": "2.0.0",
+  "license": "MIT",
+  "author": "Steven Vachon <contact@svachon.com> (https://svachon.com)",
+  "repository": "github:stevenvachon/url-to-options",
+  "devDependencies": {
+    "semver": "^6.0.0",
+    "universal-url": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "http",
+    "https",
+    "url",
+    "whatwg"
+  ]
+}

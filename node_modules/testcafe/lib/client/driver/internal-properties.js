@@ -1,0 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = {
+    testCafeDriver: '%testCafeDriver%',
+    testCafeIframeDriver: '%testCafeIframeDriver%',
+    testCafeEmbeddingUtils: '%testCafeEmbeddingUtils%',
+    testCafeDriverInstance: '%testCafeDriverInstance%',
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW50ZXJuYWwtcHJvcGVydGllcy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9jbGllbnQvZHJpdmVyL2ludGVybmFsLXByb3BlcnRpZXMuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxrQkFBZTtJQUNYLGNBQWMsRUFBVSxrQkFBa0I7SUFDMUMsb0JBQW9CLEVBQUksd0JBQXdCO0lBQ2hELHNCQUFzQixFQUFFLDBCQUEwQjtJQUNsRCxzQkFBc0IsRUFBRSwwQkFBMEI7Q0FDckQsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IHtcbiAgICB0ZXN0Q2FmZURyaXZlcjogICAgICAgICAnJXRlc3RDYWZlRHJpdmVyJScsXG4gICAgdGVzdENhZmVJZnJhbWVEcml2ZXI6ICAgJyV0ZXN0Q2FmZUlmcmFtZURyaXZlciUnLFxuICAgIHRlc3RDYWZlRW1iZWRkaW5nVXRpbHM6ICcldGVzdENhZmVFbWJlZGRpbmdVdGlscyUnLFxuICAgIHRlc3RDYWZlRHJpdmVySW5zdGFuY2U6ICcldGVzdENhZmVEcml2ZXJJbnN0YW5jZSUnLFxufTtcbiJdfQ==
