@@ -36,7 +36,12 @@ const Container = ({
   !hide ? (
     <div className={className} style={{ ...style }}>
       {title && <Heading title={title} subtitle={subtitle} titleTo={titleTo} />}
-      {error && <Error />}
+      {error && (
+        <>
+          <Spacer variant="1" />
+          <Error />
+        </>
+      )}
       {!error && loading && <LoadingOverlayUpper30 text={text} />}
       {!error && !loading && (
         <>

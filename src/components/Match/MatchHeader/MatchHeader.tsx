@@ -240,8 +240,10 @@ const Styled = styled.header`
   }
 
   .unparsed {
-    text-align: center;
     margin-top: 12px;
+    font-family: ${constants.fontFamilyFuturistic};
+    font-size: ${constants.fontSizeSmall};
+    text-align: center;
   }
 
   .copy-match-id {

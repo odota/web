@@ -9,6 +9,7 @@ import TableFilterForm from "./TableFilterForm";
 import PlayerHeader from "./Header/PlayerHeader";
 import playerPages from "./playerPages";
 import PlayerProfilePrivate from "./PlayerProfilePrivate";
+import { Spacer } from "../Spacer/Spacer";
 
 type PlayerProps = {
   officialPlayerName: string;
@@ -68,6 +69,7 @@ class Player extends React.Component<PlayerProps> {
         {isPlayerProfilePublic ? (
           <div>
             <TableFilterForm playerId={playerId} />
+            <Spacer variant="2" />
             {page ? (
               page.content(playerId, match.params, location)
             ) : (

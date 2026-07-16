@@ -193,15 +193,14 @@ th {
     }
   }
   & img {
-    width: 124px;
-    height: 124px;
+    width: 108px;
+    height: 108px;
   }
   & .rankMedal-board {
     position: absolute;
     align-self: center;
-    margin-top: 80px;
+    margin-top: 70px;
     margin-left: 1px;
-    font-size: 22px;
     color: #ecd9c8;
     text-shadow: 2px 2px 2px black;
   }
