@@ -151,7 +151,7 @@ const Status = () => {
                   state.last?.[propName]?.[key]?.metric ??
                   state.current[propName]?.[key]?.metric,
                 end: state.current[propName]?.[key]?.metric,
-                limit: state.current[propName]?.[key]?.limit,
+                limit: (propName === "health") ? state.current[propName]?.[key]?.limit : null,
               }),
             );
             return (
@@ -179,7 +179,7 @@ const Status = () => {
               value: state.current[propName]?.[key],
               start:
                 state.last?.[propName]?.[key] ?? state.current[propName]?.[key],
-              end: (propName === "health" || propName === "counts") ? state.current[propName]?.[key] : null,
+              end: (propName === "counts") ? state.current[propName]?.[key] : null,
             }),
           );
           return (
