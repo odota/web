@@ -142,6 +142,7 @@ const Status = () => {
           } else if (
             typeof Object.values(state.current[propName])[0] !== "number"
           ) {
+            // multi-column
             const data = Object.keys(state.current[propName] || {}).map(
               (key) => ({
                 key,
@@ -178,7 +179,7 @@ const Status = () => {
               value: state.current[propName]?.[key],
               start:
                 state.last?.[propName]?.[key] ?? state.current[propName]?.[key],
-              end: state.current[propName]?.[key],
+              end: (propName === "health" || propName === "counts") ? state.current[propName]?.[key] : null,
             }),
           );
           return (
