@@ -2,16 +2,11 @@ import React, { useCallback } from "react";
 import { connect } from "react-redux";
 import Helmet from "react-helmet";
 import styled from "styled-components";
-import { loadStripe } from "@stripe/stripe-js";
 import { Button } from "@mui/material";
 import { IconSteam } from "../Icons";
 import { useStrings } from "../../hooks/useStrings.hook";
 import config from "../../config";
 import constants from "../constants";
-
-const stripePromise = config.VITE_STRIPE_PUBLIC_KEY
-  ? loadStripe(config.VITE_STRIPE_PUBLIC_KEY)
-  : null;
 
 const PageContainer = styled.div`
   width: 80%;
@@ -110,32 +105,28 @@ const List = styled.ul`
 `;
 
 const handleSubscribe = async (user: any) => {
-  if (!stripePromise) {
-    console.warn("Stripe integration is not configured, cannot subscribe");
-    return;
-  }
-  const stripe = await stripePromise;
-  const result = await stripe?.redirectToCheckout({
-    lineItems: [
-      {
-        price:
-          process.env.NODE_ENV === "development"
-            ? "price_1LE6FHCHN72mG1oK4E4NdERI"
-            : "price_1LE5NqCHN72mG1oKg2Y9pqXb",
-        quantity: 1,
-      },
-    ],
-    mode: "subscription",
-    successUrl: `${config.VITE_API_HOST}/subscribeSuccess?session_id={CHECKOUT_SESSION_ID}`,
-    cancelUrl: window.location.href,
-    clientReferenceId: `${user.account_id}`,
-  });
-  // If `redirectToCheckout` fails due to a browser or network
-  // error, display the localized error message to your customer
-  // using `error.message`.
-  if (result && result.error) {
-    console.error(result.error.message);
-  }
+  fetch(`${config.VITE_API_HOST}/subCheckout`, {
+    credentials: "include",
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw Error();
+      }
+      return res.json();
+    })
+    .then((json) => {
+      if (json?.url) {
+        window.location.href = json.url;
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+    });
 };
 
 const Subscription = ({
@@ -147,7 +138,7 @@ const Subscription = ({
 }) => {
   const strings = useStrings();
   const handleManage = useCallback(async () => {
-    const res = await fetch(`${config.VITE_API_HOST}/manageSub`, {
+    const res = await fetch(`${config.VITE_API_HOST}/subManage`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",

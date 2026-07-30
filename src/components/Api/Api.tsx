@@ -132,8 +132,8 @@ class KeyManagement extends React.Component<
       loading: true,
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleCheckout = this.handleCheckout.bind(this);
+    this.handleBillingPortal = this.handleBillingPortal.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
@@ -156,9 +156,41 @@ class KeyManagement extends React.Component<
       .catch(() => this.setState({ error: true }));
   }
 
-  handleSubmit(token: Token) {
+  // Creates a Stripe-hosted Checkout Session for a new subscription/API key
+  // and redirects the browser to it.
+  // See: https://docs.stripe.com/payments/checkout/migration
+  handleCheckout() {
     this.setState({ loading: true });
-    fetch(`${config.VITE_API_HOST}${path}`, {
+    fetch(`${config.VITE_API_HOST}${path}/checkout`, {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw Error();
+        }
+        return res.json();
+      })
+      .then((json) => {
+        if (json?.url) {
+          window.location.href = json.url;
+        } else {
+          // Already had an active key (no-op), just refresh
+          window.location.reload();
+        }
+      })
+      .catch(() => this.setState({ error: true, loading: false }));
+  }
+
+  // Creates a Stripe Billing Portal session for updating the payment method
+  // and redirects the browser to it.
+  handleBillingPortal() {
+    this.setState({ loading: true });
+    fetch(`${config.VITE_API_HOST}${path}/manage`, {
       credentials: "include",
       method: "POST",
       headers: {
@@ -166,17 +198,23 @@ class KeyManagement extends React.Component<
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        token,
+        return_url: window.location.href,
       }),
     })
       .then((res) => {
-        if (res.ok) {
-          window.location.reload();
+        if (!res.ok) {
+          throw Error();
+        }
+        return res.json();
+      })
+      .then((json) => {
+        if (json?.url) {
+          window.location.href = json.url;
         } else {
           throw Error();
         }
       })
-      .catch(() => this.setState({ error: true }));
+      .catch(() => this.setState({ error: true, loading: false }));
   }
 
   handleDelete() {
@@ -184,29 +222,6 @@ class KeyManagement extends React.Component<
     fetch(`${config.VITE_API_HOST}${path}`, {
       credentials: "include",
       method: "DELETE",
-    })
-      .then((res) => {
-        if (res.ok) {
-          window.location.reload();
-        } else {
-          throw Error();
-        }
-      })
-      .catch(() => this.setState({ error: true }));
-  }
-
-  handleUpdate(token: Token) {
-    this.setState({ loading: true });
-    fetch(`${config.VITE_API_HOST}${path}`, {
-      credentials: "include",
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        token,
-      }),
     })
       .then((res) => {
         if (res.ok) {
@@ -272,19 +287,13 @@ class KeyManagement extends React.Component<
                   <div />
                 )}
                 {showGetKeyButton ? (
-                  <StripeCheckout
-                    name="OpenDota"
-                    description={strings.api_title}
-                    billingAddress
-                    stripeKey={config.VITE_STRIPE_PUBLIC_KEY}
-                    token={this.handleSubmit}
-                    zipCode
-                    locale="auto"
+                    <Button
+                    variant="contained"
+                    style={{ margin: "5px 5px" }}
+                    onClick={this.handleCheckout}
                   >
-                    <Button variant="contained" style={{ margin: "5px 5px" }}>
-                      {strings.api_get_key}
-                    </Button>
-                  </StripeCheckout>
+                    {strings.api_get_key}
+                  </Button>
                 ) : (
                   <span />
                 )}
@@ -341,22 +350,13 @@ class KeyManagement extends React.Component<
                       >
                         {strings.api_delete}
                       </Button>
-                      <StripeCheckout
-                        name="OpenDota"
-                        description={strings.api_title}
-                        billingAddress
-                        stripeKey={config.VITE_STRIPE_PUBLIC_KEY}
-                        token={this.handleUpdate}
-                        zipCode
-                        locale="auto"
+                      <Button
+                        variant="contained"
+                        style={{ margin: "5px 5px" }}
+                        onClick={this.handleBillingPortal}
                       >
-                        <Button
-                          variant="contained"
-                          style={{ margin: "5px 5px" }}
-                        >
-                          {strings.api_update_billing}
-                        </Button>
-                      </StripeCheckout>
+                        {strings.api_update_billing}
+                      </Button>
                     </div>
                   ) : (
                     <div />
