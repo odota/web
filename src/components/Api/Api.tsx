@@ -128,10 +128,6 @@ class KeyManagement extends React.Component<
       error: false,
       loading: true,
     };
-
-    this.handleCheckout = this.handleCheckout.bind(this);
-    this.handleBillingPortal = this.handleBillingPortal.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -156,7 +152,7 @@ class KeyManagement extends React.Component<
   // Creates a Stripe-hosted Checkout Session for a new subscription/API key
   // and redirects the browser to it.
   // See: https://docs.stripe.com/payments/checkout/migration
-  handleCheckout() {
+  handleCheckout = () => {
     this.setState({ loading: true });
     fetch(`${config.VITE_API_HOST}${path}/checkout`, {
       credentials: "include",
@@ -185,7 +181,7 @@ class KeyManagement extends React.Component<
 
   // Creates a Stripe Billing Portal session for updating the payment method
   // and redirects the browser to it.
-  handleBillingPortal() {
+  handleBillingPortal = () => {
     this.setState({ loading: true });
     fetch(`${config.VITE_API_HOST}${path}/manage`, {
       credentials: "include",
@@ -214,7 +210,7 @@ class KeyManagement extends React.Component<
       .catch(() => this.setState({ error: true, loading: false }));
   }
 
-  handleDelete() {
+  handleDelete = () => {
     this.setState({ loading: true });
     fetch(`${config.VITE_API_HOST}${path}`, {
       credentials: "include",

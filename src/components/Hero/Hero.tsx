@@ -51,14 +51,13 @@ class Hero extends React.Component<HeroProps> {
 
   constructor(props: HeroProps) {
     super(props);
-    this.toggleDetailVisibility = this.toggleDetailVisibility.bind(this);
   }
 
   state = {
     detailsOpen: false,
   };
 
-  toggleDetailVisibility(e: any) {
+  toggleDetailVisibility = (e: any) => {
     e.preventDefault();
 
     this.setState({
