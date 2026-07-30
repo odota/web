@@ -130,100 +130,109 @@ class KeyManagement extends React.Component<
     };
   }
 
-  componentDidMount() {
-    fetch(`${config.VITE_API_HOST}${path}`, {
-      credentials: "include",
-      method: "GET",
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else if (res.status === 403) {
-          return {};
-        }
+  async componentDidMount() {
+    try {
+      const res = await fetch(`${config.VITE_API_HOST}${path}`, {
+        credentials: "include",
+        method: "GET",
+      });
+
+      let json;
+      if (res.ok) {
+        json = await res.json();
+      } else if (res.status === 403) {
+        json = {};
+      } else {
         throw Error();
-      })
-      .then((json) => {
-        this.setState({ ...json, loading: false });
-      })
-      .catch(() => this.setState({ error: true }));
+      }
+
+      this.setState({ ...json, loading: false });
+    } catch {
+      this.setState({ error: true });
+    }
   }
 
   // Creates a Stripe-hosted Checkout Session for a new subscription/API key
   // and redirects the browser to it.
   // See: https://docs.stripe.com/payments/checkout/migration
-  handleCheckout = () => {
+  handleCheckout = async () => {
     this.setState({ loading: true });
-    fetch(`${config.VITE_API_HOST}${path}/checkout`, {
-      credentials: "include",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw Error();
-        }
-        return res.json();
-      })
-      .then((json) => {
-        if (json?.url) {
-          window.location.href = json.url;
-        } else {
-          // Already had an active key (no-op), just refresh
-          window.location.reload();
-        }
-      })
-      .catch(() => this.setState({ error: true, loading: false }));
+    try {
+      const res = await fetch(`${config.VITE_API_HOST}${path}/checkout`, {
+        credentials: "include",
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        throw Error();
+      }
+
+      const json = await res.json();
+
+      if (json?.url) {
+        window.location.href = json.url;
+      } else {
+        // Already had an active key (no-op), just refresh
+        window.location.reload();
+      }
+    } catch {
+      this.setState({ error: true, loading: false });
+    }
   }
 
   // Creates a Stripe Billing Portal session for updating the payment method
   // and redirects the browser to it.
-  handleBillingPortal = () => {
+  handleBillingPortal = async () => {
     this.setState({ loading: true });
-    fetch(`${config.VITE_API_HOST}${path}/manage`, {
-      credentials: "include",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        return_url: window.location.href,
-      }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw Error();
-        }
-        return res.json();
-      })
-      .then((json) => {
-        if (json?.url) {
-          window.location.href = json.url;
-        } else {
-          throw Error();
-        }
-      })
-      .catch(() => this.setState({ error: true, loading: false }));
+    try {
+      const res = await fetch(`${config.VITE_API_HOST}${path}/manage`, {
+        credentials: "include",
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          return_url: window.location.href,
+        }),
+      });
+
+      if (!res.ok) {
+        throw Error();
+      }
+
+      const json = await res.json();
+
+      if (json?.url) {
+        window.location.href = json.url;
+      } else {
+        throw Error();
+      }
+    } catch {
+      this.setState({ error: true, loading: false });
+    }
   }
 
-  handleDelete = () => {
+  handleDelete = async () => {
     this.setState({ loading: true });
-    fetch(`${config.VITE_API_HOST}${path}`, {
-      credentials: "include",
-      method: "DELETE",
-    })
-      .then((res) => {
-        if (res.ok) {
-          window.location.reload();
-        } else {
-          throw Error();
-        }
-      })
-      .catch(() => this.setState({ error: true }));
+    try {
+      const res = await fetch(`${config.VITE_API_HOST}${path}`, {
+        credentials: "include",
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        window.location.reload();
+      } else {
+        throw Error();
+      }
+    } catch {
+      this.setState({ error: true });
+    }
   }
 
   render() {

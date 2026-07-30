@@ -105,28 +105,28 @@ const List = styled.ul`
 `;
 
 const handleSubscribe = async (user: any) => {
-  fetch(`${config.VITE_API_HOST}/subCheckout`, {
-    credentials: "include",
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw Error();
-      }
-      return res.json();
-    })
-    .then((json) => {
-      if (json?.url) {
-        window.location.href = json.url;
-      }
-    })
-    .catch((e) => {
-      console.error(e);
+  try {
+    const res = await fetch(`${config.VITE_API_HOST}/subCheckout`, {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
     });
+
+    if (!res.ok) {
+      throw Error();
+    }
+
+    const json = await res.json();
+
+    if (json?.url) {
+      window.location.href = json.url;
+    }
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 const Subscription = ({
