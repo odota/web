@@ -4,7 +4,6 @@ import Helmet from "react-helmet";
 import { Alert, CircularProgress } from "@mui/material";
 import { Button } from "@mui/material";
 import styled from "styled-components";
-import StripeCheckout, { Token } from "react-stripe-checkout";
 import { LoadingOverlayUpper30 } from "../LoadingOverlay";
 import { IconSteam } from "../Icons";
 import config from "../../config";
@@ -119,8 +118,6 @@ class KeyManagement extends React.Component<
     customer?: {
       api_key: string;
       current_period_end: number;
-      credit_brand: string;
-      credit_last4: string;
     };
   }
 > {
@@ -329,13 +326,7 @@ class KeyManagement extends React.Component<
                           "$date",
                           new Date(
                             this.state.customer.current_period_end * 1000,
-                          ).toLocaleDateString(),
-                        )} ${strings.api_billed_to
-                          .replace("$brand", this.state.customer.credit_brand)
-                          .replace(
-                            "$last4",
-                            this.state.customer.credit_last4,
-                          )}`}
+                          ).toLocaleDateString())}`}
                       </p>
                       <p>
                         {strings.api_support.replace(
