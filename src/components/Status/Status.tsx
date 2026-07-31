@@ -35,6 +35,31 @@ const scrollStyle = (data: any[]): React.CSSProperties => ({
   // scrollbarWidth: data.length ? undefined : 'none',
 });
 
+const ROW_LIMIT = 100;
+
+// Wraps <Table /> so any table in this file only renders ROW_LIMIT rows by
+// default, with a button to expand and show the rest.
+const ExpandableTable = ({ data, columns, ...rest }: any) => {
+  const [expanded, setExpanded] = useState(false);
+  const truncated = data.length > ROW_LIMIT;
+  const visibleData = expanded ? data : data.slice(0, ROW_LIMIT);
+  return (
+    <div>
+      <Table data={visibleData} columns={columns} {...rest} />
+      {truncated && (
+        <button
+          style={{ margin: "8px 0" }}
+          onClick={() => setExpanded((prev) => !prev)}
+        >
+          {expanded
+            ? "Show less"
+            : `Show all ${data.length} rows`}
+        </button>
+      )}
+    </div>
+  );
+};
+
 const Status = () => {
   const strings = useStrings();
   const [ts, setTs] = useState(Number(new Date()));
@@ -108,7 +133,7 @@ const Status = () => {
           }
           if (propName === "retrieverRegistry") {
             return (
-              <Table
+              <ExpandableTable
                 data={Object.values(state.current[propName])}
                 columns={[
                   {
@@ -150,13 +175,13 @@ const Status = () => {
                 start:
                   state.last?.[propName]?.[key]?.metric ??
                   state.current[propName]?.[key]?.metric,
-                end: (propName === "health") ? state.current[propName]?.[key]?.metric  : null,
+                end: true ? state.current[propName]?.[key]?.metric  : null,
                 limit: state.current[propName]?.[key]?.limit,
               }),
             );
             return (
               <div style={scrollStyle(data)}>
-                <Table
+                <ExpandableTable
                   key={propName}
                   data={data}
                   columns={[
@@ -179,12 +204,12 @@ const Status = () => {
               value: state.current[propName]?.[key],
               start:
                 state.last?.[propName]?.[key] ?? state.current[propName]?.[key],
-              end: (propName === "counts") ? state.current[propName]?.[key] : null,
+              end: true ? state.current[propName]?.[key] : null,
             }),
           );
           return (
             <div style={scrollStyle(data)}>
-              <Table key={propName} data={data} columns={columns} />
+              <ExpandableTable key={propName} data={data} columns={columns} />
             </div>
           );
         })}
