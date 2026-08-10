@@ -41,7 +41,7 @@ const Abilities = ({ hero }: any) => {
     toFilterAbs.filter(
       (ability) =>
         ability !== "generic_hidden" &&
-        abilities[ability].behavior !== "Hidden",
+        abilities[ability]?.behavior !== "Hidden",
     );
   const mapAbilities = (toFilterAbs: any[]) =>
     toFilterAbs.map((ability, id) => ({ data: abilities[ability], key: id }));
