@@ -6,7 +6,6 @@ import Table from "../Table/Table";
 import config from "../../config";
 import { LazyLog, ScrollFollow } from "@melloware/react-logviewer";
 import useStrings from "../../hooks/useStrings.hook";
-import { VList } from "virtua";
 
 const columns = [
   { displayName: "key", field: "key" },
@@ -28,14 +27,7 @@ const columns = [
   },
 ];
 
-const maxHeight = 2400;
-const scrollStyle = (data: any[]): React.CSSProperties => ({
-  maxHeight,
-  overflowY: "auto",
-  // scrollbarWidth: data.length ? undefined : 'none',
-});
-
-const ROW_LIMIT = 100;
+const ROW_LIMIT = 80;
 
 // Wraps <Table /> so any table in this file only renders ROW_LIMIT rows by
 // default, with a button to expand and show the rest.
@@ -106,7 +98,7 @@ const Status = () => {
                 onScroll={onScroll}
                 enableSearch
                 selectableLines
-                // wrapLines
+                wrapLines
                 onLoad={() => {
                   // Trigger a reload since socket connection ended
                   setTs(Number(new Date()));
@@ -126,7 +118,7 @@ const Status = () => {
           // gap: '4px',
         }}
       > */}
-      <VList horizontal style={{ height: maxHeight }}>
+      <div style={{ display: 'flex', overflowX: 'scroll' }}>
         {Object.keys(state.current).map((propName) => {
           if (typeof state.current[propName] !== "object") {
             return state.current[propName];
@@ -180,7 +172,7 @@ const Status = () => {
               }),
             );
             return (
-              <div style={scrollStyle(data)}>
+              <div>
                 <ExpandableTable
                   key={propName}
                   data={data}
@@ -208,12 +200,12 @@ const Status = () => {
             }),
           );
           return (
-            <div style={scrollStyle(data)}>
+            <div>
               <ExpandableTable key={propName} data={data} columns={columns} />
             </div>
           );
         })}
-      </VList>
+      </div>
     </>
   );
 };

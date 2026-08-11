@@ -21,7 +21,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mars3d/heatmap.js": "^2.0.7",
-    "@melloware/react-logviewer": "^6.4.1",
+    "@melloware/react-logviewer": "^6.5.5",
     "@mui/icons-material": "^7.3.5",
     "@mui/material": "^7.3.6",
     "abcolor": "^0.5.5",
@@ -51,7 +51,6 @@
     "redux-thunk": "^2.4.2",
     "reselect": "^4.0.0",
     "styled-components": "^4.4.1",
-    "virtua": "^0.47.1",
     "wordcloud": "^1.2.3"
   },
   "devDependencies": {
