@@ -315,18 +315,18 @@ class Combos extends React.Component<{ strings: Strings }> {
   sendRequest = () => {
     const { teamA, teamB } = this.state;
 
-    this.setState({ loading: true }, () =>
-      fetch(
+    this.setState({ loading: true }, async () => {
+      const response = await fetch(
         `${config.VITE_API_HOST}/api/` +
           `${
             this.state.queryType === "pro"
               ? `explorer?sql=${encodeURIComponent(this.buildQueryString())}`
               : `findMatches?${querystring.stringify({ teamA, teamB })}`
           }`,
-      )
-        .then((res) => res.json())
-        .then(this.handleResponse),
-    );
+      );
+      const json = await response.json();
+      this.handleResponse(json);
+    });
   };
 
   handleSubmit = () => {

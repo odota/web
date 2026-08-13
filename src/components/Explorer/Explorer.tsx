@@ -103,7 +103,7 @@ class Explorer extends React.Component<
     this.instantiateEditor();
   }
 
-  componentDidUpdate(nextProps: ExplorerProps) {
+  async componentDidUpdate(nextProps: ExplorerProps) {
     if (
       this.editor &&
       !this.completersSet &&
@@ -112,18 +112,16 @@ class Explorer extends React.Component<
       nextProps.leagues.length
     ) {
       this.completersSet = true;
-      fetch(`${config.VITE_API_HOST}/api/schema`)
-        .then((resp) => resp.json())
-        .then((schema) => {
-          this.editor.completers = [
-            autocomplete(
-              schema,
-              nextProps.proPlayers,
-              nextProps.teams,
-              nextProps.leagues,
-            ),
-          ];
-        });
+      const response = await fetch(`${config.VITE_API_HOST}/api/schema`);
+      const schema = await response.json();
+      this.editor.completers = [
+        autocomplete(
+          schema,
+          nextProps.proPlayers,
+          nextProps.teams,
+          nextProps.leagues,
+        ),
+      ];
     }
   }
 
@@ -159,14 +157,14 @@ class Explorer extends React.Component<
     );
   };
 
-  sendRequest = () => {
+  sendRequest = async () => {
     this.syncWindowHistory();
     const sqlString = this.getSqlString();
-    return fetch(
+    const response = await fetch(
       `${config.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`,
-    )
-      .then((resp) => resp.json())
-      .then(this.handleResponse);
+    );
+    const json = await response.json();
+    return this.handleResponse(json);
   };
 
   handleQuery = () => {
