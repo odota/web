@@ -81,18 +81,18 @@ class Meta extends React.Component<
     );
   };
 
-  handleQuery = () => {
+  handleQuery = async () => {
     this.setState({
       ...this.state,
       loading: true,
     });
     this.syncWindowHistory();
     const sqlString = this.state.sql;
-    return fetch(
+    const response = await fetch(
       `${config.VITE_API_HOST}/api/explorer?sql=${encodeURIComponent(sqlString)}`,
-    )
-      .then((resp) => resp.json())
-      .then(this.handleResponse);
+    );
+    const json = await response.json();
+    return this.handleResponse(json);
   };
 
   handleResponse = (json: any) => {

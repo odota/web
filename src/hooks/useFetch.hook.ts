@@ -5,13 +5,14 @@ export function useFetch<T>(url: string) {
   useEffect(() => {
     if (url) {
       let ignore = false;
-      fetch(url)
-        .then((response) => response.json())
-        .then((json) => {
-          if (!ignore) {
-            setData(json);
-          }
-        });
+      const fetchData = async () => {
+        const response = await fetch(url);
+        const json = await response.json();
+        if (!ignore) {
+          setData(json);
+        }
+      };
+      void fetchData();
       return () => {
         ignore = true;
       };

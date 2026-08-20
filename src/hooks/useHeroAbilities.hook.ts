@@ -5,13 +5,14 @@ let data: Record<string, any>;
 export const useHeroAbilities = () => {
   const [heroAbilities, setHeroAbilities] = useState(data);
   useEffect(() => {
-    import("../../node_modules/dotaconstants/build/hero_abilities.json").then(
-      (imp) => {
-        const def = imp.default;
-        setHeroAbilities(def);
-        data = def;
-      },
-    );
+    const loadHeroAbilities = async () => {
+      const imp =
+        await import("../../node_modules/dotaconstants/build/hero_abilities.json");
+      const def = imp.default;
+      setHeroAbilities(def);
+      data = def;
+    };
+    void loadHeroAbilities();
   }, []);
   return heroAbilities;
 };

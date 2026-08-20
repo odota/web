@@ -272,7 +272,11 @@ const Header = ({
   const strings = useStrings();
 
   useEffect(() => {
-    import("../Announce/Announce").then((ann: any) => setAnnounce(ann.default));
+    const loadAnnounce = async () => {
+      const ann = await import("../Announce/Announce");
+      setAnnounce(ann.default);
+    };
+    void loadAnnounce();
   }, []);
 
   const navbarPages = [

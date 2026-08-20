@@ -5,13 +5,14 @@ let data: PatchNotes;
 export const usePatchnotes = () => {
   const [patchnotes, setPatchnotes] = useState(data);
   useEffect(() => {
-    import("../../node_modules/dotaconstants/build/patchnotes.json").then(
-      (imp) => {
-        const def = imp.default;
-        setPatchnotes(def);
-        data = def;
-      },
-    );
+    const loadPatchnotes = async () => {
+      const imp =
+        await import("../../node_modules/dotaconstants/build/patchnotes.json");
+      const def = imp.default;
+      setPatchnotes(def);
+      data = def;
+    };
+    void loadPatchnotes();
   }, []);
   return patchnotes;
 };
