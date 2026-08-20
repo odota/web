@@ -98,6 +98,7 @@ type MatchPlayer = {
   killed_by: Record<string, any>;
   damage_taken: Record<string, number>;
   kills_log: any[];
+  deaths_log: any[];
   player_slot: number;
   damage: Record<string, any>;
   name: string;

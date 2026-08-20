@@ -231,6 +231,32 @@ export const StyledPlayersDeath = styled.div`
     height: 29px;
   }
 `;
+export const StyledDeathsSummary = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 260px;
+
+  & .death {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 34px;
+
+    & img,
+    & svg {
+      height: 18px;
+      width: auto;
+      border-radius: 2px;
+    }
+
+    & span {
+      font-size: 10px;
+      margin-top: 1px;
+      color: ${constants.colorMutedLight};
+    }
+  }
+`;
 export const StyledEmote = styled.img.attrs<{ emote?: string }>({
   alt: (props: { emote?: string }) => props.emote,
   src: (props: { emote?: string }) =>
