@@ -1,0 +1,34 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Publish to NPM
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    # Setup .npmrc file to publish to npm
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+        registry-url: 'https://registry.npmjs.org'
+    - run: node -p "json=require('./package.json');if (json.dependencies || json.devDependencies) throw new Error()"
+    - run: node -p "window={}; require('./src-noconflict/ace.js').config.all"
+    - run: | 
+        # echo testing themes
+        for dir in src*; do 
+            for theme in $dir/theme-*; do 
+                node -e 'window = global;require("./'$dir'/ace.js");
+                var theme = require("'./$theme'");
+                if (!theme.cssClass || !theme.cssText) {
+                    throw new Error("Broken theme ./'$theme'")
+                } '
+            done
+        done
+    - run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

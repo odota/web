@@ -1,0 +1,26 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - run: npm ci
+      - run: npm install react prop-types
+      - run: npm run build
+      - run: npm run lint
+      - run: npm test
+      - run: npm test:types
+      - uses: wagoid/commitlint-github-action@v1

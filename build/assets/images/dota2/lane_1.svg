@@ -1,0 +1,16 @@
+<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="26" width="26" y="-1" x="-1"/>
+  <g display="none" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%" id="svg_1"/>
+  </g>
+ </g>
+
+ <g>
+  <title>Layer 1</title>
+  <line stroke-linecap="null" stroke-linejoin="null" id="svg_13" y2="4.020203" x2="3.616162" y1="9.070707" x1="1.6633" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" stroke="null" fill="none"/>
+  <path stroke="null" id="svg_22" d="m1.633841,19.588383l14.807068,0l0,-5.892256l-2.269696,0l4.539393,-2.946127l4.539395,2.946127l-2.269698,0l0,8.838385l-19.346462,0l0,-2.946129z" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" fill="#e0cf6e"/>
+  <path transform="rotate(180 11.558079719543457,7.642255783081055) " stroke="null" id="svg_23" d="m0.75,10.588383l14.807068,0l0,-5.892256l-2.269696,0l4.539393,-2.946127l4.539395,2.946127l-2.269698,0l0,8.838385l-19.346462,0l0,-2.946129z" fill-opacity="null" stroke-opacity="null" stroke-width="1.5" fill="#e0cf6e"/>
+ </g>
+</svg>

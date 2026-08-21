@@ -1,0 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var CustomizableCompilers;
+(function (CustomizableCompilers) {
+    CustomizableCompilers["typescript"] = "typescript";
+})(CustomizableCompilers || (CustomizableCompilers = {}));
+exports.default = CustomizableCompilers;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY3VzdG9taXphYmxlLWNvbXBpbGVycy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9jb25maWd1cmF0aW9uL2N1c3RvbWl6YWJsZS1jb21waWxlcnMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxJQUFLLHFCQUVKO0FBRkQsV0FBSyxxQkFBcUI7SUFDdEIsa0RBQTJCLENBQUE7QUFDL0IsQ0FBQyxFQUZJLHFCQUFxQixLQUFyQixxQkFBcUIsUUFFekI7QUFFRCxrQkFBZSxxQkFBcUIsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImVudW0gQ3VzdG9taXphYmxlQ29tcGlsZXJzIHtcbiAgICAndHlwZXNjcmlwdCcgPSAndHlwZXNjcmlwdCdcbn1cblxuZXhwb3J0IGRlZmF1bHQgQ3VzdG9taXphYmxlQ29tcGlsZXJzO1xuXG4iXX0=

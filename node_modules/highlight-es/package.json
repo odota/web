@@ -1,0 +1,44 @@
+{
+  "name": "highlight-es",
+  "version": "1.0.3",
+  "description": "Highlight ECMAScript syntax for the console or any other medium.",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "eslint index.js test && mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inikulin/highlight-es.git"
+  },
+  "keywords": [
+    "ES",
+    "JavaScript",
+    "ECMAScript",
+    "ES",
+    "ES6",
+    "ES2016",
+    "ES2015",
+    "syntax",
+    "highlight",
+    "highlighting",
+    "console"
+  ],
+  "author": "Ivan Nikulin (ifaaan@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/inikulin/highlight-es/issues"
+  },
+  "homepage": "https://github.com/inikulin/highlight-es#readme",
+  "devDependencies": {
+    "eslint": "^2.0.0",
+    "mocha": "^2.4.5"
+  },
+  "dependencies": {
+    "chalk": "^2.4.0",
+    "is-es2016-keyword": "^1.0.0",
+    "js-tokens": "^3.0.0"
+  }
+}

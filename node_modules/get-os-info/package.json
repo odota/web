@@ -1,0 +1,43 @@
+{
+  "name": "get-os-info",
+  "version": "1.0.2",
+  "description": "This library allows you to get a correct OS name and version",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/*.js",
+    "lib/**/*.js",
+    "lib/**/*.d.ts"
+  ],
+  "scripts": {
+    "publish-please": "publish-please",
+    "prepublishOnly": "publish-please guard"
+  },
+  "author": "Artem-Babich",
+  "homepage": "https://github.com/Artem-Babich/get-os-info#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Artem-Babich/get-os-info.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "getos": "^3.2.1",
+    "macos-release": "^3.0.1",
+    "os-family": "^1.1.0",
+    "windows-release": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/getos": "^3.0.1",
+    "@types/node": "^14.18.18",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
+    "chai": "^4.3.6",
+    "del": "^6.1.0",
+    "eslint": "^8.15.0",
+    "gulp": "^4.0.2",
+    "gulp-eslint": "^6.0.0",
+    "mocha": "^10.0.0",
+    "publish-please": "^5.5.2",
+    "typescript": "^4.8.0-dev.20220519"
+  }
+}

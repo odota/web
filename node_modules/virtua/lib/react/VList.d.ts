@@ -1,0 +1,19 @@
+import { type ReactElement, type Ref } from "react";
+import { type ViewportComponentAttributes } from "./types.js";
+import { type VirtualizerHandle, type VirtualizerProps } from "./Virtualizer.js";
+/**
+ * Methods of {@link VList}.
+ */
+export interface VListHandle extends VirtualizerHandle {
+}
+/**
+ * Props of {@link VList}.
+ */
+export interface VListProps<T = unknown> extends Pick<VirtualizerProps<T>, "children" | "data" | "bufferSize" | "itemSize" | "shift" | "horizontal" | "cache" | "ssrCount" | "item" | "onScroll" | "onScrollEnd" | "keepMounted">, ViewportComponentAttributes {
+}
+/**
+ * Virtualized list component. See {@link VListProps} and {@link VListHandle}.
+ */
+export declare const VList: <T>(props: VListProps<T> & {
+    ref?: Ref<VListHandle>;
+}) => ReactElement;

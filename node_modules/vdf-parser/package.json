@@ -1,0 +1,30 @@
+{
+  "name": "vdf-parser",
+  "version": "1.2.1",
+  "description": "Package for (de)serialization of Valve's KeyValue format (VDF)",
+  "main": "main.js",
+  "types": "main.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/p0358/vdf-parser.git"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "vdf",
+    "keyvalues",
+    "steam",
+    "valve",
+    "vmt",
+    "source",
+    "engine",
+    "source engine"
+  ],
+  "author": "p0358",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/p0358/vdf-parser/issues"
+  },
+  "homepage": "https://github.com/p0358/vdf-parser#readme"
+}
