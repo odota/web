@@ -365,7 +365,14 @@ const MatchGraph = ({
         // sponsorIcon={sponsorIcon}
       />
     );
-  } else if (type === "gold" || type === "xp" || type === "lh") {
+  } else if (
+    type === "gold" ||
+    type === "xp" ||
+    type === "lh" ||
+    type === "hero_damage" ||
+    type === "hero_healing" ||
+    type === "camps_stacked"
+  ) {
     return <PlayersGraph type={type} match={match} strings={strings} />;
   }
   return null;
