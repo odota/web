@@ -107,6 +107,9 @@ type MatchPlayer = {
   desc: string;
   lane: number;
   gold_t: number[];
+  hero_damage_t: number[];
+  hero_healing_t: number[];
+  camps_stacked_t: number[];
   cs_t: number[];
   lh_t: number[];
   lane_pos: any;

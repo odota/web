@@ -292,6 +292,12 @@ const matchPages = (
           <MatchGraph match={match} type="xp" />
           <Spacer variant="2" />
           <MatchGraph match={match} type="lh" />
+          <Spacer variant="2" />
+          <MatchGraph match={match} type="hero_damage" />
+          <Spacer variant="2" />
+          <MatchGraph match={match} type="hero_healing" />
+          <Spacer variant="2" />
+          <MatchGraph match={match} type="camps_stacked" />
         </div>
       ),
     },
