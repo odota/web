@@ -558,6 +558,19 @@ export default (strings: Strings, beta = false) => {
           : [],
       );
 
+    if (match.players.some((p) => p.position_est)) {
+      cols.splice(1, 0, {
+        displayName: strings.th_position_est,
+        tooltip: strings.tooltip_position_est,
+        field: "position_est",
+        sortFn: true,
+        textAlign: "center",
+        paddingRight: 7,
+        width: 35,
+        displayFn: (row: MatchPlayer, col: any, field: any) => field || "-",
+      });
+    }
+
     return cols;
   };
 
