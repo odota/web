@@ -818,6 +818,8 @@
   "th_target_abilities": "Ability Targets",
   "th_mmr": "MMR",
   "th_level": "LVL",
+  "th_position_est": "POS",
+  "tooltip_position_est": "Position estimated from lane role and early farm priority (1 = carry, 5 = hard support)",
   "th_kills": "K",
   "th_kills_per_min": "KPM",
   "th_deaths": "D",

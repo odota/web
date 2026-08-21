@@ -150,6 +150,7 @@ type MatchPlayer = {
   tower_damage: number;
   benchmarks: Record<string, any>;
   computed_mmr: number;
+  position_est?: number;
 };
 
 type RouterProps = {
