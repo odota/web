@@ -685,6 +685,15 @@ export default (strings: Strings, beta = false) => {
                         strings[`th_${key}` as keyof Strings],
                         percent,
                       )}
+                      {bm.pct_bracket !== undefined && (
+                        <>
+                          <br />
+                          {formatTemplateToString(
+                            strings.benchmarks_description_bracket,
+                            Number(bm.pct_bracket * 100).toFixed(2),
+                          )}
+                        </>
+                      )}
                     </ReactTooltip>
                   </div>
                 );

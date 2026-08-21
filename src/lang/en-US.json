@@ -118,6 +118,7 @@
   "barracks_value_1024": "Radiant Top Melee",
   "barracks_value_2048": "Radiant Top Ranged",
   "benchmarks_description": "{0} {1} is equal or higher than {2}% of recent performances on this hero",
+  "benchmarks_description_bracket": "Equal or higher than {0}% at this match's average rank",
   "fantasy_description": "{0} for {1} points",
   "building_melee_rax": "Melee Barracks",
   "building_range_rax": "Ranged Barracks",
