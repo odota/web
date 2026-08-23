@@ -287,6 +287,8 @@ const matchPages = (
             // sponsorIcon={gosuIcon}
           />
           <Spacer variant="2" />
+          <MatchGraph match={match} type="networth" />
+          <Spacer variant="2" />
           <MatchGraph match={match} type="gold" />
           <Spacer variant="2" />
           <MatchGraph match={match} type="xp" />
