@@ -29,6 +29,7 @@ import {
   StyledAbilityUpgrades,
   StyledBackpack,
   StyledCosmetic,
+  StyledDeathsSummary,
   StyledDivClearBoth,
   StyledPlayersDeath,
   StyledRunes,
@@ -37,6 +38,8 @@ import {
   StyledLevel,
   StyledLineWinnerSpan,
 } from "./StyledMatch";
+import sword from "../Icons/Sword.svg";
+import lightning from "../Icons/Lightning.svg";
 import TargetsBreakdown from "./TargetsBreakdown";
 import HeroImage from "./../Visualizations/HeroImage";
 import ItemTooltip from "../ItemTooltip/ItemTooltip";
@@ -1439,6 +1442,105 @@ export default (strings: Strings, beta = false) => {
       })),
   );
 
+  const deathIcon = (key: string) => {
+    const killer = heroNames[key];
+    if (killer) {
+      return <HeroImage id={killer.id} isIcon />;
+    }
+    if (
+      key &&
+      (key.includes("tower") || key.includes("rax") || key.includes("fort"))
+    ) {
+      return <img src={lightning} alt="" />;
+    }
+    return <img src={sword} alt="" />;
+  };
+
+  const deathsColumns = [
+    heroTdColumn,
+    {
+      displayName: strings.th_deaths,
+      field: "deaths_log",
+      sortFn: (row: MatchPlayer) => (row.deaths_log || []).length,
+      displayFn: (row: MatchPlayer, col: any, value: any) => value || "-",
+      relativeBars: true,
+      sumFn: (acc: number, row: MatchPlayer) =>
+        (acc || 0) + (row.deaths_log || []).length,
+    },
+    {
+      displayName: strings.th_gold_lost,
+      field: "deaths_log",
+      sortFn: (row: MatchPlayer) =>
+        (row.deaths_log || []).reduce((s, d) => s + (d.gold_lost || 0), 0),
+      displayFn: (row: MatchPlayer, col: any, value: any) =>
+        value ? abbreviateNumber(value) : "-",
+      relativeBars: true,
+      sumFn: (acc: number, row: MatchPlayer) =>
+        (acc || 0) +
+        (row.deaths_log || []).reduce((s, d) => s + (d.gold_lost || 0), 0),
+    },
+    {
+      displayName: strings.th_time_dead,
+      field: "deaths_log",
+      sortFn: (row: MatchPlayer) =>
+        (row.deaths_log || []).reduce((s, d) => s + (d.time_dead || 0), 0),
+      displayFn: (row: MatchPlayer, col: any, value: any) =>
+        value ? formatSeconds(value) : "-",
+      relativeBars: true,
+      sumFn: (acc: number, row: MatchPlayer) =>
+        (acc || 0) +
+        (row.deaths_log || []).reduce((s, d) => s + (d.time_dead || 0), 0),
+      displaySumFn: (total: number) => formatSeconds(total || 0),
+    },
+    {
+      displayName: strings.th_killed_by,
+      field: "deaths_log",
+      displayFn: (row: MatchPlayer, col: any, field: any) => {
+        if (!field || !field.length) {
+          return "-";
+        }
+        return (
+          <StyledDeathsSummary>
+            {field.map((death: any, i: number) => {
+              const killer = heroNames[death.key];
+              const killerName = killer
+                ? killer.localized_name
+                : (death.key || "")
+                    .replace(/^npc_dota_(goodguys_|badguys_)?/, "")
+                    .replace(/_/g, " ");
+              const tooltip = [
+                formatTemplateToString(strings.tooltip_death_killed_by, {
+                  killer: killerName,
+                  time: formatSeconds(death.time),
+                }),
+                death.gold_lost
+                  ? formatTemplateToString(strings.tooltip_death_gold_lost, {
+                      gold: death.gold_lost,
+                    })
+                  : null,
+                death.time_dead != null
+                  ? formatTemplateToString(strings.tooltip_death_time_dead, {
+                      time: formatSeconds(death.time_dead),
+                    })
+                  : null,
+              ]
+                .filter(Boolean)
+                .join(" · ");
+              return (
+                <Tooltip title={tooltip} key={i}>
+                  <div className="death">
+                    {deathIcon(death.key)}
+                    <span>{formatSeconds(death.time)}</span>
+                  </div>
+                </Tooltip>
+              );
+            })}
+          </StyledDeathsSummary>
+        );
+      },
+    },
+  ];
+
   const inflictorsColumns = [
     heroTdColumn,
     {
@@ -1913,6 +2015,7 @@ export default (strings: Strings, beta = false) => {
     benchmarksColumns,
     castsColumns,
     cosmeticsColumns,
+    deathsColumns,
     fantasyColumns,
     goldReasonsColumns,
     heroTd,
