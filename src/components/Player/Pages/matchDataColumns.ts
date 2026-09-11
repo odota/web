@@ -30,3 +30,12 @@ export default [
   "win_rate",
   "xp_per_min",
 ];
+
+// Records only for now. The histograms endpoint buckets with an integer width,
+// so kills_per_min, whose whole range is under 1, would collapse into a single
+// bar. Serving these there needs fractional bucket sizes, left for a follow-up.
+export const perMinColumns = [
+  "kills_per_min",
+  "hero_damage_per_min",
+  "tower_damage_per_min",
+];

@@ -4,15 +4,15 @@ import { withRouter } from "react-router-dom";
 import { getPlayerRecords } from "../../../../actions";
 import Table from "../../../Table/Table";
 import Container from "../../../Container/Container";
-import dataColumns from "../matchDataColumns";
+import dataColumns, { perMinColumns } from "../matchDataColumns";
 import ButtonGarden from "../../../ButtonGarden/ButtonGarden";
 import playerRecordsColumns from "./playerRecordsColumns";
 import useStrings from "../../../../hooks/useStrings.hook";
 
 const excludedColumns = ["win_rate", "level"];
-const recordsColumns = dataColumns.filter(
-  (col) => !excludedColumns.includes(col),
-);
+const recordsColumns = dataColumns
+  .filter((col) => !excludedColumns.includes(col))
+  .concat(perMinColumns);
 
 const Records = ({
   routeParams,
