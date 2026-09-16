@@ -4,7 +4,7 @@ import Helmet from "react-helmet";
 import { heroes } from "dotaconstants";
 import styled from "styled-components";
 import { transformations, subTextStyle, rankTierToString } from "../../utility";
-import { getProMatches, getPublicMatches } from "../../actions";
+import { getProMatches, getPublicMatches, getTeams } from "../../actions";
 import Table from "../Table/Table";
 import TableLink from "../Table/TableLink";
 // import Heading from '../Heading';
@@ -28,7 +28,17 @@ export const WinnerSpan = styled.span`
   }
 `;
 
-const matchesColumns = (strings: Strings) => [
+const createTeamsMap = (teams: any[] = []) => {
+  const map: Record<number, string> = {};
+  (teams || []).forEach((t) => {
+    if (t?.team_id && t?.logo_url) {
+      map[t.team_id] = t.logo_url;
+    }
+  });
+  return map;
+};
+
+const matchesColumns = (strings: Strings, teamsMap: Record<number, string> = {}) => [
   {
     field: "version",
     displayFn: (row: any, col: any, field: any) => (
@@ -67,16 +77,34 @@ const matchesColumns = (strings: Strings) => [
     ),
     field: "radiant_name",
     color: constants.colorGreen,
-    displayFn: (row: any, col: any, field: any) => (
-      <div>
+    displayFn: (row: any, col: any, field: any) => {
+      const logoUrl = teamsMap[row.radiant_team_id];
+      return (
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
         {row.radiant_win && (
           <WinnerSpan>
             <IconTrophy />
           </WinnerSpan>
         )}
-        {field}
-      </div>
-    ),
+        {logoUrl && (
+          <img
+            src={logoUrl}
+            alt={field}
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+            style={{
+              width: 20,
+              height: 20,
+              objectFit: "contain",
+              flexShrink: 0,
+            }}
+          />
+        )}
+        <span>{field}</span>
+        </div>
+      );
+    },
   },
   {
     displayName: (
@@ -84,16 +112,34 @@ const matchesColumns = (strings: Strings) => [
     ),
     field: "dire_name",
     color: constants.colorRed,
-    displayFn: (row: any, col: any, field: any) => (
-      <div>
+    displayFn: (row: any, col: any, field: any) => {
+      const logoUrl = teamsMap[row.dire_team_id];
+      return (
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
         {!row.radiant_win && (
           <WinnerSpan>
             <IconTrophy />
           </WinnerSpan>
         )}
-        {field}
-      </div>
-    ),
+        {logoUrl && (
+          <img
+            src={logoUrl}
+            alt={field}
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
+            style={{
+              width: 20,
+              height: 20,
+              objectFit: "contain",
+              flexShrink: 0,
+            }}
+          />
+        )}
+        <span>{field}</span>
+        </div>
+      );
+    },
   },
 ];
 
@@ -139,7 +185,7 @@ const publicMatchesColumns = (strings: Strings) => [
             alt={heroId}
           />
         ) : null,
-      ),
+    ),
   },
   {
     displayName: (
@@ -155,9 +201,9 @@ const publicMatchesColumns = (strings: Strings) => [
             style={{ width: "50px" }}
             alt={heroId}
           />
-        ) : null,
-      ),
-  },
+       ) : null,
+     ),
+   },
 ];
 
 const matchTabs = (strings: Strings) => [
@@ -168,7 +214,7 @@ const matchTabs = (strings: Strings) => [
       <div>
         <Table
           data={propsPar.proData}
-          columns={matchesColumns(strings)}
+          columns={matchesColumns(strings, createTeamsMap(propsPar.teams))}
           loading={propsPar.loading}
           loadingText="Loading professional matches..."
         />
@@ -206,14 +252,19 @@ type MatchesProps = {
   strings: Strings;
   dispatchProMatches: Function;
   dispatchPublicMatches: Function;
+  dispatchTeams: Function;
   proData: any[];
   publicData: any[];
+  teams: any[];
   loading: boolean;
 };
 
 class Matches extends React.Component<MatchesProps> {
   componentDidMount() {
     getData(this.props);
+    if (!this.props.teams || !this.props.teams.length) {
+      this.props.dispatchTeams();
+    }
   }
 
   componentDidUpdate(prevProps: MatchesProps) {
@@ -246,11 +297,13 @@ const mapStateToProps = (state: any) => ({
   publicData: state.app.publicMatches.data,
   loading: state.app.proMatches.loading,
   strings: state.app.strings,
+  teams: state.app.teams.data,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   dispatchProMatches: () => dispatch(getProMatches()),
   dispatchPublicMatches: (options: any) => dispatch(getPublicMatches(options)),
+  dispatchTeams: () => dispatch(getTeams()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Matches);
