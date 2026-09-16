@@ -312,6 +312,7 @@ const Timeline = ({
       time: number;
       team?: number;
       player_slot?: number;
+      victim_player_slot?: number;
       key?: number | null;
       start?: number;
       end?: number;
@@ -330,10 +331,31 @@ const Timeline = ({
           type: "firstblood",
           time: match.objectives[fbIndex].time,
           player_slot: match.objectives[fbIndex].player_slot,
+          victim_player_slot: match.objectives[fbIndex].victim_player_slot,
           key: killerLog && killerLog[0] ? killerLog[0].key : null,
         },
       ];
     }
+
+    // The victim from the objective when the API provides it; otherwise fall
+    // back to guessing from the killer's first kills_log entry, which misses
+    // first bloods not credited to a hero (e.g. a creep landing the blow)
+    const findFbVictim = (obj: (typeof fbArr)[number]) => {
+      if (obj.victim_player_slot !== undefined) {
+        return match.players.find(
+          (player) => player.player_slot === obj.victim_player_slot,
+        );
+      }
+      if (obj.key) {
+        return match.players.find((player) => {
+          const foundHero = heroesArr("find")(
+            (hero: any) => hero.name === obj.key,
+          );
+          return foundHero && player.hero_id === foundHero.id;
+        });
+      }
+      return undefined;
+    };
 
     const events = fbArr
 
@@ -490,38 +512,31 @@ const Timeline = ({
                       effect="solid"
                       place="right"
                     >
-                      {obj.type === "firstblood" && (
-                        <section>
-                          {match.players
-                            .filter(
-                              (player) =>
-                                player.player_slot === obj.player_slot,
-                            )
-                            .map((player) => (
-                              <PlayerThumb
-                                key={player.player_slot}
-                                {...player}
-                              />
-                            ))}
-                          <span>
-                            {obj.key
-                              ? strings.timeline_firstblood_key
-                              : strings.timeline_firstblood}
-                          </span>
-                          {obj.key && (
-                            <PlayerThumb
-                              {...match.players.find((player) => {
-                                const foundHero = heroesArr("find")(
-                                  (hero: any) => hero.name === obj.key,
-                                );
-                                return (
-                                  foundHero && player.hero_id === foundHero.id
-                                );
-                              })}
-                            />
-                          )}
-                        </section>
-                      )}
+                      {obj.type === "firstblood" &&
+                        (() => {
+                          const victim = findFbVictim(obj);
+                          return (
+                            <section>
+                              {match.players
+                                .filter(
+                                  (player) =>
+                                    player.player_slot === obj.player_slot,
+                                )
+                                .map((player) => (
+                                  <PlayerThumb
+                                    key={player.player_slot}
+                                    {...player}
+                                  />
+                                ))}
+                              <span>
+                                {victim
+                                  ? strings.timeline_firstblood_key
+                                  : strings.timeline_firstblood}
+                              </span>
+                              {victim && <PlayerThumb {...victim} />}
+                            </section>
+                          );
+                        })()}
                       {obj.type === "roshan" &&
                         aegis[obj.key as number] &&
                         match.players
