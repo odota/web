@@ -369,6 +369,7 @@ const MatchGraph = ({
     type === "gold" ||
     type === "xp" ||
     type === "lh" ||
+    type === "networth" ||
     type === "hero_damage" ||
     type === "hero_healing" ||
     type === "camps_stacked"
