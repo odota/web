@@ -63,6 +63,7 @@ const matchPages = (
     cosmeticsColumns,
     // goldReasonsColumns,
     // xpReasonsColumns,
+    deathsColumns,
     objectiveDamageColumns,
     // analysisColumns,
     inflictorsColumns,
@@ -170,6 +171,17 @@ const matchPages = (
               <CrossTable match={match} field1="damage" field2="damage_taken" />
             </StyledFlexElement>
           </StyledFlexContainer>
+          {match.players.some((p) => p.deaths_log?.length) && (
+            <TeamTable
+              players={match.players}
+              columns={deathsColumns}
+              heading={strings.heading_deaths}
+              radiantTeam={match.radiant_team}
+              direTeam={match.dire_team}
+              radiantWin={match.radiant_win}
+              summable
+            />
+          )}
           <TeamTable
             players={match.players}
             columns={inflictorsColumns}
