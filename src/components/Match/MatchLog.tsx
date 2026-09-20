@@ -12,6 +12,7 @@ import {
 import FormField from "../Form/FormField";
 import { StyledLogFilterForm } from "./StyledMatch";
 import HeroImage from "../Visualizations/HeroImage";
+import config from "../../config";
 import sword from "../Icons/Sword.svg";
 import { IconBloodDrop, IconRoshan } from "../Icons";
 import lightning from "../Icons/Lightning.svg";
@@ -502,6 +503,15 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
           <span className="smallMutedText">{strings.killed}</span>
           <HeroImage id={hero.id} className="detailIcon" isIcon />
           <span className="smallBoldText">{hero.localized_name}</span>
+          {entry.smoke && (
+            <Tooltip title={strings.smoke_kill}>
+              <img
+                src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/smoke_of_deceit.png`}
+                alt={strings.smoke_kill}
+                className="detailIcon"
+              />
+            </Tooltip>
+          )}
         </>
       );
     }
