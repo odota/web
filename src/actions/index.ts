@@ -11,11 +11,6 @@ import { langs } from "../lang";
 import config from "../config";
 import { paramsWithTurbo } from "../utility";
 import transformHeroItemSuggestion from "./transformHeroItemSuggestion";
-import {
-  isPerMinuteRecord,
-  perMinuteRecordParams,
-  transformPerMinuteRecords,
-} from "./perMinuteRecords";
 
 export const getMetadata = () =>
   action("metadata", config.VITE_API_HOST, "api/metadata");
@@ -198,20 +193,12 @@ export const getPlayerRecords = (
   params: any,
   field: string,
 ) =>
-  isPerMinuteRecord(field)
-    ? action(
-        "playerRecords",
-        config.VITE_API_HOST,
-        `api/players/${accountId}/matches`,
-        { ...paramsWithTurbo(params), ...perMinuteRecordParams(field) },
-        transformPerMinuteRecords(field),
-      )
-    : action(
-        "playerRecords",
-        config.VITE_API_HOST,
-        `api/players/${accountId}/matches`,
-        { ...paramsWithTurbo(params), sort: field, limit: 20 },
-      );
+  action(
+    "playerRecords",
+    config.VITE_API_HOST,
+    `api/players/${accountId}/matches`,
+    { ...paramsWithTurbo(params), sort: field, limit: 20 },
+  );
 export const getPlayerTrends = (
   accountId: string,
   params: any,
