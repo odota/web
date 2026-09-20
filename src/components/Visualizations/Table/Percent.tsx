@@ -1,7 +1,9 @@
 import React from "react";
 import { gradient } from "abcolor";
 import { StyledContainer, PercentContainer, TitleContainer } from "./Styled";
-import constants from "../../constants";
+
+const colorGreen = "#66BB6A";
+const colorRed = "#ff4c4c";
 
 const Percent = ({
   percent,
@@ -24,8 +26,8 @@ const Percent = ({
           width: `${percent}%`,
           backgroundColor: gradient(percent, {
             css: true,
-            from: inverse ? constants.colorGreen : constants.colorRed,
-            to: inverse ? constants.colorRed : constants.colorGreen,
+            from: inverse ? colorGreen : colorRed,
+            to: inverse ? colorRed : colorGreen,
           }),
         }}
       />
