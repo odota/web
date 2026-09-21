@@ -27,6 +27,10 @@ const paths = [
 
 fixture`players/ paths`
   .requestHooks(fixtureRequestHooks)
+  // The app fires requests the hooks do not serve and those rejections are
+  // not what these tests are about. Skipping only those leaves every other
+  // js error fatal, so a page that throws while rendering fails the run.
+  .skipJsErrors({ message: /Failed to fetch/ })
   .before(fixtureBeforeHook)
   .beforeEach(fixtureBeforeEachHook)
   .after(fixtureAfterHook);
@@ -34,5 +38,12 @@ fixture`players/ paths`
 paths.forEach((p) => {
   test.page(`${host}${p}`)(p, async (t) => {
     await t.hover(Selector("#root"));
+    // Give the page time to fetch and render. A component that throws while
+    // rendering unmounts the tree, and #root (which lives in index.html)
+    // is left empty, so this is what catches a blank page.
+    await t.wait(3000);
+    await t
+      .expect(Selector("#root").child().exists)
+      .ok("nothing rendered into #root");
   });
 });
