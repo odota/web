@@ -1,9 +1,6 @@
 import React from "react";
-import { gradient } from "abcolor";
+import constants from "../../constants";
 import { StyledContainer, PercentContainer, TitleContainer } from "./Styled";
-
-const colorGreen = "#66BB6A";
-const colorRed = "#ff4c4c";
 
 const Percent = ({
   percent,
@@ -15,24 +12,27 @@ const Percent = ({
   altValue?: number;
   valEl?: React.ReactNode;
   inverse?: boolean;
-}) => (
-  <StyledContainer>
-    <TitleContainer>
-      {valEl || percent} {altValue && <small>{altValue}</small>}
-    </TitleContainer>
-    <PercentContainer>
-      <div
-        style={{
-          width: `${percent}%`,
-          backgroundColor: gradient(percent, {
-            css: true,
-            from: inverse ? colorGreen : colorRed,
-            to: inverse ? colorRed : colorGreen,
-          }),
-        }}
-      />
-    </PercentContainer>
-  </StyledContainer>
-);
+}) => {
+  const from = inverse ? constants.colorGreen : constants.colorRed;
+  const to = inverse ? constants.colorRed : constants.colorGreen;
+  return (
+    <StyledContainer>
+      <TitleContainer>
+        {valEl || percent} {altValue && <small>{altValue}</small>}
+      </TitleContainer>
+      <PercentContainer>
+        <div
+          style={{
+            width: `${percent}%`,
+            // Interpolating in hsl matches what abcolor's gradient did, and
+            // color-mix resolves custom properties so the colors can stay in
+            // constants instead of being hardcoded here.
+            backgroundColor: `color-mix(in hsl, ${to} ${percent}%, ${from})`,
+          }}
+        />
+      </PercentContainer>
+    </StyledContainer>
+  );
+};
 
 export default Percent;

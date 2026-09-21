@@ -24,7 +24,6 @@
     "@melloware/react-logviewer": "^6.5.5",
     "@mui/icons-material": "^7.3.5",
     "@mui/material": "^7.3.6",
-    "abcolor": "^0.5.5",
     "ace-builds": "^1.43.5",
     "air-datepicker": "^3.6.0",
     "dota2-emoticons": "^1.0.4",
