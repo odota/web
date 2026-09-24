@@ -78,7 +78,7 @@ const Status = () => {
         // Periodically clear the logs and reconnect
         setTs(Number(new Date()));
       },
-      5 * 60 * 1000,
+      1 * 60 * 1000,
     );
   }, []);
   return (
