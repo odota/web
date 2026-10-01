@@ -2,7 +2,6 @@ declare module "ace-builds/src-noconflict/ace";
 declare module "ace-builds/src-noconflict/ext-language_tools";
 declare module "ace-builds/src-noconflict/theme-monokai";
 declare module "ace-builds/src-noconflict/mode-sql";
-declare module "abcolor";
 
 type ScenariosTab = "itemTimings" | "laneRoles" | "misc";
 type Strings = typeof import("./lang/en-US.json");
