@@ -95,7 +95,14 @@ const Status = () => {
                 url={`${config.VITE_API_HOST}/logs`}
                 eventsource
                 follow={follow}
-                onScroll={onScroll}
+                onScroll={({ scrollTop, scrollHeight, clientHeight }) => {
+                  const atBottom = scrollHeight - scrollTop - clientHeight <= 2;
+                  onScroll({
+                    scrollTop: atBottom ? scrollHeight - clientHeight : scrollTop,
+                    scrollHeight,
+                    clientHeight,
+                  });
+                }}
                 enableSearch
                 selectableLines
                 wrapLines
