@@ -1,0 +1,39 @@
+{
+	"name": "countup.js",
+	"description": "Animates a numerical value by counting to it",
+	"version": "2.8.0",
+	"license": "MIT",
+	"author": "Jamie Perkins",
+	"main": "./dist/countUp.umd.js",
+	"module": "./dist/countUp.min.js",
+	"types": "./dist/countUp.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/inorganik/countUp.js.git"
+	},
+	"scripts": {
+		"build": "npm run clean && tsc && rollup -c rollup.config.js",
+		"clean": "rimraf dist/countUp.*",
+		"lint": "eslint -c .eslintrc.js --ext .ts ./src",
+		"serve": "http-server -o -c-1 ./",
+		"start": "npm run build && npm run serve",
+		"test": "jest",
+		"test:watch": "jest --watch"
+	},
+	"devDependencies": {
+		"@types/jest": "^28.1.8",
+		"@typescript-eslint/eslint-plugin": "^5.41.0",
+		"@typescript-eslint/eslint-plugin-tslint": "^5.41.0",
+		"@typescript-eslint/parser": "^5.41.0",
+		"eslint": "^8.26.0",
+		"eslint-plugin-import": "^2.26.0",
+		"http-server": "^14.1.1",
+		"jest": "^28.1.3",
+		"jest-environment-jsdom": "^28.1.3",
+		"rimraf": "^5.0.0",
+		"rollup": "^2.79.1",
+		"rollup-plugin-terser": "^7.0.2",
+		"ts-jest": "^28.0.8",
+		"typescript": "^4.8.4"
+	}
+}

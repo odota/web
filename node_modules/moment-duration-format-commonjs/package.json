@@ -1,0 +1,34 @@
+{
+	"name": "moment-duration-format-commonjs",
+	"version": "1.0.1",
+	"description": "A moment.js plugin for formatting durations.",
+	"main": "lib/moment-duration-format.js",
+	"files": [
+		"lib"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/DevExpress/moment-duration-format-commonjs.git"
+	},
+	"contributors": [
+		"Andrey Belym <belym.a.2105@gmail.com>"
+	],
+	"author": "John Madhavan-Reese <jsmreese@gmail.com>",
+	"keywords": [
+		"moment",
+		"duration",
+		"format"
+	],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/DevExpress/moment-duration-format-commonjs/issues"
+	},
+	"homepage": "github.com/DevExpress/moment-duration-format-commonjs",
+	"devDependencies": {
+		"mocha": "^9.0.1",
+		"moment": "^2.29.1"
+	},
+	"scripts": {
+		"test": "mocha test"
+	}
+}
