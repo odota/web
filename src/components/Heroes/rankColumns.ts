@@ -82,6 +82,18 @@ const generateTurboTabColumns = (strings: Strings) => {
       percentBarsWithValue: (row: Row) =>
         decimalToCount(row.winRateTurbo, row.turbo_picks),
     },
+    {
+      displayName: strings.hero_turbo_win_rate_diff,
+      field: "winRateTurboVsPub",
+      sortFn: (row: Row) => row.winRateTurbo - row.winRatePub,
+      displayFn: (_row: Row, _col: string, value: any) => {
+        if (!Number.isFinite(value)) {
+          return "–";
+        }
+        const diff = value * 100;
+        return `${diff > 0 ? "+" : ""}${diff.toFixed(1)}`;
+      },
+    },
   ];
 
   return combinedColumns;
