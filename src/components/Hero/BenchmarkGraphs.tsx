@@ -65,10 +65,18 @@ const getData = (data: any[], strings: Strings) => [
   },
 ];
 
+// mapData leaves Value as false where the key is missing from the response, so
+// a graph with no numeric value at any percentile is one the API no longer
+// serves. Rendering it gives a titled, empty plot rather than nothing.
+const hasValues = (graphData: any) =>
+  graphData.data.some((point: any) => typeof point.Value === "number");
+
 const renderGraphs = (data: any[]) =>
-  data.map((graphData: any) => (
-    <BenchmarkGraph key={graphData.title} data={graphData} />
-  ));
+  data
+    .filter(hasValues)
+    .map((graphData: any) => (
+      <BenchmarkGraph key={graphData.title} data={graphData} />
+    ));
 
 const BenchmarkGraphs = ({
   data,
