@@ -454,6 +454,7 @@
   "hero_win_rate": "Победы, %",
   "hero_turbo_pick_rate": "Пик в турбо, %",
   "hero_turbo_win_rate": "Победы в турбо, %",
+  "hero_turbo_win_rate_diff": "Разница побед (Turbo – обычная), %",
   "hero_5000_pick_rate": ">5K Пик, %",
   "hero_5000_win_rate": ">5K Победы, %",
   "hero_4000_pick_rate": "4K Пик, %",
