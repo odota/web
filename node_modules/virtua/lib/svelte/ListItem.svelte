@@ -1,0 +1,74 @@
+<script lang="ts" generics="T">
+  import { type Snippet, onDestroy } from "svelte";
+  import { type Driver } from "../core/index.js";
+  import { styleToString, type ItemAttrs } from "./utils.js";
+  import type { SvelteHTMLElements } from "svelte/elements";
+
+  interface Props {
+    children: Snippet<[item: T, index: number]>;
+    item: T;
+    as: keyof SvelteHTMLElements | undefined;
+    index: number;
+    offset: number;
+    hide: boolean;
+    horizontal: boolean;
+    isSSR?: boolean;
+    resizer: Driver["$observeItem"];
+    itemProps?: ItemAttrs | undefined;
+  }
+
+  let {
+    children,
+    item,
+    as = "div",
+    index,
+    offset,
+    hide,
+    horizontal,
+    isSSR,
+    resizer,
+    itemProps,
+  }: Props = $props();
+
+  let elementRef: HTMLDivElement;
+
+  let cleanupResizer: (() => void) | undefined;
+  // The index may be changed if elements are inserted to or removed from the start of props.children
+  let prevIndex: number | undefined;
+  $effect(() => {
+    if (prevIndex === index) return;
+    if (cleanupResizer) cleanupResizer();
+    cleanupResizer = resizer(elementRef, (prevIndex = index));
+  });
+  onDestroy(() => {
+    if (cleanupResizer) cleanupResizer();
+  });
+
+  let style: string = $derived.by(() => {
+    const _style: Record<string, string | undefined> = {
+      contain: "layout style",
+      position: hide && isSSR ? undefined : "absolute",
+      [horizontal ? "height" : "width"]: "100%",
+      [horizontal ? "top" : "left"]: "0px",
+      [horizontal ? "inset-inline-start" : "top"]: offset + "px",
+      visibility: !hide || isSSR ? undefined : "hidden",
+      ...itemProps?.style,
+    };
+    if (horizontal) {
+      _style["display"] = "inline-flex";
+    }
+
+    return styleToString(_style);
+  });
+
+  // `style` is applied separately above, the rest (e.g. `class`) is spread onto the element
+  let itemRest = $derived.by(() => {
+    if (!itemProps) return undefined;
+    const { style: _style, ...rest } = itemProps;
+    return rest;
+  });
+</script>
+
+<svelte:element this={as} bind:this={elementRef} {style} {...itemRest}>
+  {@render children(item, index)}
+</svelte:element>

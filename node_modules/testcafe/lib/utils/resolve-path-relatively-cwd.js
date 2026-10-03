@@ -1,0 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const path_1 = require("path");
+function default_1(path) {
+    return (0, path_1.resolve)(process.cwd(), path);
+}
+exports.default = default_1;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVzb2x2ZS1wYXRoLXJlbGF0aXZlbHktY3dkLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vc3JjL3V0aWxzL3Jlc29sdmUtcGF0aC1yZWxhdGl2ZWx5LWN3ZC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLCtCQUErQjtBQUUvQixtQkFBeUIsSUFBSTtJQUN6QixPQUFPLElBQUEsY0FBTyxFQUFDLE9BQU8sQ0FBQyxHQUFHLEVBQUUsRUFBRSxJQUFJLENBQUMsQ0FBQztBQUN4QyxDQUFDO0FBRkQsNEJBRUMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyByZXNvbHZlIH0gZnJvbSAncGF0aCc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIChwYXRoKSB7XG4gICAgcmV0dXJuIHJlc29sdmUocHJvY2Vzcy5jd2QoKSwgcGF0aCk7XG59XG4iXX0=
