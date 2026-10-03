@@ -106,6 +106,7 @@ type MatchPlayer = {
   is_roaming: boolean;
   desc: string;
   lane: number;
+  stuns: number;
   gold_t: number[];
   networth_t: number[];
   hero_damage_t: number[];
