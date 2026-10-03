@@ -462,6 +462,7 @@
   "hero_win_rate": "Pro Win%",
   "hero_turbo_pick_rate": "Turbo Pick %",
   "hero_turbo_win_rate": "Turbo Win %",
+  "hero_turbo_win_rate_diff": "Win % vs Normal",
   "hero_5000_pick_rate": ">5K P%",
   "hero_5000_win_rate": ">5K W%",
   "hero_4000_pick_rate": "4K P%",
