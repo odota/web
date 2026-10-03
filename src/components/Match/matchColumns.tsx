@@ -723,6 +723,10 @@ export default (strings: Strings, beta = false) => {
     return cols;
   };
 
+  // The stun counter read from the replay can go below zero (#2870). The API
+  // keeps that value as it is in the replay, and the match page shows it as 0.
+  const shownStuns = (stuns?: number) => Math.max(0, stuns || 0);
+
   const displayFantasyComponent =
     (transform: Function) => (row: MatchPlayer, col: any, field: any) => {
       const score = Number(transform(field).toFixed(2));
@@ -858,9 +862,11 @@ export default (strings: Strings, beta = false) => {
       displayName: strings.th_stuns,
       field: "stuns",
       tooltip: strings.tooltip_stuns,
-      fantasyFn: (v: number) => 0.05 * v,
+      fantasyFn: (v: number) => 0.05 * shownStuns(v),
       get displayFn() {
-        return displayFantasyComponent(this.fantasyFn);
+        const display = displayFantasyComponent(this.fantasyFn);
+        return (row: MatchPlayer, col: any, field: any) =>
+          display(row, col, shownStuns(field));
       },
     },
   ];
@@ -979,11 +985,13 @@ export default (strings: Strings, beta = false) => {
       displayName: strings.th_stuns,
       tooltip: strings.tooltip_stuns,
       field: "stuns",
-      sortFn: true,
+      // also what the bars are scaled by, so one negative doesn't shift the rest
+      sortFn: (row: MatchPlayer) => shownStuns(row.stuns),
       displayFn: (row: MatchPlayer, column: any, field: any) =>
-        field ? field.toFixed(2) : "-",
+        shownStuns(field) ? shownStuns(field).toFixed(2) : "-",
       relativeBars: true,
-      sumFn: true,
+      sumFn: (acc: number, row: MatchPlayer) =>
+        (acc || 0) + shownStuns(row.stuns),
     },
     {
       displayName: strings.th_stacked,
