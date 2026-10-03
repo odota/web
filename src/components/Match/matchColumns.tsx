@@ -1489,6 +1489,18 @@ export default (strings: Strings, beta = false) => {
         (row.deaths_log || []).reduce((s, d) => s + (d.gold_lost || 0), 0),
     },
     {
+      displayName: strings.th_gold_fed,
+      field: "deaths_log",
+      sortFn: (row: MatchPlayer) =>
+        (row.deaths_log || []).reduce((s, d) => s + (d.gold_fed || 0), 0),
+      displayFn: (row: MatchPlayer, col: any, value: any) =>
+        value ? abbreviateNumber(value) : "-",
+      relativeBars: true,
+      sumFn: (acc: number, row: MatchPlayer) =>
+        (acc || 0) +
+        (row.deaths_log || []).reduce((s, d) => s + (d.gold_fed || 0), 0),
+    },
+    {
       displayName: strings.th_time_dead,
       field: "deaths_log",
       sortFn: (row: MatchPlayer) =>
@@ -1527,6 +1539,20 @@ export default (strings: Strings, beta = false) => {
                       gold: death.gold_lost,
                     })
                   : null,
+                // A shared entry can be 0 because the other death in that
+                // second took the whole payout, so it is shown either way.
+                death.gold_fed_shared
+                  ? formatTemplateToString(
+                      strings.tooltip_death_gold_fed_shared,
+                      {
+                        gold: death.gold_fed || 0,
+                      },
+                    )
+                  : death.gold_fed
+                    ? formatTemplateToString(strings.tooltip_death_gold_fed, {
+                        gold: death.gold_fed,
+                      })
+                    : null,
                 death.time_dead != null
                   ? formatTemplateToString(strings.tooltip_death_time_dead, {
                       time: formatSeconds(death.time_dead),
