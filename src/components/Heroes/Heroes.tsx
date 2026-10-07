@@ -8,7 +8,7 @@ import Table from "../Table/Table";
 import TabBar from "../TabBar/TabBar";
 import Hero from "../Hero/Hero";
 import { sum, abbreviateNumber } from "../../utility";
-import { HeroesTab, rankColumns } from "./rankColumns";
+import { HeroesTab, rankColumns } from "./rankColumns_2";
 
 type HeroesProps = {
   dispatchHeroStats: Function;
