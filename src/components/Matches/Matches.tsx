@@ -455,8 +455,7 @@ const matchTabs = (strings: Strings) => [
     route: "/matches/pro",
   },
   {
-    // `matches_series` isn't part of the strict `Strings` type yet.
-    name: (strings as any).matches_series || "Series",
+    name: strings.matches_series,
     key: "series",
     content: (propsPar: MatchesProps) => (
       <SeriesTab
