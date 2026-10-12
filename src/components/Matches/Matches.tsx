@@ -360,11 +360,11 @@ const SeriesTab = ({
     <SeriesWrapper>
       <SeriesHeaderGrid>
         <div />
-        <div>{s.th_series || "Series"}</div>
-        <div>{s.th_team_1 || "Team 1"}</div>
-        <div>{s.th_team_2 || "Team 2"}</div>
-        <div>{s.th_matches || "Matches"}</div>
-        <div>{s.th_last_played || "Last Played"}</div>
+        <div>{s.th_series}</div>
+        <div>{s.th_team_1}</div>
+        <div>{s.th_team_2}</div>
+        <div>{s.th_matches}</div>
+        <div>{s.th_last_played}</div>
       </SeriesHeaderGrid>
 
       {seriesList.map((series) => {
