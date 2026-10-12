@@ -215,7 +215,7 @@ const decimalToCount = (decimal: number, matchTotal: number) => {
 const generatePublicTabColumns = (strings: Strings) => {
   const columns = [
     {
-      displayName: `${strings.rank_tier_overall} p%`,
+      displayName: `${strings.rank_tier_overall} ${strings.abbr_pick}%`,
       field: "pickRatePub",
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
@@ -224,7 +224,7 @@ const generatePublicTabColumns = (strings: Strings) => {
         decimalToCount(row.pickRatePub, row.matchCountPub),
     },
     {
-      displayName: `${strings.rank_tier_overall} w%`,
+      displayName: `${strings.rank_tier_overall} ${strings.abbr_win}%`,
       field: "winRatePub",
       sortFn: true,
       displayFn: (_row: Row, _col: string, field: any) =>
@@ -252,7 +252,7 @@ const generatePublicTabColumns = (strings: Strings) => {
       },
     },
     {
-      displayName: `${strings.rank_tier_high} p%`,
+      displayName: `${strings.rank_tier_high} ${strings.abbr_pick}%`,
       displayIcon: getRankIcon(8),
       field: "pickRateHigh",
       sortFn: true,
@@ -263,7 +263,7 @@ const generatePublicTabColumns = (strings: Strings) => {
       colColor: constants.colorImmortal,
     },
     {
-      displayName: `${strings.rank_tier_high} w%`,
+      displayName: `${strings.rank_tier_high} ${strings.abbr_win}%`,
       displayIcon: getRankIcon(8),
       field: "winRateHigh",
       sortFn: true,
@@ -274,7 +274,7 @@ const generatePublicTabColumns = (strings: Strings) => {
       colColor: constants.colorImmortalAlt,
     },
     {
-      displayName: `${strings.rank_tier_mid} p%`,
+      displayName: `${strings.rank_tier_mid} ${strings.abbr_pick}%`,
       displayIcon: getRankIcon(5),
       field: "pickRateMid",
       sortFn: true,
@@ -285,7 +285,7 @@ const generatePublicTabColumns = (strings: Strings) => {
       colColor: constants.colorLegend,
     },
     {
-      displayName: `${strings.rank_tier_mid} w%`,
+      displayName: `${strings.rank_tier_mid} ${strings.abbr_win}%`,
       displayIcon: getRankIcon(5),
       field: "winRateMid",
       sortFn: true,
@@ -296,7 +296,7 @@ const generatePublicTabColumns = (strings: Strings) => {
       colColor: constants.colorLegendAlt,
     },
     {
-      displayName: `${strings.rank_tier_low} p%`,
+      displayName: `${strings.rank_tier_low} ${strings.abbr_pick}%`,
       displayIcon: getRankIcon(3),
       field: "pickRateLow",
       sortFn: true,
@@ -307,7 +307,7 @@ const generatePublicTabColumns = (strings: Strings) => {
       colColor: constants.colorCrusader,
     },
     {
-      displayName: `${strings.rank_tier_low} w%`,
+      displayName: `${strings.rank_tier_low} ${strings.abbr_win}%`,
       displayIcon: getRankIcon(3),
       field: "winRateLow",
       sortFn: true,
