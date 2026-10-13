@@ -1,5 +1,3 @@
-// picks_bans comes from the Steam match details. team is 0 for radiant and
-// 1 for dire, order starts at 0. Skipped bans have no entry at all.
 export type PickBan = {
   is_pick: boolean;
   hero_id: number;
@@ -8,7 +6,6 @@ export type PickBan = {
 };
 
 export type DraftStep = {
-  // one-based, so it can be shown as "Pick 8" / "Ban 3"
   order: number;
   heroId: number;
   isPick: boolean;

@@ -1,8 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { buildDraft, PickBan } from "./buildDraft";
 
-// Builds a fake picks_bans array (a stub of the API response) from a pattern
-// like "bA bB PA", where b/P is ban/pick and A/B is the first/second team.
 const stubPicksBans = (pattern: string, firstTeam = 0): PickBan[] =>
   pattern.split(" ").map((step, i) => ({
     order: i,
@@ -11,10 +9,10 @@ const stubPicksBans = (pattern: string, firstTeam = 0): PickBan[] =>
     hero_id: i + 1,
   }));
 
-// Captains Mode order since patch 7.34
+
 const ORDER_734 =
   "bA bB bB bA bB bB bA PA PB bA bA bB PB PA PA PB PB PA bA bB bB bA PA PB";
-// 7.40 changed the first ban phase and the third ban phase
+
 const ORDER_740 =
   "bA bA bB bB bA bB bB PA PB bA bA bB PB PA PA PB PB PA bA bB bA bB PA PB";
 
@@ -72,8 +70,6 @@ describe("buildDraft", () => {
   });
 
   it("keeps the right team after skipped bans (#2647)", () => {
-    // picks_bans of match 5293089497, where radiant skipped all its bans.
-    // The old order tables gave the bans after the skips to the wrong team.
     const picksBans: PickBan[] = [
       { order: 0, is_pick: false, team: 1, hero_id: 57 },
       { order: 1, is_pick: false, team: 1, hero_id: 89 },
