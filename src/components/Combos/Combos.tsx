@@ -109,8 +109,8 @@ const HeroSelector = ({
       <div
         aria-label={`${heroName} team A`}
         className={`ts ts-left ${teamAFull ? "no-event" : ""}`}
-        onClick={handleHeroSelection(id, "teamA")}
-        onKeyPress={handleHeroSelection(id, "teamA")}
+        onClick={handleHeroSelection(Number(id), "teamA")}
+        onKeyPress={handleHeroSelection(Number(id), "teamA")}
         role="button"
         tabIndex={0}
       >
@@ -119,8 +119,8 @@ const HeroSelector = ({
       <div
         aria-label={`${heroName} team B`}
         className={`ts ts-right ${teamBFull ? "no-event" : ""}`}
-        onClick={handleHeroSelection(id, "teamB")}
-        onKeyPress={handleHeroSelection(id, "teamB")}
+        onClick={handleHeroSelection(Number(id), "teamB")}
+        onKeyPress={handleHeroSelection(Number(id), "teamB")}
         role="button"
         tabIndex={0}
       >
