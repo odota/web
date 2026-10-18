@@ -1,0 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+// HACK: used to validate that UseRoleCommand argument value
+// is a Role. With the marker symbol approach we can safely use
+// commands in Role without circular reference.
+const markerSymbol = Symbol('testRun');
+exports.default = markerSymbol;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWFya2VyLXN5bWJvbC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9yb2xlL21hcmtlci1zeW1ib2wudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSw0REFBNEQ7QUFDNUQsK0RBQStEO0FBQy9ELCtDQUErQztBQUMvQyxNQUFNLFlBQVksR0FBRyxNQUFNLENBQUMsU0FBUyxDQUFDLENBQUM7QUFFdkMsa0JBQWUsWUFBWSxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLy8gSEFDSzogdXNlZCB0byB2YWxpZGF0ZSB0aGF0IFVzZVJvbGVDb21tYW5kIGFyZ3VtZW50IHZhbHVlXG4vLyBpcyBhIFJvbGUuIFdpdGggdGhlIG1hcmtlciBzeW1ib2wgYXBwcm9hY2ggd2UgY2FuIHNhZmVseSB1c2Vcbi8vIGNvbW1hbmRzIGluIFJvbGUgd2l0aG91dCBjaXJjdWxhciByZWZlcmVuY2UuXG5jb25zdCBtYXJrZXJTeW1ib2wgPSBTeW1ib2woJ3Rlc3RSdW4nKTtcblxuZXhwb3J0IGRlZmF1bHQgbWFya2VyU3ltYm9sO1xuIl19

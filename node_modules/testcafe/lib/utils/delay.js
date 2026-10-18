@@ -1,0 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+exports.default = delay;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGVsYXkuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvdXRpbHMvZGVsYXkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxTQUF3QixLQUFLLENBQUUsRUFBVTtJQUNyQyxPQUFPLElBQUksT0FBTyxDQUNkLE9BQU8sQ0FBQyxFQUFFLENBQUMsVUFBVSxDQUFDLE9BQU8sRUFBRSxFQUFFLENBQUMsQ0FDckMsQ0FBQztBQUNOLENBQUM7QUFKRCx3QkFJQyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIGRlbGF5IChtczogbnVtYmVyKTogUHJvbWlzZTx2b2lkPiB7XG4gICAgcmV0dXJuIG5ldyBQcm9taXNlKFxuICAgICAgICByZXNvbHZlID0+IHNldFRpbWVvdXQocmVzb2x2ZSwgbXMpXG4gICAgKTtcbn1cbiJdfQ==

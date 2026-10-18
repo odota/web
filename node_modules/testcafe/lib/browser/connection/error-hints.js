@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var BrowserConnectionErrorHint;
+(function (BrowserConnectionErrorHint) {
+    BrowserConnectionErrorHint["TooHighConcurrencyFactor"] = "TooHighConcurrencyFactor";
+    BrowserConnectionErrorHint["UseBrowserInitOption"] = "UseBrowserInitOption";
+    BrowserConnectionErrorHint["RestErrorCauses"] = "RestErrorCauses";
+})(BrowserConnectionErrorHint || (BrowserConnectionErrorHint = {}));
+exports.default = BrowserConnectionErrorHint;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZXJyb3ItaGludHMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9zcmMvYnJvd3Nlci9jb25uZWN0aW9uL2Vycm9yLWhpbnRzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsSUFBSywwQkFJSjtBQUpELFdBQUssMEJBQTBCO0lBQzNCLG1GQUFxRCxDQUFBO0lBQ3JELDJFQUE2QyxDQUFBO0lBQzdDLGlFQUFtQyxDQUFBO0FBQ3ZDLENBQUMsRUFKSSwwQkFBMEIsS0FBMUIsMEJBQTBCLFFBSTlCO0FBRUQsa0JBQWUsMEJBQTBCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJlbnVtIEJyb3dzZXJDb25uZWN0aW9uRXJyb3JIaW50IHtcbiAgICBUb29IaWdoQ29uY3VycmVuY3lGYWN0b3IgPSAnVG9vSGlnaENvbmN1cnJlbmN5RmFjdG9yJyxcbiAgICBVc2VCcm93c2VySW5pdE9wdGlvbiA9ICdVc2VCcm93c2VySW5pdE9wdGlvbicsXG4gICAgUmVzdEVycm9yQ2F1c2VzID0gJ1Jlc3RFcnJvckNhdXNlcydcbn1cblxuZXhwb3J0IGRlZmF1bHQgQnJvd3NlckNvbm5lY3Rpb25FcnJvckhpbnQ7XG4iXX0=
