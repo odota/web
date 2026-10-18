@@ -1481,6 +1481,7 @@ export default (strings: Strings, beta = false) => {
       sortFn: (row: MatchPlayer) => (row.deaths_log || []).length,
       displayFn: (row: MatchPlayer, col: any, value: any) => value || "-",
       relativeBars: true,
+      invertBarColor: true,
       sumFn: (acc: number, row: MatchPlayer) =>
         (acc || 0) + (row.deaths_log || []).length,
     },
@@ -1492,6 +1493,7 @@ export default (strings: Strings, beta = false) => {
       displayFn: (row: MatchPlayer, col: any, value: any) =>
         value ? abbreviateNumber(value) : "-",
       relativeBars: true,
+      invertBarColor: true,
       sumFn: (acc: number, row: MatchPlayer) =>
         (acc || 0) +
         (row.deaths_log || []).reduce((s, d) => s + (d.gold_lost || 0), 0),
@@ -1504,6 +1506,7 @@ export default (strings: Strings, beta = false) => {
       displayFn: (row: MatchPlayer, col: any, value: any) =>
         value ? abbreviateNumber(value) : "-",
       relativeBars: true,
+      invertBarColor: true,
       sumFn: (acc: number, row: MatchPlayer) =>
         (acc || 0) +
         (row.deaths_log || []).reduce((s, d) => s + (d.gold_fed || 0), 0),
@@ -1516,6 +1519,7 @@ export default (strings: Strings, beta = false) => {
       displayFn: (row: MatchPlayer, col: any, value: any) =>
         value ? formatSeconds(value) : "-",
       relativeBars: true,
+      invertBarColor: true,
       sumFn: (acc: number, row: MatchPlayer) =>
         (acc || 0) +
         (row.deaths_log || []).reduce((s, d) => s + (d.time_dead || 0), 0),
