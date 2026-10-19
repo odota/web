@@ -29,22 +29,13 @@ import {
   TooltipLineEntryHeroName,
   TooltipLineEntryValue,
 } from "./Styled";
-import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
 import { Spacer } from "../../Spacer/Spacer";
 import Grid from "./Grid";
-import { heroLevels } from "./data";
+import { getHeroLevel } from "./data";
+import LaningPhaseCaption from "./LaningPhaseCaption";
 
 const formatGraphTime = (minutes: number) => `${minutes}:00`;
-
-const getHeroLevel = (totalXp: number): number => {
-  let level = 1;
-  for (const threshold of heroLevels) {
-    if (totalXp < threshold.totalXp) break;
-    level = threshold.level;
-  }
-  return level;
-};
 
 const generateDiffData = (match: Match) => {
   const radiantGoldAdv = match.radiant_gold_adv;
@@ -356,6 +347,7 @@ class PlayersGraph extends React.Component<
               />
             </LineChart>
           </ResponsiveContainer>
+          {type === "levels" && <LaningPhaseCaption match={match} />}
         </StyledHolder>
       );
     }
