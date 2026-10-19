@@ -305,6 +305,8 @@ const matchPages = (
           <Spacer variant="2" />
           <MatchGraph match={match} type="xp" />
           <Spacer variant="2" />
+          <MatchGraph match={match} type="levels" />
+          <Spacer variant="2" />
           <MatchGraph match={match} type="lh" />
           <Spacer variant="2" />
           <MatchGraph match={match} type="hero_damage" />
