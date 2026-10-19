@@ -12,6 +12,7 @@ import {
 } from "../StyledMatch";
 import Graph from "./Graph";
 import config from "../../../config";
+import { getHeroLevel } from "../../Visualizations/Graph/data";
 
 type LaningProps = {
   match: Match;
@@ -44,7 +45,16 @@ class Laning extends React.Component<LaningProps, { selectedPlayer: number }> {
     const { match, strings } = this.props;
     const { laningColumns } = mcs(strings);
 
-    const tableData = [...match.players].sort(this.defaultSort);
+    const tableData = match.players
+      .map((player) => {
+        const xp = player.xp_t?.[10];
+        return {
+          ...player,
+          net_worth_ten: player.gold_t?.[10],
+          level_ten: Number.isFinite(xp) ? getHeroLevel(xp) : undefined,
+        };
+      })
+      .sort(this.defaultSort);
 
     return (
       <StyledFlexContainer>
