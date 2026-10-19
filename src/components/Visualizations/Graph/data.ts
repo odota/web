@@ -41,4 +41,13 @@ const heroLevels: HeroLevel[] = [
   { level: 30, totalXp: 64400, xpToNextLevel: null },
 ];
 
-export { heroLevels };
+const getHeroLevel = (totalXp: number): number => {
+  let level = 1;
+  for (const threshold of heroLevels) {
+    if (totalXp < threshold.totalXp) break;
+    level = threshold.level;
+  }
+  return level;
+};
+
+export { heroLevels, getHeroLevel };
