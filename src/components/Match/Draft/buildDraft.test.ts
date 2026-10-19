@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { buildDraft, PickBan } from "./buildDraft";
+import { match5293089497, match8380808771 } from "./draftFixtures";
 
 const stubPicksBans = (pattern: string, firstTeam = 0): PickBan[] =>
   pattern.split(" ").map((step, i) => ({
@@ -69,35 +70,96 @@ describe("buildDraft", () => {
     expect(input).toEqual(copy);
   });
 
-  it("keeps the right team after skipped bans (#2647)", () => {
-    const picksBans: PickBan[] = [
-      { order: 0, is_pick: false, team: 1, hero_id: 57 },
-      { order: 1, is_pick: false, team: 1, hero_id: 89 },
-      { order: 2, is_pick: false, team: 1, hero_id: 82 },
-      { order: 3, is_pick: true, team: 1, hero_id: 68 },
-      { order: 4, is_pick: true, team: 0, hero_id: 87 },
-      { order: 5, is_pick: true, team: 0, hero_id: 7 },
-      { order: 6, is_pick: true, team: 1, hero_id: 71 },
-      { order: 7, is_pick: false, team: 1, hero_id: 93 },
-      { order: 8, is_pick: false, team: 1, hero_id: 12 },
-      { order: 9, is_pick: true, team: 0, hero_id: 85 },
-      { order: 10, is_pick: true, team: 1, hero_id: 98 },
-      { order: 11, is_pick: true, team: 0, hero_id: 29 },
-      { order: 12, is_pick: true, team: 1, hero_id: 36 },
-      { order: 13, is_pick: false, team: 1, hero_id: 22 },
-      { order: 14, is_pick: true, team: 1, hero_id: 47 },
-      { order: 15, is_pick: true, team: 0, hero_id: 16 },
-    ];
-    const steps = buildDraft(picksBans);
+  it("keeps the right team for every step after skipped bans (#2647)", () => {
+    const { picks_bans, draft_timings, expectedPattern } = match5293089497;
+    const steps = buildDraft(picks_bans, draft_timings);
+    const pattern = steps
+      .map((s) => (s.isPick ? "P" : "b") + (s.isRadiant ? "R" : "D"))
+      .join(" ");
     expect(steps).toHaveLength(16);
-    expect(steps.filter((s) => !s.isPick).every((s) => !s.isRadiant)).toBe(
-      true,
-    );
-    expect(steps.filter((s) => s.isPick && s.isRadiant)).toHaveLength(5);
-    expect(steps.filter((s) => s.isPick && !s.isRadiant)).toHaveLength(5);
+    expect(pattern).toBe(expectedPattern);
   });
 
-  it.todo("adds time taken and extra time from draft_timings");
-  it.todo("matches draft_timings by hero_id, not by order");
-  it.todo("works with partial draft_timings (first 7 bans have no time)");
+  it("adds time taken and extra time from draft_timings", () => {
+    const steps = buildDraft(
+      [{ order: 0, is_pick: true, team: 0, hero_id: 57 }],
+      [{ hero_id: 57, total_time_taken: 42, extra_time: 118 }],
+    );
+    expect(steps[0].timeTaken).toBe(42);
+    expect(steps[0].extraTime).toBe(118);
+  });
+
+  it("leaves timings out when there is no draft_timings", () => {
+    // every match parsed since about February 2026
+    const steps = buildDraft(stubPicksBans(ORDER_740), []);
+    expect(steps.every((s) => s.timeTaken === undefined)).toBe(true);
+    expect(steps.every((s) => s.extraTime === undefined)).toBe(true);
+  });
+
+  it("matches draft_timings by hero_id, not by order", () => {
+    const steps = buildDraft(
+      [
+        { order: 0, is_pick: false, team: 0, hero_id: 10 },
+        { order: 1, is_pick: false, team: 1, hero_id: 20 },
+      ],
+      [
+        { hero_id: 20, total_time_taken: 5, extra_time: 100 },
+        { hero_id: 10, total_time_taken: 9, extra_time: 130 },
+      ],
+    );
+    expect(steps.map((s) => s.timeTaken)).toEqual([9, 5]);
+  });
+
+  it("works with partial draft_timings (first 7 bans have no time)", () => {
+    const picksBans = stubPicksBans(ORDER_740);
+    const timings = picksBans.slice(7).map((pb) => ({
+      hero_id: pb.hero_id,
+      total_time_taken: 20,
+      extra_time: 100,
+    }));
+    const steps = buildDraft(picksBans, timings);
+    expect(steps.slice(0, 7).every((s) => s.timeTaken === undefined)).toBe(
+      true,
+    );
+    expect(steps.slice(7).every((s) => s.timeTaken === 20)).toBe(true);
+  });
+
+  it("treats null times as missing", () => {
+    const steps = buildDraft(
+      [{ order: 0, is_pick: false, team: 0, hero_id: 10 }],
+      [{ hero_id: 10, total_time_taken: null, extra_time: null }],
+    );
+    expect(steps[0].timeTaken).toBeUndefined();
+    expect(steps[0].extraTime).toBeUndefined();
+  });
+
+  it("handles the doubled hero ids of match 8380808771", () => {
+    const { picks_bans, draft_timings } = match8380808771;
+    const steps = buildDraft(picks_bans, draft_timings);
+    expect(steps.every((s) => s.timeTaken !== undefined)).toBe(true);
+    // ban 2 (hero 2) is order 3 in draft_timings, as hero_id 4
+    expect(steps[1]).toMatchObject({ heroId: 2, timeTaken: 0, extraTime: 130 });
+    // the last pick (hero 35) is hero_id 70 in draft_timings
+    expect(steps[23]).toMatchObject({
+      heroId: 35,
+      isRadiant: false,
+      timeTaken: 59,
+      extraTime: 11,
+    });
+  });
+
+  it("does not halve hero ids when they are not doubled", () => {
+    // 76 is a real hero, and 38 * 2 = 76
+    const steps = buildDraft(
+      [
+        { order: 0, is_pick: false, team: 0, hero_id: 76 },
+        { order: 1, is_pick: false, team: 1, hero_id: 38 },
+      ],
+      [
+        { hero_id: 76, total_time_taken: 1, extra_time: 130 },
+        { hero_id: 38, total_time_taken: 2, extra_time: 130 },
+      ],
+    );
+    expect(steps.map((s) => s.timeTaken)).toEqual([1, 2]);
+  });
 });
