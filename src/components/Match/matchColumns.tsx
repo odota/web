@@ -1176,6 +1176,23 @@ export default (strings: Strings, beta = false) => {
       relativeBars: true,
       sumFn: true,
     },
+    {
+      displayName: strings.th_net_worth_ten,
+      tooltip: strings.tooltip_net_worth_ten,
+      field: "net_worth_ten",
+      sortFn: true,
+      displayFn: (row: MatchPlayer, column: any, field: any) => field ?? "-",
+      relativeBars: true,
+      sumFn: true,
+    },
+    {
+      displayName: strings.th_level_ten,
+      tooltip: strings.tooltip_level_ten,
+      field: "level_ten",
+      sortFn: true,
+      displayFn: (row: MatchPlayer, column: any, field: any) => field ?? "-",
+      relativeBars: true,
+    },
   ];
 
   const unitKillsColumns = [
