@@ -66,7 +66,7 @@ export const LaningCaptionGrid = styled.div`
   gap: 16px;
   margin-top: 24px;
   color: ${constants.primaryTextColor};
-  font-family: ${constants.fontFamilySerif};
+  font-family: ${constants.fontFamilyFuturistic};
   font-size: 12px;
   line-height: 1.7;
 
@@ -290,6 +290,7 @@ export const PerspectiveHeader = styled.header`
   h3 {
     margin: 0;
     font-size: 13px;
+    font-weight: 400;
   }
 
   button {

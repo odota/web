@@ -1,4 +1,14 @@
-import React from "react";
+/**
+ * @file Match Graph.
+ * @description Routes match metrics to full-duration charts and implements player-history and team-advantage graphs.
+ */
+
+import React, { useState } from "react";
+import { RoleCaption } from "../../Match/Laning/StyledGraph";
+import AdvantageGraphTooltip from "./AdvantageGraphTooltip";
+import HeroLegendLabel from "./HeroLegendLabel";
+import PlayerGraphTooltip from "./PlayerGraphTooltip";
+import PlayerMetricGraph from "../../Match/Laning/Graph";
 import {
   ReferenceArea,
   XAxis,
@@ -13,30 +23,27 @@ import {
 import { heroes, player_colors as playerColors } from "dotaconstants";
 import Heading from "../../Heading/Heading";
 import constants from "../../constants";
-import {
-  StyledTooltip,
-  StyledTooltipTeam,
-  StyledRadiant,
-  StyledDire,
-  StyledHolder,
-  GoldSpan,
-  XpSpan,
-  StyledTooltipTime,
-  StyledTooltipNetworthLineEntry,
-  StyledCustomizedTooltip,
-  TooltipLabel,
-  TooltipLineEntry,
-  TooltipLineEntryHeroName,
-  TooltipLineEntryValue,
-} from "./Styled";
+import { StyledRadiant, StyledDire, StyledHolder } from "./Styled";
 import useStrings from "../../../hooks/useStrings.hook";
 import { Spacer } from "../../Spacer/Spacer";
 import Grid from "./Grid";
 import { getHeroLevel } from "./data";
 import LaningPhaseCaption from "./LaningPhaseCaption";
 
+/**
+ * Formats a minute index as a chart timestamp.
+ * @param minutes Elapsed whole minutes.
+ * @returns A label such as "10:00".
+ */
 const formatGraphTime = (minutes: number) => `${minutes}:00`;
 
+/**
+ * Builds synchronized gold/XP advantage points through the match duration.
+ * @param match Match with duration in seconds and minute-indexed radiant_gold_adv
+ * and radiant_xp_adv arrays. Positive entries favor Radiant; negative entries favor Dire.
+ * The fixture's radiant_gold_adv[10] is -6407, a Dire lead of 6,407 gold.
+ * @returns Timestamped series values, or an empty array without both histories.
+ */
 const generateDiffData = (match: Match) => {
   const radiantGoldAdv = match.radiant_gold_adv;
   const radiantXpAdv = match.radiant_xp_adv;
@@ -51,83 +58,14 @@ const generateDiffData = (match: Match) => {
   return data;
 };
 
-const PlayerGraphTooltip = ({
-  label,
-  payload,
-}: {
-  label?: string;
-  payload?: any[];
-}) => {
-  const origOrderMap: Record<string, number> = {};
-  payload?.forEach((p, i) => {
-    origOrderMap[p.dataKey] = i;
-  });
-  const descendingOrder = payload?.sort((a, b) => {
-    return b.value - a.value;
-  });
-  return (
-    <StyledCustomizedTooltip>
-      <TooltipLabel>{label}</TooltipLabel>
-      {descendingOrder?.map((data, i) => (
-        <TooltipLineEntry
-          key={i}
-          className={`data ${origOrderMap[data.dataKey] < 5 ? "isRadiant" : "isDire"}`}
-          color={data.color}
-        >
-          <TooltipLineEntryHeroName color={data.color}>
-            {data.dataKey}
-          </TooltipLineEntryHeroName>
-          <TooltipLineEntryValue>
-            {data.value?.toLocaleString()}
-          </TooltipLineEntryValue>
-        </TooltipLineEntry>
-      ))}
-    </StyledCustomizedTooltip>
-  );
-};
-
-const XpTooltipContent = ({ payload }: { payload?: any[] }) => {
-  const strings = useStrings();
-  try {
-    const data = payload && payload[0] && payload[0].payload;
-    const { rXpAdv, rGoldAdv, time } = data;
-    return (
-      <StyledTooltip>
-        <StyledTooltipTime>
-          <span>{`${formatGraphTime(time)}`}</span>
-        </StyledTooltipTime>
-        <StyledTooltipNetworthLineEntry>
-          <StyledTooltipTeam
-            color={
-              rGoldAdv > 0 ? constants.colorSuccess : constants.colorDanger
-            }
-          >
-            {rGoldAdv > 0 ? strings.general_radiant : strings.general_dire}
-          </StyledTooltipTeam>
-          <GoldSpan>
-            {Math.abs(rGoldAdv)?.toLocaleString()} {strings.heading_graph_gold}
-          </GoldSpan>
-        </StyledTooltipNetworthLineEntry>
-        <br />
-        <StyledTooltipNetworthLineEntry>
-          <StyledTooltipTeam
-            color={rXpAdv > 0 ? constants.colorSuccess : constants.colorDanger}
-          >
-            {rXpAdv > 0 ? strings.general_radiant : strings.general_dire}
-          </StyledTooltipTeam>
-          <XpSpan>
-            {Math.abs(rXpAdv)?.toLocaleString()} {strings.heading_graph_xp}
-          </XpSpan>
-        </StyledTooltipNetworthLineEntry>
-      </StyledTooltip>
-    );
-  } catch (e) {
-    return null;
-  }
-};
-
+/**
+ * Renders Radiant-relative gold and XP advantages over the full match.
+ * @param props Match with team advantage histories.
+ * @returns The chart with selectable series and a styled tooltip, or null without histories.
+ */
 const XpNetworthGraph = ({ match }: { match: Match }) => {
   const strings = useStrings();
+  const [selectedSeries, setSelectedSeries] = useState<string | null>(null);
   if (!match.radiant_gold_adv || !match.radiant_xp_adv) {
     return null;
   }
@@ -168,7 +106,7 @@ const XpNetworthGraph = ({ match }: { match: Match }) => {
             tickFormatter={formatGraphTime}
             tick={{
               fontFamily: constants.fontFamilySerif,
-              fontSize: 12,
+              fontSize: 10,
               fill: constants.colorGreyMuted,
             }}
             axisLine={false}
@@ -178,7 +116,7 @@ const XpNetworthGraph = ({ match }: { match: Match }) => {
             domain={[minY, maxY]}
             tick={{
               fontFamily: constants.fontFamilySerif,
-              fontSize: 12,
+              fontSize: 10,
               fill: constants.colorGreyMuted,
             }}
             tickFormatter={(value) => value?.toLocaleString()}
@@ -187,30 +125,50 @@ const XpNetworthGraph = ({ match }: { match: Match }) => {
           />
           <ReferenceLine y={0} stroke="#505050" strokeWidth={2} opacity={1} />
           <Grid />
-          <Tooltip content={<XpTooltipContent />} />
+          <Tooltip
+            content={<AdvantageGraphTooltip />}
+            position={{ y: 10 }}
+            wrapperStyle={{ zIndex: 1000 }}
+            reverseDirection={{ x: true, y: false }}
+            allowEscapeViewBox={{ x: false, y: true }}
+          />
           <Line
             dot={false}
             dataKey="rXpAdv"
+            strokeOpacity={
+              !selectedSeries || selectedSeries === "rXpAdv" ? 1 : 0.25
+            }
             stroke={constants.colorGraphBlue}
-            strokeWidth={2}
+            strokeWidth={selectedSeries === "rXpAdv" ? 2 : 1}
             name={strings.heading_graph_xp}
           />
           <Line
             dot={false}
             dataKey="rGoldAdv"
+            strokeOpacity={
+              !selectedSeries || selectedSeries === "rGoldAdv" ? 1 : 0.25
+            }
             stroke={constants.colorGraphYellow}
-            strokeWidth={2}
+            strokeWidth={selectedSeries === "rGoldAdv" ? 2 : 1}
             name={strings.heading_graph_gold}
           />
           <Legend
+            onClick={(entry) => {
+              const series = String(entry.dataKey);
+              setSelectedSeries((current) =>
+                current === series ? null : series,
+              );
+            }}
             wrapperStyle={{
-              fontFamily: constants.fontFamilySerif,
-              fontSize: 13,
+              fontFamily: constants.fontFamilyFuturistic,
+              fontSize: 11,
+              cursor: "pointer",
               color: constants.colorGreyMuted,
             }}
           />
         </LineChart>
       </ResponsiveContainer>
+      <RoleCaption>{strings.laning_series_legend_hint}</RoleCaption>
     </StyledHolder>
   );
 };
@@ -223,34 +181,57 @@ type PlayersGraphProps = {
 
 class PlayersGraph extends React.Component<
   PlayersGraphProps,
-  { hoverHero: any }
+  { hoverHero: string | null; selectedHero: string | null }
 > {
   constructor(props: PlayersGraphProps) {
     super(props);
     this.state = {
       hoverHero: null,
+      selectedHero: null,
     };
   }
 
+  /**
+   * Temporarily emphasizes the series under the pointer in the legend.
+   */
   handleMouseEnter = (o: any) => {
     this.setState({
       hoverHero: o.dataKey,
     });
   };
 
+  /**
+   * Clears temporary legend emphasis while preserving a clicked selection.
+   */
   handleMouseLeave = () => {
     this.setState({
       hoverHero: null,
     });
   };
 
+  /**
+   * Toggles persistent hero emphasis for the clicked legend entry.
+   */
+  handleLegendClick = (entry: { dataKey?: unknown }) => {
+    const hero = String(entry.dataKey);
+    this.setState((state) => ({
+      selectedHero: state.selectedHero === hero ? null : hero,
+    }));
+  };
+
   render() {
     const { match, type, strings } = this.props;
-    const { hoverHero } = this.state;
+    const { hoverHero, selectedHero } = this.state;
+    const focusedHero = hoverHero ?? selectedHero;
 
     const dataKey = `${type === "levels" ? "xp" : type}_t` as keyof MatchPlayer;
-    const timeline = match.players?.[0]?.[dataKey];
-    if (timeline) {
+    const timeline = match.players.reduce<number[]>((longest, player) => {
+      const samples = player[dataKey];
+      return Array.isArray(samples) && samples.length > longest.length
+        ? samples
+        : longest;
+    }, []);
+    if (timeline.length) {
       const lastMinute = Math.floor(match.duration / 60);
       // One entry per minute through the match duration, containing the formatted time
       // and each hero's stat value (or level for the levels graph), keyed by hero name.
@@ -294,7 +275,7 @@ class PlayersGraph extends React.Component<
                 dataKey="time"
                 tick={{
                   fontFamily: constants.fontFamilySerif,
-                  fontSize: 12,
+                  fontSize: 10,
                   fill: constants.colorGreyMuted,
                 }}
                 axisLine={false}
@@ -304,7 +285,7 @@ class PlayersGraph extends React.Component<
                 mirror
                 tick={{
                   fontFamily: constants.fontFamilySerif,
-                  fontSize: 12,
+                  fontSize: 10,
                   fill: constants.colorGreyMuted,
                 }}
                 tickFormatter={(value) => value?.toLocaleString()}
@@ -312,7 +293,13 @@ class PlayersGraph extends React.Component<
                 tickLine={false}
               />
               <Grid />
-              <Tooltip content={<PlayerGraphTooltip />} />
+              <Tooltip
+                content={<PlayerGraphTooltip players={match.players} />}
+                position={{ y: 10 }}
+                wrapperStyle={{ zIndex: 1000 }}
+                reverseDirection={{ x: true, y: false }}
+                allowEscapeViewBox={{ x: false, y: true }}
+              />
               {match.players.map((player) => {
                 const hero = heroes[player.hero_id] || {};
                 const playerColor =
@@ -321,9 +308,9 @@ class PlayersGraph extends React.Component<
                   ];
                 const isSelected =
                   heroes[player.hero_id] &&
-                  hoverHero === heroes[player.hero_id].localized_name;
-                const opacity = !hoverHero || isSelected ? 1 : 0.25;
-                const stroke = isSelected ? 4 : 2;
+                  focusedHero === heroes[player.hero_id].localized_name;
+                const opacity = !focusedHero || isSelected ? 1 : 0.25;
+                const stroke = isSelected ? 2 : 1;
                 return (
                   <Line
                     key={player.player_slot}
@@ -337,16 +324,25 @@ class PlayersGraph extends React.Component<
                 );
               })}
               <Legend
+                formatter={(name) => (
+                  <HeroLegendLabel
+                    name={String(name)}
+                    players={match.players}
+                  />
+                )}
+                onClick={this.handleLegendClick}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
                 wrapperStyle={{
-                  fontFamily: constants.fontFamilySerif,
-                  fontSize: 13,
+                  fontFamily: constants.fontFamilyFuturistic,
+                  fontSize: 11,
+                  cursor: "pointer",
                   color: constants.colorGreyMuted,
                 }}
               />
             </LineChart>
           </ResponsiveContainer>
+          <RoleCaption>{strings.laning_level_legend_hint}</RoleCaption>
           {type === "levels" && <LaningPhaseCaption match={match} />}
         </StyledHolder>
       );
@@ -366,6 +362,16 @@ const MatchGraph = ({
   width?: number;
 }) => {
   const strings = useStrings();
+  if (type === "networth" || type === "levels") {
+    return (
+      <PlayerMetricGraph
+        key={`${match.match_id}-${type}`}
+        match={match}
+        metric={type}
+        maxMinute={Math.floor(match.duration / 60)}
+      />
+    );
+  }
   if (type === "difference") {
     return (
       <XpNetworthGraph
@@ -380,8 +386,6 @@ const MatchGraph = ({
     type === "gold" ||
     type === "xp" ||
     type === "lh" ||
-    type === "networth" ||
-    type === "levels" ||
     type === "hero_damage" ||
     type === "hero_healing" ||
     type === "camps_stacked"

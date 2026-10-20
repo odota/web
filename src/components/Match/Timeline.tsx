@@ -3,13 +3,61 @@ import ReactTooltip from "react-tooltip";
 import { heroes } from "dotaconstants";
 import styled from "styled-components";
 import { formatSeconds, isRadiant, jsonFn, getTeamName } from "../../utility";
-import { IconBloodDrop, IconRoshan, IconBattle } from "../Icons";
+import { IconRoshan, IconBattle } from "../Icons";
 import PlayerThumb from "./PlayerThumb/PlayerThumb";
 import constants from "../constants";
 import config from "../../config";
 import useStrings from "../../hooks/useStrings.hook";
 
+/**
+ * Draws the skull marker used for first blood on the match timeline.
+ * @param props SVG attributes, including tooltip identifiers and the marker class.
+ * @returns A decorative SVG; its containing event supplies tooltip content.
+ */
+const FirstBloodIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 2a9 9 0 0 0-9 9c0 3.1 1.5 5.7 4 7.3V22h10v-3.7c2.5-1.6 4-4.2 4-7.3a9 9 0 0 0-9-9Z" />
+    <circle cx="8.5" cy="10.5" r="2" fill="#111827" />
+    <circle cx="15.5" cy="10.5" r="2" fill="#111827" />
+    <path d="m12 13-2 3h4Z M10 19v3m4-3v3" fill="#111827" stroke="#111827" strokeWidth="1.5" />
+  </svg>
+);
+
 const Styled = styled.div`
+  .events mark div.firstBloodTooltip[data-id="tooltip"] {
+    padding: 14px 16px !important;
+    border: 1px solid #374151;
+    border-radius: 10px;
+    background: #111827;
+    color: #f1f5f9;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+    line-height: 1.6;
+    z-index: 1500;
+
+    .firstBloodHeading {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #374151;
+      color: #f1f5f9;
+      font-family: ${constants.fontFamilyFuturistic};
+      font-size: 12px;
+    }
+    .firstBloodHeading span { margin-left: auto; color: #94a3b8; font-variant-numeric: tabular-nums; }
+    .firstBloodHeading svg { position: static; width: 16px; height: 16px; fill: ${constants.colorDanger}; }
+    .firstBloodPlayers { gap: 6px; }
+    .firstBloodPlayers > span { color: #94a3b8; font-size: 11px; }
+    .firstBloodPlayers img { border-radius: 3px; }
+  }
+
+  .events mark svg.firstBloodIcon {
+    cursor: default;
+    fill: ${constants.colorDanger};
+  }
+
   .clickable {
     &[data-tip="true"] {
       cursor: pointer;
@@ -476,7 +524,7 @@ const Timeline = ({
                     }}
                   >
                     {obj.type === "firstblood" && (
-                      <IconBloodDrop data-tip data-for={`event_${i}`} />
+                      <FirstBloodIcon className="firstBloodIcon" data-tip data-for={`event_${i}`} />
                     )}
                     {obj.type === "roshan" && (
                       <IconRoshan data-tip data-for={`event_${i}`} />
@@ -501,6 +549,7 @@ const Timeline = ({
                       />
                     )}
                     <ReactTooltip
+                      className={obj.type === "firstblood" ? "firstBloodTooltip" : undefined}
                       // Hide tooltip if it's not in objectives
                       id={
                         obj.type === "firstblood" &&
@@ -516,7 +565,13 @@ const Timeline = ({
                         (() => {
                           const victim = findFbVictim(obj);
                           return (
-                            <section>
+                            <div>
+                              <header className="firstBloodHeading">
+                                <FirstBloodIcon />
+                                {strings.CHAT_MESSAGE_FIRSTBLOOD}
+                                <span>{formatSeconds(obj.time)}</span>
+                              </header>
+                            <section className="firstBloodPlayers">
                               {match.players
                                 .filter(
                                   (player) =>
@@ -535,6 +590,7 @@ const Timeline = ({
                               </span>
                               {victim && <PlayerThumb {...victim} />}
                             </section>
+                            </div>
                           );
                         })()}
                       {obj.type === "roshan" &&

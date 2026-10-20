@@ -1,7 +1,14 @@
+/**
+ * @file Laning Phase Caption.
+ * @description Collapsible minute-ten Levels Report with team perspective switching and lane matchup comparisons.
+ */
+
+import { formatTemplateToString } from "../../../utility";
 import React, { useState } from "react";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import Collapse from "@mui/material/Collapse";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { heroes } from "dotaconstants";
 import config from "../../../config";
@@ -16,117 +23,62 @@ import {
   HeroLevelBadge,
 } from "./Styled";
 
-type LaneRole = "carry" | "hardSupport" | "midlane" | "offlane" | "softSupport";
+import { getRoleLabels, getLaningRoles, LaneRole } from "../../Match/Laning/laning.utils";
 
-/**
- * Infers roles from match-provided `player.lane` and minute-10 last hits.
- *
- * | Lane | Map    | Radiant                | Dire                   |
- * |------|--------|------------------------|------------------------|
- * | 1    | Bottom | Carry / Hard Support   | Offlane / Soft Support |
- * | 2    | Mid    | Midlane                | Midlane                |
- * | 3    | Top    | Offlane / Soft Support | Carry / Hard Support   |
- *
- * Excluding roamers: a single mid player becomes midlane; side-lane pairs
- * become core/support by higher/lower last hits. Solo side-lane players
- * become cores. One unassigned roamer can fill one missing support role.
- * Ties, missing data, or unusual lanes may leave roles undetermined.
- *
- * `lane_role` differs: 1 = Safe, 2 = Mid, 3 = Off for either team.
- * `player_slot` identifies players, not roles: Radiant 0–4, Dire 128–132.
- */
-const getLaningRoles = (
-  players: MatchPlayer[],
-  isRadiant: boolean,
-): Partial<Record<LaneRole, MatchPlayer>> => {
-  const team = players.filter(
-    (player) => player.isRadiant === isRadiant && !player.is_roaming,
-  );
-  const roles: Partial<Record<LaneRole, MatchPlayer>> = {};
-  const midPlayers = team.filter((player) => player.lane === 2);
-  if (midPlayers.length === 1) roles.midlane = midPlayers[0];
 
-  // Physical lanes: Radiant's safe lane is bottom (1), Dire's is top (3).
-  const safeLane = isRadiant ? 1 : 3;
-  const offLane = isRadiant ? 3 : 1;
-  const assignSideLane = (lane: number, core: LaneRole, support: LaneRole) => {
-    const lanePlayers = team.filter((player) => player.lane === lane);
-    if (lanePlayers.length === 1) {
-      roles[core] = lanePlayers[0];
-      return;
-    }
-    if (
-      lanePlayers.length !== 2 ||
-      lanePlayers.some((player) => !Number.isFinite(player.lh_t?.[10]))
-    )
-      return;
-
-    lanePlayers.sort((a, b) => b.lh_t[10] - a.lh_t[10]);
-    if (lanePlayers[0].lh_t[10] === lanePlayers[1].lh_t[10]) return;
-    [roles[core], roles[support]] = lanePlayers;
-  };
-  assignSideLane(safeLane, "carry", "hardSupport");
-  assignSideLane(offLane, "offlane", "softSupport");
-
-  // A roaming support can leave a core alone in their recorded lane.
-  // Infer the missing support only when there is exactly one candidate and vacancy.
-  const missingSupports = (["hardSupport", "softSupport"] as const).filter(
-    (role) => !roles[role],
-  );
-  const assignedPlayers = new Set(Object.values(roles));
-  const roamers = players.filter(
-    (player) =>
-      player.isRadiant === isRadiant &&
-      player.is_roaming &&
-      !assignedPlayers.has(player),
-  );
-  if (missingSupports.length === 1 && roamers.length === 1) {
-    roles[missingSupports[0]] = roamers[0];
-  }
-  return roles;
-};
-
-const laningMatchups: { role: LaneRole; enemyRole: LaneRole; label: string }[] =
+const laningMatchups: { role: LaneRole; enemyRole: LaneRole }[] =
   [
-    { role: "carry", enemyRole: "offlane", label: "Carry : Offlane" },
+    { role: "carry", enemyRole: "offlane" },
     {
       role: "hardSupport",
       enemyRole: "softSupport",
-      label: "Hard Support : Soft Support",
     },
-    { role: "midlane", enemyRole: "midlane", label: "Midlane : Midlane" },
-    { role: "offlane", enemyRole: "carry", label: "Offlane : Carry" },
+    { role: "midlane", enemyRole: "midlane" },
+    { role: "offlane", enemyRole: "carry" },
     {
       role: "softSupport",
       enemyRole: "hardSupport",
-      label: "Soft Support : Hard Support",
     },
   ];
 
+/**
+ * Renders the collapsible Levels Report with minute-ten lane and role matchups.
+ * Defaults to the winning team's perspective and allows switching sides.
+ * @param props The match containing player XP histories and the match result.
+ * @returns The report, or null for short matches or an unknown match result.
+ */
 const LaningPhaseCaption = ({ match }: { match: Match }) => {
   const strings = useStrings();
+  const roleLabels = getRoleLabels(strings);
   const [perspective, setPerspective] = useState<boolean | null>(null);
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
+  const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const isRadiant = perspective ?? match.radiant_win;
   if (match.duration < 600 || typeof match.radiant_win !== "boolean")
     return null;
 
   const teamRoles = getLaningRoles(match.players, isRadiant);
   const enemyRoles = getLaningRoles(match.players, !isRadiant);
+  /**
+   * Renders a hero and their level at the requested minute.
+   * @param player Inferred role occupant, if known.
+   * @param minute XP history index.
+   * @returns Hero identity and level badge, or a localized fallback.
+   */
   const renderHero = (player: MatchPlayer | undefined, minute: number) => {
     const hero = player && heroes[player.hero_id];
     const xp = player?.xp_t?.[minute];
     const level = Number.isFinite(xp) ? getHeroLevel(xp!) : null;
-    if (!player) return <PhaseHero>Role undetermined</PhaseHero>;
-    if (!hero) return <PhaseHero>Unknown hero (ID {player.hero_id})</PhaseHero>;
+    if (!player) return <PhaseHero>{strings.laning_unknown_role}</PhaseHero>;
+    if (!hero) return <PhaseHero>{strings.general_no_hero} (ID {player.hero_id})</PhaseHero>;
     return (
       <PhaseHero>
         <img src={config.VITE_IMAGE_CDN + hero.icon} alt="" loading="lazy" />
         {hero.localized_name}
         {level !== null && (
           <HeroLevelBadge
-            aria-label={`Level ${level}`}
-            title={`Level ${level}`}
+            aria-label={formatTemplateToString(strings.laning_level_label, { level })}
+            title={formatTemplateToString(strings.laning_level_label, { level })}
           >
             {level}
             <span className="milestone-dots" aria-hidden="true">
@@ -143,14 +95,20 @@ const LaningPhaseCaption = ({ match }: { match: Match }) => {
     );
   };
   const laneGroups: { label: string; roles: LaneRole[] }[] = [
-    { label: "Safe Lane", roles: ["carry", "hardSupport"] },
-    { label: "Mid Lane", roles: ["midlane"] },
-    { label: "Offlane", roles: ["offlane", "softSupport"] },
+    { label: strings.laning_safe, roles: ["carry", "hardSupport"] },
+    { label: strings.laning_mid, roles: ["midlane"] },
+    { label: strings.laning_off, roles: ["offlane", "softSupport"] },
   ];
+  /**
+   * Builds role matchup rows from the selected team’s perspective.
+   * @param minute Minute at which XP and hero levels are compared.
+   * @param roles Roles to include in the lane group.
+   * @returns Matchup rows with level and XP differences or unavailable-data text.
+   */
   const renderComparisons = (minute: number, roles: LaneRole[]) =>
     laningMatchups
       .filter(({ role }) => roles.includes(role))
-      .map(({ role, enemyRole, label }) => {
+      .map(({ role, enemyRole }) => {
         const player = teamRoles[role];
         const enemy = enemyRoles[enemyRole];
         const playerXp = player?.xp_t?.[minute];
@@ -160,7 +118,8 @@ const LaningPhaseCaption = ({ match }: { match: Match }) => {
         const playerLevel = hasXp ? getHeroLevel(playerXp!) : 0;
         const enemyLevel = hasXp ? getHeroLevel(enemyXp!) : 0;
         const levelDifference = playerLevel - enemyLevel;
-        const [teamRole, opponentRole] = label.split(" : ");
+        const teamRole = roleLabels[role];
+        const opponentRole = roleLabels[enemyRole];
         return (
           <div key={role}>
             <dt>
@@ -168,7 +127,7 @@ const LaningPhaseCaption = ({ match }: { match: Match }) => {
                 {teamRole}
                 {renderHero(player, minute)}
               </span>
-              <span aria-hidden="true">vs</span>
+              <span aria-hidden="true">{strings.laning_vs}</span>
               <span>
                 {opponentRole}
                 {renderHero(enemy, minute)}
@@ -179,19 +138,14 @@ const LaningPhaseCaption = ({ match }: { match: Match }) => {
                 <>
                   <LaningXpDifference $difference={xpDifference}>
                     {Math.abs(levelDifference)}{" "}
-                    {Math.abs(levelDifference) === 1 ? "level" : "levels"} (
+                    {(Math.abs(levelDifference) === 1 ? strings.laning_level : strings.laning_levels)} (
                     {xpDifference > 0 ? "+" : ""}
                     {xpDifference.toLocaleString()}xp)
                   </LaningXpDifference>{" "}
-                  {xpDifference === 0
-                    ? "equal to"
-                    : xpDifference > 0
-                      ? "ahead of"
-                      : "behind"}{" "}
-                  the enemy
+                  {(xpDifference === 0 ? strings.laning_enemy_equal : xpDifference > 0 ? strings.laning_enemy_ahead : strings.laning_enemy_behind)}
                 </>
               ) : (
-                "Phase data unavailable"
+                strings.laning_unavailable
               )}
             </dd>
           </div>
@@ -206,34 +160,32 @@ const LaningPhaseCaption = ({ match }: { match: Match }) => {
             type="button"
             onClick={() => setExpanded((value) => !value)}
             aria-expanded={expanded}
-            aria-label={`${expanded ? "Collapse" : "Expand"} Levels Report`}
+            aria-label={(expanded ? strings.laning_collapse_report : strings.laning_expand_report)}
           >
-            {expanded ? (
-              <ExpandLessIcon fontSize="small" />
-            ) : (
-              <ExpandMoreIcon fontSize="small" />
-            )}
-            Levels Report
+            <ExpandMoreIcon fontSize="small" style={{
+              transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+              transition: reducedMotion ? "none" : "transform 400ms ease",
+            }} />
+            {strings.laning_report}
           </button>
         </h3>
         <button
           type="button"
           onClick={() => setPerspective(!isRadiant)}
-          aria-label={`Switch to ${isRadiant ? strings.general_dire : strings.general_radiant} perspective`}
-          title={`Switch to ${isRadiant ? strings.general_dire : strings.general_radiant} perspective`}
+          aria-label={formatTemplateToString(strings.laning_perspective, { team: isRadiant ? strings.general_dire : strings.general_radiant })}
+          title={formatTemplateToString(strings.laning_perspective, { team: isRadiant ? strings.general_dire : strings.general_radiant })}
         >
           {isRadiant ? strings.general_radiant : strings.general_dire}
           <SwapHorizIcon fontSize="small" />
         </button>
       </PerspectiveHeader>
-      {expanded && (
-        <>
+      <Collapse in={expanded} timeout={reducedMotion ? 0 : { enter: 500, exit: 400 }} unmountOnExit>
           <LaningCaptionCard $isRadiant={isRadiant}>
             <h4>
               <AccessTimeIcon fontSize="inherit" />
-              Laning phase
+              {strings.laning_phase}
             </h4>
-            <p>XP and level comparison at minute 10.</p>
+            <p>{strings.laning_phase_description}</p>
             {laneGroups.map((group) => (
               <section key={group.label}>
                 <h5>{group.label}</h5>
@@ -241,8 +193,7 @@ const LaningPhaseCaption = ({ match }: { match: Match }) => {
               </section>
             ))}
           </LaningCaptionCard>
-        </>
-      )}
+      </Collapse>
     </LaningCaptionGrid>
   );
 };
