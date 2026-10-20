@@ -23,25 +23,50 @@ const renderedPattern = (container: HTMLElement) =>
     })
     .join(" ");
 
+const renderDraft = (props: Partial<React.ComponentProps<typeof Draft>>) =>
+  render(
+    <Provider store={fakeStore}>
+      <MemoryRouter>
+        <Draft radiantTeam={{}} direTeam={{}} {...props} />
+      </MemoryRouter>
+    </Provider>,
+  );
+
 describe("Draft", () => {
-  // Bug-revealing test: the current Draft.tsx decides the team of each step
-  // from a hardcoded per-patch table, so after a skipped ban every later step
-  // can be given to the wrong team. it.fails passes as long as the bug is
-  // there; change it to it() once Draft.tsx uses buildDraft.
-  it.fails("shows the right team for every step of match 5293089497 (#2647)", () => {
-    const { container } = render(
-      <Provider store={fakeStore}>
-        <MemoryRouter>
-          <Draft
-            gameMode={match5293089497.game_mode}
-            draft={match5293089497.draft_timings}
-            startTime={match5293089497.start_time}
-            radiantTeam={{}}
-            direTeam={{}}
-          />
-        </MemoryRouter>
-      </Provider>,
-    );
+  // Bug-revealing test: before Draft.tsx used buildDraft, the team of each
+  // step came from a hardcoded per-patch table and only 3 of these 16 steps
+  // were shown for the right team.
+  it("shows the right team for every step of match 5293089497 (#2647)", () => {
+    const { container } = renderDraft({
+      picksBans: match5293089497.picks_bans,
+      draftTimings: match5293089497.draft_timings,
+    });
     expect(renderedPattern(container)).toBe(match5293089497.expectedPattern);
+  });
+
+  it("shows time used and reserve time left", () => {
+    const { container } = renderDraft({
+      picksBans: [
+        { order: 0, is_pick: false, team: 0, hero_id: 1 },
+        { order: 1, is_pick: true, team: 0, hero_id: 2 },
+      ],
+      draftTimings: [
+        { hero_id: 1, total_time_taken: 10, extra_time: 130 },
+        { hero_id: 2, total_time_taken: 45, extra_time: 115 },
+      ],
+    });
+    const rows = container.querySelectorAll("tr.draft-row");
+    expect(rows[0].textContent).toContain("10s used");
+    expect(rows[0].textContent).toContain("130s left");
+    expect(rows[1].textContent).toContain("115s left (-15s)");
+  });
+
+  it("shows the draft without times when there is no draft_timings", () => {
+    const { container } = renderDraft({
+      picksBans: match5293089497.picks_bans,
+    });
+    expect(container.querySelectorAll("tr.draft-row")).toHaveLength(16);
+    expect(container.textContent).not.toContain("used");
+    expect(container.textContent).not.toContain("left");
   });
 });
