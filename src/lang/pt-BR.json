@@ -1149,8 +1149,8 @@
   "laning_offlane": "Offlane",
   "laning_softSupport": "Suporte",
   "laning_hardSupport": "Suporte dedicado",
-  "laning_unknown_role": "Função indeterminada",
-  "laning_unknown_lane": "Rota indeterminada",
+  "laning_unknown_role": "Desconhecida",
+  "laning_unknown_lane": "Desconhecida",
   "laning_bottom": "Rota inferior",
   "laning_mid": "Rota do meio",
   "laning_top": "Rota superior",
@@ -1237,7 +1237,7 @@
   "laning_summary_levels_even": "Os níveis combinados estão empatados.",
   "laning_summary_level_lead": "{team} lidera em níveis combinados por {levels}.",
   "laning_summary_breakdown": "Detalhamento",
-  "laning_role_six_unknown": "{role}: comparação do nível 6 indisponível, pois as funções são indeterminadas.",
+  "laning_role_six_unknown": "{role}: comparação do nível 6 não encontrada porque pelo menos uma função é desconhecida.",
   "laning_role_six_neither": "Nem {player} nem {opponent} chegaram ao nível 6 até o minuto {minute}, como {role}.",
   "laning_role_six_tie": "{player} e {opponent} chegaram ao nível 6 por volta de {time}, como {role}.",
   "laning_role_six_missing": "{role}: dados de XP insuficientes para comparar o tempo até o nível 6.",
@@ -1249,7 +1249,7 @@
   "heading_match_timeline": "Linha do tempo da partida",
   "laning_show_tooltip_levels": "Mostrar níveis combinados da equipe na dica",
   "laning_role_six_comparison": "{team} — {role} ({hero}) atingiu o nível 6 primeiro, por volta de {time}, enquanto o adversário atingiu o nível 6 em {opponentTime}.",
-  "laning_ultimate_heading": "Quem chegou à ultimate?",
+  "laning_ultimate_heading": "Análise das ultimates",
   "laning_level_legend_hint": "Clique em um herói na legenda para destacar sua linha e atenuar as outras. Clique novamente para limpar a seleção.",
   "laning_series_legend_hint": "Clique em uma série na legenda para destacar sua linha e atenuar as outras. Clique novamente para limpar a seleção."
 }
