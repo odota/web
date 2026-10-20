@@ -9,6 +9,7 @@ export default {
   colorGreenDark: "var(--od-color-green-dark)",
   colorRed: "var(--od-color-red)",
   colorBlue: "var(--od-color-blue)",
+  colorLavenderMuted: "var(--od-color-lavender-muted)",
   colorMuted: "var(--od-color-muted)",
   colorYelor: "var(--od-color-yelor)",
   colorGolden: "var(--od-color-golden)",
