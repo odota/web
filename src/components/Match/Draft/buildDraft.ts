@@ -20,6 +20,8 @@ export type DraftStep = {
   isRadiant: boolean;
   timeTaken?: number;
   extraTime?: number;
+  // reserve time this step took from the team's previous step
+  extraTimeUsed?: number;
 };
 
 // Some parsed matches have every hero_id in draft_timings doubled. Decide for
@@ -34,6 +36,30 @@ const getTimingHeroId = (timings: DraftTiming[], heroIds: Set<number>) => {
 
 const toNumber = (value?: number | null) =>
   typeof value === "number" ? value : undefined;
+
+// A negative reserve time is not possible, so it comes from broken data.
+const toExtraTime = (value?: number | null) =>
+  typeof value === "number" && value >= 0 ? value : undefined;
+
+// A team's reserve time can only go down during the draft. Older parsed
+// matches sometimes have the reserve of the other team, so if it goes up the
+// reserve times are dropped for the whole draft instead of showing wrong ones.
+const addExtraTimeUsed = (steps: DraftStep[]): DraftStep[] => {
+  const last: Record<string, number> = {};
+  const used = steps.map((step) => {
+    const team = String(step.isRadiant);
+    if (step.extraTime === undefined) {
+      return undefined;
+    }
+    const previous = last[team];
+    last[team] = step.extraTime;
+    return previous === undefined ? undefined : previous - step.extraTime;
+  });
+  if (used.some((u) => u !== undefined && u < 0)) {
+    return steps.map((step) => ({ ...step, extraTime: undefined }));
+  }
+  return steps.map((step, i) => ({ ...step, extraTimeUsed: used[i] }));
+};
 
 /**
  * Builds the draft from picks_bans, which already says which team made each
@@ -55,7 +81,7 @@ export const buildDraft = (
   const timingHeroId = getTimingHeroId(timings, heroIds);
   const timingByHero = new Map(timings.map((t) => [timingHeroId(t), t]));
 
-  return [...picksBans]
+  const steps: DraftStep[] = [...picksBans]
     .sort((a, b) => a.order - b.order)
     .map((pb) => {
       const timing = timingByHero.get(pb.hero_id);
@@ -65,7 +91,8 @@ export const buildDraft = (
         isPick: pb.is_pick,
         isRadiant: pb.team === 0,
         timeTaken: toNumber(timing?.total_time_taken),
-        extraTime: toNumber(timing?.extra_time),
+        extraTime: toExtraTime(timing?.extra_time),
       };
     });
+  return addExtraTimeUsed(steps);
 };

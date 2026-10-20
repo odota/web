@@ -10,7 +10,6 @@ const stubPicksBans = (pattern: string, firstTeam = 0): PickBan[] =>
     hero_id: i + 1,
   }));
 
-
 const ORDER_734 =
   "bA bB bB bA bB bB bA PA PB bA bA bB PB PA PA PB PB PA bA bB bB bA PA PB";
 
@@ -138,14 +137,48 @@ describe("buildDraft", () => {
     const steps = buildDraft(picks_bans, draft_timings);
     expect(steps.every((s) => s.timeTaken !== undefined)).toBe(true);
     // ban 2 (hero 2) is order 3 in draft_timings, as hero_id 4
-    expect(steps[1]).toMatchObject({ heroId: 2, timeTaken: 0, extraTime: 130 });
+    expect(steps[1]).toMatchObject({ heroId: 2, timeTaken: 0 });
     // the last pick (hero 35) is hero_id 70 in draft_timings
     expect(steps[23]).toMatchObject({
       heroId: 35,
       isRadiant: false,
       timeTaken: 59,
-      extraTime: 11,
     });
+  });
+
+  it("drops reserve times that go up, as in match 8380808771", () => {
+    // radiant's reserve goes 106 -> 130 after step 7, so in this match some
+    // reserve times belong to the other team
+    const { picks_bans, draft_timings } = match8380808771;
+    const steps = buildDraft(picks_bans, draft_timings);
+    expect(steps.every((s) => s.extraTime === undefined)).toBe(true);
+    expect(steps.every((s) => s.extraTimeUsed === undefined)).toBe(true);
+  });
+
+  it("computes the reserve time used per team", () => {
+    const steps = buildDraft(stubPicksBans("bA bB PA PB PA"), [
+      { hero_id: 1, total_time_taken: 10, extra_time: 130 },
+      { hero_id: 2, total_time_taken: 50, extra_time: 110 },
+      { hero_id: 3, total_time_taken: 40, extra_time: 120 },
+      { hero_id: 4, total_time_taken: 20, extra_time: 110 },
+      { hero_id: 5, total_time_taken: 35, extra_time: 120 },
+    ]);
+    expect(steps.map((s) => s.extraTimeUsed)).toEqual([
+      undefined,
+      undefined,
+      10,
+      0,
+      0,
+    ]);
+  });
+
+  it("ignores negative reserve times", () => {
+    const steps = buildDraft(
+      [{ order: 0, is_pick: false, team: 0, hero_id: 10 }],
+      [{ hero_id: 10, total_time_taken: 37, extra_time: -286 }],
+    );
+    expect(steps[0].timeTaken).toBe(37);
+    expect(steps[0].extraTime).toBeUndefined();
   });
 
   it("does not halve hero ids when they are not doubled", () => {

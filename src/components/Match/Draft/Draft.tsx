@@ -9,6 +9,7 @@ import { getTeamName } from "../../../utility";
 import constants from "../../constants";
 import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
+import { buildDraft, DraftStep, DraftTiming, PickBan } from "./buildDraft";
 
 const Styled = styled.div`
   max-width: 800px;
@@ -127,252 +128,113 @@ const RightArrow = styled(KeyboardArrowRightIcon)`
     props.visible === "true" ? "visible" : "hidden"};
 `;
 
-const TimeTracker = ({
-  pb,
-  extraTime,
-  isCaptains,
-}: {
-  pb: any;
-  extraTime: number;
-  isCaptains: boolean;
-}) => (
+const TimeTracker = ({ step }: { step: DraftStep }) => (
   <div className="time-tracker">
-    <span className="taken">
-      <span className={pb.total_time_taken > 30 ? "extra-used" : ""}>
-        {pb.total_time_taken}s
-      </span>{" "}
-      used
-    </span>
-    {isCaptains && (
+    {step.timeTaken !== undefined && (
+      <span className="taken">
+        <span className={step.extraTimeUsed ? "extra-used" : ""}>
+          {step.timeTaken}s
+        </span>{" "}
+        used
+      </span>
+    )}
+    {step.extraTime !== undefined && (
       <span className="left">
-        {extraTime}s left
-        {pb.total_time_taken > 30 && (
-          <span className="extra-used">
-            {` (-${pb.total_time_taken - 30}s)`}
-          </span>
+        {step.extraTime}s left
+        {Boolean(step.extraTimeUsed) && (
+          <span className="extra-used">{` (-${step.extraTimeUsed}s)`}</span>
         )}
       </span>
     )}
   </div>
 );
 
-const DraftHero = ({
-  pb,
-  radiant,
-  calcExtraTime,
-  picks,
-  isCaptains,
-}: {
-  pb: any;
-  radiant: boolean;
-  calcExtraTime: Function;
-  picks: number[];
-  isCaptains: boolean;
-}) => (
-  <DraftCell radiant={radiant}>
-    <TimeTracker
-      pb={pb}
-      extraTime={calcExtraTime(radiant, pb.total_time_taken)}
-      isCaptains={isCaptains}
-    />
-    <HeroIcon>
-      <img
-        src={
-          heroes[pb.hero_id as keyof Heroes] &&
-          config.VITE_IMAGE_CDN + heroes[pb.hero_id as keyof Heroes].img
-        }
-        alt=""
-        data-ispick={picks.includes(pb.order)}
-      />
-      {!picks.includes(pb.order) && <div className="ban" />}
-    </HeroIcon>
-  </DraftCell>
-);
+const DraftHero = ({ step }: { step: DraftStep }) => {
+  const hero = heroes[String(step.heroId) as keyof Heroes];
+  return (
+    <DraftCell radiant={step.isRadiant}>
+      <TimeTracker step={step} />
+      <HeroIcon>
+        <img
+          src={hero && config.VITE_IMAGE_CDN + hero.img}
+          alt={hero ? hero.localized_name : ""}
+          data-ispick={step.isPick}
+        />
+        {!step.isPick && <div className="ban" />}
+      </HeroIcon>
+    </DraftCell>
+  );
+};
+
+const DraftRow = ({ step }: { step: DraftStep }) => {
+  const Label = step.isPick ? Pick : Ban;
+  return (
+    <tr className={`${step.isRadiant ? "radiant" : "dire"} draft-row`}>
+      <td style={{ paddingLeft: 0 }}>
+        {step.isRadiant && <DraftHero step={step} />}
+      </td>
+      <td>
+        <Label>
+          <LeftArrow
+            style={{ color: "inherit" }}
+            visible={step.isRadiant ? "true" : "false"}
+          />
+          {step.isPick ? "Pick" : "Ban"} {step.order}
+          <RightArrow
+            style={{ color: "inherit" }}
+            visible={step.isRadiant ? "false" : "true"}
+          />
+        </Label>
+      </td>
+      <td style={{ paddingRight: 0 }}>
+        {!step.isRadiant && <DraftHero step={step} />}
+      </td>
+    </tr>
+  );
+};
 
 const Draft = ({
-  gameMode,
   radiantTeam = {},
   direTeam = {},
-  draft = [],
-  startTime,
+  picksBans,
+  draftTimings,
   sponsorURL,
   sponsorIcon,
 }: {
-  gameMode: number;
   radiantTeam: any;
   direTeam: any;
-  draft: any[];
-  startTime: number;
+  picksBans?: PickBan[] | null;
+  draftTimings?: DraftTiming[] | null;
   sponsorURL?: string;
   sponsorIcon?: string;
 }) => {
   const strings = useStrings();
-  // one-based indexing (since draft[i].order starts at 1)
-  let orderOne = [];
-  let orderTwo = [];
-  let picks = [];
-  if (startTime > 1691534760) {
-    // post 7.34
-    orderOne = [1, 4, 7, 8, 10, 11, 14, 15, 18, 19, 22, 23];
-    orderTwo = [2, 3, 5, 6, 9, 12, 13, 16, 17, 20, 21, 24];
-    picks = [8, 9, 13, 14, 15, 16, 17, 18, 23, 24];
-  } else if (startTime > 1629255201) {
-    // post 7.30
-    orderOne = [1, 3, 5, 8, 9, 11, 13, 16, 17, 19, 21, 23];
-    orderTwo = [2, 4, 6, 7, 10, 12, 14, 15, 18, 20, 22, 24];
-    picks = [5, 6, 7, 8, 15, 16, 17, 18, 23, 24];
-  } else if (startTime > 1593388800) {
-    // post 7.27
-    orderOne = [1, 3, 5, 7, 9, 11, 13, 16, 18, 19, 21, 23];
-    orderTwo = [2, 4, 6, 8, 10, 12, 14, 15, 17, 20, 22, 24];
-    picks = [5, 6, 7, 8, 15, 16, 17, 18, 23, 24];
-  } else if (startTime > 1584403200) {
-    // post 7.25
-    orderOne = [1, 3, 5, 7, 9, 12, 14, 16, 18, 20, 21];
-    orderTwo = [2, 4, 6, 8, 10, 11, 13, 15, 17, 19, 22];
-    picks = [7, 8, 9, 10, 15, 16, 17, 18, 21, 22];
-  } else if (startTime > 1525910400) {
-    // post 7.15
-    orderOne = [1, 3, 5, 7, 10, 11, 13, 16, 18, 20, 21];
-    orderTwo = [2, 4, 6, 8, 9, 12, 14, 15, 17, 19, 22];
-    picks = [7, 8, 9, 10, 15, 16, 17, 18, 21, 22];
-  } else {
-    orderOne = [1, 3, 5, 7, 9, 12, 13, 16, 18, 20, 21];
-    orderTwo = [2, 4, 6, 8, 10, 11, 14, 15, 17, 19, 22];
-    picks = [9, 10, 11, 12, 15, 16, 17, 18, 21, 22];
-  }
-
-  // radiant is team 2, dire is team 3
-  const lastIsDire =
-    draft &&
-    draft[draft.length - 1] &&
-    draft[draft.length - 1].active_team === 3;
-  const radiantOrder = lastIsDire ? orderOne : orderTwo;
-  const radiantPick = (pb: any) => radiantOrder.includes(pb.order);
-  let radiantTimeLeft = 130;
-  let direTimeLeft = 130;
-  const calcExtraTime = (isRadiantTeam: boolean, timeTaken: number) => {
-    if (isRadiantTeam) {
-      if (timeTaken > 30) radiantTimeLeft -= timeTaken - 30;
-      return radiantTimeLeft;
-    }
-    if (timeTaken > 30) direTimeLeft -= timeTaken - 30;
-    return direTimeLeft;
-  };
+  const steps = buildDraft(picksBans, draftTimings);
 
   return (
     <Styled>
-      {draft && (
-        <div>
-          <section className="teams">
-            <Heading
-              title={`${getTeamName(radiantTeam, true)}`}
-              buttonLabel={
-                config.VITE_ENABLE_GOSUAI ? strings.gosu_default : undefined
-              }
-              buttonTo={`${sponsorURL}Draft`}
-              buttonIcon={sponsorIcon}
-              icon={<IconRadiant />}
-            />
-            <Heading
-              title={`${getTeamName(direTeam, false)}`}
-              icon={<IconDire />}
-            />
-          </section>
-          <table>
-            <tbody className="draft-table">
-              {gameMode === 2
-                ? draft.map((pb) => (
-                    <tr
-                      key={pb.order}
-                      className={`${radiantOrder.includes(pb.order) ? "radiant" : "dire"} draft-row`}
-                    >
-                      <td style={{ paddingLeft: 0 }}>
-                        {radiantPick(pb) && (
-                          <DraftHero
-                            pb={pb}
-                            radiant={radiantPick(pb)}
-                            calcExtraTime={calcExtraTime}
-                            picks={picks}
-                            isCaptains={gameMode === 2}
-                          />
-                        )}
-                      </td>
-                      <td>
-                        {picks.includes(pb.order) ? (
-                          <Pick>
-                            <LeftArrow
-                              style={{ color: "inherit" }}
-                              visible={radiantPick(pb) ? "true" : "false"}
-                            />
-                            Pick {pb.order}
-                            <RightArrow
-                              style={{ color: "inherit" }}
-                              visible={radiantPick(pb) ? "false" : "true"}
-                            />
-                          </Pick>
-                        ) : (
-                          <Ban>
-                            <LeftArrow
-                              style={{ color: "inherit" }}
-                              visible={radiantPick(pb) ? "true" : "false"}
-                            />
-                            Ban {pb.order}
-                            <RightArrow
-                              style={{ color: "inherit" }}
-                              visible={radiantPick(pb) ? "false" : "true"}
-                            />
-                          </Ban>
-                        )}
-                      </td>
-                      <td style={{ paddingRight: 0 }}>
-                        {!radiantPick(pb) && (
-                          <DraftHero
-                            pb={pb}
-                            radiant={radiantPick(pb)}
-                            calcExtraTime={calcExtraTime}
-                            picks={picks}
-                            isCaptains={gameMode === 2}
-                          />
-                        )}
-                      </td>
-                    </tr>
-                  ))
-                : draft
-                    .sort((a, b) => a.total_time_taken - b.total_time_taken)
-                    .map((pb) => (
-                      <tr
-                        key={pb.order}
-                        className={`${radiantOrder.includes(pb.order) ? "radiant" : "dire"} draft-row`}
-                      >
-                        <td style={{ paddingLeft: 0 }}>
-                          {radiantPick(pb) && (
-                            <DraftHero
-                              pb={pb}
-                              radiant={radiantPick(pb)}
-                              calcExtraTime={calcExtraTime}
-                              picks={picks}
-                              isCaptains={gameMode === 2}
-                            />
-                          )}
-                        </td>
-                        <td style={{ paddingRight: 0 }}>
-                          {!radiantPick(pb) && (
-                            <DraftHero
-                              pb={pb}
-                              radiant={radiantPick(pb)}
-                              calcExtraTime={calcExtraTime}
-                              picks={picks}
-                              isCaptains={gameMode === 2}
-                            />
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+      <section className="teams">
+        <Heading
+          title={`${getTeamName(radiantTeam, true)}`}
+          buttonLabel={
+            config.VITE_ENABLE_GOSUAI ? strings.gosu_default : undefined
+          }
+          buttonTo={`${sponsorURL}Draft`}
+          buttonIcon={sponsorIcon}
+          icon={<IconRadiant />}
+        />
+        <Heading
+          title={`${getTeamName(direTeam, false)}`}
+          icon={<IconDire />}
+        />
+      </section>
+      <table>
+        <tbody className="draft-table">
+          {steps.map((step) => (
+            <DraftRow key={step.order} step={step} />
+          ))}
+        </tbody>
+      </table>
     </Styled>
   );
 };
