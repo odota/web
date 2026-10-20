@@ -1191,8 +1191,8 @@
   "laning_offlane": "劣势路核心",
   "laning_softSupport": "辅助",
   "laning_hardSupport": "纯辅助",
-  "laning_unknown_role": "位置未确定",
-  "laning_unknown_lane": "分路未确定",
+  "laning_unknown_role": "未知",
+  "laning_unknown_lane": "未知",
   "laning_bottom": "下路",
   "laning_mid": "中路",
   "laning_top": "上路",
@@ -1279,7 +1279,7 @@
   "laning_summary_levels_even": "双方团队总等级持平。",
   "laning_summary_level_lead": "{team}团队总等级领先{levels}级。",
   "laning_summary_breakdown": "详细数据",
-  "laning_role_six_unknown": "{role}：位置未确定，无法比较6级时间。",
+  "laning_role_six_unknown": "{role}：至少一方的位置未知，未找到6级时间对比。",
   "laning_role_six_neither": "截至第{minute}分钟，担任{role}的{player}和{opponent}都还没到6级。",
   "laning_role_six_tie": "担任{role}的{player}和{opponent}都在约{time}达到6级。",
   "laning_role_six_missing": "{role}：经验数据不足，无法比较达到6级的时间。",
@@ -1291,7 +1291,7 @@
   "heading_match_timeline": "比赛时间线",
   "laning_show_tooltip_levels": "在提示中显示团队总等级",
   "laning_role_six_comparison": "{team}的{role}（{hero}）率先在约{time}达到6级，而对手在{opponentTime}达到6级。",
-  "laning_ultimate_heading": "谁先拥有大招？",
+  "laning_ultimate_heading": "大招分析",
   "laning_level_legend_hint": "点击图例中的英雄以突出其曲线并淡化其他曲线。再次点击可取消选择。",
   "laning_series_legend_hint": "点击图例中的数据系列以突出其曲线并淡化其他曲线。再次点击可取消选择。"
 }

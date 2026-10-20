@@ -1267,8 +1267,8 @@
   "laning_offlane": "Офлейнер",
   "laning_softSupport": "Частичная поддержка",
   "laning_hardSupport": "Полная поддержка",
-  "laning_unknown_role": "Роль не определена",
-  "laning_unknown_lane": "Линия не определена",
+  "laning_unknown_role": "Неизвестно",
+  "laning_unknown_lane": "Неизвестно",
   "laning_bottom": "Нижняя линия",
   "laning_mid": "Средняя линия",
   "laning_top": "Верхняя линия",
@@ -1354,7 +1354,7 @@
   "laning_summary_levels_even": "Суммарные уровни команд равны.",
   "laning_summary_level_lead": "{team} впереди по суммарным уровням на {levels}.",
   "laning_summary_breakdown": "Подробная статистика",
-  "laning_role_six_unknown": "{role}: сравнение 6-го уровня недоступно, роли не определены.",
+  "laning_role_six_unknown": "{role}: сравнение достижения 6-го уровня не найдено, поскольку хотя бы одна роль неизвестна.",
   "laning_role_six_neither": "Ни {player}, ни {opponent} не достигли 6-го уровня к {minute}-й минуте на роли «{role}».",
   "laning_role_six_tie": "{player} и {opponent} достигли 6-го уровня примерно в {time} на роли «{role}».",
   "laning_role_six_missing": "{role}: недостаточно данных опыта для сравнения времени достижения 6-го уровня.",
@@ -1366,7 +1366,7 @@
   "heading_match_timeline": "Хронология матча",
   "laning_show_tooltip_levels": "Показывать суммарные уровни команд в подсказке",
   "laning_role_six_comparison": "{team} — {role} ({hero}) первым достиг 6-го уровня примерно в {time}, а противник — в {opponentTime}.",
-  "laning_ultimate_heading": "Кто первым получил ультимейт?",
+  "laning_ultimate_heading": "Анализ ультимейтов",
   "laning_level_legend_hint": "Нажмите на героя в легенде, чтобы выделить его линию и приглушить остальные. Нажмите ещё раз, чтобы снять выделение.",
   "laning_series_legend_hint": "Нажмите на ряд в легенде, чтобы выделить его линию и приглушить остальные. Нажмите ещё раз, чтобы снять выделение."
 }
