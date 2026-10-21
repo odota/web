@@ -294,7 +294,7 @@ class PlayersGraph extends React.Component<
               />
               <Grid />
               <Tooltip
-                content={<PlayerGraphTooltip players={match.players} />}
+                content={<PlayerGraphTooltip players={match.players} metric={type} />}
                 position={{ y: 10 }}
                 wrapperStyle={{ zIndex: 1000 }}
                 reverseDirection={{ x: true, y: false }}
