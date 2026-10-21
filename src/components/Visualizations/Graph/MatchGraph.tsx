@@ -174,6 +174,7 @@ const XpNetworthGraph = ({ match }: { match: Match }) => {
 };
 
 type PlayersGraphProps = {
+  maxMinute?: number;
   match: Match;
   type: string;
   strings: Strings;
@@ -181,13 +182,13 @@ type PlayersGraphProps = {
 
 class PlayersGraph extends React.Component<
   PlayersGraphProps,
-  { hoverHero: string | null; selectedHero: string | null }
+  { hoverHero: string | null; selectedHeroes: string[] }
 > {
   constructor(props: PlayersGraphProps) {
     super(props);
     this.state = {
       hoverHero: null,
-      selectedHero: null,
+      selectedHeroes: [],
     };
   }
 
@@ -210,19 +211,20 @@ class PlayersGraph extends React.Component<
   };
 
   /**
-   * Toggles persistent hero emphasis for the clicked legend entry.
+   * Toggles each hero independently for comparison with other selected heroes.
    */
   handleLegendClick = (entry: { dataKey?: unknown }) => {
     const hero = String(entry.dataKey);
     this.setState((state) => ({
-      selectedHero: state.selectedHero === hero ? null : hero,
+      selectedHeroes: state.selectedHeroes.includes(hero)
+        ? state.selectedHeroes.filter((selected) => selected !== hero)
+        : [...state.selectedHeroes, hero],
     }));
   };
 
   render() {
     const { match, type, strings } = this.props;
-    const { hoverHero, selectedHero } = this.state;
-    const focusedHero = hoverHero ?? selectedHero;
+    const { hoverHero, selectedHeroes } = this.state;
 
     const dataKey = `${type === "levels" ? "xp" : type}_t` as keyof MatchPlayer;
     const timeline = match.players.reduce<number[]>((longest, player) => {
@@ -232,7 +234,7 @@ class PlayersGraph extends React.Component<
         : longest;
     }, []);
     if (timeline.length) {
-      const lastMinute = Math.floor(match.duration / 60);
+      const lastMinute = Math.min(this.props.maxMinute ?? Infinity, Math.floor(match.duration / 60));
       // One entry per minute through the match duration, containing the formatted time
       // and each hero's stat value (or level for the levels graph), keyed by hero name.
       const matchData = timeline.slice(0, lastMinute + 1).map(
@@ -308,8 +310,8 @@ class PlayersGraph extends React.Component<
                   ];
                 const isSelected =
                   heroes[player.hero_id] &&
-                  focusedHero === heroes[player.hero_id].localized_name;
-                const opacity = !focusedHero || isSelected ? 1 : 0.25;
+                  (selectedHeroes.includes(hero.localized_name) || hoverHero === hero.localized_name);
+                const opacity = (!hoverHero && !selectedHeroes.length) || isSelected ? 1 : 0.25;
                 const stroke = isSelected ? 2 : 1;
                 return (
                   <Line
@@ -356,10 +358,12 @@ const MatchGraph = ({
   type,
   match,
   width = 1200,
+  maxMinute,
 }: {
   type: string;
   match: Match;
   width?: number;
+  maxMinute?: number;
 }) => {
   const strings = useStrings();
   if (type === "networth" || type === "levels") {
@@ -390,7 +394,7 @@ const MatchGraph = ({
     type === "hero_healing" ||
     type === "camps_stacked"
   ) {
-    return <PlayersGraph type={type} match={match} strings={strings} />;
+    return <PlayersGraph type={type} match={match} strings={strings} maxMinute={maxMinute} />;
   }
   return null;
 };

@@ -18,6 +18,10 @@ export const LaningPage = styled.div`
 
 /** Provides the shared responsive card surface and slate border. */
 export const PageSection = styled.section`
+  .laning-heading .subtitle svg { 
+    width: 14px !important;
+    height: 14px !important;
+  }
   min-width: 0;
   padding: 20px;
   border: 1px solid ${laningBorderColor};
@@ -64,6 +68,9 @@ export const SummaryStats = styled.dl<{ $metric: "gold" | "levels"; $advantageFi
 /** Centers the selected player’s heatmap in its card. */
 export const HeatmapContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
   justify-content: center;
 `;
 
@@ -97,6 +104,7 @@ export const SummaryResult = styled.div<{ $winner: "radiant" | "dire" | "tie" }>
     line-height: 1.6;
   }
   .summary-phrase { display: inline-flex; align-items: center; }
+  .summary-punctuation { margin-left: -4px; }
   .summary-narrative .summary-gold-lead,
   .summary-narrative .summary-minute,
   .summary-narrative > span {
@@ -105,6 +113,7 @@ export const SummaryResult = styled.div<{ $winner: "radiant" | "dire" | "tie" }>
   .summary-narrative .summary-gold-lead,
   .summary-narrative .summary-minute { height: auto; }
   .summary-minute {
+    color: ${constants.colorWhite};
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -183,6 +192,13 @@ export const UltimateSummary = styled.section`
   padding-top: 16px;
   border-top: 1px solid ${laningBorderColor};
 
+  .summary-team-icon { display: inline-flex; align-items: center; flex-shrink: 0; }
+  .summary-team-icon svg, .summary-hero > img { display: block; }
+  .summary-hero, .summary-keyword, .summary-time {
+    vertical-align: middle;
+    line-height: 24px;
+  }
+
   h3 {
     margin: 0 0 10px;
     font-family: ${constants.fontFamilyFuturistic};
@@ -212,4 +228,43 @@ export const SummaryLevels = styled.span`
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   svg { width: 16px; height: 16px; flex-shrink: 0; }
+`;
+
+/** Player selection beside the laning map. */
+export const HeatmapPlayers = styled.div`
+  padding: 16px;
+  border: 1px solid ${laningBorderColor};
+  border-radius: 8px;
+  background: rgba(80, 140, 190, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 200px;
+  fieldset { border: 0; padding: 0; margin: 0; }
+  legend { margin-bottom: 6px; font-family: ${constants.fontFamilyFuturistic}; font-size: 13px; }
+  label { display: flex; align-items: center; gap: 8px; padding: 5px 6px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+  label:hover { background: rgba(125, 200, 240, 0.08); }
+  img { flex-shrink: 0; }
+  input[type="radio"] {
+    appearance: none;
+    display: block;
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    border: 1px solid ${constants.textColorSecondary};
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+  }
+  input[type="radio"]:hover { border-color: ${constants.colorBlue}; box-shadow: 0 0 0 3px rgba(125, 200, 240, 0.12); }
+  input[type="radio"]:checked {
+    border-color: ${constants.colorBlue};
+    background: ${constants.colorBlue};
+    box-shadow: inset 0 0 0 3px ${constants.primarySurfaceColor};
+  }
+  input[type="radio"]:focus-visible { outline: 2px solid ${constants.colorBlue}; outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) {
+    input[type="radio"] { transition: none; }
+  }
 `;
