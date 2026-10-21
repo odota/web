@@ -1,3 +1,4 @@
+import LaneReplayComparison from "./LaneReplayComparison";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import BlockIcon from "@mui/icons-material/Block";
@@ -14,13 +15,13 @@ import useStrings from "../../../hooks/useStrings.hook";
 import { IconRadiant, IconDire } from "../../Icons";
 import TooltipMetricIcon from "../../Visualizations/Graph/TooltipMetricIcon";
 import Heading from "../../Heading/Heading";
-import { PageSection, SummaryTeam, TableCaption } from "./StyledLaning";
+import { PageSection, SummaryTeam, TableCaption, ReplaySummary } from "./StyledLaning";
 import { TeamTable } from "./LaningTable";
 import { getLaningRoles, getPlayerIdentity, getStatAtMinute, getLevelAtMinute, formatStat, getRoleLabels, LaneRole } from "./laning.utils";
 
 import { getReplayKDA, getReplayGain, getReplayCreeps, getReplaySkills, inReplayInterval, ReplayPlayer } from "./replay.utils";
 
-const ComparisonToggles = styled(ToggleButtonGroup)`
+export const ComparisonToggles = styled(ToggleButtonGroup)`
   && { display: flex; width: 100%; }
   flex-wrap: wrap;
   gap: 0;
@@ -30,28 +31,31 @@ const ComparisonToggles = styled(ToggleButtonGroup)`
     margin: 0;
     padding: 8px 12px;
     gap: 6px;
-    border: 1px solid ${constants.dividerColor} !important;
+    border: 1px solid rgba(80, 140, 190, 0.5) !important;
     border-radius: 0 !important;
     &:not(:first-of-type) { border-left: 0 !important; }
     &:first-of-type { border-radius: 6px 0 0 6px !important; }
     &:last-of-type { border-radius: 0 6px 6px 0 !important; }
     &:only-of-type { border-radius: 6px !important; }
-    background: ${constants.secondarySurfaceColor};
+    background: rgba(80, 140, 190, 0.12);
     color: ${constants.textColorSecondary};
     font-family: ${constants.fontFamilyFuturistic};
     font-size: 12px;
     line-height: 1.4;
     text-transform: none;
     transition: background-color 150ms ease, border-color 150ms ease;
-    &:hover { background: rgba(125, 200, 240, 0.1); }
+    &:hover { background: rgba(80, 140, 190, 0.22); border-color: ${constants.colorBlue} !important; }
     &.Mui-selected, &.Mui-selected:hover {
       color: ${constants.colorBlue};
-      background: rgba(125, 200, 240, 0.14);
+      background: rgba(80, 140, 190, 0.32);
       border-color: ${constants.colorBlue} !important;
     }
     &:focus-visible { outline: 2px solid ${constants.colorBlue}; outline-offset: 2px; }
   }
   .role-icon { width: 20px; height: 20px; flex-shrink: 0; background-image: url("/assets/images/dota2/role-icons.png"); background-size: 500% auto; background-repeat: no-repeat; }
+  .matchup-label { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; }
+  .opposing-role-label { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+  .lane-label { align-self: stretch; text-align: center; font-size: 10px; line-height: 1.3; color: ${constants.textColorSecondary}; }
   @media (prefers-reduced-motion: reduce) { & .MuiToggleButtonGroup-grouped { transition: none; } }
 `;
 
@@ -87,28 +91,62 @@ const purchaseTime = (seconds: number) => {
   return `${seconds < 0 ? "−" : ""}${Math.floor(elapsed / 60)}:${String(elapsed % 60).padStart(2, "0")}`;
 };
 
-/** Interval snapshots for opposing roles, with cumulative purchase and pickup logs. */
+const laneOpponents: Record<LaneRole, LaneRole> = {
+  carry: "offlane",
+  hardSupport: "softSupport",
+  midlane: "midlane",
+  softSupport: "hardSupport",
+  offlane: "carry",
+};
+
+/** Interval snapshots for opposing roles or lane opponents, with cumulative event logs. */
 const RoleComparison = ({ match }: { match: Match }) => {
   const strings = useStrings();
+  const [comparisonMode, setComparisonMode] = useState<"role" | "opposing" | "lane">("lane");
+  const laneComparison = comparisonMode === "opposing";
   const [selectedRole, setSelectedRole] = useState<LaneRole>("carry");
   const roleLabels = getRoleLabels(strings);
+  const laneLabels: Record<LaneRole, string> = {
+    carry: "Bottom Lane",
+    hardSupport: "Bottom Lane",
+    midlane: "Mid Lane",
+    softSupport: "Top Lane",
+    offlane: "Top Lane",
+  };
   const rolePositions = { carry: 0, midlane: 25, offlane: 50, softSupport: 75, hardSupport: 100 };
-  const roleOptions: LaneRole[] = ["carry", "midlane", "offlane", "softSupport", "hardSupport"];
+  const roleOptions: LaneRole[] = laneComparison
+    ? ["offlane", "softSupport", "midlane", "hardSupport", "carry"]
+    : ["carry", "midlane", "offlane", "softSupport", "hardSupport"];
+  const opponentRole = laneComparison ? laneOpponents[selectedRole] : selectedRole;
+  const title = "Laning Phase Replay";
   const intervals = [2, 4, 6, 8, 10].filter((minute) => minute * 60 <= match.duration);
   const [selectedMinute, setSelectedMinute] = useState(10);
   const activeMinute = intervals.includes(selectedMinute) ? selectedMinute : intervals[intervals.length - 1];
-  const pair: (ReplayPlayer | undefined)[] = [getLaningRoles(match.players, true)[selectedRole], getLaningRoles(match.players, false)[selectedRole]];
+  const pair: (ReplayPlayer | undefined)[] = [getLaningRoles(match.players, true)[selectedRole], getLaningRoles(match.players, false)[opponentRole]];
   const playerName = (player: MatchPlayer | undefined) => {
     if (!player) return strings.laning_unavailable;
     const identity = getPlayerIdentity(player, strings);
     return <span className="player-identity">{identity.icon && <img src={config.VITE_IMAGE_CDN + identity.icon} alt="" width={24} height={24} />}<span style={{ color: playerColors[player.player_slot as unknown as keyof typeof playerColors] }}>{identity.playerName}</span></span>;
   };
   const finite = (value: number | undefined) => typeof value === "number" && Number.isFinite(value) ? value : null;
-  return <PageSection aria-label="Laning Phase Replay">
-    <Heading title="Laning Phase Replay" />
-    <TableCaption>Skills, heroes killed, and deaths retain all records by the selected time. Skills are grouped into two-minute intervals. Creep and gain rows cover the previous two minutes. Skill timing estimated from XP assumes points were spent on leveling; recorded upgrade times are used when available. Creep types require timed kill logs. Gold is cumulative gold earned. Items and runes show purchases and pickups recorded by each time, not current inventory or active buffs.</TableCaption>
+  return <PageSection aria-label={title}>
+    <Heading title={title} />
+    <ComparisonToggles exclusive value={comparisonMode} onChange={(_, mode: "role" | "opposing" | "lane" | null) => { if (mode) setComparisonMode(mode); }} aria-label="Replay comparison mode" size="small">
+      <ToggleButton value="lane">Lane Comparison</ToggleButton>
+      <ToggleButton value="opposing">Opposing Role Comparison</ToggleButton>
+      <ToggleButton value="role">Role Comparison</ToggleButton>
+    </ComparisonToggles>
+    {comparisonMode === "lane" ? <LaneReplayComparison match={match} /> : <>
     <ComparisonToggles exclusive value={selectedRole} onChange={(_, role: LaneRole | null) => { if (role) setSelectedRole(role); }} aria-label={strings.laning_role} size="small">
-      {roleOptions.map((role) => <ToggleButton key={role} value={role}><span className="role-icon" aria-hidden="true" style={{ backgroundPosition: `${rolePositions[role]}% center` }} />{roleLabels[role]}</ToggleButton>)}
+      {roleOptions.map((role) => {
+        const renderRole = (value: LaneRole) => <span className="opposing-role-label" style={{ flexWrap: "nowrap" }}><span className="role-icon" aria-hidden="true" style={{ backgroundPosition: `${rolePositions[value]}% center` }} />{roleLabels[value]}</span>;
+        return <ToggleButton key={role} value={role}>
+          <span className="matchup-label">
+            {laneComparison && <small className="lane-label">{laneLabels[role]}</small>}
+            <span className="opposing-role-label">{renderRole(role)}{laneComparison && <> vs {renderRole(laneOpponents[role])}</>}</span>
+          </span>
+        </ToggleButton>;
+      })}
     </ComparisonToggles>
     <ComparisonToggles exclusive value={activeMinute ?? null} onChange={(_, minute: number | null) => { if (minute !== null) setSelectedMinute(minute); }} aria-label="Role comparison time" size="small">
       {intervals.map((minute) => <ToggleButton key={minute} value={minute} aria-label={`${minute} minutes`}><AccessTimeIcon aria-hidden="true" sx={{ fontSize: 14, color: constants.colorBlue }} />{minute}:00</ToggleButton>)}
@@ -129,7 +167,7 @@ const RoleComparison = ({ match }: { match: Match }) => {
           <h3>{minute - 2}:00–{minute}:00</h3>
           <div className="table-scroll"><table>
             <thead><tr><th /><th><SummaryTeam $radiant><IconRadiant width="16" height="16" />{strings.general_radiant}</SummaryTeam></th><th><SummaryTeam $radiant={false}><IconDire width="16" height="16" />{strings.general_dire}</SummaryTeam></th><th>{strings.laning_difference}</th><th title={strings.laning_percentage_difference_hint}>{strings.laning_difference_percent}</th></tr>
-              <tr><th>{strings.th_players}</th>{pair.map((p, index) => <th key={index}>{playerName(p)}</th>)}<th /><th /></tr>
+              <tr><th>{strings.th_players}</th>{pair.map((p, index) => <th key={index}>{laneComparison && <div>{roleLabels[index === 0 ? selectedRole : opponentRole]}</div>}{playerName(p)}</th>)}<th /><th /></tr>
             </thead>
             <tbody>
               {stats.map(({ label, icon, values }) => {
@@ -241,7 +279,7 @@ const RoleComparison = ({ match }: { match: Match }) => {
       const worth = metrics[1].values;
       const goldDifference = worth[0] !== null && worth[1] !== null ? worth[0] - worth[1] : null;
       const renderHero = (player: MatchPlayer | undefined) => player ? heroLabel(player) : strings.general_no_hero;
-      return <MetricSummary aria-label="Replay summary" style={{ marginTop: 20 }}>
+      return <ReplaySummary aria-label="Replay summary"><MetricSummary style={{ margin: 0, fontSize: "inherit", color: "inherit", width: "100%" }}>
         <div className="summary-intro">{formatTemplate(goldDifference ? strings.laning_comparison_winner_intro : strings.laning_comparison_intro, {
           hero: renderHero(pair[goldDifference !== null && goldDifference > 0 ? 0 : 1]),
           time: <span className="summary-time"><AccessTimeIcon aria-hidden="true" /><time>{minute}:00</time></span>,
@@ -260,9 +298,21 @@ const RoleComparison = ({ match }: { match: Match }) => {
               value: keyword(difference === null ? "" : formatStat(Math.abs(difference))),
             },
           )}</span></div></li>;
-        })}</ul>
-      </MetricSummary>;
+        })}{(() => {
+          const [radiantKills, radiantDeaths] = getReplayKDA(pair[0], minute);
+          const [direKills, direDeaths] = getReplayKDA(pair[1], minute);
+          if (radiantKills === null || radiantDeaths === null || direKills === null || direDeaths === null) {
+            return <li>Kills and deaths comparison unavailable.</li>;
+          }
+          const radiantWins = radiantKills > direKills || (radiantKills === direKills && radiantDeaths <= direDeaths);
+          const killDifference = Math.abs(radiantKills - direKills);
+          const deathDifference = radiantWins ? radiantDeaths - direDeaths : direDeaths - radiantDeaths;
+          if (killDifference === 0 && deathDifference === 0) return null;
+          return <li><div className="summary-item"><span>{renderHero(pair[radiantWins ? 0 : 1])} has {killDifference !== 0 && <strong className="summary-keyword">{formatStat(killDifference)} more kills</strong>}{killDifference !== 0 && deathDifference !== 0 && " and "}{deathDifference !== 0 && <strong className="summary-keyword">{formatStat(Math.abs(deathDifference))} {deathDifference > 0 ? "more" : "less"} deaths</strong>}.</span></div></li>;
+        })()}</ul>
+      </MetricSummary></ReplaySummary>;
     })()}
+    </>}
   </PageSection>;
 };
 

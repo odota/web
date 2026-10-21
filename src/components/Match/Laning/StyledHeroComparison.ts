@@ -7,6 +7,29 @@ import styled from "styled-components";
 import { laningBorderColor } from "./StyledLaning";
 import constants from "../../constants";
 
+/** Presents hero identities and the metric lead in the chart tooltip. */
+export const HeroComparisonTooltip = styled.div`
+  min-width: 220px;
+  max-width: min(320px, calc(100vw - 48px));
+  padding: 14px;
+  border: 1px solid ${laningBorderColor};
+  border-radius: 10px;
+  background: ${constants.primarySurfaceColor};
+  color: ${constants.textColorPrimary};
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  font-size: 12px;
+  line-height: 1.5;
+  pointer-events: none;
+  .tooltip-heading { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; font-weight: 600; }
+  .tooltip-heading time { color: ${constants.textColorSecondary}; font-variant-numeric: tabular-nums; }
+  .tooltip-player { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+  .tooltip-player img { border-radius: 4px; flex-shrink: 0; }
+  .tooltip-identity { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+  .tooltip-identity small { display: block; color: ${constants.textColorSecondary}; }
+  .tooltip-player > strong { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .tooltip-lead { border-top: 1px solid ${laningBorderColor}; padding-top: 10px; margin-top: 12px; color: ${constants.textColorSecondary}; }
+`;
+
 /** Arranges opposing hero selectors in responsive columns. */
 export const HeroMenus = styled.div`
   display: grid;
@@ -35,7 +58,7 @@ export const HeroSelectButton = styled.button`
   padding: 12px 14px;
   border: 1px solid ${laningBorderColor};
   border-radius: 8px;
-  background: ${constants.secondarySurfaceColor};
+  background: rgba(140, 110, 190, 0.12);
   color: ${constants.textColorPrimary};
   text-align: left;
   font: inherit;
@@ -126,7 +149,7 @@ export const MetricList = styled.div`
     grid-template-columns: minmax(0, 1fr);
     grid-auto-rows: 1fr;
     align-items: stretch;
-    gap: 12px;
+    gap: 8px;
   }
 
   @media (max-width: 680px) { grid-template-columns: minmax(0, 1fr); }
@@ -138,13 +161,13 @@ export const MetricRow = styled.section`
   flex-direction: column;
   justify-content: space-between;
   min-width: 0;
-  padding: 10px 14px;
+  padding: 8px 12px;
   border: 1px solid ${laningBorderColor};
   border-radius: 10px;
-  background: ${constants.secondarySurfaceColor};
+  background: rgba(140, 110, 190, 0.12);
   font-variant-numeric: tabular-nums;
 
-  @media (max-width: 680px) { padding: 10px; }
+  @media (max-width: 680px) { padding: 8px; }
 `;
 
 /** Centers the metric label above its values. */
