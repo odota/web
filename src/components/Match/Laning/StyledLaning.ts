@@ -96,6 +96,7 @@ export const SummaryResult = styled.div<{ $winner: "radiant" | "dire" | "tie" }>
   h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 0 6px; margin: 0; font-size: 22px; font-weight: 400; }
   p { margin: 8px 0 0; color: ${constants.textColorSecondary}; font-size: 13px; line-height: 1.6; }
   .summary-narrative {
+    font-family: ${constants.fontFamilyFuturistic};
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -191,6 +192,8 @@ export const UltimateSummary = styled.section`
   margin-top: 20px;
   padding-top: 16px;
   border-top: 1px solid ${laningBorderColor};
+
+  .summary-item { font-family: ${constants.fontFamilyFuturistic}; }
 
   .summary-team-icon { display: inline-flex; align-items: center; flex-shrink: 0; }
   .summary-team-icon svg, .summary-hero > img { display: block; }
