@@ -31,9 +31,9 @@ const Details = styled.div`
     align-items: center;
     gap: 12px;
     min-height: 140px;
-    border: 1px solid ${constants.dividerColor};
+    border: 1px solid rgba(100, 160, 210, 0.25);
     border-radius: 4px;
-    background: ${constants.secondarySurfaceColor};
+    background: rgba(100, 160, 210, 0.1);
     color: ${constants.textColorSecondary};
     text-align: center;
     img { width: 100%; max-height: 180px; object-fit: contain; }
