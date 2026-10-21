@@ -4,10 +4,9 @@ import Helmet from "react-helmet";
 import { heroes } from "dotaconstants";
 import styled from "styled-components";
 import { transformations, subTextStyle, rankTierToString } from "../../utility";
-import { getProMatches, getPublicMatches } from "../../actions";
+import { getProMatches, getPublicMatches, getTeams } from "../../actions";
 import Table from "../Table/Table";
 import TableLink from "../Table/TableLink";
-// import Heading from '../Heading';
 import { IconTrophy } from "../Icons";
 import Match from "../Match/Match";
 import TabBar from "../TabBar/TabBar";
@@ -15,7 +14,9 @@ import { StyledTeamIconContainer } from "../Match/StyledMatch";
 import constants from "../constants";
 import FromNowTooltip from "../Visualizations/FromNowTooltip";
 import HeroImage from "../Visualizations/HeroImage";
+import TeamLogo from "../TeamLogo/TeamLogo";
 import Heading from "../Heading/Heading";
+import { groupMatchesBySeries, MatchSeries } from "./series";
 
 export const WinnerSpan = styled.span`
   display: inline-block;
@@ -28,7 +29,29 @@ export const WinnerSpan = styled.span`
   }
 `;
 
-const matchesColumns = (strings: Strings) => [
+/**
+ * Displays a muted best-of format label.
+ * @param props.$type Series type code: 0 for BO1, 1 for BO3, or 2 for BO5.
+ * @example
+ * <SeriesFormatBadge $type={1}>BO3</SeriesFormatBadge>
+ */
+const SeriesFormatBadge = styled.span<{ $type: number }>`
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  border: 1px solid ${constants.dividerColor};
+  border-radius: 4px;
+  background: transparent;
+  color: ${constants.textColorSecondary};
+  font-family: ${constants.fontFamilyFuturistic};
+  font-size: ${constants.fontSizeSmall};
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  white-space: nowrap;
+`;
+
+export const matchesColumns = (strings: Strings) => [
   {
     field: "version",
     displayFn: (row: any, col: any, field: any) => (
@@ -92,6 +115,107 @@ const matchesColumns = (strings: Strings) => [
           </WinnerSpan>
         )}
         {field}
+      </div>
+    ),
+  },
+];
+
+export type SeriesTeam = { team_id: number; logo_url: string };
+
+/**
+ * Renders a series participant with its logo and optional team profile link.
+ * @param id Team identifier when available.
+ * @param name Team name, or null for the unknown label.
+ * @param teams Team metadata used for logo lookup.
+ * @param strings Localized interface strings.
+ * @returns The participant identity and logo.
+ * @example
+ * seriesTeam(8965331, "Chandogs", teams, strings);
+ */
+const seriesTeam = (id: number | null | undefined, name: string | null, teams: SeriesTeam[], strings: Strings) => {
+  const src = teams.find((team) => team.team_id === id)?.logo_url || "";
+  const label = name || strings.general_unknown;
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <TeamLogo teamId={id} src={src} style={{ width: 32, height: 32, objectFit: "contain", flexShrink: 0 }} />
+      {id ? <TableLink to={`/teams/${id}`}>{label}</TableLink> : label}
+    </div>
+  );
+};
+
+/**
+ * Builds the shared columns for grouped professional series tables.
+ * @param strings Localized column labels and fallback messages.
+ * @param teams Team records used to resolve logos.
+ * @param seriesLink Optional function returning each series or league detail URL.
+ * @param leagueIcon Optional renderer for artwork beside the league name.
+ * @returns Table column definitions for league, format, teams, score, and game links.
+ * @example
+ * const columns = seriesColumns(strings, teams, (row) => `/esports/leagues/${row.leagueid}`);
+ * <Table data={groupMatchesBySeries(matches)} columns={columns} />
+ */
+export const seriesColumns = (
+  strings: Strings,
+  teams: SeriesTeam[],
+  seriesLink = (row: MatchSeries) => `/matches/series/${row.key}`,
+  leagueIcon?: (row: MatchSeries) => React.ReactNode,
+) => [
+  {
+    displayName: strings.th_league,
+    field: "league_name",
+    displayFn: (row: MatchSeries) => (
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        {leagueIcon?.(row)}
+        <div>
+          <TableLink to={seriesLink(row)}>
+            {row.league_name}
+          </TableLink>
+          <div style={{ ...subTextStyle }}>
+            <FromNowTooltip timestamp={row.start_time} />
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    displayName: strings.esports_format,
+    field: "series_type",
+    displayFn: (row: MatchSeries) => {
+      const type = row.series_type;
+      return typeof type === "number" && Number.isInteger(type) && type >= 0 && type <= 2
+        ? <SeriesFormatBadge $type={type}>BO{type * 2 + 1}</SeriesFormatBadge>
+        : strings.general_unknown;
+    },
+  },
+  {
+    displayName: strings.th_team_name,
+    field: "team1",
+    displayFn: (row: MatchSeries) => seriesTeam(row.team1Id, row.team1, teams, strings),
+  },
+  {
+    displayName: strings.th_score,
+    field: "score",
+    displayFn: (row: MatchSeries) => (
+      <span title={strings.matches_series_score_tooltip}>
+        {row.team1Wins} – {row.team2Wins}
+      </span>
+    ),
+  },
+  {
+    displayName: strings.th_team_name,
+    field: "team2",
+    displayFn: (row: MatchSeries) => seriesTeam(row.team2Id, row.team2, teams, strings),
+  },
+  {
+    displayName: strings.th_matches,
+    field: "games",
+    displayFn: (row: MatchSeries) => (
+      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        {row.games.map((game, index) => (
+          <TableLink key={game.match_id} to={`/matches/${game.match_id}`}>
+            {strings.matches_game} {index + 1} · {game.match_id}
+          </TableLink>
+        ))}
       </div>
     ),
   },
@@ -177,6 +301,20 @@ const matchTabs = (strings: Strings) => [
     route: "/matches/pro",
   },
   {
+    name: strings.matches_series,
+    key: "series",
+    content: (propsPar: MatchesProps) => (
+      <Table
+        data={groupMatchesBySeries(propsPar.proData)}
+        columns={seriesColumns(strings, propsPar.teams)}
+        keyFn={(row: MatchSeries) => row.key}
+        loading={propsPar.loading}
+        loadingText="Loading professional series..."
+      />
+    ),
+    route: "/matches/series",
+  },
+  {
     name: strings.matches_highest_mmr,
     key: "highMmr",
     content: (propsPar: MatchesProps) => (
@@ -196,6 +334,7 @@ const matchTabs = (strings: Strings) => [
 const getData = (props: MatchesProps) => {
   const route = props.match.params.matchId || "pro";
   if (!Number.isInteger(Number(route))) {
+    if (route === "series") props.dispatchTeams();
     props.dispatchProMatches();
     props.dispatchPublicMatches({ min_rank: 75 });
   }
@@ -205,6 +344,8 @@ type MatchesProps = {
   match: { params: { matchId: string; info?: string } };
   strings: Strings;
   dispatchProMatches: Function;
+  dispatchTeams: Function;
+  teams: SeriesTeam[];
   dispatchPublicMatches: Function;
   proData: any[];
   publicData: any[];
@@ -229,12 +370,52 @@ class Matches extends React.Component<MatchesProps> {
       return <Match {...this.props} matchId={route} />;
     }
 
+    if (route === "series" && this.props.match.params.info) {
+      const series = groupMatchesBySeries(this.props.proData).find(
+        (row) => row.key === this.props.match.params.info,
+      );
+      return (
+        <div>
+          <Helmet title={series?.league_name || strings.matches_series} />
+          <TableLink to="/matches/series">{strings.matches_series}</TableLink>
+          <Heading
+            title={series?.league_name || strings.matches_series}
+            subtitle={series && (
+              <span>
+                {strings.th_league}: {series.leagueid}
+                {!!series.series_id && ` / ${strings.matches_series}: ${series.series_id}`}
+              </span>
+            )}
+            className="top-heading"
+          />
+          <Table
+            data={series ? [series] : []}
+            columns={seriesColumns(strings, this.props.teams)}
+            loading={this.props.loading}
+            loadingText="Loading professional series..."
+            placeholderMessage={strings.matches_series_not_found}
+          />
+          {series && (
+            <>
+              <Heading title={strings.th_matches} />
+              <p>{strings.matches_series_available_games}</p>
+              <Table
+                data={series.games}
+                columns={matchesColumns(strings)}
+                keyFn={(game: { match_id: number }) => game.match_id}
+              />
+            </>
+          )}
+        </div>
+      );
+    }
+
     const tab = matchTabs(strings).find((_tab) => _tab.key === route);
     return (
       <div>
         <Helmet title={strings.title_matches} />
         <Heading title={strings.th_matches} className="top-heading" />
-        <TabBar tabs={matchTabs(strings)} />
+        <TabBar tabs={matchTabs(strings).filter((item) => item.key !== "series")} />
         {tab && tab.content(this.props)}
       </div>
     );
@@ -243,12 +424,14 @@ class Matches extends React.Component<MatchesProps> {
 
 const mapStateToProps = (state: any) => ({
   proData: state.app.proMatches.data,
+  teams: state.app.teams.data,
   publicData: state.app.publicMatches.data,
   loading: state.app.proMatches.loading,
   strings: state.app.strings,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
+  dispatchTeams: () => dispatch(getTeams()),
   dispatchProMatches: () => dispatch(getProMatches()),
   dispatchPublicMatches: (options: any) => dispatch(getPublicMatches(options)),
 });

@@ -26,6 +26,7 @@ import Players from "../Players/Players";
 import Heroes from "../Heroes/Heroes";
 import useStrings from "../../hooks/useStrings.hook";
 
+const Esports = React.lazy(() => import("../Esports/Esports"));
 const Status = React.lazy(() => import("../Status/Status"));
 const Explorer = React.lazy(() => import("../Explorer/Explorer"));
 
@@ -208,6 +209,8 @@ const App = (props: AppProps) => {
           <StyledBodyDiv {...props}>
             <Switch>
               <Route exact path="/" component={Home} />
+              <Route exact path="/esports/leagues/:leagueId" component={Esports} />
+              <Route exact path="/esports/:view(tournaments|players)?" component={Esports} />
               <Route
                 exact
                 path="/matches/:matchId?/:info?"

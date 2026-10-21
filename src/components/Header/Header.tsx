@@ -285,6 +285,7 @@ const Header = ({
       to: "/request",
       label: strings.header_request,
     },
+    { key: "esports", to: "/esports", label: strings.esports_title },
     {
       key: "header_matches",
       to: "/matches",
