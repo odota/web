@@ -2,6 +2,10 @@ import { getLevelAtMinute } from "./laning.utils";
 
 /** Optional detailed replay logs; aggregate `killed` totals cannot locate kills in time. */
 export type ReplayPlayer = MatchPlayer & {
+  assists_log?: { time: number }[];
+  kills_t?: number[];
+  deaths_t?: number[];
+  assists_t?: number[];
   creep_kills_log?: { time: number; key: string }[];
   ability_upgrades?: { time: number; ability: number; level: number }[];
 };
@@ -40,4 +44,16 @@ export const getReplaySkills = (player: ReplayPlayer | undefined, minute: number
     estimated: true,
     upgrades: player.ability_upgrades_arr.slice(0, endLevel).map((ability, index) => ({ ability, level: index + 1 })),
   };
+};
+
+/** Cumulative K/D/A at the snapshot; missing timed records stay unavailable. */
+export const getReplayKDA = (player: ReplayPlayer | undefined, minute: number) => {
+  return (["kills", "deaths", "assists"] as const).map((stat) => {
+    const sample = player?.[`${stat}_t`]?.[minute];
+    if (typeof sample === "number" && Number.isFinite(sample)) return sample;
+    const log = player?.[`${stat}_log`];
+    return Array.isArray(log)
+      ? log.filter((event) => Number.isFinite(event.time) && event.time >= 0 && event.time <= minute * 60).length
+      : null;
+  });
 };

@@ -18,7 +18,7 @@ import { PageSection, SummaryTeam, TableCaption } from "./StyledLaning";
 import { TeamTable } from "./LaningTable";
 import { getLaningRoles, getPlayerIdentity, getStatAtMinute, getLevelAtMinute, formatStat, getRoleLabels, LaneRole } from "./laning.utils";
 
-import { getReplayGain, getReplayCreeps, getReplaySkills, inReplayInterval, ReplayPlayer } from "./replay.utils";
+import { getReplayKDA, getReplayGain, getReplayCreeps, getReplaySkills, inReplayInterval, ReplayPlayer } from "./replay.utils";
 
 const ComparisonToggles = styled(ToggleButtonGroup)`
   && { display: flex; width: 100%; }
@@ -122,20 +122,37 @@ const RoleComparison = ({ match }: { match: Match }) => {
           { label: strings.heading_graph_networth, icon: "gold", values: pair.map((p) => finite(p?.networth_t?.[minute])) },
           { label: "Net worth gained", icon: "gold", values: pair.map((p) => getReplayGain(p?.networth_t, minute)) },
           { label: "Last hits", icon: "lh", values: pair.map((p) => getReplayGain(p?.lh_t, minute)) },
-          { label: strings.th_xp, icon: "xp", values: pair.map((p) => getStatAtMinute(p, "xp_t", minute)) },
           { label: strings.heading_level, icon: "levels", values: pair.map((p) => getLevelAtMinute(p, minute)) },
+          { label: strings.th_xp, icon: "xp", values: pair.map((p) => getStatAtMinute(p, "xp_t", minute)) },
         ];
         return <section key={minute} style={{ marginTop: 20 }}>
           <h3>{minute - 2}:00–{minute}:00</h3>
           <div className="table-scroll"><table>
-            <thead><tr><th /><th><SummaryTeam $radiant><IconRadiant width="16" height="16" />{strings.general_radiant}</SummaryTeam></th><th><SummaryTeam $radiant={false}><IconDire width="16" height="16" />{strings.general_dire}</SummaryTeam></th><th>{strings.laning_difference}</th></tr>
-              <tr><th>{strings.th_players}</th>{pair.map((p, index) => <th key={index}>{playerName(p)}</th>)}<th /></tr>
+            <thead><tr><th /><th><SummaryTeam $radiant><IconRadiant width="16" height="16" />{strings.general_radiant}</SummaryTeam></th><th><SummaryTeam $radiant={false}><IconDire width="16" height="16" />{strings.general_dire}</SummaryTeam></th><th>{strings.laning_difference}</th><th title={strings.laning_percentage_difference_hint}>{strings.laning_difference_percent}</th></tr>
+              <tr><th>{strings.th_players}</th>{pair.map((p, index) => <th key={index}>{playerName(p)}</th>)}<th /><th /></tr>
             </thead>
             <tbody>
               {stats.map(({ label, icon, values }) => {
                 const difference = values[0] !== null && values[1] !== null ? values[0] - values[1] : null;
-                return <tr key={label}><td>{label}</td>{values.map((value, index) => <td key={index}>{icon && <TooltipMetricIcon metric={icon} />}{formatStat(value)}</td>)}<td>{difference === null ? "—" : difference === 0 ? "0" : <SummaryTeam $radiant={difference > 0}>{difference > 0 ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}+{formatStat(Math.abs(difference))}</SummaryTeam>}</td></tr>;
+                const averageMagnitude = values[0] !== null && values[1] !== null
+                  ? (Math.abs(values[0]) + Math.abs(values[1])) / 2 : null;
+                const percentDifference = difference === null || averageMagnitude === null
+                  ? null : averageMagnitude === 0 ? 0 : Math.abs(difference) / averageMagnitude * 100;
+                return <tr key={label}><td>{label}</td>{values.map((value, index) => <td key={index}>{icon && <TooltipMetricIcon metric={icon} />}{formatStat(value)}</td>)}<td>{difference === null ? "—" : difference === 0 ? "0" : <SummaryTeam $radiant={difference > 0}>{difference > 0 ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}+{formatStat(Math.abs(difference))}</SummaryTeam>}</td>
+                  <td>{percentDifference === null ? "—" : difference === 0 ? "0%" : (
+                    <SummaryTeam $radiant={difference! > 0}>
+                      {difference! > 0 ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}
+                      {percentDifference.toFixed(1)}%
+                    </SummaryTeam>
+                  )}</td></tr>;
               })}
+              <tr>
+                <td>K/D/A</td>
+                {pair.map((player, index) => <td key={index} title={strings.laning_kda_snapshot_hint}>
+                  {getReplayKDA(player, minute).map((value) => formatStat(value)).join(" / ")}
+                </td>)}
+                <td colSpan={2} />
+              </tr>
               {([{ label: "Heroes killed", field: "kills_log" }, { label: "Deaths", field: "deaths_log" }] as const).map(({ label, field }) => <tr key={field}>
                 <td>{label}</td>{pair.map((p, side) => {
                   const log = p?.[field];
@@ -158,12 +175,12 @@ const RoleComparison = ({ match }: { match: Match }) => {
                       </div>;
                     })}</div>
                   </td>;
-                })}<td />
+                })}<td colSpan={2} />
               </tr>)}
               <tr><td>Creeps killed by type</td>{pair.map((p, side) => {
                 const creeps = getReplayCreeps(p, minute);
                 return <td key={side} style={{ whiteSpace: "normal" }}>{creeps === null ? <span style={{ color: constants.textColorSecondary }}>Timed creep data unavailable</span> : creeps.length === 0 ? "None" : <ul>{creeps.map(([key, count]) => <li key={key}>{key.replace(/^npc_dota_/, "").replace(/_/g, " ")}: {count}</li>)}</ul>}</td>;
-              })}<td /></tr>
+              })}<td colSpan={2} /></tr>
               <tr><td>Skills added{pair.some((player) => getReplaySkills(player, minute)?.estimated) && <small style={{ display: "block", marginTop: 4, color: constants.textColorSecondary, fontWeight: 400 }}>Approximate · based on XP</small>}</td>{pair.map((p, side) => <td key={side} style={{ whiteSpace: "normal", maxWidth: 320 }}>
                 <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: 8 }}>{intervals.filter((endMinute) => endMinute <= minute).map((endMinute) => {
                   const skills = getReplaySkills(p, endMinute);
@@ -184,7 +201,7 @@ const RoleComparison = ({ match }: { match: Match }) => {
                     </div>
                   </div>;
                 })}</div>
-              </td>)}<td /></tr>
+              </td>)}<td colSpan={2} /></tr>
               <tr><td>Items purchased</td>{pair.map((p, side) => <td key={side} style={{ whiteSpace: "normal", maxWidth: 320 }}>{!p || !Array.isArray(p.purchase_log) ? "—" : intervals.filter((endMinute) => endMinute <= minute).reverse().map((endMinute) => {
                 // Include starting items in the first interval.
                 const purchases = p.purchase_log.filter((entry) => Number.isFinite(entry.time) && entry.time <= endMinute * 60 && (endMinute === 2 || entry.time > (endMinute - 2) * 60));
@@ -200,8 +217,8 @@ const RoleComparison = ({ match }: { match: Match }) => {
                 </PurchasedItem> : <span key={index}>{entry.key} <time>{boughtAt}</time></span>;
                   })}</div>}
                 </div>;
-              })}</td>)}<td /></tr>
-              <tr><td>Runes picked up</td>{pair.map((p, side) => <td key={side} style={{ whiteSpace: "normal", maxWidth: 320 }}>{!p || !Array.isArray(p.runes_log) ? "—" : <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>{p.runes_log.filter((entry) => entry.time >= 0 && entry.time <= minute * 60).map((entry, index) => <span key={index} title={`${strings[`rune_${entry.key}` as keyof Strings]} (${purchaseTime(entry.time)})`} style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 2 }}><img src={`/assets/images/dota2/runes/${entry.key}.png`} alt={strings[`rune_${entry.key}` as keyof Strings]} width={24} height={24} /><time style={{ fontSize: 10, fontWeight: 400, color: constants.textColorSecondary }}>{purchaseTime(entry.time)}</time></span>)}</div>}</td>)}<td /></tr>
+              })}</td>)}<td colSpan={2} /></tr>
+              <tr><td>Runes picked up</td>{pair.map((p, side) => <td key={side} style={{ whiteSpace: "normal", maxWidth: 320 }}>{!p || !Array.isArray(p.runes_log) ? "—" : <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>{p.runes_log.filter((entry) => entry.time >= 0 && entry.time <= minute * 60).map((entry, index) => <span key={index} title={`${strings[`rune_${entry.key}` as keyof Strings]} (${purchaseTime(entry.time)})`} style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 2 }}><img src={`/assets/images/dota2/runes/${entry.key}.png`} alt={strings[`rune_${entry.key}` as keyof Strings]} width={24} height={24} /><time style={{ fontSize: 10, fontWeight: 400, color: constants.textColorSecondary }}>{purchaseTime(entry.time)}</time></span>)}</div>}</td>)}<td colSpan={2} /></tr>
             </tbody>
           </table></div>
         </section>;

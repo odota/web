@@ -273,6 +273,10 @@ const HeroComparison = ({ match }: { match: Match }) => {
         {metrics.map((metric) => {
           const hasValues = metric.radiant !== null && metric.dire !== null;
           const difference = hasValues ? metric.radiant! - metric.dire! : null;
+          const averageMagnitude = hasValues
+            ? (Math.abs(metric.radiant!) + Math.abs(metric.dire!)) / 2 : null;
+          const percentageDifference = difference === null || averageMagnitude === null
+            ? null : averageMagnitude === 0 ? 0 : Math.abs(difference) / averageMagnitude * 100;
           return (
             <MetricRow key={metric.label}>
               <MetricHeading>
@@ -291,12 +295,15 @@ const HeroComparison = ({ match }: { match: Match }) => {
                 ) : (
                   <ComparisonLead className={metric.summaryKey} $difference={difference}>
                     {difference === 0 ? (
-                      strings.laning_tied
+                      <>{strings.laning_tied} <small>(0%)</small></>
                     ) : (
                       <>
                         <strong>
                           {Math.abs(difference).toLocaleString("en-US")}
                         </strong>
+                        <small title={strings.laning_percentage_difference_hint}>
+                          ({percentageDifference === null ? "—" : `${percentageDifference.toFixed(1)}%`})
+                        </small>
                       </>
                     )}
                   </ComparisonLead>
