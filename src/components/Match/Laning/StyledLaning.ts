@@ -83,7 +83,7 @@ export const TableCaption = styled.p`
 `;
 
 
-/** Highlights the laning gold result with a team-colored edge. */
+/** Highlights the laning result with a blue-tinted surface and team-colored edge. */
 export const SummaryResult = styled.div<{ $winner: "radiant" | "dire" | "tie" }>`
   margin: 16px 0 20px;
   padding: 18px 20px;
@@ -91,7 +91,7 @@ export const SummaryResult = styled.div<{ $winner: "radiant" | "dire" | "tie" }>
   border-left: 4px solid ${({ $winner }) => $winner === "radiant" ? constants.colorSuccess
     : $winner === "dire" ? constants.colorDanger : constants.textColorSecondary};
   border-radius: 8px;
-  background: ${constants.secondarySurfaceColor};
+  background: rgba(80, 140, 190, 0.16);
 
   h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 0 6px; margin: 0; font-size: 22px; font-weight: 400; }
   p { margin: 8px 0 0; color: ${constants.textColorSecondary}; font-size: 13px; line-height: 1.6; }
