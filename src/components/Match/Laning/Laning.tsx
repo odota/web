@@ -284,6 +284,24 @@ const Laning = ({ match }: LaningProps) => {
           {strings.laning_heatmap_hint}
         </TableCaption>
       </PageSection>
+      <PageSection aria-label={strings.th_map}>
+        <Heading
+          title={strings.th_map}
+        />
+        <HeatmapContainer>
+          <Heatmap
+            width={400}
+            startTime={match.start_time}
+            points={unpackPositionData(
+              (
+                match.players.find(
+                  (player) => player.player_slot === selectedPlayer,
+                ) || {}
+              ).lane_pos,
+            )}
+          />
+        </HeatmapContainer>
+      </PageSection>
       <PageSection aria-label={strings.laning_hero_comparison}>
         <HeroComparison match={match} />
       </PageSection>
@@ -308,24 +326,6 @@ const Laning = ({ match }: LaningProps) => {
         />
       </PageSection>
       )}
-      <PageSection aria-label={strings.th_map}>
-        <Heading
-          title={strings.th_map}
-        />
-        <HeatmapContainer>
-          <Heatmap
-            width={400}
-            startTime={match.start_time}
-            points={unpackPositionData(
-              (
-                match.players.find(
-                  (player) => player.player_slot === selectedPlayer,
-                ) || {}
-              ).lane_pos,
-            )}
-          />
-        </HeatmapContainer>
-      </PageSection>
     </LaningPage>
   );
 };
