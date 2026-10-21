@@ -73,6 +73,9 @@ export const ComparisonLead = styled.span<{ $difference: number }>`
   strong { font-size: 12px; font-weight: 700; }
   color: ${({ $difference }) => $difference === 0
     ? constants.textColorSecondary : constants.golden};
+  &.comparison_level strong { color: ${constants.colorLavenderMuted}; }
+  &.comparison_last_hits strong { color: ${constants.colorGreen}; }
+  &.comparison_denies strong { color: ${constants.colorRed}; }
 `;
 
 /** Draws the proportional comparison track and its midpoint marker. */
@@ -81,10 +84,10 @@ export const MetricBalance = styled.div`
   display: flex;
   width: 100%;
   min-width: 0;
-  height: 5px;
-  margin-top: 8px;
+  height: 8px;
+  margin-top: 14px;
   overflow: hidden;
-  border-radius: 3px;
+  border-radius: 4px;
   background: ${constants.dividerColor};
 
   /* Mark an even split so the stronger side is easy to spot. */
@@ -109,20 +112,32 @@ export const MetricBalanceSide = styled.span<{ $radiant: boolean; $share: number
   @media (prefers-reduced-motion: reduce) { transition: none; }
 `;
 
-/** Centers the comparison at 75% width, expanding on mobile. */
+/** Stacks comparison metrics and their summary. */
 export const MetricList = styled.div`
-  width: 75%;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
   display: grid;
-  gap: 10px;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
   margin-top: 14px;
+  > div { min-width: 0; }
+  .comparison-charts {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: 1fr;
+    align-items: stretch;
+    gap: 12px;
+  }
 
-  @media (max-width: 680px) { width: 100%; }
+  @media (max-width: 680px) { grid-template-columns: minmax(0, 1fr); }
 `;
 
 /** Provides a compact card for one comparison metric. */
 export const MetricRow = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
   padding: 10px 14px;
   border: 1px solid ${laningBorderColor};
   border-radius: 10px;

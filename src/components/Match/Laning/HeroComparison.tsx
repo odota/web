@@ -1,6 +1,6 @@
 /**
  * @file Hero Comparison.
- * @description Compares selected opposing heroes at minute ten using compact metric bars and an optional same-role selection lock.
+ * @description Compares selected opposing heroes at minute ten using stacked bar charts and an optional same-role selection lock.
  */
 
 import {
@@ -9,6 +9,8 @@ import {
   localStorageKeys,
 } from "../../../utility";
 import React, { useState } from "react";
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
+import constants from "../../constants";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
@@ -35,8 +37,6 @@ import {
   HeroMenu,
   SameRoleToggle,
   ComparisonLead,
-  MetricBalance,
-  MetricBalanceSide,
   MetricList,
   MetricRow,
   MetricHeading,
@@ -269,11 +269,10 @@ const HeroComparison = ({ match }: { match: Match }) => {
         })}
       </HeroMenus>
       <MetricList>
+        <div className="comparison-charts">
         {metrics.map((metric) => {
           const hasValues = metric.radiant !== null && metric.dire !== null;
           const difference = hasValues ? metric.radiant! - metric.dire! : null;
-          const total = hasValues ? metric.radiant! + metric.dire! : 0;
-          const radiantShare = total > 0 ? (metric.radiant! / total) * 100 : 50;
           return (
             <MetricRow key={metric.label}>
               <MetricHeading>
@@ -284,12 +283,13 @@ const HeroComparison = ({ match }: { match: Match }) => {
               </MetricHeading>
               <MetricValues>
                 <span>
+                  <small>{strings.general_radiant}</small>
                   <strong>{formatStat(metric.radiant)}</strong>
                 </span>
                 {difference === null ? (
                   <span>{strings.laning_unavailable}</span>
                 ) : (
-                  <ComparisonLead $difference={difference}>
+                  <ComparisonLead className={metric.summaryKey} $difference={difference}>
                     {difference === 0 ? (
                       strings.laning_tied
                     ) : (
@@ -302,26 +302,25 @@ const HeroComparison = ({ match }: { match: Match }) => {
                   </ComparisonLead>
                 )}
                 <span>
+                  <small>{strings.general_dire}</small>
                   <strong>{formatStat(metric.dire)}</strong>
                 </span>
               </MetricValues>
-              <MetricBalance
-                role="img"
-                aria-label={`${metric.label}: ${strings.general_radiant} ${formatStat(metric.radiant)}, ${strings.general_dire} ${formatStat(metric.dire)}`}
-              >
-                {hasValues && (
-                  <>
-                    <MetricBalanceSide $radiant $share={radiantShare} />
-                    <MetricBalanceSide
-                      $radiant={false}
-                      $share={100 - radiantShare}
-                    />
-                  </>
-                )}
-              </MetricBalance>
+              <div role="img" aria-label={`${metric.label}: ${strings.general_radiant} ${formatStat(metric.radiant)}, ${strings.general_dire} ${formatStat(metric.dire)}`}>
+                <ResponsiveContainer width="100%" height={36}>
+                  <BarChart layout="vertical" data={[{ radiant: metric.radiant, dire: metric.dire }]} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+                    <XAxis type="number" hide domain={[0, "dataMax"]} />
+                    <YAxis type="category" hide />
+                    <Tooltip cursor={false} contentStyle={{ background: constants.primarySurfaceColor, borderColor: constants.dividerColor, borderRadius: 6 }} formatter={(value: number) => formatStat(value)} />
+                    <Bar dataKey="radiant" name={strings.general_radiant} stackId="comparison" fill={constants.colorSuccess} barSize={8} isAnimationActive={false} />
+                    <Bar dataKey="dire" name={strings.general_dire} stackId="comparison" fill={constants.colorDanger} barSize={8} isAnimationActive={false} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </MetricRow>
           );
         })}
+        </div>
         <MetricSummary>
           <div className="summary-intro">
             {formatTemplate(

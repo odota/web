@@ -3,22 +3,25 @@
  * @description Composes the laning summary, player table, hero comparison, team shares, charts, and selected-player heatmap.
  */
 
-import { formatTemplate, formatTemplateToString, unpackPositionData } from "../../../utility";
+import { formatTemplate, unpackPositionData } from "../../../utility";
 import React, { useState } from "react";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import { IconRadiant, IconDire } from "../../Icons";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { MetricSummary } from "./StyledHeroComparison";
 import config from "../../../config";
 import { player_colors as playerColors } from "dotaconstants";
+import constants from "../../constants";
 import useStrings from "../../../hooks/useStrings.hook";
-import { LaningPage, PageSection, SummaryStats, SummaryTeam, SummaryLevels, SummaryResult, SummaryBreakdown, UltimateSummary, HeatmapContainer, TableCaption } from "./StyledLaning";
+import { LaningPage, PageSection, SummaryTeam, SummaryLevels, SummaryResult, UltimateSummary, HeatmapContainer, HeatmapPlayers } from "./StyledLaning";
 import Heading from "../../Heading/Heading";
 import Heatmap from "../../Heatmap/Heatmap";
-import Table from "../../Table/Table";
-import mcs from "../matchColumns";
-import { getPlayerIdentity, getPlayerRoles, hasGraphData, getRoleLabels, getLaningRoles } from "./laning.utils";
+import LaningEvents from "./LaningEvents";
+import MatchGraph from "../../Visualizations/Graph/MatchGraph";
+import RoleComparison from "./RoleComparison";
+import LastHitsTable from "./LastHitsTable";
+import LaningTable from "./LaningTable";
+import { hasGraphData, getPlayerIdentity, getRoleLabels, getLaningRoles, getPlayerRoles, getLevelAtMinute, LaneRole } from "./laning.utils";
 import Graph from "./Graph";
 
 import NetWorthShare from "./NetWorthShare";
@@ -40,21 +43,10 @@ type LaningProps = {
 const Laning = ({ match }: LaningProps) => {
   const strings = useStrings();
   const [selectedPlayer, setSelectedPlayer] = useState(0);
+
   const roleLabels = getRoleLabels(strings);
-  const roles = getPlayerRoles(match.players);
-  const tableData = match.players.map((player) => {
-    const role = roles.get(player.player_slot);
-    const xp = player.xp_t?.[10];
-    return {
-      ...player,
-      laning_role: role ? roleLabels[role] : undefined,
-      net_worth_ten: player.gold_t?.[10],
-      level_ten: Number.isFinite(xp) ? getHeroLevel(xp) : undefined,
-    };
-  }).sort((first, second) => first.isRadiant !== second.isRadiant
-    ? first.isRadiant ? -1 : 1
-    : first.lane - second.lane);
-  const columns = mcs(strings).laningColumns({ selectedPlayer }, setSelectedPlayer);
+  const playerRoles = getPlayerRoles(match.players);
+  const roleIconPositions = { carry: 0, midlane: 25, offlane: 50, softSupport: 75, hardSupport: 100 };
 
   const summaryMinute = Math.min(10, Math.floor(match.duration / 60));
   /**
@@ -105,35 +97,34 @@ const Laning = ({ match }: LaningProps) => {
   const levelDifference = radiantLevels !== null && direLevels !== null
     ? radiantLevels - direLevels
     : null;
-  /**
-   * Formats a level total with a localized unit or unavailable message.
-   * @param value Combined levels or null.
-   * @returns Display-ready level text.
-   */
-  const formatLevels = (value: number | null) =>
-    value === null ? strings.laning_unavailable : `${value} ${(value === 1 ? strings.laning_level : strings.laning_levels)}`;
-
   const renderTeam = (radiant: boolean) => <SummaryTeam $radiant={radiant}>
     {radiant ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}
     {radiant ? strings.general_radiant : strings.general_dire}
   </SummaryTeam>;
 
-  const renderSummaryPlayer = (player: MatchPlayer) => {
+  const renderSummaryPlayer = (player: MatchPlayer, role?: React.ReactNode, showTeam = true) => {
     const identity = getPlayerIdentity(player, strings);
+    const playerRole = playerRoles.get(player.player_slot);
     return <span className="summary-hero" style={{ color: playerColors[player.player_slot as unknown as keyof typeof playerColors] }}>
+      {showTeam && <span className="summary-team-icon" title={player.isRadiant ? strings.general_radiant : strings.general_dire} aria-label={player.isRadiant ? strings.general_radiant : strings.general_dire}>
+        {player.isRadiant ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}
+      </span>}
+      {playerRole && <span aria-hidden="true" style={{ display: "inline-block", width: 20, height: 20, flexShrink: 0, backgroundImage: 'url("/assets/images/dota2/role-icons.png")', backgroundSize: "500% auto", backgroundRepeat: "no-repeat", backgroundPosition: `${roleIconPositions[playerRole]}% center` }} />}
+      {role && <strong className="summary-keyword">{role}</strong>}
       {identity.icon && <img src={config.VITE_IMAGE_CDN + identity.icon} alt="" width={20} height={20} />}
-      {identity.playerName}
+      <span>{identity.playerName}</span>
     </span>;
   };
 
   /**
-   * Compares the first recorded level-six minute for opposing core roles.
+   * Compares the first recorded level-six minute for opposing roles.
    * Timing is approximate because XP histories have one value per minute.
-   * @param role Core role to compare across teams.
+   * @param role Role to compare across teams.
    * @returns A localized first-to-six result, tie, or explanation of unavailable data.
    */
-  const getLevelSixSummary = (role: "midlane" | "carry" | "offlane") => {
-    const roleName = <strong className="summary-keyword">{roleLabels[role]}</strong>;
+  const getLevelSixTiming = (role: LaneRole) => {
+    const roleLabel = role === "midlane" && roleLabels[role] === "Midlane" ? "Midlaner" : roleLabels[role];
+    const roleName = <strong className="summary-keyword">{roleLabel}</strong>;
     const radiantMid = getLaningRoles(match.players, true)[role];
     const direMid = getLaningRoles(match.players, false)[role];
     if (!radiantMid || !direMid) {
@@ -151,12 +142,16 @@ const Laning = ({ match }: LaningProps) => {
     const radiantMinute = firstLevelSix(radiantMid);
     const direMinute = firstLevelSix(direMid);
     if (radiantMinute < 0 && direMinute < 0) {
-      return formatTemplate(strings.laning_role_six_neither, { role: roleName, minute: summaryMinute, player: renderSummaryPlayer(radiantMid), opponent: renderSummaryPlayer(direMid) });
+      return formatTemplate(strings.laning_role_six_neither, { role: roleName, minute: summaryMinute, player: renderSummaryPlayer(radiantMid, roleLabel), opponent: renderSummaryPlayer(direMid, roleLabel) });
     }
-    if (radiantMinute === direMinute) {
+    const closeRoleTimings = ["midlane", "softSupport", "hardSupport"].includes(role) && radiantMinute >= 0 && direMinute >= 0
+      && Math.abs(radiantMinute - direMinute) <= 1;
+    if (radiantMinute === direMinute || closeRoleTimings) {
+      const timing = radiantMinute === direMinute ? `${radiantMinute}:00`
+        : `${Math.min(radiantMinute, direMinute)}:00–${Math.max(radiantMinute, direMinute)}:00`;
       return formatTemplate(strings.laning_role_six_tie, {
-        player: renderSummaryPlayer(radiantMid), opponent: renderSummaryPlayer(direMid),
-        role: roleName, time: <span className="summary-time"><AccessTimeIcon aria-hidden="true" />{radiantMinute}:00</span>,
+        player: renderSummaryPlayer(radiantMid, roleLabel), opponent: renderSummaryPlayer(direMid, roleLabel),
+        role: roleName, time: <span className="summary-time"><AccessTimeIcon aria-hidden="true" />{timing}</span>,
       });
     }
     const radiantFirst = radiantMinute >= 0 && (direMinute < 0 || radiantMinute < direMinute);
@@ -174,9 +169,24 @@ const Laning = ({ match }: LaningProps) => {
     return formatTemplate(strings.laning_role_six_first, {
       team: renderTeam(radiantFirst),
       role: roleName,
-      player: renderSummaryPlayer(winner),
+      player: renderSummaryPlayer(winner, roleLabel),
       time: <span className="summary-time"><AccessTimeIcon aria-hidden="true" />{minute}:00</span>,
     });
+  };
+
+  const getLevelSixSummary = (role: LaneRole) => {
+    const timing = getLevelSixTiming(role);
+    if (role !== "softSupport" && role !== "hardSupport") return timing;
+    const belowSix = [true, false].flatMap((radiant) => {
+      const player = getLaningRoles(match.players, radiant)[role];
+      const level = getLevelAtMinute(player, summaryMinute);
+      return player && level !== null && level < 6 ? [{ player, level }] : [];
+    });
+    return <>{timing}{belowSix.map(({ player, level }) => <React.Fragment key={player.player_slot}>{" "}{formatTemplate(strings.laning_support_level_at_minute, {
+      player: renderSummaryPlayer(player),
+      level: <strong className="summary-keyword">{level}</strong>,
+      minute: summaryMinute,
+    })}</React.Fragment>)}</>;
   };
 
   const levelSixSummaries = (["midlane", "carry", "offlane"] as const).map((role) => ({
@@ -187,108 +197,51 @@ const Laning = ({ match }: LaningProps) => {
     <LaningPage>
       <PageSection aria-label={strings.laning_summary}>
         <Heading title={strings.laning_summary} />
-        <TableCaption>{formatTemplateToString(strings.laning_summary_time, { minute: summaryMinute })}</TableCaption>
         <SummaryResult $winner={netWorthDifference === null || netWorthDifference === 0 ? "tie" : netWorthDifference > 0 ? "radiant" : "dire"}>
-          <h3>
+          <p className="summary-narrative">
             {netWorthDifference === null ? strings.laning_unavailable : netWorthDifference === 0
               ? strings.laning_summary_even
-              : formatTemplate(strings.laning_summary_winner, { team: renderTeam(netWorthDifference > 0) }).map((part, index) => (
-                <span key={index}>{part}</span>
-              ))}
-          </h3>
-          {netWorthDifference !== null && (
-            <p><strong className="summary-gold-lead">
-              <img src="/assets/images/dota2/gold.png" alt="" width={16} height={16} />
-              +{formatNetWorth(Math.abs(netWorthDifference))}
-            </strong></p>
-          )}
-          {levelDifference !== null && (
-            <p>
-              <SummaryLevels className="summary-level-lead"><TrendingUpIcon aria-hidden="true" />
-                +{formatLevels(Math.abs(levelDifference))}
-              </SummaryLevels>
-            </p>
-          )}
-          {netWorthDifference !== null && netWorthDifference !== 0 && levelDifference !== null && (
-            <p className="summary-narrative">{formatTemplate((Math.sign(netWorthDifference) === Math.sign(levelDifference) || levelDifference === 0 ? strings.laning_summary_phase_result : strings.laning_summary_phase_split), {
+              : levelDifference === null ? formatTemplate(strings.laning_summary_winner, { team: renderTeam(netWorthDifference > 0) })
+              : formatTemplate(Math.sign(netWorthDifference) === Math.sign(levelDifference) || levelDifference === 0
+                ? strings.laning_summary_phase_result : strings.laning_summary_phase_split, {
                 team: renderTeam(netWorthDifference > 0),
                 gold: <strong className="summary-gold-lead"><img src="/assets/images/dota2/gold.png" alt="" width={16} height={16} />{formatNetWorth(Math.abs(netWorthDifference))}</strong>,
                 levels: <SummaryLevels><TrendingUpIcon aria-hidden="true" />{Math.abs(levelDifference).toLocaleString()} {strings.laning_combined}</SummaryLevels>,
                 minute: <span className="summary-minute"><AccessTimeIcon aria-hidden="true" />{summaryMinute}</span>,
-              }).map((part, index) => <span className="summary-phrase" key={index}>{part}</span>)}</p>
-          )}
+              }).map((part, index) => <span className={typeof part === "string" && /^[.,!?;:]+$/.test(part) ? "summary-phrase summary-punctuation" : "summary-phrase"} key={index}>{part}</span>)}
+          </p>
         </SummaryResult>
-        <SummaryBreakdown>
-          <summary><ExpandMoreIcon fontSize="small" />{strings.laning_summary_breakdown}</summary>
-          <SummaryStats $metric="gold" $advantageFirst={netWorthDifference !== null && netWorthDifference < 0}>
-            <div>
-              <dt>
-                {netWorthDifference === null || netWorthDifference === 0
-                  ? strings.laning_difference
-                  : formatTemplate(strings.laning_team_advantage, { team: renderTeam(netWorthDifference > 0) })}
-              </dt>
-              <dd>
-                <img src="/assets/images/dota2/gold.png" alt="" width={16} height={16} />
-                <span>{netWorthDifference !== null && netWorthDifference !== 0 ? "+" : ""}{formatNetWorth(netWorthDifference === null ? null : Math.abs(netWorthDifference))}</span>
-              </dd>
-            </div>
-            <div>
-              <dt>{renderTeam(true)}</dt>
-              <dd><img src="/assets/images/dota2/gold.png" alt="" width={16} height={16} />{formatNetWorth(radiantNetWorth)}</dd>
-            </div>
-            <div>
-              <dt>{renderTeam(false)}</dt>
-              <dd><img src="/assets/images/dota2/gold.png" alt="" width={16} height={16} />{formatNetWorth(direNetWorth)}</dd>
-            </div>
-          </SummaryStats>
-          <SummaryStats $metric="levels" $advantageFirst={levelDifference !== null && levelDifference < 0}>
-            <div>
-              <dt>
-                {levelDifference === null || levelDifference === 0
-                  ? strings.laning_level_difference
-                  : formatTemplate(strings.laning_team_level_advantage, { team: renderTeam(levelDifference > 0) })}
-              </dt>
-              <dd>
-                <TrendingUpIcon aria-hidden="true" />
-                <span>{levelDifference !== null && levelDifference !== 0 ? "+" : ""}{formatLevels(levelDifference === null ? null : Math.abs(levelDifference))}</span>
-              </dd>
-            </div>
-            <div>
-              <dt>{formatTemplate(strings.laning_team_levels, { team: renderTeam(true) })}</dt>
-              <dd><SummaryLevels><TrendingUpIcon aria-hidden="true" />{formatLevels(radiantLevels)}</SummaryLevels></dd>
-            </div>
-            <div>
-              <dt>{formatTemplate(strings.laning_team_levels, { team: renderTeam(false) })}</dt>
-              <dd><SummaryLevels><TrendingUpIcon aria-hidden="true" />{formatLevels(direLevels)}</SummaryLevels></dd>
-            </div>
-          </SummaryStats>
-          <UltimateSummary>
-            <h3>{strings.laning_ultimate_heading}</h3>
-            <MetricSummary>
-              <ul>{levelSixSummaries.map(({ role, text }) => text && (
-                <li key={role}><div className="summary-item"><span>{text}</span></div></li>
-              ))}</ul>
-            </MetricSummary>
-          </UltimateSummary>
-        </SummaryBreakdown>
-
+        <UltimateSummary>
+          <h3>{strings.laning_ultimate_heading}</h3>
+          <MetricSummary>
+            <ul>{levelSixSummaries.map(({ role, text }) => text && (
+              <li key={role}><div className="summary-item"><span>{text}</span></div></li>
+            ))}</ul>
+          </MetricSummary>
+        </UltimateSummary>
       </PageSection>
       <PageSection aria-label={strings.heading_laning}>
-        <Heading title={strings.heading_laning} />
-        <Table
-          data={tableData}
-          columns={columns}
-          keyFn={(player: MatchPlayer) => player.player_slot}
-        />
-        <TableCaption>
-          {strings.laning_heatmap_hint}
-        </TableCaption>
+        <Heading className="laning-heading" title={strings.laning_phase} subtitle={<span style={{ display: "inline-flex", alignItems: "center", gap: 4 }}><AccessTimeIcon aria-hidden="true" style={{ fill: constants.colorBlue }} />10:00</span>} />
+        <LaningTable match={match} />
       </PageSection>
       <PageSection aria-label={strings.th_map}>
         <Heading
           title={strings.th_map}
         />
         <HeatmapContainer>
+          <HeatmapPlayers>
+            {[true, false].map((radiant) => <fieldset key={String(radiant)}>
+              <legend>{renderTeam(radiant)}</legend>
+              {match.players.filter((player) => player.isRadiant === radiant).map((player) => {
+                const identity = getPlayerIdentity(player, strings);
+                return <label key={player.player_slot}>
+                  <input type="radio" name="laning-map-player" checked={selectedPlayer === player.player_slot} onChange={() => setSelectedPlayer(player.player_slot)} />
+                  {identity.icon && <img src={config.VITE_IMAGE_CDN + identity.icon} alt={identity.heroName} width={24} height={24} />}
+                  {identity.playerName}
+                </label>;
+              })}
+            </fieldset>)}
+          </HeatmapPlayers>
           <Heatmap
             width={400}
             startTime={match.start_time}
@@ -326,6 +279,14 @@ const Laning = ({ match }: LaningProps) => {
         />
       </PageSection>
       )}
+      <LaningEvents match={match} />
+      {hasGraphData(match, "lh", 10) && (
+        <PageSection aria-label={strings.heading_last_hits}>
+          <MatchGraph match={match} type="lh" maxMinute={10} />
+        </PageSection>
+      )}
+      <LastHitsTable match={match} />
+      <RoleComparison match={match} />
     </LaningPage>
   );
 };
