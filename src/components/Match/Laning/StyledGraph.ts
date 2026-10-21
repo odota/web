@@ -65,13 +65,21 @@ export const RoleOptions = styled.div`
     padding: 7px 10px;
     border: 1px solid ${laningBorderColor};
     border-radius: 6px;
-    background: ${constants.secondarySurfaceColor};
+    background: rgba(80, 140, 190, 0.12);
+    transition: background-color 150ms ease, border-color 150ms ease;
     cursor: pointer;
   }
 
-  label:hover, label:has(input:checked) {
-    border-color: ${constants.primaryLinkColor};
+  label:hover {
+    background: rgba(80, 140, 190, 0.22);
+    border-color: ${constants.colorBlue};
     color: ${constants.textColorPrimary};
+  }
+
+  label:has(input:checked) {
+    background: rgba(80, 140, 190, 0.32);
+    border-color: ${constants.colorBlue};
+    color: ${constants.colorBlue};
   }
 
   label:has(input:disabled) {
