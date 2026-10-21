@@ -21,6 +21,7 @@ import { heroes, player_colors as playerColors } from "dotaconstants";
 import useLocalStorageBoolean from "../../../hooks/useLocalStorageBoolean";
 import useStrings from "../../../hooks/useStrings.hook";
 import HeroSelect from "./HeroSelect";
+import { getReplayKDA } from "./replay.utils";
 import Heading from "../../Heading/Heading";
 import {
   getStatAtMinute,
@@ -30,10 +31,13 @@ import {
   HistoryField,
   rolePositions,
   getPlayerRoles,
+  getPlayerIdentity,
+  LaneRole,
 } from "./laning.utils";
-import { TableCaption } from "./StyledLaning";
+import { TableCaption, ReplaySummary } from "./StyledLaning";
 import {
   HeroMenus,
+  HeroComparisonTooltip,
   HeroMenu,
   SameRoleToggle,
   ComparisonLead,
@@ -57,6 +61,14 @@ const HeroComparison = ({ match }: { match: Match }) => {
     localStorageKeys.heroComparisonSameRolesOnly,
     true,
   );
+  const [opposingRolesOnly, setOpposingRolesOnly] = useState(false);
+  const rolesLocked = sameRolesOnly || opposingRolesOnly;
+  const opposingRoles: Record<LaneRole, LaneRole> = {
+    carry: "offlane", offlane: "carry", midlane: "midlane",
+    hardSupport: "softSupport", softSupport: "hardSupport",
+  };
+  const opponentRole = (role: LaneRole | undefined) =>
+    role && opposingRolesOnly ? opposingRoles[role] : role;
   const [radiantSlot, setRadiantSlot] = useState<number | null>(null);
   const [direSlot, setDireSlot] = useState<number | null>(null);
   const roles = getPlayerRoles(match.players);
@@ -90,7 +102,7 @@ const HeroComparison = ({ match }: { match: Match }) => {
     const role = roles.get(player.player_slot);
     return (
       role !== undefined &&
-      opponents.some((opponent) => roles.get(opponent.player_slot) === role)
+      opponents.some((opponent) => roles.get(opponent.player_slot) === opponentRole(role))
     );
   };
   const matchingRadiant = radiantPlayers.filter((player) =>
@@ -99,16 +111,16 @@ const HeroComparison = ({ match }: { match: Match }) => {
   const matchingDire = direPlayers.filter((player) =>
     hasOpponent(player, radiantPlayers),
   );
-  const radiantOptions = sameRolesOnly ? matchingRadiant : radiantPlayers;
-  const direOptions = sameRolesOnly ? matchingDire : direPlayers;
+  const radiantOptions = rolesLocked ? matchingRadiant : radiantPlayers;
+  const direOptions = rolesLocked ? matchingDire : direPlayers;
   const radiant =
     radiantOptions.find((player) => player.player_slot === radiantSlot) ??
     radiantOptions[0];
-  const dire = sameRolesOnly
+  const dire = rolesLocked
     ? direOptions.find(
         (player) =>
           radiant &&
-          roles.get(player.player_slot) === roles.get(radiant.player_slot),
+          roles.get(player.player_slot) === opponentRole(roles.get(radiant.player_slot)),
       )
     : (direOptions.find((player) => player.player_slot === direSlot) ??
       direOptions[0]);
@@ -118,10 +130,10 @@ const HeroComparison = ({ match }: { match: Match }) => {
    */
   const selectRadiant = (slot: number) => {
     setRadiantSlot(slot);
-    if (sameRolesOnly)
+    if (rolesLocked)
       setDireSlot(
         direOptions.find(
-          (player) => roles.get(player.player_slot) === roles.get(slot),
+          (player) => roles.get(player.player_slot) === opponentRole(roles.get(slot)),
         )?.player_slot ?? null,
       );
   };
@@ -131,10 +143,10 @@ const HeroComparison = ({ match }: { match: Match }) => {
    */
   const selectDire = (slot: number) => {
     setDireSlot(slot);
-    if (sameRolesOnly)
+    if (rolesLocked)
       setRadiantSlot(
         radiantOptions.find(
-          (player) => roles.get(player.player_slot) === roles.get(slot),
+          (player) => roles.get(player.player_slot) === opponentRole(roles.get(slot)),
         )?.player_slot ?? null,
       );
   };
@@ -230,12 +242,27 @@ const HeroComparison = ({ match }: { match: Match }) => {
           disabled={!matchingRadiant.length}
           onChange={(event) => {
             setSameRolesOnly(event.target.checked);
+            if (event.target.checked) setOpposingRolesOnly(false);
             setRadiantSlot(radiant?.player_slot ?? null);
             setDireSlot(dire?.player_slot ?? null);
           }}
         />
         {strings.laning_same_roles_only}
       </SameRoleToggle>
+      <SameRoleToggle>
+        <Switch
+          size="small"
+          checked={opposingRolesOnly}
+          onChange={(event) => {
+            setOpposingRolesOnly(event.target.checked);
+            if (event.target.checked) setSameRolesOnly(false);
+            setRadiantSlot(radiant?.player_slot ?? null);
+            setDireSlot(dire?.player_slot ?? null);
+          }}
+        />
+        Opposing lane roles only
+      </SameRoleToggle>
+      {opposingRolesOnly && <TableCaption>Carry vs Offlane, Hard Support vs Soft Support, and Midlane vs Midlane.</TableCaption>}
       {!matchingRadiant.length && (
         <TableCaption>{strings.laning_no_matching_roles}</TableCaption>
       )}
@@ -314,13 +341,26 @@ const HeroComparison = ({ match }: { match: Match }) => {
                 </span>
               </MetricValues>
               <div role="img" aria-label={`${metric.label}: ${strings.general_radiant} ${formatStat(metric.radiant)}, ${strings.general_dire} ${formatStat(metric.dire)}`}>
-                <ResponsiveContainer width="100%" height={36}>
+                <ResponsiveContainer width="100%" height={24}>
                   <BarChart layout="vertical" data={[{ radiant: metric.radiant, dire: metric.dire }]} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
                     <XAxis type="number" hide domain={[0, "dataMax"]} />
                     <YAxis type="category" hide />
-                    <Tooltip cursor={false} contentStyle={{ background: constants.primarySurfaceColor, borderColor: constants.dividerColor, borderRadius: 6 }} formatter={(value: number) => formatStat(value)} />
-                    <Bar dataKey="radiant" name={strings.general_radiant} stackId="comparison" fill={constants.colorSuccess} barSize={8} isAnimationActive={false} />
-                    <Bar dataKey="dire" name={strings.general_dire} stackId="comparison" fill={constants.colorDanger} barSize={8} isAnimationActive={false} />
+                    <Tooltip cursor={false} wrapperStyle={{ zIndex: 1500 }} content={({ active }) => active ? (
+                      <HeroComparisonTooltip>
+                        <div className="tooltip-heading"><span>{metric.label}</span><time>10:00</time></div>
+                        {[radiant, dire].map((player, index) => {
+                          const identity = player && getPlayerIdentity(player, strings);
+                          return <div className="tooltip-player" key={index}>
+                            {identity?.icon && <img src={config.VITE_IMAGE_CDN + identity.icon} alt="" width={28} height={28} />}
+                            <div className="tooltip-identity"><span>{identity?.heroName ?? strings.general_no_hero}</span><small>{index === 0 ? strings.general_radiant : strings.general_dire}{identity && ` · ${identity.playerName}`}</small></div>
+                            <strong style={{ color: index === 0 ? constants.colorSuccess : constants.colorDanger }}>{formatStat(index === 0 ? metric.radiant : metric.dire)}</strong>
+                          </div>;
+                        })}
+                        <div className="tooltip-lead">{difference === null ? strings.laning_unavailable : difference === 0 ? strings.laning_tied : <>{(difference > 0 ? radiant : dire) ? heroes[(difference > 0 ? radiant : dire)!.hero_id]?.localized_name : strings.general_no_hero} leads by <strong>{formatStat(Math.abs(difference))}</strong>{percentageDifference !== null && <> ({percentageDifference.toFixed(1)}%)</>}</>}</div>
+                      </HeroComparisonTooltip>
+                    ) : null} />
+                    <Bar dataKey="radiant" name={strings.general_radiant} stackId="comparison" fill={constants.colorSuccess} barSize={5} radius={[3, 0, 0, 3]} isAnimationActive={false} />
+                    <Bar dataKey="dire" name={strings.general_dire} stackId="comparison" fill={constants.colorDanger} barSize={5} radius={[0, 3, 3, 0]} isAnimationActive={false} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -328,7 +368,7 @@ const HeroComparison = ({ match }: { match: Match }) => {
           );
         })}
         </div>
-        <MetricSummary>
+        <ReplaySummary><MetricSummary style={{ margin: 0, fontSize: "inherit", color: "inherit", width: "100%" }}>
           <div className="summary-intro">
             {formatTemplate(
               goldDifference
@@ -418,8 +458,20 @@ const HeroComparison = ({ match }: { match: Match }) => {
                 </li>
               );
             })}
+            {(() => {
+              const [radiantKills, radiantDeaths] = match.duration >= 600 ? getReplayKDA(radiant, 10) : [null, null];
+              const [direKills, direDeaths] = match.duration >= 600 ? getReplayKDA(dire, 10) : [null, null];
+              if (radiantKills === null || radiantDeaths === null || direKills === null || direDeaths === null) {
+                return <li>Kills and deaths comparison unavailable.</li>;
+              }
+              const radiantWins = radiantKills > direKills || (radiantKills === direKills && radiantDeaths <= direDeaths);
+              const killDifference = Math.abs(radiantKills - direKills);
+              const deathDifference = radiantWins ? radiantDeaths - direDeaths : direDeaths - radiantDeaths;
+          if (killDifference === 0 && deathDifference === 0) return null;
+              return <li><div className="summary-item"><span>{renderHero(radiantWins ? radiant : dire)} has {killDifference !== 0 && <strong className="summary-keyword">{formatStat(killDifference)} more kills</strong>}{killDifference !== 0 && deathDifference !== 0 && " and "}{deathDifference !== 0 && <strong className="summary-keyword">{formatStat(Math.abs(deathDifference))} {deathDifference > 0 ? "more" : "less"} deaths</strong>}.</span></div></li>;
+            })()}
           </ul>
-        </MetricSummary>
+        </MetricSummary></ReplaySummary>
       </MetricList>
     </>
   );

@@ -21,7 +21,7 @@ export const Team = styled.section`
   padding: 20px;
   border: 1px solid ${laningBorderColor};
   border-radius: 8px;
-  background: ${constants.secondarySurfaceColor};
+  background: rgba(80, 140, 190, 0.16);
 
   h3 {
     display: flex;

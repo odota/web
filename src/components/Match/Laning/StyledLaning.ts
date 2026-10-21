@@ -268,3 +268,23 @@ export const HeatmapPlayers = styled.div`
     input[type="radio"] { transition: none; }
   }
 `;
+
+export const ReplaySummary = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 20px;
+  padding: 16px 18px;
+  border: 1px solid rgba(80, 140, 190, 0.3);
+  border-radius: 8px;
+  background: rgba(80, 140, 190, 0.1);
+  color: ${constants.textColorPrimary};
+  font-family: ${constants.fontFamilyFuturistic};
+  font-size: 13px;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+  > div { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .summary-time { color: ${constants.textColorSecondary}; }
+  .summary-label { color: ${constants.textColorSecondary}; }
+`;
