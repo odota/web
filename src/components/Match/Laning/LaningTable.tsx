@@ -153,8 +153,8 @@ const LaningTable = ({ match }: { match: Match }) => {
   const roleLabels = getRoleLabels(strings);
   const metrics = [
     { label: strings.heading_level, color: "level", value: (p: MatchPlayer) => getLevelAtMinute(p) },
-    { label: strings.th_xp, color: "xp", value: (p: MatchPlayer) => getStatAtMinute(p, "xp_t") },
-    { label: "NW", color: "gold", value: (p: MatchPlayer) => getStatAtMinute(p, "gold_t") },
+    { label: "Experience (XP)", color: "xp", value: (p: MatchPlayer) => getStatAtMinute(p, "xp_t") },
+    { label: "Net Worth (NW)", color: "gold", value: (p: MatchPlayer) => getStatAtMinute(p, "gold_t") },
   ];
   const maxValues = metrics.map(({ value }) => Math.max(1, ...match.players.map((p) => value(p) ?? 0)));
   const total = (players: MatchPlayer[], value: (p: MatchPlayer) => number | null) => {
