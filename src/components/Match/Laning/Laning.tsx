@@ -255,6 +255,8 @@ const Laning = ({ match }: LaningProps) => {
           />
         </HeatmapContainer>
       </PageSection>
+      <LaningEvents match={match} />
+      <RoleComparison match={match} />
       <PageSection aria-label={strings.laning_hero_comparison}>
         <HeroComparison match={match} />
       </PageSection>
@@ -279,14 +281,12 @@ const Laning = ({ match }: LaningProps) => {
         />
       </PageSection>
       )}
-      <LaningEvents match={match} />
       {hasGraphData(match, "lh", 10) && (
         <PageSection aria-label={strings.heading_last_hits}>
           <MatchGraph match={match} type="lh" maxMinute={10} />
         </PageSection>
       )}
       <LastHitsTable match={match} />
-      <RoleComparison match={match} />
     </LaningPage>
   );
 };

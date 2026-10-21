@@ -1,3 +1,8 @@
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import GpsFixedIcon from "@mui/icons-material/GpsFixed";
+import BlockIcon from "@mui/icons-material/Block";
+import { formatTemplate, formatTemplateToString } from "../../../utility";
+import { MetricSummary } from "./StyledHeroComparison";
 import styled from "styled-components";
 import constants from "../../constants";
 import React, { useState } from "react";
@@ -202,6 +207,45 @@ const RoleComparison = ({ match }: { match: Match }) => {
         </section>;
       })}
     </ReplayTable>
+    {activeMinute !== undefined && (() => {
+      const minute = activeMinute;
+      const heroLabel = (player: MatchPlayer) => {
+        const identity = getPlayerIdentity(player, strings);
+        return <span className="summary-hero" style={{ color: playerColors[player.player_slot as unknown as keyof typeof playerColors] }}>{identity.icon && <img src={config.VITE_IMAGE_CDN + identity.icon} alt="" width={20} height={20} />}<strong>{identity.playerName}</strong></span>;
+      };
+      const metrics = [
+        { key: "level", label: "Level", values: pair.map((p) => getLevelAtMinute(p, minute)) },
+        { key: "networth", label: "Net worth", values: pair.map((p) => finite(p?.networth_t?.[minute])) },
+        { key: "lh", label: "Last hits", values: pair.map((p) => getStatAtMinute(p, "lh_t", minute)) },
+        { key: "denies", label: "Denies", values: pair.map((p) => getStatAtMinute(p, "dn_t", minute)) },
+      ];
+      const summaryKeys = ["comparison_level", "comparison_gold", "comparison_last_hits", "comparison_denies"];
+      const icons = [<TrendingUpIcon aria-hidden="true" />, <img src="/assets/images/dota2/gold.png" alt="" width={16} height={16} />, <GpsFixedIcon aria-hidden="true" />, <BlockIcon aria-hidden="true" />];
+      const worth = metrics[1].values;
+      const goldDifference = worth[0] !== null && worth[1] !== null ? worth[0] - worth[1] : null;
+      const renderHero = (player: MatchPlayer | undefined) => player ? heroLabel(player) : strings.general_no_hero;
+      return <MetricSummary aria-label="Replay summary" style={{ marginTop: 20 }}>
+        <div className="summary-intro">{formatTemplate(goldDifference ? strings.laning_comparison_winner_intro : strings.laning_comparison_intro, {
+          hero: renderHero(pair[goldDifference !== null && goldDifference > 0 ? 0 : 1]),
+          time: <span className="summary-time"><AccessTimeIcon aria-hidden="true" /><time>{minute}:00</time></span>,
+        })}</div>
+        <ul>{metrics.map(({ label, values }, index) => {
+          const [radiant, dire] = values;
+          const difference = radiant !== null && dire !== null ? radiant - dire : null;
+          const summaryKey = summaryKeys[index];
+          const keyword = (content: React.ReactNode) => <span className={`summary-keyword ${summaryKey}`}>{icons[index]} {content}</span>;
+          return <li key={summaryKey}><div className="summary-item"><span>{formatTemplate(
+            difference === null ? strings.laning_comparison_missing : difference === 0 ? strings.laning_comparison_tied : strings[`laning_${summaryKey}` as keyof Strings], {
+              hero: renderHero(pair[difference !== null && difference > 0 ? 0 : 1]),
+              opponent: renderHero(pair[difference !== null && difference > 0 ? 1 : 0]),
+              metric: keyword(label),
+              advantage: keyword(formatTemplateToString(strings.laning_comparison_level_advantage, { value: difference === null ? "" : formatStat(Math.abs(difference)) })),
+              value: keyword(difference === null ? "" : formatStat(Math.abs(difference))),
+            },
+          )}</span></div></li>;
+        })}</ul>
+      </MetricSummary>;
+    })()}
   </PageSection>;
 };
 
