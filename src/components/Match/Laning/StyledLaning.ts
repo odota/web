@@ -209,7 +209,6 @@ export const UltimateSummary = styled.section`
   && .level-six-summary { text-align: left; vertical-align: top; line-height: 24px; overflow-wrap: anywhere; }
   && .level-six-summary .summary-hero { display: inline-flex; align-items: center; gap: 6px; white-space: normal; max-width: 100%; }
   .level-six-summary .summary-hero > span:last-child { min-width: 0; overflow-wrap: anywhere; }
-  .level-six-entry { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 6px 0; }
   && .level-six-summary .summary-time {
     display: inline-flex;
     align-items: center;
@@ -222,6 +221,20 @@ export const UltimateSummary = styled.section`
   }
   h3 > .summary-time { display: inline-flex; align-items: center; gap: 4px; }
   h3 > .summary-time svg { width: 16px; height: 16px; color: ${constants.colorBlue}; }
+
+  &&.level-six-timings .summary-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    svg {
+      color: ${constants.colorBlue};
+      font-size: inherit;
+      width: 1em;
+      height: 1em;
+      flex-shrink: 0;
+    }
+  }
 
   .summary-team-icon { display: inline-flex; align-items: center; flex-shrink: 0; }
   .summary-team-icon svg, .summary-hero > img { display: block; }

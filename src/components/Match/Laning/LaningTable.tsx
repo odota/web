@@ -72,7 +72,8 @@ export const TeamTable = styled.section`
   &.replay-comparison-table th:nth-child(2), &.replay-comparison-table td:nth-child(2),
   &.replay-comparison-table th:nth-child(3), &.replay-comparison-table td:nth-child(3) { width: 38%; }
   &.replay-comparison-table.level-six-table table { table-layout: fixed; }
-  &.replay-comparison-table.level-six-table th, &.replay-comparison-table.level-six-table td { width: 20%; }
+  &.replay-comparison-table.level-six-table th, &.replay-comparison-table.level-six-table td { width: 18%; }
+  &.replay-comparison-table.level-six-table th:first-child { width: 10%; text-align: left; }
   &.replay-comparison-table.level-six-table tbody td { font-weight: 400; }
   &.replay-comparison-table.lane-summary-table th, &.replay-comparison-table.lane-summary-table td { width: 25%; }
   &.replay-comparison-table .stat-comparison { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; column-gap: 4px; }
