@@ -68,7 +68,7 @@
     "testcafe-react-selectors": "^5.0.3",
     "typescript": "^5.9.3",
     "vdf-parser": "^1.2.1",
-    "vite": "^7.3.6"
+    "vite": "^7.3.7"
   },
   "repository": {
     "type": "git",
