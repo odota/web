@@ -5,11 +5,18 @@
 
 import styled from "styled-components";
 import constants from "../constants";
+import { StyledCustomizedTooltip } from "../Visualizations/Graph/Styled";
 import { PageSection } from "./Laning/StyledLaning";
 
 /** Applies the Graphs page’s shared slate card border. */
 export const GraphCard = styled(PageSection)`
   border-color: rgba(100, 116, 139, 0.3);
+  &, & * { font-family: ${constants.fontFamilyFuturistic}; }
+  ${StyledCustomizedTooltip} { font-size: 16px; }
+  ${StyledCustomizedTooltip} div, ${StyledCustomizedTooltip} span,
+  ${StyledCustomizedTooltip} strong, ${StyledCustomizedTooltip} small,
+  ${StyledCustomizedTooltip} p { font-size: inherit; }
+  ${StyledCustomizedTooltip} .label { font-size: 14px; }
 `;
 
 /** Styles timeline markers, event tooltips, and milestone badges within a graph card. */
@@ -47,6 +54,8 @@ export const TimelineCard = styled(GraphCard)`
     color: #f1f5f9;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
     padding: 10px 12px !important;
+    font-size: 14px;
+    p, span, strong, small { font-size: inherit; }
   }
 
   .matchNumbers {

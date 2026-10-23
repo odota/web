@@ -20,31 +20,32 @@ const runeColors: Record<number, string> = {
 const Events = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
   margin: 16px 0 0 6px;
-  padding-left: 22px;
-  border-left: 2px solid ${constants.dividerColor};
+  padding: 12px 16px 12px 30px;
+  font-family: ${constants.fontFamilyFuturistic};
+  border-left: 2px solid ${constants.colorBlue};
   > section { position: relative; min-width: 0; }
   > section::before {
     content: "";
     position: absolute;
     top: 4px;
-    left: -28px;
+    left: -36px;
     width: 10px;
     height: 10px;
     border: 2px solid ${constants.primarySurfaceColor};
     border-radius: 50%;
-    background: ${constants.colorBlue};
+    background: #c084fc;
   }
-  h3 { display: flex; align-items: center; gap: 6px; margin: 0 0 8px; font: 400 13px ${constants.fontFamilyFuturistic}; }
+  h3 { display: flex; align-items: center; gap: 6px; margin: 0 0 8px; font: 400 16px ${constants.fontFamilyFuturistic}; color: ${constants.textColorPrimary}; }
   h3 > svg { width: 20px; height: 20px; color: ${constants.golden}; }
   h3 > img { object-fit: contain; }
   h3 > .camp-stack-icon, .camp-stack-count { color: ${constants.colorLavenderMuted}; }
   ul { margin: 0; padding: 0; list-style: none; }
-  li, section > p { margin: 6px 0 0; font-size: 12px; line-height: 1.6; }
+  li, section > p { margin: 10px 0 0; font-size: 16px; line-height: 1.6; }
   .event-player { display: inline-flex; align-items: center; gap: 5px; vertical-align: middle; }
   .event-rune, .rune-title { font-weight: 700; }
-  .rune-title { color: ${constants.colorWhite}; }
+  .rune-title { color: inherit; }
   .event-rune { display: inline-flex; align-items: center; gap: 4px; vertical-align: middle; }
   .event-rune img { object-fit: contain; }
   .event-role { display: inline-block; width: 20px; height: 20px; flex-shrink: 0; background-image: url("/assets/images/dota2/role-icons.png"); background-size: 500% auto; background-repeat: no-repeat; }
@@ -99,7 +100,7 @@ const LaningEvents = ({ match }: { match: Match }) => {
     })),
     ...Array.from(new Set(stackEvents.map((entry) => entry.minute))).map((minute) => ({
       key: `stacks-${minute}`, time: minute * 60,
-      title: <><LayersIcon className="camp-stack-icon" aria-hidden="true" />Camps Stacked</>,
+      title: <><LayersIcon className="camp-stack-icon" aria-hidden="true" /><span className="rune-title">Camps Stacked</span></>,
       content: <ul>{stackEvents.filter((entry) => entry.minute === minute).map(({ player, count }) => <li key={player.player_slot}><time>{time((minute - 1) * 60)}–{time(minute * 60)}</time>{playerLabel(player)} · <strong className="camp-stack-count">{count}</strong></li>)}</ul>,
     })),
   ];
@@ -107,7 +108,7 @@ const LaningEvents = ({ match }: { match: Match }) => {
     <Heading title="Laning Events" />
     <Events>
       {[...timeline, { key: "first-blood", time: firstBlood?.time ?? 0,
-        title: <><img src="/assets/images/dota2/bloodsplattersmall2.png" alt="" width={20} height={20} style={{ objectFit: "contain" }} />First Blood</>,
+        title: <><img src="/assets/images/dota2/bloodsplattersmall2.png" alt="" width={20} height={20} style={{ objectFit: "contain" }} /><span className="rune-title">First Blood</span></>,
         content: firstBlood ? <p><time>{time(firstBlood.time)}</time>{playerLabel(firstBloodPlayer)}{firstBloodVictim && <> · {playerLabel(firstBloodVictim)}</>}</p> : <TableCaption>No first blood recorded.</TableCaption>,
       }].sort((a, b) => a.time - b.time).map((event) => <section key={event.key}><h3>{event.title}</h3>{event.content}</section>)}
     </Events>

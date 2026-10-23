@@ -9,6 +9,7 @@ import constants from "../../constants";
 
 /** Presents hero identities and the metric lead in the chart tooltip. */
 export const HeroComparisonTooltip = styled.div`
+  font-family: ${constants.fontFamilyFuturistic};
   min-width: 220px;
   max-width: min(320px, calc(100vw - 48px));
   padding: 14px;
@@ -17,7 +18,7 @@ export const HeroComparisonTooltip = styled.div`
   background: ${constants.primarySurfaceColor};
   color: ${constants.textColorPrimary};
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.5;
   pointer-events: none;
   .tooltip-heading { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; font-weight: 600; }
@@ -32,6 +33,7 @@ export const HeroComparisonTooltip = styled.div`
 
 /** Arranges opposing hero selectors in responsive columns. */
 export const HeroMenus = styled.div`
+  font-family: ${constants.fontFamilyFuturistic};
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
@@ -44,7 +46,7 @@ export const HeroMenu = styled.div`
   flex-direction: column;
   gap: 8px;
   min-width: 0;
-  font-size: 13px;
+  font-size: 15px;
   color: ${constants.textColorSecondary};
 `;
 
@@ -78,8 +80,8 @@ export const HeroOption = styled.span`
   img { border-radius: 4px; flex-shrink: 0; }
   > span { min-width: 0; }
   strong, small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  strong { font-size: 14px; font-weight: 600; }
-  small { margin-top: 4px; color: ${constants.textColorSecondary}; font-size: 12px; }
+  strong { font-size: 16px; font-weight: 600; }
+  small { margin-top: 4px; color: ${constants.textColorSecondary}; font-size: 14px; }
 `;
 
 /** Displays the centered absolute difference, with muted ties. */
@@ -93,7 +95,7 @@ export const ComparisonLead = styled.span<{ $difference: number }>`
   font-weight: 600;
   white-space: nowrap;
 
-  strong { font-size: 12px; font-weight: 700; }
+  strong { font-size: 14px; font-weight: 700; }
   color: ${({ $difference }) => $difference === 0
     ? constants.textColorSecondary : constants.golden};
   &.comparison_level strong { color: ${constants.colorLavenderMuted}; }
@@ -137,6 +139,7 @@ export const MetricBalanceSide = styled.span<{ $radiant: boolean; $share: number
 
 /** Stacks comparison metrics and their summary. */
 export const MetricList = styled.div`
+  font-family: ${constants.fontFamilyFuturistic};
   width: 100%;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -178,7 +181,7 @@ export const MetricHeading = styled.div`
   .comparison_gold svg { color: ${constants.golden}; }
   .comparison_last_hits svg { color: ${constants.colorGreen}; }
   .comparison_denies svg { color: ${constants.colorRed}; }
-  h3 { display: flex; align-items: center; justify-content: center; gap: 5px; margin: 0; font-family: ${constants.fontFamilyFuturistic}; font-size: 13px; font-weight: 600; }
+  h3 { display: flex; align-items: center; justify-content: center; gap: 5px; margin: 0; font-family: ${constants.fontFamilyFuturistic}; font-size: 15px; font-weight: 600; }
 `;
 
 /** Places opposing values on either side of the centered difference. */
@@ -190,26 +193,28 @@ export const MetricValues = styled.div`
   margin-top: 8px;
   > span:first-child, > span:last-child { display: flex; flex-direction: column; gap: 2px; }
   > span:last-child { text-align: right; }
-  small { color: ${constants.textColorSecondary}; font-size: 11px; }
-  strong { font-size: 14px; font-weight: 600; }
+  small { color: ${constants.textColorSecondary}; font-size: 13px; }
+  strong { font-size: 16px; font-weight: 600; }
 `;
 
 /** Aligns the persisted same-role switch and label. */
 export const SameRoleToggle = styled.label`
+  font-family: ${constants.fontFamilyFuturistic};
   display: inline-flex;
   align-items: center;
   gap: 6px;
   margin-top: 12px;
   color: ${constants.textColorSecondary};
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
 `;
 
 /** Summarizes all metric differences beneath the comparison charts. */
 export const MetricSummary = styled.div`
+  font-family: ${constants.fontFamilyFuturistic};
   margin: 8px 0 0;
   color: ${constants.textColorSecondary};
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
   text-align: left;
   ul { margin: 8px 0 0; padding-left: 20px; }

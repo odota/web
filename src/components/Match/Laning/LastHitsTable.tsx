@@ -1,4 +1,5 @@
 import React from "react";
+import constants from "../../constants";
 import { player_colors as playerColors } from "dotaconstants";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import useStrings from "../../../hooks/useStrings.hook";
@@ -27,7 +28,7 @@ const LastHitsTable = ({ match, roleFilter }: { match: Match; roleFilter?: LaneR
     return <span className="player-identity"><span style={{ display: "inline-flex" }} title={player.isRadiant ? strings.general_radiant : strings.general_dire} aria-label={player.isRadiant ? strings.general_radiant : strings.general_dire}>{player.isRadiant ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}</span>{role && <span className="role-icon" role="img" aria-label={roleLabels[role]} title={roleLabels[role]} style={{ backgroundPosition: `${rolePositions[role]}% center` }} />}{identity.icon && <img src={config.VITE_IMAGE_CDN + identity.icon} alt={identity.heroName} width={24} height={24} />}<span style={{ color: playerColors[player.player_slot as unknown as keyof typeof playerColors] }}>{identity.playerName}</span></span>;
   };
   return <PageSection aria-label={title}>
-    <TeamTable style={{ marginTop: 0 }}>
+    <TeamTable className="last-hits-table" style={{ marginTop: 0, fontFamily: constants.fontFamilyFuturistic }}>
       <Heading title={title} />
       {displayedRoles.map((role) => {
         const players = match.players.filter((player) => role === "unknown"
@@ -35,7 +36,7 @@ const LastHitsTable = ({ match, roleFilter }: { match: Match; roleFilter?: LaneR
           .sort((a, b) => Number(b.isRadiant) - Number(a.isRadiant) || a.player_slot - b.player_slot);
         if (!players.length) return null;
         return <section key={role} style={{ marginTop: 16 }}>
-          <h3>{role === "unknown" ? strings.laning_unknown_role : roleLabels[role as LaneRole]}</h3>
+          <h3 style={{ display: "flex", alignItems: "center", gap: 6 }}>{role !== "unknown" && <span className="role-icon" aria-hidden="true" style={{ backgroundPosition: `${rolePositions[role]}% center` }} />}{role === "unknown" ? strings.laning_unknown_role : roleLabels[role]}</h3>
           <div className="table-scroll"><table>
             <thead><tr><th>{strings.th_players}</th>{minutes.map((minute) => <th className="last-hits" key={minute}><span className="minute-heading"><AccessTimeIcon aria-hidden="true" />{minute}</span></th>)}</tr></thead>
             <tbody>{players.map((player) => <tr key={player.player_slot}><td><span className="player-identity">{renderPlayer(player)}</span></td>{minutes.map((minute) => {

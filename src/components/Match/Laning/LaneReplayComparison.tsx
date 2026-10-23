@@ -79,7 +79,7 @@ const LaneReplayComparison = ({ match }: { match: Match }) => {
    * @param side Group index: zero for Radiant, one for Dire.
    * @returns Player labels, including unavailable placeholders for missing roles.
    */
-  const renderPlayers = (side: number) => <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 12 }}>{groups[side].map((player, index) => {
+  const renderPlayers = (side: number) => <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 12 }}>{groups[side].map((player, index) => {
     if (!player) return <div key={index}>{strings.laning_unavailable}</div>;
     const identity = getPlayerIdentity(player, strings);
     return <div key={player.player_slot} className="player-identity" style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6 }}>
@@ -98,13 +98,13 @@ const LaneReplayComparison = ({ match }: { match: Match }) => {
     { label: "Assists", read: (p: MatchPlayer) => getReplayKDA(p, minute)[2] },
   ];
   /**
-   * Formats a signed difference using the leading team's crest and color.
+   * Formats a signed difference using the metric icon and leading team's color.
    * A positive difference represents Radiant; zero is neutral.
    * @param value Radiant total minus Dire total, or null when unavailable.
    * @returns An absolute lead badge, neutral zero, or an em dash.
    */
-  const renderDifference = (value: number | null) => value === null ? "—" : value === 0 ? <span style={{ color: constants.textColorSecondary }}>0</span> : <SummaryTeam $radiant={value > 0}>
-    {value > 0 ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}+{formatStat(Math.abs(value))}
+  const renderDifference = (value: number | null, percent: number | null) => value === null ? "—" : value === 0 ? <span style={{ color: constants.textColorSecondary }}>0 (0.0%)</span> : <SummaryTeam $radiant={value > 0}>
+    +{formatStat(Math.abs(value))} ({percent?.toFixed(1)}%)
   </SummaryTeam>;
   /**
    * Calculates the signed difference between complete lane totals.
@@ -123,14 +123,15 @@ const LaneReplayComparison = ({ match }: { match: Match }) => {
     <ComparisonToggles exclusive value={minute ?? null} onChange={(_, value: number | null) => { if (value !== null) setSelectedMinute(value); }} aria-label="Lane comparison time">
       {intervals.map((value) => <ToggleButton key={value} value={value}><AccessTimeIcon aria-hidden="true" sx={{ fontSize: 14, color: constants.colorBlue }} />{value}:00</ToggleButton>)}
     </ComparisonToggles>
-    {minute === undefined ? <TableCaption>{strings.laning_unavailable}</TableCaption> : <TeamTable><div className="table-scroll"><table>
-      <thead><tr><th /><th><SummaryTeam $radiant><IconRadiant width="16" height="16" />{strings.general_radiant}</SummaryTeam></th><th><SummaryTeam $radiant={false}><IconDire width="16" height="16" />{strings.general_dire}</SummaryTeam></th><th>{strings.laning_difference}</th><th title={strings.laning_percentage_difference_hint}>{strings.laning_difference_percent}</th></tr><tr><th>{strings.th_players}</th><th>{renderPlayers(0)}</th><th>{renderPlayers(1)}</th><th /><th /></tr></thead>
+    {minute === undefined ? <TableCaption>{strings.laning_unavailable}</TableCaption> : <TeamTable className="replay-comparison-table"><div className="table-scroll"><table>
+      <thead><tr><th /><th><SummaryTeam $radiant><IconRadiant width="16" height="16" />{strings.general_radiant}</SummaryTeam></th><th><SummaryTeam $radiant={false}><IconDire width="16" height="16" />{strings.general_dire}</SummaryTeam></th></tr><tr><th>{strings.th_players}</th><th>{renderPlayers(0)}</th><th>{renderPlayers(1)}</th></tr></thead>
       <tbody>{metrics.map(({ label, read }) => {
         const values = [sum(0, read), sum(1, read)];
         const delta = values[0] !== null && values[1] !== null ? values[0] - values[1] : null;
         const average = values[0] !== null && values[1] !== null ? (Math.abs(values[0]) + Math.abs(values[1])) / 2 : null;
         const percent = delta === null || average === null ? null : average === 0 ? 0 : Math.abs(delta) / average * 100;
-        return <tr key={label}><td>{metricIcon(label)}{label}</td><td>{metricIcon(label)}{formatStat(values[0])}</td><td>{metricIcon(label)}{formatStat(values[1])}</td><td>{renderDifference(delta)}</td><td>{percent === null ? "—" : delta === 0 ? <span style={{ color: constants.textColorSecondary }}>0%</span> : <SummaryTeam $radiant={delta! > 0}>{delta! > 0 ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}{percent.toFixed(1)}%</SummaryTeam>}</td></tr>;
+        const advantage = delta === null ? null : label === "Deaths" ? -delta : delta;
+        return <tr key={label}><td>{metricIcon(label)}<strong>{label}</strong></td>{values.map((value, index) => <td key={index}><div className="stat-comparison"><span className="stat-original">{metricIcon(label)}<strong>{formatStat(value)}</strong></span>{advantage !== null && (index === 0 ? advantage > 0 : advantage < 0) && <span className="stat-difference" title={strings.laning_percentage_difference_hint}>{renderDifference(advantage, percent)}</span>}</div></td>)}</tr>;
       })}</tbody>
     </table></div></TeamTable>}
     {minute !== undefined && (() => {
@@ -139,7 +140,7 @@ const LaneReplayComparison = ({ match }: { match: Match }) => {
       const radiantWon = goldDifference !== null && goldDifference > 0;
       return <ReplaySummary aria-label="Lane comparison summary">
         <div className="summary-time"><AccessTimeIcon aria-hidden="true" sx={{ fontSize: 16, color: constants.colorBlue }} />{minute}:00</div>
-        <span>The {lane.label.toLowerCase()} {goldDifference === null ? "result is unavailable" : goldDifference === 0 ? "was tied" : <>was won by <SummaryTeam $radiant={radiantWon}>{radiantWon ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}{radiantWon ? strings.general_radiant : strings.general_dire}</SummaryTeam></>} with a net worth difference of <span style={{ color: constants.golden, fontWeight: 600, whiteSpace: "nowrap" }}><TooltipMetricIcon metric="gold" />{formatStat(goldDifference === null ? null : Math.abs(goldDifference))}</span> and a combined levels difference of <SummaryLevels><TrendingUpIcon aria-hidden="true" />{formatStat(levelDifference === null ? null : Math.abs(levelDifference))}</SummaryLevels>.</span>
+        <span>{goldDifference === null ? <>The {lane.label.toLowerCase()} result is unavailable</> : goldDifference === 0 ? <>The {lane.label.toLowerCase()} was tied</> : <><SummaryTeam $radiant={radiantWon}>{radiantWon ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}{radiantWon ? strings.general_radiant : strings.general_dire}</SummaryTeam> won the {lane.label.toLowerCase()} with a net worth advantage of <span style={{ color: constants.golden, fontWeight: 600, whiteSpace: "nowrap" }}><TooltipMetricIcon metric="gold" />{formatStat(Math.abs(goldDifference))}</span> and a combined levels {levelDifference !== null && (radiantWon ? levelDifference < 0 : levelDifference > 0) ? "disadvantage" : "advantage"} of <SummaryLevels><TrendingUpIcon aria-hidden="true" />{formatStat(levelDifference === null ? null : Math.abs(levelDifference))}</SummaryLevels></>}.</span>
       </ReplaySummary>;
     })()}
   </>;

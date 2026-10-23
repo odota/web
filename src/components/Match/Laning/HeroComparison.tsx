@@ -351,7 +351,7 @@ const HeroComparison = ({ match }: { match: Match }) => {
                         {[radiant, dire].map((player, index) => {
                           const identity = player && getPlayerIdentity(player, strings);
                           return <div className="tooltip-player" key={index}>
-                            {identity?.icon && <img src={config.VITE_IMAGE_CDN + identity.icon} alt="" width={28} height={28} />}
+                            {identity?.icon && <img src={config.VITE_IMAGE_CDN + identity.icon} alt="" width={36} height={36} />}
                             <div className="tooltip-identity"><span>{identity?.heroName ?? strings.general_no_hero}</span><small>{index === 0 ? strings.general_radiant : strings.general_dire}{identity && ` · ${identity.playerName}`}</small></div>
                             <strong style={{ color: index === 0 ? constants.colorSuccess : constants.colorDanger }}>{formatStat(index === 0 ? metric.radiant : metric.dire)}</strong>
                           </div>;

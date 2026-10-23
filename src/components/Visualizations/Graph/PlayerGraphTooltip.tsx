@@ -46,7 +46,7 @@ const PlayerGraphTooltip = ({ active, label, payload, players, metric }: {
             className={`data ${player?.isRadiant ? "isRadiant" : "isDire"}`}
             style={{ borderLeft: `3px solid ${entry.color}` }}
           >
-            {hero && <img src={config.VITE_IMAGE_CDN + hero.icon} alt={hero.localized_name} width={18} height={18} style={{ verticalAlign: "middle", marginRight: 6 }} />}
+            {hero && <img src={config.VITE_IMAGE_CDN + hero.icon} alt={hero.localized_name} width={28} height={28} style={{ verticalAlign: "middle", marginRight: 6 }} />}
             <TooltipMetricIcon metric={metric} />
             {entry.value?.toLocaleString("en-US")}
           </div>

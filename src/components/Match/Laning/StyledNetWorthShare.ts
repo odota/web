@@ -9,6 +9,7 @@ import constants from "../../constants";
 
 /** Arranges net worth share cards in responsive team columns. */
 export const Teams = styled.div`
+  font-family: ${constants.fontFamilyFuturistic};
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
@@ -28,7 +29,7 @@ export const Team = styled.section`
     align-items: center;
     gap: 8px;
     margin: 0;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.04em;
   }
@@ -42,7 +43,7 @@ export const Team = styled.section`
     gap: 10px;
     padding: 10px 0;
     border-top: 1px solid ${laningBorderColor};
-    font-size: 12px;
+    font-size: 14px;
     font-variant-numeric: tabular-nums;
   }
 
@@ -66,7 +67,7 @@ export const GoldValue = styled.span`
   img { flex-shrink: 0; }
 
   color: ${constants.golden};
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
 `;
 
@@ -87,7 +88,7 @@ export const TeamTotal = styled.p`
 
   margin: 10px 0 20px;
   color: ${constants.golden};
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 `;
@@ -103,7 +104,7 @@ export const HeroDetails = styled.div`
 /** Provides subdued hero and role metadata. */
 export const HeroRole = styled.span`
   color: ${constants.textColorSecondary};
-  font-size: 11px;
+  font-size: 13px;
 `;
 
 /** Contains the team’s proportional net worth segments. */
@@ -126,7 +127,7 @@ export const ShareSegment = styled.div<{ $color: string; $percentage: number }>`
   box-sizing: border-box;
   background: ${({ $color }) => $color};
   color: #111827;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 
@@ -137,8 +138,9 @@ export const ShareSegment = styled.div<{ $color: string; $percentage: number }>`
 
 /** Displays muted context and unavailable-data messages. */
 export const Note = styled.p`
+  font-family: ${constants.fontFamilyFuturistic};
   color: ${constants.textColorSecondary};
-  font-size: 12px;
+  font-size: 14px;
   margin: 8px 0;
 `;
 
@@ -146,8 +148,8 @@ export const Note = styled.p`
 export const ShareTooltipContent = styled.div`
   min-width: 180px;
   padding: 14px 16px;
-  font-family: ${constants.fontFamily};
-  font-size: 12px;
+  font-family: ${constants.fontFamilyFuturistic};
+  font-size: 16px;
   line-height: 1.5;
 `;
 
@@ -158,8 +160,8 @@ export const ShareTooltipHeader = styled.div`
   gap: 10px;
 
   img { border-radius: 4px; }
-  strong { display: block; font-size: 13px; font-weight: 600; }
-  span { display: block; margin-top: 2px; color: #94a3b8; font-size: 11px; }
+  strong { display: block; font-size: 17px; font-weight: 600; }
+  span { display: block; margin-top: 2px; color: #94a3b8; font-size: 15px; }
 `;
 
 /** Separates highlighted gold and team-share values from the tooltip header. */
@@ -172,7 +174,7 @@ export const ShareTooltipStats = styled.div`
   border-top: 1px solid #374151;
   font-variant-numeric: tabular-nums;
 
-  ${GoldValue} { color: #e2c46a; font-size: 16px; font-weight: 600; }
+  ${GoldValue} { color: #e2c46a; font-size: 20px; font-weight: 600; }
 `;
 
 /** Displays the leading team’s gold advantage beside its name. */
@@ -180,7 +182,7 @@ export const TeamDifference = styled.span<{ $difference: number }>`
   margin-left: 4px;
   color: ${({ $difference }) => $difference > 0 ? constants.colorSuccess
     : $difference < 0 ? constants.colorDanger : constants.textColorSecondary};
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: normal;
   font-variant-numeric: tabular-nums;

@@ -4,12 +4,20 @@
  */
 
 import styled from "styled-components";
+import { StyledCustomizedTooltip } from "../../Visualizations/Graph/Styled";
 import constants from "../../constants";
 
 export const laningBorderColor = "rgba(100, 116, 139, 0.3)";
 
 /** Stacks page sections with consistent spacing. */
 export const LaningPage = styled.div`
+  ${StyledCustomizedTooltip} { font-size: 16px; }
+  ${StyledCustomizedTooltip} div, ${StyledCustomizedTooltip} span,
+  ${StyledCustomizedTooltip} strong, ${StyledCustomizedTooltip} small,
+  ${StyledCustomizedTooltip} p { font-size: inherit; }
+  ${StyledCustomizedTooltip} .label { font-size: 14px; }
+  .laning-chart-section, .laning-chart-section * { font-family: ${constants.fontFamilyFuturistic}; }
+
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -101,7 +109,7 @@ export const SummaryResult = styled.div<{ $winner: "radiant" | "dire" | "tie" }>
     flex-wrap: wrap;
     align-items: center;
     gap: 0 4px;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.6;
   }
   .summary-phrase { display: inline-flex; align-items: center; }
@@ -121,7 +129,7 @@ export const SummaryResult = styled.div<{ $winner: "radiant" | "dire" | "tie" }>
     vertical-align: middle;
     svg { width: 16px; height: 16px; color: ${constants.colorBlue}; }
   }
-  .summary-narrative .summary-gold-lead { font-size: inherit; font-weight: 500; }
+  .summary-narrative .summary-gold-lead { font-size: inherit; font-weight: 700; }
   .summary-gold-lead { display: inline-flex; align-items: center; gap: 5px; }
   .summary-level-lead { font-size: 22px; }
   strong { color: ${constants.golden}; font-size: 22px; font-variant-numeric: tabular-nums; }
@@ -193,12 +201,34 @@ export const UltimateSummary = styled.section`
   padding-top: 16px;
   border-top: 1px solid ${laningBorderColor};
 
-  .summary-item { font-family: ${constants.fontFamilyFuturistic}; }
+  .summary-item { font-family: ${constants.fontFamilyFuturistic}; font-size: 14px; text-align: left; }
+  .level-six-cell { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  && .level-six-cell .summary-hero { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .level-six-cell .summary-time { display: inline-flex; gap: 4px; }
+  .level-six-cell .summary-time svg { width: 16px; height: 16px; color: ${constants.colorBlue}; }
+  && .level-six-summary { text-align: left; vertical-align: top; line-height: 24px; overflow-wrap: anywhere; }
+  && .level-six-summary .summary-hero { display: inline-flex; align-items: center; gap: 6px; white-space: normal; max-width: 100%; }
+  .level-six-summary .summary-hero > span:last-child { min-width: 0; overflow-wrap: anywhere; }
+  .level-six-entry { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 6px 0; }
+  && .level-six-summary .summary-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: ${constants.textColorPrimary};
+    font-weight: 700;
+    white-space: nowrap;
+    vertical-align: middle;
+    svg { width: 16px; height: 16px; color: ${constants.colorBlue}; }
+  }
+  h3 > .summary-time { display: inline-flex; align-items: center; gap: 4px; }
+  h3 > .summary-time svg { width: 16px; height: 16px; color: ${constants.colorBlue}; }
 
   .summary-team-icon { display: inline-flex; align-items: center; flex-shrink: 0; }
   .summary-team-icon svg, .summary-hero > img { display: block; }
-  .summary-hero, .summary-keyword, .summary-time {
-    vertical-align: middle;
+  && .summary-hero, && .summary-keyword, && .summary-time {
+    align-items: baseline;
+    vertical-align: baseline;
+    > svg, > img, > .summary-team-icon, > .summary-role-icon { align-self: center; }
     line-height: 24px;
   }
 
@@ -236,6 +266,8 @@ export const SummaryLevels = styled.span`
 /** Player selection beside the laning map. */
 export const HeatmapPlayers = styled.div`
   padding: 16px;
+  font-family: ${constants.fontFamilyFuturistic};
+  font-size: 14px;
   border: 1px solid ${laningBorderColor};
   border-radius: 8px;
   background: rgba(80, 140, 190, 0.12);
@@ -244,8 +276,8 @@ export const HeatmapPlayers = styled.div`
   gap: 12px;
   min-width: 200px;
   fieldset { border: 0; padding: 0; margin: 0; }
-  legend { margin-bottom: 6px; font-family: ${constants.fontFamilyFuturistic}; font-size: 13px; }
-  label { display: flex; align-items: center; gap: 8px; padding: 5px 6px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+  legend { margin-bottom: 6px; font-family: ${constants.fontFamilyFuturistic}; font-size: 16px; }
+  label { display: flex; align-items: center; gap: 8px; padding: 5px 6px; border-radius: 4px; cursor: pointer; font-size: 14px; }
   label:hover { background: rgba(125, 200, 240, 0.08); }
   img { flex-shrink: 0; }
   input[type="radio"] {
@@ -284,7 +316,7 @@ export const ReplaySummary = styled.div`
   background: rgba(80, 140, 190, 0.1);
   color: ${constants.textColorPrimary};
   font-family: ${constants.fontFamilyFuturistic};
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.6;
   font-variant-numeric: tabular-nums;
   > div { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; }

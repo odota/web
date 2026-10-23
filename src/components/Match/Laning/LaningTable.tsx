@@ -25,7 +25,7 @@ const roleTooltipSlots = {
       boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
       padding: "8px 12px",
       fontFamily: constants.fontFamilyFuturistic,
-      fontSize: "12px",
+      fontSize: "14px",
       fontWeight: 500,
       lineHeight: 1.5,
     },
@@ -41,6 +41,10 @@ const roleTooltipSlots = {
 export const TeamTable = styled.section`
   margin-top: 12px;
   background: transparent;
+  &.laning-phase-table table { font-family: ${constants.fontFamilyFuturistic}; font-size: 14px; }
+  &.laning-phase-table th { font-size: 13px; }
+  &.laning-phase-table .xp, &.laning-phase-table .xp svg { color: ${constants.colorLavenderMuted}; }
+  &.laning-phase-table .role-name, &.laning-phase-table small { font-size: 13px; }
   h3 { margin: 0 0 6px; font-size: 14px; font-family: ${constants.fontFamilyFuturistic}; }
   .team-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
   .team-heading h3 { margin-bottom: 0; }
@@ -58,6 +62,22 @@ export const TeamTable = styled.section`
   th, td { padding: 6px 10px; text-align: left; white-space: nowrap; }
   thead, tfoot { background: rgba(128, 128, 128, 0.08); }
   th { font-size: 11px; font-weight: 600; }
+  &.last-hits-table thead th { font-size: 14px; }
+  &.replay-comparison-table table { font-family: ${constants.fontFamilyFuturistic}; }
+  &.replay-comparison-table th, &.replay-comparison-table td { padding: 10px 14px; text-align: center; vertical-align: middle; }
+  &.replay-comparison-table tbody td { font-size: 14px; }
+  &.replay-comparison-table thead tr:first-child th { font-size: 14px; }
+  &.replay-comparison-table .player-identity { font-size: 14px; justify-content: center; }
+  &.replay-comparison-table tbody td:first-child { font-weight: 700; }
+  &.replay-comparison-table th:nth-child(2), &.replay-comparison-table td:nth-child(2),
+  &.replay-comparison-table th:nth-child(3), &.replay-comparison-table td:nth-child(3) { width: 38%; }
+  &.replay-comparison-table.level-six-table table { table-layout: fixed; }
+  &.replay-comparison-table.level-six-table th, &.replay-comparison-table.level-six-table td { width: 20%; }
+  &.replay-comparison-table.level-six-table tbody td { font-weight: 400; }
+  &.replay-comparison-table.lane-summary-table th, &.replay-comparison-table.lane-summary-table td { width: 25%; }
+  &.replay-comparison-table .stat-comparison { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; column-gap: 4px; }
+  &.replay-comparison-table .stat-original { grid-column: 2; justify-self: center; white-space: nowrap; }
+  &.replay-comparison-table .stat-difference { grid-column: 3; justify-self: start; font-size: inherit; text-align: left; white-space: nowrap; }
   thead tr:first-child th[colspan] { text-align: left; padding: 8px 6px 6px; }
   .group-heading {
     display: inline-flex;
@@ -167,12 +187,12 @@ const LaningTable = ({ match }: { match: Match }) => {
   };
   return <>{[true, false].map((radiant) => {
     const players = (match.players as LaningPlayer[]).filter((p) => p.isRadiant === radiant).sort((a, b) => b.lane - a.lane);
-    return <TeamTable key={String(radiant)}>
+    return <TeamTable className="laning-phase-table" key={String(radiant)}>
       <div className="team-heading"><h3><SummaryTeam $radiant={radiant}>{radiant ? strings.general_radiant : strings.general_dire}</SummaryTeam></h3>
       </div>
       <div className="table-scroll"><table>
         <thead>
-          <tr><th className="player">{strings.th_players}</th><th className="role-cell">{strings.laning_role}</th><th>{strings.th_lane}</th><th className="heroes-cell">{strings.th_heroes}</th><th><Tooltip title="Full-match kills / deaths / assists" arrow><span>KDA</span></Tooltip></th><th className="level">{strings.heading_level}</th>{metrics.slice(1).map((m) => <th className={m.color} key={m.label}>{m.label}</th>)}</tr>
+          <tr><th className="player">{strings.th_players}</th><th className="role-cell">{strings.laning_role}</th><th>{strings.th_lane}</th><th className="heroes-cell">{strings.th_heroes}</th><th><Tooltip title="Full-match kills / deaths / assists" arrow slotProps={roleTooltipSlots}><span>KDA</span></Tooltip></th><th className="level">{strings.heading_level}</th>{metrics.slice(1).map((m) => <th className={m.color} key={m.label}>{m.label}</th>)}</tr>
         </thead>
         <tbody>{players.map((player) => {
           const hero = heroes[player.hero_id];
