@@ -171,17 +171,31 @@ const Laning = ({ match }: LaningProps) => {
         <UltimateSummary className="level-six-timings">
           <h3>{strings.laning_ultimate_heading} · {renderSummaryTime(summaryMinute)}</h3>
           <TeamTable className="replay-comparison-table level-six-table"><div className="table-scroll"><table>
-            <thead><tr>{(["midlane", "carry", "offlane", "softSupport", "hardSupport"] as const).map((role) => <th key={role}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span className="role-icon" aria-hidden="true" style={{ backgroundPosition: `${roleIconPositions[role]}% center` }} />{roleLabels[role]}</span></th>)}</tr></thead>
-            <tbody><tr>{(["midlane", "carry", "offlane", "softSupport", "hardSupport"] as const).map((role) => {
-              const snapshots = [true, false].map((radiant) => {
+            <thead><tr><th scope="col">Timestamp</th>{(["midlane", "carry", "offlane", "softSupport", "hardSupport"] as const).map((role) => <th scope="col" key={role}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span className="role-icon" aria-hidden="true" style={{ backgroundPosition: `${roleIconPositions[role]}% center` }} />{roleLabels[role]}</span></th>)}</tr></thead>
+            <tbody>{(() => {
+              const roles = ["midlane", "carry", "offlane", "softSupport", "hardSupport"] as const;
+              const snapshots = [true, false].flatMap((radiant) => roles.map((role) => {
                 const player = getLaningRoles(match.players, radiant)[role];
                 const samples = player?.xp_t?.slice(0, summaryMinute + 1) ?? [];
                 const minute = samples.findIndex((xp) => Number.isFinite(xp) && getHeroLevel(xp) >= 6);
                 const complete = samples.length === summaryMinute + 1 && Array.from(samples).every((xp) => Number.isFinite(xp));
-                return { player, minute, complete };
-              });
-              return <td key={role} className="level-six-summary" style={{ whiteSpace: "normal" }}>{snapshots.map(({ player, minute, complete }, index) => <div className="level-six-entry" key={index}>{player ? renderSummaryPlayer(player, undefined, false) : renderTeam(index === 0)}{minute >= 0 ? renderSummaryTime(minute) : player && complete ? <span className="summary-time"><AccessTimeIcon aria-hidden="true" />—</span> : <span>{strings.laning_unavailable}</span>}</div>)}</td>;
-            })}</tr></tbody>
+                return { role, player, radiant, minute, complete };
+              }));
+              const timestamps = [...new Set(snapshots.filter(({ minute }) => minute >= 0).map(({ minute }) => minute))].sort((a, b) => a - b);
+              const rows = [
+                ...timestamps.map((minute) => ({ key: String(minute), label: renderSummaryTime(minute), entries: snapshots.filter((entry) => entry.minute === minute) })),
+                { key: "not-reached", label: <span title={`Level six not reached by ${summaryMinute}:00`}>—</span>, entries: snapshots.filter(({ player, minute, complete }) => player && minute < 0 && complete) },
+                { key: "unavailable", label: <span>{strings.laning_unavailable}</span>, entries: snapshots.filter(({ player, minute, complete }) => !player || (minute < 0 && !complete)) },
+              ];
+              return rows.filter(({ entries }) => entries.length).map(({ key, label, entries }) => <tr key={key}>
+                <th scope="row">{label}</th>
+                {roles.map((role) => <td key={role} className="level-six-summary" style={{ whiteSpace: "normal" }}>
+                  {entries.filter((entry) => entry.role === role).map(({ player, radiant }) => <div key={String(radiant)}>
+                    {player ? renderSummaryPlayer(player) : renderTeam(radiant)}
+                  </div>)}
+                </td>)}
+              </tr>);
+            })()}</tbody>
           </table></div></TeamTable>
         </UltimateSummary>
         <UltimateSummary aria-label="Laning activity">
