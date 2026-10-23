@@ -8,7 +8,7 @@ import styled from "styled-components";
 import constants from "../../constants";
 import React, { useState } from "react";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { ToggleButton, ToggleButtonGroup, Tooltip } from "@mui/material";
 import { abilities, ability_ids as abilityIds, heroes, items, player_colors as playerColors } from "dotaconstants";
 import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
@@ -54,21 +54,41 @@ export const ComparisonToggles = styled(ToggleButtonGroup)`
   }
   .role-icon { width: 20px; height: 20px; flex-shrink: 0; background-image: url("/assets/images/dota2/role-icons.png"); background-size: 500% auto; background-repeat: no-repeat; }
   .matchup-label { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; }
-  .opposing-role-label { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+  .opposing-role-label { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px; font-size: 14px; }
   .lane-label { align-self: stretch; text-align: center; font-size: 10px; line-height: 1.3; color: ${constants.textColorSecondary}; }
   @media (prefers-reduced-motion: reduce) { & .MuiToggleButtonGroup-grouped { transition: none; } }
 `;
 
 
 const ReplayTable = styled(TeamTable)`
-  th, td { vertical-align: top; }
+  th, td { vertical-align: middle; }
+  .replay-player-role { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 6px; font-size: 14px; }
 `;
+
+const replayTooltipSlots = {
+  tooltip: {
+    sx: {
+      backgroundColor: constants.primarySurfaceColor,
+      color: constants.textColorPrimary,
+      border: "1px solid rgba(125, 200, 240, 0.3)",
+      borderRadius: "8px",
+      boxShadow: "0 6px 20px rgba(0, 0, 0, 0.4)",
+      padding: "10px 14px",
+      fontFamily: constants.fontFamilyFuturistic,
+      fontSize: "15px",
+      lineHeight: 1.5,
+      "& strong": { display: "block", fontWeight: 700 },
+      "& small": { display: "block", color: constants.textColorSecondary, fontSize: "14px", marginTop: "2px" },
+    },
+  },
+  arrow: { sx: { color: constants.primarySurfaceColor, "&::before": { border: "1px solid rgba(125, 200, 240, 0.3)" } } },
+};
 
 const PurchasedItem = styled.span`
   position: relative;
   display: inline-flex;
-  width: 36px;
-  height: 27px;
+  width: 48px;
+  height: 36px;
   flex-shrink: 0;
   img { width: 100%; height: 100%; object-fit: cover; }
   time {
@@ -79,8 +99,8 @@ const PurchasedItem = styled.span`
     background: rgba(0, 0, 0, 0.65);
     color: ${constants.colorWhite};
     text-align: center;
-    font-size: 9px;
-    line-height: 12px;
+    font-size: 12px;
+    line-height: 16px;
     font-variant-numeric: tabular-nums;
   }
 `;
@@ -152,7 +172,7 @@ const RoleComparison = ({ match }: { match: Match }) => {
       {intervals.map((minute) => <ToggleButton key={minute} value={minute} aria-label={`${minute} minutes`}><AccessTimeIcon aria-hidden="true" sx={{ fontSize: 14, color: constants.colorBlue }} />{minute}:00</ToggleButton>)}
     </ComparisonToggles>
     {!intervals.length && <TableCaption>{strings.laning_unavailable}</TableCaption>}
-    <ReplayTable>
+    <ReplayTable className="replay-comparison-table">
       {(activeMinute === undefined ? [] : [activeMinute]).map((minute) => {
         const stats = [
           { label: "Total Last Hits", icon: "lh", values: pair.map((p) => getStatAtMinute(p, "lh_t", minute)) },
@@ -166,8 +186,8 @@ const RoleComparison = ({ match }: { match: Match }) => {
         return <section key={minute} style={{ marginTop: 20 }}>
           <h3>{minute - 2}:00–{minute}:00</h3>
           <div className="table-scroll"><table>
-            <thead><tr><th /><th><SummaryTeam $radiant><IconRadiant width="16" height="16" />{strings.general_radiant}</SummaryTeam></th><th><SummaryTeam $radiant={false}><IconDire width="16" height="16" />{strings.general_dire}</SummaryTeam></th><th>{strings.laning_difference}</th><th title={strings.laning_percentage_difference_hint}>{strings.laning_difference_percent}</th></tr>
-              <tr><th>{strings.th_players}</th>{pair.map((p, index) => <th key={index}>{laneComparison && <div>{roleLabels[index === 0 ? selectedRole : opponentRole]}</div>}{playerName(p)}</th>)}<th /><th /></tr>
+            <thead><tr><th /><th><SummaryTeam $radiant><IconRadiant width="16" height="16" />{strings.general_radiant}</SummaryTeam></th><th><SummaryTeam $radiant={false}><IconDire width="16" height="16" />{strings.general_dire}</SummaryTeam></th></tr>
+              <tr><th>{strings.th_players}</th>{pair.map((p, index) => <th key={index}>{laneComparison && <div className="replay-player-role"><span className="role-icon" aria-hidden="true" style={{ backgroundPosition: `${rolePositions[index === 0 ? selectedRole : opponentRole]}% center` }} />{roleLabels[index === 0 ? selectedRole : opponentRole]}</div>}{playerName(p)}</th>)}</tr>
             </thead>
             <tbody>
               {stats.map(({ label, icon, values }) => {
@@ -176,20 +196,14 @@ const RoleComparison = ({ match }: { match: Match }) => {
                   ? (Math.abs(values[0]) + Math.abs(values[1])) / 2 : null;
                 const percentDifference = difference === null || averageMagnitude === null
                   ? null : averageMagnitude === 0 ? 0 : Math.abs(difference) / averageMagnitude * 100;
-                return <tr key={label}><td>{label}</td>{values.map((value, index) => <td key={index}>{icon && <TooltipMetricIcon metric={icon} />}{formatStat(value)}</td>)}<td>{difference === null ? "—" : difference === 0 ? "0" : <SummaryTeam $radiant={difference > 0}>{difference > 0 ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}+{formatStat(Math.abs(difference))}</SummaryTeam>}</td>
-                  <td>{percentDifference === null ? "—" : difference === 0 ? "0%" : (
-                    <SummaryTeam $radiant={difference! > 0}>
-                      {difference! > 0 ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}
-                      {percentDifference.toFixed(1)}%
-                    </SummaryTeam>
-                  )}</td></tr>;
+                return <tr key={label}><td><TooltipMetricIcon metric={icon} />{label}</td>{values.map((value, index) => <td key={index}><div className="stat-comparison"><span className="stat-original">{icon && <TooltipMetricIcon metric={icon} />}<strong>{formatStat(value)}</strong></span>{difference !== null && (index === 0 ? difference > 0 : difference < 0) && <span className="stat-difference" title={strings.laning_percentage_difference_hint}><SummaryTeam $radiant={index === 0}>+{formatStat(Math.abs(difference))} ({percentDifference?.toFixed(1)}%)</SummaryTeam></span>}</div></td>)}</tr>;
               })}
               <tr>
                 <td>K/D/A</td>
                 {pair.map((player, index) => <td key={index} title={strings.laning_kda_snapshot_hint}>
-                  {getReplayKDA(player, minute).map((value) => formatStat(value)).join(" / ")}
+                  <strong>{getReplayKDA(player, minute).map((value) => formatStat(value)).join(" / ")}</strong>
                 </td>)}
-                <td colSpan={2} />
+
               </tr>
               {([{ label: "Heroes killed", field: "kills_log" }, { label: "Deaths", field: "deaths_log" }] as const).map(({ label, field }) => <tr key={field}>
                 <td>{label}</td>{pair.map((p, side) => {
@@ -205,58 +219,58 @@ const RoleComparison = ({ match }: { match: Match }) => {
                       const eventPlayer = hero && match.players.find((candidate) => Number(candidate.hero_id) === Number(hero.id));
                       const name = eventPlayer ? getPlayerIdentity(eventPlayer, strings).playerName
                         : hero?.localized_name ?? String(entry.key ?? "Unknown").replace(/^npc_dota_/, "").replace(/_/g, " ");
-                      return <span key={index} title={`${field === "deaths_log" ? "Killed by " : ""}${name} at ${purchaseTime(entry.time)}`} style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
-                        {hero ? <img src={config.VITE_IMAGE_CDN + hero.icon} alt={hero.localized_name} width={20} height={20} /> : <span aria-label={name}>?</span>}
-                        <time style={{ fontSize: 10, lineHeight: "20px", fontWeight: 400, color: constants.textColorSecondary }}>{purchaseTime(entry.time)}</time>
-                      </span>;
+                      return <Tooltip key={index} title={<><strong>{field === "deaths_log" ? "Killed by " : ""}{name}</strong><small>{hero?.localized_name}{hero && " · "}{purchaseTime(entry.time)}</small></>} arrow placement="top" slotProps={replayTooltipSlots}><span tabIndex={0} style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+                        {hero ? <img src={config.VITE_IMAGE_CDN + hero.icon} alt={hero.localized_name} width={32} height={32} /> : <span aria-label={name} style={{ fontSize: 16 }}>?</span>}
+                        <time style={{ fontSize: 14, lineHeight: "22px", fontWeight: 400, color: constants.textColorSecondary }}>{purchaseTime(entry.time)}</time>
+                      </span></Tooltip>;
                     })}</div>}</div>
                       </div>;
                     })}</div>
                   </td>;
-                })}<td colSpan={2} />
+                })}
               </tr>)}
               <tr><td>Creeps killed by type</td>{pair.map((p, side) => {
                 const creeps = getReplayCreeps(p, minute);
                 return <td key={side} style={{ whiteSpace: "normal" }}>{creeps === null ? <span style={{ color: constants.textColorSecondary }}>Timed creep data unavailable</span> : creeps.length === 0 ? "None" : <ul>{creeps.map(([key, count]) => <li key={key}>{key.replace(/^npc_dota_/, "").replace(/_/g, " ")}: {count}</li>)}</ul>}</td>;
-              })}<td colSpan={2} /></tr>
+              })}</tr>
               <tr><td>Skills added{pair.some((player) => getReplaySkills(player, minute)?.estimated) && <small style={{ display: "block", marginTop: 4, color: constants.textColorSecondary, fontWeight: 400 }}>Approximate · based on XP</small>}</td>{pair.map((p, side) => <td key={side} style={{ whiteSpace: "normal", maxWidth: 320 }}>
                 <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: 8 }}>{intervals.filter((endMinute) => endMinute <= minute).map((endMinute) => {
                   const skills = getReplaySkills(p, endMinute);
                   const previous = endMinute === 2 ? { upgrades: [] } : getReplaySkills(p, endMinute - 2);
                   const upgrades = skills && previous ? skills.upgrades.slice(previous.upgrades.length) : null;
                   return <div key={endMinute} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 4, maxWidth: "100%", padding: "6px 4px", borderRadius: 4, background: endMinute === minute ? "rgba(125, 200, 240, 0.14)" : undefined, borderLeft: endMinute === minute ? `2px solid ${constants.colorBlue}` : "2px solid transparent" }}>
-                    <time style={{ whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums", fontSize: 10, fontWeight: 400, color: constants.textColorSecondary }}>{endMinute - 2}:00–{endMinute}:00</time>
+                    <time style={{ whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums", fontSize: 12, fontWeight: 400, color: constants.textColorSecondary }}>{endMinute - 2}:00–{endMinute}:00</time>
                     <div>
                     {upgrades === null ? <div>—</div> : upgrades.length === 0 ? <div>None</div> : <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>{upgrades.map((upgrade, index) => {
                     const key = abilityIds[String(upgrade.ability) as keyof typeof abilityIds];
                     const ability = abilities[key as keyof typeof abilities];
                     const name = (ability && "dname" in ability ? ability.dname : undefined) || key || `Ability ${upgrade.ability}`;
-                    return <span key={index} title={`${name} · Hero level ${upgrade.level}`} style={{ display: "inline-flex", position: "relative", width: 24, height: 24, background: constants.secondarySurfaceColor }}>
-                      {ability && "img" in ability && ability.img && <img src={config.VITE_IMAGE_CDN + ability.img} alt={name} width={24} height={24} />}
-                      <small style={{ position: "absolute", bottom: 0, right: 0, padding: "0 2px", background: "rgba(0, 0, 0, 0.75)", color: constants.colorWhite, fontSize: 9, lineHeight: "11px", fontWeight: 700 }}>{upgrade.level}</small>
-                    </span>;
+                    return <Tooltip key={index} title={<><strong>{name}</strong><small>Hero level {upgrade.level}</small></>} arrow placement="top" slotProps={replayTooltipSlots}><span tabIndex={0} style={{ display: "inline-flex", position: "relative", width: 32, height: 32, background: constants.secondarySurfaceColor }}>
+                      {ability && "img" in ability && ability.img && <img src={config.VITE_IMAGE_CDN + ability.img} alt={name} width={32} height={32} />}
+                      <small style={{ position: "absolute", bottom: 0, right: 0, padding: "0 2px", background: "rgba(0, 0, 0, 0.75)", color: constants.colorWhite, fontSize: 11, lineHeight: "14px", fontWeight: 700 }}>{upgrade.level}</small>
+                    </span></Tooltip>;
                     })}</div>}
                     </div>
                   </div>;
                 })}</div>
-              </td>)}<td colSpan={2} /></tr>
+              </td>)}</tr>
               <tr><td>Items purchased</td>{pair.map((p, side) => <td key={side} style={{ whiteSpace: "normal", maxWidth: 320 }}>{!p || !Array.isArray(p.purchase_log) ? "—" : intervals.filter((endMinute) => endMinute <= minute).reverse().map((endMinute) => {
                 // Include starting items in the first interval.
                 const purchases = p.purchase_log.filter((entry) => Number.isFinite(entry.time) && entry.time <= endMinute * 60 && (endMinute === 2 || entry.time > (endMinute - 2) * 60));
-                return <div key={endMinute} style={{ display: "grid", gridTemplateColumns: "65px minmax(0, 1fr)", alignItems: "start", gap: 8, marginBottom: 8, padding: "6px 4px", borderRadius: 4, background: endMinute === minute ? "rgba(125, 200, 240, 0.14)" : undefined, borderLeft: endMinute === minute ? `2px solid ${constants.colorBlue}` : "2px solid transparent" }}>
-                  <time style={{ whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums", fontSize: 10, fontWeight: 400, color: constants.textColorSecondary }}>{endMinute - 2}:00–{endMinute}:00</time>
+                return <div key={endMinute} style={{ display: "grid", gridTemplateColumns: "80px minmax(0, 1fr)", alignItems: "start", gap: 8, marginBottom: 8, padding: "6px 4px", borderRadius: 4, background: endMinute === minute ? "rgba(125, 200, 240, 0.14)" : undefined, borderLeft: endMinute === minute ? `2px solid ${constants.colorBlue}` : "2px solid transparent" }}>
+                  <time style={{ whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums", fontSize: 12, fontWeight: 400, color: constants.textColorSecondary }}>{endMinute - 2}:00–{endMinute}:00</time>
                   {purchases.length === 0 ? <div>None</div> : <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>{purchases.map((entry, index) => {
                 const item = items[entry.key as keyof typeof items];
                 const name = item && "dname" in item ? item.dname : entry.key;
                 const boughtAt = Number.isFinite(entry.time) ? purchaseTime(entry.time) : "—";
-                return item ? <PurchasedItem key={index} title={`${name} (${boughtAt})`}>
-                  <img src={config.VITE_IMAGE_CDN + item.img} alt={name} width={36} height={27} />
+                return item ? <Tooltip key={index} title={<><strong>{name}</strong><small>Purchased at {boughtAt}</small></>} arrow placement="top" slotProps={replayTooltipSlots}><PurchasedItem tabIndex={0}>
+                  <img src={config.VITE_IMAGE_CDN + item.img} alt={name} width={48} height={36} />
                   <time aria-label={`Purchased at ${boughtAt}`}>{boughtAt}</time>
-                </PurchasedItem> : <span key={index}>{entry.key} <time>{boughtAt}</time></span>;
+                </PurchasedItem></Tooltip> : <Tooltip key={index} title={<><strong>{name}</strong><small>Purchased at {boughtAt}</small></>} arrow placement="top" slotProps={replayTooltipSlots}><span tabIndex={0}>{entry.key} <time>{boughtAt}</time></span></Tooltip>;
                   })}</div>}
                 </div>;
-              })}</td>)}<td colSpan={2} /></tr>
-              <tr><td>Runes picked up</td>{pair.map((p, side) => <td key={side} style={{ whiteSpace: "normal", maxWidth: 320 }}>{!p || !Array.isArray(p.runes_log) ? "—" : <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>{p.runes_log.filter((entry) => entry.time >= 0 && entry.time <= minute * 60).map((entry, index) => <span key={index} title={`${strings[`rune_${entry.key}` as keyof Strings]} (${purchaseTime(entry.time)})`} style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 2 }}><img src={`/assets/images/dota2/runes/${entry.key}.png`} alt={strings[`rune_${entry.key}` as keyof Strings]} width={24} height={24} /><time style={{ fontSize: 10, fontWeight: 400, color: constants.textColorSecondary }}>{purchaseTime(entry.time)}</time></span>)}</div>}</td>)}<td colSpan={2} /></tr>
+              })}</td>)}</tr>
+              <tr><td>Runes picked up</td>{pair.map((p, side) => <td key={side} style={{ whiteSpace: "normal", maxWidth: 320 }}>{!p || !Array.isArray(p.runes_log) ? "—" : <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>{p.runes_log.filter((entry) => entry.time >= 0 && entry.time <= minute * 60).map((entry, index) => <Tooltip key={index} title={<><strong>{strings[`rune_${entry.key}` as keyof Strings]}</strong><small>Picked up at {purchaseTime(entry.time)}</small></>} arrow placement="top" slotProps={replayTooltipSlots}><span tabIndex={0} style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 2 }}><img src={`/assets/images/dota2/runes/${entry.key}.png`} alt={strings[`rune_${entry.key}` as keyof Strings]} width={32} height={32} /><time style={{ fontSize: 12, fontWeight: 400, color: constants.textColorSecondary }}>{purchaseTime(entry.time)}</time></span></Tooltip>)}</div>}</td>)}</tr>
             </tbody>
           </table></div>
         </section>;

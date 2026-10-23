@@ -218,8 +218,8 @@ const GraphTooltip = ({
                     <img
                       src={config.VITE_IMAGE_CDN + hero.icon}
                       alt={hero.localized_name}
-                      width={18}
-                      height={18}
+                      width={28}
+                      height={28}
                       style={{ verticalAlign: "middle", marginRight: 6 }}
                     />
                   )}

@@ -133,8 +133,8 @@ const NetWorthShare = ({ match }: { match: Match }) => {
                                 <img
                                   src={config.VITE_IMAGE_CDN + entry.icon}
                                   alt=""
-                                  width={32}
-                                  height={32}
+                                  width={40}
+                                  height={40}
                                 />
                               )}
                               <div>
