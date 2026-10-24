@@ -236,6 +236,10 @@ export const UltimateSummary = styled.section`
     }
   }
 
+  &&.level-six-timings .level-six-table tbody th[scope="row"] { font-size: 14px; }
+  &&.level-six-timings h3 > .summary-time { font-size: 14px; vertical-align: middle; line-height: 1; }
+  &&.level-six-timings h3 > .summary-time svg { width: 16px; height: 16px; font-size: 16px; }
+
   .summary-team-icon { display: inline-flex; align-items: center; flex-shrink: 0; }
   .summary-team-icon svg, .summary-hero > img { display: block; }
   && .summary-hero, && .summary-keyword, && .summary-time {
