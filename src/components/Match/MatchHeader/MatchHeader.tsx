@@ -185,7 +185,7 @@ const Styled = styled.header`
     font-weight: 600;
   }
   .endedTime > div { display: inline-block; color: ${constants.colorWhite}; }
-  .endedTime > svg { width: 14px; height: 14px; color: ${constants.colorBlue}; }
+  .endedTime > svg { width: 16px; height: 16px; color: ${constants.colorBlue}; }
   .matchDuration {
     display: inline-flex;
     align-items: center;
