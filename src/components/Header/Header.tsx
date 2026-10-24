@@ -115,13 +115,13 @@ const DrawerLink = styled(Link)`
 
   span {
     font-family: ${constants.fontFamilyFuturistic};
-    font-size: ${constants.fontSizeSmall};
+    font-size: ${constants.fontSizeMedium};
   }
 `;
 
 const LinkGroupLink = styled(Link)`
   font-family: ${constants.fontFamilyFuturistic};
-  font-size: ${constants.fontSizeSmall} !important;
+  font-size: ${constants.fontSizeMedium} !important;
 `;
 
 const LinkGroup = ({ navbarPages }: { navbarPages: any[] }) => (

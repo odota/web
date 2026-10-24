@@ -44,7 +44,7 @@ const TabTooltip = ({
 const TabBar = ({
   tabs,
   matchData,
-  fontSize = constants.fontSizeSmall,
+  fontSize = constants.fontSizeMedium,
   history,
   location,
 }: { tabs: any[]; matchData?: Match; fontSize?: string } & RouterProps) => {
