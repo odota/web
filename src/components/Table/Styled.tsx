@@ -7,12 +7,20 @@ export const StyledBody = styled.div<{
 }>`
   table {
     table-layout: auto !important;
-    font-family: ${constants.tableFontFamily} !important;
+    font-family: ${constants.fontFamilyFuturistic} !important;
     box-sizing: border-box;
+
+    th, td, th *, td * {
+      font-family: ${constants.fontFamilyFuturistic};
+    }
 
     a {
       font-family: ${constants.fontFamilyFuturistic};
-      font-size: ${constants.fontSizeSmall};
+      font-size: ${constants.fontSizeMedium};
+    }
+
+    td {
+      font-size: ${constants.fontSizeMedium};
     }
 
     ${(props) =>
