@@ -44,9 +44,10 @@ const TabTooltip = ({
 const TabBar = ({
   tabs,
   matchData,
+  fontSize = constants.fontSizeMedium,
   history,
   location,
-}: { tabs: any[]; matchData?: Match } & RouterProps) => {
+}: { tabs: any[]; matchData?: Match; fontSize?: string } & RouterProps) => {
   const [tabValue, setTabValue] = useState(0);
   const visibleTabs = useMemo(
     () =>
@@ -94,7 +95,7 @@ const TabBar = ({
               disabled={tab.disabled}
               sx={{
                 fontFamily: constants.fontFamilyFuturistic,
-                fontSize: constants.fontSizeSmall,
+                fontSize,
                 letterSpacing: "0.02em",
                 textTransform: "capitalize",
               }}
