@@ -32,7 +32,7 @@ const Styled = styled.header`
   right: 50%;
   box-sizing: border-box;
   padding: 28px 18px 22px;
-  background: linear-gradient(180deg, ${constants.colorHeaderSection}, rgba(15, 22, 32, 0.96));
+  background: linear-gradient(180deg, ${constants.colorHeaderSection}, rgba(16, 16, 18, 0.96));
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
   .matchInfo {
@@ -152,9 +152,9 @@ const Styled = styled.header`
     justify-content: center;
     gap: 26px;
     padding: 14px 34px;
-    border: 1px solid rgba(46, 160, 214, 0.22);
+    border: 1px solid var(--od-accent-border);
     border-radius: 10px;
-    background: linear-gradient(135deg, rgba(46, 160, 214, 0.09), rgba(0, 0, 0, 0.2));
+    background: linear-gradient(135deg, var(--od-accent-soft), rgba(0, 0, 0, 0.2));
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   }
 

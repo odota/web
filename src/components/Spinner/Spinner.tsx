@@ -27,7 +27,7 @@ const SpinnerText = styled.span`
   font-family: ${constants.fontFamilyFuturistic};
   font-size: ${constants.fontSizeMedium};
   letter-spacing: 0.05em;
-  color: ${constants.colorBlue};
+  color: ${constants.primaryLinkColor};
 `;
 
 const Spinner = ({
