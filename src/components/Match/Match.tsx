@@ -65,7 +65,7 @@ const MatchPage: React.FC<MatchProps> = ({
   return (
     <div>
       <Helmet title={pageTitle} />
-      <MatchHeader match={matchData} showPlayers={info === "laning"} />
+      <MatchHeader match={matchData} showPlayers />
       <TabbedContent
         info={info}
         tabs={matchPages(matchId, matchData, strings)}
