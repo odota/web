@@ -11,11 +11,9 @@ import HistoryIcon from "@mui/icons-material/History";
 import BoltIcon from "@mui/icons-material/Bolt";
 import StyleIcon from "@mui/icons-material/Style";
 import { transformations, isRadiant, sum } from "../../../utility";
-import { IconRadiant, IconDire } from "../../Icons";
 import Warning from "../../Alerts/Warning";
 import constants from "../../constants";
 import useStrings from "../../../hooks/useStrings.hook";
-import HeroImage from "../../Visualizations/HeroImage";
 
 const regionCountries: Record<number, string> = {
   1: "us", 2: "us", 3: "lu", 5: "sg", 6: "ae", 7: "au",
@@ -44,128 +42,56 @@ const Styled = styled.header`
     margin: 0 auto;
   }
 
-  .matchup {
-    width: min(900px, 100%);
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-    align-items: stretch;
-    gap: 18px;
-  }
-
-  .teamSide {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 7px;
-    min-width: 0;
-    min-height: 92px;
-    padding: 38px 18px 12px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.16);
+  .victory {
+    margin: 0;
+    padding: 18px 32px 24px;
     text-align: center;
     font-family: ${constants.fontFamilyFuturistic};
-    transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
-  }
-
-  .teamSide .teamName {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
-    font-size: clamp(1.35rem, 2.5vw, 1.9rem);
-    line-height: 1.25;
-    overflow-wrap: anywhere;
-  }
-
-  .teamPlayers {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 10px 0;
-    width: 100%;
-    padding: 0;
-    margin: 8px 0 0;
-    list-style: none;
-  }
-  .teamPlayers li { width: 64px; min-width: 0; }
-  .teamPlayers li + li { margin-left: -12px; }
-  .teamPlayers img { display: block; position: relative; width: 40px; height: auto; margin: 0 auto; border-radius: 3px; }
-  .teamPlayers span { display: block; margin-top: 4px; color: ${constants.colorMutedLight}; font-size: 12px; overflow-wrap: anywhere; }
-
-  .teamSide svg { width: 30px; height: 30px; flex: 0 0 auto; }
-  .teamSide.radiant { color: ${constants.colorSuccess}; }
-  .teamSide.dire { color: ${constants.colorDanger}; }
-  .teamSide.radiant.winner { border-color: rgba(75, 190, 120, 0.5); background: rgba(35, 120, 70, 0.14); }
-  .teamSide.dire.winner { border-color: rgba(225, 85, 85, 0.5); background: rgba(140, 45, 45, 0.14); }
-  .teamSide .winnerLabel {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-    padding: 3px 8px;
-    border: 1px solid rgba(255, 195, 80, 0.38);
-    border-radius: 4px;
-    background: rgba(255, 195, 80, 0.12);
+    font-weight: 400;
     color: ${constants.colorGolden};
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    line-height: 1;
-    text-transform: uppercase;
+    background: radial-gradient(ellipse at center, var(--od-accent-soft), transparent 70%);
+    animation: victory-appear 450ms ease-out both;
   }
-  .winnerLabel svg {
+  .victory::after {
+    content: "";
     display: block;
-    width: 14px;
-    height: 14px;
-    flex: 0 0 auto;
-    fill: currentColor;
-    transform: translateY(-1px);
+    width: min(260px, 60vw);
+    height: 1px;
+    margin: 18px auto 0;
+    background: linear-gradient(90deg, transparent, ${constants.colorGolden}, transparent);
   }
-  .versus {
-    align-self: center;
-    display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.04);
-    color: ${constants.colorGreyMuted};
-    font-family: ${constants.fontFamilyFuturistic};
-    font-size: ${constants.fontSizeSmall};
-    font-weight: 700;
-    letter-spacing: 0.1em;
+  .victory-crown { display: block; width: 30px; height: 30px; margin: 0 auto 10px; fill: currentColor; }
+  .victory-team { display: block; font-size: clamp(14px, 2vw, 18px); letter-spacing: 0.12em; overflow-wrap: anywhere; }
+  .victory-title {
+    display: block;
+    margin-top: 4px;
+    font-size: clamp(28px, 5vw, 48px);
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 28px rgba(200, 164, 93, 0.3);
+  }
+  @keyframes victory-appear {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .victory { animation: none; }
   }
 
   .scoreSummary {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 26px;
-    padding: 14px 34px;
-    border: 1px solid var(--od-accent-border);
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--od-accent-soft), rgba(0, 0, 0, 0.2));
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    width: min(760px, 100%);
+    box-sizing: border-box;
+    padding: 0 16px 18px;
   }
-
   .gameInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3px;
-    min-width: 150px;
-    text-align: center;
+    gap: 16px;
   }
+  .gameMode { order: 2; }
+  .scoreLine { order: 1; }
+  .matchTime { order: 3; }
 
   .gameMode {
     display: inline-flex;
@@ -174,29 +100,34 @@ const Styled = styled.header`
     gap: 7px;
     color: ${constants.colorMutedLight};
     font-family: ${constants.fontFamilyFuturistic};
-    font-size: 1.15rem;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 400;
     letter-spacing: 0.07em;
     text-transform: uppercase;
   }
-  .gameMode svg { display: block; flex: 0 0 auto; width: 20px; height: 20px; color: ${constants.colorBlue}; }
+  .gameMode svg { display: block; flex: 0 0 auto; width: 20px; height: 20px; color: ${constants.colorGolden}; }
 
   .scoreLine {
     display: flex;
-    align-items: baseline;
-    gap: 8px;
+    align-items: center;
+    gap: 28px;
     font-family: ${constants.fontFamilyFuturistic};
-    font-size: 1.75rem;
+    font-size: clamp(36px, 5vw, 48px);
     font-weight: 700;
   }
 
+  .scoreTeam { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .scoreTeamName { max-width: 130px; font-size: 11px; font-weight: 400; color: ${constants.colorMutedLight}; text-align: center; overflow-wrap: anywhere; }
+  .scoreSeparator { color: ${constants.colorMuted}; font-size: 20px; }
   .scoreLine .scoreRadiant { color: ${constants.colorSuccess}; }
   .scoreLine .scoreDire { color: ${constants.colorDanger}; }
   .matchTime {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    gap: 3px;
+    gap: 12px 24px;
     color: ${constants.colorMutedLight};
     font-size: 14px;
     font-family: ${constants.fontFamilyFuturistic};
@@ -207,20 +138,20 @@ const Styled = styled.header`
     align-items: center;
     gap: 4px;
     color: ${constants.colorWhite};
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 400;
   }
   .endedTime > div { display: inline-block; color: ${constants.colorWhite}; }
-  .endedTime > svg { width: 16px; height: 16px; color: ${constants.colorBlue}; }
+  .endedTime > svg { width: 16px; height: 16px; color: ${constants.colorGolden}; }
   .matchDuration {
     display: inline-flex;
     align-items: center;
     gap: 5px;
     color: ${constants.colorWhite};
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 400;
   }
-  .matchDuration svg { width: 16px; height: 16px; color: ${constants.colorBlue}; }
+  .matchDuration svg { width: 16px; height: 16px; color: ${constants.colorGolden}; }
 
   .additionalInfo ul {
     display: flex;
@@ -233,27 +164,27 @@ const Styled = styled.header`
   }
 
   .additionalInfo {
-    width: min(900px, 100%);
+    width: min(760px, 100%);
     align-self: center;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 14px 0;
+    border-top: 1px solid var(--od-accent-border);
+    border-bottom: 1px solid var(--od-accent-border);
   }
 
   .additionalInfo ul { justify-content: center; }
 
   .additionalInfo li {
-    min-width: 130px;
-    padding: 8px 12px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.025);
+    flex: 0 1 auto;
+    min-width: 0;
+    padding: 0 24px;
     text-align: center;
   }
   .infoKey {
     display: block;
     color: ${constants.colorMutedLight};
     font-family: ${constants.fontFamilyFuturistic};
-    font-size: 14px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
   .infoValue {
@@ -321,18 +252,14 @@ const Styled = styled.header`
   }
 
   .additionalInfo .MuiButton-root {
-    min-height: 30px;
-    padding: 4px 10px;
-    border: 1px solid #806b43;
-    border-radius: 2px;
-    background: linear-gradient(180deg, #343a40 0%, #20252a 100%);
-    color: #e2d4b5;
+    min-height: 28px;
+    margin: 2px auto 0;
+    padding: 2px 6px;
+    color: ${constants.colorGolden};
     font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    box-shadow: inset 0 1px 0 rgba(255, 239, 194, 0.1), 0 2px 4px rgba(0, 0, 0, 0.3);
-    &:hover { background: linear-gradient(180deg, #51452f, #30291e); border-color: #c5a75c; }
+    font-family: ${constants.fontFamilyFuturistic};
+    &:hover { background: var(--od-accent-soft); }
+    &:focus-visible { outline: 2px solid ${constants.colorGolden}; outline-offset: 2px; }
   }
 
   .unparsed {
@@ -345,20 +272,17 @@ const Styled = styled.header`
   @media only screen and (max-width: 600px) {
     padding: 22px 12px 18px;
     .matchInfo { gap: 17px; }
-    .matchup { gap: 8px; }
-    .teamSide { min-height: 78px; padding: 36px 7px 10px; }
-    .teamSide .teamName { flex-direction: row; gap: 5px; font-size: 1.15rem; }
-    .teamSide svg { width: 24px; height: 24px; }
-    .versus { width: 30px; height: 30px; font-size: 10px; }
-    .scoreSummary { width: 100%; box-sizing: border-box; gap: 12px; padding: 11px 8px; }
-    .gameInfo { min-width: 105px; }
-    .scoreLine { font-size: 1.25rem; }
+    .scoreSummary { padding: 0 8px 12px; }
+    .gameInfo { gap: 12px; }
+    .scoreLine { justify-content: center; }
+    .gameMode { font-size: 12px; }
+    .matchTime { font-size: 12px; }
     .additionalInfo ul { gap: 12px 18px; }
     .additionalInfo li { min-width: 0; padding: 7px 8px; }
   }
 `;
 
-const MatchHeader = ({ match, showPlayers = false }: { match: Match; showPlayers?: boolean }) => {
+const MatchHeader = ({ match }: { match: Match }) => {
   const strings = useStrings();
   const [copyNotification, setCopyNotification] = React.useState<"success" | "error" | null>(null);
   if (!match) {
@@ -382,15 +306,6 @@ const MatchHeader = ({ match, showPlayers = false }: { match: Match; showPlayers
         : 0;
 
   const radiantName = match.radiant_team?.name || strings.general_radiant;
-  const renderPlayers = (radiant: boolean) => showPlayers && (
-    <ul className="teamPlayers">
-      {match.players.filter((player) => isRadiant(player.player_slot) === radiant).map((player) => (
-        <li key={player.player_slot}>
-          <HeroImage id={String(player.hero_id)} />
-        </li>
-      ))}
-    </ul>
-  );
   const direName = match.dire_team?.name || strings.general_dire;
   const radiantScore =
     match.radiant_score ||
@@ -410,60 +325,18 @@ const MatchHeader = ({ match, showPlayers = false }: { match: Match; showPlayers
     )
     : match.game_mode === 23 ? <BoltIcon aria-hidden="true" />
     : match.game_mode === 22 ? <StyleIcon aria-hidden="true" /> : null;
-  const radiantCard = (
-    <div
-      className={`teamSide radiant${match.radiant_win === true ? " winner" : ""}`}
-      key="radiant"
-    >
-
-      {match.radiant_win === true && (
-        <span className="winnerLabel" title={strings.th_winner} aria-label={strings.th_winner}>
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4 20h16v2H4zm1-2-1.5-9 4.5 3L12 5l4 7 4.5-3L19 18z" />
-          </svg>
-          {strings.th_winner}
-        </span>
-      )}
-      <span className="teamName">
-
-        <IconRadiant />
-
-        {radiantName}
-      </span>
-      {renderPlayers(true)}
-    </div>
-  );
-  const direCard = (
-    <div
-      className={`teamSide dire${match.radiant_win === false ? " winner" : ""}`}
-      key="dire"
-    >
-
-      {match.radiant_win === false && (
-        <span className="winnerLabel" title={strings.th_winner} aria-label={strings.th_winner}>
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4 20h16v2H4zm1-2-1.5-9 4.5 3L12 5l4 7 4.5-3L19 18z" />
-          </svg>
-          {strings.th_winner}
-        </span>
-      )}
-      <span className="teamName">
-
-        <IconDire />
-
-        {direName}
-      </span>
-      {renderPlayers(false)}
-    </div>
-  );
   return (
     <Styled>
       <div className="matchInfo">
-        <div className="matchup">
-          {radiantCard}
-          <span className="versus">VS</span>
-          {direCard}
-        </div>
+        {typeof match.radiant_win === "boolean" && (
+          <h1 className="victory">
+            <svg className="victory-crown" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 20h16v2H4zm1-2-1.5-9 4.5 3L12 5l4 7 4.5-3L19 18z" />
+            </svg>
+            <span className="victory-team">{match.radiant_win ? radiantName : direName}</span>
+            <span className="victory-title">VICTORY!</span>
+          </h1>
+        )}
         <div className="scoreSummary">
           <div className="gameInfo">
             <span className="gameMode">
@@ -471,9 +344,15 @@ const MatchHeader = ({ match, showPlayers = false }: { match: Match; showPlayers
               {strings[`game_mode_${match.game_mode}` as keyof Strings]}
             </span>
             <div className="scoreLine">
-              <span className="scoreRadiant">{radiantScore}</span>
-              <span>:</span>
-              <span className="scoreDire">{direScore}</span>
+              <span className="scoreTeam">
+                <span className="scoreRadiant">{radiantScore}</span>
+                <span className="scoreTeamName">{radiantName}</span>
+              </span>
+              <span className="scoreSeparator">:</span>
+              <span className="scoreTeam">
+                <span className="scoreDire">{direScore}</span>
+                <span className="scoreTeamName">{direName}</span>
+              </span>
             </div>
             <span className="matchTime">
               <span className="matchDuration">
