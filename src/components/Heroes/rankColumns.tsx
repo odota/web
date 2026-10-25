@@ -125,11 +125,11 @@ const generateTurboTabColumns = (strings: Strings) => {
         const arrow = isPositive ? "▲" : "▼";
         const color = isPositive ? "#4ade80" : "#f87171";
 
-        return React.createElement(
-          "span",
-          { style: { color, display: "inline-flex", alignItems: "center", gap: "4px", fontWeight: "500" } },
-          React.createElement("span", { style: { fontSize: "10px" } }, arrow),
-          `${sign}${change.toFixed(2)}%`
+        return (
+          <span style={{ color, display: "inline-flex", alignItems: "center", gap: "4px", fontWeight: "500" }}>
+            <span style={{ fontSize: "10px" }}>{arrow}</span>
+            {`${sign}${change.toFixed(2)}%`}
+          </span>
         );
       },
     },
@@ -243,11 +243,11 @@ const generatePublicTabColumns = (strings: Strings) => {
         const arrow = isPositive ? "▲" : "▼";
         const color = isPositive ? "#4ade80" : "#f87171";
 
-        return React.createElement(
-          "span",
-          { style: { color, display: "inline-flex", alignItems: "center", gap: "4px", fontWeight: "500" } },
-          React.createElement("span", { style: { fontSize: "10px" } }, arrow),
-          `${sign}${change.toFixed(2)}%`
+        return (
+          <span style={{ color, display: "inline-flex", alignItems: "center", gap: "4px", fontWeight: "500" }}>
+            <span style={{ fontSize: "10px" }}>{arrow}</span>
+            {`${sign}${change.toFixed(2)}%`}
+          </span>
         );
       },
     },
