@@ -15,6 +15,14 @@ import { IconRadiant, IconDire } from "../../Icons";
 import Warning from "../../Alerts/Warning";
 import constants from "../../constants";
 import useStrings from "../../../hooks/useStrings.hook";
+import HeroImage from "../../Visualizations/HeroImage";
+
+const regionCountries: Record<number, string> = {
+  1: "us", 2: "us", 3: "lu", 5: "sg", 6: "ae", 7: "au",
+  8: "se", 9: "at", 10: "br", 11: "za", 12: "cn", 13: "cn",
+  14: "cl", 15: "pe", 16: "in", 17: "cn", 18: "cn", 19: "jp",
+  20: "cn", 25: "cn", 37: "tw", 38: "ar",
+};
 
 const Styled = styled.header`
   width: 100vw;
@@ -40,7 +48,7 @@ const Styled = styled.header`
     width: min(900px, 100%);
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-    align-items: center;
+    align-items: stretch;
     gap: 18px;
   }
 
@@ -49,11 +57,11 @@ const Styled = styled.header`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 7px;
     min-width: 0;
     min-height: 92px;
-    padding: 12px 18px;
+    padding: 38px 18px 12px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
     background: rgba(0, 0, 0, 0.16);
@@ -71,6 +79,23 @@ const Styled = styled.header`
     line-height: 1.25;
     overflow-wrap: anywhere;
   }
+
+  .teamPlayers {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px 0;
+    width: 100%;
+    padding: 0;
+    margin: 8px 0 0;
+    list-style: none;
+  }
+  .teamPlayers li { width: 64px; min-width: 0; }
+  .teamPlayers li + li { margin-left: -12px; }
+  .teamPlayers img { display: block; position: relative; width: 40px; height: auto; margin: 0 auto; border-radius: 3px; }
+  .teamPlayers span { display: block; margin-top: 4px; color: ${constants.colorMutedLight}; font-size: 12px; overflow-wrap: anywhere; }
 
   .teamSide svg { width: 30px; height: 30px; flex: 0 0 auto; }
   .teamSide.radiant { color: ${constants.colorSuccess}; }
@@ -106,6 +131,7 @@ const Styled = styled.header`
     transform: translateY(-1px);
   }
   .versus {
+    align-self: center;
     display: grid;
     place-items: center;
     width: 30px;
@@ -237,6 +263,8 @@ const Styled = styled.header`
     font-family: ${constants.fontFamilyFuturistic};
     font-size: 14px;
   }
+  .regionValue { display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .regionValue img { width: 20px; height: 14px; object-fit: contain; }
 
   .matchButtons {
     display: flex;
@@ -318,7 +346,7 @@ const Styled = styled.header`
     padding: 22px 12px 18px;
     .matchInfo { gap: 17px; }
     .matchup { gap: 8px; }
-    .teamSide { min-height: 78px; padding: 10px 7px; }
+    .teamSide { min-height: 78px; padding: 36px 7px 10px; }
     .teamSide .teamName { flex-direction: row; gap: 5px; font-size: 1.15rem; }
     .teamSide svg { width: 24px; height: 24px; }
     .versus { width: 30px; height: 30px; font-size: 10px; }
@@ -330,7 +358,7 @@ const Styled = styled.header`
   }
 `;
 
-const MatchHeader = ({ match }: { match: Match }) => {
+const MatchHeader = ({ match, showPlayers = false }: { match: Match; showPlayers?: boolean }) => {
   const strings = useStrings();
   const [copyNotification, setCopyNotification] = React.useState<"success" | "error" | null>(null);
   if (!match) {
@@ -354,6 +382,15 @@ const MatchHeader = ({ match }: { match: Match }) => {
         : 0;
 
   const radiantName = match.radiant_team?.name || strings.general_radiant;
+  const renderPlayers = (radiant: boolean) => showPlayers && (
+    <ul className="teamPlayers">
+      {match.players.filter((player) => isRadiant(player.player_slot) === radiant).map((player) => (
+        <li key={player.player_slot}>
+          <HeroImage id={String(player.hero_id)} />
+        </li>
+      ))}
+    </ul>
+  );
   const direName = match.dire_team?.name || strings.general_dire;
   const radiantScore =
     match.radiant_score ||
@@ -378,8 +415,9 @@ const MatchHeader = ({ match }: { match: Match }) => {
       className={`teamSide radiant${match.radiant_win === true ? " winner" : ""}`}
       key="radiant"
     >
+
       {match.radiant_win === true && (
-        <span className="winnerLabel">
+        <span className="winnerLabel" title={strings.th_winner} aria-label={strings.th_winner}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M4 20h16v2H4zm1-2-1.5-9 4.5 3L12 5l4 7 4.5-3L19 18z" />
           </svg>
@@ -387,9 +425,12 @@ const MatchHeader = ({ match }: { match: Match }) => {
         </span>
       )}
       <span className="teamName">
+
         <IconRadiant />
+
         {radiantName}
       </span>
+      {renderPlayers(true)}
     </div>
   );
   const direCard = (
@@ -397,8 +438,9 @@ const MatchHeader = ({ match }: { match: Match }) => {
       className={`teamSide dire${match.radiant_win === false ? " winner" : ""}`}
       key="dire"
     >
+
       {match.radiant_win === false && (
-        <span className="winnerLabel">
+        <span className="winnerLabel" title={strings.th_winner} aria-label={strings.th_winner}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M4 20h16v2H4zm1-2-1.5-9 4.5 3L12 5l4 7 4.5-3L19 18z" />
           </svg>
@@ -406,9 +448,12 @@ const MatchHeader = ({ match }: { match: Match }) => {
         </span>
       )}
       <span className="teamName">
+
         <IconDire />
+
         {direName}
       </span>
+      {renderPlayers(false)}
     </div>
   );
   return (
@@ -471,7 +516,10 @@ const MatchHeader = ({ match }: { match: Match }) => {
             </li>
             <li>
               <span className="infoKey">{strings.match_region}</span>
-              <span className="infoValue">
+              <span className="infoValue regionValue">
+                {regionCountries[match.region] && (
+                  <img src={`/assets/images/flags/${regionCountries[match.region]}.svg`} alt="" />
+                )}
                 {strings[`region_${match.region}` as keyof Strings] || "-"}
               </span>
             </li>
