@@ -6,6 +6,7 @@ import { Spacer } from "../Spacer/Spacer";
 
 type ContainerProps = {
   title?: string;
+  titleActions?: React.ReactNode;
   subtitle?: string | React.ReactNode;
   style?: any;
   className?: string;
@@ -21,6 +22,7 @@ type ContainerProps = {
 
 const Container = ({
   title,
+  titleActions,
   subtitle,
   style,
   className,
@@ -35,7 +37,12 @@ const Container = ({
 }: ContainerProps) =>
   !hide ? (
     <div className={className} style={{ ...style }}>
-      {title && <Heading title={title} subtitle={subtitle} titleTo={titleTo} />}
+      {title && (titleActions ? (
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+          <Heading title={title} subtitle={subtitle} titleTo={titleTo} />
+          {titleActions}
+        </div>
+      ) : <Heading title={title} subtitle={subtitle} titleTo={titleTo} />)}
       {error && (
         <>
           <Spacer variant="1" />

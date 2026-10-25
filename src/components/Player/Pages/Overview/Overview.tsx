@@ -11,7 +11,7 @@ import {
 } from "../../../../actions";
 import Table from "../../../Table/Table";
 import Container from "../../../Container/Container";
-import RecentMatchesList from "./RecentMatchesList";
+import RecentMatches from "./RecentMatches";
 import { playerHeroesOverviewColumns } from "../Heroes/playerHeroesColumns";
 import { playerPeersOverviewColumns } from "../Peers/playerPeersColumns";
 import SummOfRecMatches from "./Summary";
@@ -112,6 +112,8 @@ const MatchesContainer = styled.div`
     .imageContainer img.image { height: 52px; width: auto; }
     .textContainer > span, .textContainer > span a { font-size: 14px; }
     .parsed, .unparsed { height: 52px; }
+    table.recent-matches-table .imageContainer img.image { height: 29px; }
+    table.recent-matches-table .parsed, table.recent-matches-table .unparsed { height: 29px; }
 
     .recent-result { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
     .recent-time-ago { display: flex; align-items: center; gap: 5px; font-size: 14px; }
@@ -131,6 +133,15 @@ const MatchesContainer = styled.div`
     .mode-label svg { width: 22px; height: 22px; flex-shrink: 0; color: ${constants.colorGolden}; }
     .rank-label { color: ${constants.colorMutedLight}; font-size: 14px; }
     .rank-label img { width: 30px; height: 30px; object-fit: contain; flex-shrink: 0; }
+    .rank-description { display: inline-flex; align-items: baseline; gap: 5px; white-space: nowrap; }
+    .rank-stars {
+      color: ${constants.colorMutedLight};
+      font-size: inherit;
+      line-height: 1;
+      letter-spacing: normal;
+      white-space: nowrap;
+    }
+
     .match-link { color: ${constants.colorMutedLight}; font-size: 14px; letter-spacing: 0.08em; line-height: 1.2; text-transform: uppercase; }
     .recent-kda { display: inline-flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; white-space: nowrap; }
     .recent-kda .separator { color: ${constants.colorMutedLight}; }
@@ -281,16 +292,12 @@ const Overview = ({
       </Collapsible>
       <Spacer variant="1" />
       <MatchesContainer>
-        <Container
-          title={strings.heading_matches}
-          titleTo={`/players/${playerId}/matches`}
+        <RecentMatches
+          data={matchesData}
+          playerId={playerId}
           loading={matchesLoading}
           error={matchesError}
-          loaderWidth={300}
-          loaderHeight={160}
-        >
-          <RecentMatchesList data={matchesData} />
-        </Container>
+        />
       </MatchesContainer>
       <Spacer variant="1" />
       <HeroesContainer>
