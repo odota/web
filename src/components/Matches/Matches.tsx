@@ -352,19 +352,15 @@ const SeriesTab = ({
     return <div style={{ padding: 20 }}>Loading series...</div>;
   }
 
-  // `Strings` is a strict type from the app; the Series-specific keys below
-  // aren't part of it yet, so we cast to `any` to fall back to English.
-  const s = strings as any;
-
   return (
     <SeriesWrapper>
       <SeriesHeaderGrid>
         <div />
-        <div>{s.th_series}</div>
-        <div>{s.th_team_1}</div>
-        <div>{s.th_team_2}</div>
-        <div>{s.th_matches}</div>
-        <div>{s.th_last_played}</div>
+        <div>{strings.th_series}</div>
+        <div>{strings.th_team_1}</div>
+        <div>{strings.th_team_2}</div>
+        <div>{strings.th_matches}</div>
+        <div>{strings.th_last_played}</div>
       </SeriesHeaderGrid>
 
       {seriesList.map((series) => {
