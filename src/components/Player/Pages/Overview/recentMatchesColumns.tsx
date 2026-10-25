@@ -26,6 +26,11 @@ export default (strings: Strings) => {
     {
       ...columns[1],
       displayFn: (match: RecentMatch) => {
+        const rank = match.average_rank;
+        const medal = rank && Number.isFinite(rank)
+          ? Math.floor(rank / 10)
+          : 0;
+        const validMedal = medal >= 1 && medal <= 8 ? medal : 0;
         const hasResult = typeof match.radiant_win === "boolean";
         const won = match.radiant_win === isRadiant(match.player_slot);
         return (
@@ -38,6 +43,22 @@ export default (strings: Strings) => {
                 ? won ? strings.td_win : strings.td_loss
                 : strings.td_no_result}
             </Link>
+            <span className="rank-label">
+              <img
+                src={`/assets/images/dota2/rank_icons/rank_icon_${validMedal}.png`}
+                alt=""
+              />
+              {validMedal ? (
+                <span className="rank-description">
+                  <span>{rankTierToString(rank!).replace(/\s*\[\d+\]$/, "")}</span>
+                  {validMedal < 8 && rank! % 10 >= 1 && rank! % 10 <= 5 && (
+                    <span className="rank-stars" aria-label={`${rank! % 10} stars`}>
+                      {rank! % 10}
+                    </span>
+                  )}
+                </span>
+              ) : strings.general_unknown}
+            </span>
           </div>
         );
       },
@@ -45,11 +66,6 @@ export default (strings: Strings) => {
     {
       ...columns[2],
       displayFn: (match: RecentMatch) => {
-        const rank = match.average_rank;
-        const medal = rank && Number.isFinite(rank)
-          ? Math.floor(rank / 10)
-          : 0;
-        const validMedal = medal >= 1 && medal <= 8 ? medal : 0;
         const ModeIcon = match.game_mode === 23 ? BoltIcon
           : match.game_mode === 22 ? StyleIcon
           : match.game_mode === 2 ? EmojiEventsIcon
@@ -61,13 +77,7 @@ export default (strings: Strings) => {
               <ModeIcon aria-hidden="true" />
               {strings[`game_mode_${match.game_mode}` as keyof Strings] || strings.general_unknown}
             </span>
-            <span className="rank-label">
-              <img
-                src={`/assets/images/dota2/rank_icons/rank_icon_${validMedal}.png`}
-                alt=""
-              />
-              {validMedal ? rankTierToString(rank!) : strings.general_unknown}
-            </span>
+
           </div>
         );
       },
