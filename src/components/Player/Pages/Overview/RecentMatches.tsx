@@ -58,9 +58,9 @@ const RecentMatches = ({ data, playerId, loading, error }: {
             "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.06)", color: constants.colorWhite },
             "&.Mui-selected": {
               color: constants.primaryLinkColor,
-              backgroundColor: "rgba(46, 160, 214, 0.16)",
-              boxShadow: "inset 0 0 0 1px rgba(46, 160, 214, 0.25)",
-              "&:hover": { backgroundColor: "rgba(46, 160, 214, 0.23)" },
+              backgroundColor: "var(--od-accent-soft)",
+              boxShadow: "inset 0 0 0 1px var(--od-accent-border)",
+              "&:hover": { backgroundColor: "var(--od-accent-hover)" },
             },
             "&.Mui-focusVisible": { outline: `2px solid ${constants.primaryLinkColor}`, outlineOffset: "2px" },
           },
