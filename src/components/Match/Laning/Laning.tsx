@@ -15,7 +15,7 @@ import config from "../../../config";
 import { player_colors as playerColors } from "dotaconstants";
 import constants from "../../constants";
 import useStrings from "../../../hooks/useStrings.hook";
-import { LaningPage, PageSection, SummaryTeam, SummaryLevels, SummaryResult, UltimateSummary, HeatmapContainer, HeatmapPlayers } from "./StyledLaning";
+import { LaningPage, PageSection, SummaryTeam, SummaryResult, UltimateSummary, HeatmapContainer, HeatmapPlayers } from "./StyledLaning";
 import Heading from "../../Heading/Heading";
 import Heatmap from "../../Heatmap/Heatmap";
 import LaningEvents from "./LaningEvents";
@@ -70,14 +70,6 @@ const Laning = ({ match }: LaningProps) => {
     ? radiantNetWorth - direNetWorth
     : null;
   /**
-   * Formats a gold total using the active language’s unit or unavailable message.
-   * @param value Total gold or null.
-   * @returns Display-ready net worth text.
-   */
-  const formatNetWorth = (value: number | null) =>
-    value === null ? strings.laning_unavailable : `${value.toLocaleString()} ${strings.laning_gold}`;
-
-  /**
    * Totals individual hero levels at the summary minute.
    * @param isRadiant Team to inspect.
    * @returns Combined levels, or null unless all five players have valid XP.
@@ -126,21 +118,27 @@ const Laning = ({ match }: LaningProps) => {
       <PageSection aria-label={strings.laning_summary}>
         <Heading title={strings.laning_summary} />
         <SummaryResult $winner={netWorthDifference === null || netWorthDifference === 0 ? "tie" : netWorthDifference > 0 ? "radiant" : "dire"}>
-          <p className="summary-narrative">
-            {netWorthDifference === null ? strings.laning_unavailable : netWorthDifference === 0
+          <div className="result-heading">
+            <h3>{netWorthDifference === null ? strings.laning_unavailable : netWorthDifference === 0
               ? strings.laning_summary_even
-              : levelDifference === null ? formatTemplate(strings.laning_summary_winner, { team: renderTeam(netWorthDifference > 0) })
-              : formatTemplate(Math.sign(netWorthDifference) === Math.sign(levelDifference) || levelDifference === 0
-                ? strings.laning_summary_phase_result : strings.laning_summary_phase_split, {
-                team: renderTeam(netWorthDifference > 0),
-                gold: <strong className="summary-gold-lead"><img src="/assets/images/dota2/gold.png" alt="" width={16} height={16} />{formatNetWorth(Math.abs(netWorthDifference))}</strong>,
-                levels: <SummaryLevels><TrendingUpIcon aria-hidden="true" />{Math.abs(levelDifference).toLocaleString()} {strings.laning_combined}</SummaryLevels>,
-                minute: <span className="summary-minute"><AccessTimeIcon aria-hidden="true" />{summaryMinute}</span>,
-              }).map((part, index) => <span className={typeof part === "string" && /^[.,!?;:]+$/.test(part) ? "summary-phrase summary-punctuation" : "summary-phrase"} key={index}>{part}</span>)}
-          </p>
+              : formatTemplate(strings.laning_summary_winner, { team: renderTeam(netWorthDifference > 0) })}</h3>
+            <span className="result-time"><AccessTimeIcon aria-hidden="true" />{summaryMinute}:00</span>
+          </div>
+          <div className="result-deltas">
+            {[
+              { key: "gold", label: strings.laning_summary_gold_lead, delta: netWorthDifference, icon: <img src="/assets/images/dota2/gold.png" alt="" width={24} height={24} /> },
+              { key: "levels", label: strings.laning_summary_combined_levels, delta: levelDifference, icon: <TrendingUpIcon aria-hidden="true" /> },
+            ].map(({ key, label, delta, icon }) => {
+              return <div className={`result-delta delta-${key}`} key={key}>
+                <span className="delta-label">{icon}{label}</span>
+                <strong>{delta === null ? "—" : `${delta === 0 ? "" : "+"}${Math.abs(delta).toLocaleString()}`}</strong>
+                <span className="delta-context">{delta === null ? strings.laning_unavailable : delta === 0 ? strings.laning_tied : renderTeam(delta > 0)}</span>
+              </div>;
+            })}
+          </div>
         </SummaryResult>
-        <UltimateSummary aria-label="Lane advantages">
-          <h3>Lane Advantages · <span style={{ display: "inline-flex", alignItems: "center", gap: 4, verticalAlign: "middle" }}><AccessTimeIcon aria-hidden="true" sx={{ fontSize: 16, color: constants.colorBlue }} />{summaryMinute}:00</span></h3>
+        <UltimateSummary className="themed-summary" aria-label="Lane advantages">
+          <h3>Lane Advantages <span className="section-time">{renderSummaryTime(summaryMinute)}</span></h3>
           {(() => {
             const lanes = [
               { name: "Top Lane", radiant: ["offlane", "softSupport"], dire: ["carry", "hardSupport"] },
@@ -151,9 +149,9 @@ const Laning = ({ match }: LaningProps) => {
               { label: "Net worth advantage", icon: "gold", read: (player: MatchPlayer) => getStatAtMinute(player, "gold_t", summaryMinute) },
               { label: "Combined levels advantage", icon: "levels", read: (player: MatchPlayer) => getLevelAtMinute(player, summaryMinute) },
             ];
-            return <TeamTable className="replay-comparison-table lane-summary-table"><div className="table-scroll"><table>
-              <thead><tr><th />{lanes.map((lane) => <th key={lane.name}>{lane.name}</th>)}</tr></thead>
-              <tbody>{metrics.map(({ label, icon, read }) => <tr key={icon}><td><TooltipMetricIcon metric={icon} />{label}</td>{lanes.map((lane) => {
+            return <div className="lane-advantage-cards">{lanes.map((lane) => <div className="lane-advantage-card" key={lane.name}>
+              <h4>{lane.name}</h4>
+              <div className="lane-metrics">{metrics.map(({ label, icon, read }) => {
                 const total = (radiant: boolean) => {
                   const roles = getLaningRoles(match.players, radiant);
                   const values = (radiant ? lane.radiant : lane.dire).map((role) => roles[role] ? read(roles[role]!) : null);
@@ -162,14 +160,18 @@ const Laning = ({ match }: LaningProps) => {
                 const radiant = total(true);
                 const dire = total(false);
                 const delta = radiant !== null && dire !== null ? radiant - dire : null;
-                const value = <span style={icon === "levels" ? { color: constants.colorLavenderMuted } : undefined}><TooltipMetricIcon metric={icon} />{delta === null ? strings.laning_unavailable : delta === 0 ? "0 · Tied" : `+${Math.abs(delta).toLocaleString()}`}</span>;
-                return <td key={lane.name}>{delta === null || delta === 0 ? value : <SummaryTeam $radiant={delta > 0}>{delta > 0 ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}{value}</SummaryTeam>}</td>;
-              })}</tr>)}</tbody>
-            </table></div></TeamTable>;
+                return <div className={`lane-metric lane-metric-${icon}`} key={icon}>
+                  <span className="lane-metric-label"><TooltipMetricIcon metric={icon} />{label}</span>
+                  <strong>{delta === null ? "—" : `${delta === 0 ? "" : "+"}${Math.abs(delta).toLocaleString()}`}</strong>
+                  <span className="lane-metric-team">{delta === null ? strings.laning_unavailable : delta === 0 ? strings.laning_tied : renderTeam(delta > 0)}</span>
+                </div>;
+              })}</div>
+            </div>)}</div>;
+
           })()}
         </UltimateSummary>
-        <UltimateSummary className="level-six-timings">
-          <h3>{strings.laning_ultimate_heading} · {renderSummaryTime(summaryMinute)}</h3>
+        <UltimateSummary className="level-six-timings themed-summary">
+          <h3>{strings.laning_ultimate_heading}<span className="section-time">{renderSummaryTime(summaryMinute)}</span></h3>
           <TeamTable className="replay-comparison-table level-six-table"><div className="table-scroll"><table>
             <thead><tr><th scope="col">Timestamp</th>{(["midlane", "carry", "offlane", "softSupport", "hardSupport"] as const).map((role) => <th scope="col" key={role}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span className="role-icon" aria-hidden="true" style={{ backgroundPosition: `${roleIconPositions[role]}% center` }} />{roleLabels[role]}</span></th>)}</tr></thead>
             <tbody>{(() => {
@@ -198,8 +200,8 @@ const Laning = ({ match }: LaningProps) => {
             })()}</tbody>
           </table></div></TeamTable>
         </UltimateSummary>
-        <UltimateSummary aria-label="Laning activity">
-          <h3>Laning Activity · {renderSummaryTime(summaryMinute)}</h3>
+        <UltimateSummary className="themed-summary laning-activity" aria-label="Laning activity">
+          <h3>Laning Activity <span className="section-time">{renderSummaryTime(summaryMinute)}</span></h3>
           <TeamTable className="replay-comparison-table"><div className="table-scroll"><table>
             <thead><tr><th /><th>{renderTeam(true)}</th><th>{renderTeam(false)}</th></tr></thead>
             <tbody>{[

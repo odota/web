@@ -1336,6 +1336,8 @@
   "laning_summary_winner": "{team} won the laning phase",
   "laning_summary_phase_result": "{team} won the laning phase with {gold} and {levels} at minute {minute}.",
   "laning_summary_phase_split": "{team} won the laning phase with {gold}, despite trailing by {levels} at minute {minute}.",
+  "laning_summary_combined_levels": "Combined levels",
+  "laning_summary_gold_lead": "Gold advantage",
   "laning_summary_gold_basis": "gold advantage at minute {minute}",
   "laning_summary_levels_basis": "levels advantage at minute {minute}",
   "laning_summary_levels_even": "Combined team levels are tied.",

@@ -91,48 +91,48 @@ export const TableCaption = styled.p`
 `;
 
 
-/** Highlights the laning result with a blue-tinted surface and team-colored edge. */
+/** Presents the lane winner and each team's gold and level advantages. */
 export const SummaryResult = styled.div<{ $winner: "radiant" | "dire" | "tie" }>`
   margin: 16px 0 20px;
-  padding: 18px 20px;
-  border: 1px solid ${laningBorderColor};
+  padding: 20px;
+  border: 1px solid ${constants.dividerColor};
   border-left: 4px solid ${({ $winner }) => $winner === "radiant" ? constants.colorSuccess
     : $winner === "dire" ? constants.colorDanger : constants.textColorSecondary};
   border-radius: 8px;
-  background: rgba(80, 140, 190, 0.16);
+  background: ${constants.secondarySurfaceColor};
+  font-family: ${constants.fontFamilyFuturistic};
 
-  h3 { display: flex; flex-wrap: wrap; align-items: center; gap: 0 6px; margin: 0; font-size: 22px; font-weight: 400; }
-  p { margin: 8px 0 0; color: ${constants.textColorSecondary}; font-size: 13px; line-height: 1.6; }
-  .summary-narrative {
-    font-family: ${constants.fontFamilyFuturistic};
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0 4px;
-    font-size: 16px;
-    line-height: 1.6;
+  .result-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+  h3 { margin: 0; color: ${constants.textColorPrimary}; font-size: 18px; font-weight: 400; line-height: 1.6; }
+  .result-time { display: inline-flex; align-items: center; gap: 6px; color: ${constants.textColorSecondary}; font-size: 14px; }
+  .result-time svg { width: 18px; height: 18px; color: ${constants.golden}; }
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 32px;
+  background: linear-gradient(110deg, var(--od-accent-soft), transparent 65%), ${constants.primarySurfaceColor};
+  .result-heading { flex-direction: column; align-items: flex-start; gap: 10px; }
+  h3 { max-width: 420px; font-size: 20px; }
+  .result-time { order: -1; font-size: 12px; letter-spacing: 1px; }
+  .result-deltas { display: grid; grid-template-columns: repeat(2, minmax(130px, 1fr)); gap: 24px; }
+  .result-delta { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding-left: 24px; border-left: 1px solid ${constants.dividerColor}; }
+  .delta-label { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: ${constants.textColorSecondary}; }
+  .delta-label svg, .delta-label img { width: 20px; height: 20px; flex-shrink: 0; }
+  .result-delta strong { font-size: 42px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+  .delta-gold strong, .delta-gold .delta-label svg { color: ${constants.golden}; }
+  .delta-levels strong, .delta-levels .delta-label svg { color: ${constants.colorLavenderMuted}; }
+  .delta-context { color: ${constants.textColorSecondary}; font-size: 11px; overflow-wrap: anywhere; }
+
+  @media (max-width: 760px) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    .result-deltas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .result-delta { padding-left: 16px; }
   }
-  .summary-phrase { display: inline-flex; align-items: center; }
-  .summary-punctuation { margin-left: -4px; }
-  .summary-narrative .summary-gold-lead,
-  .summary-narrative .summary-minute,
-  .summary-narrative > span {
-    vertical-align: middle;
+  @media (max-width: 480px) {
+    padding: 14px;
+    .result-delta strong { font-size: 32px; }
   }
-  .summary-narrative .summary-gold-lead,
-  .summary-narrative .summary-minute { height: auto; }
-  .summary-minute {
-    color: ${constants.colorWhite};
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    vertical-align: middle;
-    svg { width: 16px; height: 16px; color: ${constants.colorBlue}; }
-  }
-  .summary-narrative .summary-gold-lead { font-size: inherit; font-weight: 700; }
-  .summary-gold-lead { display: inline-flex; align-items: center; gap: 5px; }
-  .summary-level-lead { font-size: 22px; }
-  strong { color: ${constants.golden}; font-size: 22px; font-variant-numeric: tabular-nums; }
 `;
 
 /** Provides the collapsed-by-default detailed summary container. */
@@ -254,6 +254,44 @@ export const UltimateSummary = styled.section`
     font-family: ${constants.fontFamilyFuturistic};
     font-size: 13px;
     font-weight: 600;
+  }
+
+  &.themed-summary {
+    padding: 20px;
+    border: 1px solid ${constants.dividerColor};
+    border-radius: 8px;
+    background: linear-gradient(110deg, var(--od-accent-soft), transparent 65%), ${constants.primarySurfaceColor};
+    font-family: ${constants.fontFamilyFuturistic};
+  }
+  &.themed-summary > h3 { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 20px; font-size: 16px; font-weight: 400; }
+  &.themed-summary .section-time { color: ${constants.textColorSecondary}; font-size: 12px; }
+  &&.themed-summary .summary-time { display: inline-flex; align-items: center; gap: 5px; }
+  &&.themed-summary .summary-time svg { color: ${constants.golden}; width: 16px; height: 16px; }
+  .lane-advantage-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .lane-advantage-card { min-width: 0; padding: 16px; border: 1px solid ${constants.dividerColor}; border-radius: 6px; background: ${constants.secondarySurfaceColor}; }
+  .lane-advantage-card h4 { margin: 0 0 16px; color: ${constants.textColorPrimary}; font-size: 14px; font-weight: 400; }
+  .lane-metrics { display: grid; gap: 18px; }
+  .lane-metric { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding-left: 14px; border-left: 1px solid ${constants.dividerColor}; }
+  .lane-metric-label { display: inline-flex; align-items: center; gap: 5px; color: ${constants.textColorSecondary}; font-size: 12px; }
+  .lane-metric strong { font-size: 28px; line-height: 1.2; font-variant-numeric: tabular-nums; }
+  .lane-metric-gold strong { color: ${constants.golden}; }
+  .lane-metric-levels strong { color: ${constants.colorLavenderMuted}; }
+  .lane-metric-team { font-size: 11px; color: ${constants.textColorSecondary}; overflow-wrap: anywhere; }
+  &&.themed-summary .replay-comparison-table { margin-top: 0; border: 1px solid ${constants.dividerColor}; border-radius: 6px; overflow: hidden; }
+  &&.themed-summary .replay-comparison-table thead { background: var(--od-accent-soft); color: ${constants.textColorSecondary}; }
+  &&.themed-summary .replay-comparison-table tbody tr { background: ${constants.secondarySurfaceColor}; }
+  &&.themed-summary .replay-comparison-table tbody tr + tr { border-top: 1px solid ${constants.dividerColor}; }
+  &&.themed-summary .replay-comparison-table tbody tr:hover { background: var(--od-accent-soft); }
+  &&.themed-summary .level-six-table table { min-width: 760px; }
+  &&.laning-activity .replay-comparison-table tbody td:first-child { text-align: left; color: ${constants.textColorSecondary}; font-weight: 400; }
+  &&.laning-activity .replay-comparison-table tbody td:not(:first-child) strong { font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums; color: ${constants.textColorPrimary}; }
+  &&.laning-activity .replay-comparison-table table { min-width: 440px; }
+
+  &&.themed-summary .level-six-summary > div { padding: 4px 0; }
+  @media (max-width: 760px) {
+    &.themed-summary { padding: 14px; }
+    .lane-advantage-cards { grid-template-columns: minmax(0, 1fr); }
+    .lane-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   }
 `;
 
