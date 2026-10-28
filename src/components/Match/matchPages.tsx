@@ -99,7 +99,6 @@ const matchPages = (
     {
       name: strings.tab_drafts,
       key: "draft",
-      // picks_bans comes from the match details, so unparsed matches have it
       parsed: false,
       hidden: (match: Match) =>
         match.game_mode !== 2 || !match.picks_bans?.length,
