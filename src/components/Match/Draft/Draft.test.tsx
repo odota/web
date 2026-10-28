@@ -8,11 +8,8 @@ import Draft from "./Draft";
 import strings from "../../../lang/en-US.json";
 import { match5293089497 } from "./draftFixtures";
 
-// Fake store with only what the component reads (the UI strings), instead
-// of the real store that loads data from the API.
 const fakeStore = createStore(() => ({ app: { strings } }));
 
-// Reads what the page shows for each step, e.g. "bD" = ban by dire.
 const renderedPattern = (container: HTMLElement) =>
   Array.from(container.querySelectorAll("tr.draft-row"))
     .map((row) => {
@@ -33,9 +30,6 @@ const renderDraft = (props: Partial<React.ComponentProps<typeof Draft>>) =>
   );
 
 describe("Draft", () => {
-  // Bug-revealing test: before Draft.tsx used buildDraft, the team of each
-  // step came from a hardcoded per-patch table and only 3 of these 16 steps
-  // were shown for the right team.
   it("shows the right team for every step of match 5293089497 (#2647)", () => {
     const { container } = renderDraft({
       picksBans: match5293089497.picks_bans,

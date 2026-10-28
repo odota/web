@@ -89,7 +89,6 @@ describe("buildDraft", () => {
   });
 
   it("leaves timings out when there is no draft_timings", () => {
-    // every match parsed since about February 2026
     const steps = buildDraft(stubPicksBans(ORDER_740), []);
     expect(steps.every((s) => s.timeTaken === undefined)).toBe(true);
     expect(steps.every((s) => s.extraTime === undefined)).toBe(true);
@@ -136,9 +135,7 @@ describe("buildDraft", () => {
     const { picks_bans, draft_timings } = match8380808771;
     const steps = buildDraft(picks_bans, draft_timings);
     expect(steps.every((s) => s.timeTaken !== undefined)).toBe(true);
-    // ban 2 (hero 2) is order 3 in draft_timings, as hero_id 4
     expect(steps[1]).toMatchObject({ heroId: 2, timeTaken: 0 });
-    // the last pick (hero 35) is hero_id 70 in draft_timings
     expect(steps[23]).toMatchObject({
       heroId: 35,
       isRadiant: false,
@@ -147,8 +144,6 @@ describe("buildDraft", () => {
   });
 
   it("drops reserve times that go up, as in match 8380808771", () => {
-    // radiant's reserve goes 106 -> 130 after step 7, so in this match some
-    // reserve times belong to the other team
     const { picks_bans, draft_timings } = match8380808771;
     const steps = buildDraft(picks_bans, draft_timings);
     expect(steps.every((s) => s.extraTime === undefined)).toBe(true);
@@ -182,7 +177,6 @@ describe("buildDraft", () => {
   });
 
   it("does not halve hero ids when they are not doubled", () => {
-    // 76 is a real hero, and 38 * 2 = 76
     const steps = buildDraft(
       [
         { order: 0, is_pick: false, team: 0, hero_id: 76 },

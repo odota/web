@@ -1,8 +1,5 @@
 import { DraftTiming, PickBan } from "./buildDraft";
 
-// Real data of match 8380808771 (patch 58), as returned by the API.
-// Every hero_id in draft_timings is doubled, and in the first ban phase the
-// timings are not in the same order as picks_bans.
 const PICKS_BANS_8380808771: [number, boolean, number, number][] = [
   [0, false, 0, 38],
   [1, false, 1, 2],
@@ -58,8 +55,6 @@ const DRAFT_TIMINGS_8380808771: [number, number, number, number][] = [
   [24, 70, 59, 11],
 ];
 
-// Real data of match 5293089497 (the example in #2647). Radiant let the time
-// run out on all its bans, so the draft has 16 steps instead of 22.
 const PICKS_BANS_5293089497: [number, boolean, number, number][] = [
   [0, false, 1, 57],
   [1, false, 1, 89],
@@ -110,7 +105,6 @@ export const match5293089497 = {
   match_id: 5293089497,
   game_mode: 2,
   start_time: 1584241522,
-  // what really happened, step by step: b/P = ban/pick, R/D = radiant/dire
   expectedPattern: "bD bD bD PD PR PR PD bD bD PR PD PR PD bD PD PR",
   picks_bans: PICKS_BANS_5293089497.map(
     ([order, is_pick, team, hero_id]): PickBan => ({
