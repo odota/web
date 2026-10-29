@@ -24,10 +24,11 @@ type ProColumn = {
 type PublicColumn = {
   displayName: string;
   field: string;
-  sortFn: boolean;
-  percentBarsWithValue: (row: Row) => string | number;
+  sortFn: boolean | Function;
+  percentBarsWithValue?: (row: Row) => string | number;
   displayIcon?: string;
   colColor?: string;
+  displayFn?: Function;
 };
 
 type HeroColumn = {
@@ -59,6 +60,37 @@ export const rankColumns = (props: Props) => {
   return columns[props.tabType];
 };
 
+// Helper function to calculate percentage change safely
+const calculateTrendChange = (winsTrend: number[], picksTrend: number[]) => {
+  if (!winsTrend || !picksTrend || !Array.isArray(winsTrend) || !Array.isArray(picksTrend)) return 0;
+  
+  // Slice off the incomplete 7th day if present
+  const wins = winsTrend.length === 7 ? winsTrend.slice(0, 6) : winsTrend;
+  const picks = picksTrend.length === 7 ? picksTrend.slice(0, 6) : picksTrend;
+
+  if (wins.length < 2 || wins.length !== picks.length) return 0;
+
+  // Calculate daily win rate (wins / picks) to neutralize volume/weekend skews
+  const dailyRates = wins.map((w, i) => {
+    const p = picks[i] || 0;
+    return p > 0 ? w / p : 0;
+  });
+
+  const midPoint = Math.floor(dailyRates.length / 2);
+  const earlyDays = dailyRates.slice(0, midPoint);
+  const recentDays = dailyRates.slice(midPoint);
+
+  const earlyAvg = earlyDays.reduce((a, b) => a + b, 0) / earlyDays.length;
+  const recentAvg = recentDays.reduce((a, b) => a + b, 0) / recentDays.length;
+
+  if (!earlyAvg || earlyAvg === 0) return 0;
+
+  // Calculate absolute percentage point change (e.g., 0.52 - 0.50 = +2.0%)
+  const change = (recentAvg - earlyAvg) * 100;
+
+  return Number.isFinite(change) ? Number(change.toFixed(2)) : 0;
+};
+
 const generateTurboTabColumns = (strings: Strings) => {
   const heroColumn = generateHeroColumn(strings);
 
@@ -83,6 +115,25 @@ const generateTurboTabColumns = (strings: Strings) => {
         decimalToCount(row.winRateTurbo, row.turbo_picks),
     },
     {
+      displayName: `Change (7D)`,
+      field: "custom_turbo_win_change",
+      sortFn: (row: Row) => calculateTrendChange(row.turbo_wins_trend, row.turbo_picks_trend),
+      displayFn: (row: Row) => {
+        const change = calculateTrendChange(row.turbo_wins_trend, row.turbo_picks_trend);
+        const isPositive = change >= 0;
+        const sign = isPositive ? "+" : "";
+        const arrow = isPositive ? "▲" : "▼";
+        const color = isPositive ? "#4ade80" : "#f87171";
+
+        return (
+          <span style={{ color, display: "inline-flex", alignItems: "center", gap: "4px", fontWeight: "500" }}>
+            <span style={{ fontSize: "10px" }}>{arrow}</span>
+            {`${sign}${change.toFixed(2)}%`}
+          </span>
+        );
+      },
+    },
+    {
       displayName: strings.hero_turbo_win_rate_diff,
       field: "winRateTurboVsPub",
       sortFn: (row: Row) => row.winRateTurbo - row.winRatePub,
@@ -98,6 +149,9 @@ const generateTurboTabColumns = (strings: Strings) => {
 
   return combinedColumns;
 };
+
+const getRankIcon = (number: number) =>
+  `/assets/images/dota2/rank_icons/rank_icon_${number}.png`;
 
 const generateProTabColumns = (strings: Strings) => {
   const heroColumn = generateHeroColumn(strings);
@@ -178,6 +232,25 @@ const generatePublicTabColumns = (strings: Strings) => {
       percentBarsWithValue: (row: Row) =>
         decimalToCount(row.winRatePub, row.pickCountPub),
     },
+   {
+      displayName: `Change (7D)`,
+      field: "custom_win_change",
+      sortFn: (row: Row) => calculateTrendChange(row.pub_win_trend, row.pub_pick_trend),
+      displayFn: (row: Row) => {
+        const change = calculateTrendChange(row.pub_win_trend, row.pub_pick_trend);
+        const isPositive = change >= 0;
+        const sign = isPositive ? "+" : "";
+        const arrow = isPositive ? "▲" : "▼";
+        const color = isPositive ? "#4ade80" : "#f87171";
+
+        return (
+          <span style={{ color, display: "inline-flex", alignItems: "center", gap: "4px", fontWeight: "500" }}>
+            <span style={{ fontSize: "10px" }}>{arrow}</span>
+            {`${sign}${change.toFixed(2)}%`}
+          </span>
+        );
+      },
+    },
     {
       displayName: `${strings.rank_tier_high} ${strings.abbr_pick}%`,
       displayIcon: getRankIcon(8),
@@ -251,9 +324,6 @@ const generatePublicTabColumns = (strings: Strings) => {
 
   return preparedHeroColumn.concat(preparedColumns);
 };
-
-const getRankIcon = (number: number) =>
-  `/assets/images/dota2/rank_icons/rank_icon_${number}.png`;
 
 const prepareColumns = (columns: Column[], strings: Strings) => {
   return columns.map((column) => {
