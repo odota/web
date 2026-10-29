@@ -32,7 +32,7 @@ const StyledDiv = styled.div`
       & svg {
         width: 48px;
         height: 48px;
-        fill: ${constants.colorBlue};
+        fill: ${constants.colorGolden};
       }
 
       & .headline {
