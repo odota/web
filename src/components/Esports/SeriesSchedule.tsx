@@ -19,9 +19,9 @@ import { groupSeriesByDate } from "./groupSeriesByDate";
  * @example
  * <Schedule>{dateCards}</Schedule>
  */
-const Schedule = styled.div`
+const Schedule = styled.div<{ $singleColumn?: boolean }>`
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: ${({ $singleColumn }) => $singleColumn ? "minmax(0, 1fr)" : "repeat(2, minmax(0, 1fr))"};
   align-items: start;
   gap: 16px;
   @media (max-width: 680px) {
@@ -61,6 +61,8 @@ const Day = styled.details`
  * const props: SeriesScheduleProps = { series: [], teams: [] };
  */
 export type SeriesScheduleProps = {
+  singleColumn?: boolean;
+  newestFirst?: boolean;
   /** Grouped series with scores and chronological game records. */
   series: MatchSeries[];
   /** Team records used to resolve logo URLs. */
@@ -78,13 +80,13 @@ export type SeriesScheduleProps = {
  * <SeriesSchedule series={series} teams={teams} />
  * // Groups matches by date and opens the latest series.
  */
-export default function SeriesSchedule({ series, teams }: SeriesScheduleProps) {
+export default function SeriesSchedule({ series, teams, singleColumn = false, newestFirst = false }: SeriesScheduleProps) {
   const latestSeries = series.reduce<MatchSeries | undefined>((latest, row) =>
     !latest || row.first_match_time > latest.first_match_time ? row : latest,
   undefined);
   return (
-    <Schedule>
-      {groupSeriesByDate(series).map(({ date, series: rows }) => (
+    <Schedule $singleColumn={singleColumn}>
+      {groupSeriesByDate(series, newestFirst).map(({ date, series: rows }) => (
         <Day key={date} open>
           <summary><CalendarMonthIcon aria-hidden="true" /><time dateTime={date}>{new Date(`${date}T12:00:00`).toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric" })}</time><ExpandMoreIcon aria-hidden="true" /></summary>
           {rows.map((row) => {

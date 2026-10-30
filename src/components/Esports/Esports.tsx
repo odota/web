@@ -22,9 +22,7 @@ import Table from "../Table/Table";
 import TableLink from "../Table/TableLink";
 import HeroImage from "../Visualizations/HeroImage";
 import FromNowTooltip from "../Visualizations/FromNowTooltip";
-import { seriesColumns } from "../Matches/Matches";
-import { groupMatchesBySeries, ProfessionalMatch, MatchSeries } from "../Matches/series";
-import LeagueIcon from "./LeagueIcon";
+import { groupMatchesBySeries, ProfessionalMatch } from "../Matches/series";
 import TournamentDetails from "./TournamentDetails";
 import MatchList from "./MatchList";
 import SeriesSchedule from "./SeriesSchedule";
@@ -271,17 +269,6 @@ export default function Esports({ match }: EsportsProps) {
     { field: "leagueid", displayName: strings.th_league, sortFn: true },
     { field: "latest", displayName: strings.esports_latest_match, sortFn: true, displayFn: (row: { latest: number }) => row.latest ? <FromNowTooltip timestamp={row.latest} /> : "—" },
   ];
-  /**
-   * Resolves artwork for the league associated with a series.
-   * @param row Series containing the league ID and display name.
-   * @returns A league image with initials as its fallback.
-   * @example
-   * leagueIcon(seriesRow); // Artwork for seriesRow.leagueid, or league initials
-   */
-  const leagueIcon = (row: MatchSeries) => {
-    const league = leagues.data.find((item) => item.leagueid === row.leagueid);
-    return <LeagueIcon name={row.league_name} banner={league?.banner} ticket={league?.ticket} />;
-  };
   const playerColumns = [
     { field: "name", displayName: strings.esports_players, displayFn: (row: Player) => <Identity><img src={row.avatar} alt="" loading="lazy" /><TableLink to={`/players/${row.account_id}`}>{row.name || row.personaname || row.account_id}</TableLink></Identity> },
     { field: "team_name", displayName: strings.th_team_name, sortFn: true },
@@ -394,7 +381,7 @@ export default function Esports({ match }: EsportsProps) {
           <Panel>
                 {panelHeader(strings.esports_recent_series, "/matches/series")}
                 <ResourceStatus resource={recent} empty={!filteredSeries.length} />
-                <Table data={filteredSeries.slice(0, 12)} columns={seriesColumns(strings, teams.data, (row) => `/esports/leagues/${row.leagueid}`, leagueIcon)} loading={recent.loading} keyFn={(row: { key: string }) => row.key} />
+                {!recent.loading && !recent.error && <SeriesSchedule series={filteredSeries.slice(0, 12)} teams={teams.data} singleColumn newestFirst />}
           </Panel>
           <Grid>
               <Panel>
