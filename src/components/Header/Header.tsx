@@ -15,7 +15,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Toolbar } from "@mui/material";
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 import config from "../../config";
@@ -105,8 +105,16 @@ const MenuLogoWrapper = styled.div`
   padding: 24px 0;
 `;
 
-const DrawerLink = styled(Link)`
+const DrawerLink = styled(NavLink)`
   color: ${constants.textColorPrimary};
+
+  &.active {
+    color: ${constants.primaryLinkColor};
+  }
+  &.active li {
+    background: var(--od-accent-soft);
+    box-shadow: inset 3px 0 0 ${constants.primaryLinkColor};
+  }
 
   & li:hover {
     background-color: rgba(0, 0, 0, 0.08);
@@ -115,13 +123,25 @@ const DrawerLink = styled(Link)`
 
   span {
     font-family: ${constants.fontFamilyFuturistic};
-    font-size: ${constants.fontSizeSmall};
+    font-size: ${constants.fontSizeMedium};
   }
 `;
 
-const LinkGroupLink = styled(Link)`
+const LinkGroupLink = styled(NavLink)`
   font-family: ${constants.fontFamilyFuturistic};
-  font-size: ${constants.fontSizeSmall} !important;
+  font-size: ${constants.fontSizeMedium} !important;
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+
+  &.active {
+    color: ${constants.primaryLinkColor};
+    border-bottom-color: ${constants.primaryLinkColor};
+  }
+
+  &.active:hover {
+    color: ${constants.primaryLinkColor};
+    opacity: 1;
+  }
 `;
 
 const LinkGroup = ({ navbarPages }: { navbarPages: any[] }) => (

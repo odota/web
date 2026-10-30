@@ -33,6 +33,11 @@ const Explorer = React.lazy(() => import("../Explorer/Explorer"));
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
+    primary: { main: "#C8A45D", light: "#E0BF7D", dark: "#92733B" },
+    secondary: { main: "#B8A4D9" },
+    background: { default: "#101012", paper: "#1B1B1F" },
+    text: { primary: "#E8E2D6", secondary: "#A6A29A" },
+    divider: "#443A28",
   },
   components: {
     MuiButton: {
@@ -123,7 +128,7 @@ const Back2Top = styled.button<Back2TopStylesProps>`
   transition: opacity 0.3s ease-in-out;
 
   &:hover {
-    background-color: rgb(26, 108, 239);
+    background-color: var(--od-accent-hover);
   }
 
   #back2TopTxt {

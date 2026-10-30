@@ -7,12 +7,20 @@ export const StyledBody = styled.div<{
 }>`
   table {
     table-layout: auto !important;
-    font-family: ${constants.tableFontFamily} !important;
+    font-family: ${constants.fontFamilyFuturistic} !important;
     box-sizing: border-box;
+
+    th, td, th *, td * {
+      font-family: ${constants.fontFamilyFuturistic};
+    }
 
     a {
       font-family: ${constants.fontFamilyFuturistic};
-      font-size: ${constants.fontSizeSmall};
+      font-size: ${constants.fontSizeMedium};
+    }
+
+    td {
+      font-size: ${constants.fontSizeMedium};
     }
 
     ${(props) =>
@@ -26,32 +34,7 @@ export const StyledBody = styled.div<{
       border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
 
       & tr {
-        background: rgba(46, 160, 214, 0.26);
-        background: -moz-linear-gradient(
-          90deg,
-          rgba(20, 255, 212, 0.09) 2%,
-          rgba(46, 160, 214, 0.26) 27%,
-          rgba(5, 181, 249, 0.04) 80%
-        );
-        background: -webkit-linear-gradient(
-          90deg,
-          rgba(20, 255, 212, 0.09) 2%,
-          rgba(46, 160, 214, 0.26) 27%,
-          rgba(5, 181, 249, 0.04) 80%
-        );
-        background: linear-gradient(
-          90deg,
-          rgba(20, 255, 212, 0.09) 2%,
-          rgba(46, 160, 214, 0.26) 27%,
-          rgba(5, 181, 249, 0.04) 80%
-        );
-
-        /* Safari */
-        @media not all and (min-resolution: 0.001dpcm) {
-          @supports (-webkit-appearance: none) {
-            background: rgba(46, 160, 214, 0.26);
-          }
-        }
+        background: linear-gradient(90deg, var(--od-accent-soft), rgba(200, 164, 93, 0.03));
       }
     }
 
@@ -206,7 +189,7 @@ export const StyledBody = styled.div<{
   }
 
   .scrolled th:first-child {
-    background-color: rgba(33, 34, 44, 0.8) !important;
+    background-color: rgba(27, 27, 31, 0.96) !important;
     z-index: 100;
     transition: background-color 0.5s ease-out !important;
     width: 60px !important;
@@ -215,7 +198,7 @@ export const StyledBody = styled.div<{
   .scrolled tr {
     &:nth-child(odd) {
       & td:first-child {
-        background-color: rgba(33, 34, 44, 0.8) !important;
+        background-color: rgba(27, 27, 31, 0.96) !important;
         z-index: 100;
         transition: background-color 0.5s ease-out !important;
         padding-right: 0px !important;
@@ -225,7 +208,7 @@ export const StyledBody = styled.div<{
 
     &:nth-child(even) {
       & td:first-child {
-        background-color: rgba(33, 34, 44, 0.8) !important;
+        background-color: rgba(27, 27, 31, 0.96) !important;
         z-index: 100;
         transition: background-color 0.5s ease-out !important;
         padding-right: 0px !important;

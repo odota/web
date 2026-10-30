@@ -75,12 +75,12 @@ class SearchForm extends React.Component<SearchFormProps, { query?: string }> {
           sx={{
             "& .MuiInputBase-input": {
               fontFamily: constants.fontFamilyFuturistic,
-              fontSize: constants.fontSizeSmall,
+              fontSize: constants.fontSizeMedium,
               color: "#f0f0f0",
             },
             "& .MuiInputBase-input::placeholder": {
               fontFamily: constants.fontFamilyFuturistic,
-              fontSize: constants.fontSizeSmall,
+              fontSize: constants.fontSizeMedium,
               color: "#bebebe",
             },
           }}
