@@ -18,6 +18,9 @@ export const Hub = styled.div`
   font-size: ${constants.fontSizeSmall};
   color: ${constants.textColorPrimary};
 
+  .innerContainer { border: 0; }
+  table thead, table th, table td { border: 0 !important; }
+
   h2 {
     display: flex;
     align-items: center;
@@ -50,7 +53,7 @@ export const Hub = styled.div`
  */
 export const Intro = styled.div`
   margin-bottom: 16px;
-  border-bottom: 1px solid ${constants.dividerColor};
+  border-bottom: 0;
 `;
 
 /**
@@ -113,7 +116,7 @@ export const Panel = styled.section`
   min-width: 0;
   padding: 16px;
   margin-bottom: 16px;
-  border: 1px solid ${constants.dividerColor};
+  border: 0;
   border-radius: 3px;
   background: ${constants.primarySurfaceColor};
   @media (max-width: ${constants.wrapMobile}) { padding: 12px; }
@@ -157,7 +160,7 @@ export const Cards = styled.div`
 export const TournamentCard = styled(Link)`
   display: block;
   padding: 14px;
-  border: 1px solid ${constants.dividerColor};
+  border: 0;
   border-left: 3px solid ${constants.colorGolden};
   border-radius: 3px;
   background: rgba(100, 160, 210, 0.08);
@@ -199,7 +202,7 @@ export const TierBadge = styled.span<{ $premium: boolean }>`
   align-items: center;
   gap: 4px;
   padding: 2px 6px;
-  border: 1px solid ${constants.dividerColor};
+  border: 0;
   border-radius: 3px;
   font-family: ${constants.fontFamilyFuturistic};
   font-size: ${constants.fontSizeSmall};
@@ -245,8 +248,9 @@ export const Summary = styled.div`
     align-items: center;
     gap: 8px;
     padding: 10px 14px;
-    border: 1px solid ${constants.dividerColor};
+    border: 0;
     border-radius: 3px;
+    font-family: ${constants.fontFamilyFuturistic};
   }
   svg { width: 18px; height: 18px; color: ${constants.colorBlue}; }
   strong { color: ${constants.colorGolden}; font-size: ${constants.fontSizeCommon}; }
@@ -262,7 +266,7 @@ export const PhotoBanner = styled.div`
   position: relative;
   margin-top: 16px;
   overflow: hidden;
-  border: 1px solid ${constants.dividerColor};
+  border: 0;
   border-radius: 4px;
   background-color: ${constants.almostBlack};
   background-image: linear-gradient(90deg, rgba(5, 10, 20, .9), rgba(5, 10, 20, .25)), url("/assets/images/esports-arena.jpg");

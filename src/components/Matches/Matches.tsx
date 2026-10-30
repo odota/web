@@ -136,7 +136,7 @@ const seriesTeam = (id: number | null | undefined, name: string | null, teams: S
   const src = teams.find((team) => team.team_id === id)?.logo_url || "";
   const label = name || strings.general_unknown;
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 8, fontFamily: constants.fontFamilyFuturistic }}>
       <TeamLogo teamId={id} src={src} style={{ width: 32, height: 32, objectFit: "contain", flexShrink: 0 }} />
       {id ? <TableLink to={`/teams/${id}`}>{label}</TableLink> : label}
     </div>
@@ -291,6 +291,7 @@ const matchTabs = (strings: Strings) => [
     content: (propsPar: MatchesProps) => (
       <div>
         <Table
+          className="matches-table"
           data={propsPar.proData}
           columns={matchesColumns(strings)}
           loading={propsPar.loading}
@@ -305,6 +306,7 @@ const matchTabs = (strings: Strings) => [
     key: "series",
     content: (propsPar: MatchesProps) => (
       <Table
+        className="matches-table"
         data={groupMatchesBySeries(propsPar.proData)}
         columns={seriesColumns(strings, propsPar.teams)}
         keyFn={(row: MatchSeries) => row.key}
@@ -320,6 +322,7 @@ const matchTabs = (strings: Strings) => [
     content: (propsPar: MatchesProps) => (
       <div>
         <Table
+          className="matches-table"
           data={propsPar.publicData}
           columns={publicMatchesColumns(strings)}
           loading={propsPar.loading}
@@ -389,6 +392,7 @@ class Matches extends React.Component<MatchesProps> {
             className="top-heading"
           />
           <Table
+            className="matches-table"
             data={series ? [series] : []}
             columns={seriesColumns(strings, this.props.teams)}
             loading={this.props.loading}
@@ -400,6 +404,7 @@ class Matches extends React.Component<MatchesProps> {
               <Heading title={strings.th_matches} />
               <p>{strings.matches_series_available_games}</p>
               <Table
+                className="matches-table"
                 data={series.games}
                 columns={matchesColumns(strings)}
                 keyFn={(game: { match_id: number }) => game.match_id}
