@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="320" y2="320" gradientUnits="userSpaceOnUse"><stop stop-color="#263f50"/><stop offset="1" stop-color="#152630"/></linearGradient>
+    <linearGradient id="gold" x1="120" y1="98" x2="210" y2="240" gradientUnits="userSpaceOnUse"><stop stop-color="#f2dba2"/><stop offset="1" stop-color="#af8750"/></linearGradient>
+  </defs>
+  <rect width="320" height="320" rx="12" fill="url(#bg)"/>
+  <path d="M160 30 272 95v130l-112 65L48 225V95Z" stroke="#a8c5d3" stroke-opacity=".15"/>
+  <path d="m160 48 96 56v112l-96 56-96-56V104Z" stroke="#a8c5d3" stroke-opacity=".08"/>
+  <circle cx="160" cy="153" r="76" fill="#a8c5d3" fill-opacity=".04"/>
+  <g stroke="url(#gold)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M120 102h80v37c0 29-18 47-40 47s-40-18-40-47Z" fill="#d7b579" fill-opacity=".1"/>
+    <path d="M120 113H99v17c0 21 12 33 30 34m71-51h21v17c0 21-12 33-30 34m-31 22v28m-22 0h44m-54 15h64"/>
+  </g>
+  <path d="m160 117 5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1Z" fill="#e3c78e"/>
+  <g fill="#b5d3df" fill-opacity=".45"><circle cx="93" cy="74" r="2"/><circle cx="238" cy="224" r="2"/><circle cx="74" cy="192" r="2"/><circle cx="222" cy="81" r="2"/></g>
+</svg>
