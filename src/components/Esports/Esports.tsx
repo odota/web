@@ -26,6 +26,7 @@ import { seriesColumns } from "../Matches/Matches";
 import { groupMatchesBySeries, ProfessionalMatch, MatchSeries } from "../Matches/series";
 import LeagueIcon from "./LeagueIcon";
 import TournamentDetails from "./TournamentDetails";
+import MatchList from "./MatchList";
 import SeriesSchedule from "./SeriesSchedule";
 import useEsportsData from "./useEsportsData";
 import { Hub, PhotoBanner, Intro, Navigation, Grid, Panel, PanelHeader, Cards, TournamentCard, Identity, TierBadge, Metric, Summary } from "./Styled";
@@ -355,14 +356,7 @@ export default function Esports({ match }: EsportsProps) {
           <Panel>
             {panelHeader(strings.th_matches)}
             <ResourceStatus resource={leagueGames} empty={!series.length} />
-            <Table
-              key={leagueId}
-              data={series}
-              columns={seriesColumns(strings, teams.data, (row) => `/esports/leagues/${row.leagueid}`, leagueIcon)}
-              loading={leagueGames.loading}
-              paginated
-              keyFn={(row: { key: string }) => row.key}
-            />
+            {!leagueGames.loading && !leagueGames.error && <MatchList key={leagueId} games={normalizedLeagueGames} teams={teams.data} />}
           </Panel>
         </>
       ) : tournamentsView ? (
