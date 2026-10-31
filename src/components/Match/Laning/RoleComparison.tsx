@@ -1,3 +1,4 @@
+import { LeadValue } from "../../Visualizations/Graph/TooltipEntryGap";
 import LaneReplayComparison from "./LaneReplayComparison";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
@@ -196,7 +197,7 @@ const RoleComparison = ({ match }: { match: Match }) => {
                   ? (Math.abs(values[0]) + Math.abs(values[1])) / 2 : null;
                 const percentDifference = difference === null || averageMagnitude === null
                   ? null : averageMagnitude === 0 ? 0 : Math.abs(difference) / averageMagnitude * 100;
-                return <tr key={label}><td><TooltipMetricIcon metric={icon} />{label}</td>{values.map((value, index) => <td key={index}><div className="stat-comparison"><span className="stat-original">{icon && <TooltipMetricIcon metric={icon} />}<strong>{formatStat(value)}</strong></span>{difference !== null && (index === 0 ? difference > 0 : difference < 0) && <span className="stat-difference" title={strings.laning_percentage_difference_hint}><SummaryTeam $radiant={index === 0}>+{formatStat(Math.abs(difference))} ({percentDifference?.toFixed(1)}%)</SummaryTeam></span>}</div></td>)}</tr>;
+                return <tr key={label}><td><TooltipMetricIcon metric={icon} />{label}</td>{values.map((value, index) => <td key={index}><div className="stat-comparison"><span className="stat-original">{icon && <TooltipMetricIcon metric={icon} />}<strong>{formatStat(value)}</strong></span>{difference !== null && (index === 0 ? difference > 0 : difference < 0) && <span className="stat-difference" title={strings.laning_percentage_difference_hint}><LeadValue>{formatStat(Math.abs(difference))} ({percentDifference?.toFixed(1)}%)</LeadValue></span>}</div></td>)}</tr>;
               })}
               <tr>
                 <td>K/D/A</td>

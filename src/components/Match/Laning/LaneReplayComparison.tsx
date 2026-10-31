@@ -1,3 +1,4 @@
+import { LeadValue } from "../../Visualizations/Graph/TooltipEntryGap";
 /**
  * @file Lane Replay Comparison.
  * @description Compares Radiant and Dire lane groups at early-game snapshots.
@@ -98,14 +99,14 @@ const LaneReplayComparison = ({ match }: { match: Match }) => {
     { label: "Assists", read: (p: MatchPlayer) => getReplayKDA(p, minute)[2] },
   ];
   /**
-   * Formats a signed difference using the metric icon and leading team's color.
+   * Formats a difference using the shared green lead indicator.
    * A positive difference represents Radiant; zero is neutral.
    * @param value Radiant total minus Dire total, or null when unavailable.
    * @returns An absolute lead badge, neutral zero, or an em dash.
    */
-  const renderDifference = (value: number | null, percent: number | null) => value === null ? "—" : value === 0 ? <span style={{ color: constants.textColorSecondary }}>0 (0.0%)</span> : <SummaryTeam $radiant={value > 0}>
-    +{formatStat(Math.abs(value))} ({percent?.toFixed(1)}%)
-  </SummaryTeam>;
+  const renderDifference = (value: number | null, percent: number | null) => value === null ? "—" : value === 0 ? <span style={{ color: constants.textColorSecondary }}>0 (0.0%)</span> : <LeadValue>
+    {formatStat(Math.abs(value))} ({percent?.toFixed(1)}%)
+  </LeadValue>;
   /**
    * Calculates the signed difference between complete lane totals.
    * @param read Reads one player's statistic at the active snapshot.

@@ -7,12 +7,15 @@ const TooltipEntryGap = ({ value, nextValue }: { value?: number; nextValue?: num
   if (typeof value !== "number" || !Number.isFinite(value) || typeof nextValue !== "number" || !Number.isFinite(nextValue)) return null;
   const gap = value - nextValue;
   if (gap <= 0) return null;
-  return (
-    <span style={{ marginLeft: 10, color: constants.colorGreen, fontSize: "0.8em", fontVariantNumeric: "tabular-nums", whiteSpace: "nowrap" }}>
-      <ArrowDropUpIcon aria-label="ahead by" style={{ width: 16, height: 16, verticalAlign: "middle", color: constants.colorGreen }} />
-      {gap.toLocaleString("en-US")}
-    </span>
-  );
+  return <LeadValue style={{ marginLeft: 10 }}>{gap.toLocaleString("en-US")}</LeadValue>;
 };
+
+/** Shared compact styling for positive leads in graphs and laning comparisons. */
+export const LeadValue = ({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) => (
+  <span style={{ color: constants.colorGreen, fontSize: "0.8em", fontVariantNumeric: "tabular-nums", whiteSpace: "nowrap", ...style }}>
+    <ArrowDropUpIcon aria-label="ahead by" style={{ width: 16, height: 16, verticalAlign: "middle", color: constants.colorGreen }} />
+    {children}
+  </span>
+);
 
 export default TooltipEntryGap;
