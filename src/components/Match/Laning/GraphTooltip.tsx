@@ -10,6 +10,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { heroes } from "dotaconstants";
 import useStrings from "../../../hooks/useStrings.hook";
 import TooltipMetricIcon from "../../Visualizations/Graph/TooltipMetricIcon";
+import TooltipEntryGap from "../../Visualizations/Graph/TooltipEntryGap";
 import { getHeroLevel } from "../../Visualizations/Graph/data";
 import { getLaningRoles, LaneRole, getRoleLabels } from "./laning.utils";
 
@@ -152,6 +153,7 @@ const GraphTooltip = ({
   );
   const hideBreakdown = showTeamTotals;
   if (!active || !payload?.length) return null;
+  const sortedEntries = payload.slice().sort((a, b) => b.value - a.value);
   return (
     <LaningTooltip>
       <div className="label"><AccessTimeIcon aria-hidden="true" />{label}</div>
@@ -200,10 +202,7 @@ const GraphTooltip = ({
         )}
         </div>}
         <div>
-          {payload
-            ?.slice()
-            .sort((a, b) => b.value - a.value)
-            ?.map((data, i) => {
+          {sortedEntries.map((data, i) => {
               const player = players.find(
                 (entry) => heroes[entry.hero_id]?.localized_name === data.dataKey,
               );
@@ -225,7 +224,7 @@ const GraphTooltip = ({
                   )}
                   <TooltipMetricIcon metric={metric} />
                   {typeof data.value === "number" ? data.value.toLocaleString("en-US") : data.value}
-
+                  <TooltipEntryGap value={data.value} nextValue={sortedEntries[i + 1]?.value} />
                 </div>
               );
             })}

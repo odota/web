@@ -5,6 +5,7 @@
 
 import React from "react";
 import TooltipMetricIcon from "./TooltipMetricIcon";
+import TooltipEntryGap from "./TooltipEntryGap";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { heroes } from "dotaconstants";
 import config from "../../../config";
@@ -34,10 +35,11 @@ const PlayerGraphTooltip = ({ active, label, payload, players, metric }: {
   metric: string;
 }) => {
   if (!active || !payload?.length) return null;
+  const sortedEntries = payload.slice().sort((first, second) => (second.value ?? 0) - (first.value ?? 0));
   return (
     <LaningTooltip>
       <div className="label"><AccessTimeIcon aria-hidden="true" />{label}</div>
-      {payload.slice().sort((first, second) => (second.value ?? 0) - (first.value ?? 0)).map((entry) => {
+      {sortedEntries.map((entry, index) => {
         const player = players.find((player) => heroes[player.hero_id]?.localized_name === entry.dataKey);
         const hero = player && heroes[player.hero_id];
         return (
@@ -49,6 +51,7 @@ const PlayerGraphTooltip = ({ active, label, payload, players, metric }: {
             {hero && <img src={config.VITE_IMAGE_CDN + hero.icon} alt={hero.localized_name} width={28} height={28} style={{ verticalAlign: "middle", marginRight: 6 }} />}
             <TooltipMetricIcon metric={metric} />
             {entry.value?.toLocaleString("en-US")}
+            <TooltipEntryGap value={entry.value} nextValue={sortedEntries[index + 1]?.value} />
           </div>
         );
       })}
