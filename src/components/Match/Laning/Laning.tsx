@@ -75,7 +75,7 @@ class Laning extends React.Component<LaningProps, { selectedPlayer: number }> {
           />
         </StyledFlexElement>
         <StyledFlexElement>
-          <Graph match={match} selectedPlayer={this.state.selectedPlayer} />
+          <Graph metric="networth" match={match} selectedPlayer={this.state.selectedPlayer} />
         </StyledFlexElement>
       </StyledFlexContainer>
     );
