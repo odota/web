@@ -104,8 +104,8 @@ const LaneReplayComparison = ({ match }: { match: Match }) => {
    * @param value Radiant total minus Dire total, or null when unavailable.
    * @returns An absolute lead badge, neutral zero, or an em dash.
    */
-  const renderDifference = (value: number | null, percent: number | null) => value === null ? "—" : value === 0 ? <span style={{ color: constants.textColorSecondary }}>0 (0.0%)</span> : <LeadValue>
-    {formatStat(Math.abs(value))} ({percent?.toFixed(1)}%)
+  const renderDifference = (value: number | null, percent: number | null) => value === null ? "—" : value === 0 ? <span style={{ color: constants.textColorSecondary }}>0 <span className="stat-percentage"><LeadValue style={{ fontSize: "inherit" }}>0% more</LeadValue></span></span> : <LeadValue>
+    {formatStat(Math.abs(value))} <span className="stat-percentage"><LeadValue style={{ fontSize: "inherit" }}>{percent?.toFixed(0)}% more</LeadValue></span>
   </LeadValue>;
   /**
    * Calculates the signed difference between complete lane totals.

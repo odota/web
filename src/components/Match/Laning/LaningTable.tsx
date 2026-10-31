@@ -79,6 +79,11 @@ export const TeamTable = styled.section`
   &.replay-comparison-table .stat-comparison { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; column-gap: 4px; }
   &.replay-comparison-table .stat-original { grid-column: 2; justify-self: center; white-space: nowrap; }
   &.replay-comparison-table .stat-difference { grid-column: 3; justify-self: start; font-size: inherit; text-align: left; white-space: nowrap; }
+  &.replay-comparison-table .stat-percentage {
+    color: ${constants.colorGreen};
+    font-size: inherit;
+    vertical-align: baseline;
+  }
   thead tr:first-child th[colspan] { text-align: left; padding: 8px 6px 6px; }
   .group-heading {
     display: inline-flex;
