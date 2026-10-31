@@ -10,6 +10,7 @@ import AbilityBuildTable from "../AbilityBuildTable";
 import DeferredContainer from "../../DeferredContainer/DeferredContainer";
 import config from "../../../config";
 import { Spacer } from "../../Spacer/Spacer";
+import DraftSequence from "./DraftSequence";
 
 const Styled = styled.div`
   width: 100%;
@@ -55,7 +56,6 @@ export const getOverviewTab = (strings: Strings, beta = false) => {
           // buttonLabel={config.VITE_ENABLE_GOSUAI ? strings.gosu_default : null}
           // buttonTo={`${gosuUrl}Overview`}
           // buttonIcon={gosuIcon}
-          picksBans={match.picks_bans}
           radiantTeam={match.radiant_team}
           direTeam={match.dire_team}
           summable
@@ -63,6 +63,7 @@ export const getOverviewTab = (strings: Strings, beta = false) => {
           customWidth={960}
           radiantWin={match.radiant_win}
         />
+        <DraftSequence match={match} />
         {match.game_mode === 18 && (
           <AbilityDraftTable
             players={match.players}
