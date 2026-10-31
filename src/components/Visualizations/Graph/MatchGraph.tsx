@@ -33,8 +33,18 @@ import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
 import { Spacer } from "../../Spacer/Spacer";
 import Grid from "./Grid";
+import { heroLevels } from "./data";
 
 const formatGraphTime = (minutes: number) => `${minutes}:00`;
+
+const getHeroLevel = (totalXp: number): number => {
+  let level = 1;
+  for (const threshold of heroLevels) {
+    if (totalXp < threshold.totalXp) break;
+    level = threshold.level;
+  }
+  return level;
+};
 
 const generateDiffData = (match: Match) => {
   const radiantGoldAdv = match.radiant_gold_adv;
@@ -247,23 +257,31 @@ class PlayersGraph extends React.Component<
     const { match, type, strings } = this.props;
     const { hoverHero } = this.state;
 
-    const matchData: any[] = [];
-    if (
-      match.players &&
-      match.players[0] &&
-      match.players[0][`${type}_t` as keyof MatchPlayer]
-    ) {
-      match.players[0][`${type}_t` as keyof MatchPlayer].forEach(
-        (value: number, index: number) => {
-          if (index <= Math.floor(match.duration / 60)) {
-            const obj: Record<string, any> = { time: formatGraphTime(index) };
-            match.players.forEach((player) => {
-              const hero = heroes[player.hero_id] || {};
-              obj[hero.localized_name] =
-                player[`${type}_t` as keyof MatchPlayer][index];
-            });
-            matchData.push(obj);
-          }
+    const dataKey = `${type === "levels" ? "xp" : type}_t` as keyof MatchPlayer;
+    const timeline = match.players?.[0]?.[dataKey];
+    if (timeline) {
+      const lastMinute = Math.floor(match.duration / 60);
+      // One entry per minute through the match duration, containing the formatted time
+      // and each hero's stat value (or level for the levels graph), keyed by hero name.
+      const matchData = timeline.slice(0, lastMinute + 1).map(
+        // Use the array index as the minute; the timeline value itself is unused.
+        (_: number, minute: number) => {
+          const dataPoint: Record<string, string | number | undefined> = {
+            time: formatGraphTime(minute),
+          };
+
+          // Add each hero's stat at this minute. For the levels graph, convert XP to a level;
+          // for other graph types, use the stat value directly.
+          match.players.forEach((player) => {
+            const hero = heroes[player.hero_id] || {};
+            const value = player[dataKey]?.[minute];
+            dataPoint[hero.localized_name] =
+              type === "levels" && typeof value === "number"
+                ? getHeroLevel(value)
+                : value;
+          });
+
+          return dataPoint;
         },
       );
 
@@ -317,6 +335,7 @@ class PlayersGraph extends React.Component<
                 const stroke = isSelected ? 4 : 2;
                 return (
                   <Line
+                    key={player.player_slot}
                     dot={false}
                     dataKey={hero.localized_name}
                     stroke={playerColor}
@@ -370,6 +389,7 @@ const MatchGraph = ({
     type === "xp" ||
     type === "lh" ||
     type === "networth" ||
+    type === "levels" ||
     type === "hero_damage" ||
     type === "hero_healing" ||
     type === "camps_stacked"
