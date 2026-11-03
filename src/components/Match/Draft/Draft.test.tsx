@@ -38,21 +38,22 @@ describe("Draft", () => {
     expect(renderedPattern(container)).toBe(match5293089497.expectedPattern);
   });
 
-  it("shows time used and reserve time left", () => {
+  it("shows time used and highlights time over 30s", () => {
     const { container } = renderDraft({
       picksBans: [
         { order: 0, is_pick: false, team: 0, hero_id: 1 },
         { order: 1, is_pick: true, team: 0, hero_id: 2 },
       ],
       draftTimings: [
-        { hero_id: 1, total_time_taken: 10, extra_time: 130 },
-        { hero_id: 2, total_time_taken: 45, extra_time: 115 },
+        { hero_id: 1, total_time_taken: 10 },
+        { hero_id: 2, total_time_taken: 45 },
       ],
     });
     const rows = container.querySelectorAll("tr.draft-row");
     expect(rows[0].textContent).toContain("10s used");
-    expect(rows[0].textContent).toContain("130s left");
-    expect(rows[1].textContent).toContain("115s left (-15s)");
+    expect(rows[0].querySelector(".extra-used")).toBeNull();
+    expect(rows[1].textContent).toContain("45s used");
+    expect(rows[1].querySelector(".extra-used")?.textContent).toBe("45s");
   });
 
   it("shows the draft without times when there is no draft_timings", () => {
@@ -61,6 +62,5 @@ describe("Draft", () => {
     });
     expect(container.querySelectorAll("tr.draft-row")).toHaveLength(16);
     expect(container.textContent).not.toContain("used");
-    expect(container.textContent).not.toContain("left");
   });
 });

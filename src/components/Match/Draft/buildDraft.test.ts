@@ -79,19 +79,17 @@ describe("buildDraft", () => {
     expect(pattern).toBe(expectedPattern);
   });
 
-  it("adds time taken and extra time from draft_timings", () => {
+  it("adds time taken from draft_timings", () => {
     const steps = buildDraft(
       [{ order: 0, is_pick: true, team: 0, hero_id: 57 }],
-      [{ hero_id: 57, total_time_taken: 42, extra_time: 118 }],
+      [{ hero_id: 57, total_time_taken: 42 }],
     );
     expect(steps[0].timeTaken).toBe(42);
-    expect(steps[0].extraTime).toBe(118);
   });
 
   it("leaves timings out when there is no draft_timings", () => {
     const steps = buildDraft(stubPicksBans(ORDER_740), []);
     expect(steps.every((s) => s.timeTaken === undefined)).toBe(true);
-    expect(steps.every((s) => s.extraTime === undefined)).toBe(true);
   });
 
   it("matches draft_timings by hero_id, not by order", () => {
@@ -101,8 +99,8 @@ describe("buildDraft", () => {
         { order: 1, is_pick: false, team: 1, hero_id: 20 },
       ],
       [
-        { hero_id: 20, total_time_taken: 5, extra_time: 100 },
-        { hero_id: 10, total_time_taken: 9, extra_time: 130 },
+        { hero_id: 20, total_time_taken: 5 },
+        { hero_id: 10, total_time_taken: 9 },
       ],
     );
     expect(steps.map((s) => s.timeTaken)).toEqual([9, 5]);
@@ -113,7 +111,6 @@ describe("buildDraft", () => {
     const timings = picksBans.slice(7).map((pb) => ({
       hero_id: pb.hero_id,
       total_time_taken: 20,
-      extra_time: 100,
     }));
     const steps = buildDraft(picksBans, timings);
     expect(steps.slice(0, 7).every((s) => s.timeTaken === undefined)).toBe(
@@ -125,10 +122,9 @@ describe("buildDraft", () => {
   it("treats null times as missing", () => {
     const steps = buildDraft(
       [{ order: 0, is_pick: false, team: 0, hero_id: 10 }],
-      [{ hero_id: 10, total_time_taken: null, extra_time: null }],
+      [{ hero_id: 10, total_time_taken: null }],
     );
     expect(steps[0].timeTaken).toBeUndefined();
-    expect(steps[0].extraTime).toBeUndefined();
   });
 
   it("handles the doubled hero ids of match 8380808771", () => {
@@ -143,39 +139,6 @@ describe("buildDraft", () => {
     });
   });
 
-  it("drops reserve times that go up, as in match 8380808771", () => {
-    const { picks_bans, draft_timings } = match8380808771;
-    const steps = buildDraft(picks_bans, draft_timings);
-    expect(steps.every((s) => s.extraTime === undefined)).toBe(true);
-    expect(steps.every((s) => s.extraTimeUsed === undefined)).toBe(true);
-  });
-
-  it("computes the reserve time used per team", () => {
-    const steps = buildDraft(stubPicksBans("bA bB PA PB PA"), [
-      { hero_id: 1, total_time_taken: 10, extra_time: 130 },
-      { hero_id: 2, total_time_taken: 50, extra_time: 110 },
-      { hero_id: 3, total_time_taken: 40, extra_time: 120 },
-      { hero_id: 4, total_time_taken: 20, extra_time: 110 },
-      { hero_id: 5, total_time_taken: 35, extra_time: 120 },
-    ]);
-    expect(steps.map((s) => s.extraTimeUsed)).toEqual([
-      undefined,
-      undefined,
-      10,
-      0,
-      0,
-    ]);
-  });
-
-  it("ignores negative reserve times", () => {
-    const steps = buildDraft(
-      [{ order: 0, is_pick: false, team: 0, hero_id: 10 }],
-      [{ hero_id: 10, total_time_taken: 37, extra_time: -286 }],
-    );
-    expect(steps[0].timeTaken).toBe(37);
-    expect(steps[0].extraTime).toBeUndefined();
-  });
-
   it("does not halve hero ids when they are not doubled", () => {
     const steps = buildDraft(
       [
@@ -183,8 +146,8 @@ describe("buildDraft", () => {
         { order: 1, is_pick: false, team: 1, hero_id: 38 },
       ],
       [
-        { hero_id: 76, total_time_taken: 1, extra_time: 130 },
-        { hero_id: 38, total_time_taken: 2, extra_time: 130 },
+        { hero_id: 76, total_time_taken: 1 },
+        { hero_id: 38, total_time_taken: 2 },
       ],
     );
     expect(steps.map((s) => s.timeTaken)).toEqual([1, 2]);

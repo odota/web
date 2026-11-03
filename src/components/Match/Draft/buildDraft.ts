@@ -8,7 +8,6 @@ export type PickBan = {
 export type DraftTiming = {
   hero_id: number;
   total_time_taken?: number | null;
-  extra_time?: number | null;
 };
 
 export type DraftStep = {
@@ -17,10 +16,10 @@ export type DraftStep = {
   isPick: boolean;
   isRadiant: boolean;
   timeTaken?: number;
-  extraTime?: number;
-  extraTimeUsed?: number;
 };
 
+// The old JS parser stored the hero ids in draft_timings doubled. This can be
+// removed once the Java parser fills draft_timings with the real ids.
 const getTimingHeroId = (timings: DraftTiming[], heroIds: Set<number>) => {
   const allMatch = timings.every((t) => heroIds.has(t.hero_id));
   const allMatchHalved = timings.every((t) => heroIds.has(t.hero_id / 2));
@@ -31,26 +30,6 @@ const getTimingHeroId = (timings: DraftTiming[], heroIds: Set<number>) => {
 
 const toNumber = (value?: number | null) =>
   typeof value === "number" ? value : undefined;
-
-const toExtraTime = (value?: number | null) =>
-  typeof value === "number" && value >= 0 ? value : undefined;
-
-const addExtraTimeUsed = (steps: DraftStep[]): DraftStep[] => {
-  const last: Record<string, number> = {};
-  const used = steps.map((step) => {
-    const team = String(step.isRadiant);
-    if (step.extraTime === undefined) {
-      return undefined;
-    }
-    const previous = last[team];
-    last[team] = step.extraTime;
-    return previous === undefined ? undefined : previous - step.extraTime;
-  });
-  if (used.some((u) => u !== undefined && u < 0)) {
-    return steps.map((step) => ({ ...step, extraTime: undefined }));
-  }
-  return steps.map((step, i) => ({ ...step, extraTimeUsed: used[i] }));
-};
 
 export const buildDraft = (
   picksBans?: PickBan[] | null,
@@ -64,7 +43,7 @@ export const buildDraft = (
   const timingHeroId = getTimingHeroId(timings, heroIds);
   const timingByHero = new Map(timings.map((t) => [timingHeroId(t), t]));
 
-  const steps: DraftStep[] = [...picksBans]
+  return [...picksBans]
     .sort((a, b) => a.order - b.order)
     .map((pb) => {
       const timing = timingByHero.get(pb.hero_id);
@@ -74,8 +53,6 @@ export const buildDraft = (
         isPick: pb.is_pick,
         isRadiant: pb.team === 0,
         timeTaken: toNumber(timing?.total_time_taken),
-        extraTime: toExtraTime(timing?.extra_time),
       };
     });
-  return addExtraTimeUsed(steps);
 };

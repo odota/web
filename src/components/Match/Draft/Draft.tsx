@@ -74,10 +74,6 @@ const DraftCell = styled.div`
     font-size: 16px;
   }
 
-  .left {
-    font-size: 13px;
-  }
-
   .extra-used {
     color: ${constants.colorDanger};
   }
@@ -128,22 +124,17 @@ const RightArrow = styled(KeyboardArrowRightIcon)`
     props.visible === "true" ? "visible" : "hidden"};
 `;
 
+// time over this comes from the team's reserve time
+const STEP_TIME = 30;
+
 const TimeTracker = ({ step }: { step: DraftStep }) => (
   <div className="time-tracker">
     {step.timeTaken !== undefined && (
       <span className="taken">
-        <span className={step.extraTimeUsed ? "extra-used" : ""}>
+        <span className={step.timeTaken > STEP_TIME ? "extra-used" : ""}>
           {step.timeTaken}s
         </span>{" "}
         used
-      </span>
-    )}
-    {step.extraTime !== undefined && (
-      <span className="left">
-        {step.extraTime}s left
-        {Boolean(step.extraTimeUsed) && (
-          <span className="extra-used">{` (-${step.extraTimeUsed}s)`}</span>
-        )}
       </span>
     )}
   </div>
