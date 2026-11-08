@@ -2,6 +2,48 @@ import { skillshots } from "dotaconstants";
 import { isSupport, getObsWardsPlaced, isRoshHero } from "../utility";
 import store from "../store";
 
+/**
+ * Derives player advice using the active language dictionary from the store.
+ * @param match Match data used to evaluate advice checks.
+ * @param _pm Player data evaluated by each check.
+ * @returns An object keyed by check name: eff, farm_drought, skillshot, late_courier,
+ * wards, roshan, and rune_control. Each result contains a translated name, measured
+ * value, validity flag, reference target (top), score function, and optional grade flag.
+ * All checks are returned, including invalid ones. Score functions are not called here.
+ * @example
+ * ```ts
+ * const match = { duration: 1200 };
+ * const _pm = {
+ *   hero_id: 1,
+ *   lane_role: 2,
+ *   lane_efficiency: 0.65,
+ *   gold_t: Array.from({ length: 12 }, (_, minute) => minute * 300),
+ *   obs_log: [],
+ *   purchase: {},
+ *   first_purchase_time: { flying_courier: 300 },
+ *   runes: { 0: 5 },
+ * };
+ * ```
+ * With the store’s active language set to English:
+ * ```ts
+ * const advice = analyzeMatch(match, _pm);
+ * advice.eff; // { grade: true, name: "Lane efficiency", value: 0.65, top: 0.6, valid: true, score(raw) { return raw; } }
+ * advice.farm_drought.value; // 300
+ * advice.farm_drought.valid; // true
+ * advice.skillshot.value; // undefined
+ * advice.skillshot.valid; // false
+ * advice.late_courier.value; // 120
+ * advice.wards.value; // 0
+ * advice.wards.valid; // false
+ * advice.roshan.value; // 0
+ * advice.roshan.valid; // false
+ * advice.rune_control.value; // 5
+ * advice.rune_control.top; // 5
+ * advice.rune_control.valid; // true
+ * advice.eff.score(advice.eff.value); // 0.65
+ * advice.rune_control.score(advice.rune_control.value); // 1
+ * ```
+ */
 export default function analyzeMatch(match: any, _pm: any) {
   const { strings } = store.getState().app;
   // define condition check for each advice point
