@@ -2,6 +2,7 @@ import React from "react";
 import { Tooltip } from "@mui/material";
 import {
   heroes,
+  player_colors as playerColors,
   order_types as orderTypes,
   item_ids as itemIds,
   permanent_buffs as buffs,
@@ -23,7 +24,7 @@ import {
 } from "../../utility";
 import { TableHeroImage, inflictorWithValue } from "../Visualizations";
 import { CompetitiveRank } from "../Visualizations/Table/HeroImage";
-import { IconBackpack, IconRadiant, IconDire, IconTrophy } from "../Icons";
+import { IconBackpack, IconRadiant, IconDire } from "../Icons";
 import constants from "../constants";
 import {
   StyledAbilityUpgrades,
@@ -37,6 +38,7 @@ import {
   StyledAghanimsBuffs,
   StyledLevel,
   StyledLineWinnerSpan,
+  StyledPlayerColor,
 } from "./StyledMatch";
 import sword from "../Icons/Sword.svg";
 import lightning from "../Icons/Lightning.svg";
@@ -1101,7 +1103,21 @@ export default (strings: Strings, beta = false) => {
         />
       ),
     },
-    heroTdColumn,
+
+    {
+      key: "playerColor",
+      width: 20,
+      displayFn: (row: MatchPlayer) => (
+        <StyledPlayerColor
+          aria-hidden="true"
+          color={
+            playerColors[
+              row.player_slot as unknown as keyof typeof playerColors
+            ]
+          }
+        />
+      ),
+    },
     {
       displayName: strings.heading_is_radiant,
       tooltip: strings.heading_is_radiant,
@@ -1109,11 +1125,12 @@ export default (strings: Strings, beta = false) => {
       sortFn: true,
       displayFn: (row: MatchPlayer, column: any, field: any) => (
         <span>
-          {field && <IconRadiant height="30" />}
-          {!field && <IconDire height="30" />}
+          {field && <IconRadiant width="24" height="24" />}
+          {!field && <IconDire width="24" height="24" />}
         </span>
       ),
     },
+    heroTdColumn,
     {
       displayName: strings.th_lane,
       tooltip: strings.tooltip_lane,
@@ -1129,25 +1146,14 @@ export default (strings: Strings, beta = false) => {
       ),
     },
     {
-      displayName: strings.th_win_lane,
-      tooltip: strings.tooltip_win_lane,
-      field: "line_win",
+      displayName: strings.laning_role,
+      tooltip: strings.laning_role_hint,
+      field: "laning_role",
       sortFn: true,
       displayFn: (row: MatchPlayer, column: any, field: any) =>
-        field && (
-          <StyledLineWinnerSpan>
-            <IconTrophy />
-          </StyledLineWinnerSpan>
-        ),
+        field ?? strings.laning_unknown_role,
     },
-    {
-      displayName: strings.cs_over_time,
-      tooltip: strings.tooltip_cs_over_time,
-      field: "cs_t",
-      sparkline: true,
-      strings,
-      width: 200,
-    },
+
     {
       displayName: strings.th_lane_efficiency,
       tooltip: strings.tooltip_lane_efficiency,
@@ -1158,6 +1164,24 @@ export default (strings: Strings, beta = false) => {
       relativeBars: true,
       sumFn: true,
     },
+    {
+      displayName: strings.th_level_ten,
+      tooltip: strings.tooltip_level_ten,
+      field: "level_ten",
+      sortFn: true,
+      displayFn: (row: MatchPlayer, column: any, field: any) => field ?? "-",
+      relativeBars: true,
+    },
+    {
+      displayName: strings.th_net_worth_ten,
+      tooltip: strings.tooltip_net_worth_ten,
+      field: "net_worth_ten",
+      sortFn: true,
+      displayFn: (row: MatchPlayer, column: any, field: any) => field ?? "-",
+      relativeBars: true,
+      sumFn: true,
+    },
+
     {
       displayName: strings.th_lhten,
       tooltip: strings.tooltip_lhten,
@@ -1175,6 +1199,26 @@ export default (strings: Strings, beta = false) => {
       displayFn: (row: MatchPlayer, column: any, field: any) => field || "-",
       relativeBars: true,
       sumFn: true,
+    },
+    {
+      displayName: strings.cs_over_time,
+      tooltip: strings.tooltip_cs_over_time,
+      field: "cs_t",
+      sparkline: true,
+      strings,
+      width: 200,
+    },
+    {
+      displayName: strings.th_win_lane,
+      tooltip: strings.tooltip_win_lane,
+      field: "line_win",
+      sortFn: true,
+      displayFn: (row: MatchPlayer, column: any, field: any) =>
+        field && (
+          <StyledLineWinnerSpan title={strings.tooltip_win_lane}>
+            {strings.laning_won}
+          </StyledLineWinnerSpan>
+        ),
     },
   ];
 

@@ -6,7 +6,6 @@
 
 import React, { useState } from "react";
 import styled from "styled-components";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import useStrings from "../../hooks/useStrings.hook";
 import constants from "../constants";
@@ -21,30 +20,49 @@ import { ProfessionalMatch } from "../Matches/series";
  */
 const Details = styled.div`
   display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: 20px;
-  margin-bottom: 20px;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 24px;
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid color-mix(in srgb, ${constants.secondarySurfaceColor} 60%, #6299ba);
+  border-radius: 6px;
+  background: linear-gradient(120deg, color-mix(in srgb, ${constants.secondarySurfaceColor} 65%, #17395c), color-mix(in srgb, ${constants.secondarySurfaceColor} 80%, #17395c));
+  font-family: ${constants.fontFamilyFuturistic};
   .tournament-art {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 12px;
-    min-height: 140px;
-    border: 1px solid rgba(100, 160, 210, 0.25);
+    min-height: 160px;
+    padding: 16px;
+    border: 1px solid color-mix(in srgb, ${constants.secondarySurfaceColor} 60%, #6299ba);
     border-radius: 4px;
-    background: rgba(100, 160, 210, 0.1);
+    background: color-mix(in srgb, ${constants.primarySurfaceColor} 85%, #38596d);
     color: ${constants.textColorSecondary};
+    font-size: 12px;
     text-align: center;
     img { width: 100%; max-height: 180px; object-fit: contain; }
     svg { width: 48px; height: 48px; color: ${constants.colorGolden}; }
   }
-  h2 { margin-bottom: 12px; }
-  dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 16px; margin: 12px 0; }
-  dt { color: ${constants.textColorSecondary}; }
-  dd { margin: 0; overflow-wrap: anywhere; }
-  dd svg { width: 14px; height: 14px; vertical-align: middle; margin-right: 6px; color: ${constants.colorBlue}; }
-  @media (max-width: ${constants.wrapMobile}) { grid-template-columns: minmax(0, 1fr); }
+  .tournament-info { min-width: 0; }
+  h2 { margin: 0 0 10px; font-size: clamp(22px, 2.5vw, 30px); line-height: 1.2; overflow-wrap: anywhere; }
+  dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 20px 0 0; padding-top: 18px; border-top: 0; }
+  dl > div { min-width: 0; }
+  dt { color: ${constants.textColorSecondary}; font-size: 11px; line-height: 1.5; margin-bottom: 6px; }
+  dd { margin: 0; overflow-wrap: anywhere; color: ${constants.textColorPrimary}; font-size: 14px; font-variant-numeric: tabular-nums; }
+  dd svg { width: 15px; height: 15px; vertical-align: middle; margin-right: 6px; color: ${constants.colorBlue}; }
+  .league-id { color: ${constants.colorGolden}; }
+  @media (max-width: ${constants.wrapMobile}) {
+    padding: 18px;
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 16px;
+    .tournament-art { min-height: 100px; padding: 10px; align-self: start; }
+    .tournament-art svg { width: 32px; height: 32px; }
+    dl { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  }
+  @media (max-width: 420px) { grid-template-columns: minmax(0, 1fr); .tournament-art { max-width: 140px; } }
+
 `;
 
 /**
@@ -53,12 +71,29 @@ const Details = styled.div`
  * <Participants>{teamProfileLinks}</Participants>
  */
 const Participants = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
-  a { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid ${constants.dividerColor}; border-radius: 3px; }
-  img, svg { width: 24px; height: 24px; object-fit: contain; }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
+  font-family: ${constants.fontFamilyFuturistic};
+  a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    min-width: 0;
+    border: 1px solid color-mix(in srgb, ${constants.secondarySurfaceColor} 60%, #6299ba);
+    border-radius: 4px;
+    background: color-mix(in srgb, ${constants.secondarySurfaceColor} 75%, #17395c);
+    color: ${constants.textColorPrimary};
+    font-size: 13px;
+    transition: background .15s, border-color .15s;
+    &:hover { background: color-mix(in srgb, ${constants.secondarySurfaceColor} 65%, #244d75); border-color: ${constants.colorBlue}; }
+    &:focus-visible { outline: 2px solid ${constants.colorBlue}; outline-offset: 3px; }
+    span { overflow-wrap: anywhere; }
+  }
+  img, svg { width: 30px; height: 30px; flex-shrink: 0; object-fit: contain; }
+
 `;
 
 type Tournament = { leagueid: number; name: string; banner?: string | null; ticket?: string | null };
@@ -131,23 +166,23 @@ export default function TournamentDetails({ league, tier, games, teams, historyR
     <>
       <Details>
         <div className="tournament-art">
-          {image && failedImage !== image ? <img src={image} alt={league.name} onError={() => setFailedImage(image)} /> : <><EmojiEventsIcon aria-hidden="true" /><span>{strings.esports_no_artwork}</span></>}
+          {image && failedImage !== image ? <img src={image} alt={league.name} onError={() => setFailedImage(image)} /> : <img src="/assets/tournament-placeholder.svg" alt={strings.esports_no_artwork} />}
         </div>
-        <div>
+        <div className="tournament-info">
           <h2>{league.name}</h2>
           {tier}
           <dl>
-            <dt>{strings.th_league}</dt><dd>{league.leagueid}</dd>
+            <div><dt>{strings.th_league}</dt><dd className="league-id">#{league.leagueid}</dd></div>
             {historyReady && dates.length > 0 && <>
-              <dt>{strings.esports_first_recorded_match}</dt><dd><CalendarMonthIcon aria-hidden="true" />{date(Math.min(...dates))}</dd>
-              <dt>{strings.esports_last_recorded_match}</dt><dd><CalendarMonthIcon aria-hidden="true" />{date(Math.max(...dates))}</dd>
+              <div><dt>{strings.esports_first_recorded_match}</dt><dd><CalendarMonthIcon aria-hidden="true" />{date(Math.min(...dates))}</dd></div>
+              <div><dt>{strings.esports_last_recorded_match}</dt><dd><CalendarMonthIcon aria-hidden="true" />{date(Math.max(...dates))}</dd></div>
             </>}
           </dl>
         </div>
       </Details>
       {historyReady && participants.size > 0 && <>
-        <h2 style={{ marginBottom: 12 }}>{strings.esports_participating_teams}</h2>
-        <Participants>{Array.from(participants, ([id, team]) => <Link key={id} to={`/teams/${id}`}><TeamLogo teamId={id} src={team.logo_url} />{team.name}</Link>)}</Participants>
+        <h2 style={{ marginBottom: 14, fontFamily: constants.fontFamilyFuturistic, fontSize: 16 }}>{strings.esports_participating_teams}</h2>
+        <Participants>{Array.from(participants, ([id, team]) => <Link key={id} to={`/teams/${id}`}><TeamLogo teamId={id} src={team.logo_url} /><span>{team.name}</span></Link>)}</Participants>
       </>}
     </>
   );

@@ -8,7 +8,8 @@ import { MatchSeries } from "../Matches/series";
 /**
  * Groups series by the local date of their earliest recorded game.
  * @param series Series to group; input order and contents are preserved.
- * @returns Date groups ordered oldest first, with series ordered by start time within each day.
+ * @param newestFirst Whether to order dates and series newest first. Defaults to oldest first.
+ * @returns Date groups and their series ordered by start time in the requested direction.
  * @example
  * // Other MatchSeries fields are omitted here for readability.
  * // Date constructors use local time, matching the grouping behavior.
@@ -29,9 +30,9 @@ import { MatchSeries } from "../Matches/series";
  * groupSeriesByDate([]);
  * // Returns: []
  */
-export const groupSeriesByDate = (series: MatchSeries[]) => {
+export const groupSeriesByDate = (series: MatchSeries[], newestFirst = false) => {
   const days = new Map<string, MatchSeries[]>();
-  [...series].sort((a, b) => a.first_match_time - b.first_match_time).forEach((row) => {
+  [...series].sort((a, b) => (newestFirst ? -1 : 1) * (a.first_match_time - b.first_match_time)).forEach((row) => {
     const start = new Date(row.first_match_time * 1000);
     const date = `${start.getFullYear()}-${String(start.getMonth() + 1).padStart(2, "0")}-${String(start.getDate()).padStart(2, "0")}`;
     const rows = days.get(date) || [];

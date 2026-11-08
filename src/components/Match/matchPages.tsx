@@ -6,10 +6,13 @@ import TeamfightMap from "./TeamfightMap/TeamfightMap";
 import Purchases from "./Purchases/Purchases";
 import Timeline from "./Timeline";
 import MatchGraph from "../Visualizations/Graph/MatchGraph";
+import { hasGraphData } from "./Laning/laning.utils";
 import StackedBarGraph from "../Visualizations/Graph/StackedBarGraph";
 import Draft from "./Draft/Draft";
 import Vision from "./Vision/Vision";
 import Laning from "./Laning/Laning";
+import { GraphCard, TimelineCard } from "./StyledGraphs";
+import { LaningPage } from "./Laning/StyledLaning";
 import CrossTable from "./CrossTable";
 import MatchLog from "./MatchLog";
 import MatchStory from "./MatchStory";
@@ -21,6 +24,18 @@ import { StyledFlexContainer, StyledFlexElement } from "./StyledMatch";
 import { getHeroImageUrl, IMAGESIZE_ENUM } from "../../utility";
 import config from "../../config";
 import { Spacer } from "../Spacer/Spacer";
+
+const graphTypes = [
+  "difference",
+  "networth",
+  "gold",
+  "xp",
+  "levels",
+  "lh",
+  "hero_damage",
+  "hero_healing",
+  "camps_stacked",
+];
 
 const TickElement = (props: { x: number; y: number; payload: any }) => {
   const { x, y, payload } = props;
@@ -96,23 +111,23 @@ const matchPages = (
         </div>
       ),
     },
-    // {
-    //   name: strings.tab_drafts,
-    //   key: "draft",
-    //   parsed: true,
-    //   hidden: (match: Match) => match.game_mode !== 2,
-    //   content: (match: Match) => (
-    //     <div>
-    //       <Draft
-    //         gameMode={match.game_mode}
-    //         radiantTeam={match.radiant_team}
-    //         direTeam={match.dire_team}
-    //         draft={match.draft_timings}
-    //         startTime={match.start_time}
-    //       />
-    //     </div>
-    //   ),
-    // },
+    {
+      name: strings.tab_drafts,
+      key: "draft",
+      parsed: false,
+      hidden: (match: Match) =>
+        match.game_mode !== 2 || !match.picks_bans?.length,
+      content: (match: Match) => (
+        <div>
+          <Draft
+            radiantTeam={match.radiant_team}
+            direTeam={match.dire_team}
+            picksBans={match.picks_bans}
+            draftTimings={match.draft_timings}
+          />
+        </div>
+      ),
+    },
     {
       name: strings.tab_performances,
       key: "performances",
@@ -289,30 +304,17 @@ const matchPages = (
       skeleton: true,
       parsed: true,
       content: (match: Match) => (
-        <div>
-          <Timeline match={match} />
-          <Spacer variant="2" />
-          <MatchGraph
-            match={match}
-            type="difference"
-            // sponsorURL={gosuUrl}
-            // sponsorIcon={gosuIcon}
-          />
-          <Spacer variant="2" />
-          <MatchGraph match={match} type="networth" />
-          <Spacer variant="2" />
-          <MatchGraph match={match} type="gold" />
-          <Spacer variant="2" />
-          <MatchGraph match={match} type="xp" />
-          <Spacer variant="2" />
-          <MatchGraph match={match} type="lh" />
-          <Spacer variant="2" />
-          <MatchGraph match={match} type="hero_damage" />
-          <Spacer variant="2" />
-          <MatchGraph match={match} type="hero_healing" />
-          <Spacer variant="2" />
-          <MatchGraph match={match} type="camps_stacked" />
-        </div>
+        <LaningPage>
+          <TimelineCard>
+            <Heading title={strings.heading_match_timeline} />
+            <Timeline match={match} />
+          </TimelineCard>
+          {graphTypes.filter((type) => hasGraphData(match, type)).map((type) => (
+            <GraphCard key={type} aria-label={strings[`heading_graph_${type}` as keyof Strings]}>
+              <MatchGraph match={match} type={type} />
+            </GraphCard>
+          ))}
+        </LaningPage>
       ),
     },
     {

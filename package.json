@@ -10,6 +10,8 @@
     "preview": "vite preview --host",
     "build": "vite build && npm run typecheck",
     "test": "testcafe -c 4 chrome:headless testcafe/ --app \"vite preview --host --port 5000 \"",
+    "test:unit": "vitest run",
+    "coverage": "vitest run --coverage",
     "analyze": "npx source-map-explorer 'build/assets/*.js' --html result.html --no-border-checks",
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "lintfix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
@@ -53,6 +55,7 @@
     "wordcloud": "^1.2.3"
   },
   "devDependencies": {
+    "@testing-library/react": "^12.1.5",
     "@types/node": "^25.0.3",
     "@types/papaparse": "^5.5.2",
     "@types/react": "^17.0.40",
@@ -63,12 +66,15 @@
     "@types/react-transition-group": "^2.9.2",
     "@types/styled-components": "4.0.3",
     "@types/wordcloud": "^1.2.2",
+    "@vitest/coverage-v8": "^5.0.3",
+    "jsdom": "^26.1.0",
     "sanitize-filename-ts": "^1.0.2",
     "testcafe": "^3.7.3",
     "testcafe-react-selectors": "^5.0.3",
     "typescript": "^5.9.3",
     "vdf-parser": "^1.2.1",
-    "vite": "^7.3.6"
+    "vite": "^7.3.6",
+    "vitest": "^5.0.3"
   },
   "repository": {
     "type": "git",

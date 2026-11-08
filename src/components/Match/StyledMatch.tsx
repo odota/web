@@ -1,6 +1,15 @@
 import styled from "styled-components";
 import constants from "../constants";
 
+export const StyledPlayerColor = styled.span<{ color: string }>`
+  display: inline-block;
+  width: 6px;
+  height: 24px;
+  border-radius: 3px;
+  background-color: ${(props) => props.color};
+  vertical-align: middle;
+`;
+
 export const StyledAbilityUpgrades = styled.div`
   margin: -8px;
 
@@ -457,10 +466,16 @@ export const StyledDmgTargetRow = styled.div`
   }
 `;
 
+/** Displays a compact “Won the lane” badge for players whose side won the recorded lane. */
 export const StyledLineWinnerSpan = styled.span`
-  & svg {
-    width: 20px !important;
-    height: 20px !important;
-    fill: ${constants.colorGolden};
-  }
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(76, 175, 80, 0.12);
+  color: ${constants.colorSuccess};
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
 `;

@@ -1068,8 +1068,97 @@ export function getColStyle(column: any): React.CSSProperties {
   };
 }
 
+/** Shared localStorage keys. Keep values stable to preserve saved preferences. */
+export const localStorageKeys = {
+  localization: "localization",
+  modeFilter: "modeFilter",
+  heroComparisonSameRolesOnly: "opendota.heroComparison.sameRolesOnly",
+  graphTooltipAdvantage: "opendota.graph.tooltip.advantage",
+  graphTooltipTeamNetWorth: "opendota.graph.tooltip.teamNetWorth",
+  graphTooltipTeamLevels: "opendota.graph.tooltip.teamLevels",
+} as const;
+
+const localStorageBooleanChangeEvent = "opendota:boolean-preference-change";
+
+/**
+ * Synchronizes controls across mounted components and browser tabs.
+ * @returns A cleanup function that removes the change listeners.
+ */
+export function subscribeToLocalStorageBoolean(key: string, onChange: (value: boolean) => void, fallback = false) {
+  const onPreference = (event: Event) => {
+    const { key: changedKey, value } = (event as CustomEvent<{ key: string; value: boolean }>).detail;
+    if (changedKey === key) onChange(value);
+  };
+  const onStorage = (event: StorageEvent) => {
+    if (event.storageArea !== window.localStorage) return;
+    if (event.key === key || event.key === null) onChange(event.newValue === "true" ? true : event.newValue === "false" ? false : fallback);
+  };
+  window.addEventListener(localStorageBooleanChangeEvent, onPreference);
+  window.addEventListener("storage", onStorage);
+  return () => {
+    window.removeEventListener(localStorageBooleanChangeEvent, onPreference);
+    window.removeEventListener("storage", onStorage);
+  };
+}
+
+/** Reads the saved localization setting. */
+export function getLocalization(): string {
+  try {
+    return window.localStorage.getItem(localStorageKeys.localization) || "en-US";
+  } catch {
+    return "en-US";
+  }
+}
+
+/** Saves the localization setting when localStorage is available. */
+export function setLocalization(value: string): void {
+  try {
+    window.localStorage.setItem(localStorageKeys.localization, value);
+  } catch {
+    // Keep controls usable when browser storage is unavailable.
+  }
+}
+
+/** Reads the saved modeFilter setting. */
+export function getModeFilter(): string | null {
+  try {
+    return window.localStorage.getItem(localStorageKeys.modeFilter);
+  } catch {
+    return null;
+  }
+}
+
+/** Saves the modeFilter setting when localStorage is available. */
+export function setModeFilter(value: string): void {
+  try {
+    window.localStorage.setItem(localStorageKeys.modeFilter, value);
+  } catch {
+    // Keep controls usable when browser storage is unavailable.
+  }
+}
+
+/** Reads a saved boolean, using the fallback for missing, invalid, or inaccessible storage. */
+export function getLocalStorageBoolean(key: string, fallback = false): boolean {
+  try {
+    const value = window.localStorage.getItem(key);
+    return value === "true" ? true : value === "false" ? false : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+/** Saves a boolean and notifies mounted controls, even when storage is unavailable. */
+export function setLocalStorageBoolean(key: string, value: boolean): void {
+  try {
+    window.localStorage.setItem(key, String(value));
+  } catch {
+    // Keep controls usable when browser storage is unavailable.
+  }
+  window.dispatchEvent(new CustomEvent(localStorageBooleanChangeEvent, { detail: { key, value } }));
+}
+
 export function getLocalizedWeekdayStrings() {
-  const langCode = window.localStorage.getItem("localization") || "en-US";
+  const langCode = getLocalization();
   const d = new Date();
   return [...Array(7)].map((_, i) =>
     new Date(d.setDate(d.getDate() - d.getDay() + i)).toLocaleDateString(
@@ -1080,7 +1169,7 @@ export function getLocalizedWeekdayStrings() {
 }
 
 export function getLocalizedMonthStrings() {
-  const langCode = window.localStorage.getItem("localization") || "en-US";
+  const langCode = getLocalization();
   const d = new Date();
   return [...Array(12)].map((_, i) =>
     new Date(d.setMonth(i)).toLocaleDateString(langCode, { month: "short" }),
@@ -1108,7 +1197,7 @@ export function escapeRegExp(stringToGoIntoTheRegex: string) {
  * @param params A string of URL query params
  */
 export function paramsWithTurbo(params: any) {
-  const isTurboMode = window.localStorage.getItem("modeFilter") === "turbo";
+  const isTurboMode = getModeFilter() === "turbo";
   let objParams = params ?? {};
   if (typeof params === "string" && params) {
     objParams = querystring.parse(params.slice(1));
