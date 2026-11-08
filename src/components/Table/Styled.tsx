@@ -113,6 +113,14 @@ export const StyledBody = styled.div<{
       }
     }
   }
+  table.matches-table {
+    th { padding: 14px 20px !important; }
+    td { padding: 18px 20px !important; line-height: 1.6; }
+    @media (max-width: 680px) {
+      th { padding: 12px 14px !important; }
+      td { padding: 14px !important; }
+    }
+  }
   /* Override material-ui style */
 
   .innerContainer {
