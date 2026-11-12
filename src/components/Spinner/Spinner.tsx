@@ -25,17 +25,19 @@ const SpinnerContainer = styled.div`
 
 const SpinnerText = styled.span`
   font-family: ${constants.fontFamilyFuturistic};
-  font-size: ${constants.fontSizeSmall};
+  font-size: ${constants.fontSizeMedium};
   letter-spacing: 0.05em;
-  color: ${constants.colorBlue};
+  color: ${constants.primaryLinkColor};
 `;
 
 const Spinner = ({
   size = 24,
   text,
+  textSize,
 }: {
   size?: number;
   text?: string;
+  textSize?: number;
   enableTrackSlot?: boolean;
 }) => {
   return (
@@ -46,7 +48,7 @@ const Spinner = ({
         thickness={2}
         enableTrackSlot
       />
-      {text && <SpinnerText>{text}</SpinnerText>}
+      {text && <SpinnerText style={{ fontSize: textSize }}>{text}</SpinnerText>}
     </SpinnerContainer>
   );
 };

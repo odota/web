@@ -11,7 +11,7 @@ import {
 } from "../../../../actions";
 import Table from "../../../Table/Table";
 import Container from "../../../Container/Container";
-import playerMatchesColumns from "../Matches/playerMatchesColumns";
+import RecentMatches from "./RecentMatches";
 import { playerHeroesOverviewColumns } from "../Heroes/playerHeroesColumns";
 import { playerPeersOverviewColumns } from "../Peers/playerPeersColumns";
 import SummOfRecMatches from "./Summary";
@@ -80,6 +80,79 @@ const SummaryContainer = styled(Container)`
 const MatchesContainer = styled.div`
   width: calc(65% - 15px);
   margin-right: 15px;
+
+  .recent-matches {
+    width: 100%;
+    font-family: ${constants.fontFamilyFuturistic};
+
+    & * { font-family: inherit; }
+
+    font-size: 14px;
+    .match-list { list-style: none; padding: 0; margin: 0 0 20px; display: flex; flex-direction: column; gap: 10px; }
+    .match-entry { position: relative; padding: 16px; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; background: rgba(255, 255, 255, 0.02); }
+    .match-entry-link { position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+    .match-entry-header a, .match-entry-details a { position: relative; z-index: 2; }
+    .match-entry:hover { background: rgba(255, 255, 255, 0.04); }
+    .match-entry-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .match-entry-details { display: flex; justify-content: space-evenly; align-items: center; flex-wrap: wrap; font-weight: 400; color: ${constants.colorMutedLight}; gap: 12px 24px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
+    .match-stat { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .stat-label { font-size: 14px; color: ${constants.colorMutedLight}; }
+    .lane-value { display: flex; align-items: center; gap: 6px; font-family: ${constants.fontFamilyFuturistic}; }
+    .lane-value img { width: 20px; height: 20px; object-fit: contain; flex-shrink: 0; }
+    .match-identity { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .match-hero .textContainer { width: 180px; }
+    .duration-details { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .duration-value { display: flex; align-items: center; gap: 5px; }
+    .duration-value > svg { width: 20px; height: 20px; flex-shrink: 0; color: ${constants.colorBlue}; }
+    .team-value { display: flex; align-items: center; gap: 5px; font-size: 14px; }
+    .team-value svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .team-value.radiant { color: ${constants.colorSuccess}; }
+    .team-value.dire { color: ${constants.colorDanger}; }
+    a { font-family: ${constants.fontFamilyFuturistic}; }
+    .imageContainer img.image { height: 52px; width: auto; }
+    .textContainer > span, .textContainer > span a { font-size: 14px; }
+    .parsed, .unparsed { height: 52px; }
+    table.recent-matches-table .imageContainer img.image { height: 29px; }
+    table.recent-matches-table .parsed, table.recent-matches-table .unparsed { height: 29px; }
+
+    .recent-result { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+    .recent-time-ago { display: flex; align-items: center; gap: 5px; font-size: 14px; }
+    .recent-time-ago > svg { width: 18px !important; height: 18px !important; color: ${constants.colorBlue} !important; }
+    .duration-value { font-size: 14px; }
+    .result-badge {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+    .win { color: ${constants.colorSuccess}; }
+    .loss { color: ${constants.colorDanger}; }
+    .unknown { color: ${constants.colorMutedLight}; }
+    .recent-mode { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .mode-label, .rank-label { display: flex; align-items: center; gap: 6px; }
+    .mode-label svg { width: 22px; height: 22px; flex-shrink: 0; color: ${constants.colorGolden}; }
+    .rank-label { color: ${constants.colorMutedLight}; font-size: 14px; }
+    .rank-label img { width: 30px; height: 30px; object-fit: contain; flex-shrink: 0; }
+    .rank-description { display: inline-flex; align-items: baseline; gap: 5px; white-space: nowrap; }
+    .rank-stars {
+      color: ${constants.colorMutedLight};
+      font-size: inherit;
+      line-height: 1;
+      letter-spacing: normal;
+      white-space: nowrap;
+    }
+
+    .match-link { color: ${constants.colorMutedLight}; font-size: 14px; letter-spacing: 0.08em; line-height: 1.2; text-transform: uppercase; }
+    .recent-kda { display: inline-flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .recent-kda .separator { color: ${constants.colorMutedLight}; }
+    .match-entry .team-value { font-weight: 400; color: ${constants.colorMutedLight}; }
+    .recent-kda .kills { color: ${constants.colorSuccess}; }
+    .recent-kda .deaths { color: ${constants.colorDanger}; }
+    .recent-kda .assists { color: ${constants.colorMutedLight}; }
+    .team-value.radiant svg { color: ${constants.colorSuccess}; }
+    .team-value.dire svg { color: ${constants.colorDanger}; }
+    a:focus-visible { outline: 2px solid ${constants.primaryLinkColor}; outline-offset: 3px; }
+  }
 
   @media only screen and (max-width: 1080px) {
     width: 100%;
@@ -219,21 +292,12 @@ const Overview = ({
       </Collapsible>
       <Spacer variant="1" />
       <MatchesContainer>
-        <Container
-          title={strings.heading_matches}
-          titleTo={`/players/${playerId}/matches`}
+        <RecentMatches
+          data={matchesData}
+          playerId={playerId}
           loading={matchesLoading}
           error={matchesError}
-          loaderWidth={300}
-          loaderHeight={160}
-        >
-          <Table
-            columns={playerMatchesColumns(strings, false)}
-            data={matchesData}
-            maxRows={!location.search ? MAX_MATCHES_ROWS : undefined}
-            paginated={matchesData.length > MAX_MATCHES_ROWS}
-          />
-        </Container>
+        />
       </MatchesContainer>
       <Spacer variant="1" />
       <HeroesContainer>

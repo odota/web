@@ -12,12 +12,12 @@ body {
 }
 
 a {
-  color: #6bf;
+  color: var(--od-primary-link-color);
   text-decoration: none;
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
 
   &:hover {
-    color: color(#6bf lightness(-33%));
+    color: #E0BF7D;
   }
 }
 
@@ -27,12 +27,12 @@ li {
 
 :root {
   --base-background: var(--opendota-blue);
-  --opendota-blue: #171f37;
+  --opendota-blue: #101012;
 }
 
 #root {
   background: var(--base-background);
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--od-text-color-primary);
   height: 100%;
   min-height: 100vh;
   overflow-x: hidden;
@@ -86,7 +86,7 @@ li {
   &::after {
     content: attr(data-hint);
     background-color: rgba(0, 0, 0, 0.9);
-    color: rgba(255, 255, 255, 0.87);
+    color: var(--od-text-color-primary);
     border-radius: 2px;
     padding: 5px 8px;
     font-weight: 300;
