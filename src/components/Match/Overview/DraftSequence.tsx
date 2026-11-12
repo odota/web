@@ -4,9 +4,16 @@ import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
 import Heading from "../../Heading/Heading";
 import { IconRadiant, IconDire } from "../../Icons";
+import { isRadiant } from "../../../utility";
 import styles from "./DraftSequence.module.css";
 
 type DraftEntry = { hero_id: keyof Heroes; is_pick: boolean; team: number; order: number };
+
+/** Heroes a team played that picks_bans leaves out, such as a randomed hero (#2765). */
+const unlistedHeroes = (match: Match, entries: DraftEntry[], team: number) => {
+  const picked = new Set(entries.filter((entry) => entry.is_pick).map((entry) => Number(entry.hero_id)));
+  return (match.players ?? []).filter((player: any) => player.hero_id && isRadiant(player.player_slot) === (team === 0) && !picked.has(Number(player.hero_id)));
+};
 
 /** Team draft boards retain the global sequence numbers across picks and bans. */
 const DraftSequence = ({ match }: { match: Match }) => {
@@ -28,6 +35,14 @@ const DraftSequence = ({ match }: { match: Match }) => {
                 <React.Fragment key={String(isPick)}>
                   <h4>{isPick ? strings.match_pick : strings.match_ban}</h4>
                   <ol className={isPick ? undefined : styles.bans} aria-label={`${teamName} ${isPick ? strings.match_pick : strings.match_ban}`}>
+                    {isPick && unlistedHeroes(match, entries, team).map((player: any) => {
+                      const hero = heroes[player.hero_id as keyof Heroes];
+                      const label = `${player.randomed ? strings.general_randomed : strings.match_pick}: ${hero?.localized_name ?? strings.general_no_hero}`;
+                      return <li key={`unlisted-${player.player_slot}`} title={label} aria-label={label}>
+                        {hero && <img src={config.VITE_IMAGE_CDN + hero.img} alt={hero.localized_name} loading="lazy" />}
+                        {player.randomed && <span className={styles.draftOrder}>R</span>}
+                      </li>;
+                    })}
                     {entries.filter((entry) => entry.team === team && entry.is_pick === isPick).map((entry) => {
                       const hero = heroes[entry.hero_id];
                       const label = `${entry.order + 1}. ${isPick ? strings.match_pick : strings.match_ban}: ${hero?.localized_name ?? strings.general_no_hero}`;
