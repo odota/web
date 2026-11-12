@@ -69,7 +69,8 @@ export const StyledHeroSelector = styled.div`
   margin-top: 10px;
 
   @media screen and (min-width: ${constants.wrapMobile}) {
-    :hover {
+    :hover,
+    :focus-within {
       transform: scale(2);
       box-shadow: 0px 0px 8px 5px #000000b0;
       z-index: 100;
@@ -103,7 +104,8 @@ export const StyledHeroSelector = styled.div`
     height: 100%;
     white-space: normal;
     transition: opacity 0.2s ease-out;
-    &:hover {
+    &:hover,
+    &:focus-within {
       opacity: 1;
       background-color: #0000005e;
     }
@@ -169,7 +171,8 @@ export const StyledHeroSelector = styled.div`
     color: #ffffffeb;
     text-shadow: 1px 1px black;
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
       color: white;
       text-shadow: 1px 1px 1px black;
 
@@ -215,6 +218,24 @@ export const StyledSelectedHeroes = styled.div`
     margin-right: 5px;
     position: relative;
     border-radius: 4px;
+  }
+
+  .remove-hero {
+    display: inline-block;
+    padding: 0;
+    border: 0;
+    background: none;
+    line-height: 0;
+    vertical-align: top;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid white;
+      outline-offset: 1px;
+    }
+    &:focus-visible img {
+      opacity: 0.3;
+    }
   }
 
   img {
