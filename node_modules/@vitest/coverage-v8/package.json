@@ -1,0 +1,72 @@
+{
+  "name": "@vitest/coverage-v8",
+  "type": "module",
+  "version": "5.1.0",
+  "description": "V8 coverage provider for Vitest",
+  "author": "Anthony Fu <anthonyfu117@hotmail.com>",
+  "license": "MIT",
+  "funding": "https://opencollective.com/vitest",
+  "homepage": "https://vitest.dev/guide/coverage",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitest-dev/vitest.git",
+    "directory": "packages/coverage-v8"
+  },
+  "bugs": {
+    "url": "https://github.com/vitest-dev/vitest/issues"
+  },
+  "keywords": [
+    "vite",
+    "vitest",
+    "test",
+    "coverage",
+    "v8"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "default": "./dist/browser.js"
+    },
+    "./*": "./*"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "@vitest/browser": "5.1.0",
+    "vitest": "5.1.0"
+  },
+  "peerDependenciesMeta": {
+    "@vitest/browser": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@bcoe/v8-coverage": "^1.0.2",
+    "@vitest/istanbul-lib-coverage": "^2.1.0",
+    "@vitest/istanbul-lib-report": "^2.1.0",
+    "ast-v8-to-istanbul": "^1.0.7",
+    "magicast": "^0.5.5",
+    "obug": "^3.0.0",
+    "std-env": "^4.3.0",
+    "tinyrainbow": "^3.2.0"
+  },
+  "devDependencies": {
+    "@vitest/browser": "5.1.0",
+    "@vitest/browser-playwright": "5.1.0",
+    "pathe": "^2.0.3",
+    "vitest": "5.1.0"
+  },
+  "scripts": {
+    "build": "premove dist && rollup -c",
+    "dev": "rollup -c --watch --watch.include 'src/**'"
+  }
+}

@@ -1,0 +1,9 @@
+import { isCI } from 'std-env';
+
+const isNode = typeof process < "u" && typeof process.stdout < "u" && !process.versions?.deno && !globalThis.window;
+const isDeno = typeof process < "u" && typeof process.stdout < "u" && process.versions?.deno !== void 0;
+const isWindows = (isNode || isDeno) && process.platform === "win32";
+const isTTY = (isNode || isDeno) && process.stdout?.isTTY && !isCI;
+const isForceColor = () => "FORCE_COLOR" in process.env;
+
+export { isTTY as a, isWindows as b, isForceColor as i };

@@ -1,0 +1,50 @@
+{
+  "name": "@vitest/istanbul-lib-report",
+  "version": "2.1.0",
+  "description": "Base reporting library and report generators for istanbul",
+  "keywords": [
+    "api",
+    "istanbul",
+    "lib",
+    "report",
+    "reports",
+    "vitest"
+  ],
+  "homepage": "https://vitest.dev",
+  "bugs": {
+    "url": "https://github.com/vitest-dev/vitest/issues"
+  },
+  "license": "MIT",
+  "author": "Vitest Team",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitest-dev/istanbuljs.git",
+    "directory": "packages/istanbul-lib-report"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "types": "./dist/index.d.mts",
+  "exports": "./dist/index.mjs",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@vitest/istanbul-lib-coverage": "2.1.0"
+  },
+  "devDependencies": {
+    "@vitest/browser-playwright": "^5.0.5",
+    "playwright": "^1.64.1",
+    "preact": "^11.0.1",
+    "tsdown": "^0.23.1"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "test": "pnpm --filter @vitest/istanbuljs-monorepo run test --project @vitest/istanbul-lib-report"
+  }
+}

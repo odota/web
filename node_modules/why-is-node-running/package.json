@@ -1,0 +1,48 @@
+{
+  "name": "why-is-node-running",
+  "type": "module",
+  "version": "3.2.1",
+  "description": "Node is running but you don't know why? why-is-node-running is here to help you.",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./include": "./include.js"
+  },
+  "files": [
+    "cli.js",
+    "include.js",
+    "index.d.ts",
+    "index.js"
+  ],
+  "bin": {
+    "why-is-node-running": "cli.js"
+  },
+  "engines": {
+    "node": ">=20.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafintosh/why-is-node-running.git"
+  },
+  "keywords": [
+    "debug",
+    "devops",
+    "test",
+    "events",
+    "handles"
+  ],
+  "author": "Mathias Buus (@mafintosh)",
+  "contributors": [
+    {
+      "name": "Jon Peck",
+      "email": "jpeck@fluxsauce.com"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mafintosh/why-is-node-running/issues"
+  },
+  "homepage": "https://github.com/mafintosh/why-is-node-running"
+}

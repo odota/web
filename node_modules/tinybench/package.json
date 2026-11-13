@@ -1,0 +1,46 @@
+{
+  "name": "tinybench",
+  "version": "6.2.3",
+  "description": "🔎 A simple, tiny and lightweight benchmarking library!",
+  "type": "module",
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "26.13.0",
+      "onFail": "ignore"
+    }
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "publishConfig": {
+    "directory": "package"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/**"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "tinylibs/tinybench"
+  },
+  "homepage": "https://github.com/tinylibs/tinybench#readme",
+  "bugs": {
+    "url": "https://github.com/tinylibs/tinybench/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "benchmark",
+    "tinylibs",
+    "tiny"
+  ],
+  "scripts": {}
+}

@@ -1,0 +1,41 @@
+{
+  "name": "resolve-cwd",
+  "version": "1.0.0",
+  "description": "Resolve the path of a module like `require.resolve()` but from the current working directory",
+  "license": "MIT",
+  "repository": "sindresorhus/resolve-cwd",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "require",
+    "resolve",
+    "path",
+    "module",
+    "from",
+    "like",
+    "path",
+    "cwd",
+    "current",
+    "working",
+    "directory"
+  ],
+  "dependencies": {
+    "resolve-from": "^2.0.0"
+  },
+  "devDependencies": {
+    "ava": "*",
+    "xo": "*"
+  }
+}

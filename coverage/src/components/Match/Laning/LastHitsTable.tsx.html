@@ -1,0 +1,288 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/components/Match/Laning/LastHitsTable.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="../../../../theme.js"></script>
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        
+        <label class="theme-select quiet">
+            Theme
+            <select id="themeSelect" autocomplete="off">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="legacy">Legacy</option>
+            </select>
+        </label>
+
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/components/Match/Laning</a> LastHitsTable.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">5.71% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>2/35</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/46</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/12</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">6.89% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>2/29</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
+import constants from "../../constants";
+import { player_colors as playerColors } from "dotaconstants";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import useStrings from "../../../hooks/useStrings.hook";
+import config from "../../../config";
+import { getPlayerIdentity, getStatAtMinute, formatStat, getPlayerRoles, getRoleLabels, LaneRole } from "./laning.utils";
+import { IconRadiant, IconDire } from "../../Icons";
+import Heading from "../../Heading/Heading";
+import { PageSection, SummaryTeam } from "./StyledLaning";
+import { TeamTable } from "./LaningTable";
+&nbsp;
+const minutes = [2, 4, 6, 8, 10];
+&nbsp;
+&nbsp;
+/** Last-hit histories grouped by role for opposing-player comparisons. */
+const LastHitsTable = <span class="fstat-no" title="function not covered" >({</span> match, roleFilter }: { match: Match; roleFilter?: LaneRole }) =&gt; {
+  const <span class="cstat-no" title="statement not covered" >strings = useStrings();</span>
+  const title = <span class="cstat-no" title="statement not covered" >roleFilter ? `${strings.heading_last_hits} · ${getRoleLabels(strings)[roleFilter]}` : strings.heading_last_hits;</span>
+  const displayedRoles: (LaneRole | "unknown")[] = <span class="cstat-no" title="statement not covered" >roleFilter ? [roleFilter] : ["carry", "midlane", "offlane", "softSupport", "hardSupport", "unknown"];</span>
+  const <span class="cstat-no" title="statement not covered" >roles = getPlayerRoles(match.players);</span>
+  const <span class="cstat-no" title="statement not covered" >roleLabels = getRoleLabels(strings);</span>
+  const rolePositions = <span class="cstat-no" title="statement not covered" >{ carry: 0, midlane: 25, offlane: 50, softSupport: 75, hardSupport: 100 };</span>
+  const renderPlayer = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>layer: MatchPlayer | undefined) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!player) <span class="cstat-no" title="statement not covered" >return strings.laning_unavailable;</span></span>
+    const <span class="cstat-no" title="statement not covered" >identity = getPlayerIdentity(player, strings);</span>
+    const role = <span class="cstat-no" title="statement not covered" >roles.get(player.player_slot);</span>
+<span class="cstat-no" title="statement not covered" >    return &lt;span className="player-identity"&gt;&lt;span style={{ display: "inline-flex" }} title={player.isRadiant ? strings.general_radiant : strings.general_dire} aria-label={player.isRadiant ? strings.general_radiant : strings.general_dire}&gt;{player.isRadiant ? &lt;IconRadiant width="16" height="16" /&gt; : &lt;IconDire width="16" height="16" /&gt;}&lt;/span&gt;{role &amp;&amp; &lt;span className="role-icon" role="img" aria-label={roleLabels[role]} title={roleLabels[role]} style={{ backgroundPosition: `${rolePositions[role]}% center` }} /&gt;}{identity.icon &amp;&amp; &lt;img src={config.VITE_IMAGE_CDN + identity.icon} alt={identity.heroName} width={24} height={24} /&gt;}&lt;span style={{ color: playerColors[player.player_slot as unknown as keyof typeof playerColors] }}&gt;{identity.playerName}&lt;/span&gt;&lt;/span&gt;;</span>
+  };
+<span class="cstat-no" title="statement not covered" >  return &lt;PageSection aria-label={title}&gt;</span>
+    &lt;TeamTable className="last-hits-table" style={{ marginTop: 0, fontFamily: constants.fontFamilyFuturistic }}&gt;
+      &lt;Heading title={title} /&gt;
+      {displayedRoles.map(<span class="fstat-no" title="function not covered" >(r</span>ole) =&gt; {
+        const players = <span class="cstat-no" title="statement not covered" >match.players.filter(<span class="fstat-no" title="function not covered" >(p</span>layer) =&gt; <span class="cstat-no" title="statement not covered" >role === "unknown"</span></span>
+          ? !roles.has(player.player_slot) : roles.get(player.player_slot) === role)
+          .sort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; <span class="cstat-no" title="statement not covered" >Number(b.isRadiant) - Number(a.isRadiant) || a.player_slot - b.player_slot)</span>;
+<span class="cstat-no" title="statement not covered" >        if (!players.length) <span class="cstat-no" title="statement not covered" >return null;</span></span>
+<span class="cstat-no" title="statement not covered" >        return &lt;section key={role} style={{ marginTop: 16 }}&gt;</span>
+          &lt;h3 style={{ display: "flex", alignItems: "center", gap: 6 }}&gt;{role !== "unknown" &amp;&amp; &lt;span className="role-icon" aria-hidden="true" style={{ backgroundPosition: `${rolePositions[role]}% center` }} /&gt;}{role === "unknown" ? strings.laning_unknown_role : roleLabels[role]}&lt;/h3&gt;
+          &lt;div className="table-scroll"&gt;&lt;table&gt;
+            &lt;thead&gt;&lt;tr&gt;&lt;th&gt;{strings.th_players}&lt;/th&gt;{minutes.map(<span class="fstat-no" title="function not covered" >(m</span>inute) =&gt; <span class="cstat-no" title="statement not covered" >&lt;th className="last-hits" key={minute}&gt;&lt;span className="minute-heading"&gt;&lt;AccessTimeIcon aria-hidden="true" /&gt;{minute}&lt;/span&gt;&lt;/th&gt;)</span>}&lt;/tr&gt;&lt;/thead&gt;
+            &lt;tbody&gt;{players.map(<span class="fstat-no" title="function not covered" >(p</span>layer) =&gt; <span class="cstat-no" title="statement not covered" >&lt;tr key={player.player_slot}&gt;&lt;td&gt;&lt;span className="player-identity"&gt;{renderPlayer(player)}&lt;/span&gt;&lt;/td&gt;{minutes.map(<span class="fstat-no" title="function not covered" >(m</span>inute) =&gt; {</span>
+              const <span class="cstat-no" title="statement not covered" >value = getStatAtMinute(player, "lh_t", minute);</span>
+              const max = <span class="cstat-no" title="statement not covered" >Math.max(1, ...match.players.map(<span class="fstat-no" title="function not covered" >(<span class="cstat-no" title="statement not covered" >p</span>) =&gt; getStatAtMinute(p, "lh_t", minute) ?? 0)</span>);</span>
+<span class="cstat-no" title="statement not covered" >              return &lt;td className="last-hits" key={minute} style={{ background: value === null ? undefined : `rgba(110, 190, 120, ${value / max * 0.65})` }}&gt;{formatStat(value)}&lt;/td&gt;;</span>
+            })}&lt;/tr&gt;)}&lt;/tbody&gt;
+            {role !== "unknown" &amp;&amp; &lt;tfoot&gt;&lt;tr&gt;&lt;td&gt;{strings.laning_difference}&lt;/td&gt;{minutes.map(<span class="fstat-no" title="function not covered" >(m</span>inute) =&gt; {
+              const radiant = <span class="cstat-no" title="statement not covered" >players.filter(<span class="fstat-no" title="function not covered" >(p</span>layer) =&gt; <span class="cstat-no" title="statement not covered" >player.isRadiant)</span>;</span>
+              const dire = <span class="cstat-no" title="statement not covered" >players.filter(<span class="fstat-no" title="function not covered" >(p</span>layer) =&gt; <span class="cstat-no" title="statement not covered" >!player.isRadiant)</span>;</span>
+              const radiantValue = <span class="cstat-no" title="statement not covered" >radiant.length === 1 ? getStatAtMinute(radiant[0], "lh_t", minute) : null;</span>
+              const direValue = <span class="cstat-no" title="statement not covered" >dire.length === 1 ? getStatAtMinute(dire[0], "lh_t", minute) : null;</span>
+              const difference = <span class="cstat-no" title="statement not covered" >radiantValue !== null &amp;&amp; direValue !== null ? radiantValue - direValue : null;</span>
+<span class="cstat-no" title="statement not covered" >              return &lt;td className="last-hits" key={minute}&gt;{difference === null ? "—" : difference === 0 ? "0" : &lt;SummaryTeam $radiant={difference &gt; 0}&gt;</span>
+                {difference &gt; 0 ? &lt;IconRadiant width="14" height="14" /&gt; : &lt;IconDire width="14" height="14" /&gt;}+{formatStat(Math.abs(difference))}
+              &lt;/SummaryTeam&gt;}&lt;/td&gt;;
+            })}&lt;/tr&gt;&lt;/tfoot&gt;}
+          &lt;/table&gt;&lt;/div&gt;
+        &lt;/section&gt;;
+      })}
+    &lt;/TeamTable&gt;
+  &lt;/PageSection&gt;;
+};
+&nbsp;
+export default LastHitsTable;
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-11-13T19:14:01.195Z
+            </div>
+        <script src="../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
+    </body>
+</html>
+    

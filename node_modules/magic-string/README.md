@@ -1,0 +1,490 @@
+# magic-string
+
+<a href="https://npmjs.org/package/magic-string">
+  <img src="https://img.shields.io/npm/v/magic-string.svg"
+       alt="npm version">
+</a>
+<a href="https://github.com/Rich-Harris/magic-string/blob/master/LICENSE">
+  <img src="https://img.shields.io/npm/l/magic-string.svg"
+       alt="license">
+</a>
+
+Suppose you have some source code. You want to make some light modifications to it - replacing a few characters here and there, wrapping it with a header and footer, etc - and ideally you'd like to generate a [source map](https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/) at the end of it. You've thought about using something like [recast](https://github.com/benjamn/recast) (which allows you to generate an AST from some JavaScript, manipulate it, and reprint it with a sourcemap without losing your comments and formatting), but it seems like overkill for your needs (or maybe the source code isn't JavaScript).
+
+Your requirements are, frankly, rather niche. But they're requirements that I also have, and for which I made magic-string. It's a small, fast utility for manipulating strings and generating sourcemaps.
+
+## Installation
+
+magic-string works in both node.js and browser environments. For node, install with npm:
+
+```bash
+npm i magic-string
+```
+
+magic-string is ESM-only. In browsers, import it from an ESM CDN:
+
+```html
+<script type="module">
+	import MagicString from 'https://unpkg.com/magic-string/dist/index.mjs';
+</script>
+```
+
+## Usage
+
+These examples assume you're in node.js, or something similar:
+
+```js
+import fs from 'node:fs'
+import MagicString from 'magic-string'
+
+const s = new MagicString('problems = 99')
+
+s.update(0, 8, 'answer')
+s.toString() // 'answer = 99'
+
+s.update(11, 13, '42') // character indices always refer to the original string
+s.toString() // 'answer = 42'
+
+s.prepend('var ').append(';') // most methods are chainable
+s.toString() // 'var answer = 42;'
+
+const map = s.generateMap({
+  source: 'source.js',
+  file: 'converted.js.map',
+  includeContent: true,
+}) // generates a v3 sourcemap
+
+fs.writeFileSync('converted.js', s.toString())
+fs.writeFileSync('converted.js.map', map.toString())
+```
+
+You can pass an options argument:
+
+```js
+const s = new MagicString(someCode, {
+  // these options will be used if you later call `bundle.addSource( s )` - see below
+  filename: 'foo.js',
+  indentExclusionRanges: [
+    /* ... */
+  ],
+  // mark source as ignore in DevTools, see below #Bundling
+  ignoreList: false,
+  // adjust the incoming position - see below
+  offset: 0,
+})
+```
+
+## Properties
+
+### s.offset
+
+Sets the offset property to adjust the incoming position for the following APIs: `slice`, `update`, `overwrite`, `appendLeft`, `prependLeft`, `appendRight`, `prependRight`, `move`, `reset`, and `remove`.
+
+Example usage:
+
+```ts
+const s = new MagicString('hello world', { offset: 0 })
+s.offset = 6
+s.slice() === 'world'
+```
+
+Indices must be integers; a negative index counts from the end of the original string. `update`, `overwrite`, `remove`, `reset`, `move` and the `append*`/`prepend*` methods throw a `MagicStringError` for an index outside the original string, while `slice` clamps like `String.prototype.slice`. `addSourcemapLocation` and `indent`'s `exclude` ranges are not adjusted by `offset`.
+
+## Hi-res mappings
+
+The `hires` option (passed to `generateMap`/`generateDecodedMap`) controls how granular sourcemap mappings are:
+
+- `false` (default) - lo-res mappings. Only one mapping per line, plus any locations added with `s.addSourcemapLocation()`. Quicker to generate and less bulky, but devtools may only be able to identify the correct line, not the exact column.
+- `true` - hi-res mappings. Every single character gets a mapping, so devtools can always pinpoint the exact location of function calls and so on.
+- `"boundary"` - semi-hi-res mappings, segmented per word boundary instead of per character. Suitable for string semantics that are separated by words.
+- `"experimental-range"` - hi-res mappings that use [range mappings](https://github.com/tc39/ecma426/blob/main/proposals/range-mappings.md), a source map extension that can map all positions in a range with fewer mappings than mapping every character individually. This requires support for range mappings in the source map consumer, and the feature is experimental.
+
+## Methods
+
+### s.addSourcemapLocation( index )
+
+Adds the specified character index (with respect to the original string) to sourcemap mappings, if `hires` is `false` (see [Hi-res mappings](#hi-res-mappings)).
+
+### s.append( content )
+
+Appends the specified content to the end of the string. Returns `this`.
+
+### s.appendLeft( index, content )
+
+Appends the specified `content` at the `index` in the original string. If a range _ending_ with `index` is subsequently moved, the insert will be moved with it. Returns `this`. See also `s.prependLeft(...)`.
+
+### s.appendRight( index, content )
+
+Appends the specified `content` at the `index` in the original string. If a range _starting_ with `index` is subsequently moved, the insert will be moved with it. Returns `this`. See also `s.prependRight(...)`.
+
+### s.clone()
+
+Returns an independent copy, including edits, intro/outro, sourcemap locations, stored names, indent exclusion ranges, `offset`, `filename` and `ignoreList`; later edits to either string do not affect the other.
+
+### s.generateDecodedMap( options )
+
+Generates a sourcemap object with raw mappings in array form, rather than encoded as a string. See `generateMap` documentation below for options details. Useful if you need to manipulate the sourcemap further, but most of the time you will use `generateMap` instead.
+
+### s.generateMap( options )
+
+Generates a [version 3 sourcemap](https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit). All options are, well, optional:
+
+- `file` - the filename where you plan to write the sourcemap
+- `source` - the filename of the file containing the original source
+- `includeContent` - whether to include the original content in the map's `sourcesContent` array
+- `hires` - whether the mapping should be high-resolution. See [Hi-res mappings](#hi-res-mappings) for the available modes. If sourcemap locations have been specified with `s.addSourcemapLocation()`, they will be used here.
+
+The returned sourcemap has two (non-enumerable) methods attached for convenience:
+
+- `toString` - returns the equivalent of `JSON.stringify(map)`
+- `toUrl` - returns a DataURI containing the sourcemap. Useful for doing this sort of thing:
+
+```js
+code += `\n//# sourceMappingURL=${map.toUrl()}`
+```
+
+The returned object is an instance of the exported `SourceMap` class.
+
+### s.getIndentString()
+
+Returns the indentation string guessed from the original content, falling back to a single tab character. This is the value `s.indent()` uses when no prefix is supplied.
+
+### s.hasChanged()
+
+Indicates if the string has been changed.
+
+### s.indent( prefix[, options] )
+
+Prefixes each line of the string with `prefix`. If `prefix` is not supplied, the indentation will be guessed from the original content, falling back to a single tab character. Returns `this`.
+
+Lines are counted in the generated string, so content added with `append*`/`prepend*` is indented too, and a line break inside that content starts a new line just like a line break in the original:
+
+```js
+const s = new MagicString('var a = 1;\nvar b = 2;')
+
+s.prependRight(11, 'debugger;\n')
+s.toString() // 'var a = 1;\ndebugger;\nvar b = 2;'
+
+s.indent('  ')
+s.toString() // '  var a = 1;\n  debugger;\n  var b = 2;'
+```
+
+The `options` argument can have an `exclude` property, which is an array of `[start, end]` character ranges. These ranges will be excluded from the indentation - useful for (e.g.) multiline strings. It can also have an `indentStart` property (default `true`); when `false`, the first line is left unindented, which is what `Bundle` uses to join sources that do not start on a fresh line.
+
+### s.isEmpty()
+
+Returns true if the resulting source is empty (disregarding white space).
+
+### s.lastChar()
+
+Returns the last character of the generated string, or `''` if it is empty.
+
+### s.lastLine()
+
+Returns everything after the last newline in the generated string, or the whole string if there is no newline.
+
+### s.length()
+
+Returns the length of the generated string, counting only content attached to the original characters. Content that sits outside the string body is not counted, so `s.length()` and `s.toString().length` can disagree:
+
+```js
+const s = new MagicString('abcde')
+
+s.appendLeft(2, '__')
+s.toString() // 'ab__cde'
+s.length() // 7
+
+s.prepend('>>')
+s.toString() // '>>ab__cde'
+s.length() // still 7
+```
+
+`s.prepend()` and `s.append()` always land outside the body, as do inserts made before the first character or after the last one.
+
+### s.move( start, end, index[, affinity] )
+
+Moves the characters from `start` and `end` to `index`. Returns `this`.
+
+`affinity` (`'left'` or `'right'`, defaulting to `'right'`) controls where the range is anchored at `index`: `'right'` inserts it before the content that starts at `index`, `'left'` inserts it after the content that ends at `index`. The two differ only when other content has already been moved to that boundary, mirroring the `appendLeft`/`appendRight` distinction.
+
+### s.overwrite( start, end, content[, options] )
+
+Replaces the characters from `start` to `end` with `content`, along with the appended/prepended content in that range. The same restrictions as `s.remove()` apply. Returns `this`.
+
+The fourth argument is optional. It can have a `storeName` property — if `true`, the original name will be stored for later inclusion in a sourcemap's `names` array — and a `contentOnly` property which determines whether only the content is overwritten, or anything that was appended/prepended to the range as well.
+
+It may be preferred to use `s.update(...)` instead if you wish to avoid overwriting the appended/prepended content.
+
+> [!NOTE]
+> `overwrite`/`update`/`remove` operate on ranges of the **original** string, so they'll throw (e.g. `cannot overwrite across a split point`, `cannot split a chunk that has already been edited`) when an edit would split a chunk that was previously replaced with non-empty content, or when a replacement crosses moved chunks. If you run into this, or want to chain multiple rounds of edits on a single instance with an auto-combined sourcemap, see [magic-string-stack](https://github.com/antfu/magic-string-stack).
+
+### s.prepend( content )
+
+Prepends the string with the specified content. Returns `this`.
+
+### s.prependLeft ( index, content )
+
+Same as `s.appendLeft(...)`, except that the inserted content will go _before_ any previous appends or prepends at `index`
+
+### s.prependRight ( index, content )
+
+Same as `s.appendRight(...)`, except that the inserted content will go _before_ any previous appends or prepends at `index`
+
+### s.replace( regexpOrString, substitution )
+
+String replacement with RegExp or string. The `substitution` parameter supports strings and functions. Returns `this`.
+
+```ts
+import MagicString from 'magic-string'
+
+const s = new MagicString(source)
+
+s.replace('foo', 'bar')
+s.replace('foo', (str, index, s) => `${str}-${index}`)
+s.replace(/foo/g, 'bar')
+s.replace(/(\w)(\d+)/g, (_, $1, $2) => $1.toUpperCase() + $2)
+```
+
+The differences from [`String.replace`](<(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace)>):
+
+- It will always match against the **original string**
+- It mutates the magic string state (use `.clone()` to be immutable)
+- A zero-length match spans no characters, so there is nothing to overwrite - the
+  substitution is inserted at the matched position, as if by `s.appendRight(index, substitution)`
+
+### s.replaceAll( regexpOrString, substitution )
+
+Same as `s.replace`, but replace all matched strings instead of just one.
+If `regexpOrString` is a regex, then it must have the global (`g`) flag set, or a `MagicStringError` (`[MagicString] replaceAll() requires a global RegExp`) is thrown where the builtin would throw a `TypeError`. Otherwise matches the behavior of the builtin [`String.property.replaceAll`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replaceAll). Returns `this`.
+
+### s.remove( start, end )
+
+Removes the characters from `start` to `end` (of the original string, **not** the generated string). Content appended or prepended at positions strictly inside the range is removed along with it, while content attached at `start` or `end` is preserved — use `s.overwrite( start, end, '' )` to remove the range including its edge inserts. Repeated removals and removals with partially overlapping ranges are allowed. Returns `this`.
+
+### s.reset( start, end )
+
+Resets the characters from `start` to `end` (of the original string, **not** the generated string).
+It can be used to restore previously removed characters and discard unwanted changes.
+
+### s.slice( start, end )
+
+Returns the content of the generated string that corresponds to the slice between `start` and `end` of the original string. Throws error if the indices are for characters that were already removed. After `s.move(...)`, the slice follows the generated order: if the content at `end` now sits before the content at `start`, the result is `''`.
+
+### s.snip( start, end )
+
+Returns a clone of `s`, with all content before the `start` and `end` characters of the original string removed.
+
+### s.toString()
+
+Returns the generated string.
+
+### s.trim([ charType ])
+
+Trims content matching `charType` (defaults to `\s`, i.e. whitespace) from the start and end. Returns `this`.
+
+### s.trimStart([ charType ])
+
+Trims content matching `charType` (defaults to `\s`, i.e. whitespace) from the start. Returns `this`.
+
+### s.trimEnd([ charType ])
+
+Trims content matching `charType` (defaults to `\s`, i.e. whitespace) from the end. Returns `this`.
+
+### s.trimLines()
+
+Removes empty lines from the start and end. Returns `this`.
+
+### s.update( start, end, content[, options] )
+
+Replaces the characters from `start` to `end` with `content`. The same restrictions as `s.remove()` apply. Returns `this`.
+
+The fourth argument is optional. It can have a `storeName` property — if `true`, the original name will be stored for later inclusion in a sourcemap's `names` array — and an `overwrite` property which defaults to `false` and determines whether anything that was appended/prepended to the range will be overwritten along with the original content.
+
+Without `overwrite`, all of that content is kept, no matter how earlier edits have split the range: content attached at `start` stays in front of the new content, and the rest follows it in its original order.
+
+`s.update(start, end, content)` is equivalent to `s.overwrite(start, end, content, { contentOnly: true })`.
+
+## Bundling
+
+To concatenate several sources, use `Bundle`:
+
+```js
+import MagicString, { Bundle } from 'magic-string'
+
+const bundle = new Bundle()
+
+bundle.addSource({
+  filename: 'foo.js',
+  content: new MagicString('var answer = 42;'),
+})
+
+bundle.addSource({
+  filename: 'bar.js',
+  content: new MagicString('console.log( answer )'),
+})
+
+// Sources can be marked as ignore-listed, which provides a hint to debuggers
+// to not step into this code and also don't show the source files depending
+// on user preferences.
+bundle.addSource({
+  filename: 'some-3rdparty-library.js',
+  content: new MagicString('function myLib(){}'),
+  ignoreList: false, // <--
+})
+
+// Advanced: a source can include an `indentExclusionRanges` property
+// alongside `filename` and `content`. This will be passed to `s.indent()`
+// - see documentation above
+
+bundle
+  .indent() // optionally, pass an indent string, otherwise it will be guessed
+  .prepend('(function () {\n')
+  .append('}());')
+
+bundle.toString()
+// (function () {
+//   var answer = 42;
+//   console.log( answer );
+// }());
+
+// options are as per `s.generateMap()` above
+const map = bundle.generateMap({
+  file: 'bundle.js',
+  includeContent: true,
+  hires: true,
+})
+```
+
+`includeContent` can also be a function that receives `{ filename, content }` for each source and returns whether to include it, allowing per-source control:
+
+```js
+bundle.generateMap({
+  includeContent: source => !source.filename.startsWith('http'),
+})
+```
+
+As an alternative syntax, if you a) don't have `filename` or `indentExclusionRanges` options, or b) passed those in when you used `new MagicString(...)`, you can simply pass the `MagicString` instance itself:
+
+```js
+const bundle = new Bundle()
+const source = new MagicString(someCode, {
+  filename: 'foo.js',
+})
+
+bundle.addSource(source)
+```
+
+### new Bundle([ options ])
+
+The constructor takes an optional options object:
+
+- `intro` (default `''`) is placed at the start of the bundle, before the first source.
+- `separator` (default `'\n'`) is placed between sources.
+
+```js
+const bundle = new Bundle({
+  intro: '/* my-bundle.js */\n',
+  separator: '\n\n',
+})
+
+bundle.addSource(new MagicString('var answer = 42;'))
+bundle.addSource(new MagicString('console.log(answer);'))
+
+bundle.toString()
+// /* my-bundle.js */
+// var answer = 42;
+//
+// console.log(answer);
+```
+
+A source can override the bundle separator with its own `separator` property:
+
+```js
+const bundle = new Bundle({ separator: '\n\n' })
+
+bundle.addSource(new MagicString('var answer = 42;'))
+bundle.addSource({
+  content: new MagicString('console.log(answer);'),
+  separator: '\n',
+})
+
+bundle.toString()
+// var answer = 42;
+// console.log(answer);
+```
+
+`bundle.append( str[, options ])` takes the same options object but reads only `separator`, which defaults to `''` rather than to the bundle separator:
+
+```js
+const bundle = new Bundle({ separator: '\n\n' })
+
+bundle.addSource(new MagicString('a'))
+
+bundle.append('b')
+bundle.toString() // 'ab'
+
+bundle.append('c', { separator: '\n' })
+bundle.toString() // 'ab\nc'
+```
+
+### bundle.toMagicString()
+
+Flattens the bundle into a single `MagicString`, so the concatenated result can be processed further with the full `MagicString` API:
+
+```js
+const bundle = new Bundle()
+bundle.addSource(new MagicString('var answer = 42;'))
+bundle.addSource(new MagicString('console.log(answer);'))
+
+const s = bundle.toMagicString()
+s.toString() // 'var answer = 42;\nconsole.log(answer);'
+
+// now use any MagicString method on the combined result
+s.prepend('(function () {\n').append('\n}());')
+```
+
+The returned string's `original` is the concatenation of every source's `original`, and all existing edits, inserts, intros, outros and separators are preserved, so `s.toString()` equals `bundle.toString()` and `s.generateMap()` maps back to that combined original. Because a `MagicString` maps to a single source, per-source `filename`s are not carried over - call `bundle.generateMap()` before flattening if you need the multi-source mapping.
+
+### bundle.clone()
+
+Returns an independent copy of the bundle: every source's `MagicString` is cloned, so later edits to either bundle do not affect the other.
+
+### bundle.generateDecodedMap( options )
+
+Generates a sourcemap object with raw mappings in array form, rather than encoded as a string. Takes the same options as `bundle.generateMap()`.
+
+### bundle.getIndentString()
+
+Returns the most common indent string among the sources, falling back to a tab.
+
+### bundle.isEmpty()
+
+Returns true if the bundle's output is empty (disregarding white space).
+
+### bundle.length()
+
+Returns the length of the bundle's output; it equals `bundle.toString().length`, unlike `s.length()`.
+
+### bundle.trim([ charType ])
+
+Trims content matching `charType` (defaults to `\s`, i.e. whitespace) from the start and end. Returns `this`.
+
+### bundle.trimStart([ charType ])
+
+Trims content matching `charType` (defaults to `\s`, i.e. whitespace) from the start. Returns `this`.
+
+### bundle.trimEnd([ charType ])
+
+Trims content matching `charType` (defaults to `\s`, i.e. whitespace) from the end. Returns `this`.
+
+### bundle.trimLines()
+
+Removes empty lines from the start and end. Returns `this`.
+
+## Errors
+
+Every error thrown by magic-string is a `MagicStringError` (exported), a subclass of `Error` whose message starts with `[MagicString]`.
+
+## License
+
+MIT

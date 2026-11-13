@@ -1,0 +1,66 @@
+{
+  "name": "ast-v8-to-istanbul",
+  "version": "1.0.7",
+  "description": "AST-aware v8-to-istanbul",
+  "homepage": "https://github.com/AriPerkkio/ast-v8-to-istanbul",
+  "bugs": "https://github.com/AriPerkkio/ast-v8-to-istanbul",
+  "license": "MIT",
+  "author": "Ari Perkkiö <ari.perkkio@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AriPerkkio/ast-v8-to-istanbul.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "types": "./dist/index.d.mts",
+  "exports": "./dist/index.mjs",
+  "scripts": {
+    "dev": "tsdown --watch --sourcemap",
+    "build": "tsdown",
+    "deploy": "touch coverage/.nojekyll && gh-pages --dist coverage --dotfiles",
+    "test": "vitest",
+    "test:dev": "vitest --project 'vite/parseAstAsync'",
+    "lint": "oxlint --type-aware && oxfmt --check && publint",
+    "typecheck": "tsc --noEmit",
+    "debug": "open fixture-coverage/index.html istanbul-coverage/index.html",
+    "verify": "pnpm build; pnpm lint; pnpm typecheck; pnpm run test --run"
+  },
+  "dependencies": {
+    "@jridgewell/trace-mapping": "^0.3.31",
+    "estree-walker": "^3.0.3",
+    "js-tokens": "^10.0.0"
+  },
+  "devDependencies": {
+    "@babel/parser": "^8.0.6",
+    "@babel/types": "^8.0.6",
+    "@sveltejs/vite-plugin-svelte": "^7.3.0",
+    "@types/estree": "^1.0.9",
+    "@types/node": "^26.6.2",
+    "@vitejs/plugin-vue": "^6.0.9",
+    "@vitest/coverage-istanbul": "^5.0.1",
+    "@vitest/coverage-v8": "^5.0.1",
+    "@vitest/istanbul-lib-coverage": "^1.0.1",
+    "@vitest/istanbul-lib-instrument": "^1.0.1",
+    "@vitest/istanbul-lib-report": "^1.0.1",
+    "@vitest/istanbul-lib-source-maps": "^1.0.1",
+    "acorn": "^8.18.0",
+    "gh-pages": "^6.3.0",
+    "magic-string": "^1.4.1",
+    "oxc-parser": "^0.150.0",
+    "oxfmt": "^0.68.0",
+    "oxlint": "^1.83.0",
+    "oxlint-tsgolint": "^7.0.2002",
+    "publint": "^0.3.24",
+    "rollup": "^4.63.4",
+    "tinyrainbow": "^3.1.1",
+    "tsdown": "^0.23.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.0",
+    "vitest": "^5.0.1",
+    "vue": "^3.5.43",
+    "yaml": "^2.9.1"
+  },
+  "packageManager": "pnpm@12.5.1"
+}

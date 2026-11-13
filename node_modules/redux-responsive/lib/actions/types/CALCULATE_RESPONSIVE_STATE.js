@@ -1,0 +1,1 @@
+export default 'redux-responsive/CALCULATE_RESPONSIVE_STATE';

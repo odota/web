@@ -1,0 +1,450 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/components/Match/Laning/LaningEvents.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="../../../../theme.js"></script>
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        
+        <label class="theme-select quiet">
+            Theme
+            <select id="themeSelect" autocomplete="off">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="legacy">Legacy</option>
+            </select>
+        </label>
+
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/components/Match/Laning</a> LaningEvents.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">5.88% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>3/51</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/53</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/27</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">8.57% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>3/35</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
+import SvgIcon from "@mui/material/SvgIcon";
+import BoltIcon from "@mui/icons-material/Bolt";
+import LayersIcon from "@mui/icons-material/Layers";
+import { player_colors as playerColors } from "dotaconstants";
+import styled from "styled-components";
+import config from "../../../config";
+import constants from "../../constants";
+import useStrings from "../../../hooks/useStrings.hook";
+import { IconRadiant, IconDire } from "../../Icons";
+import Heading from "../../Heading/Heading";
+import { PageSection, TableCaption } from "./StyledLaning";
+import { getPlayerIdentity, getPlayerRoles, getRoleLabels } from "./laning.utils";
+&nbsp;
+const runeColors: Record&lt;number, string&gt; = {
+  0: "#78b9ff", 1: "#f27676", 2: "#edc95c", 3: "#c694ed", 4: "#87d877",
+  5: "#e8bb56", 6: "#b48be8", 7: "#79cee8", 8: "#c585e8", 9: "#f0a65f",
+};
+&nbsp;
+const Events = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 16px 0 0 6px;
+  padding: 12px 16px 12px 30px;
+  font-family: ${constants.fontFamilyFuturistic};
+  border-left: 2px solid ${constants.colorBlue};
+  &gt; section { position: relative; min-width: 0; }
+  &gt; section::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: -36px;
+    width: 10px;
+    height: 10px;
+    border: 2px solid ${constants.primarySurfaceColor};
+    border-radius: 50%;
+    background: #c084fc;
+  }
+  h3 { display: flex; align-items: center; gap: 6px; margin: 0 0 8px; font: 400 16px ${constants.fontFamilyFuturistic}; color: ${constants.textColorPrimary}; }
+  h3 &gt; svg { width: 20px; height: 20px; color: ${constants.golden}; }
+  h3 &gt; img { object-fit: contain; }
+  h3 &gt; .camp-stack-icon, .camp-stack-count { color: ${constants.colorLavenderMuted}; }
+  ul { margin: 0; padding: 0; list-style: none; }
+  li, section &gt; p { margin: 10px 0 0; font-size: 16px; line-height: 1.6; }
+  .event-player { display: inline-flex; align-items: center; gap: 5px; vertical-align: middle; }
+  .event-rune, .rune-title { font-weight: 700; }
+  .rune-title { color: inherit; }
+  .event-rune { display: inline-flex; align-items: center; gap: 4px; vertical-align: middle; }
+  .event-rune img { object-fit: contain; }
+  .event-role { display: inline-block; width: 20px; height: 20px; flex-shrink: 0; background-image: url("/assets/images/dota2/role-icons.png"); background-size: 500% auto; background-repeat: no-repeat; }
+  time { font-family: ${constants.fontFamilyFuturistic}; display: inline-flex; align-items: center; gap: 4px; vertical-align: middle; color: ${constants.textColorSecondary}; margin-right: 6px; font-variant-numeric: tabular-nums; }
+`;
+&nbsp;
+/** Recorded early-game pickups and camp stacks through minute ten. */
+const LaningEvents = <span class="fstat-no" title="function not covered" >({</span> match }: { match: Match }) =&gt; {
+  const <span class="cstat-no" title="statement not covered" >strings = useStrings();</span>
+  const <span class="cstat-no" title="statement not covered" >roles = getPlayerRoles(match.players);</span>
+  const <span class="cstat-no" title="statement not covered" >roleLabels = getRoleLabels(strings);</span>
+  const rolePositions = <span class="cstat-no" title="statement not covered" >{ carry: 0, midlane: 25, offlane: 50, softSupport: 75, hardSupport: 100 };</span>
+  const end = <span class="cstat-no" title="statement not covered" >Math.min(600, match.duration);</span>
+  const time = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>econds: number) =&gt; <span class="cstat-no" title="statement not covered" >`${Math.floor(Math.max(0, seconds) / 60)}:${String(Math.floor(Math.max(0, seconds) % 60)).padStart(2, "0")}`;</span></span>
+  const playerLabel = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>layer: MatchPlayer | undefined) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!player) <span class="cstat-no" title="statement not covered" >return strings.laning_unavailable;</span></span>
+    const <span class="cstat-no" title="statement not covered" >identity = getPlayerIdentity(player, strings);</span>
+    const role = <span class="cstat-no" title="statement not covered" >roles.get(player.player_slot);</span>
+<span class="cstat-no" title="statement not covered" >    return &lt;span className="event-player"&gt;&lt;span style={{ display: "inline-flex" }} title={player.isRadiant ? strings.general_radiant : strings.general_dire} aria-label={player.isRadiant ? strings.general_radiant : strings.general_dire}&gt;{player.isRadiant ? &lt;IconRadiant width="16" height="16" /&gt; : &lt;IconDire width="16" height="16" /&gt;}&lt;/span&gt;{role &amp;&amp; &lt;span className="event-role" role="img" aria-label={roleLabels[role]} title={roleLabels[role]} style={{ backgroundPosition: `${rolePositions[role]}% center` }} /&gt;}{identity.icon &amp;&amp; &lt;img src={config.VITE_IMAGE_CDN + identity.icon} alt={identity.heroName} width={20} height={20} /&gt;}&lt;strong style={{ color: playerColors[player.player_slot as unknown as keyof typeof playerColors], fontWeight: 700 }}&gt;{identity.playerName}&lt;/strong&gt;&lt;/span&gt;;</span>
+  };
+  const pickups = <span class="cstat-no" title="statement not covered" >match.players.flatMap(<span class="fstat-no" title="function not covered" >(<span class="cstat-no" title="statement not covered" >p</span>layer) =&gt; (player.runes_log ?? []).map(<span class="fstat-no" title="function not covered" >(e</span>ntry: { time: number; key: string | number }) =&gt; (<span class="cstat-no" title="statement not covered" >{ player, time: entry.time, rune: Number(entry.key) }))</span>)</span></span>
+    .filter(<span class="fstat-no" title="function not covered" >(e</span>ntry) =&gt; <span class="cstat-no" title="statement not covered" >Number.isFinite(entry.time) &amp;&amp; entry.time &gt;= 0 &amp;&amp; entry.time &lt;= end)</span>.sort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; <span class="cstat-no" title="statement not covered" >a.time - b.time)</span>;
+  const runeList = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>ntries: typeof pickups) =&gt; <span class="cstat-no" title="statement not covered" >entries.length ? &lt;ul&gt;{entries.map(<span class="fstat-no" title="function not covered" >(e</span>ntry, index) =&gt; <span class="cstat-no" title="statement not covered" >&lt;li key={`${entry.player.player_slot}-${entry.time}-${index}`}&gt;&lt;time&gt;{time(entry.time)}&lt;/time&gt;{playerLabel(entry.player)} · &lt;span className="event-rune" style={{ color: runeColors[entry.rune] }}&gt;{entry.rune &gt;= 0 &amp;&amp; entry.rune &lt;= 9 &amp;&amp; &lt;img src={`/assets/images/dota2/runes/${entry.rune}.png`} alt="" width={20} height={20} /&gt;}{strings[`rune_${entry.rune}` as keyof Strings] ?? entry.rune}&lt;/span&gt;&lt;/li&gt;)</span>}&lt;/ul&gt; : &lt;TableCaption&gt;No pickups recorded.&lt;/TableCaption&gt;;</span></span>
+  const firstBlood = <span class="cstat-no" title="statement not covered" >match.objectives?.find(<span class="fstat-no" title="function not covered" >(e</span>vent) =&gt; <span class="cstat-no" title="statement not covered" >event.type === "CHAT_MESSAGE_FIRSTBLOOD")</span>;</span>
+  const firstBloodPlayer = <span class="cstat-no" title="statement not covered" >firstBlood &amp;&amp; match.players.find(<span class="fstat-no" title="function not covered" >(p</span>layer) =&gt; <span class="cstat-no" title="statement not covered" >player.player_slot === firstBlood.player_slot)</span>;</span>
+  const firstBloodVictim = <span class="cstat-no" title="statement not covered" >firstBlood &amp;&amp; match.players.find(<span class="fstat-no" title="function not covered" >(p</span>layer) =&gt; <span class="cstat-no" title="statement not covered" >player.player_slot === firstBlood.victim_player_slot)</span>;</span>
+  const runeIcon = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(r</span>une: number) =&gt; <span class="cstat-no" title="statement not covered" >&lt;img src={`/assets/images/dota2/runes/${rune}.png`} alt="" width={20} height={20} /&gt;;</span></span>
+  const stackEvents = <span class="cstat-no" title="statement not covered" >match.players.flatMap(<span class="fstat-no" title="function not covered" >(p</span>layer) =&gt; {</span>
+    const samples = <span class="cstat-no" title="statement not covered" >player.camps_stacked_t ?? [];</span>
+<span class="cstat-no" title="statement not covered" >    return samples.slice(1, Math.floor(end / 60) + 1).flatMap(<span class="fstat-no" title="function not covered" >(c</span>ount, index) =&gt; {</span>
+      const previous = <span class="cstat-no" title="statement not covered" >samples[index];</span>
+<span class="cstat-no" title="statement not covered" >      return Number.isFinite(count) &amp;&amp; Number.isFinite(previous) &amp;&amp; count &gt; previous</span>
+        ? [{ player, count: count - previous, minute: index + 1 }] : [];
+    });
+  });
+  const timeline: { key: string; time: number; title: React.ReactNode; content: React.ReactNode }[] = <span class="cstat-no" title="statement not covered" >[</span>
+    { key: "bounty", time: 0, title: &lt;&gt;{runeIcon(5)}&lt;span className="rune-title"&gt;Bounty Rune&lt;/span&gt;&lt;/&gt;, content: runeList(pickups.filter(<span class="fstat-no" title="function not covered" >(e</span>ntry) =&gt; <span class="cstat-no" title="statement not covered" >entry.rune === 5 &amp;&amp; entry.time &lt; 180)</span>) },
+    ...[2, 4, 6, 8, 10].filter(<span class="fstat-no" title="function not covered" >(m</span>inute) =&gt; <span class="cstat-no" title="statement not covered" >minute * 60 &lt;= end)</span>.map(<span class="fstat-no" title="function not covered" >(m</span>inute) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+      key: `runes-${minute}`, time: minute * 60,
+      title: &lt;&gt;{minute &lt; 6 ? runeIcon(7) : &lt;&gt;{minute === 6 &amp;&amp; &lt;SvgIcon titleAccess="Day turning into night" viewBox="0 0 24 24"&gt;
+        &lt;g fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"&gt;
+          &lt;circle cx="7" cy="8" r="3" /&gt;
+          &lt;path d="M7 2v1M7 13v1M1 8h1M12 8h1M2.8 3.8l.7.7M10.5 11.5l.7.7M2.8 12.2l.7-.7M10.5 4.5l.7-.7" /&gt;
+          &lt;path d="M20.5 10.5a6 6 0 1 1-7 7 6 6 0 0 0 7-7Z" /&gt;
+          &lt;path d="M3 19h5m-2-2 2 2-2 2" /&gt;
+        &lt;/g&gt;
+      &lt;/SvgIcon&gt;}&lt;BoltIcon aria-label="Power rune" /&gt;&lt;/&gt;}&lt;span className="rune-title"&gt;{minute &lt; 6 ? "Water Rune" : "Power Rune"}&lt;/span&gt;&lt;/&gt;,
+      content: runeList(pickups.filter(<span class="fstat-no" title="function not covered" >(e</span>ntry) =&gt; <span class="cstat-no" title="statement not covered" >entry.rune !== 5 &amp;&amp; entry.rune !== 8 &amp;&amp; entry.time &gt;= minute * 60 &amp;&amp; entry.time &lt; (minute + 2) * 60)</span>),
+    })),
+    ...pickups.filter(<span class="fstat-no" title="function not covered" >(e</span>ntry) =&gt; <span class="cstat-no" title="statement not covered" >entry.rune === 8)</span>.map(<span class="fstat-no" title="function not covered" >(e</span>ntry, index) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+      key: `wisdom-${index}`, time: entry.time, title: &lt;&gt;{runeIcon(8)}&lt;span className="rune-title"&gt;Wisdom Rune&lt;/span&gt;&lt;/&gt;, content: runeList([entry]),
+    })),
+    ...Array.from(new Set(stackEvents.map(<span class="fstat-no" title="function not covered" >(e</span>ntry) =&gt; <span class="cstat-no" title="statement not covered" >entry.minute)</span>)).map(<span class="fstat-no" title="function not covered" >(m</span>inute) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+      key: `stacks-${minute}`, time: minute * 60,
+      title: &lt;&gt;&lt;LayersIcon className="camp-stack-icon" aria-hidden="true" /&gt;&lt;span className="rune-title"&gt;Camps Stacked&lt;/span&gt;&lt;/&gt;,
+      content: &lt;ul&gt;{stackEvents.filter(<span class="fstat-no" title="function not covered" >(e</span>ntry) =&gt; <span class="cstat-no" title="statement not covered" >entry.minute === minute)</span>.map(<span class="fstat-no" title="function not covered" >({</span> player, count }) =&gt; <span class="cstat-no" title="statement not covered" >&lt;li key={player.player_slot}&gt;&lt;time&gt;{time((minute - 1) * 60)}–{time(minute * 60)}&lt;/time&gt;{playerLabel(player)} · &lt;strong className="camp-stack-count"&gt;{count}&lt;/strong&gt;&lt;/li&gt;)</span>}&lt;/ul&gt;,
+    })),
+  ];
+<span class="cstat-no" title="statement not covered" >  return &lt;PageSection aria-label="Laning events"&gt;</span>
+    &lt;Heading title="Laning Events" /&gt;
+    &lt;Events&gt;
+      {[...timeline, { key: "first-blood", time: firstBlood?.time ?? 0,
+        title: &lt;&gt;&lt;img src="/assets/images/dota2/bloodsplattersmall2.png" alt="" width={20} height={20} style={{ objectFit: "contain" }} /&gt;&lt;span className="rune-title"&gt;First Blood&lt;/span&gt;&lt;/&gt;,
+        content: firstBlood ? &lt;p&gt;&lt;time&gt;{time(firstBlood.time)}&lt;/time&gt;{playerLabel(firstBloodPlayer)}{firstBloodVictim &amp;&amp; &lt;&gt; · {playerLabel(firstBloodVictim)}&lt;/&gt;}&lt;/p&gt; : &lt;TableCaption&gt;No first blood recorded.&lt;/TableCaption&gt;,
+      }].sort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; <span class="cstat-no" title="statement not covered" >a.time - b.time)</span>.map(<span class="fstat-no" title="function not covered" >(e</span>vent) =&gt; <span class="cstat-no" title="statement not covered" >&lt;section key={event.key}&gt;&lt;h3&gt;{event.title}&lt;/h3&gt;{event.content}&lt;/section&gt;)</span>}
+    &lt;/Events&gt;
+  &lt;/PageSection&gt;;
+};
+&nbsp;
+export default LaningEvents;
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-11-13T19:14:01.195Z
+            </div>
+        <script src="../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
+    </body>
+</html>
+    
