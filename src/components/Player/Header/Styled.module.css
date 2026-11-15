@@ -1,0 +1,14 @@
+.playerStatsCard span:last-child {
+  font-family: var(--od-font-family-futuristic);
+  font-size: 24px !important;
+  color: rgba(255, 255, 255, 0.87) !important;
+  line-height: 36px !important;
+}
+
+.playerStatsCard span:first-child {
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-small);
+  color: rgba(255, 255, 255, 0.54) !important;
+  line-height: 1 !important;
+  text-transform: uppercase;
+}

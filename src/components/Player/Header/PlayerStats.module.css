@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.textSuccess {
+  color: var(--od-color-green);
+}
+
+.textDanger {
+  color: var(--od-color-red);
+}
+
+.styled :global(.icon) {
+  fill: var(--od-color-muted-light) !important;
+}
+
+.styled :global(.estimateHelp) {
+  display: inline-block;
+  position: relative;
+}
+
+.styled :global(.estimateHelp) svg {
+  width: 16px !important;
+  height: 16px !important;
+  margin-left: 5px;
+  position: absolute;
+  margin-top: -13px;
+}
+
+.styled :global(.estimateHelp)[data-hint-position="top"]::after {
+  margin-bottom: 19px;
+  margin-left: -2px;
+}
+
+.styled :global(.estimateHelp)[data-hint-position="top"]::before {
+  top: -19px;
+  margin-left: 7px;
+}

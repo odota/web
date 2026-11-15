@@ -2,7 +2,6 @@ import React from "react";
 import { player_colors as playerColors } from "dotaconstants";
 import { heroes } from "dotaconstants";
 import ReactTooltip from "react-tooltip";
-import styled from "styled-components";
 import { pad, sum, isRadiant, patchDate } from "../../../utility";
 import Heading from "../../Heading/Heading";
 import DotaMap from "../../DotaMap/DotaMap";
@@ -13,6 +12,7 @@ import constants from "../../constants";
 import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
 import { Spacer } from "../../Spacer/Spacer";
+import styles from "./BuildingMap.module.css";
 
 const buildingDataByPatch = [
   { patch: "7.33", data: buildingData733 },
@@ -28,235 +28,6 @@ const getBuildingData = (startTime: number) => {
 
   return buildingData?.data || buildingDataByPatch[0].data;
 };
-
-const StyledDiv = styled.div`
-  .map {
-    @media only screen and (max-width: 370px) {
-      max-height: 250px !important;
-      max-width: 250px !important;
-    }
-  }
-
-  .buildingMap {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    border: 6px solid rgba(255, 255, 255, 0.1);
-    margin: 0 auto;
-
-    & .buildingMapImage {
-      width: 300px;
-      height: 300px;
-      filter: grayscale(40%) brightness(180%) contrast(110%);
-    }
-
-    & > span {
-      position: absolute;
-
-      &:hover {
-        z-index: 99;
-      }
-
-      & img {
-        transition: ${constants.normalTransition};
-
-        &:hover {
-          filter: drop-shadow(0 0 8px ${constants.textColorPrimary});
-        }
-      }
-    }
-
-    @media only screen and (max-width: 370px) {
-      width: 250px;
-      height: 250px;
-
-      & .buildingMapImage {
-        width: 250px;
-        height: 250px;
-      }
-    }
-  }
-
-  .buildingHealth {
-    height: 10px;
-    min-width: 150px;
-    margin: 4px 0;
-    display: flex;
-
-    & > div {
-      height: 100%;
-      float: left;
-    }
-  }
-
-  .damage {
-    & > div > img {
-      margin: 0 5px;
-      width: 14px;
-      height: 14px;
-      vertical-align: sub;
-      filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
-    }
-
-    & .damageValue {
-      display: inline-block;
-      width: 36px;
-      text-align: center;
-    }
-
-    & .playerName {
-      margin-right: 5px;
-      max-width: 100px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      display: inline-block;
-      vertical-align: bottom;
-    }
-
-    & .lasthit {
-      font-size: ${constants.fontSizeSmall};
-      color: ${constants.colorGolden};
-
-      & img {
-        height: 10px;
-        margin-right: 3px;
-      }
-    }
-
-    & .creeps {
-      & .lasthit {
-        color: ${constants.colorMutedLight};
-      }
-
-      & img {
-        margin: 0;
-        width: 24px;
-        height: 14px;
-        display: inline-block;
-      }
-    }
-
-    & .deny {
-      color: ${constants.colorMutedLight};
-    }
-  }
-
-  .subtitle {
-    margin-left: 4px;
-    font-size: ${constants.fontSizeSmall};
-    font-weight: ${constants.fontWeightLight};
-    color: ${constants.colorMutedLight};
-  }
-
-  .hint {
-    color: ${constants.colorMutedLight};
-    font-weight: ${constants.fontWeightLight};
-    font-size: ${constants.fontSizeMedium};
-    text-align: center;
-    margin-top: 12px;
-
-    & svg {
-      vertical-align: sub;
-      fill: ${constants.colorMutedLight};
-      height: 14px;
-      margin-right: 5px;
-    }
-  }
-
-  .hero-icons {
-    display: flex;
-    justify-content: center;
-    position: absolute;
-
-    & img {
-      width: 26px;
-    }
-
-    & .radiant {
-      color: ${constants.green};
-    }
-
-    & .dire {
-      color: ${constants.red};
-    }
-
-    & .roaming {
-      margin-right: 6px;
-    }
-  }
-
-  .radiant-safe,
-  .radiant-mid,
-  .radiant-off,
-  .radiant-jungle {
-    & img {
-      filter: drop-shadow(0 0 5px ${constants.green});
-    }
-  }
-
-  .dire-safe,
-  .dire-mid,
-  .dire-off,
-  .dire-jungle {
-    & img {
-      filter: drop-shadow(0 0 5px ${constants.red});
-    }
-  }
-
-  .radiant-safe {
-    bottom: 0;
-    flex-direction: row-reverse;
-    right: 30px;
-  }
-
-  .radiant-mid {
-    left: 130px;
-    top: 155px;
-  }
-
-  .radiant-off {
-    flex-direction: column;
-    flex-wrap: wrap;
-    left: 0;
-    top: 75px;
-    width: 26px;
-  }
-
-  .radiant-jungle {
-    flex-wrap: wrap;
-    left: 130px;
-    top: 200px;
-    width: 78px;
-  }
-
-  .dire-safe {
-    left: 20px;
-    top: 0;
-  }
-
-  .dire-mid {
-    flex-direction: row-reverse;
-    right: 145px;
-    top: 125px;
-  }
-
-  .dire-off {
-    bottom: 70px;
-    flex-direction: column-reverse;
-    flex-wrap: wrap;
-    right: 0;
-    width: 26px;
-  }
-
-  .dire-jungle {
-    flex-direction: row-reverse;
-    flex-wrap: wrap;
-    right: 120px;
-    top: 50px;
-    width: 78px;
-  }
-`;
 
 const buildingsHealth = {
   tower1: 1300,
@@ -367,10 +138,10 @@ const BuildingMap = ({ match }: { match: Match }) => {
           {title}
           {damage && damage.length > 0 && (
             <span>
-              <span className="subtitle"> {strings.building_damage}</span>
+              <span className={styles.subtitle}> {strings.building_damage}</span>
               <div>
                 <div
-                  className="buildingHealth"
+                  className={styles.buildingHealth}
                   style={{
                     backgroundColor:
                       (bits[i] === "1" && constants.colorMuted) ||
@@ -392,7 +163,7 @@ const BuildingMap = ({ match }: { match: Match }) => {
                     />
                   ))}
                 </div>
-                <div className="damage">
+                <div className={styles.damage}>
                   {damage.map((player) => (
                     <div key={player.hero_id}>
                       <img
@@ -402,7 +173,9 @@ const BuildingMap = ({ match }: { match: Match }) => {
                         }
                         alt=""
                       />
-                      <span className="damageValue">{player.damage}</span>
+                      <span className={styles.damageValue}>
+                        {player.damage}
+                      </span>
                       <span
                         style={{
                           color:
@@ -410,18 +183,18 @@ const BuildingMap = ({ match }: { match: Match }) => {
                               player.player_slot as unknown as keyof typeof playerColors
                             ],
                         }}
-                        className="playerName"
+                        className={styles.playerName}
                       >
                         {player.name}
                       </span>
                       {destroyedBy &&
                         destroyedBy.player_slot === player.player_slot && (
-                          <span className="lasthit">
+                          <span className={styles.lasthit}>
                             {(side === "good" &&
                               isRadiant(destroyedBy.player_slot)) ||
                             (side === "bad" &&
                               !isRadiant(destroyedBy.player_slot)) ? (
-                              <span className="deny">
+                              <span className={styles.deny}>
                                 {strings.building_denied}
                               </span>
                             ) : (
@@ -440,7 +213,7 @@ const BuildingMap = ({ match }: { match: Match }) => {
                     </div>
                   ))}
                   {damageByCreeps > 0 && bits[i] !== "1" && (
-                    <div className="creeps">
+                    <div className={styles.creeps}>
                       <img
                         src="/assets/images/blank-1x1.gif"
                         alt=""
@@ -451,7 +224,9 @@ const BuildingMap = ({ match }: { match: Match }) => {
                           backgroundSize: "contain",
                         }}
                       />
-                      <span className="damageValue">{damageByCreeps}</span>
+                      <span className={styles.damageValue}>
+                        {damageByCreeps}
+                      </span>
                       <span
                         style={{
                           color:
@@ -459,12 +234,12 @@ const BuildingMap = ({ match }: { match: Match }) => {
                               ? constants.colorRed
                               : constants.colorGreen,
                         }}
-                        className="playerName"
+                        className={styles.playerName}
                       >
                         creeps
                       </span>
                       {!destroyedBy && (
-                        <span className="lasthit">
+                        <span className={styles.lasthit}>
                           {strings.building_lasthit}
                         </span>
                       )}
@@ -488,7 +263,7 @@ const BuildingMap = ({ match }: { match: Match }) => {
   const direMid = [];
   const direOff = [];
   const direJungle = [];
-  const roaming = <span className="roaming">{strings.roaming}</span>;
+  const roaming = <span className={styles.roaming}>{strings.roaming}</span>;
   for (let i = 0; i < match.players.length; i += 1) {
     const player = (
       <div
@@ -510,7 +285,11 @@ const BuildingMap = ({ match }: { match: Match }) => {
           }
           effect="solid"
         >
-          <span className={match.players[i].isRadiant ? "radiant" : "dire"}>
+          <span
+            className={
+              match.players[i].isRadiant ? styles.radiant : styles.dire
+            }
+          >
             {heroes[match.players[i].hero_id] &&
               heroes[match.players[i].hero_id].localized_name}
           </span>
@@ -559,19 +338,35 @@ const BuildingMap = ({ match }: { match: Match }) => {
   }
 
   return (
-    <StyledDiv>
+    <div className={styles.styledDiv}>
       <Heading title={strings.heading_buildings} />
       <Spacer variant="1" />
       <DotaMap startTime={match.start_time} maxWidth={300}>
         {icons}
-        <div className="hero-icons radiant-safe">{radiantSafe}</div>
-        <div className="hero-icons radiant-mid">{radiantMid}</div>
-        <div className="hero-icons radiant-off">{radiantOff}</div>
-        <div className="hero-icons radiant-jungle">{radiantJungle}</div>
-        <div className="hero-icons dire-safe">{direSafe}</div>
-        <div className="hero-icons dire-mid">{direMid}</div>
-        <div className="hero-icons dire-off">{direOff}</div>
-        <div className="hero-icons dire-jungle">{direJungle}</div>
+        <div className={`${styles.heroIcons} ${styles.radiantSafe}`}>
+          {radiantSafe}
+        </div>
+        <div className={`${styles.heroIcons} ${styles.radiantMid}`}>
+          {radiantMid}
+        </div>
+        <div className={`${styles.heroIcons} ${styles.radiantOff}`}>
+          {radiantOff}
+        </div>
+        <div className={`${styles.heroIcons} ${styles.radiantJungle}`}>
+          {radiantJungle}
+        </div>
+        <div className={`${styles.heroIcons} ${styles.direSafe}`}>
+          {direSafe}
+        </div>
+        <div className={`${styles.heroIcons} ${styles.direMid}`}>
+          {direMid}
+        </div>
+        <div className={`${styles.heroIcons} ${styles.direOff}`}>
+          {direOff}
+        </div>
+        <div className={`${styles.heroIcons} ${styles.direJungle}`}>
+          {direJungle}
+        </div>
       </DotaMap>
       {/* <div className={styles.buildingMap}>
           <img
@@ -587,7 +382,7 @@ const BuildingMap = ({ match }: { match: Match }) => {
             {strings.building_hint}
           </div>
         */}
-    </StyledDiv>
+    </div>
   );
 };
 

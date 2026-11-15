@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import MatchGraph from "../../Visualizations/Graph/MatchGraph";
 import TeamTable from "../TeamTable";
 import AbilityDraftTable from "../AbilityDraftTable";
@@ -11,30 +10,7 @@ import DeferredContainer from "../../DeferredContainer/DeferredContainer";
 import config from "../../../config";
 import { Spacer } from "../../Spacer/Spacer";
 import DraftSequence from "./DraftSequence";
-
-const Styled = styled.div`
-  width: 100%;
-  display: flex;
-  vertical-align: top;
-  .graph {
-    margin-left: 30px;
-    width: calc(100% - 300px);
-  }
-  .map {
-    margin: 0 auto;
-  }
-  @media (max-width: 850px) {
-    display: block;
-    .graph {
-      margin-left: 0;
-
-      width: 100%;
-    }
-    .map {
-      width: 300px;
-    }
-  }
-`;
+import styles from "./Overview.module.css";
 
 export const getOverviewTab = (strings: Strings, beta = false) => {
   const { overviewColumns, abilityColumns, abilityDraftColumns } = mcs(
@@ -86,16 +62,16 @@ export const getOverviewTab = (strings: Strings, beta = false) => {
               direTeam={match.dire_team}
             />
           </Collapsible>
-          <Styled>
-            <div className="map">
+          <div className={styles.overview}>
+            <div className={styles.map}>
               <BuildingMap match={match} />
             </div>
             {match.version && (
-              <div className="graph">
+              <div className={styles.graph}>
                 <MatchGraph match={match} type="difference" />
               </div>
             )}
-          </Styled>
+          </div>
         </DeferredContainer>
       </div>
     ),

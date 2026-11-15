@@ -1,0 +1,107 @@
+.iconButton {
+  padding-bottom: 0;
+  cursor: default;
+}
+
+.iconButton:not(:first-of-type) {
+  margin-left: 8px;
+}
+
+.iconButton svg {
+  width: auto !important;
+  height: 18px !important;
+  vertical-align: middle;
+  fill: var(--od-primary-text-color);
+  margin: 0 6px;
+  transition: var(--od-normal-transition);
+}
+
+.iconButton:hover svg {
+  opacity: 0.6;
+}
+
+@media only screen and (max-width: 900px) {
+  .iconButton svg {
+    margin: 0 12px 0 0;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  .iconButton svg {
+    margin: 0 5px;
+  }
+
+  .iconButton svg:first-child {
+    margin: 0 5px 0 10px;
+  }
+
+  .iconButton svg:last-child {
+    margin: 0 10px 0 5px;
+  }
+}
+
+.playerBadges {
+  display: flex;
+  flex-direction: row;
+  margin-left: 16px;
+  align-items: center;
+  height: 90%;
+}
+
+@media only screen and (max-width: 660px) {
+  .playerBadges {
+    margin-left: 0;
+    margin-top: 6px;
+  }
+}
+
+.playerBadges .iconButton {
+  position: relative;
+}
+
+.playerBadges .iconButton .iconConfirmed {
+  fill: var(--od-golden) !important;
+}
+
+.playerBadges .iconSteam {
+  cursor: default;
+}
+
+.playerBadges .iconSteam a:hover {
+  cursor: pointer;
+}
+
+.playerBadges .iconButton[data-hint-position="top"]::before {
+  margin-left: 8px;
+}
+
+.playerBadges .iconButton[data-hint-position="top"]::after {
+  margin-left: -30px;
+}
+
+.playerBadges .iconContributor svg {
+  height: 24px !important;
+  margin-top: 4px;
+  -webkit-filter: drop-shadow(0 0 4px rgba(102, 187, 255, 1));
+  filter: drop-shadow(0 0 4px rgba(102, 187, 255, 1));
+  fill: var(--od-color-blue);
+}
+
+.playerBadges .iconContributor[data-hint-position="top"]::before {
+  margin-left: 11px;
+  top: -1px;
+}
+
+.playerBadges .iconContributor[data-hint-position="top"]::after {
+  margin-left: -32px;
+  margin-bottom: 1px;
+}
+
+.icon {
+  fill: var(--od-color-muted-light) !important;
+}
+
+.cheese {
+  -webkit-filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.6));
+  filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.6));
+}

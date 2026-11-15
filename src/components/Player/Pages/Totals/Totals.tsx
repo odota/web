@@ -1,19 +1,10 @@
 import React from "react";
-import styled from "styled-components";
 import { connect } from "react-redux";
 import Card from "./Card";
 import { getPlayerTotals } from "../../../../actions";
 import Container from "../../../Container/Container";
 import useStrings from "../../../../hooks/useStrings.hook";
-import constants from "../../../constants";
-
-const CardContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -8px;
-  margin-right: -8px;
-  font-family: ${constants.fontFamilyFuturistic};
-`;
+import styles from "./Totals.module.css";
 
 const totalsToShow: Record<string, number | string> = {
   kills: 1,
@@ -54,18 +45,18 @@ const Totals = ({ data, error, loading }: TotalsProps) => {
         error={error}
         loading={loading}
       >
-        <CardContainer>
+        <div className={styles.cardContainer}>
           {data.map((element) => drawElement(element, 1))}
-        </CardContainer>
+        </div>
       </Container>
       <Container
         title={strings.heading_parsed_matches}
         error={error}
         loading={loading}
       >
-        <CardContainer>
+        <div className={styles.cardContainer}>
           {data.map((element) => drawElement(element, "parsed"))}
-        </CardContainer>
+        </div>
       </Container>
     </div>
   );

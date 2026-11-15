@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
-import styled from "styled-components";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import DataObjectIcon from "@mui/icons-material/DataObject";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -9,265 +8,15 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { transformations, isRadiant, sum } from "../../../utility";
 import { IconRadiant, IconDire } from "../../Icons";
 import Warning from "../../Alerts/Warning";
-import constants from "../../constants";
 import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
-
-const Styled = styled.header`
-  width: 100vw;
-  margin: 0px -50vw 0px -50vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  padding-top: 35px;
-  background-color: ${constants.colorHeaderSection};
-
-  .matchInfo {
-    display: grid;
-    grid-template-columns: 1fr minmax(500px, max-content) 1fr;
-    justify-items: center;
-    align-items: center;
-
-    @media only screen and (max-width: 1000px) {
-      grid-template-columns: none;
-      grid-template-rows: auto;
-      grid-gap: 10px;
-      margin-bottom: 15px;
-    }
-  }
-
-  .team {
-    box-sizing: border-box;
-    margin-right: 30px;
-    margin-left: 30px;
-    padding: 16px 24px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    justify-self: flex-end;
-    border: 1px solid rgba(255, 255, 255, 6%);
-    border-radius: 3px;
-    background: rgba(0, 0, 0, 23%);
-    font-size: 1.5rem;
-    font-weight: 400;
-    font-family: ${constants.fontFamilyFuturistic};
-    letter-spacing: 1px;
-
-    @media only screen and (max-width: 1023px) {
-      margin: 10px 0 20px;
-      justify-self: auto;
-    }
-
-    &.radiant {
-      background: rgba(9, 90, 30, 23%);
-    }
-
-    &.dire {
-      background: rgba(143, 16, 16, 23%);
-    }
-
-    & svg {
-      width: 32px;
-      height: 32px;
-
-      @media only screen and (max-width: 1023px) {
-        width: 36px;
-        height: 36px;
-      }
-    }
-  }
-
-  .nowinner {
-    color: ${constants.colorMuted};
-  }
-
-  .radiant {
-    color: ${constants.colorSuccess};
-
-    & svg {
-      filter: drop-shadow(0 0 5px green);
-      fill: ${constants.textColorPrimary} !important;
-    }
-  }
-
-  .dire {
-    color: ${constants.colorDanger};
-
-    & svg {
-      filter: drop-shadow(0 0 5px ${constants.colorDanger});
-      fill: black !important;
-    }
-  }
-
-  .mainInfo {
-    box-sizing: border-box;
-
-    @media only screen and (max-width: 1023px) {
-      flex-basis: 100%;
-      max-width: 100%;
-    }
-    display: flex;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .gmde {
-    margin: 0 20px;
-
-    @media only screen and (max-width: 400px) {
-      margin: 0 10px;
-    }
-
-    & span {
-      text-transform: uppercase;
-      display: block;
-    }
-
-    & .gameMode {
-      font-family: ${constants.fontFamilyFuturistic};
-      font-size: ${constants.fontSizeSmall};
-      letter-spacing: 0.02rem;
-      margin-top: -16px;
-    }
-
-    & .duration {
-      margin-top: 6px;
-      font-size: 32px;
-
-      @media only screen and (max-width: 400px) {
-        font-size: 24px;
-      }
-    }
-
-    & .ended {
-      font-family: ${constants.fontFamilyFuturistic};
-      font-size: ${constants.fontSizeTiny};
-      color: ${constants.colorMutedLight};
-      margin-top: 6px;
-
-      & > div {
-        display: inline-block;
-      }
-    }
-  }
-
-  .killScore {
-    font-family: ${constants.fontFamilyFuturistic};
-    font-size: 2.5rem;
-    text-align: center;
-
-    &.killsRadiant {
-      color: ${constants.colorSuccess};
-    }
-
-    &.killsDire {
-      color: ${constants.colorDanger};
-    }
-  }
-
-  .additionalInfo {
-    box-sizing: border-box;
-    padding: 20px 0px 10px 0px;
-    margin-right: 30px;
-    margin-left: 30px;
-    justify-self: flex-start;
-
-    @media only screen and (max-width: 1023px) {
-      flex-basis: 100%;
-      max-width: 100%;
-      justify-self: auto;
-    }
-    text-align: right;
-
-    @media only screen and (max-width: 1023px) {
-      text-align: center;
-    }
-
-    & ul {
-      padding: 0;
-      margin: 0;
-
-      & li {
-        display: inline-block;
-        margin-left: 20px;
-      }
-
-      & li:first-child {
-        margin-left: 0;
-      }
-    }
-  }
-
-  .infoKey {
-    display: block;
-    text-transform: uppercase;
-    font-family: ${constants.fontFamilyFuturistic};
-    font-size: ${constants.fontSizeSmall};
-    color: ${constants.colorMutedLight};
-  }
-
-  .infoValue {
-    margin-top: 8px;
-    display: block;
-    font-family: ${constants.fontFamilyFuturistic};
-    font-size: ${constants.fontSizeSmall};
-    color: ${constants.colorWhite};
-  }
-
-  .matchButtons {
-    display: table;
-    margin: 10px auto 0;
-
-    /* Material-ui buttons */
-    & a {
-      float: left;
-      margin: 5px !important;
-      line-height: 34px !important;
-    }
-
-    @media only screen and (max-width: 620px) {
-      & a {
-        min-width: 24px !important;
-
-        & span {
-          font-size: 0 !important;
-          padding-left: 0 !important;
-          padding-right: 12px !important;
-        }
-      }
-    }
-  }
-
-  .unparsed {
-    margin-top: 12px;
-    font-family: ${constants.fontFamilyFuturistic};
-    font-size: ${constants.fontSizeSmall};
-    text-align: center;
-  }
-
-  .copy-match-id {
-    span {
-      line-height: 17px;
-      padding: 0px !important;
-      padding-right: 4px !important;
-    }
-
-    svg {
-      margin: 0px !important;
-      margin-left: 4px !important;
-    }
-
-    line-height: 0px !important;
-    height: 20px !important;
-  }
-`;
+import styles from "./MatchHeader.module.css";
 
 const getWinnerStyle = (radiantWin: boolean | undefined) => {
   if (radiantWin === null || radiantWin === undefined) {
-    return "nowinner";
+    return styles.nowinner;
   }
-  return radiantWin ? "radiant" : "dire";
+  return radiantWin ? styles.radiant : styles.dire;
 };
 
 const MatchHeader = ({ match }: { match: Match }) => {
@@ -302,28 +51,28 @@ const MatchHeader = ({ match }: { match: Match }) => {
     </>
   );
   return (
-    <Styled>
-      <div className="matchInfo">
-        <div className={`team ${getWinnerStyle(match.radiant_win)}`}>
+    <header className={styles.styled}>
+      <div className={styles.matchInfo}>
+        <div className={`${styles.team} ${getWinnerStyle(match.radiant_win)}`}>
           {match.radiant_win === null || match.radiant_win === undefined
             ? strings.td_no_result
             : victorySection}
         </div>
-        <div className="mainInfo">
-          <div className="killScore killsRadiant">
+        <div className={styles.mainInfo}>
+          <div className={`${styles.killScore} ${styles.killsRadiant}`}>
             {match.radiant_score ||
               match.players
                 .map(mapPlayers("kills" as keyof MatchPlayer, true))
                 .reduce(sum, 0)}
           </div>
-          <div className="gmde">
-            <span className="gameMode">
+          <div className={styles.gmde}>
+            <span className={styles.gameMode}>
               {strings[`game_mode_${match.game_mode}` as keyof Strings]}
             </span>
-            <span className="duration">
+            <span className={styles.duration}>
               {transformations.duration(null, null, match.duration)}
             </span>
-            <span className="ended">
+            <span className={styles.ended}>
               {strings.match_ended}{" "}
               {transformations.start_time(
                 null,
@@ -332,23 +81,23 @@ const MatchHeader = ({ match }: { match: Match }) => {
               )}
             </span>
           </div>
-          <div className="killScore killsDire">
+          <div className={`${styles.killScore} ${styles.killsDire}`}>
             {match.dire_score ||
               match.players
                 .map(mapPlayers("kills" as keyof MatchPlayer, false))
                 .reduce(sum, 0)}
           </div>
         </div>
-        <div className="additionalInfo">
+        <div className={styles.additionalInfo}>
           <ul>
             {match.league && (
               <li>
-                <span className="infoKey">league</span>
-                <span className="infoValue">{match.league.name}</span>
+                <span className={styles.infoKey}>league</span>
+                <span className={styles.infoValue}>{match.league.name}</span>
               </li>
             )}
             <li>
-              <span className="infoKey">{strings.match_id}</span>
+              <span className={styles.infoKey}>{strings.match_id}</span>
               <Button
                 onClick={copyMatchId}
                 startIcon={
@@ -362,8 +111,8 @@ const MatchHeader = ({ match }: { match: Match }) => {
               </Button>
             </li>
             <li>
-              <span className="infoKey">{strings.match_region}</span>
-              <span className="infoValue">
+              <span className={styles.infoKey}>{strings.match_region}</span>
+              <span className={styles.infoValue}>
                 {strings[`region_${match.region}` as keyof Strings] || "-"}
               </span>
             </li>
@@ -371,9 +120,9 @@ const MatchHeader = ({ match }: { match: Match }) => {
         </div>
       </div>
       {!match.version && (
-        <Warning className="unparsed">{strings.tooltip_unparsed}</Warning>
+        <Warning className={styles.unparsed}>{strings.tooltip_unparsed}</Warning>
       )}
-      <div className="matchButtons">
+      <div className={styles.matchButtons}>
         <Button
           startIcon={match.version ? <RefreshIcon /> : <DataObjectIcon />}
         >
@@ -424,7 +173,7 @@ const MatchHeader = ({ match }: { match: Match }) => {
           />
         )} */}
       </div>
-    </Styled>
+    </header>
   );
 };
 

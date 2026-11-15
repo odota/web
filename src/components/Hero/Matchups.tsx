@@ -1,22 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import { getHeroMatchups } from "../../actions";
 import Table from "../Table/Table";
 import TableLink from "../Table/TableLink";
 import MatchupsSkeleton from "../Skeletons/MatchupsSkeleton";
 import { wilsonScore } from "../../utility";
 import config from "../../config";
-
-const HeroImage = styled.img`
-  width: 50px;
-  margin-right: 10px;
-`;
-
-const HeroWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
+import styles from "./Matchups.module.css";
 
 const getMatchupsColumns = (heroes: Hero[], strings: Strings) => {
   // Optimization from O(n^2) to O(n + 1);
@@ -31,14 +21,15 @@ const getMatchupsColumns = (heroes: Hero[], strings: Strings) => {
         const hero = heroMap.get(field) || {};
 
         return (
-          <HeroWrapper>
-            <HeroImage
+          <div className={styles.heroWrapper}>
+            <img
+              className={styles.heroImage}
               key={field}
               alt={hero.localized_name}
               src={config.VITE_IMAGE_CDN + hero.img}
             />
             <TableLink to={`/heroes/${field}`}>{hero.localized_name}</TableLink>
-          </HeroWrapper>
+          </div>
         );
       },
     },

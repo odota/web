@@ -1,9 +1,12 @@
 import React from "react";
-import styled from "styled-components";
-import constants from "../constants";
+import styles from "./Dire.module.css";
 
-const icon = (props: any) => (
-  <svg {...props} viewBox="0 0 300 300">
+const Icon = ({ className, ...props }: any) => (
+  <svg
+    {...props}
+    className={`${styles.icon} ${className || ""}`}
+    viewBox="0 0 300 300"
+  >
     <path
       d="M150,106.4c0,0,6.6,0,8,0.5c1.4,0.5,2.3,4.2,5.2,5.2c2.3,0.9,35.6,1.4,35.2,3.7c0,2.3-2.3,2.8-2.8,3.8
       c-0.5,1.4,1.4,3.3-3.3,3.8c-4.7,0.9-5.6-3.3-5.6-3.3s-8.9-1.4-15.5,0.5c-3.3,0.9-5.6,4.2-8,6.6c-2.3,2.3-4.2,3.3-4.7,4.2
@@ -115,7 +118,4 @@ const icon = (props: any) => (
   </svg>
 );
 
-export default styled(icon)`
-  filter: drop-shadow(0 0 5px ${constants.colorDanger});
-  fill: black !important;
-`;
+export default Icon;

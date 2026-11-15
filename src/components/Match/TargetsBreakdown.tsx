@@ -1,18 +1,12 @@
 import React from "react";
 import ReactTooltip from "react-tooltip";
-import styled from "styled-components";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { inflictorWithValue } from "../Visualizations";
 import { sumValues, getHeroesById, abbreviateNumber } from "../../utility";
 import { StyledDmgTargetInflictor, StyledDmgTargetRow } from "./StyledMatch";
 import constants from "../constants";
 import HeroImage from "../Visualizations/HeroImage";
-
-const Dummy = styled.div`
-  height: 30px;
-  width: 150px;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.1), transparent);
-`;
+import styles from "./TargetsBreakdown.module.css";
 
 const dmgTargetValueStyle: React.CSSProperties = {
   position: "absolute",
@@ -131,7 +125,11 @@ const TargetsBreakdown = ({
             {inflictorWithValue(inflictor, abbreviateNumber(valueOverall))}
           </StyledDmgTargetInflictor>
           <ArrowForwardIcon style={arrowStyle} />
-          {!f[inflictor].null ? damageTargetIcons(f[inflictor]) : <Dummy />}
+          {!f[inflictor].null ? (
+            damageTargetIcons(f[inflictor])
+          ) : (
+            <div className={styles.dummy} />
+          )}
         </div>,
       );
     });

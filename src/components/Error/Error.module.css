@@ -1,0 +1,5 @@
+.errorMessage {
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-medium);
+  color: var(--od-color-yelor);
+}

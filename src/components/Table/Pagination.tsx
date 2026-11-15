@@ -1,89 +1,9 @@
 import React from "react";
-import styled from "styled-components";
 import { Button } from "@mui/material";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import constants from "../constants";
 import useStrings from "../../hooks/useStrings.hook";
-
-const StyledContainer = styled.div<{ top?: boolean }>`
-  display: flex;
-  flex-direction: column;
-  align-items: ${(props) => (props.top ? "flex-end" : "center")};
-  ${(props) =>
-    props.top &&
-    `position:relative;
-  @media only screen and (max-width: 767px) {
-    align-items: center;
-  }
-  `};
-`;
-const StyledPagination = styled.div<{ top?: boolean }>`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-
-  & > div {
-    display: flex;
-  }
-  @media only screen and (max-width: 511px) {
-    flex-direction: column;
-  }
-  ${(props) =>
-    props.top &&
-    `position: absolute;
-  right: 0;
-  top: -32px;
-  font-size: ${constants.fontSizeMedium};
-  @media only screen and (max-width: 767px) {
-    position: initial;
-  }
-  `}
-`;
-const pageStyle = `
-  color: ${constants.primaryLinkColor}!important;
-  min-width: 20px !important;
-  padding: 0 10px !important;
-  margin: 0 2px !important;
-  @media only screen and (max-width: 511px) {
-    /* Override material-ui */
-    min-width: 14px !important;
-    padding: 0 6px !important;
-    margin: 0 1px !important; 
-  }
-`;
-const StyledPage = styled(Button)`
-  ${pageStyle}
-`;
-const arrowStyle = `
-  vertical-align: text-top;
-
-  /* Override material-ui */
-  color:${constants.colorYelor} !important;
-  padding: 0 !important;`;
-const StyledArrowButton = styled(Button)`
-  min-width: 20px !important;
-  ${arrowStyle}
-`;
-const StyledPrev = styled(KeyboardArrowLeftIcon)`
-  ${arrowStyle}
-`;
-const StyledNext = styled(KeyboardArrowRightIcon)`
-  ${arrowStyle}
-`;
-const StyledCurrentPage = styled(Button)`
-  ${pageStyle}
-
-  /* Override material-ui */
-  color:${constants.colorMutedLight} !important;
-  pointer-events: none;
-`;
-const StyledInfo = styled.div`
-  font-size: ${constants.fontSizeMedium};
-  color: ${constants.colorMutedLight};
-`;
+import styles from "./Pagination.module.css";
 
 const getPages = ({
   currentPage,
@@ -105,19 +25,21 @@ const getPages = ({
   for (let i = start; i <= end; i += 1) {
     pages.push(
       i === currentPage ? (
-        <StyledCurrentPage
+        <Button
+          className={`${styles.styledPage} ${styles.styledCurrentPage}`}
           key={i}
           onClick={i === currentPage ? () => {} : () => setCurrentPage(i)}
         >
           {i + 1}
-        </StyledCurrentPage>
+        </Button>
       ) : (
-        <StyledPage
+        <Button
+          className={styles.styledPage}
           key={i}
           onClick={i === currentPage ? () => {} : () => setCurrentPage(i)}
         >
           {i + 1}
-        </StyledPage>
+        </Button>
       ),
     );
   }
@@ -145,45 +67,68 @@ const Pagination = ({
 }) => {
   const strings = useStrings();
   if (numPages > 1) {
+    const isTop = place === "top";
     return (
-      <StyledContainer top={place === "top"}>
-        <StyledPagination top={place === "top"}>
+      <div
+        className={`${styles.styledContainer} ${isTop ? styles.styledContainerTop : ""}`}
+      >
+        <div
+          className={`${styles.styledPagination} ${isTop ? styles.styledPaginationTop : ""}`}
+        >
           {currentPage > 0 && (
-            <StyledPage onClick={() => setCurrentPage(0)}>
+            <Button
+              className={styles.styledPage}
+              onClick={() => setCurrentPage(0)}
+            >
               {strings.pagination_first}
-            </StyledPage>
+            </Button>
           )}
           <div>
             {currentPage > 0 && (
-              <StyledArrowButton
+              <Button
+                className={`${styles.styledArrow} ${styles.styledArrowButton}`}
                 onClick={currentPage > 0 ? prevPage : () => {}}
               >
-                <StyledPrev />
-              </StyledArrowButton>
+                <KeyboardArrowLeftIcon className={styles.styledArrow} />
+              </Button>
             )}
             {currentPage > 2 && numPages > 2 && (
-              <StyledCurrentPage disabled>...</StyledCurrentPage>
+              <Button
+                className={`${styles.styledPage} ${styles.styledCurrentPage}`}
+                disabled
+              >
+                ...
+              </Button>
             )}
             {getPages({ currentPage, numPages, setCurrentPage })}
             {numPages > currentPage + 3 && (
-              <StyledCurrentPage disabled>...</StyledCurrentPage>
+              <Button
+                className={`${styles.styledPage} ${styles.styledCurrentPage}`}
+                disabled
+              >
+                ...
+              </Button>
             )}
             {currentPage < numPages - 1 && (
-              <StyledArrowButton
+              <Button
+                className={`${styles.styledArrow} ${styles.styledArrowButton}`}
                 onClick={currentPage < numPages - 1 ? nextPage : () => {}}
               >
-                <StyledNext />
-              </StyledArrowButton>
+                <KeyboardArrowRightIcon className={styles.styledArrow} />
+              </Button>
             )}
           </div>
           {currentPage < numPages - 1 && (
-            <StyledPage onClick={() => setCurrentPage(numPages - 1)}>
+            <Button
+              className={styles.styledPage}
+              onClick={() => setCurrentPage(numPages - 1)}
+            >
               {strings.pagination_last}
-            </StyledPage>
+            </Button>
           )}
-        </StyledPagination>
+        </div>
         {place === "bot" && (
-          <StyledInfo>
+          <div className={styles.styledInfo}>
             {(pageLength * currentPage + 1).toLocaleString("en-US")}
             {" - "}
             {Math.min(
@@ -191,9 +136,9 @@ const Pagination = ({
               length,
             ).toLocaleString("en-US")}{" "}
             {strings.pagination_of} {length.toLocaleString("en-US")}
-          </StyledInfo>
+          </div>
         )}
-      </StyledContainer>
+      </div>
     );
   }
   return null;

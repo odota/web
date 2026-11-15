@@ -1,8 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 import { gameCoordToUV, getWardSize } from "../../../utility";
 import DotaMap from "../../DotaMap/DotaMap";
 import constants from "../../constants";
+import styles from "./LogHover.module.css";
 
 const hoverMapStyle: React.CSSProperties = {
   height: 300,
@@ -12,47 +12,6 @@ const hoverMapStyle: React.CSSProperties = {
   border: "5px solid rgb(21, 23, 27)",
   outline: "1px solid #0E0E0E",
 };
-
-const Styled = styled.div`
-  .tooltipContainer {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    padding: 10px;
-    margin: -8px -12px;
-
-    & > * {
-      margin: 0 5px;
-
-      &:first-child {
-        margin-left: 0;
-      }
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-
-    & > div {
-      margin: 0;
-      color: ${constants.colorMutedLight};
-    }
-  }
-
-  .radiantWardTooltip {
-    border-width: 2px !important;
-    border-color: ${constants.colorSuccess} !important;
-  }
-
-  .direWardTooltip {
-    border-width: 2px !important;
-    border-color: ${constants.colorDanger} !important;
-  }
-
-  div > img {
-    width: 18px;
-  }
-`;
 
 const wardStyle = (width: number, log: any): React.CSSProperties => {
   const gamePos = gameCoordToUV(log.entered.x, log.entered.y);
@@ -95,11 +54,14 @@ const wardIcon = (log: any) => {
 export const WardPin = ({ width, log }: { width: number; log: any }) => {
   const id = `ward-${log.entered.player_slot}-${log.entered.time}`;
   return (
-    <Styled>
-      <div style={wardStyle(width, log)} data-tip data-for={id}>
-        <img src={wardIcon(log)} alt={log.type === "observer" ? "O" : "S"} />
-      </div>
-    </Styled>
+    <div
+      className={styles.wardPin}
+      style={wardStyle(width, log)}
+      data-tip
+      data-for={id}
+    >
+      <img src={wardIcon(log)} alt={log.type === "observer" ? "O" : "S"} />
+    </div>
   );
 };
 

@@ -1,0 +1,54 @@
+.tooltipWrapper {
+  min-width: 250px;
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-medium);
+  color: var(--od-text-color-primary) !important;
+  background-color: var(--od-default-primary-color);
+}
+
+.value {
+  text-align: center;
+  background-color: var(--od-color-blue-muted);
+  height: 30px;
+  line-height: 30px;
+  font-size: var(--od-font-size-common);
+}
+
+.match {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.win {
+  color: var(--od-color-success);
+}
+
+.loss {
+  color: var(--od-color-danger);
+}
+
+.time {
+  color: var(--od-color-muted-light);
+  font-size: var(--od-font-size-tiny);
+}
+
+.matchValue {
+  font-weight: bold;
+}
+
+.hero {
+  height: 50px;
+  width: 88.88px; /* ratio */
+  background-color: var(--od-almost-black);
+}
+
+.heroImg {
+  height: 100%;
+}
+
+.noData {
+  text-align: center;
+  padding-top: 30px;
+  font-size: var(--od-font-size-common);
+}

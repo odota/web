@@ -1,0 +1,146 @@
+.styled {
+  position: relative;
+  text-align: center;
+  padding: 10px;
+}
+
+.styled :global(.tt-container) {
+  white-space: nowrap;
+  text-align: center;
+}
+
+.styled :global(.result) {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.styled :global(.win) {
+  color: var(--od-color-green);
+}
+
+.styled :global(.loss) {
+  color: var(--od-color-red);
+}
+
+.content {
+  position: relative;
+  overflow-x: auto;
+}
+
+.content :not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.content :global(.innerContainer) {
+  background-color: transparent !important;
+}
+
+.week {
+  position: relative;
+  display: inline-block;
+}
+
+.weekDayLabels {
+  position: relative;
+  bottom: 2px;
+  right: 10px;
+  font-size: 11px;
+  display: inline-block;
+  direction: rtl;
+  text-align: right;
+  color: var(--od-color-muted-light);
+}
+
+.weekDayLabels div {
+  line-height: 15px;
+  margin-top: 2px;
+}
+
+.weeksContainer {
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: relative;
+  white-space: nowrap;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  width: 1000px;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  border-top-left-radius: 5px;
+}
+
+.weeksContainer :global(#hide-table) {
+  line-height: 0px;
+  position: relative;
+  top: 107px;
+  right: 10px;
+  float: right;
+  color: var(--od-color-blue);
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.weeksContainer :global(#hide-table):hover {
+  opacity: 0.5;
+}
+
+.weeksContainer table :global(.__react_component_tooltip) {
+  display: none;
+}
+
+.weeksContainer table tr,
+.weeksContainer table th,
+.weeksContainer table thead {
+  background-color: transparent !important;
+  border-style: none !important;
+}
+
+.dayContainer {
+  height: 15px;
+  width: 15px;
+  margin: 2px 0 2px 2px;
+  line-height: 15px;
+  font-size: 8px;
+  transition: opacity 0.3s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.dayContainer svg:hover {
+  opacity: 0.3;
+}
+
+.dayContainer:global(.active) {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.dayContainer :global(.weekDay) {
+  position: absolute;
+  font-size: 11px;
+  right: 22px;
+  direction: rtl;
+  text-align: right;
+  color: var(--od-color-muted-light);
+}
+
+.dayContainer :global(.month) {
+  position: absolute;
+  top: -20px;
+  margin-left: 1px;
+  font-size: 11px;
+  color: var(--od-color-muted-light);
+  cursor: crosshair;
+}
+
+.dayContainer :global(.month) :global(.year) {
+  display: inline-block;
+  color: #6192b9;
+  margin-left: 3px;
+}
+
+.dayContainer :global(.circle) {
+  position: relative;
+  top: 43%;
+  line-height: 0px;
+  color: #b72424;
+}

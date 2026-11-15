@@ -1,0 +1,109 @@
+.teamStatsCard {
+  display: inline-block;
+  padding: 0 !important;
+  margin-right: 25px;
+  margin-top: 15px;
+}
+
+.teamStatsCard :global(.textSuccess) {
+  color: var(--od-color-green);
+}
+
+.teamStatsCard :global(.textDanger) {
+  color: var(--od-color-red);
+}
+
+.teamStatsCard span:last-child {
+  font-size: 24px !important;
+  color: rgba(255, 255, 255, 0.87) !important;
+  line-height: 36px !important;
+}
+
+.teamStatsCard span:first-child {
+  font-size: 14px !important;
+  color: rgba(255, 255, 255, 0.54) !important;
+  line-height: 1 !important;
+  text-transform: uppercase;
+}
+
+.logo {
+  margin-left: 30px;
+  margin-right: 30px;
+  width: 124px;
+}
+
+@media only screen and (max-width: 768px) {
+  .logo {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.tableImage {
+  margin-right: 10px;
+  width: 35px;
+  max-height: 45px;
+}
+
+.teamName {
+  color: rgba(245, 245, 245, 0.870588);
+  font-size: 28px;
+}
+
+@media only screen and (max-width: 768px) {
+  .teamName {
+    text-align: center;
+  }
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .headerContainer {
+    flex-direction: column;
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.tableRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.matchesContainer {
+  width: calc(65% - 15px);
+  margin-right: 15px;
+}
+
+@media only screen and (max-width: 1080px) {
+  .matchesContainer {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+.memberAndHeroContainer {
+  width: 35%;
+}
+
+@media only screen and (max-width: 1080px) {
+  .memberAndHeroContainer {
+    width: 100%;
+  }
+}

@@ -1,22 +1,6 @@
 import React from "react";
 import InfoIcon from "@mui/icons-material/Info";
-import styled from "styled-components";
-import constants from "../constants";
-
-const StyledDiv = styled.div`
-  & a {
-    color: ${constants.colorMutedLight};
-    font-size: ${constants.fontSizeSmall};
-  }
-
-  & svg {
-    vertical-align: sub;
-    margin-right: 5px;
-    width: 15px !important;
-    height: 15px !important;
-    fill: ${constants.colorBlue} !important;
-  }
-`;
+import styles from "./Info.module.css";
 
 const Info = ({
   children,
@@ -27,13 +11,13 @@ const Info = ({
   className?: string;
   msg?: string;
 }) => (
-  <StyledDiv className={`${className}`}>
+  <div className={`${styles.styledDiv} ${className || ""}`}>
     <InfoIcon />
     <span>
       {!children && msg}
       {!msg && children}
     </span>
-  </StyledDiv>
+  </div>
 );
 
 export default Info;

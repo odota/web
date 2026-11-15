@@ -1,0 +1,115 @@
+.graphCard.graphCard {
+  border-color: rgba(100, 116, 139, 0.3);
+}
+
+.graphCard,
+.graphCard * {
+  font-family: var(--od-font-family-futuristic);
+}
+
+.graphCard [class*="styledCustomizedTooltip"] {
+  font-size: 16px;
+}
+
+.graphCard [class*="styledCustomizedTooltip"] div,
+.graphCard [class*="styledCustomizedTooltip"] span,
+.graphCard [class*="styledCustomizedTooltip"] strong,
+.graphCard [class*="styledCustomizedTooltip"] small,
+.graphCard [class*="styledCustomizedTooltip"] p {
+  font-size: inherit;
+}
+
+.graphCard [class*="styledCustomizedTooltip"] :global(.label) {
+  font-size: 14px;
+}
+
+.timelineCard :global(.timeline) {
+  margin: 48px 0 42px;
+  gap: 12px;
+}
+
+.timelineCard :global(.timeline) > section {
+  gap: 5px;
+}
+
+.timelineCard :global(.timeline) time {
+  color: var(--od-text-color-secondary);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.timelineCard :global(.timeline) > section > mark {
+  color: var(--od-text-color-secondary);
+  font-size: 10px;
+  font-family: var(--od-font-family-futuristic);
+}
+
+.timelineCard :global(.line) {
+  height: 6px;
+  border-radius: 3px;
+}
+
+.timelineCard :global(.line) > section {
+  border-radius: inherit;
+  background: var(--od-divider-color);
+}
+
+.timelineCard :global(.events) :global(.battleHorn) {
+  height: 6px;
+  border-radius: 1px;
+}
+
+.timelineCard :global(.iconBattle):hover {
+  filter: brightness(1.3);
+}
+
+.timelineCard :global(.events) mark div[data-id="tooltip"] {
+  z-index: 1500;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  background: #111827;
+  color: #f1f5f9;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  padding: 10px 12px !important;
+  font-size: 14px;
+}
+
+.timelineCard :global(.events) mark div[data-id="tooltip"] p,
+.timelineCard :global(.events) mark div[data-id="tooltip"] span,
+.timelineCard :global(.events) mark div[data-id="tooltip"] strong,
+.timelineCard :global(.events) mark div[data-id="tooltip"] small {
+  font-size: inherit;
+}
+
+.timelineCard :global(.matchNumbers) {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.timelineCard :global(.matchNumbers) > div {
+  padding: 8px 12px;
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 6px;
+  background: var(--od-secondary-surface-color);
+}
+
+.timelineCard :global(.matchNumbers) > div span:first-child {
+  margin-left: 0;
+}
+
+@media (max-width: 680px) {
+  .timelineCard :global(.timeline) {
+    gap: 4px;
+  }
+
+  .timelineCard :global(.timeline) > section > mark {
+    max-width: 70px;
+    overflow-wrap: anywhere;
+  }
+}

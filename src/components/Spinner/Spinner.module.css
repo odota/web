@@ -1,0 +1,26 @@
+.slowSpinner {
+  animation: spin 5s linear infinite !important;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinnerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.spinnerText {
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-small);
+  letter-spacing: 0.05em;
+  color: var(--od-color-blue);
+}

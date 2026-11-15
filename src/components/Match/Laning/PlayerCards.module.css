@@ -1,0 +1,16 @@
+.teamSection + .teamSection {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--od-divider-color);
+}
+
+.teamSection h3 {
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+
+.playerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}

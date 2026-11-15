@@ -6,33 +6,14 @@
 import { formatTemplateToString } from "../../../utility";
 import React from "react";
 import { heroes } from "dotaconstants";
-import styled from "styled-components";
 import config from "../../../config";
 import { getPlayerIdentity, getLevelAtMinute, formatStat, getLaningRoles, LaneRole, getRoleLabels } from "./laning.utils";
 import useStrings from "../../../hooks/useStrings.hook";
-import constants from "../../constants";
+import styles from "./RoleComparisons.module.css";
 
 
 
 import { Sides, PlayerCard, PlayerHeader, Stats } from "./StyledLaneMatchups";
-
-/** Separates alternative role comparison groups. */
-const Comparison = styled.section`
-  & + & { margin-top: 20px; padding-top: 20px; border-top: 1px solid ${constants.dividerColor}; }
-  h3 { margin: 0; font-size: 14px; }
-`;
-/** Arranges advantage labels in the alternative role layout. */
-const Difference = styled.p`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin: 8px 0;
-  font-size: 12px;
-`;
-/** Colors the alternative role comparison’s signed lead. */
-const Lead = styled.span<{ $value: number }>`
-  color: ${({ $value }) => $value === 0 ? constants.textColorSecondary : $value > 0 ? constants.colorSuccess : constants.colorDanger};
-`;
 
 type RoleComparisonsProps = {
   match: Match;
@@ -91,34 +72,34 @@ const RoleComparisons = ({ match, selectedPlayer, onSelectPlayer }: RoleComparis
       const direLevel = getLevelAtMinute(direPlayer);
       const levelDifference = radiantLevel !== null && direLevel !== null ? radiantLevel - direLevel : null;
       return (
-        <Comparison key={role}>
+        <section className={styles.comparison} key={role}>
           <h3>{labels[role]}</h3>
-          <Difference>
+          <p className={styles.difference}>
             {[{ value: goldDifference, unit: strings.laning_gold }, { value: levelDifference, unit: strings.laning_levels }].map(({ value, unit }) => (
               <span key={unit}>
                 {value === null ? `${unit}: ${strings.laning_unavailable}` : (
-                  <Lead $value={value}>
+                  <span className={`${styles.lead} ${value === 0 ? styles.leadTied : value > 0 ? styles.leadPositive : ""}`}>
                     {value === 0 ? formatTemplateToString(strings.laning_equal, { unit }) : formatTemplateToString(strings.laning_lead_margin, {
                       team: value > 0 ? strings.general_radiant : strings.general_dire,
                       value: Math.abs(value).toLocaleString("en-US"), unit,
                     })}
-                  </Lead>
+                  </span>
                 )}
               </span>
             ))}
-          </Difference>
+          </p>
           <Sides>
             <div>{radiantPlayer ? renderPlayer(radiantPlayer) : strings.laning_unknown_role}</div>
             <div>{direPlayer ? renderPlayer(direPlayer) : strings.laning_unknown_role}</div>
           </Sides>
-        </Comparison>
+        </section>
       );
     })}
     {match.players.some((player) => !assigned.has(player.player_slot)) && (
-      <Comparison>
+      <section className={styles.comparison}>
         <h3>{strings.laning_unknown_role}</h3>
         <Sides>{match.players.filter((player) => !assigned.has(player.player_slot)).map(renderPlayer)}</Sides>
-      </Comparison>
+      </section>
     )}
   </>;
 };

@@ -1,0 +1,168 @@
+.details {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 24px;
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid color-mix(in srgb, var(--od-secondary-surface-color) 60%, #6299ba);
+  border-radius: 6px;
+  background: linear-gradient(120deg, color-mix(in srgb, var(--od-secondary-surface-color) 65%, #17395c), color-mix(in srgb, var(--od-secondary-surface-color) 80%, #17395c));
+  font-family: var(--od-font-family-futuristic);
+}
+
+.tournamentArt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  min-height: 160px;
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--od-secondary-surface-color) 60%, #6299ba);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--od-primary-surface-color) 85%, #38596d);
+  color: var(--od-text-color-secondary);
+  font-size: 12px;
+  text-align: center;
+}
+
+.tournamentArt img {
+  width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+}
+
+.tournamentArt svg {
+  width: 48px;
+  height: 48px;
+  color: var(--od-color-golden);
+}
+
+.tournamentInfo {
+  min-width: 0;
+}
+
+.details h2 {
+  margin: 0 0 10px;
+  font-size: clamp(22px, 2.5vw, 30px);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.details dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 20px 0 0;
+  padding-top: 18px;
+  border-top: 0;
+}
+
+.details dl > div {
+  min-width: 0;
+}
+
+.details dt {
+  color: var(--od-text-color-secondary);
+  font-size: 11px;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.details dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--od-text-color-primary);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.details dd svg {
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+  margin-right: 6px;
+  color: var(--od-color-blue);
+}
+
+.leagueId {
+  color: var(--od-color-golden);
+}
+
+@media (max-width: 680px) {
+  .details {
+    padding: 18px;
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .tournamentArt {
+    min-height: 100px;
+    padding: 10px;
+    align-self: start;
+  }
+
+  .tournamentArt svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .details dl {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .details {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tournamentArt {
+    max-width: 140px;
+  }
+}
+
+.participants {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
+  font-family: var(--od-font-family-futuristic);
+}
+
+.participants a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--od-secondary-surface-color) 60%, #6299ba);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--od-secondary-surface-color) 75%, #17395c);
+  color: var(--od-text-color-primary);
+  font-size: 13px;
+  transition: background .15s, border-color .15s;
+}
+
+.participants a:hover {
+  background: color-mix(in srgb, var(--od-secondary-surface-color) 65%, #244d75);
+  border-color: var(--od-color-blue);
+}
+
+.participants a:focus-visible {
+  outline: 2px solid var(--od-color-blue);
+  outline-offset: 3px;
+}
+
+.participants a span {
+  overflow-wrap: anywhere;
+}
+
+.participants img,
+.participants svg {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  object-fit: contain;
+}

@@ -1,85 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Slider } from "@mui/material";
-import styled from "styled-components";
 import { formatSeconds, rangeStep } from "../../../utility";
 import VisionFilter from "./VisionFilter";
 import VisionItems from "./VisionItems";
 import VisionMap from "./VisionMap";
 import VisionLog from "./VisionLog";
-import constants from "../../constants";
+import styles from "./Vision.module.css";
 
-const Styled = styled.div`
-  .visionLog {
-    margin-top: 30px;
-  }
-
-  .visionSliderText {
-    text-align: center;
-    width: 200px;
-    margin: 5px auto;
-    text-transform: uppercase;
-    color: ${constants.colorMutedLight};
-  }
-
-  .sliderTicks {
-    position: relative;
-    height: 30px;
-    margin-top: 33px;
-    margin-bottom: -33px;
-    font-size: ${constants.fontSizeTiny};
-    border-color: ${constants.sliderTicksColor};
-    color: ${constants.sliderTicksColor};
-
-    & .sliderTick {
-      position: absolute;
-      display: inline-block;
-      height: 100%;
-      padding: 0 0.4em;
-      border-width: 0;
-      border-color: inherit;
-      border-style: solid;
-      border-left-width: 1px;
-      cursor: pointer;
-      transition:
-        color 150ms ease,
-        border-color 150ms ease;
-
-      &.active {
-        border-color: ${constants.sliderTicksColorActive};
-        color: ${constants.sliderTicksColorActive};
-      }
-    }
-  }
-
-  .visionFilter {
-    box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-    margin: 50px -0.5rem 0;
-
-    & .tableWrapper {
-      box-sizing: border-box;
-      flex-basis: 50%;
-      max-width: 50%;
-      padding-right: 0.5rem;
-      padding-left: 0.5rem;
-
-      @media only screen and (max-width: 1024px) {
-        flex-basis: 100%;
-        max-width: 100%;
-      }
-    }
-
-    & table th > div {
-      text-align: left !important;
-    }
-
-    & table td > img {
-      margin-left: -2px;
-    }
-  }
-`;
 /* eslint-disable jsx-a11y/anchor-is-valid */
 const SliderTicks = ({
   ticks,
@@ -94,32 +22,30 @@ const SliderTicks = ({
   min: number;
   max: number;
 }) => (
-  <Styled>
-    <div className="sliderTicks">
-      {ticks.map((tick) => {
-        const percent = 100 * ((tick - min) / (max - min));
-        const classNames = ["sliderTick"];
+  <div className={styles.sliderTicks}>
+    {ticks.map((tick) => {
+      const percent = 100 * ((tick - min) / (max - min));
+      const classNames = [styles.sliderTick];
 
-        if (tick <= value) {
-          classNames.push("active");
-        }
+      if (tick <= value) {
+        classNames.push(styles.active);
+      }
 
-        return (
-          <a
-            role="link"
-            tabIndex={0}
-            key={tick}
-            onClick={() => onTickClick(tick)}
-            onKeyPress={() => {}}
-            className={classNames.join(" ")}
-            style={{ left: `${percent}%` }}
-          >
-            {formatSeconds(tick)}
-          </a>
-        );
-      })}
-    </div>
-  </Styled>
+      return (
+        <a
+          role="link"
+          tabIndex={0}
+          key={tick}
+          onClick={() => onTickClick(tick)}
+          onKeyPress={() => {}}
+          className={classNames.join(" ")}
+          style={{ left: `${percent}%` }}
+        >
+          {formatSeconds(tick)}
+        </a>
+      );
+    })}
+  </div>
 );
 
 const alive = (ward: any, time = 0) =>

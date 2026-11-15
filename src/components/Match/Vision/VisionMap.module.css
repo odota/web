@@ -1,0 +1,38 @@
+.tooltipContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 10px;
+  margin: -8px -12px;
+}
+
+.tooltipContainer > * {
+  margin: 0 5px;
+}
+
+.tooltipContainer > *:first-child {
+  margin-left: 0;
+}
+
+.tooltipContainer > *:last-child {
+  margin-right: 0;
+}
+
+.tooltipContainer > div {
+  margin: 0;
+  color: var(--od-color-muted-light);
+}
+
+.radiantWardTooltip {
+  border-width: 2px !important;
+  border-color: var(--od-color-success) !important;
+}
+
+.direWardTooltip {
+  border-width: 2px !important;
+  border-color: var(--od-color-danger) !important;
+}
+
+.wardPin > img {
+  width: 18px;
+}

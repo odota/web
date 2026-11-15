@@ -1,20 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 
 import BenchmarkGraph from "./BenchmarkGraph";
 import constants from "../constants";
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 48px -8px;
-
-  @media screen and (max-width: ${constants.wrapMobile}) {
-    display: block;
-    margin-left: 0;
-    margin-right: 0;
-  }
-`;
+import styles from "./BenchmarkGraphs.module.css";
 
 const mapData = (data: any[], key: string) =>
   data.map((item) => ({
@@ -87,7 +75,7 @@ const BenchmarkGraphs = ({
 }) => {
   const mappedData = getData(data, strings);
 
-  return <Wrapper>{renderGraphs(mappedData)}</Wrapper>;
+  return <div className={styles.wrapper}>{renderGraphs(mappedData)}</div>;
 };
 
 export default BenchmarkGraphs;

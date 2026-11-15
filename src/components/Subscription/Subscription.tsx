@@ -1,108 +1,11 @@
 import React, { useCallback } from "react";
 import { connect } from "react-redux";
 import Helmet from "react-helmet";
-import styled from "styled-components";
 import { Button } from "@mui/material";
 import { IconSteam } from "../Icons";
 import { useStrings } from "../../hooks/useStrings.hook";
 import config from "../../config";
-import constants from "../constants";
-
-const PageContainer = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  font-family: ${constants.fontFamilyFuturistic};
-
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-    font-size: 0.75rem;
-  }
-
-  & li {
-    list-style-type: initial;
-  }
-`;
-
-const SubHeader = styled.div`
-  width: 100%;
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("/assets/images/carry-header.jpg");
-  background-position: 50% 0px;
-  margin: 20px 0;
-  text-shadow: 1px 1px 1px #000;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const BannerTitle = styled.h1`
-  margin: 48px 0 8px;
-  font-family: ${constants.fontFamilyFuturistic};
-  font-size: 2.25rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  text-align: center;
-  line-height: 1.6;
-
-  @media only screen and (max-width: 768px) {
-    font-size: 1.625rem;
-  }
-`;
-
-const BannerDescription = styled.h2`
-  margin: 0 0 24px;
-  font-size: 1rem;
-  font-weight: 400;
-  text-align: center;
-
-  @media only screen and (max-width: 768px) {
-    font-size: 0.75rem;
-  }
-`;
-
-const Attribution = styled.p`
-  font-size: 14px;
-  margin-right: 10px;
-  align-self: flex-end;
-`;
-
-const Paragraph = styled.p`
-  line-height: 1.6;
-`;
-
-const SubContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const SubLeft = styled.div``;
-
-const SubscriptionTitle = styled.h3`
-  margin: 24px 0 8px;
-  font-size: 1rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  line-height: 1.6;
-`;
-
-const SubRight = styled.div`
-  a {
-    width: fit-content;
-  }
-`;
-
-const ThankYouTitle = styled.h4`
-  font-family: ${constants.fontFamilyFuturistic};
-  font-weight: 400;
-`;
-
-const List = styled.ul`
-  li {
-    font-size: 0.875rem;
-    line-height: 1.6;
-  }
-`;
+import styles from "./Subscription.module.css";
 
 const handleSubscribe = async (user: any) => {
   try {
@@ -156,15 +59,17 @@ const Subscription = ({
   }, [isSubscriber]);
 
   return (
-    <PageContainer>
+    <div className={styles.pageContainer}>
       <Helmet>
         <title>{strings.subscriptions_h1}</title>
         <meta name="description" content={strings.api_meta_description} />
       </Helmet>
-      <SubHeader>
-        <BannerTitle>{strings.subscriptions_h1}</BannerTitle>
-        <BannerDescription>{strings.subscriptions_h2}</BannerDescription>
-        <Attribution>
+      <div className={styles.subHeader}>
+        <h1 className={styles.bannerTitle}>{strings.subscriptions_h1}</h1>
+        <h2 className={styles.bannerDescription}>
+          {strings.subscriptions_h2}
+        </h2>
+        <p className={styles.attribution}>
           Picture by{" "}
           <a
             href="http://entroz.deviantart.com/"
@@ -173,24 +78,28 @@ const Subscription = ({
           >
             Eric Geusz
           </a>
-        </Attribution>
-      </SubHeader>
-      <Paragraph>{strings.subscriptions_body1}</Paragraph>
-      <SubContainer>
-        <SubLeft>
-          <SubscriptionTitle>{strings.subscriptions_h3}</SubscriptionTitle>
-          <List>
+        </p>
+      </div>
+      <p className={styles.paragraph}>{strings.subscriptions_body1}</p>
+      <div className={styles.subContainer}>
+        <div>
+          <h3 className={styles.subscriptionTitle}>
+            {strings.subscriptions_h3}
+          </h3>
+          <ul className={styles.list}>
             <li>{strings.subscriptions_li1}</li>
             <li>{strings.subscriptions_li2}</li>
             <li>{strings.subscriptions_li3}</li>
             <li>{strings.subscriptions_li4}</li>
             <li>{strings.subscriptions_li5}</li>
-          </List>
-        </SubLeft>
-        <SubRight>
+          </ul>
+        </div>
+        <div className={styles.subRight}>
           {user && isSubscriber && (
             <>
-              <ThankYouTitle>{strings.subscriptions_h4}</ThankYouTitle>
+              <h4 className={styles.thankYouTitle}>
+                {strings.subscriptions_h4}
+              </h4>
               <Button variant="contained" onClick={handleManage}>
                 {strings.subscriptions_button_manage}
               </Button>
@@ -210,9 +119,9 @@ const Subscription = ({
               {strings.subscriptions_button_login}
             </Button>
           )}
-        </SubRight>
-      </SubContainer>
-    </PageContainer>
+        </div>
+      </div>
+    </div>
   );
 };
 

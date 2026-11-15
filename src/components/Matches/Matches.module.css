@@ -1,0 +1,32 @@
+.winnerSpan {
+  display: inline-block;
+}
+
+.winnerSpan svg {
+  width: 10px !important;
+  height: 10px !important;
+  margin-right: 5px;
+  fill: var(--od-color-golden);
+}
+
+@media (max-width: 767px) {
+  .matchesTabs > main {
+    margin-bottom: 0;
+  }
+}
+
+.seriesFormatBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  border: 1px solid var(--od-divider-color);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--od-text-color-secondary);
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-small);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  white-space: nowrap;
+}

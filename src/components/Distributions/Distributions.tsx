@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Helmet from "react-helmet";
-import styled from "styled-components";
 import {
   sum,
   abbreviateNumber,
@@ -15,25 +14,10 @@ import Table from "../Table/Table";
 import TabBar from "../TabBar/TabBar";
 import Heading from "../Heading/Heading";
 import DistributionGraph from "../Visualizations/Graph/DistributionGraph";
-import constants from "../constants";
 import DistributionsSkeleton from "../Skeletons/DistributionsSkeleton";
 import useStrings from "../../hooks/useStrings.hook";
 import useTransitionLoader from "../../hooks/useTransitionLoader.hook";
-
-const CountryDiv = styled.div`
-  & img {
-    vertical-align: sub;
-    margin-right: 7px;
-    height: 24px;
-    width: 32px;
-    box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
-  }
-
-  & span {
-    vertical-align: super;
-    height: 24px;
-  }
-`;
+import styles from "./Distributions.module.css";
 
 const Distributions = (props: {
   loading: boolean;
@@ -79,10 +63,10 @@ const Distributions = (props: {
         }
 
         return (
-          <CountryDiv>
+          <div className={styles.countryDiv}>
             <img src={image} alt={`Flag for ${name}`} />
             <span>{name}</span>
-          </CountryDiv>
+          </div>
         );
       },
     },

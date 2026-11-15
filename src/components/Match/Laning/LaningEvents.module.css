@@ -1,0 +1,111 @@
+.events {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 16px 0 0 6px;
+  padding: 12px 16px 12px 30px;
+  font-family: var(--od-font-family-futuristic);
+  border-left: 2px solid var(--od-color-blue);
+}
+
+.events > section {
+  position: relative;
+  min-width: 0;
+}
+
+.events > section::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: -36px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--od-primary-surface-color);
+  border-radius: 50%;
+  background: #c084fc;
+}
+
+.events h3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+  font: 400 16px var(--od-font-family-futuristic);
+  color: var(--od-text-color-primary);
+}
+
+.events h3 > svg {
+  width: 20px;
+  height: 20px;
+  color: var(--od-golden);
+}
+
+.events h3 > img {
+  object-fit: contain;
+}
+
+.events h3 > .campStackIcon,
+.campStackCount {
+  color: var(--od-color-lavender-muted);
+}
+
+.events ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.events li,
+.events section > p {
+  margin: 10px 0 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.eventPlayer {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  vertical-align: middle;
+}
+
+.eventRune,
+.runeTitle {
+  font-weight: 700;
+}
+
+.runeTitle {
+  color: inherit;
+}
+
+.eventRune {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  vertical-align: middle;
+}
+
+.eventRune img {
+  object-fit: contain;
+}
+
+.eventRole {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  background-image: url("/assets/images/dota2/role-icons.png");
+  background-size: 500% auto;
+  background-repeat: no-repeat;
+}
+
+.events time {
+  font-family: var(--od-font-family-futuristic);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  vertical-align: middle;
+  color: var(--od-text-color-secondary);
+  margin-right: 6px;
+  font-variant-numeric: tabular-nums;
+}

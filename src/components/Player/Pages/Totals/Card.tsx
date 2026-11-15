@@ -1,8 +1,7 @@
 import React from "react";
-import styled from "styled-components";
-import { shape } from "prop-types";
 import { formatTemplateToString } from "../../../../utility";
 import useStrings from "../../../../hooks/useStrings.hook";
+import styles from "./Card.module.css";
 
 const fastPlurality = (val: number, singular: string, plural: string) =>
   val === 1 ? singular : plural;
@@ -32,69 +31,21 @@ const formatDurationString = (sec: number, strings: Strings) => {
   ].join(" ");
 };
 
-const Wrapper = styled.div`
-  box-sizing: border-box;
-  margin-bottom: 8px;
-  margin-top: 8px;
-  padding-left: 8px;
-  padding-right: 8px;
-  width: 20%;
-
-  @media screen and (max-width: 1000px) {
-    width: 25%;
-  }
-
-  @media screen and (max-width: 850px) {
-    width: 33.333%;
-  }
-
-  @media screen and (max-width: 560px) {
-    width: 50%;
-  }
-
-  @media screen and (max-width: 380px) {
-    width: 100%;
-  }
-`;
-
-const Box = styled.div`
-  border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.35);
-  overflow: hidden;
-`;
-
-const Header = styled.div`
-  background: rgba(0, 0, 0, 0.15);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  line-height: 1;
-  padding: 16px 12px;
-  text-align: center;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  text-transform: uppercase;
-`;
-
-const Value = styled.div`
-  font-size: 12px;
-  line-height: 1;
-  padding: 16px 12px;
-  text-align: center;
-`;
-
 const Card = ({ total }: { total: { field: string; sum: number } }) => {
   const strings = useStrings();
   return (
-    <Wrapper>
-      <Box>
-        <Header>{strings[`heading_${total.field}` as keyof Strings]}</Header>
-        <Value>
+    <div className={styles.wrapper}>
+      <div className={styles.box}>
+        <div className={styles.header}>
+          {strings[`heading_${total.field}` as keyof Strings]}
+        </div>
+        <div className={styles.value}>
           {total.field === "duration"
             ? formatDurationString(total.sum, strings)
             : Math.floor(total.sum).toLocaleString()}
-        </Value>
-      </Box>
-    </Wrapper>
+        </div>
+      </div>
+    </div>
   );
 };
 

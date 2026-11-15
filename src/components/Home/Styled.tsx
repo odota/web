@@ -1,74 +1,38 @@
-import styled from "styled-components";
-import constants from "../constants";
+import React from "react";
+import styles from "./Styled.module.css";
 
-export const HeadContainerDiv = styled.div`
-  width: 600px;
-  height: 380px;
-  margin: 0 auto;
-  text-align: center;
-  padding-top: 120px;
+export const HeadContainerDiv: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ className, ...props }) => (
+  <div
+    className={`${styles.headContainerDiv} ${className || ""}`}
+    {...props}
+  />
+);
 
-  @media only screen and (max-width: 768px) {
-    width: auto;
-  }
-`;
-export const HeadlineDiv = styled.div`
-  margin-top: 10%;
-  text-transform: uppercase;
-  font-size: 4rem;
-  font-family: ${constants.fontFamilyFuturistic};
-  font-weight: ${constants.fontWeightMedium};
-  line-height: 1.2;
-  letter-spacing: 0.02em;
-  text-shadow: #b0aeae 0 0 3px;
+export const HeadlineDiv: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => (
+  <div className={`${styles.headlineDiv} ${className || ""}`} {...props} />
+);
 
-  & h1 {
-    all: inherit;
-  }
+export const DescriptionDiv: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => (
+  <div className={`${styles.descriptionDiv} ${className || ""}`} {...props} />
+);
 
-  @media only screen and (max-width: 425px) {
-    font-size: 50px;
-    margin-left: -2%;
-  }
+export const ButtonContainer: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ className, ...props }) => (
+  <div className={`${styles.buttonContainer} ${className || ""}`} {...props} />
+);
 
-  @media only screen and (max-width: 375px) {
-    font-size: 42px;
-  }
-`;
-export const DescriptionDiv = styled.div`
-  font-family: ${constants.fontFamilyFuturistic};
-  font-weight: ${constants.fontWeightLight};
-  margin-bottom: 20px;
-  text-shadow: #000 0 0 3px;
-
-  & h2 {
-    all: inherit;
-    font-size: 1.125rem;
-    line-height: 1.6;
-  }
-
-  @media only screen and (max-width: 768px) {
-    & h2 {
-      margin-top: 8px;
-      font-size: 1rem;
-    }
-  }
-`;
-export const ButtonContainer = styled.div`
-  margin-top: 28px;
-
-  @media only screen and (max-width: 768px) {
-    margin-top: 24px;
-  }
-`;
-export const BottomTextDiv = styled.div`
-  font-family: ${constants.fontFamilyFuturistic};
-  font-size: ${constants.fontSizeMedium};
-  font-weight: ${constants.fontWeightLight};
-  text-align: right;
-  opacity: 0.6;
-
-  @media only screen and (max-width: 425px) {
-    text-align: center;
-  }
-`;
+export const BottomTextDiv: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => (
+  <div className={`${styles.bottomTextDiv} ${className || ""}`} {...props} />
+);

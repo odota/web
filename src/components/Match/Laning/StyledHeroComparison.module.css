@@ -1,0 +1,446 @@
+.heroComparisonTooltip {
+  font-family: var(--od-font-family-futuristic);
+  min-width: 220px;
+  max-width: min(320px, calc(100vw - 48px));
+  padding: 14px;
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 10px;
+  background: var(--od-primary-surface-color);
+  color: var(--od-text-color-primary);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  line-height: 1.5;
+  pointer-events: none;
+}
+
+.heroComparisonTooltip :global(.tooltip-heading) {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.heroComparisonTooltip :global(.tooltip-heading) time {
+  color: var(--od-text-color-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.heroComparisonTooltip :global(.tooltip-player) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.heroComparisonTooltip :global(.tooltip-player) img {
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.heroComparisonTooltip :global(.tooltip-identity) {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.heroComparisonTooltip :global(.tooltip-identity) small {
+  display: block;
+  color: var(--od-text-color-secondary);
+}
+
+.heroComparisonTooltip :global(.tooltip-player) > strong {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.heroComparisonTooltip :global(.tooltip-lead) {
+  border-top: 1px solid rgba(100, 116, 139, 0.3);
+  padding-top: 10px;
+  margin-top: 12px;
+  color: var(--od-text-color-secondary);
+}
+
+.heroMenus {
+  font-family: var(--od-font-family-futuristic);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+@media (max-width: 680px) {
+  .heroMenus {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.heroMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  font-size: 15px;
+  color: var(--od-text-color-secondary);
+}
+
+.heroSelectButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 8px;
+  background: rgba(140, 110, 190, 0.12);
+  color: var(--od-text-color-primary);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.heroSelectButton:hover:not(:disabled) {
+  border-color: var(--od-primary-link-color);
+}
+
+.heroSelectButton:focus-visible {
+  outline: 2px solid var(--od-primary-link-color);
+  outline-offset: 2px;
+}
+
+.heroSelectButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.heroOption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+
+.heroOption img {
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.heroOption > span {
+  min-width: 0;
+}
+
+.heroOption strong,
+.heroOption small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.heroOption strong {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.heroOption small {
+  margin-top: 4px;
+  color: var(--od-text-color-secondary);
+  font-size: 14px;
+}
+
+.comparisonLead {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  padding: 3px 7px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--od-golden);
+}
+
+.comparisonLeadTied {
+  color: var(--od-text-color-secondary);
+}
+
+.comparisonLead strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.comparisonLead:global(.comparison_level) strong {
+  color: var(--od-color-lavender-muted);
+}
+
+.comparisonLead:global(.comparison_last_hits) strong {
+  color: var(--od-color-green);
+}
+
+.comparisonLead:global(.comparison_denies) strong {
+  color: var(--od-color-red);
+}
+
+.metricBalance {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  height: 8px;
+  margin-top: 14px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--od-divider-color);
+}
+
+/* Mark an even split so the stronger side is easy to spot. */
+.metricBalance::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--od-primary-surface-color);
+  transform: translateX(-50%);
+}
+
+.metricBalanceSide {
+  transition: width 200ms ease;
+}
+
+.metricBalanceSideRadiant {
+  background: var(--od-color-success);
+}
+
+.metricBalanceSideDire {
+  background: var(--od-color-danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metricBalanceSide {
+    transition: none;
+  }
+}
+
+.metricList {
+  font-family: var(--od-font-family-futuristic);
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+  margin-top: 14px;
+}
+
+.metricList > div {
+  min-width: 0;
+}
+
+.metricList :global(.comparison-charts) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  gap: 8px;
+}
+
+@media (max-width: 680px) {
+  .metricList {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.metricRow {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  padding: 8px 12px;
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 10px;
+  background: rgba(140, 110, 190, 0.12);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 680px) {
+  .metricRow {
+    padding: 8px;
+  }
+}
+
+.metricHeading {
+  text-align: center;
+}
+
+.metricHeading h3 > svg,
+.metricHeading h3 > img {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.metricHeading :global(.comparison_level) svg {
+  color: var(--od-color-blue);
+}
+
+.metricHeading :global(.comparison_gold) svg {
+  color: var(--od-golden);
+}
+
+.metricHeading :global(.comparison_last_hits) svg {
+  color: var(--od-color-green);
+}
+
+.metricHeading :global(.comparison_denies) svg {
+  color: var(--od-color-red);
+}
+
+.metricHeading h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 0;
+  font-family: var(--od-font-family-futuristic);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.metricValues {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.metricValues > span:first-child,
+.metricValues > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metricValues > span:last-child {
+  text-align: right;
+}
+
+.metricValues small {
+  color: var(--od-text-color-secondary);
+  font-size: 13px;
+}
+
+.metricValues strong {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.sameRoleToggle {
+  font-family: var(--od-font-family-futuristic);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  color: var(--od-text-color-secondary);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.metricSummary {
+  font-family: var(--od-font-family-futuristic);
+  margin: 8px 0 0;
+  color: var(--od-text-color-secondary);
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.metricSummary ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
+.metricSummary li + li {
+  margin-top: 8px;
+}
+
+.metricSummary :global(.summary-item) {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metricSummary :global(.summary-intro),
+.metricSummary :global(.summary-item) > span {
+  line-height: 24px;
+}
+
+.metricSummary :global(.summary-keyword),
+.metricSummary :global(.summary-time),
+.metricSummary :global(.summary-hero) {
+  height: 24px;
+  line-height: 24px;
+}
+
+.metricSummary :global(.summary-keyword) {
+  font-weight: 700;
+  color: var(--od-color-white);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  vertical-align: middle;
+}
+
+.metricSummary :global(.summary-keyword) svg,
+.metricSummary :global(.summary-keyword) img {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.metricSummary :global(.summary-time) svg {
+  width: 16px;
+  height: 16px;
+  color: var(--od-color-blue);
+}
+
+.metricSummary :global(.summary-time) {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  vertical-align: middle;
+  color: var(--od-text-color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.metricSummary :global(.comparison_level) svg {
+  color: var(--od-color-blue);
+}
+
+.metricSummary :global(.comparison_gold) svg {
+  color: var(--od-golden);
+}
+
+.metricSummary :global(.comparison_last_hits) svg {
+  color: var(--od-color-green);
+}
+
+.metricSummary :global(.comparison_denies) svg {
+  color: var(--od-color-red);
+}
+
+.metricSummary :global(.summary-hero) {
+  font-weight: 700;
+  color: var(--od-color-white);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  vertical-align: middle;
+}
+
+.metricSummary :global(.summary-hero) img {
+  border-radius: 3px;
+}

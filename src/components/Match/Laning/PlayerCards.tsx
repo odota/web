@@ -5,28 +5,15 @@
 
 import React from "react";
 import { heroes } from "dotaconstants";
-import styled from "styled-components";
 import config from "../../../config";
 import { getPlayerIdentity, getLevelAtMinute, formatStat, getPlayerRoles, getRoleLabels } from "./laning.utils";
 import useStrings from "../../../hooks/useStrings.hook";
-import constants from "../../constants";
+import styles from "./PlayerCards.module.css";
 
 
 import { StyledLineWinnerSpan } from "../StyledMatch";
 
 import { PlayerCard, PlayerHeader, Stats } from "./StyledLaneMatchups";
-
-/** Separates the alternative player-card layout by team. */
-const TeamSection = styled.section`
-  & + & { margin-top: 24px; padding-top: 24px; border-top: 1px solid ${constants.dividerColor}; }
-  h3 { margin: 0 0 12px; font-size: 14px; }
-`;
-/** Arranges alternative player cards responsively. */
-const PlayerGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 14px;
-`;
 
 type PlayerCardsProps = {
   match: Match;
@@ -78,12 +65,12 @@ const PlayerCards = ({ match, selectedPlayer, onSelectPlayer }: PlayerCardsProps
 
   return <>
     {[true, false].map((isRadiant) => (
-      <TeamSection key={String(isRadiant)}>
+      <section className={styles.teamSection} key={String(isRadiant)}>
         <h3>{isRadiant ? strings.general_radiant : strings.general_dire}</h3>
-        <PlayerGrid>
+        <div className={styles.playerGrid}>
           {match.players.filter((player) => player.isRadiant === isRadiant).map(renderPlayer)}
-        </PlayerGrid>
-      </TeamSection>
+        </div>
+      </section>
     ))}
   </>;
 };

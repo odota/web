@@ -1,22 +1,6 @@
 import React from "react";
 import WarningIcon from "@mui/icons-material/Warning";
-import styled from "styled-components";
-import constants from "../constants";
-
-const StyledDiv = styled.div`
-  font-weight: ${constants.fontWeightLight};
-  font-size: ${constants.fontSizeMedium};
-  letter-spacing: 0.1ex;
-
-  & svg {
-    vertical-align: sub;
-    margin-right: 5px;
-    width: 16px !important;
-    height: 16px !important;
-    fill: ${constants.colorYelor} !important;
-  }
-  color: ${constants.colorYelor};
-`;
+import styles from "./Warning.module.css";
 
 const Warning = ({
   children,
@@ -27,13 +11,13 @@ const Warning = ({
   className: string;
   msg?: string;
 }) => (
-  <StyledDiv className={`${className}`}>
+  <div className={`${styles.styledDiv} ${className || ""}`}>
     <WarningIcon />
     <span>
       {!children && msg}
       {!msg && children}
     </span>
-  </StyledDiv>
+  </div>
 );
 
 export default Warning;

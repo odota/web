@@ -1,28 +1,10 @@
 import React from "react";
-import styled from "styled-components";
 import AttributeMain from "./AttributeMain";
-import constants from "../constants";
-
-const AttributesWrapper = styled.div`
-  background: rgba(0, 0, 0, 0.45);
-  border-radius: 8px;
-  display: block;
-  margin: auto;
-  max-width: 300px;
-  padding: 12px;
-`;
-
-const MainAttributesBlock = styled.div`
-  display: flex;
-
-  @media screen and (max-width: ${constants.wrapTablet}) {
-    display: block;
-  }
-`;
+import styles from "./AttributesMain.module.css";
 
 const HeroAttributes = ({ hero }: { hero: Hero }) => (
-  <AttributesWrapper>
-    <MainAttributesBlock>
+  <div className={styles.attributesWrapper}>
+    <div className={styles.mainAttributesBlock}>
       <AttributeMain
         attribute="str"
         isPrimary={hero.primary_attr === "str"}
@@ -41,8 +23,8 @@ const HeroAttributes = ({ hero }: { hero: Hero }) => (
         base={hero.base_int}
         gain={hero.int_gain}
       />
-    </MainAttributesBlock>
-  </AttributesWrapper>
+    </div>
+  </div>
 );
 
 export default HeroAttributes;

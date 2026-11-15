@@ -1,0 +1,129 @@
+.styledDiv {
+  display: flex;
+  align-items: center;
+}
+
+.styledDiv:global(.top-heading) {
+  width: 100vw;
+  position: relative;
+  margin: 0px -50vw 0px -50vw;
+  left: 50%;
+  right: 50%;
+  padding: 15px 0px 15px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: baseline;
+  letter-spacing: 10px;
+  font-weight: bold;
+  background-color: var(--od-color-header-section);
+  font-family: var(--od-font-family-futuristic);
+}
+
+.styledDiv :global(.winner) {
+  position: relative;
+  bottom: 1px;
+  color: var(--od-color-green-dark);
+  background: var(--od-color-green);
+  border: 0px solid var(--od-color-green);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px;
+  padding-right: 4px;
+  margin-left: 10px;
+  margin-right: 5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.styledDiv :global(.winner):after {
+  right: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-right-color: var(--od-color-green);
+  border-width: 8px;
+  margin-top: -8px;
+}
+
+.styledDiv svg {
+  height: 20px !important;
+  width: 20px !important;
+  opacity: 0.8;
+  fill: var(--od-text-color-primary);
+}
+
+.styledDiv a {
+  color: var(--od-primary-text-color);
+  text-decoration: none;
+}
+
+.styledDiv a:hover {
+  color: var(--od-primary-link-color);
+}
+
+.styledDiv :global(.title) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-common);
+  font-weight: 400;
+  letter-spacing: 0.002em;
+  line-height: 1.6;
+}
+
+.styledDiv :global(.title)::before {
+  margin-right: 8px;
+  font-size: 1rem;
+}
+
+.styledDiv :global(.subtitle) {
+  margin-left: 8px;
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-small);
+  color: var(--od-color-grey-muted);
+  letter-spacing: normal;
+  font-weight: normal;
+  overflow-wrap: normal;
+  padding-right: 10px;
+}
+
+.styledDiv :global(.sponsor-button) {
+  margin: 0px 5px;
+}
+
+/* Material-ui buttons */
+@media only screen and (max-width: 620px) {
+  .styledDiv :global(.sponsor-button) a {
+    min-width: 24px !important;
+  }
+
+  .styledDiv :global(.sponsor-button) a span {
+    font-size: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 12px !important;
+  }
+}
+
+.styledDiv :global(.info) {
+  margin-left: 5px;
+  font-size: var(--od-font-size-medium);
+  color: var(--od-color-muted);
+  border-bottom: 1px dotted var(--od-color-muted);
+}
+
+.twoLineDiv {
+  text-align: center;
+  padding: 10px 0 15px;
+}
+
+.twoLineDiv span:last-child {
+  display: block;
+  text-transform: lowercase;
+}

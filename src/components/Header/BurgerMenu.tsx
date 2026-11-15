@@ -1,16 +1,7 @@
 import React from "react";
 import { Drawer, Menu, MenuItem, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import styled from "styled-components";
-import constants from "../constants";
-
-const StyledDrawer = styled(Drawer)`
-  background-color: ${constants.defaultPrimaryColor} !important;
-`;
-
-const StyledMenuItem = styled(MenuItem)`
-  display: block;
-`;
+import styles from "./BurgerMenu.module.css";
 
 type BurgerMenuProps = { menuItems: any[] };
 
@@ -28,7 +19,8 @@ export default class BurgerMenu extends React.Component<BurgerMenuProps> {
         <IconButton onClick={this.handleToggle}>
           <MenuIcon />
         </IconButton>
-        <StyledDrawer
+        <Drawer
+          className={styles.drawer}
           open={this.state.open}
           onChange={(open) => this.setState({ open })}
         >
@@ -38,13 +30,13 @@ export default class BurgerMenu extends React.Component<BurgerMenuProps> {
                 style: { width: "100%", display: "block" },
               });
               return (
-                <StyledMenuItem key={item.key} onClick={this.handleClose}>
+                <MenuItem className={styles.menuItem} key={item.key} onClick={this.handleClose}>
                   {linkElement}
-                </StyledMenuItem>
+                </MenuItem>
               );
             })}
           </Menu>
-        </StyledDrawer>
+        </Drawer>
       </div>
     );
   }

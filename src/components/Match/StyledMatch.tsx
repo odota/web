@@ -1,481 +1,122 @@
-import styled from "styled-components";
-import constants from "../constants";
+import React from "react";
+import styles from "./StyledMatch.module.css";
 
-export const StyledPlayerColor = styled.span<{ color: string }>`
-  display: inline-block;
-  width: 6px;
-  height: 24px;
-  border-radius: 3px;
-  background-color: ${(props) => props.color};
-  vertical-align: middle;
-`;
+export const StyledPlayerColor: React.FC<
+  React.HTMLAttributes<HTMLSpanElement> & { color: string }
+> = ({ color, className, style, ...props }) => (
+  <span
+    className={`${styles.styledPlayerColor}${className ? ` ${className}` : ""}`}
+    style={{ backgroundColor: color, ...style }}
+    {...props}
+  />
+);
 
-export const StyledAbilityUpgrades = styled.div`
-  margin: -8px;
+const createStyledDiv =
+  (cls: string): React.FC<React.HTMLAttributes<HTMLDivElement>> =>
+  ({ className, ...props }) => (
+    <div className={`${cls}${className ? ` ${className}` : ""}`} {...props} />
+  );
 
-  & .ability {
-    position: relative;
-    display: inline-block;
+const createStyledSpan =
+  (cls: string): React.FC<React.HTMLAttributes<HTMLSpanElement>> =>
+  ({ className, ...props }) => (
+    <span className={`${cls}${className ? ` ${className}` : ""}`} {...props} />
+  );
 
-    &:first-of-type {
-      margin-left: 0;
-    }
+export const StyledAbilityUpgrades = createStyledDiv(
+  styles.styledAbilityUpgrades,
+);
 
-    &:last-of-type {
-      margin-right: 0;
-    }
+export const StyledAghanimsBuffs = createStyledDiv(styles.styledAghanimsBuffs);
 
-    & > div {
-      background-color: ${constants.darkPrimaryColor};
-      height: 30px;
-      width: 30px;
-      text-align: center;
-      bottom: 0;
-      left: 0;
-      font-size: 10px;
-    }
+export const StyledLevel = createStyledDiv(styles.styledLevel);
 
-    & .placeholder {
-      background-color: transparent;
-    }
+export const StyledCosmetic = createStyledDiv(styles.styledCosmetic);
+
+export const StyledUnusedItem = createStyledDiv(styles.styledUnusedItem);
+
+export const StyledGoldIcon = createStyledSpan(styles.styledGoldIcon);
+
+export const StyledRunes = createStyledDiv(styles.styledRunes);
+
+export const StyledDivClearBoth = createStyledDiv(styles.styledDivClearBoth);
+
+export const StyledBackpack = createStyledDiv(styles.styledBackpack);
+
+export const StyledFlexContainer = createStyledDiv(styles.styledFlexContainer);
+
+export const StyledFlexElement = createStyledDiv(styles.styledFlexElement);
+
+export const StyledFlexElementFullWidth = createStyledDiv(
+  styles.styledFlexElementFullWidth,
+);
+
+export const StyledTeamIconContainer = createStyledSpan(
+  styles.styledTeamIconContainer,
+);
+
+export const StyledPlayersDeath = createStyledDiv(styles.styledPlayersDeath);
+
+export const StyledDeathsSummary = createStyledDiv(styles.styledDeathsSummary);
+
+export const StyledEmote: React.FC<
+  React.ImgHTMLAttributes<HTMLImageElement> & { emote?: string }
+> = ({ emote, alt, src, className, ...props }) => (
+  <img
+    alt={alt ?? emote}
+    src={src ?? `/assets/images/dota2/emoticons/${emote}.gif`}
+    className={`${styles.styledEmote}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
+
+export const StyledStorySpan: React.FC<
+  React.HTMLAttributes<HTMLSpanElement> & { isRadiant?: boolean }
+> = ({ isRadiant, className, ...props }) => (
+  <span
+    className={`${styles.styledStorySpan}${isRadiant ? ` ${styles.radiant}` : ""}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
+
+export const StyledStoryWrapper = createStyledDiv(styles.styledStoryWrapper);
+
+export const StyledStoryNetWorthBar = createStyledDiv(
+  styles.styledStoryNetWorthBar,
+);
+
+export const StyledStoryNetWorthText: React.FC<
+  React.HTMLAttributes<HTMLDivElement> & {
+    color?: string;
+    left?: number;
+    width?: number;
   }
+> = ({ color, left, width, className, style, ...props }) => (
+  <div
+    className={`${styles.styledStoryNetWorthText}${className ? ` ${className}` : ""}`}
+    style={{
+      ...(color ? { backgroundColor: color } : {}),
+      ...(left ? { left: `${left}%` } : {}),
+      ...(width !== undefined ? { width: `${width}%` } : {}),
+      ...style,
+    }}
+    {...props}
+  />
+);
 
-  /* React-tooltip ability upgrades */
-  & > div {
-    pointer-events: auto !important;
-    /*margin-left: 3px !important;
-    margin-top: 1px !important;
-    /*padding: 6px 12px 2px !important;*/
+export const StyledStoryGoldAmount = createStyledSpan(
+  styles.styledStoryGoldAmount,
+);
 
-    &:hover {
-      visibility: visible !important;
-      opacity: 1 !important;
-    }
+export const StyledLogFilterForm = createStyledDiv(styles.styledLogFilterForm);
 
-    &::after {
-      border-width: 20px !important;
-      right: 0 !important;
-      top: 0 !important;
-    }
-  }
+export const StyledDmgTargetInflictor = createStyledDiv(
+  styles.styledDmgTargetInflictor,
+);
 
-  & svg {
-    padding-left: 7px;
-  }
-`;
-
-export const StyledAghanimsBuffs = styled.div`
-  min-height: 44px;
-
-  > img {
-    width: 24px;
-  }
-
-  .__react_component_tooltip {
-    opacity: 1 !important;
-    padding: 0px !important;
-  }
-`;
-
-export const StyledLevel = styled.div`
-  display: flex;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-
-  .circular_chart {
-    position: absolute;
-    fill: none;
-    width: 70%;
-  }
-
-  .circle {
-    stroke: #a9a9a94d;
-    stroke-width: 2.8;
-    stroke-linecap: round;
-  }
-`;
-
-export const StyledCosmetic = styled.div`
-  display: inline-block;
-  margin: 5px;
-
-  & img {
-    height: 42px;
-  }
-
-  & > div {
-    font-size: ${constants.fontSizeCommon};
-
-    & span > span {
-      font-size: ${constants.fontSizeSmall};
-      color: ${constants.colorMutedLight};
-      text-transform: capitalize;
-      display: block;
-    }
-  }
-
-  & a {
-    transition: ${constants.normalTransition};
-    position: relative;
-
-    &:hover {
-      cursor: pointer;
-      opacity: 0.8;
-
-      & svg {
-        display: block !important;
-      }
-    }
-  }
-
-  & svg {
-    position: absolute;
-
-    /* override material-ui */
-    fill: ${constants.primaryLinkColor} !important;
-    display: none !important;
-    width: 18px !important;
-    height: 18px !important;
-    filter: drop-shadow(0 0 3px ${constants.darkPrimaryColor});
-    right: 2px;
-    bottom: 6px;
-  }
-`;
-
-export const StyledUnusedItem = styled.div`
-  display: inline-block;
-  vertical-align: middle;
-`;
-
-export const StyledGoldIcon = styled.span`
-  img {
-    height: 10px;
-    margin-right: 4px;
-  }
-`;
-export const StyledRunes = styled.div`
-  display: inline-block;
-
-  & img {
-    height: 24px;
-    vertical-align: middle;
-    margin-right: 5px;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.08));
-  }
-
-  & span {
-    text-transform: none;
-    font-weight: ${constants.fontWeightNormal};
-  }
-`;
-
-export const StyledDivClearBoth = styled.div`
-  min-width: 240px;
-  > div {
-    clear: both;
-  }
-`;
-export const StyledBackpack = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-
-  & > div {
-    position: relative;
-
-    &[data-hint] {
-      &::before {
-        left: 14px;
-      }
-
-      &::after {
-        margin-left: -34px;
-      }
-    }
-  }
-
-  & svg {
-    position: relative;
-    top: 2px;
-    width: 17px;
-    height: 16px;
-    fill: ${constants.colorMutedLight};
-    margin: 0 4px 0 0;
-  }
-`;
-export const StyledFlexContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  overflow: visible;
-
-  @media only screen and (min-width: 800px) {
-    flex-direction: row;
-  }
-`;
-export const StyledFlexElement = styled.div`
-  flex: 1;
-  margin-right: 5px;
-`;
-export const StyledFlexElementFullWidth = styled.div`
-  margin-right: 5px;
-  width: 100%;
-`;
-
-export const StyledTeamIconContainer = styled.span`
-  vertical-align: top;
-  height: 26px !important;
-  width: 26px !important;
-  margin-right: 6px;
-  opacity: 0.8;
-  fill: ${constants.textColorPrimary};
-`;
-export const StyledPlayersDeath = styled.div`
-  position: relative;
-  float: left;
-  margin: 1px;
-  height: 29px;
-
-  & img {
-    height: 29px;
-  }
-`;
-export const StyledDeathsSummary = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  max-width: 260px;
-
-  & .death {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 34px;
-
-    & img,
-    & svg {
-      height: 18px;
-      width: auto;
-      border-radius: 2px;
-    }
-
-    & span {
-      font-size: 10px;
-      margin-top: 1px;
-      color: ${constants.colorMutedLight};
-    }
-  }
-`;
-export const StyledEmote = styled.img.attrs<{ emote?: string }>({
-  alt: (props: { emote?: string }) => props.emote,
-  src: (props: { emote?: string }) =>
-    `/assets/images/dota2/emoticons/${props.emote}.gif`,
-})`
-  width: 20px;
-  height: 20px;
-  vertical-align: bottom;
-`;
-
-export const StyledStorySpan = styled.span<{ isRadiant?: boolean }>`
-  white-space: nowrap;
-  color: ${(props) =>
-    props.isRadiant ? constants.colorGreen : constants.colorRed};
-  svg,
-  img {
-    vertical-align: middle;
-    max-height: 20px;
-    margin-right: 4px;
-    fill: ${constants.textColorPrimary};
-
-    @media only screen and (max-width: 768px) {
-      height: 16px;
-    }
-  }
-  svg {
-    opacity: 0.8;
-    height: 20px;
-  }
-`;
-export const StyledStoryWrapper = styled.div`
-  margin: auto;
-  width: 50vw;
-  padding: 24px 36px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.4);
-  font-family: ${constants.fontFamily};
-  font-size: ${constants.fontSizeCommon};
-  line-height: 2;
-
-  .event {
-    ul {
-      li {
-        margin-top: 8px;
-      }
-    }
-  }
-
-  @media only screen and (max-width: 768px) {
-    width: 90vw;
-    font-size: ${constants.fontSizeMedium};
-  }
-`;
-export const StyledStoryNetWorthBar = styled.div`
-  margin-top: 8px;
-  margin-bottom: 24px;
-  display: flex;
-  position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    width: 4px;
-    height: 13px;
-    background-color: white;
-    left: 50%;
-    margin-left: -2px;
-  }
-
-  > div {
-    display: inline-block;
-    height: 5px;
-
-    @media only screen and (max-width: 768px) {
-      height: 3px;
-    }
-  }
-
-  > div:first-child {
-    border-bottom-left-radius: 8px;
-    border-top-left-radius: 8px;
-  }
-
-  > div:last-child {
-    border-bottom-right-radius: 8px;
-    border-top-right-radius: 8px;
-  }
-`;
-export const StyledStoryNetWorthText = styled.div<{
-  color?: string;
-  left?: number;
-  width?: number;
-}>`
-  position: relative;
-  display: flex;
-  text-align: center;
-  ${(props) => (props.color ? `background-color:${props.color}` : "")};
-  ${(props) => (props.left ? `left:${props.left}%` : "")};
-  width: ${(props) => props.width}%;
-  font-weight: 600;
-
-  > div {
-    display: inline-block;
-  }
-
-  > div:nth-child(2) {
-    position: absolute;
-    transform: translateX(-50%);
-
-    @media only screen and (max-width: 768px) {
-      display: none;
-    }
-  }
-`;
-export const StyledStoryGoldAmount = styled.span`
-  color: ${constants.colorGolden};
-`;
-export const StyledLogFilterForm = styled.div`
-  max-width: 900px;
-  display: flex;
-  flex-direction: row;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
-  flex-wrap: wrap;
-  border-radius: 4px;
-  border: 1px solid rgb(255, 255, 255, 0.06);
-  background: ${constants.colorBoxBlue};
-
-  & > div {
-    padding: 10px;
-  }
-
-  & .title {
-    width: 100%;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 0.08em;
-    color: rgba(255, 255, 255, 0.6);
-    border-bottom: 1px solid rgb(255, 255, 255, 0.06);
-  }
-`;
-
-export const StyledDmgTargetInflictor = styled.div`
-  .inflictorWithValue {
-    object {
-      max-width: 27px !important;
-    }
-  }
-`;
-
-export const StyledDmgTargetRow = styled.div`
-  > div {
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-
-  #heroTargetValue {
-    display: none;
-  }
-
-  #row:hover {
-    svg {
-      opacity: 1 !important;
-      transition: opacity 0.2s ease !important;
-      backface-visibility: hidden;
-    }
-
-    #target {
-      img {
-        background: rgba(74, 149, 247, 0.5) !important;
-        transition: background 0.2s ease !important;
-        box-shadow: 0px 0px 10px rgba(74, 149, 247, 0.5);
-      }
-    }
-
-    #targetvalue {
-      background-color: black !important;
-    }
-
-    #heroTargetValue {
-      display: inline !important;
-    }
-
-    #totalValue {
-      display: none !important;
-    }
-
-    .inflictorWithValue {
-      & .overlay {
-        background-color: black;
-      }
-    }
-  }
-`;
+export const StyledDmgTargetRow = createStyledDiv(styles.styledDmgTargetRow);
 
 /** Displays a compact “Won the lane” badge for players whose side won the recorded lane. */
-export const StyledLineWinnerSpan = styled.span`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3px 9px;
-  border-radius: 999px;
-  background: rgba(76, 175, 80, 0.12);
-  color: ${constants.colorSuccess};
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.5;
-`;
+export const StyledLineWinnerSpan = createStyledSpan(
+  styles.styledLineWinnerSpan,
+);
