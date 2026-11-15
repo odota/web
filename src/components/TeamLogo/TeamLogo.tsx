@@ -5,7 +5,7 @@
  */
 
 import React, { useEffect, useState } from "react";
-import GroupsIcon from "@mui/icons-material/Groups";
+import { GroupsIcon } from "../ui";
 import config from "../../config";
 import { getTeamLogoUrl } from "../../utility";
 

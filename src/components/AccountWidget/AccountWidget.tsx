@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button } from "../ui";
 import React from "react";
 import { connect } from "react-redux";
 

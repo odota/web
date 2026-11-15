@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { FormControlLabel, Switch } from "@mui/material";
+import { FormControlLabel, Switch } from "../ui";
 
 import { useStrings } from "../../hooks/useStrings.hook";
 import constants from "../constants";

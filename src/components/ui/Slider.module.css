@@ -1,0 +1,51 @@
+.root {
+  position: relative;
+  width: 100%;
+  padding: 12px 0;
+  user-select: none;
+  touch-action: none;
+}
+
+.trackContainer {
+  position: relative;
+  height: 4px;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+}
+
+.trackActive {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-radius: 2px;
+  background-color: var(--od-color-blue);
+}
+
+.thumb {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--od-color-blue);
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+  transition: box-shadow 150ms;
+}
+
+.thumb:hover,
+.thumb:focus-visible {
+  box-shadow: 0 0 0 6px rgba(102, 187, 255, 0.2);
+  outline: none;
+}
+
+.markLabel {
+  position: absolute;
+  top: 18px;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: var(--od-text-color-secondary);
+  white-space: nowrap;
+}

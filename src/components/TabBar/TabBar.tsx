@@ -1,4 +1,4 @@
-import { Tab, Tabs, Tooltip } from "@mui/material";
+import { Tab, Tabs, Tooltip } from "../ui";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import constants from "../constants";

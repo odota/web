@@ -1,6 +1,5 @@
 import React from "react";
-import { Drawer, Menu, MenuItem, IconButton } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Drawer, Menu, MenuItem, IconButton, MenuIcon } from "../ui";
 import styles from "./BurgerMenu.module.css";
 
 type BurgerMenuProps = { menuItems: any[] };
@@ -22,7 +21,7 @@ export default class BurgerMenu extends React.Component<BurgerMenuProps> {
         <Drawer
           className={styles.drawer}
           open={this.state.open}
-          onChange={(open) => this.setState({ open })}
+          onClose={this.handleClose}
         >
           <Menu open={this.state.open}>
             {this.props.menuItems.map((item) => {

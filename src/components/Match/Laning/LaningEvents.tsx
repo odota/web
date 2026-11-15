@@ -1,7 +1,5 @@
 import React from "react";
-import SvgIcon from "@mui/material/SvgIcon";
-import BoltIcon from "@mui/icons-material/Bolt";
-import LayersIcon from "@mui/icons-material/Layers";
+import { SvgIcon, BoltIcon, LayersIcon } from "../../ui";
 import { player_colors as playerColors } from "dotaconstants";
 import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";

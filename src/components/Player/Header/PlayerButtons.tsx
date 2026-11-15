@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Box } from "@mui/material";
-import { Button } from "@mui/material";
-import RefreshIcon from "@mui/icons-material/Refresh";
+import { Box, Button, RefreshIcon } from "../../ui";
 import { toggleShowForm as toggleShowFormAction } from "../../../actions/formActions";
 import GamemodeToggle from "../../GamemodeToggle/GamemodeToggle";
 import config from "../../../config";

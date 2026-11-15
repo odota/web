@@ -1,7 +1,5 @@
 import React from "react";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import GpsFixedIcon from "@mui/icons-material/GpsFixed";
-import LayersIcon from "@mui/icons-material/Layers";
+import { TrendingUpIcon, GpsFixedIcon, LayersIcon } from "../../ui";
 import constants from "../../constants";
 
 const tooltipIconStyle: React.CSSProperties = {

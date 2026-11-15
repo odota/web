@@ -1,5 +1,5 @@
 import React from "react";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import { ArrowDropUpIcon } from "../../ui";
 import constants from "../../constants";
 
 /** Shows the lead over the following row; the last row and ties have no gap. */

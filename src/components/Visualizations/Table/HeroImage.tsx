@@ -1,14 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import ReactTooltip from "react-tooltip";
-import { Tooltip } from "@mui/material";
-import DoneAllIcon from "@mui/icons-material/DoneAll";
+import { Tooltip, DoneAllIcon, MilitaryTechIcon, SyncIcon, DirectionsRunIcon, ShieldOutlinedIcon, StraightenIcon, HowToRegIcon } from "../../ui";
 import { player_colors as playerColors } from "dotaconstants";
-import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
-import SyncIcon from "@mui/icons-material/Sync";
-import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
-import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined";
-import StraightenIcon from "@mui/icons-material/Straighten";
 import { subTextStyle, IMAGESIZE_ENUM } from "../../../utility";
 import styles from "./HeroImage.module.css";
 import TableLink from "../../Table/TableLink";
@@ -29,7 +23,6 @@ import AttrUniversal from "../../Icons/AttrUniversal";
 import HeroImage from "../HeroImage";
 import HeroFacet from "./HeroFacet";
 import useStrings from "../../../hooks/useStrings.hook";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
 
 // hero to use as background image in tooltip
 const backgroundMapping = {

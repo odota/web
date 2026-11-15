@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button } from "@mui/material";
+import { Button } from "../ui";
 import Helmet from "react-helmet";
 import querystring from "querystring";
 import ExplorerOutputSection from "../Explorer/ExplorerOutputSection";

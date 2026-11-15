@@ -5,7 +5,7 @@
 
 import { heroes, player_colors as playerColors } from "dotaconstants";
 import React, { useState } from "react";
-import { Switch } from "@mui/material";
+import { Switch } from "../../ui";
 import { TooltipTotalToggle, RoleCaption, NoMatchingPlayers } from "./StyledGraph";
 import HeroLegendLabel from "../../Visualizations/Graph/HeroLegendLabel";
 import { Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";

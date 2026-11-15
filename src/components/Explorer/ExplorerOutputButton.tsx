@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button } from "../ui";
 
 const ExplorerOutputButton = ({
   defaultSelected,

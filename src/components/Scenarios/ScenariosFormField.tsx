@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, TextField } from "../ui";
 import getFormFieldData from "./FormFieldData";
 
 const hintTexts = (strings: Strings) => ({

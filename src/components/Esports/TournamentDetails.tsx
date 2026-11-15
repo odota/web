@@ -5,7 +5,7 @@
  */
 
 import React, { useState } from "react";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { CalendarMonthIcon } from "../ui";
 import useStrings from "../../hooks/useStrings.hook";
 import constants from "../constants";
 import TeamLogo from "../TeamLogo/TeamLogo";

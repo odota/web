@@ -1,10 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import DataObjectIcon from "@mui/icons-material/DataObject";
-import DownloadIcon from "@mui/icons-material/Download";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { Button, RefreshIcon, DataObjectIcon, DownloadIcon, ContentCopyIcon } from "../../ui";
 import { transformations, isRadiant, sum } from "../../../utility";
 import { IconRadiant, IconDire } from "../../Icons";
 import Warning from "../../Alerts/Warning";

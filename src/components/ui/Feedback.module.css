@@ -1,0 +1,109 @@
+.circular {
+  display: inline-block;
+  color: var(--od-color-blue);
+}
+
+.circularIndeterminate {
+  animation: ui-spin 1.4s linear infinite;
+}
+
+.circularSvg {
+  display: block;
+}
+
+.circularCircle {
+  stroke: currentColor;
+  stroke-linecap: round;
+}
+
+@keyframes ui-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.linearRoot {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  height: 4px;
+  border-radius: 2px;
+  background-color: rgba(102, 187, 255, 0.2);
+}
+
+.linearBar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: var(--od-color-blue);
+  transition: transform 200ms linear;
+}
+
+.linearIndeterminate {
+  width: 40%;
+  animation: ui-linear-indeterminate 1.4s infinite ease-in-out;
+}
+
+@keyframes ui-linear-indeterminate {
+  0% {
+    left: -40%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.skeleton {
+  display: block;
+  background-color: rgba(255, 255, 255, 0.11);
+  border-radius: 4px;
+  animation: ui-pulse 1.5s ease-in-out 0.5s infinite;
+}
+
+.skeletonCircular {
+  border-radius: 50%;
+}
+
+@keyframes ui-pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  color: var(--od-primary-text-color);
+  background-color: rgba(2, 136, 209, 0.18);
+  border: 1px solid rgba(2, 136, 209, 0.4);
+}
+
+.alertError {
+  background-color: rgba(211, 47, 47, 0.18);
+  border-color: rgba(211, 47, 47, 0.45);
+}
+
+.alertWarning {
+  background-color: rgba(237, 108, 2, 0.18);
+  border-color: rgba(237, 108, 2, 0.45);
+}
+
+.alertSuccess {
+  background-color: rgba(46, 125, 50, 0.18);
+  border-color: rgba(46, 125, 50, 0.45);
+}

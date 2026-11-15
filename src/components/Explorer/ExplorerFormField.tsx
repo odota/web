@@ -1,5 +1,5 @@
 import React from "react";
-import { Autocomplete, Chip, TextField } from "@mui/material";
+import { Autocomplete, Chip, TextField } from "../ui";
 import { DatePicker } from "./DatePicker";
 
 type ExplorerFormFieldProps = {

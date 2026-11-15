@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Slider } from "@mui/material";
+import { Slider } from "../../ui";
 import { formatSeconds, rangeStep } from "../../../utility";
 import VisionFilter from "./VisionFilter";
 import VisionItems from "./VisionItems";

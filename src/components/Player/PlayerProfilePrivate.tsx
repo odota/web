@@ -1,6 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
-import LockIcon from "@mui/icons-material/Lock";
+import { Button, LockIcon } from "../ui";
 import config from "../../config";
 import useStrings from "../../hooks/useStrings.hook";
 import styles from "./PlayerProfilePrivate.module.css";

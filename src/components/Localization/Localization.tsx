@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemButton,
-  ListItemText,
-  Collapse,
-} from "@mui/material";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import Translate from "@mui/icons-material/Translate";
+import { List, ListItem, ListItemIcon, ListItemButton, ListItemText, Collapse, ExpandMoreIcon as ExpandMore, ExpandLessIcon as ExpandLess, TranslateIcon as Translate } from "../ui";
 import { langs } from "../../lang";
 import constants from "../constants";
 import { useStrings } from "../../hooks/useStrings.hook";

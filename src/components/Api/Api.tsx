@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Helmet from "react-helmet";
-import { Alert, CircularProgress } from "@mui/material";
-import { Button } from "@mui/material";
+import { Alert, CircularProgress, Button } from "../ui";
 import { LoadingOverlayUpper30 } from "../LoadingOverlay";
 import { IconSteam } from "../Icons";
 import config from "../../config";

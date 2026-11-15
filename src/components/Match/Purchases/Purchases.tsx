@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { FormControlLabel, Switch } from "@mui/material";
+import { FormControlLabel, Switch } from "../../ui";
 import TeamTable from "../TeamTable";
 import mcs from "../matchColumns";
 import config from "../../../config";

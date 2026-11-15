@@ -5,7 +5,7 @@
 
 import { formatTemplateToString } from "../../../utility";
 import React from "react";
-import Tooltip from "@mui/material/Tooltip";
+import { Tooltip } from "../../ui";
 import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
 import Heading from "../../Heading/Heading";

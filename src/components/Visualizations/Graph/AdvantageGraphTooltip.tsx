@@ -6,7 +6,7 @@
 import React from "react";
 import TooltipMetricIcon from "./TooltipMetricIcon";
 import constants from "../../constants";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { AccessTimeIcon } from "../../ui";
 import useStrings from "../../../hooks/useStrings.hook";
 import { LaningTooltip, DifferenceRow, DifferenceValue } from "../../Match/Laning/StyledGraph";
 

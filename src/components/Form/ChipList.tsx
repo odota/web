@@ -1,5 +1,5 @@
 import React from "react";
-import { Chip } from "@mui/material";
+import { Chip } from "../ui";
 
 const ChipList = ({
   chipList,

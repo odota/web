@@ -5,8 +5,7 @@
  */
 
 import React from "react";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { CalendarMonthIcon, ExpandMoreIcon } from "../ui";
 import { MatchSeries } from "../Matches/series";
 import { SeriesTeam } from "../Matches/Matches";
 import SeriesAccordion from "./SeriesAccordion";

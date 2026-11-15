@@ -5,12 +5,8 @@
 
 import { formatTemplate, unpackPositionData } from "../../../utility";
 import React, { useState } from "react";
-import LayersIcon from "@mui/icons-material/Layers";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import BoltIcon from "@mui/icons-material/Bolt";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import { LayersIcon, VisibilityIcon, BoltIcon, TrendingUpIcon, AccessTimeIcon } from "../../ui";
 import { IconRadiant, IconDire } from "../../Icons";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import config from "../../../config";
 import { player_colors as playerColors } from "dotaconstants";
 import constants from "../../constants";

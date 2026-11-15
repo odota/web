@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Avatar } from "@mui/material";
+import { Avatar } from "../../ui";
 import { rankTierToString } from "../../../utility";
 import ErrorBox from "../../Error/ErrorBox";
 import PlayerStats from "./PlayerStats";

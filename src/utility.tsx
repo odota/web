@@ -4,8 +4,7 @@ import {
   patch,
   xp_level as xpLevel,
 } from "dotaconstants";
-import GroupIcon from "@mui/icons-material/Group";
-import PersonIcon from "@mui/icons-material/Person";
+import { GroupIcon, PersonIcon } from "./components/ui";
 import querystring from "querystring";
 import React from "react";
 import { Link } from "react-router-dom";

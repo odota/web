@@ -1,5 +1,5 @@
 import React from "react";
-import { Tooltip } from "@mui/material";
+import { Tooltip } from "../ui";
 import { StyledHeaderCell } from "./Styled";
 import { getSortIcon } from "./tableHelpers";
 import { getColStyle } from "../../utility";

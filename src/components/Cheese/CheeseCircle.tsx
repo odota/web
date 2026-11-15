@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress } from "../ui";
 import Spinner from "../Spinner/Spinner";
 import Error from "../Error/Error";
 import { IconCheese } from "../Icons";

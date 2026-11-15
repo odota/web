@@ -1,5 +1,5 @@
 import React from "react";
-import WarningIcon from "@mui/icons-material/Warning";
+import { WarningIcon } from "../ui";
 import styles from "./Warning.module.css";
 
 const Warning = ({

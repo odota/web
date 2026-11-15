@@ -1,6 +1,5 @@
 import React from "react";
-import { Tooltip } from "@mui/material";
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import { Tooltip, AutoAwesomeIcon } from "../../ui";
 import { heroes } from "dotaconstants";
 import { Link } from "react-router-dom";
 import config from "../../../config";

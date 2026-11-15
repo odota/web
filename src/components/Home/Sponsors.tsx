@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button } from "../ui";
 import config from "../../config";
 import useStrings from "../../hooks/useStrings.hook";
 import styles from "./Sponsors.module.css";
