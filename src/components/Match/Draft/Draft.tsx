@@ -17,7 +17,11 @@ const TimeTracker = ({ step }: { step: DraftStep }) => (
   <div className={styles.timeTracker}>
     {step.timeTaken !== undefined && (
       <span className={styles.taken}>
-        <span className={step.timeTaken > STEP_TIME ? styles.extraUsed : ""}>
+        <span
+          className={
+            step.timeTaken > STEP_TIME ? `extra-used ${styles.extraUsed}` : ""
+          }
+        >
           {step.timeTaken}s
         </span>{" "}
         used
@@ -47,7 +51,7 @@ const DraftHero = ({ step }: { step: DraftStep }) => {
 
 const DraftRow = ({ step }: { step: DraftStep }) => (
   <tr
-    className={`${step.isRadiant ? "radiant" : "dire"} ${styles.draftRow}`}
+    className={`${step.isRadiant ? "radiant" : "dire"} draft-row ${styles.draftRow}`}
   >
     <td style={{ paddingLeft: 0 }}>
       {step.isRadiant && <DraftHero step={step} />}
