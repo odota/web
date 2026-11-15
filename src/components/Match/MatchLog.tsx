@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import ReactTooltip from "react-tooltip";
-import { Tooltip } from "@mui/material";
+import { Tooltip } from "../ui";
 import { heroes } from "dotaconstants";
 import {
   formatSeconds,

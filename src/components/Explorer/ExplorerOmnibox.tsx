@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField } from "@mui/material";
+import { TextField } from "../ui";
 import editDistance from "./editDistance";
 
 const ExplorerOmnibox = (context: any, expandedFields: any) => (

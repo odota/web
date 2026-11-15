@@ -10,7 +10,7 @@ import {
 } from "../../Icons";
 import constants from "../../constants";
 import useStrings from "../../../hooks/useStrings.hook";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
+import { HowToRegIcon } from "../../ui";
 import styles from "./PlayerBadges.module.css";
 
 export const PlayerBadgesIcons = ({

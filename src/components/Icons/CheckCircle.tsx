@@ -1,5 +1,5 @@
 import React from "react";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { CheckCircleIcon } from "../ui";
 
 export default (props: any) => (
   <CheckCircleIcon viewBox="2 2 20 20" {...props} />

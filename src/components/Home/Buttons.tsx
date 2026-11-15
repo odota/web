@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button } from "../ui";
 import { connect } from "react-redux";
 import { IconSteam } from "../Icons";
 import config from "../../config";

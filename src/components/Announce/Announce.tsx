@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from "react";
-import { Button } from "@mui/material";
+import { Button } from "../ui";
 import { connect } from "react-redux";
 import ReactMarkdown from "react-markdown";
 import { getGithubPulls } from "../../actions";

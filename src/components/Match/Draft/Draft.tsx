@@ -1,7 +1,6 @@
 import React from "react";
 import { heroes } from "dotaconstants";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import { KeyboardArrowRightIcon, KeyboardArrowLeftIcon } from "../../ui";
 import Heading from "../../Heading/Heading";
 import { IconRadiant, IconDire } from "../../Icons";
 import { getTeamName } from "../../../utility";

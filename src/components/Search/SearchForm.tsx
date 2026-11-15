@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { TextField } from "@mui/material";
+import { TextField } from "../ui";
 import querystring from "querystring";
 import { getSearchResultAndPros, setSearchQuery } from "../../actions";
 import constants from "../constants";

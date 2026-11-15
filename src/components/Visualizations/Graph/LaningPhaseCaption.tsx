@@ -5,11 +5,7 @@
 
 import { formatTemplateToString } from "../../../utility";
 import React, { useState } from "react";
-import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import Collapse from "@mui/material/Collapse";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { SwapHorizIcon, AccessTimeIcon, Collapse, useMediaQuery, ExpandMoreIcon } from "../../ui";
 import { heroes } from "dotaconstants";
 import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";

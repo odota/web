@@ -1,18 +1,4 @@
-import {
-  IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  Menu,
-  MenuItem,
-  SwipeableDrawer,
-} from "@mui/material";
-import BugReport from "@mui/icons-material/BugReport";
-import MenuIcon from "@mui/icons-material/Menu";
-import Settings from "@mui/icons-material/Settings";
-import LogoutIcon from "@mui/icons-material/Logout";
-import SearchIcon from "@mui/icons-material/Search";
-import { Toolbar } from "@mui/material";
+import { IconButton, List, ListItem, ListItemText, Menu, MenuItem, SwipeableDrawer, BugReportIcon as BugReport, MenuIcon, SettingsIcon as Settings, LogoutIcon, SearchIcon, Toolbar } from "../ui";
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -54,8 +40,8 @@ const LinkGroup = ({ navbarPages }: { navbarPages: any[] }) => (
 );
 
 const SettingsGroup = ({ children }: { children: React.ReactNode }) => {
-  const [anchorEl, setAnchorEl] = useState<HTMLAnchorElement | null>(null);
-  const buttonRef = useRef();
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleClose = useCallback(() => {
     setAnchorEl(null);
@@ -63,7 +49,6 @@ const SettingsGroup = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div>
-      {/*@ts-expect-error*/}
       <IconButton
         ref={buttonRef}
         aria-label="settings menu"

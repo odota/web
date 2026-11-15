@@ -1,0 +1,84 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1299;
+  background-color: transparent;
+}
+
+.drawerBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popoverPaper {
+  position: fixed;
+  z-index: 1300;
+  background-color: var(--od-primary-surface-color);
+  color: var(--od-primary-text-color);
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+}
+
+.menuList {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  min-width: 160px;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 16px;
+  border: 0;
+  background: transparent;
+  color: var(--od-primary-text-color);
+  font-family: var(--od-font-family), Roboto, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.menuItem:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.menuItem:focus-visible {
+  outline: 2px solid var(--od-color-blue);
+  outline-offset: -2px;
+}
+
+.menuItemSelected {
+  background-color: rgba(102, 187, 255, 0.16);
+}
+
+.drawerPaper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 1201;
+  background-color: var(--od-primary-surface-color);
+  color: var(--od-primary-text-color);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+  min-width: 240px;
+}
+
+.drawerLeft {
+  left: 0;
+}
+
+.drawerRight {
+  right: 0;
+}

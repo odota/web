@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox } from "@mui/material";
+import { Checkbox } from "../../ui";
 import Table from "../../Table/Table";
 import Heading from "../../Heading/Heading";
 

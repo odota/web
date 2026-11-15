@@ -1,6 +1,6 @@
 import React from "react";
 import ReactTooltip from "react-tooltip";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { ArrowForwardIcon } from "../ui";
 import { inflictorWithValue } from "../Visualizations";
 import { sumValues, getHeroesById, abbreviateNumber } from "../../utility";
 import { StyledDmgTargetInflictor, StyledDmgTargetRow } from "./StyledMatch";

@@ -1,7 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import { Button, KeyboardArrowRightIcon, KeyboardArrowLeftIcon } from "../ui";
 import useStrings from "../../hooks/useStrings.hook";
 import styles from "./Pagination.module.css";
 

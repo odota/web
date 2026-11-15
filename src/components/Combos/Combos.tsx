@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Button,
-  FormControlLabel,
-  Radio as RadioButton,
-  RadioGroup as RadioButtonGroup,
-  TextField,
-} from "@mui/material";
+import { Button, FormControlLabel, Radio as RadioButton, RadioGroup as RadioButtonGroup, TextField } from "../ui";
 import { heroes } from "dotaconstants";
 import querystring from "querystring";
 import { connect } from "react-redux";

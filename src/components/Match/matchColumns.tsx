@@ -1,5 +1,5 @@
 import React from "react";
-import { Tooltip } from "@mui/material";
+import { Tooltip, Radio as RadioButton, OpenInNewIcon } from "../ui";
 import {
   heroes,
   player_colors as playerColors,
@@ -8,8 +8,6 @@ import {
   permanent_buffs as buffs,
 } from "dotaconstants";
 import ReactTooltip from "react-tooltip";
-import { Radio as RadioButton } from "@mui/material";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import {
   formatSeconds,
   abbreviateNumber,

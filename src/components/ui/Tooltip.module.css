@@ -1,0 +1,34 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 1500;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background-color: rgba(15, 23, 42, 0.95);
+  color: rgba(255, 255, 255, 0.92);
+  font-family: var(--od-font-family), Roboto, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  max-width: 300px;
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  transform: translate(-50%, -100%);
+  white-space: normal;
+}
+
+.tooltipBottom {
+  transform: translate(-50%, 0);
+}
+
+.tooltipLeft {
+  transform: translate(-100%, -50%);
+}
+
+.tooltipRight {
+  transform: translate(0, -50%);
+}

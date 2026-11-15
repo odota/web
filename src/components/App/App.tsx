@@ -1,4 +1,3 @@
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import React, { Suspense } from "react";
 import Helmet from "react-helmet";
 import { Route, Switch, withRouter } from "react-router-dom";
@@ -6,7 +5,6 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import Combos from "../Combos/Combos";
 import Api from "../Api/Api";
 import Subscription from "../Subscription/Subscription";
-import constants from "../constants";
 import Distributions from "../Distributions/Distributions";
 import Footer from "../Footer/Footer";
 import FourOhFour from "../FourOhFour/FourOhFour";
@@ -29,36 +27,6 @@ import styles from "./App.module.css";
 const Esports = React.lazy(() => import("../Esports/Esports"));
 const Status = React.lazy(() => import("../Status/Status"));
 const Explorer = React.lazy(() => import("../Explorer/Explorer"));
-
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          display: "flex-inline",
-          alignItems: "center",
-          textTransform: "none",
-          fontFamily: constants.fontFamilyFuturistic,
-          fontSize: constants.fontSizeSmall,
-          fontWeight: 300,
-          "&:hover": {
-            backgroundColor: "transparent",
-            filter: "brightness(0.85)",
-          },
-        },
-        startIcon: {
-          marginRight: 2,
-          "& .MuiSvgIcon-root": {
-            fontSize: "1rem",
-          },
-        },
-      },
-    },
-  },
-});
 
 type AppProps = {
   location?: any;
@@ -109,8 +77,7 @@ const App = (props: AppProps) => {
   const includeAds = !["/", "/api-keys", "/status"].includes(location.pathname);
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <Suspense fallback={<Spinner />}>
+    <Suspense fallback={<Spinner />}>
         <div
           className={`${styles.styledDiv} ${open ? styles.styledDivOpen : ""} ${location?.pathname === "/" ? styles.styledDivHome : ""}`}
         >
@@ -186,9 +153,8 @@ const App = (props: AppProps) => {
             <div>&#9650;</div>
             <div id="back2TopTxt">{strings.back2Top}</div>
           </button>
-        </div>
-      </Suspense>
-    </ThemeProvider>
+      </div>
+    </Suspense>
   );
 };
 
