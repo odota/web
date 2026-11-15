@@ -27,11 +27,9 @@ const Styled = styled.section`
   font-family: ${constants.fontFamilyFuturistic}, sans-serif;
   font-size: 12px;
   line-height: 1.5;
-  /* Extend cards across the App body's 25px side gutters. */
-  .mobile-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; width: calc(100% + 50px); padding: 0; margin: 0 -25px; list-style: none; }
-  .mobile-match { display: block; box-sizing: border-box; width: 100%; padding: 24px 25px; border: 0; border-radius: 0; background: ${constants.primarySurfaceColor}; color: ${constants.textColorPrimary}; }
-  .mobile-list > li + li { border-top: 1px solid color-mix(in srgb, ${constants.colorBlueGray} 45%, ${constants.dividerColor}); }
-  .mobile-match:hover, .mobile-match:focus-visible { background: color-mix(in srgb, ${constants.primaryLinkColor} 9%, ${constants.primarySurfaceColor}); text-decoration: none; }
+  .mobile-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; width: calc(100% + 50px); padding: 0; margin: 0 -25px 20px; list-style: none; }
+  .mobile-match { display: block; overflow: hidden; box-sizing: border-box; width: 100%; border: 0; border-radius: 0; background: ${constants.primarySurfaceColor}; color: ${constants.textColorPrimary}; box-shadow: 0 12px 30px rgba(0, 0, 0, .10); }
+  .mobile-match:hover, .mobile-match:focus-visible { text-decoration: none; }
   a:focus-visible, button:focus-visible { outline: 2px solid ${constants.primaryLinkColor}; outline-offset: 2px; }
   .mobile-eyebrow { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; color: ${constants.textColorSecondary}; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
   .mobile-match-metadata { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; color: ${constants.textColorSecondary}; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
@@ -41,7 +39,30 @@ const Styled = styled.section`
   .mobile-mode svg, .mobile-duration svg { width: 16px; height: 16px; flex-shrink: 0; }
   .mobile-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; color: ${constants.textColorSecondary}; font-size: 11px; }
   .mobile-duration { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .mobile-teams { padding: 18px 0; }
+  .mobile-team { position: relative; padding: 12px 18px 12px 22px; border-left: 5px solid ${constants.colorRed}; }
+  .mobile-team.is-loser .mobile-team-name { color: ${constants.textColorSecondary}; }
+  .mobile-team:first-child { border-left-color: ${constants.colorGreen}; }
   .mobile-team + .mobile-team { margin-top: 12px; }
+  .mobile-result { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 18px; background: ${constants.tableHeaderSurfaceColor}; color: ${constants.textColorSecondary}; font-size: 13px; font-weight: 700; text-transform: uppercase; }
+  .mobile-result .mobile-rank img { width: 16px; height: 16px; }
+  .mobile-result .mobile-meta { margin: 0; font-size: 10px; font-weight: 400; text-transform: none; }
+  .mobile-heading { margin: 0; padding: 16px 18px 0; background: ${constants.tableHeaderSurfaceColor}; font-size: 16px; font-weight: 700; overflow-wrap: anywhere; }
+  .mobile-score { display: flex; align-items: center; gap: 5px; margin-left: auto; font-size: 26px; font-weight: 900; font-style: normal; font-variant-numeric: tabular-nums; line-height: 1; color: ${constants.textColorSecondary}; }
+  .mobile-team.is-winner { color: ${constants.colorRed}; }
+  .mobile-team.is-winner:first-child { color: ${constants.colorGreen}; }
+  .mobile-score.is-winner { color: inherit; }
+  .mobile-score-marker { font-size: 12px; }
+  .mobile-match .mobile-name { gap: 10px; font-size: clamp(16px, 4.5vw, 22px); font-weight: 900; font-style: italic; line-height: 1.2; text-transform: uppercase; }
+  .mobile-match .mobile-name > .mobile-team-name { flex: 1; min-width: 0; }
+  .mobile-match .mobile-heroes { margin-top: 10px; }
+  .mobile-match .mobile-label { font-size: 9px; }
+  .mobile-match .mobile-footer { display: block; margin-top: 0; padding: 14px 12px; }
+  .mobile-match .mobile-footer-details { justify-content: center; }
+  .mobile-match .mobile-footer-action { display: flex; justify-content: center; min-height: 42px; border: 0; border-radius: 6px; }
+  .mobile-match .mobile-open { font-size: 14px; font-weight: 700; }
+  .mobile-match .mobile-context { padding: 0 18px 12px; }
+
   .mobile-label { margin-bottom: 5px; color: ${constants.textColorSecondary}; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
   .mobile-name { display: flex; align-items: center; gap: 8px; min-width: 0; font-size: 12px; font-weight: 400; }
   .mobile-name > span { overflow-wrap: anywhere; }
@@ -56,7 +77,7 @@ const Styled = styled.section`
   .mobile-rank img { width: 28px; height: 28px; object-fit: contain; }
   .mobile-footer .mobile-rank img { width: 16px; height: 16px; }
   .mobile-footer-details > .mobile-rank::before { content: "·"; }
-  .mobile-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; padding-top: 10px; border-top: 1px solid color-mix(in srgb, ${constants.colorBlueGray} 45%, ${constants.dividerColor}); color: ${constants.textColorSecondary}; font-size: 10px; }
+  .mobile-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; padding-top: 10px; border-top: 1px solid color-mix(in srgb, ${constants.colorBlue} 20%, ${constants.dividerColor}); color: ${constants.textColorSecondary}; font-size: 10px; }
   .mobile-footer-details { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; min-width: 0; }
   .mobile-match-id { white-space: nowrap; }
   .mobile-footer-action { display: inline-flex; align-items: center; gap: 8px; flex-shrink: 0; }
@@ -68,7 +89,7 @@ const Styled = styled.section`
 `;
 
 /** Shares pending and successful requests between team rows and page visits. */
-type MatchDetails = MatchMetadata & { players?: DraftPlayer[] };
+type MatchDetails = MatchMetadata & { players?: DraftPlayer[]; radiant_score?: number; dire_score?: number };
 const matchDetails = new Map<number, Promise<MatchDetails>>();
 
 /**
@@ -125,10 +146,21 @@ function ProfessionalHeroes({ matchId, side }: { matchId: number; side: MatchSid
     {Array.from({ length: 5 }, (_, index) => <Skeleton className="hero-placeholder" variant="rectangular" key={index} />)}
   </div>;
   const picks = getTeamPicks(players, side);
-  if (!picks.length) return <div className="mobile-heroes-unavailable">Hero picks unavailable</div>;
+  if (!picks.length) return <div className="mobile-heroes-unavailable">Heroes unavailable</div>;
   return <div className="mobile-heroes" aria-label={`${side} hero picks`}>
     {picks.map((player) => <HeroImage key={player.player_slot} id={String(player.hero_id)} alt={heroes[String(player.hero_id) as keyof Heroes].localized_name} />)}
   </div>;
+}
+
+/** Uses list scores when available and shares the existing detail request otherwise. */
+function MatchScore({ match, side, winner }: { match: { match_id: number; radiant_score?: number; dire_score?: number }; side: MatchSide; winner: boolean }) {
+  const score = match[`${side}_score`];
+  const details = useMatchDetails(match.match_id, score == null);
+  const value = score ?? details?.[`${side}_score`];
+  return <span className={`mobile-score${winner ? " is-winner" : ""}`}>
+    {winner && <span className="mobile-score-marker" aria-label="Winner">▸</span>}
+    {value ?? "–"}
+  </span>;
 }
 
 /** Displays game mode and duration in the footer. */
@@ -161,33 +193,30 @@ function MobileMatches({ data, loading, loadingText }: React.ComponentProps<type
       <ul className="mobile-list">
         {items.map((match) => <li key={match.match_id}>
           <Link className="mobile-match" to={`/matches/${match.match_id}`}>
-            <div className="mobile-meta"><FromNowTooltip timestamp={match.start_time + match.duration} /><span className="mobile-match-id">· #{match.match_id}</span></div>
-            <div className="mobile-eyebrow">
-              <span>{match.leagueid || match.league_name ? strings.hero_pro_tab : "Public"}</span>
-              {match.league_name && <span>{match.league_name}</span>}
+            <h2 className="mobile-heading">{match.league_name || (match.leagueid ? strings.hero_pro_tab : "Public match")}</h2>
+            <div className="mobile-result">
+              <span>Final</span>
+              <div className="mobile-meta">{!!match.avg_rank_tier && <span className="mobile-rank"><img src={`/assets/images/dota2/rank_icons/rank_icon_${Math.floor(match.avg_rank_tier / 10)}.png`} alt="" />{rankTierToString(match.avg_rank_tier)}</span>}<FromNowTooltip timestamp={match.start_time + match.duration} /><span className="mobile-match-id">#{match.match_id}</span></div>
             </div>
+            <div className="mobile-teams">
             {(["radiant", "dire"] as const).map((side) => {
               const lineup = match[`${side}_team`];
               const winner = typeof match.radiant_win === "boolean" && match.radiant_win === (side === "radiant");
-              return <div className="mobile-team" key={side}>
+              return <div className={`mobile-team${winner ? " is-winner" : typeof match.radiant_win === "boolean" ? " is-loser" : ""}`} key={side}>
                 <div className="mobile-label">{side === "radiant" ? strings.general_radiant : strings.general_dire}</div>
-                {Array.isArray(lineup) ? <div className="mobile-heroes">{lineup.map((id: number) => heroes[String(id) as keyof Heroes] && <HeroImage key={id} id={String(id)} alt={heroes[String(id) as keyof Heroes].localized_name} />)}</div> : <div className="mobile-name">
-                  <TeamLogo teamId={match[`${side}_team_id`]} style={{ width: 24, height: 24, objectFit: "contain", flexShrink: 0 }} />
-                  <span>{match[`${side}_name`] || strings.general_unknown}</span>
-                  {winner && <span className="mobile-win">WIN</span>}
+                {Array.isArray(lineup) ? (lineup.some((id: number) => heroes[String(id) as keyof Heroes]) ? <div className="mobile-heroes">{lineup.map((id: number) => heroes[String(id) as keyof Heroes] && <HeroImage key={id} id={String(id)} alt={heroes[String(id) as keyof Heroes].localized_name} />)}</div> : <div className="mobile-heroes-unavailable">Heroes unavailable</div>) : <div className="mobile-name">
+                  <TeamLogo teamId={match[`${side}_team_id`]} style={{ width: 48, height: 48, objectFit: "contain", flexShrink: 0 }} />
+                  <span className="mobile-team-name">{match[`${side}_name`] || strings.general_unknown}</span>
+                  <MatchScore match={match} side={side} winner={winner} />
                 </div>}
                 {!Array.isArray(lineup) && <ProfessionalHeroes matchId={match.match_id} side={side} />}
               </div>;
             })}
-            {!!(match.leagueid || match.league_name) && !!match.avg_rank_tier && <div className="mobile-context"><span className="mobile-rank"><img src={`/assets/images/dota2/rank_icons/rank_icon_${Math.floor(match.avg_rank_tier / 10)}.png`} alt="" />{rankTierToString(match.avg_rank_tier)}</span></div>}
+            </div>
             <div className="mobile-footer">
               <div className="mobile-footer-details">
                 <MatchMetadataLabel match={match} />
-                {!match.leagueid && !match.league_name && !!match.avg_rank_tier && <span className="mobile-rank"><img src={`/assets/images/dota2/rank_icons/rank_icon_${Math.floor(match.avg_rank_tier / 10)}.png`} alt="" />{rankTierToString(match.avg_rank_tier)}</span>}
               </div>
-              <span className="mobile-footer-action">
-                <span className="mobile-open">View match ›</span>
-              </span>
             </div>
           </Link>
         </li>)}
