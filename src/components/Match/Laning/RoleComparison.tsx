@@ -10,8 +10,9 @@ import constants from "../../constants";
 import React, { useState } from "react";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { ToggleButton, ToggleButtonGroup, Tooltip } from "@mui/material";
-import { abilities, ability_ids as abilityIds, heroes, items, player_colors as playerColors } from "dotaconstants";
+import { ability_ids as abilityIds, heroes, items, player_colors as playerColors } from "dotaconstants";
 import config from "../../../config";
+import { useAbilities } from "../../../hooks/useAbilities.hook";
 import useStrings from "../../../hooks/useStrings.hook";
 import { IconRadiant, IconDire } from "../../Icons";
 import TooltipMetricIcon from "../../Visualizations/Graph/TooltipMetricIcon";
@@ -123,6 +124,7 @@ const laneOpponents: Record<LaneRole, LaneRole> = {
 /** Interval snapshots for opposing roles or lane opponents, with cumulative event logs. */
 const RoleComparison = ({ match }: { match: Match }) => {
   const strings = useStrings();
+  const abilities = useAbilities();
   const [comparisonMode, setComparisonMode] = useState<"role" | "opposing" | "lane">("lane");
   const laneComparison = comparisonMode === "opposing";
   const [selectedRole, setSelectedRole] = useState<LaneRole>("carry");
@@ -244,7 +246,7 @@ const RoleComparison = ({ match }: { match: Match }) => {
                     <div>
                     {upgrades === null ? <div>—</div> : upgrades.length === 0 ? <div>None</div> : <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>{upgrades.map((upgrade, index) => {
                     const key = abilityIds[String(upgrade.ability) as keyof typeof abilityIds];
-                    const ability = abilities[key as keyof typeof abilities];
+                    const ability = abilities?.[key];
                     const name = (ability && "dname" in ability ? ability.dname : undefined) || key || `Ability ${upgrade.ability}`;
                     return <Tooltip key={index} title={<><strong>{name}</strong><small>Hero level {upgrade.level}</small></>} arrow placement="top" slotProps={replayTooltipSlots}><span tabIndex={0} style={{ display: "inline-flex", position: "relative", width: 32, height: 32, background: constants.secondarySurfaceColor }}>
                       {ability && "img" in ability && ability.img && <img src={config.VITE_IMAGE_CDN + ability.img} alt={name} width={32} height={32} />}
