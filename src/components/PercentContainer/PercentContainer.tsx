@@ -1,5 +1,5 @@
 import React from "react";
-import { LinearProgress } from "@mui/material";
+import { LinearProgress } from "../ui";
 import { getPercentWin } from "../../utility";
 import styles from "./PercentContainer.module.css";
 // const getPercentWin = (wins, games) => (games ? Math.ceil(1000 * (wins / games)) / 10 : 0);

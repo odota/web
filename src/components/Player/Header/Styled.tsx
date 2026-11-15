@@ -1,5 +1,5 @@
 import React from "react";
-import { CardHeader } from "@mui/material";
+import { CardHeader } from "../../ui";
 import styles from "./Styled.module.css";
 
 export const PlayerStatsCard: React.FC<

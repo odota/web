@@ -1,0 +1,73 @@
+.tabsRoot {
+  display: flex;
+  min-height: 48px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tabsRoot::-webkit-scrollbar {
+  display: none;
+}
+
+.tabList {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.tabListFullWidth {
+  width: 100%;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 48px;
+  min-width: 90px;
+  padding: 12px 16px;
+  box-sizing: border-box;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--od-text-color-secondary);
+  font-family: var(--od-font-family), Roboto, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tabFullWidth {
+  flex: 1 1 0%;
+}
+
+.tab:hover {
+  color: var(--od-primary-text-color);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--od-color-blue);
+  outline-offset: -2px;
+}
+
+.tabSelected {
+  color: var(--od-color-blue);
+  border-bottom-color: var(--od-color-blue);
+}
+
+.tabDisabled {
+  opacity: 0.45;
+  pointer-events: none;
+}

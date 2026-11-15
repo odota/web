@@ -1,14 +1,10 @@
 import { LeadValue } from "../../Visualizations/Graph/TooltipEntryGap";
 import LaneReplayComparison from "./LaneReplayComparison";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import GpsFixedIcon from "@mui/icons-material/GpsFixed";
-import BlockIcon from "@mui/icons-material/Block";
+import { TrendingUpIcon, GpsFixedIcon, BlockIcon, AccessTimeIcon, ToggleButton, ToggleButtonGroup, Tooltip } from "../../ui";
 import { formatTemplate, formatTemplateToString } from "../../../utility";
 import { MetricSummary } from "./StyledHeroComparison";
 import constants from "../../constants";
 import React, { useState } from "react";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { ToggleButton, ToggleButtonGroup, Tooltip } from "@mui/material";
 import { ability_ids as abilityIds, heroes, items, player_colors as playerColors } from "dotaconstants";
 import config from "../../../config";
 import { useAbilities } from "../../../hooks/useAbilities.hook";

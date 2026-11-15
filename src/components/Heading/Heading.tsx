@@ -1,8 +1,7 @@
 import React from "react";
-import { Tooltip } from "@mui/material";
+import { Tooltip, Button } from "../ui";
 import { Link } from "react-router-dom";
 import { StyledDiv, TwoLineDiv } from "./Styled";
-import { Button } from "@mui/material";
 import useStrings from "../../hooks/useStrings.hook";
 
 const Heading = ({

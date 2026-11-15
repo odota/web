@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { KeyboardArrowRightIcon } from "../ui";
 import constants from "../constants";
 
 const TableLink = ({

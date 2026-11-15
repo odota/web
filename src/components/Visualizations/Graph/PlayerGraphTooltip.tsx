@@ -6,7 +6,7 @@
 import React from "react";
 import TooltipMetricIcon from "./TooltipMetricIcon";
 import TooltipEntryGap from "./TooltipEntryGap";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { AccessTimeIcon } from "../../ui";
 import { heroes } from "dotaconstants";
 import config from "../../../config";
 import { LaningTooltip } from "../../Match/Laning/StyledGraph";

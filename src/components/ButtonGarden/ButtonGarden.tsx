@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button } from "../ui";
 import useStrings from "../../hooks/useStrings.hook";
 
 const ButtonGarden = ({

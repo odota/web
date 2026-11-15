@@ -1,10 +1,7 @@
 import React, { createElement } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import { Checkbox, FormControlLabel } from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { VolumeUpIcon, Checkbox, FormControlLabel, VisibilityIcon, VisibilityOffIcon } from "../../ui";
 import { heroes, player_colors as playerColors } from "dotaconstants";
 import emotes from "dota2-emoticons/resources/json/charname.json";
 import { isRadiant, formatSeconds } from "../../../utility";

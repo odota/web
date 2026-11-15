@@ -6,11 +6,8 @@
 import { formatTemplateToString } from "../../../utility";
 import React from "react";
 import { heroes } from "dotaconstants";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import { TrendingUpIcon, AccessTimeIcon, InfoOutlinedIcon, Tooltip as MuiTooltip } from "../../ui";
 import { IconRadiant, IconDire } from "../../Icons";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import MuiTooltip from "@mui/material/Tooltip";
 import useStrings from "../../../hooks/useStrings.hook";
 import { getHeroLevel } from "../../Visualizations/Graph/data";
 import { getRoleLabels, GraphMetric, GraphGrouping, RoleSelection } from "./laning.utils";

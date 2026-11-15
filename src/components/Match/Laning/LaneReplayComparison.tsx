@@ -5,11 +5,8 @@ import { LeadValue } from "../../Visualizations/Graph/TooltipEntryGap";
  */
 
 import React, { useState } from "react";
-import { ToggleButton } from "@mui/material";
+import { ToggleButton, BlockIcon, TrendingUpIcon, AccessTimeIcon } from "../../ui";
 import TooltipMetricIcon from "../../Visualizations/Graph/TooltipMetricIcon";
-import BlockIcon from "@mui/icons-material/Block";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { player_colors as playerColors } from "dotaconstants";
 import config from "../../../config";
 import constants from "../../constants";

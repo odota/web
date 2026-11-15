@@ -5,11 +5,8 @@
 
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Skeleton from "@mui/material/Skeleton";
-import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { Skeleton, SportsEsportsIcon, AccessTimeIcon, useMediaQuery } from "../ui";
 import config from "../../config";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { heroes } from "dotaconstants";
 import Table from "../Table/Table";
 import TableSkeleton from "../Skeletons/TableSkeleton";

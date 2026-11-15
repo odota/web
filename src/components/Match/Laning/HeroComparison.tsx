@@ -11,12 +11,8 @@ import {
 import React, { useState } from "react";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 import constants from "../../constants";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import GpsFixedIcon from "@mui/icons-material/GpsFixed";
-import BlockIcon from "@mui/icons-material/Block";
+import { AccessTimeIcon, TrendingUpIcon, GpsFixedIcon, BlockIcon, Switch } from "../../ui";
 import config from "../../../config";
-import { Switch } from "@mui/material";
 import { heroes, player_colors as playerColors } from "dotaconstants";
 import useLocalStorageBoolean from "../../../hooks/useLocalStorageBoolean";
 import useStrings from "../../../hooks/useStrings.hook";

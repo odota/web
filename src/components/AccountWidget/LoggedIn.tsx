@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button } from "../ui";
 import Spinner from "../Spinner/Spinner";
 import useStrings from "../../hooks/useStrings.hook";
 import styles from "./LoggedIn.module.css";

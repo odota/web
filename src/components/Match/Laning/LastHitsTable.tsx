@@ -1,7 +1,7 @@
 import React from "react";
 import constants from "../../constants";
 import { player_colors as playerColors } from "dotaconstants";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { AccessTimeIcon } from "../../ui";
 import useStrings from "../../../hooks/useStrings.hook";
 import config from "../../../config";
 import { getPlayerIdentity, getStatAtMinute, formatStat, getPlayerRoles, getRoleLabels, LaneRole } from "./laning.utils";

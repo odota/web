@@ -7,13 +7,7 @@
 import React, { useMemo, useState } from "react";
 import Helmet from "react-helmet";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { Breadcrumbs, Button, TextField } from "@mui/material";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import GroupsIcon from "@mui/icons-material/Groups";
-import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
-import PersonIcon from "@mui/icons-material/Person";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import InsightsIcon from "@mui/icons-material/Insights";
+import { Breadcrumbs, Button, TextField, EmojiEventsIcon, GroupsIcon, SportsEsportsIcon, PersonIcon, FormatListBulletedIcon, InsightsIcon } from "../ui";
 import constants from "../constants";
 import Heading from "../Heading/Heading";
 import useStrings from "../../hooks/useStrings.hook";

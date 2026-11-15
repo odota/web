@@ -1,5 +1,5 @@
 import React from "react";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { AccessTimeIcon } from "../ui";
 import useStrings from "../../hooks/useStrings.hook";
 import { MatchSeries } from "../Matches/series";
 import { SeriesTeam } from "../Matches/Matches";

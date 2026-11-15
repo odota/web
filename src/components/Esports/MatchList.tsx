@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "@mui/material";
+import { Button } from "../ui";
 import useStrings from "../../hooks/useStrings.hook";
 import { groupMatchesBySeries, ProfessionalMatch } from "../Matches/series";
 import { SeriesTeam } from "../Matches/Matches";

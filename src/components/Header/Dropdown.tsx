@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, MenuItem, Popover } from "@mui/material";
+import { Menu, MenuItem, Popover } from "../ui";
 
 type DropdownProps = {
   Button: Function;

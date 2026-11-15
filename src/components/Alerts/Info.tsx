@@ -1,5 +1,5 @@
 import React from "react";
-import InfoIcon from "@mui/icons-material/Info";
+import { InfoIcon } from "../ui";
 import styles from "./Info.module.css";
 
 const Info = ({

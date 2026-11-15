@@ -1,7 +1,6 @@
 import React from "react";
 import Heading from "../Heading/Heading";
-import { IconButton } from "@mui/material";
-import MicIcon from "@mui/icons-material/Mic";
+import { IconButton, MicIcon } from "../ui";
 
 // Test
 // window.speechSynthesis.speak(new window.SpeechSynthesisUtterance('some text here'))

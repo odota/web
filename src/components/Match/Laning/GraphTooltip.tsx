@@ -6,7 +6,7 @@
 import { formatTemplateToString } from "../../../utility";
 import React from "react";
 import config from "../../../config";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { AccessTimeIcon } from "../../ui";
 import { heroes } from "dotaconstants";
 import useStrings from "../../../hooks/useStrings.hook";
 import TooltipMetricIcon from "../../Visualizations/Graph/TooltipMetricIcon";

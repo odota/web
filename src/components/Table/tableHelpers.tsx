@@ -1,6 +1,5 @@
 import React from "react";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { ArrowUpwardIcon, ArrowDownwardIcon } from "../ui";
 
 const getTotalWidth = (columns: any[]) =>
   columns.reduce((prev, current) => prev + current.width, 0);

@@ -4,9 +4,7 @@
  */
 
 import React, { useState } from "react";
-import { Menu, MenuItem } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import CheckIcon from "@mui/icons-material/Check";
+import { Menu, MenuItem, KeyboardArrowDownIcon, CheckIcon } from "../../ui";
 import { heroes, player_colors as playerColors } from "dotaconstants";
 import config from "../../../config";
 import { getPlayerIdentity, getRoleLabels, LaneRole, rolePositions } from "./laning.utils";

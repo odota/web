@@ -1,5 +1,5 @@
 import React from "react";
-import { CardHeader, type CardHeaderProps } from "@mui/material";
+import { CardHeader, type CardHeaderProps } from "../ui";
 import Container from "../Container/Container";
 import styles from "./TeamStyled.module.css";
 

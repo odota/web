@@ -1,0 +1,162 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  box-sizing: border-box;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  margin: 0;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  text-decoration: none;
+  font-family: var(--od-font-family-futuristic), Roboto, sans-serif;
+  font-weight: 300;
+  font-size: var(--od-font-size-small);
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: none;
+  min-width: 64px;
+  padding: 6px 16px;
+  border-radius: 4px;
+  color: var(--od-primary-text-color);
+  transition:
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--od-primary-text-color);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--od-color-blue);
+  outline-offset: 2px;
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.45;
+}
+
+.contained {
+  background-color: var(--od-primary-surface-color);
+  color: var(--od-primary-text-color);
+  box-shadow:
+    0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+.contained:hover {
+  background-color: rgba(32, 56, 86, 0.95);
+}
+
+.containedPrimary {
+  background-color: #1976d2;
+  color: #fff;
+}
+
+.containedPrimary:hover {
+  background-color: #1565c0;
+  color: #fff;
+}
+
+.containedSecondary {
+  background-color: #9c27b0;
+  color: #fff;
+}
+
+.containedSecondary:hover {
+  background-color: #7b1fa2;
+  color: #fff;
+}
+
+.outlined {
+  padding: 5px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.23);
+}
+
+.outlined:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.text {
+  padding: 6px 8px;
+}
+
+.sizeSmall {
+  padding: 4px 10px;
+  font-size: 0.8125rem;
+}
+
+.sizeLarge {
+  padding: 8px 22px;
+  font-size: 0.9375rem;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.startIcon,
+.endIcon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  margin: 0;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  text-decoration: none;
+  text-align: center;
+  flex: 0 0 auto;
+  font-size: 1.5rem;
+  padding: 8px;
+  border-radius: 50%;
+  color: var(--od-primary-text-color);
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.iconButton:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.iconButton:focus-visible {
+  outline: 2px solid var(--od-color-blue);
+  outline-offset: 2px;
+}
+
+.iconButton:disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.iconButtonSmall {
+  padding: 5px;
+  font-size: 1.125rem;
+}
+
+.iconButtonLarge {
+  padding: 12px;
+  font-size: 1.75rem;
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Tooltip } from "@mui/material";
+import { Tooltip } from "../ui";
 import { heroes, item_colors as itemColors } from "dotaconstants";
 import emotes from "dota2-emoticons/resources/json/charname.json";
 import { IconRadiant, IconDire } from "../Icons";
