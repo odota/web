@@ -1,0 +1,30 @@
+.comparison + .comparison {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--od-divider-color);
+}
+
+.comparison h3 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.difference {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.lead {
+  color: var(--od-color-danger);
+}
+
+.leadTied {
+  color: var(--od-text-color-secondary);
+}
+
+.leadPositive {
+  color: var(--od-color-success);
+}

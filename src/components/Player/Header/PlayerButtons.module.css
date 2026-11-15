@@ -1,0 +1,29 @@
+.playerButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  font-size: 14px;
+}
+
+@media only screen and (max-width: 660px) {
+  .playerButtons {
+    justify-content: center;
+  }
+
+  .playerButtons a {
+    min-width: 50px !important;
+  }
+
+  .playerButtons button {
+    min-width: 50px !important;
+  }
+
+  .playerButtons * {
+    margin: auto !important;
+  }
+
+  .playerButtons span {
+    margin: 0 !important;
+  }
+}

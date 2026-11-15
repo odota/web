@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { heroes } from "dotaconstants";
 import ReactTooltip from "react-tooltip";
 import { abbreviateNumber } from "../../utility";
@@ -7,128 +6,7 @@ import { IconRadiant, IconDire } from "../Icons";
 import constants from "../constants";
 import HeroImage from "../Visualizations/HeroImage";
 import useStrings from "../../hooks/useStrings.hook";
-
-const StyledDiv = styled.div`
-  table {
-    border-collapse: separate !important;
-    border-spacing: 0px 0px !important;
-    padding: 3px !important;
-    background-color: ${constants.secondarySurfaceColor};
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.03);
-  }
-
-  tr {
-    background-color: rgba(0, 0, 0, 0.019);
-  }
-
-  td {
-    padding: 0px !important;
-    height: 48px;
-    white-space: normal !important;
-    text-align: center;
-    &:not(:last-child) {
-      border-right: 1px solid rgba(255, 255, 255, 0.04);
-    }
-  }
-
-  tr:not(:first-child) td {
-    @media screen and (max-width: ${constants.wrapMobile}) {
-      padding-top: 5px !important;
-      padding-bottom: 5px !important;
-    }
-  }
-
-  tr:not(:first-child) td {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  tr:first-child td:first-child {
-    background-color: rgba(0, 0, 0, 0.27) !important;
-  }
-
-  tr:first-child td:not(:first-child) {
-    background: linear-gradient(
-      to bottom,
-      ${constants.tableHeaderSurfaceColor} 15%,
-      rgba(35, 0, 0, 0.3) 100%
-    ) !important;
-  }
-
-  td > div {
-    text-align: center;
-  }
-
-  td:first-child {
-    width: 30px !important;
-  }
-
-  tr:first-child {
-    height: 30px !important;
-
-    & td {
-      height: 30px !important;
-    }
-  }
-
-  tr:not(:first-child) td:first-child {
-    border-right: 1px solid ${constants.colorMutedGreen} !important;
-    background: linear-gradient(
-      to right,
-      ${constants.tableHeaderSurfaceColor} 15%,
-      rgba(0, 35, 0, 0.3) 100%
-    ) !important;
-    & > div {
-      position: relative;
-      top: 3px;
-      left: 1px;
-    }
-  }
-
-  tr:first-child td {
-    & > div {
-      position: relative;
-      top: 2px;
-    }
-  }
-
-  tr:nth-child(2) td:not(:first-child) {
-    border-top: 1px solid ${constants.colorMutedRed} !important;
-  }
-
-  .value-1 {
-    display: inline-block;
-    background: rgba(0, 3, 0, 0.3);
-    width: 38px;
-    height: 21px;
-    margin: 1px 1px 1px 1px;
-    text-align: center;
-    border: 1px solid ${constants.colorMutedGreen};
-    color: ${constants.colorMutedLight};
-
-    &:nth-child(2) {
-      border: 1px solid ${constants.colorMutedRed} !important;
-      background: rgba(3, 0, 0, 0.3) !important;
-    }
-
-    & span {
-      vertical-align: middle;
-    }
-  }
-
-  .hero img {
-    width: 25px;
-  }
-
-  .team {
-    margin: auto;
-    width: 25px;
-
-    & svg {
-      margin: 0 !important;
-    }
-  }
-`;
+import styles from "./CrossTable.module.css";
 
 const CrossTable = ({
   match,
@@ -141,7 +19,7 @@ const CrossTable = ({
 }) => {
   const strings = useStrings();
   return (
-    <StyledDiv>
+    <div className={styles.styledDiv}>
       <table>
         <tbody>
           <tr>
@@ -150,7 +28,7 @@ const CrossTable = ({
               .slice(match.players.length / 2, match.players.length)
               .map((player) => (
                 <td key={player.hero_id}>
-                  <div className="hero">
+                  <div className={styles.hero}>
                     {heroes[player.hero_id] && (
                       <HeroImage
                         id={player.hero_id}
@@ -165,7 +43,7 @@ const CrossTable = ({
                 </td>
               ))}
             <td>
-              <div className="team">
+              <div className={styles.team}>
                 <IconDire data-tip={strings.general_dire} />
               </div>
             </td>
@@ -173,7 +51,7 @@ const CrossTable = ({
           {match.players.slice(0, match.players.length / 2).map((player) => (
             <tr key={player.hero_id}>
               <td>
-                <div className="hero">
+                <div className={styles.hero}>
                   {heroes[player.hero_id] && (
                     <HeroImage
                       id={player.hero_id}
@@ -202,7 +80,7 @@ const CrossTable = ({
                         data-for={`${field1}_${field2}_${player.player_slot}_${player2.player_slot}`}
                       >
                         <div
-                          className="value-1"
+                          className={styles.value1}
                           style={{
                             color:
                               pvalue1 > pvalue2
@@ -213,7 +91,7 @@ const CrossTable = ({
                           <span>{abbreviateNumber(pvalue1)}</span>
                         </div>
                         <div
-                          className="value-1"
+                          className={styles.value1}
                           style={{
                             color:
                               pvalue2 > pvalue1
@@ -262,7 +140,7 @@ const CrossTable = ({
                       data-for={`${field1}_${field2}_${player.player_slot}_radiant`}
                     >
                       <div
-                        className="value-1"
+                        className={styles.value1}
                         style={{
                           color:
                             ptotal1 > ptotal2 ? constants.primaryTextColor : "",
@@ -271,7 +149,7 @@ const CrossTable = ({
                         <span>{abbreviateNumber(ptotal1)}</span>
                       </div>
                       <div
-                        className="value-1"
+                        className={styles.value1}
                         style={{
                           color:
                             ptotal2 > ptotal1 ? constants.primaryTextColor : "",
@@ -296,7 +174,7 @@ const CrossTable = ({
           ))}
           <tr>
             <td>
-              <div className="team">
+              <div className={styles.team}>
                 <IconRadiant data-tip={strings.general_radiant} />
               </div>
             </td>
@@ -328,7 +206,7 @@ const CrossTable = ({
                       data-for={`${field1}_${field2}_${player.player_slot}_dire`}
                     >
                       <div
-                        className="value-1"
+                        className={styles.value1}
                         style={{
                           color:
                             ptotal2 > ptotal1 ? constants.primaryTextColor : "",
@@ -337,7 +215,7 @@ const CrossTable = ({
                         <span>{abbreviateNumber(ptotal2)}</span>
                       </div>
                       <div
-                        className="value-1"
+                        className={styles.value1}
                         style={{
                           color:
                             ptotal1 > ptotal2 ? constants.primaryTextColor : "",
@@ -385,7 +263,7 @@ const CrossTable = ({
                 <td>
                   <div data-tip data-for={`${field1}_${field2}_total`}>
                     <div
-                      className="value-1"
+                      className={styles.value1}
                       style={{
                         color:
                           radiantTotal > direTotal
@@ -396,7 +274,7 @@ const CrossTable = ({
                       <span>{abbreviateNumber(radiantTotal)}</span>
                     </div>
                     <div
-                      className="value-1"
+                      className={styles.value1}
                       style={{
                         color:
                           direTotal > radiantTotal
@@ -422,7 +300,7 @@ const CrossTable = ({
           </tr>
         </tbody>
       </table>
-    </StyledDiv>
+    </div>
   );
 };
 

@@ -1,0 +1,50 @@
+.progressDiv {
+  position: relative;
+  width: 90px;
+  height: 90px;
+}
+
+.progressDiv > div[mode="determinate"],
+.progressDiv .cheeseDiv {
+  position: absolute !important;
+}
+
+.progressDiv svg > circle {
+  stroke-width: 3;
+}
+
+.progressDiv[data-hint]::after {
+  left: 10px;
+  right: 10px;
+  text-align: center;
+}
+
+.frontProgress {
+  z-index: 1;
+}
+
+.backProgress circle {
+  stroke: rgba(255, 255, 255, 0.06) !important;
+}
+
+.cheeseDiv {
+  top: 17px;
+  left: 28px;
+  width: 35px;
+  height: 35px;
+}
+
+.cheeseDiv svg {
+  filter: drop-shadow(0 0 10px #ff0);
+}
+
+.percentP {
+  text-align: center;
+  padding: 0 !important;
+  margin-top: -5px !important;
+}
+
+.percentP > div {
+  position: relative;
+  width: 100%;
+}

@@ -1,0 +1,220 @@
+@media only screen and (max-width: 370px) {
+  .styledDiv :global(.map) {
+    max-height: 250px !important;
+    max-width: 250px !important;
+  }
+}
+
+.buildingMap {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border: 6px solid rgba(255, 255, 255, 0.1);
+  margin: 0 auto;
+}
+
+.buildingMap .buildingMapImage {
+  width: 300px;
+  height: 300px;
+  filter: grayscale(40%) brightness(180%) contrast(110%);
+}
+
+.buildingMap > span {
+  position: absolute;
+}
+
+.buildingMap > span:hover {
+  z-index: 99;
+}
+
+.buildingMap > span img {
+  transition: var(--od-normal-transition);
+}
+
+.buildingMap > span img:hover {
+  filter: drop-shadow(0 0 8px var(--od-text-color-primary));
+}
+
+@media only screen and (max-width: 370px) {
+  .buildingMap {
+    width: 250px;
+    height: 250px;
+  }
+
+  .buildingMap .buildingMapImage {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+.buildingHealth {
+  height: 10px;
+  min-width: 150px;
+  margin: 4px 0;
+  display: flex;
+}
+
+.buildingHealth > div {
+  height: 100%;
+  float: left;
+}
+
+.damage > div > img {
+  margin: 0 5px;
+  width: 14px;
+  height: 14px;
+  vertical-align: sub;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
+}
+
+.damage .damageValue {
+  display: inline-block;
+  width: 36px;
+  text-align: center;
+}
+
+.damage .playerName {
+  margin-right: 5px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.damage .lasthit {
+  font-size: var(--od-font-size-small);
+  color: var(--od-color-golden);
+}
+
+.damage .lasthit img {
+  height: 10px;
+  margin-right: 3px;
+}
+
+.damage .creeps .lasthit {
+  color: var(--od-color-muted-light);
+}
+
+.damage .creeps img {
+  margin: 0;
+  width: 24px;
+  height: 14px;
+  display: inline-block;
+}
+
+.damage .deny {
+  color: var(--od-color-muted-light);
+}
+
+.subtitle {
+  margin-left: 4px;
+  font-size: var(--od-font-size-small);
+  font-weight: var(--od-font-weight-light);
+  color: var(--od-color-muted-light);
+}
+
+.hint {
+  color: var(--od-color-muted-light);
+  font-weight: var(--od-font-weight-light);
+  font-size: var(--od-font-size-medium);
+  text-align: center;
+  margin-top: 12px;
+}
+
+.hint svg {
+  vertical-align: sub;
+  fill: var(--od-color-muted-light);
+  height: 14px;
+  margin-right: 5px;
+}
+
+.heroIcons {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+}
+
+.heroIcons img {
+  width: 26px;
+}
+
+.heroIcons .radiant {
+  color: var(--od-green);
+}
+
+.heroIcons .dire {
+  color: var(--od-red);
+}
+
+.heroIcons .roaming {
+  margin-right: 6px;
+}
+
+.radiantSafe img,
+.radiantMid img,
+.radiantOff img,
+.radiantJungle img {
+  filter: drop-shadow(0 0 5px var(--od-green));
+}
+
+.direSafe img,
+.direMid img,
+.direOff img,
+.direJungle img {
+  filter: drop-shadow(0 0 5px var(--od-red));
+}
+
+.radiantSafe {
+  bottom: 0;
+  flex-direction: row-reverse;
+  right: 30px;
+}
+
+.radiantMid {
+  left: 130px;
+  top: 155px;
+}
+
+.radiantOff {
+  flex-direction: column;
+  flex-wrap: wrap;
+  left: 0;
+  top: 75px;
+  width: 26px;
+}
+
+.radiantJungle {
+  flex-wrap: wrap;
+  left: 130px;
+  top: 200px;
+  width: 78px;
+}
+
+.direSafe {
+  left: 20px;
+  top: 0;
+}
+
+.direMid {
+  flex-direction: row-reverse;
+  right: 145px;
+  top: 125px;
+}
+
+.direOff {
+  bottom: 70px;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  right: 0;
+  width: 26px;
+}
+
+.direJungle {
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  right: 120px;
+  top: 50px;
+  width: 78px;
+}

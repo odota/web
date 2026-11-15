@@ -1,20 +1,8 @@
 import React from "react";
 import { LinearProgress } from "@mui/material";
-import styled from "styled-components";
 import { getPercentWin } from "../../utility";
-import constants from "../constants";
+import styles from "./PercentContainer.module.css";
 // const getPercentWin = (wins, games) => (games ? Math.ceil(1000 * (wins / games)) / 10 : 0);
-
-const StyledPercentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const StyledTextContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 5px;
-`;
 
 // the LinearProgress can be swapped for PiePercent if it turns out people prefer that
 const PercentContainer = ({
@@ -26,10 +14,10 @@ const PercentContainer = ({
   games: number;
   percent: number;
 }) => (
-  <StyledPercentContainer>
-    <StyledTextContainer>
+  <div className={styles.percentContainer}>
+    <div className={styles.textContainer}>
       {percent || getPercentWin(wins, games).toFixed(1)}
-    </StyledTextContainer>
+    </div>
     <LinearProgress
       style={{ height: 5 }}
       // color={styles.lineColor}
@@ -37,5 +25,5 @@ const PercentContainer = ({
       value={percent || getPercentWin(wins, games)}
       color="warning"
     />
-  </StyledPercentContainer>
+  </div>
 );

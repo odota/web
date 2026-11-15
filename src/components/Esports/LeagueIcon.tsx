@@ -4,31 +4,7 @@
  */
 
 import React, { useState } from "react";
-import styled from "styled-components";
-import constants from "../constants";
-
-/**
- * Frames league artwork or initials in a fixed-size decorative badge.
- * @example
- * <Icon>TI2</Icon>
- */
-const Icon = styled.span`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 36px;
-  height: 36px;
-  overflow: hidden;
-  border: 1px solid rgba(100, 160, 210, 0.25);
-  border-radius: 4px;
-  background: rgba(100, 160, 210, 0.12);
-  color: ${constants.colorBlue};
-  font-family: ${constants.fontFamilyFuturistic};
-  font-size: ${constants.fontSizeSmall};
-  font-weight: 600;
-  img { width: 100%; height: 100%; object-fit: contain; }
-`;
+import styles from "./LeagueIcon.module.css";
 
 /**
  * Artwork sources and identity for a league icon.
@@ -63,10 +39,10 @@ export default function LeagueIcon({ name, banner, ticket }: LeagueIconProps) {
     ? words.slice(0, 3).map((word) => Array.from(word)[0]).join("")
     : Array.from(words[0] || "?").slice(0, 3).join("")).toUpperCase();
   return (
-    <Icon aria-hidden="true" title={name}>
+    <span className={styles.icon} aria-hidden="true" title={name}>
       {image && image !== failedImage
         ? <img src={image} alt="" loading="lazy" onError={() => setFailedImage(image)} />
         : initials}
-    </Icon>
+    </span>
   );
 }

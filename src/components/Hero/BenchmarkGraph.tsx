@@ -1,6 +1,5 @@
 import React from "react";
 import { nanoid } from "nanoid";
-import styled from "styled-components";
 import {
   XAxis,
   YAxis,
@@ -11,30 +10,7 @@ import {
 } from "recharts";
 import constants from "../constants";
 import Grid from "../Visualizations/Graph/Grid";
-
-const Wrapper = styled.div`
-  box-sizing: border-box;
-  flex: 1 1 100%;
-  max-width: 33.333%;
-  padding: 8px;
-
-  @media screen and (max-width: ${constants.wrapTablet}) {
-    max-width: 50%;
-  }
-
-  @media screen and (max-width: ${constants.wrapMobile}) {
-    max-width: none;
-  }
-`;
-
-const Title = styled.div`
-  font-size: 12px;
-  letter-spacing: 1px;
-  margin: 24px 0;
-  text-align: right;
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-  text-transform: uppercase;
-`;
+import styles from "./BenchmarkGraph.module.css";
 
 const tooltipCursorStyle = {
   stroke: constants.colorBlueGray,
@@ -56,7 +32,7 @@ const BenchmarkGraph = ({ data }: { data: any }) => {
   const graphId = nanoid();
 
   return (
-    <Wrapper>
+    <div className={styles.wrapper}>
       <ResponsiveContainer width="100%" height={250}>
         <AreaChart
           data={data.data}
@@ -116,8 +92,8 @@ const BenchmarkGraph = ({ data }: { data: any }) => {
           />
         </AreaChart>
       </ResponsiveContainer>
-      <Title>{data.title}</Title>
-    </Wrapper>
+      <div className={styles.title}>{data.title}</div>
+    </div>
   );
 };
 

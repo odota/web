@@ -1,0 +1,85 @@
+.headContainerDiv {
+  width: 600px;
+  height: 380px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 120px;
+}
+
+@media only screen and (max-width: 768px) {
+  .headContainerDiv {
+    width: auto;
+  }
+}
+
+.headlineDiv {
+  margin-top: 10%;
+  text-transform: uppercase;
+  font-size: 4rem;
+  font-family: var(--od-font-family-futuristic);
+  font-weight: var(--od-font-weight-medium);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-shadow: #b0aeae 0 0 3px;
+}
+
+.headlineDiv h1 {
+  all: inherit;
+}
+
+@media only screen and (max-width: 425px) {
+  .headlineDiv {
+    font-size: 50px;
+    margin-left: -2%;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .headlineDiv {
+    font-size: 42px;
+  }
+}
+
+.descriptionDiv {
+  font-family: var(--od-font-family-futuristic);
+  font-weight: var(--od-font-weight-light);
+  margin-bottom: 20px;
+  text-shadow: #000 0 0 3px;
+}
+
+.descriptionDiv h2 {
+  all: inherit;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+@media only screen and (max-width: 768px) {
+  .descriptionDiv h2 {
+    margin-top: 8px;
+    font-size: 1rem;
+  }
+}
+
+.buttonContainer {
+  margin-top: 28px;
+}
+
+@media only screen and (max-width: 768px) {
+  .buttonContainer {
+    margin-top: 24px;
+  }
+}
+
+.bottomTextDiv {
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-medium);
+  font-weight: var(--od-font-weight-light);
+  text-align: right;
+  opacity: 0.6;
+}
+
+@media only screen and (max-width: 425px) {
+  .bottomTextDiv {
+    text-align: center;
+  }
+}

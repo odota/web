@@ -1,0 +1,99 @@
+.draftSequence {
+  margin: 24px 0;
+}
+
+.draftTeams {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.draftTeam {
+  min-width: 0;
+  padding: 16px;
+  background: rgba(128, 128, 128, 0.06);
+  border-top: 2px solid var(--team-color);
+}
+
+.draftSequence h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  font-size: 16px;
+}
+
+.draftSequence h4 {
+  margin: 12px 0 6px;
+  color: var(--od-text-color-secondary);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.draftSequence ol {
+  display: flex;
+  gap: 6px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.draftTeam ol {
+  flex-wrap: wrap;
+}
+
+.draftSequence li {
+  position: relative;
+  flex: 0 0 72px;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--team-color);
+  border-radius: 3px;
+  background: #111;
+}
+
+.draftSequence img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.3;
+  object-fit: cover;
+}
+
+.draftOrder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1px 5px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.bans li {
+  border-color: rgba(128, 128, 128, 0.3);
+}
+
+.bans img {
+  aspect-ratio: 1.3;
+  filter: grayscale(1);
+  opacity: 0.65;
+}
+
+.bans li::after {
+  content: "";
+  position: absolute;
+  inset: 50% -15%;
+  border-top: 2px solid var(--od-color-red);
+  transform: rotate(-30deg);
+  pointer-events: none;
+}
+
+@media (max-width: 850px) {
+  .draftTeams {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

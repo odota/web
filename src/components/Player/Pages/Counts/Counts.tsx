@@ -1,32 +1,19 @@
 import React from "react";
 
 import { connect } from "react-redux";
-import styled from "styled-components";
 import { getPlayerCounts } from "../../../../actions";
 import Table from "../../../Table/Table";
 import Container from "../../../Container/Container";
 import playerCountsColumns from "./playerCountsColumns";
 import useStrings from "../../../../hooks/useStrings.hook";
-
-const StyledContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-
-const StyledTableContainer = styled.div`
-  flex-grow: 1;
-  overflow-x: auto;
-  box-sizing: border-box;
-  padding: 5px;
-`;
+import styles from "./Counts.module.css";
 
 const Counts = ({ counts, error, loading }: CountsProps) => {
   const strings = useStrings();
   return (
-    <StyledContainer>
+    <div className={styles.styledContainer}>
       {Object.keys(counts).map((key) => (
-        <StyledTableContainer key={key}>
+        <div className={styles.styledTableContainer} key={key}>
           <Container
             title={strings[`heading_${key}` as keyof Strings]}
             error={error}
@@ -37,9 +24,9 @@ const Counts = ({ counts, error, loading }: CountsProps) => {
               data={counts[key].list}
             />
           </Container>
-        </StyledTableContainer>
+        </div>
       ))}
-    </StyledContainer>
+    </div>
   );
 };
 

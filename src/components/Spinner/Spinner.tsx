@@ -1,34 +1,6 @@
 import React from "react";
 import { CircularProgress } from "@mui/material";
-import styled from "styled-components";
-import constants from "../constants";
-
-const SlowSpinner = styled(CircularProgress)`
-  animation: spin 5s linear infinite !important;
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-`;
-
-const SpinnerContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-`;
-
-const SpinnerText = styled.span`
-  font-family: ${constants.fontFamilyFuturistic};
-  font-size: ${constants.fontSizeSmall};
-  letter-spacing: 0.05em;
-  color: ${constants.colorBlue};
-`;
+import styles from "./Spinner.module.css";
 
 const Spinner = ({
   size = 24,
@@ -39,15 +11,16 @@ const Spinner = ({
   enableTrackSlot?: boolean;
 }) => {
   return (
-    <SpinnerContainer>
-      <SlowSpinner
+    <div className={styles.spinnerContainer}>
+      <CircularProgress
+        className={styles.slowSpinner}
         size={Math.max(size, 4)}
         color="primary"
         thickness={2}
         enableTrackSlot
       />
-      {text && <SpinnerText>{text}</SpinnerText>}
-    </SpinnerContainer>
+      {text && <span className={styles.spinnerText}>{text}</span>}
+    </div>
   );
 };
 

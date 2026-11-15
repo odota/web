@@ -51,7 +51,6 @@
     "redux-responsive": "^4.3.8",
     "redux-thunk": "^2.4.2",
     "reselect": "^4.0.0",
-    "styled-components": "^4.4.1",
     "wordcloud": "^1.2.3"
   },
   "devDependencies": {
@@ -64,7 +63,6 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/react-tooltip": "3.9.3",
     "@types/react-transition-group": "^2.9.2",
-    "@types/styled-components": "4.0.3",
     "@types/wordcloud": "^1.2.2",
     "@vitest/coverage-v8": "^5.0.3",
     "jsdom": "^26.1.0",

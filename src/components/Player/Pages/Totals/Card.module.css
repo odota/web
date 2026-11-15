@@ -1,0 +1,57 @@
+.wrapper {
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  width: 20%;
+}
+
+@media screen and (max-width: 1000px) {
+  .wrapper {
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .wrapper {
+    width: 33.333%;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .wrapper {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .wrapper {
+    width: 100%;
+  }
+}
+
+.box {
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.header {
+  background: rgba(0, 0, 0, 0.15);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 1;
+  padding: 16px 12px;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  text-transform: uppercase;
+}
+
+.value {
+  font-size: 12px;
+  line-height: 1;
+  padding: 16px 12px;
+  text-align: center;
+}

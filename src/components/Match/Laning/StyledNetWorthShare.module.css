@@ -1,0 +1,211 @@
+.teams {
+  font-family: var(--od-font-family-futuristic);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.team {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid rgba(100, 116, 139, 0.3);
+  border-radius: 8px;
+  background: rgba(80, 140, 190, 0.16);
+}
+
+.team h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.team ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.team li {
+  display: grid;
+  grid-template-columns: 6px 24px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(100, 116, 139, 0.3);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.team li img {
+  border-radius: 3px;
+}
+
+.team li strong {
+  min-width: 44px;
+  text-align: right;
+  font-weight: 600;
+}
+
+.heroName {
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.goldValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--od-golden);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.goldValue img {
+  flex-shrink: 0;
+}
+
+.colorMarker {
+  width: 6px;
+  height: 18px;
+  border-radius: 3px;
+}
+
+.teamTotal {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 10px 0 20px;
+  color: var(--od-golden);
+  font-size: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.teamTotal img {
+  flex-shrink: 0;
+}
+
+.heroDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.heroRole {
+  color: var(--od-text-color-secondary);
+  font-size: 13px;
+}
+
+.stackedBar {
+  display: flex;
+  height: 40px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--od-divider-color);
+}
+
+.shareSegment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  box-sizing: border-box;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.shareSegment + .shareSegment {
+  border-left: 2px solid var(--od-secondary-surface-color);
+}
+
+.shareSegment:hover {
+  filter: brightness(1.12);
+}
+
+.shareSegment:focus-visible {
+  outline: 2px solid var(--od-text-color-primary);
+  outline-offset: -3px;
+}
+
+.note {
+  font-family: var(--od-font-family-futuristic);
+  color: var(--od-text-color-secondary);
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.shareTooltipContent {
+  min-width: 180px;
+  padding: 14px 16px;
+  font-family: var(--od-font-family-futuristic);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.shareTooltipHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.shareTooltipHeader img {
+  border-radius: 4px;
+}
+
+.shareTooltipHeader strong {
+  display: block;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.shareTooltipHeader span {
+  display: block;
+  margin-top: 2px;
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+.shareTooltipStats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #374151;
+  font-variant-numeric: tabular-nums;
+}
+
+.shareTooltipStats :global(.gold-value) {
+  color: #e2c46a;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.teamDifference {
+  margin-left: 4px;
+  color: var(--od-text-color-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: normal;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.teamDifferencePositive {
+  color: var(--od-color-success);
+}
+
+.teamDifferenceNegative {
+  color: var(--od-color-danger);
+}

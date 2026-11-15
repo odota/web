@@ -1,0 +1,13 @@
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 48px -8px;
+}
+
+@media screen and (max-width: 680px) {
+  .wrapper {
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

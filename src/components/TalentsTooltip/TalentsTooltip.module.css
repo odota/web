@@ -1,0 +1,25 @@
+.wrapper :global(.__react_component_tooltip) {
+  opacity: 1 !important;
+  padding: 0px !important;
+}
+
+.content {
+  position: relative;
+  width: 400px;
+  background: linear-gradient(135deg, #131519, #1f2228);
+  padding: 9px;
+  overflow: hidden;
+  border: 2px solid #27292b;
+}
+
+.background {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  height: 100%;
+  width: 100%;
+  background-image: url("/assets/images/dota2/talent_tree.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.08;
+}

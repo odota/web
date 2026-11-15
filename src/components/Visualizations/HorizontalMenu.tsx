@@ -1,24 +1,7 @@
-import styled from "styled-components";
 import React from "react";
 import { TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-
-const StyledHorizontalMenuFilter = styled.div`
-  display: flex;
-  align-items: center;
-
-  .reset-button {
-    display: inline-block;
-    font-size: 22px;
-    opacity: 0.5;
-    cursor: pointer;
-    margin-left: 10px;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-`;
+import styles from "./HorizontalMenu.module.css";
 
 const HorizontalMenuFilter = ({
   handleChange,
@@ -31,7 +14,7 @@ const HorizontalMenuFilter = ({
   reset: (e: any) => void;
   filterText: string;
 }) => (
-  <StyledHorizontalMenuFilter>
+  <div className={styles.horizontalMenuFilter}>
     <SearchIcon style={{ marginRight: 6, opacity: ".6" }} />
     <TextField
       helperText={filterText}
@@ -40,7 +23,7 @@ const HorizontalMenuFilter = ({
       style={{ width: 150 }}
     />
     <div
-      className="reset-button"
+      className={styles.resetButton}
       onClick={reset}
       onKeyPress={reset}
       role="button"
@@ -48,18 +31,19 @@ const HorizontalMenuFilter = ({
     >
       x
     </div>
-  </StyledHorizontalMenuFilter>
+  </div>
 );
 
-export const StyledHeroHorizontalMenu = styled.div`
-  width: 100%;
-  overflow-x: scroll;
-  white-space: nowrap;
-  background: rgba(0, 0, 0, 0.27);
-  padding: 3px;
-  min-height: 76px;
-  margin-top: 15px;
-`;
+export const StyledHeroHorizontalMenu = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={`${styles.heroHorizontalMenu}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+));
 
 class HorizontalMenu extends React.Component<{
   filterAndRenderElements: Function;

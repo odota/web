@@ -1,0 +1,29 @@
+.overview {
+  width: 100%;
+  display: flex;
+  vertical-align: top;
+}
+
+.graph {
+  margin-left: 30px;
+  width: calc(100% - 300px);
+}
+
+.map {
+  margin: 0 auto;
+}
+
+@media (max-width: 850px) {
+  .overview {
+    display: block;
+  }
+
+  .graph {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .map {
+    width: 300px;
+  }
+}

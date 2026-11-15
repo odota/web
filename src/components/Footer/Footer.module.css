@@ -1,0 +1,141 @@
+.footer {
+  padding: 0px 50px 15px;
+  background-color: var(--od-default-primary-color);
+  color: var(--od-primary-text-color);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.footer p {
+  padding: 2px 0 5px;
+  margin: 0;
+  font-size: var(--od-font-size-medium);
+}
+
+.footer .links,
+.footer :global(.cheese) {
+  margin-top: 24px;
+}
+
+.footer :global(.mobile) img:hover {
+  opacity: 0.6;
+}
+
+.footer .links .logoNsocial {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  position: relative;
+}
+
+.footer .links .logoNsocial a {
+  cursor: pointer;
+}
+
+.footer .links .logoNsocial a[data-hint-position="top"]::before {
+  margin-left: 18px;
+}
+
+.footer .links svg {
+  height: 18px;
+  margin-left: 15px;
+  vertical-align: text-top;
+  fill: var(--od-text-color-primary);
+  transition: var(--od-normal-transition);
+}
+
+.footer .links svg:hover {
+  opacity: 0.6;
+}
+
+.footer .links small {
+  color: var(--od-color-muted-light);
+  font-size: var(--od-font-size-small);
+}
+
+.footer .links small svg {
+  height: 13px;
+  margin-left: 8px;
+  vertical-align: sub;
+  transition: var(--od-normal-transition);
+}
+
+.footer .links .pages {
+  font-size: var(--od-font-size-medium);
+  margin-bottom: 4px;
+}
+
+.footer .links .pages a {
+  display: inline-block;
+}
+
+.footer .links .pages a:hover {
+  color: var(--od-text-color-primary);
+}
+
+.footer .links .pages a::after {
+  content: "•";
+  margin: 0 8px;
+  opacity: 0.6;
+  color: var(--od-primary-text-color);
+}
+
+.footer .links .pages a:last-child::after {
+  content: "";
+  margin: 0;
+}
+
+.footer :global(.cheese) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.footer :global(.cheese) > div:first-of-type {
+  margin-right: 20px;
+}
+
+.footer :global(.SocialLinks) a {
+  position: relative;
+}
+
+.footer :global(.SocialLinks) a[data-hint] {
+  cursor: pointer;
+}
+
+.footer :global(.SocialLinks) a[data-hint]::before {
+  margin-left: 16px;
+}
+
+.footer .about {
+  font-family: var(--od-font-family-futuristic);
+}
+
+@media only screen and (max-width: 960px) {
+  .footer {
+    padding: 20px 25px 15px;
+    flex-direction: column;
+  }
+
+  .footer .links,
+  .footer :global(.cheese) {
+    width: 100%;
+  }
+
+  .footer :global(.cheese) {
+    margin-top: 20px;
+  }
+}
+
+.hr {
+  border: 0;
+  height: 1px;
+  opacity: 0.1;
+  margin: 10px 0;
+  background: linear-gradient(
+    to right,
+    var(--od-primary-text-color),
+    rgba(0, 0, 0, 0)
+  );
+}

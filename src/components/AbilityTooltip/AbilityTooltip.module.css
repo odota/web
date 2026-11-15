@@ -1,0 +1,110 @@
+.wrapper {
+  position: relative;
+  width: 300px;
+  background: #131519;
+  background: linear-gradient(135deg, #131519, #1f2228);
+  overflow: hidden;
+  border: 2px solid #27292b;
+}
+
+.wrapper > div:nth-child(2) {
+  position: relative;
+  border-top: 1px solid #080d15;
+}
+
+.header {
+  background: linear-gradient(to right, #51565f, #303338);
+  position: relative;
+}
+
+.headerContent {
+  position: relative;
+  height: 50px;
+  padding: 13px;
+  white-space: nowrap;
+}
+
+.headerContent img {
+  display: inline-block;
+  height: 100%;
+  border: 1px solid #080d15;
+}
+
+.headerContent .name {
+  display: inline-block;
+  position: relative;
+  left: 15px;
+  bottom: 1px;
+  height: 50px;
+  width: 220px;
+  font-size: var(--od-font-size-common);
+  text-transform: uppercase;
+  color: var(--od-primary-text-color);
+  font-weight: bold;
+  text-shadow: 1px 1px black;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 50px;
+  letter-spacing: 1px;
+}
+
+.headerBgImg {
+  position: absolute;
+  left: -20px;
+  height: 100%;
+  width: 20%;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  transform: scale(4);
+  filter: blur(15px);
+}
+
+.description {
+  position: relative;
+  padding: 13px;
+  color: #95a5a6;
+  text-shadow: 1px 1px black;
+}
+
+.attributes {
+  position: relative;
+  padding: 13px;
+}
+
+.attributes .attribute {
+  text-shadow: 1px 1px black;
+  padding: 2px 0;
+  color: #95a5a6;
+}
+
+.attributes .attribute #value {
+  color: var(--od-primary-text-color);
+  font-weight: 500;
+}
+
+.resources {
+  padding: 6px 13px 13px 13px;
+}
+
+.resources span {
+  margin-right: 7px;
+}
+
+.resources .values {
+  font-weight: 500;
+}
+
+.resourceIcon {
+  width: 16px;
+  height: 16px;
+  vertical-align: sub;
+  margin-right: 5px;
+}
+
+.break {
+  margin-left: 13px;
+  margin-right: 13px;
+  height: 1px;
+  background-color: #080d15;
+}

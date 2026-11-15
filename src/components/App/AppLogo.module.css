@@ -1,0 +1,10 @@
+.styledLink {
+  font-weight: var(--od-font-weight-medium);
+  color: var(--od-text-color-primary);
+  text-transform: uppercase;
+}
+
+.styledLink:hover {
+  color: var(--od-text-color-primary);
+  opacity: 0.6;
+}

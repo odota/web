@@ -1,0 +1,17 @@
+.headerCellContent {
+  position: relative;
+}
+
+.headerCellImageContent {
+  height: 24px;
+  width: 24px;
+}
+
+.headerCellSortIconWrapper {
+  height: 14px;
+  margin-left: 0px;
+  position: absolute;
+  width: 10px;
+  left: -5px;
+  bottom: -12px;
+}

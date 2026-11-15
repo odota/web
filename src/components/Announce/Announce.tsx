@@ -1,74 +1,11 @@
 import React, { MouseEventHandler } from "react";
 import { Button } from "@mui/material";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import { getGithubPulls } from "../../actions";
-import constants from "../constants";
 import useStrings from "../../hooks/useStrings.hook";
+import styles from "./Announce.module.css";
 
-const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  background-color: #008eff;
-
-  & main,
-  & aside {
-    padding: 8px 20px;
-  }
-
-  & main {
-    flex-grow: 1;
-
-    & > div,
-    & a,
-    & p {
-      font-size: ${constants.fontSizeMedium};
-      margin: 0;
-      opacity: 0.85;
-    }
-
-    & a {
-      color: ${constants.textColorPrimary};
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    & h4 {
-      font-weight: ${constants.fontWeightMedium};
-      font-size: ${constants.fontSizeCommon};
-      line-height: ${constants.fontSizeCommon};
-      margin: 0 0 2px;
-
-      & svg {
-        height: 16px;
-        fill: ${constants.textColorPrimary};
-        vertical-align: sub;
-      }
-    }
-
-    & ul {
-      margin: 2px 0 0;
-      padding-left: 20px;
-
-      & li {
-        list-style-type: circle;
-
-        &::first-letter {
-          text-transform: capitalize;
-        }
-      }
-    }
-  }
-
-  & aside {
-    flex-shrink: 0;
-  }
-`;
 const Announce = ({
   title,
   body,
@@ -82,7 +19,7 @@ const Announce = ({
 }) => {
   const strings = useStrings();
   return (
-    <StyledDiv>
+    <div className={styles.styledDiv}>
       <main>
         <h4>{title}</h4>
         {body && <ReactMarkdown>{body}</ReactMarkdown>}
@@ -95,7 +32,7 @@ const Announce = ({
       <aside>
         <Button onClick={onClick}>{strings.announce_dismiss}</Button>
       </aside>
-    </StyledDiv>
+    </div>
   );
 };
 

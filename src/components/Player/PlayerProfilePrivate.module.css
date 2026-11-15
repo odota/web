@@ -1,0 +1,27 @@
+.styled {
+  text-align: center;
+  padding-top: 5%;
+}
+
+.playerProfilePrivateTitle {
+  font-size: 2rem;
+  margin-bottom: 1%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lockIcon {
+  font-size: 1.8rem;
+  margin-right: 2%;
+}
+
+.playerProfilePrivateDescription {
+  margin-bottom: 2%;
+}
+
+.signInWithSteamButton {
+  border: solid 1px #ffffff;
+  color: #ffffff;
+  padding: 1% 2%;
+}

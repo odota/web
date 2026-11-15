@@ -2,7 +2,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import React, { Suspense } from "react";
 import Helmet from "react-helmet";
 import { Route, Switch, withRouter } from "react-router-dom";
-import styled from "styled-components";
 
 import Combos from "../Combos/Combos";
 import Api from "../Api/Api";
@@ -25,6 +24,7 @@ import Spinner from "../Spinner/Spinner";
 import Players from "../Players/Players";
 import Heroes from "../Heroes/Heroes";
 import useStrings from "../../hooks/useStrings.hook";
+import styles from "./App.module.css";
 
 const Esports = React.lazy(() => import("../Esports/Esports"));
 const Status = React.lazy(() => import("../Status/Status"));
@@ -60,107 +60,18 @@ const darkTheme = createTheme({
   },
 });
 
-type AppStylesProps = {
-  open?: boolean;
-  location?: {
-    pathname?: string;
-  };
-};
-
-type Back2TopStylesProps = {
-  open?: boolean;
-  location?: {
-    pathname: string;
-  };
-};
-
 type AppProps = {
   location?: any;
+  open?: boolean;
 };
-
-const StyledDiv = styled.div<AppStylesProps>`
-  transition: ${constants.normalTransition};
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  left: ${(props) => (props.open ? "256px" : "0px")};
-  margin-top: 0px;
-
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    ${(props) =>
-      props.location?.pathname === "/"
-        ? `url("/assets/images/home-background.png")`
-        : ""};
-  background-position: center top -8px;
-  background-repeat: ${(props) =>
-    props.location?.pathname === "/" ? "no-repeat" : ""};
-`;
-
-const Back2Top = styled.button<Back2TopStylesProps>`
-  position: fixed;
-  left: auto;
-  right: 0px;
-  top: auto;
-  bottom: 20px;
-  outline: none;
-  color: rgb(196, 196, 196);
-  text-align: center;
-  outline: none;
-  border: none;
-  background-color: rgba(0, 0, 0, 0.3);
-  width: 40px;
-  font-size: 14px;
-  border-radius: 2px;
-  cursor: pointer;
-  z-index: 999999;
-  opacity: 0;
-  display: block;
-  pointer-events: none;
-  -webkit-transform: translate3d(0, 0, 0);
-  padding: 3px;
-  transition: opacity 0.3s ease-in-out;
-
-  &:hover {
-    background-color: rgb(26, 108, 239);
-  }
-
-  #back2TopTxt {
-    font-size: 10px;
-    line-height: 12px;
-    text-align: center;
-    margin-bottom: 3px;
-  }
-`;
-
-const StyledBodyDiv = styled.div`
-  padding: 0px 25px 25px 25px;
-  flex-grow: 1;
-
-  @media only screen and (min-width: ${constants.appWidth}px) {
-    width: ${constants.appWidth}px;
-    margin: auto;
-  }
-`;
-
-const AdBannerDiv = styled.div`
-  text-align: center;
-  margin-bottom: 5px;
-
-  img {
-    margin-top: 10px;
-    max-width: 100%;
-  }
-`;
 
 declare let window: Window & { adsbygoogle: any };
 
 const App = (props: AppProps) => {
   const strings = useStrings();
-  const { location } = props;
+  const { location, open } = props;
 
-  const back2Top = React.useRef<HTMLButtonElement>();
+  const back2Top = React.useRef<HTMLButtonElement>(null);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -200,13 +111,15 @@ const App = (props: AppProps) => {
   return (
     <ThemeProvider theme={darkTheme}>
       <Suspense fallback={<Spinner />}>
-        <StyledDiv {...props}>
+        <div
+          className={`${styles.styledDiv} ${open ? styles.styledDivOpen : ""} ${location?.pathname === "/" ? styles.styledDivHome : ""}`}
+        >
           <Helmet
             defaultTitle={strings.title_default}
             titleTemplate={strings.title_template}
           />
           <Header location={location} />
-          <StyledBodyDiv {...props}>
+          <div className={styles.styledBodyDiv}>
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/esports/leagues/:leagueId" component={Esports} />
@@ -242,8 +155,8 @@ const App = (props: AppProps) => {
               <Route exact path="/subscribe" component={Subscription} />
               <Route component={FourOhFour} />
             </Switch>
-          </StyledBodyDiv>
-          <AdBannerDiv>
+          </div>
+          <div className={styles.adBannerDiv}>
             {includeAds && config.VITE_ENABLE_RIVALRY && (
               <div style={{ fontSize: "12px" }}>
                 <a href="https://www.rivalry.com/opendota">
@@ -258,11 +171,11 @@ const App = (props: AppProps) => {
                 </div>
               </div>
             )}
-          </AdBannerDiv>
+          </div>
           <Footer />
-          <Back2Top
-            //@ts-expect-error
-            ref={back2Top} // type 'undefined' is not assignable to type 'HTMLButtonElement | null'
+          <button
+            className={styles.back2Top}
+            ref={back2Top}
             id="back2Top"
             title={strings.back2Top}
             onClick={() => {
@@ -272,8 +185,8 @@ const App = (props: AppProps) => {
           >
             <div>&#9650;</div>
             <div id="back2TopTxt">{strings.back2Top}</div>
-          </Back2Top>
-        </StyledDiv>
+          </button>
+        </div>
       </Suspense>
     </ThemeProvider>
   );

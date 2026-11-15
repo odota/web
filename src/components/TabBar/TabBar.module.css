@@ -1,0 +1,28 @@
+.styledMain {
+  position: relative;
+  margin: 0px 0px 30px 0px;
+  background-color: var(--od-color-header-section);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding-top: 25px;
+}
+
+.styledTabs {
+  justify-content: center;
+}
+
+.styledTabs :global(.MuiTabs-indicator) {
+  background: var(--od-primary-link-color);
+}
+
+.styledTabs :global(.MuiTabs-scroller) {
+  flex-grow: 0;
+}
+
+.styledTab {
+  min-width: 0 !important;
+}

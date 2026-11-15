@@ -1,0 +1,118 @@
+.heroProfile {
+  background: var(--od-almost-black);
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px;
+}
+
+.heroProfileBackground {
+  background-repeat: no-repeat;
+  filter: blur(25px);
+  height: 125%;
+  left: -12.5%;
+  object-fit: cover;
+  opacity: 0.35;
+  position: absolute;
+  top: -12.5%;
+  width: 125%;
+}
+
+.heroProfileContent {
+  align-items: center;
+  box-shadow: inset 0 0 125px rgba(0, 0, 0, 0.25);
+  display: flex;
+  padding: 56px;
+  position: relative;
+}
+
+@media screen and (max-width: 1024px) {
+  .heroProfileContent {
+    padding: 16px;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .heroProfileContent {
+    display: block;
+    text-align: center;
+  }
+}
+
+.heroDetails {
+  flex: 1 1 100%;
+  margin: 0 24px;
+}
+
+@media screen and (max-width: 680px) {
+  .heroDetails {
+    margin: 12px 0;
+  }
+}
+
+.heroAvatar {
+  border-radius: 16px;
+  border: solid 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  display: block;
+  flex-shrink: 0;
+  height: 128px;
+  object-fit: cover;
+  width: 180px;
+}
+
+@media screen and (max-width: 1024px) {
+  .heroAvatar {
+    height: 64px;
+    width: 120px;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .heroAvatar {
+    margin: auto;
+  }
+}
+
+.heroName {
+  font-family: var(--od-font-family-futuristic);
+  font-size: 40px;
+  font-weight: var(--od-font-weight-medium);
+  line-height: 40px;
+}
+
+@media screen and (max-width: 1024px) {
+  .heroName {
+    font-size: 28px;
+    line-height: 28px;
+  }
+}
+
+.heroRoleInformations {
+  color: var(--od-primary-text-color);
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-small);
+  letter-spacing: 1px;
+  margin: 8px 0;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 1024px) {
+  .heroRoleInformations {
+    font-size: 10px;
+  }
+}
+
+.heroRoles {
+  color: var(--od-color-muted-light);
+  word-wrap: break-word;
+}
+
+.heroDescription {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.heroStatsWrapper {
+  flex: 1 1 100%;
+}

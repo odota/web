@@ -1,57 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import Spinner from "../../Spinner/Spinner";
 import Error from "../../Error/Error";
 import PlayedWith from "./PlayedWith";
 import { PlayerStatsCard } from "./Styled";
-import constants from "../../constants";
 import useStrings from "../../../hooks/useStrings.hook";
-
-const Styled = styled.div`
-  .container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .textSuccess {
-    color: ${constants.colorGreen};
-  }
-
-  .textDanger {
-    color: ${constants.colorRed};
-  }
-
-  .icon {
-    fill: ${constants.colorMutedLight} !important;
-  }
-
-  .estimateHelp {
-    display: inline-block;
-    position: relative;
-
-    & svg {
-      width: 16px !important;
-      height: 16px !important;
-      margin-left: 5px;
-      position: absolute;
-      margin-top: -13px;
-    }
-
-    &[data-hint-position="top"] {
-      &::after {
-        margin-bottom: 19px;
-        margin-left: -2px;
-      }
-
-      &::before {
-        top: -19px;
-        margin-left: 7px;
-      }
-    }
-  }
-`;
+import styles from "./PlayerStats.module.css";
 
 export const PlayerStatsCards = ({
   loading,
@@ -78,8 +32,8 @@ export const PlayerStatsCards = ({
     return <Spinner />;
   }
   return (
-    <Styled>
-      <div className="container">
+    <div className={styles.styled}>
+      <div className={styles.container}>
         <div
           style={
             {
@@ -89,12 +43,12 @@ export const PlayerStatsCards = ({
           }
         >
           <PlayerStatsCard
-            subheader={<div className="textSuccess">{wins}</div>}
+            subheader={<div className={styles.textSuccess}>{wins}</div>}
             sx={{ paddingLeft: "0px" }}
             title={strings.th_wins}
           />
           <PlayerStatsCard
-            subheader={<div className="textDanger">{losses}</div>}
+            subheader={<div className={styles.textDanger}>{losses}</div>}
             title={strings.th_losses}
           />
           <PlayerStatsCard
@@ -108,7 +62,7 @@ export const PlayerStatsCards = ({
           <PlayedWith loggedInId={loggedInId} playerId={playerId} />
         </div>
       </div>
-    </Styled>
+    </div>
   );
 };
 

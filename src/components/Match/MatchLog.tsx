@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import ReactTooltip from "react-tooltip";
 import { Tooltip } from "@mui/material";
 import { heroes } from "dotaconstants";
@@ -16,126 +15,7 @@ import config from "../../config";
 import sword from "../Icons/Sword.svg";
 import { IconBloodDrop, IconRoshan } from "../Icons";
 import lightning from "../Icons/Lightning.svg";
-
-const StyledLogContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  position: relative;
-  align-items: center;
-  margin-top: 20px;
-  letter-spacing: 0.044em;
-
-  & .timeDivider {
-    display: flex;
-    max-width: 800px;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin-top: 24px;
-    margin-bottom: 24px;
-    color: rgba(255, 255, 255, 0.8);
-
-    & div {
-      height: 1px;
-      width: 100%;
-      background rgba(255, 255, 255, 0.08);
-      flex-shrink: 0;
-
-      &:nth-of-type(1) {
-        background: linear-gradient(to left,rgba(255,255,255,0.08), transparent);
-      }
-      &:nth-of-type(2) {
-        background: linear-gradient(to right,rgba(255,255,255,0.08), transparent);
-      }
-    }
-
-    & span {
-      font-size: 14px;
-      margin-left: 16px;
-      margin-right: 16px;
-      color: rgba(255, 255, 255, 0.8);
-    }
-  }
-
-  .entry:hover {
-    & .time {
-      color: rgba(255, 255, 255, 0.9);
-    }
-  }
-
-  .entry {
-    display: flex;
-    max-width: 800px;
-    width: 100%
-    margin-top: 8px;
-    margin-bottom: 8px;
-
-    & .smallMutedText {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    & .smallBoldText {
-      font-size: 12px;
-      font-weight: bold;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    & .time {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.3);
-    }
-
-    & .entryMessagesContainer {
-      display: flex;
-      flex-direction: column;
-      border-radius: 4px;
-
-      &.radiant {
-        background: linear-gradient(to right, #21812c26, transparent);
-      }
-      &.dire {
-        background: linear-gradient(to left, #9d361f26, transparent);
-        padding-right: 7px;
-      }
-    }
-
-    & .heroImage {
-      width: 72px;
-      height: 40px;
-      border-radius: 4px;
-    }
-
-    & .detailIcon {
-      height: 16px;
-      width: 16px;
-      margin-right: 6px;
-      margin-left: 6px;
-    }
-
-    & .entryMessage {
-      display: flex;
-      margin-top: 12px;
-      margin-bottom: 12px;
-
-      & .icon {
-        height: 16px;
-        width: 16px;
-        margin-left: 6px;
-        margin-right: 6px;
-      }
-
-      & .dropIcon {
-        fill: #ff5555;
-      }
-
-      & .roshanIcon {
-        fill: #9dddcc;
-      }
-    }
-  }
-`;
+import styles from "./MatchLog.module.css";
 
 const DIVIDER_SECONDS = 30; // insert a divider if two consecutive entries are X seconds apart
 
@@ -361,7 +241,7 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
             width={400}
           />
         </StyledLogFilterForm>
-        <StyledLogContainer>
+        <div className={styles.styledLogContainer}>
           {logData.map((entry, index) => {
             groupedEntries.push(entry);
             const nextEntry = logData[index + 1];
@@ -382,19 +262,22 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
                       isRadiant(renderEntries[0]) ? "radiant" : "dire"
                     }.png`}
                     alt=""
-                    className="heroImage"
+                    className={styles.heroImage}
                   />
                 );
               } else {
                 renderFirst = (
-                  <HeroImage id={entry.hero_id} className="heroImage" />
+                  <HeroImage
+                    id={entry.hero_id}
+                    className={styles.heroImage}
+                  />
                 );
               }
 
               let timeDivider = null;
               if (renderEntries[0].time - lastEntryTime >= DIVIDER_SECONDS) {
                 timeDivider = (
-                  <div className="timeDivider">
+                  <div className={styles.timeDivider}>
                     <div />
                     <span>{formatSeconds(renderEntries[0].time)}</span>
                     <div />
@@ -404,25 +287,31 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
 
               let renderSecond = (
                 <div
-                  className={`entryMessagesContainer ${
-                    isRadiant(renderEntries[0]) ? "radiant" : "dire"
+                  className={`${styles.entryMessagesContainer} ${
+                    isRadiant(renderEntries[0]) ? styles.radiant : styles.dire
                   }`}
                 >
                   {renderEntries.map((e) => {
                     lastEntryTime = e.time;
                     if (isRadiant(renderEntries[0])) {
                       return (
-                        <div className="entryMessage">
+                        <div className={styles.entryMessage}>
                           <EntryMessage entry={e} strings={strings} />
-                          <span className="time" style={{ marginLeft: 15 }}>
+                          <span
+                            className={styles.time}
+                            style={{ marginLeft: 15 }}
+                          >
                             {formatSeconds(e.time)}
                           </span>
                         </div>
                       );
                     }
                     return (
-                      <div className="entryMessage">
-                        <span className="time" style={{ marginRight: 15 }}>
+                      <div className={styles.entryMessage}>
+                        <span
+                          className={styles.time}
+                          style={{ marginRight: 15 }}
+                        >
                           {formatSeconds(e.time)}
                         </span>
                         <EntryMessage entry={e} strings={strings} />
@@ -442,7 +331,7 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
                 <>
                   {timeDivider}
                   <div
-                    className="entry"
+                    className={styles.entry}
                     style={{
                       justifyContent: isRadiant(renderEntries[0])
                         ? "flex-start"
@@ -458,7 +347,7 @@ class MatchLog extends React.Component<MatchLogProps, MatchLogState> {
             }
             return null;
           })}
-        </StyledLogContainer>
+        </div>
       </div>
     );
   }
@@ -499,16 +388,16 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
       const hero = heroNames[entry.detail] || {};
       return (
         <>
-          <img src={sword} className="swordIcon icon" />
-          <span className="smallMutedText">{strings.killed}</span>
-          <HeroImage id={hero.id} className="detailIcon" isIcon />
-          <span className="smallBoldText">{hero.localized_name}</span>
+          <img src={sword} className={`swordIcon ${styles.icon}`} />
+          <span className={styles.smallMutedText}>{strings.killed}</span>
+          <HeroImage id={hero.id} className={styles.detailIcon} isIcon />
+          <span className={styles.smallBoldText}>{hero.localized_name}</span>
           {entry.smoke && (
             <Tooltip title={strings.smoke_kill}>
               <img
                 src={`${config.VITE_IMAGE_CDN}/apps/dota2/images/dota_react/items/smoke_of_deceit.png`}
                 alt={strings.smoke_kill}
-                className="detailIcon"
+                className={styles.detailIcon}
               />
             </Tooltip>
           )}
@@ -524,16 +413,16 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
             <img
               src={`/assets/images/dota2/runes/${runeType}.png`}
               alt={`${runeString} rune`}
-              className="detailIcon"
+              className={styles.detailIcon}
             />
           </Tooltip>
           <span
-            className="smallMutedText"
+            className={styles.smallMutedText}
             style={{ textTransform: "lowercase" }}
           >
             {strings.activated}&nbsp;
           </span>
-          <span className="smallBoldText">
+          <span className={styles.smallBoldText}>
             {runeString} {strings.rune}
           </span>
         </>
@@ -543,8 +432,10 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
       if (entry.alt_key === "CHAT_MESSAGE_FIRSTBLOOD") {
         return (
           <>
-            <IconBloodDrop className="dropIcon icon" />
-            <span className="smallBoldText">{strings.drew_first_blood}</span>
+            <IconBloodDrop className={`${styles.dropIcon} ${styles.icon}`} />
+            <span className={styles.smallBoldText}>
+              {strings.drew_first_blood}
+            </span>
           </>
         );
       }
@@ -554,14 +445,16 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
             {/* #e5cf11 */}
             <img
               src={lightning}
-              className="icon"
+              className={styles.icon}
               style={{
                 filter:
                   "invert(87%) sepia(98%) saturate(4073%) hue-rotate(341deg) brightness(90%) contrast(100%)",
               }}
             />
-            <span className="smallMutedText">{strings.destroyed}&nbsp;</span>
-            <span className="smallBoldText">
+            <span className={styles.smallMutedText}>
+              {strings.destroyed}&nbsp;
+            </span>
+            <span className={styles.smallBoldText}>
               {translateBuildings(
                 entry.key.indexOf("goodguys") !== -1,
                 entry.key,
@@ -580,9 +473,11 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
             <img
               src="/assets/images/dota2/aegis_icon.png"
               alt="Aegis of Immortality"
-              className="detailIcon"
+              className={styles.detailIcon}
             />
-            <span className="smallBoldText">{strings.CHAT_MESSAGE_AEGIS}</span>
+            <span className={styles.smallBoldText}>
+              {strings.CHAT_MESSAGE_AEGIS}
+            </span>
           </>
         );
       }
@@ -592,9 +487,9 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
             <img
               src="/assets/images/dota2/aegis_icon.png"
               alt="Aegis of Immortality"
-              className="detailIcon"
+              className={styles.detailIcon}
             />
-            <span className="smallBoldText">
+            <span className={styles.smallBoldText}>
               {strings.CHAT_MESSAGE_AEGIS_STOLEN}
             </span>
           </>
@@ -603,8 +498,8 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
       if (entry.alt_key === "CHAT_MESSAGE_ROSHAN_KILL") {
         return (
           <>
-            <IconRoshan className="roshanIcon icon" />
-            <span className="smallBoldText">{strings.slain_roshan}</span>
+            <IconRoshan className={`${styles.roshanIcon} ${styles.icon}`} />
+            <span className={styles.smallBoldText}>{strings.slain_roshan}</span>
           </>
         );
       }
@@ -614,9 +509,11 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
             <img
               src="/assets/images/dota2/shard_1.png"
               alt="Aghanim's Shard"
-              className="detailIcon"
+              className={styles.detailIcon}
             />
-            <span className="smallBoldText">{strings.destroyed_tormentor}</span>
+            <span className={styles.smallBoldText}>
+              {strings.destroyed_tormentor}
+            </span>
           </>
         );
       }
@@ -625,16 +522,16 @@ function EntryMessage({ entry, strings }: { entry: any; strings: Strings }) {
           entry.team === 2 ? strings.general_radiant : strings.general_dire;
         return (
           <>
-            <img src={sword} className="swordIcon icon" />
-            <span className="smallMutedText">{strings.killed}</span>
+            <img src={sword} className={`swordIcon ${styles.icon}`} />
+            <span className={styles.smallMutedText}>{strings.killed}</span>
             <img
               src={`/assets/images/dota2/${
                 entry.team === 2 ? "radiant" : "dire"
               }courier.png`}
               alt="Courier"
-              className="detailIcon"
+              className={styles.detailIcon}
             />
-            <span className="smallBoldText">
+            <span className={styles.smallBoldText}>
               {formatTemplateToString(strings.team_courier, {
                 team,
               })}

@@ -1,0 +1,55 @@
+.styledContainer {
+  display: flex;
+  position: relative;
+  height: 100%;
+}
+
+.kdaContainer {
+  width: calc(300% + 10px);
+  left: -10px;
+  pointer-events: none;
+}
+
+.titleContainer {
+  align-self: center;
+  white-space: nowrap;
+}
+
+.titleContainer small {
+  color: var(--od-color-muted-light);
+  margin-left: 1px;
+}
+
+.percentContainer {
+  width: 100%;
+  height: 4px;
+  position: absolute;
+  background-color: var(--od-color-muted);
+  align-self: flex-end;
+  bottom: -6px;
+  left: 0;
+  pointer-events: auto !important;
+}
+
+.percentContainer > div {
+  height: 100%;
+}
+
+.sparklineContainer {
+  overflow: visible !important;
+  pointer-events: auto !important;
+}
+
+.kdaPercentContainer {
+  display: flex;
+}
+
+.kdaPercentContainer[data-hint-position="top"]::before {
+  top: -8px;
+  margin-left: 10px;
+}
+
+.kdaPercentContainer[data-hint-position="top"]::after {
+  margin-bottom: 8px;
+  margin-left: 0;
+}

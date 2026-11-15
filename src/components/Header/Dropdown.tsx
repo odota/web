@@ -1,18 +1,5 @@
 import React from "react";
 import { Menu, MenuItem, Popover } from "@mui/material";
-// import styled from 'styled-components';
-// import constants from '../constants';
-
-// TODO doesn't work with styled-components right now since overwriting the Button element causes material-ui to lose anchor context
-/*
-const StyledButton = styled(Button)`
-  & svg {
-    transform: rotate(${props => props.open ? '90deg' : '0deg'});
-    fill: ${props => props.open ? `${constants.colorGolden} !important;` : ''}
-    transition: ${constants.linearTransition};
-  }
-`;
-*/
 
 type DropdownProps = {
   Button: Function;

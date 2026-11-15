@@ -1,38 +1,6 @@
-import styled from "styled-components";
-import constants from "../constants";
 import { formatValues } from "../../utility";
 import React from "react";
-
-const Behavior = styled.div`
-  position: relative;
-  padding: 13px;
-  color: #95a5a6;
-
-  span {
-    &:nth-child(2) {
-      color: ${constants.primaryTextColor};
-      font-weight: 500;
-    }
-    &[type="Yes"] {
-      color: ${constants.colorGreen};
-    }
-    &[type="Strong Dispels Only"] {
-      color: darkred;
-    }
-    &[type="No"] {
-      color: ${constants.colorRed};
-    }
-    &[type="Pure"] {
-      color: ${constants.colorDamageTypePure};
-    }
-    &[type="Physical"] {
-      color: ${constants.colorDamageTypePhysical};
-    }
-    &[type="Magical"] {
-      color: ${constants.colorDamageTypeMagical};
-    }
-  }
-`;
+import styles from "./AbilityBehaviour.module.css";
 
 const AbilityBehaviour = ({
   ability,
@@ -44,7 +12,7 @@ const AbilityBehaviour = ({
     dispellable?: boolean;
   };
 }) => (
-  <Behavior>
+  <div className={styles.behavior}>
     {ability.behavior ? (
       <div>
         <span>TARGET: </span>
@@ -80,7 +48,7 @@ const AbilityBehaviour = ({
     ) : (
       ""
     )}
-  </Behavior>
+  </div>
 );
 
 export default AbilityBehaviour;

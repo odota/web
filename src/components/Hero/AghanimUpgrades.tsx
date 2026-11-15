@@ -1,40 +1,18 @@
 import React from "react";
-import styled from "styled-components";
 import AghsTooltip from "../AghsTooltip/AghsTooltip";
-import constants from "../constants";
 import { aghs_desc as aghsDesc } from "dotaconstants";
+import styles from "./AghanimUpgrades.module.css";
 
-const Wrapper = styled.div`
-  background: linear-gradient(
-    to bottom,
-    ${constants.colorBlueMuted},
-    ${constants.primarySurfaceColor}
-  );
-  border-radius: 4px;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-  position: relative;
-  width: 106%;
-`;
+export const StyledAghanimsBuffs: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ className, ...props }) => (
+  <div className={`${styles.styledAghanimsBuffs} ${className || ""}`} {...props} />
+);
 
-export const StyledAghanimsBuffs = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  .__react_component_tooltip {
-    opacity: 1 !important;
-    padding: 0px !important;
-  }
-`;
-
-export const Icon = styled.img`
-  width: 60%;
-  &:hover {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-`;
+export const Icon: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
+  className,
+  ...props
+}) => <img className={`${styles.icon} ${className || ""}`} {...props} />;
 
 const getAghsUpgrades = (heroName: string) => {
   const hero = aghsDesc.filter((a) => a.hero_name === heroName)[0];
@@ -48,7 +26,7 @@ const AghanimUpgrades = ({
   heroName: string;
   skills: any[];
 }) => (
-  <Wrapper>
+  <div className={styles.wrapper}>
     <AghsTooltip
       heroName={heroName}
       upgrades={getAghsUpgrades(heroName)}
@@ -58,7 +36,7 @@ const AghanimUpgrades = ({
       <Icon src="/assets/images/dota2/scepter_0.png" alt="Aghanim's scepter" />
       <Icon src="/assets/images/dota2/shard_0.png" alt="Aghanim's shard" />
     </StyledAghanimsBuffs>
-  </Wrapper>
+  </div>
 );
 
 export default AghanimUpgrades;

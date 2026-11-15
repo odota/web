@@ -1,0 +1,16 @@
+.styledButton {
+  min-width: 30px !important;
+  display: flex;
+}
+
+.styledButton > div > span {
+  display: inline-block;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: none !important;
+  white-space: nowrap;
+  font-size: 16px !important;
+  padding-right: 10px !important;
+  padding-left: 0 !important;
+}

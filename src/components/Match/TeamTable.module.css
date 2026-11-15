@@ -1,0 +1,13 @@
+.teamtable {
+  position: relative;
+}
+
+.teamtable::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  height: 8px;
+}

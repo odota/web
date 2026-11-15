@@ -1,0 +1,32 @@
+.wrapper {
+  background: linear-gradient(
+    to bottom,
+    var(--od-color-blue-muted),
+    var(--od-primary-surface-color)
+  );
+  border-radius: 4px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 106%;
+}
+
+.styledAghanimsBuffs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.styledAghanimsBuffs :global(.__react_component_tooltip) {
+  opacity: 1 !important;
+  padding: 0px !important;
+}
+
+.icon {
+  width: 60%;
+}
+
+.icon:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}

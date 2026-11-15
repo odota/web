@@ -3,110 +3,13 @@ import { connect } from "react-redux";
 import Helmet from "react-helmet";
 import { Alert, CircularProgress } from "@mui/material";
 import { Button } from "@mui/material";
-import styled from "styled-components";
 import { LoadingOverlayUpper30 } from "../LoadingOverlay";
 import { IconSteam } from "../Icons";
 import config from "../../config";
 import constants from "../constants";
+import styles from "./Api.module.css";
 
 const path = "/keys";
-
-const ApiContainer = styled.div`
-  width: 80%;
-  margin: 6vh auto 0;
-  font-family: ${constants.fontFamilyFuturistic};
-
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-  }
-
-  & li {
-    list-style-type: initial;
-  }
-
-  & h1 {
-    font-family: ${constants.fontFamilyFuturistic};
-    font-weight: 400;
-
-    @media only screen and (max-width: 768px) {
-      font-size: 1.625rem;
-    }
-  }
-
-  & h2 {
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.4;
-
-    @media only screen and (max-width: 768px) {
-      font-size: 0.75rem;
-    }
-  }
-`;
-
-const Body = styled.div`
-  padding-top: 8px;
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const KeyContainer = styled.pre`
-  background: grey;
-  display: inline;
-  padding: 10px;
-`;
-
-const TableTitle = styled.h2`
-  margin: 16px 0;
-`;
-
-const TableContainer = styled.div`
-  table {
-    width: 80%;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.011);
-  }
-
-  & table td,
-  table th {
-    white-space: inherit !important;
-  }
-
-  th {
-    color: rgb(255, 128, 171);
-  }
-
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
-const DetailsContainer = styled.div`
-  text-align: left;
-  width: 80%;
-  margin: 0 auto;
-
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
-const DetailsTitle = styled.h3`
-  font-size: 1rem;
-  font-weight: 400;
-`;
-
-const List = styled.ul`
-  li {
-    font-size: 0.875rem;
-    line-height: 1.6;
-  }
-`;
 
 class KeyManagement extends React.Component<
   { loading: boolean; metadata: any; strings: Strings },
@@ -253,7 +156,7 @@ class KeyManagement extends React.Component<
           <title>{strings.title_api}</title>
           <meta name="description" content={strings.api_meta_description} />
         </Helmet>
-        <ApiContainer style={{ textAlign: "center" }}>
+        <div className={styles.apiContainer} style={{ textAlign: "center" }}>
           {this.state.error ? <div>{strings.api_error}</div> : <div />}
           {this.state.openInvoices?.length ? (
             <Alert severity="warning">
@@ -268,8 +171,8 @@ class KeyManagement extends React.Component<
           {loading || this.state.loading || !Object.keys(strings).length ? (
             <LoadingOverlayUpper30 text="Loading API details..." />
           ) : (
-            <Body>
-              <ButtonGroup>
+            <div className={styles.body}>
+              <div className={styles.buttonGroup}>
                 {showLoginButton ? (
                   <Button
                     variant="outlined"
@@ -306,13 +209,15 @@ class KeyManagement extends React.Component<
                 >
                   {strings.api_docs}
                 </Button>
-              </ButtonGroup>
+              </div>
               {this.state.customer ? (
                 <div>
                   {this.state.customer.api_key ? (
                     <div>
                       <h4>{strings.api_header_key}</h4>
-                      <KeyContainer>{this.state.customer.api_key}</KeyContainer>
+                      <pre className={styles.keyContainer}>
+                        {this.state.customer.api_key}
+                      </pre>
                       <p>
                         {strings.api_key_usage.replace(
                           "$param",
@@ -323,7 +228,9 @@ class KeyManagement extends React.Component<
                         <a
                           href={`https://api.opendota.com/api/matches/271145478?api_key=${this.state.customer.api_key}`}
                         >
-                          <KeyContainer>{`https://api.opendota.com/api/matches/271145478?api_key=${this.state.customer.api_key}`}</KeyContainer>
+                          <pre className={styles.keyContainer}>
+                            {`https://api.opendota.com/api/matches/271145478?api_key=${this.state.customer.api_key}`}
+                          </pre>
                         </a>
                       </div>
                       <p>
@@ -360,7 +267,7 @@ class KeyManagement extends React.Component<
                   {this.state.usage ? (
                     <div>
                       <h4>{strings.api_header_usage}</h4>
-                      <TableContainer>
+                      <div className={styles.tableContainer}>
                         <table>
                           <thead>
                             <tr>
@@ -379,7 +286,7 @@ class KeyManagement extends React.Component<
                             ))}
                           </tbody>
                         </table>
-                      </TableContainer>
+                      </div>
                     </div>
                   ) : (
                     <div />
@@ -388,8 +295,8 @@ class KeyManagement extends React.Component<
               ) : (
                 <div />
               )}
-              <TableTitle>{strings.api_header_table}</TableTitle>
-              <TableContainer>
+              <h2 className={styles.tableTitle}>{strings.api_header_table}</h2>
+              <div className={styles.tableContainer}>
                 <table>
                   <thead>
                     <tr>
@@ -447,10 +354,12 @@ class KeyManagement extends React.Component<
                     <tr style={{ height: "24px" }} />
                   </tbody>
                 </table>
-              </TableContainer>
-              <DetailsContainer>
-                <DetailsTitle>{strings.api_header_details}</DetailsTitle>
-                <List>
+              </div>
+              <div className={styles.detailsContainer}>
+                <h3 className={styles.detailsTitle}>
+                  {strings.api_header_details}
+                </h3>
+                <ul className={styles.list}>
                   <li>
                     {strings.api_charging.replace(
                       "$cost",
@@ -459,11 +368,11 @@ class KeyManagement extends React.Component<
                   </li>
                   <li>{strings.api_credit_required}</li>
                   <li>{strings.api_failure}</li>
-                </List>
-              </DetailsContainer>
-            </Body>
+                </ul>
+              </div>
+            </div>
           )}
-        </ApiContainer>
+        </div>
       </div>
     );
   }

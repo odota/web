@@ -1,0 +1,34 @@
+.bulletList {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 0.5rem;
+}
+
+.styledBulletListItem {
+  margin: 0 !important;
+  padding: 8px;
+  font-family: var(--od-font-family-futuristic);
+}
+
+.label {
+  font-size: 0.7rem;
+}
+
+.styledLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.styledLink:hover {
+  filter: brightness(1.6);
+}
+
+.statList {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

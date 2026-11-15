@@ -1,0 +1,7 @@
+.drawer {
+  background-color: var(--od-default-primary-color) !important;
+}
+
+.menuItem {
+  display: block;
+}

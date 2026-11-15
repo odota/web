@@ -3,39 +3,10 @@ import { connect } from "react-redux";
 import { Box } from "@mui/material";
 import { Button } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import styled from "styled-components";
 import { toggleShowForm as toggleShowFormAction } from "../../../actions/formActions";
 import GamemodeToggle from "../../GamemodeToggle/GamemodeToggle";
 import config from "../../../config";
-import constants from "../../constants";
-
-const Styled = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: nowrap;
-  font-size: 14px;
-
-  @media only screen and (max-width: 660px) {
-    justify-content: center;
-
-    & a {
-      min-width: 50px !important;
-    }
-
-    & button {
-      min-width: 50px !important;
-    }
-
-    & * {
-      margin: auto !important;
-    }
-
-    & span {
-      margin: 0 !important;
-    }
-  }
-`;
+import styles from "./PlayerButtons.module.css";
 
 type PlayerButtonsProps = {
   playerId: string;
@@ -51,7 +22,7 @@ class PlayerButtons extends React.Component<
   render() {
     const { playerId, strings } = this.props;
     return (
-      <Styled>
+      <div className={styles.playerButtons}>
         <div data-hint={strings.app_refresh} data-hint-position="top">
           <Button
             startIcon={<RefreshIcon />}
@@ -74,7 +45,7 @@ class PlayerButtons extends React.Component<
         <Box ml="16px">
           <GamemodeToggle />
         </Box>
-      </Styled>
+      </div>
     );
   }
 }
