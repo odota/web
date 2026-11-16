@@ -3,6 +3,7 @@ import Heading from "../Heading/Heading";
 import Error from "../Error/Error";
 import { LoadingOverlayUpper30 } from "../LoadingOverlay";
 import { Spacer } from "../Spacer/Spacer";
+import styles from "./Container.module.css";
 
 type ContainerProps = {
   title?: string;
@@ -38,7 +39,7 @@ const Container = ({
   !hide ? (
     <div className={className} style={{ ...style }}>
       {title && (titleActions ? (
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+        <div className={styles.titleRow}>
           <Heading title={title} subtitle={subtitle} titleTo={titleTo} />
           {titleActions}
         </div>
