@@ -126,19 +126,21 @@ function MobileMatches({ data, loading, loadingText }: React.ComponentProps<type
       <ul className={styles.mobileList}>
         {items.map((match) => <li key={match.match_id}>
           <Link className={styles.mobileMatch} to={`/matches/${match.match_id}`}>
-            <h2 className={styles.mobileHeading}>{match.league_name || (match.leagueid ? strings.hero_pro_tab : "Public match")}</h2>
+            <div className={styles.mobileHeader}>
+              <h2 className={styles.mobileHeading}>{match.league_name || (match.leagueid ? strings.hero_pro_tab : "Public match")}</h2>
+              <span className={styles.mobileMatchId}>#{match.match_id}</span>
+            </div>
             <div className={styles.mobileResult}>
-              <span>Final</span>
-              <div className={styles.mobileMeta}>{!!match.avg_rank_tier && <span className={styles.mobileRank}><img src={`/assets/images/dota2/rank_icons/rank_icon_${Math.floor(match.avg_rank_tier / 10)}.png`} alt="" />{rankTierToString(match.avg_rank_tier)}</span>}<FromNowTooltip timestamp={match.start_time + match.duration} /><span className={styles.mobileMatchId}>#{match.match_id}</span></div>
+              <div className={styles.mobileMeta}>{!!match.avg_rank_tier && <span className={styles.mobileRank}><img src={`/assets/images/dota2/rank_icons/rank_icon_${Math.floor(match.avg_rank_tier / 10)}.png`} alt="" />{rankTierToString(match.avg_rank_tier)}</span>}<MatchMetadataLabel match={match} /></div>
             </div>
             <div className={styles.mobileTeams}>
             {(["radiant", "dire"] as const).map((side) => {
               const lineup = match[`${side}_team`];
               const winner = typeof match.radiant_win === "boolean" && match.radiant_win === (side === "radiant");
               return <div className={`${styles.mobileTeam}${winner ? ` ${styles.isWinner}` : typeof match.radiant_win === "boolean" ? ` ${styles.isLoser}` : ""}`} key={side}>
-                <div className={styles.mobileLabel}>{side === "radiant" ? strings.general_radiant : strings.general_dire}</div>
+                {Array.isArray(lineup) && <div className={styles.mobileLabel}>{side === "radiant" ? strings.general_radiant : strings.general_dire}</div>}
                 {Array.isArray(lineup) ? (lineup.some((id: number) => heroes[String(id) as keyof Heroes]) ? <div className={styles.mobileHeroes}>{lineup.map((id: number) => heroes[String(id) as keyof Heroes] && <HeroImage key={id} id={String(id)} alt={heroes[String(id) as keyof Heroes].localized_name} />)}</div> : <div className={styles.mobileHeroesUnavailable}>Heroes unavailable</div>) : <div className={styles.mobileName}>
-                  <TeamLogo teamId={match[`${side}_team_id`]} style={{ width: 48, height: 48, objectFit: "contain", flexShrink: 0 }} />
+                  <TeamLogo teamId={match[`${side}_team_id`]} style={{ width: 36, height: 36, objectFit: "contain", flexShrink: 0 }} />
                   <span className={styles.mobileTeamName}>{match[`${side}_name`] || strings.general_unknown}</span>
                   <MatchScore match={match} side={side} winner={winner} />
                 </div>}
@@ -148,7 +150,7 @@ function MobileMatches({ data, loading, loadingText }: React.ComponentProps<type
             </div>
             <div className={styles.mobileFooter}>
               <div className={styles.mobileFooterDetails}>
-                <MatchMetadataLabel match={match} />
+                <FromNowTooltip timestamp={match.start_time + match.duration} />
               </div>
             </div>
           </Link>
