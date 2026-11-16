@@ -5,35 +5,30 @@
   line-height: 1.5;
 }
 
-/* Extend cards across the App body's 25px side gutters. */
 .mobileList {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 0;
   width: calc(100% + 50px);
   padding: 0;
-  margin: 0 -25px;
+  margin: 0 -25px 20px;
   list-style: none;
 }
 
 .mobileMatch {
   display: block;
+  overflow: hidden;
   box-sizing: border-box;
   width: 100%;
-  padding: 24px 25px;
   border: 0;
   border-radius: 0;
   background: var(--od-primary-surface-color);
   color: var(--od-text-color-primary);
-}
-
-.mobileList > li + li {
-  border-top: 1px solid color-mix(in srgb, var(--od-color-blue-gray) 45%, var(--od-divider-color));
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .10);
 }
 
 .mobileMatch:hover,
 .mobileMatch:focus-visible {
-  background: color-mix(in srgb, var(--od-primary-link-color) 9%, var(--od-primary-surface-color));
   text-decoration: none;
 }
 
@@ -103,8 +98,138 @@
   font-variant-numeric: tabular-nums;
 }
 
+.mobileTeams {
+  padding: 18px 0;
+}
+
+.mobileTeam {
+  position: relative;
+  padding: 12px 18px 12px 22px;
+  border-left: 5px solid var(--od-color-red);
+}
+
+.mobileTeam.isLoser .mobileTeamName {
+  color: var(--od-text-color-secondary);
+}
+
+.mobileTeam:first-child {
+  border-left-color: var(--od-color-green);
+}
+
 .mobileTeam + .mobileTeam {
   margin-top: 12px;
+}
+
+.mobileResult {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  background: var(--od-table-header-surface-color);
+  color: var(--od-text-color-secondary);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.mobileResult .mobileRank img {
+  width: 16px;
+  height: 16px;
+}
+
+.mobileResult .mobileMeta {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.mobileHeading {
+  margin: 0;
+  padding: 16px 18px 0;
+  background: var(--od-table-header-surface-color);
+  font-size: 16px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.mobileScore {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  font-size: 26px;
+  font-weight: 900;
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--od-text-color-secondary);
+}
+
+.mobileTeam.isWinner {
+  color: var(--od-color-red);
+}
+
+.mobileTeam.isWinner:first-child {
+  color: var(--od-color-green);
+}
+
+.mobileScore.isWinner {
+  color: inherit;
+}
+
+.mobileScoreMarker {
+  font-size: 12px;
+}
+
+.mobileMatch .mobileName {
+  gap: 10px;
+  font-size: clamp(16px, 4.5vw, 22px);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.mobileMatch .mobileName > .mobileTeamName {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobileMatch .mobileHeroes {
+  margin-top: 10px;
+}
+
+.mobileMatch .mobileLabel {
+  font-size: 9px;
+}
+
+.mobileMatch .mobileFooter {
+  display: block;
+  margin-top: 0;
+  padding: 14px 12px;
+}
+
+.mobileMatch .mobileFooterDetails {
+  justify-content: center;
+}
+
+.mobileMatch .mobileFooterAction {
+  display: flex;
+  justify-content: center;
+  min-height: 42px;
+  border: 0;
+  border-radius: 6px;
+}
+
+.mobileMatch .mobileOpen {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.mobileMatch .mobileContext {
+  padding: 0 18px 12px;
 }
 
 .mobileLabel {
@@ -196,7 +321,7 @@
   gap: 8px;
   margin-top: 12px;
   padding-top: 10px;
-  border-top: 1px solid color-mix(in srgb, var(--od-color-blue-gray) 45%, var(--od-divider-color));
+  border-top: 1px solid color-mix(in srgb, var(--od-color-blue) 20%, var(--od-divider-color));
   color: var(--od-text-color-secondary);
   font-size: 10px;
 }
