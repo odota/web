@@ -1,3 +1,5 @@
+@value mobile from "../../../breakpoints.module.css";
+
 .iconButton {
   padding-bottom: 0;
   cursor: default;
@@ -48,10 +50,14 @@
   height: 90%;
 }
 
-@media only screen and (max-width: 660px) {
+@media mobile {
   .playerBadges {
+    justify-content: center;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    height: auto;
     margin-left: 0;
-    margin-top: 6px;
+    margin-top: 0;
   }
 }
 

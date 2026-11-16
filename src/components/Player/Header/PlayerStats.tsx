@@ -35,23 +35,21 @@ export const PlayerStatsCards = ({
     <div className={styles.styled}>
       <div className={styles.container}>
         <div
-          style={
-            {
-              justifyContent: compact ? "center" : undefined,
-              display: "flex",
-            } as React.CSSProperties
-          }
+          className={`${styles.statsRow}${compact ? ` ${styles.compact}` : ""}`}
         >
           <PlayerStatsCard
+            className={styles.statCard}
             subheader={<div className={styles.textSuccess}>{wins}</div>}
             sx={{ paddingLeft: "0px" }}
             title={strings.th_wins}
           />
           <PlayerStatsCard
+            className={styles.statCard}
             subheader={<div className={styles.textDanger}>{losses}</div>}
             title={strings.th_losses}
           />
           <PlayerStatsCard
+            className={styles.statCard}
             subheader={
               wins + losses
                 ? `${((wins / (wins + losses)) * 100).toFixed(2)}%`

@@ -1,7 +1,43 @@
+@value mobile from "../../../breakpoints.module.css";
+
 .container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.statsRow {
+  display: flex;
+}
+
+.compact {
+  justify-content: center;
+}
+
+@media mobile {
+  .container {
+    justify-content: center;
+  }
+
+  .statsRow {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    column-gap: 16px;
+    align-items: start;
+    width: fit-content;
+  }
+
+  .statsRow .statCard {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 0;
+    text-align: center;
+  }
+
+  .statsRow > :not(.statCard) {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
 }
 
 .textSuccess {
