@@ -3,7 +3,7 @@ import Helmet from "react-helmet";
 import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
 import Heading from "../Heading/Heading";
-import { LazyLog, ScrollFollow } from "@melloware/react-logviewer";
+import LogViewer from "../LogViewer/LogViewer";
 import useStrings from "../../hooks/useStrings.hook";
 import config from "../../config";
 import constants from "../constants";
@@ -96,22 +96,10 @@ const Request = () => {
           {strings.request_submit}
         </Button>
         <div style={{ height: "300px", display: jobId ? "block" : "none" }}>
-          {
-            <ScrollFollow
-              startFollowing={true}
-              render={({ follow, onScroll }) => (
-                <LazyLog
-                  stream
-                  url={`${config.VITE_API_HOST}/logs/${jobId}`}
-                  eventsource
-                  follow={follow}
-                  onScroll={onScroll}
-                  selectableLines
-                  wrapLines
-                />
-              )}
-            />
-          }
+          <LogViewer
+            url={`${config.VITE_API_HOST}/logs/${jobId}`}
+            enabled={Boolean(jobId)}
+          />
         </div>
       </form>
     </div>

@@ -4,7 +4,7 @@ import CountUp from "react-countup";
 import { abbreviateNumber } from "../../utility";
 import Table from "../Table/Table";
 import config from "../../config";
-import { LazyLog, ScrollFollow } from "@melloware/react-logviewer";
+import LogViewer from "../LogViewer/LogViewer";
 import useStrings from "../../hooks/useStrings.hook";
 
 const columns = [
@@ -85,35 +85,15 @@ const Status = () => {
     <>
       <Helmet title={strings.title_status} />
       <div style={{ height: "300px" }}>
-        {
-          <ScrollFollow
-            startFollowing={true}
-            render={({ follow, onScroll }) => (
-              <LazyLog
-                key={ts}
-                stream
-                url={`${config.VITE_API_HOST}/logs`}
-                eventsource
-                follow={follow}
-                onScroll={({ scrollTop, scrollHeight, clientHeight }) => {
-                  const atBottom = scrollHeight - scrollTop - clientHeight <= 2;
-                  onScroll({
-                    scrollTop: atBottom ? scrollHeight - clientHeight : scrollTop,
-                    scrollHeight,
-                    clientHeight,
-                  });
-                }}
-                enableSearch
-                selectableLines
-                wrapLines
-                onLoad={() => {
-                  // Trigger a reload since socket connection ended
-                  setTs(Number(new Date()));
-                }}
-              />
-            )}
-          />
-        }
+        <LogViewer
+          key={ts}
+          url={`${config.VITE_API_HOST}/logs`}
+          enableSearch
+          onLoad={() => {
+            // Trigger a reload since socket connection ended
+            setTs(Number(new Date()));
+          }}
+        />
       </div>
       {/* <button style={{ width: '200px', height: '40px', margin: '8px' }} onClick={() => this.setState({ follow: !this.state.follow })}>{this.state.follow ? 'Stop' : 'Start'}</button> */}
       {/* <div

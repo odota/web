@@ -3,7 +3,6 @@ import { createBrowserHistory } from "history";
 import { render, hydrate } from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import ReactGA from "react-ga";
 import store from "./store";
 import { getMetadata, getStrings } from "./actions";
 import App from "./components/App/App";
@@ -19,15 +18,6 @@ store.dispatch(getMetadata());
 store.dispatch(getStrings());
 
 const history = createBrowserHistory();
-
-if (process.env.NODE_ENV === "production") {
-  ReactGA.initialize("UA-55757642-1");
-  ReactGA.pageview(window.location.pathname + window.location.search);
-
-  history.listen((location) => {
-    ReactGA.pageview(location.pathname);
-  });
-}
 
 const rootElement = document.getElementById("root");
 
