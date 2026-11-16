@@ -154,12 +154,7 @@ const Overview = ({
           loaderHeight={160}
         >
           <Table
-            className={styles.recentMatchesTable}
-            columns={playerMatchesColumns(strings, false).map((column) =>
-              ["kills", "deaths", "assists"].includes(column.field)
-                ? { ...column, className: styles.kdaValue }
-                : column,
-            )}
+            columns={playerMatchesColumns(strings, false)}
             data={matchesData}
             maxRows={!location.search ? MAX_MATCHES_ROWS : undefined}
             paginated={matchesData.length > MAX_MATCHES_ROWS}

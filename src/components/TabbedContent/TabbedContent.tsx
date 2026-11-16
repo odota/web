@@ -1,7 +1,6 @@
 import React from "react";
 import TabBar from "../TabBar/TabBar";
 import TableSkeleton from "../Skeletons/TableSkeleton";
-import constants from "../constants";
 
 class RenderContent extends React.Component<{
   skeleton?: boolean;
@@ -46,11 +45,7 @@ const TabbedContent = ({
   skeleton?: boolean;
 }) => (
   <React.Fragment>
-    <TabBar
-      tabs={tabs}
-      matchData={matchData}
-      fontSize={constants.fontSizeMedium}
-    />
+    <TabBar tabs={tabs} matchData={matchData} />
     <RenderContent content={content} skeleton={skeleton} key={info} />
   </React.Fragment>
 );

@@ -228,10 +228,6 @@
 .styledBody :global(table td *) {
   font-family: var(--od-font-family-futuristic);
 }
-.styledBody :global(table a),
-.styledBody :global(table td) {
-  font-size: var(--od-font-size-medium);
-}
 .styledBody :global(table thead tr) {
   background: linear-gradient(
     90deg,
