@@ -1,0 +1,84 @@
+.matchInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.victory {
+  margin: 0;
+  padding: 18px 32px 24px;
+  text-align: center;
+  font-family: var(--od-font-family-futuristic);
+  font-weight: 400;
+  color: var(--od-color-golden);
+  background: radial-gradient(
+    ellipse at center,
+    var(--od-accent-soft),
+    transparent 70%
+  );
+  animation: victory-appear 450ms ease-out both;
+}
+
+.victory::after {
+  content: "";
+  display: block;
+  width: min(260px, 60vw);
+  height: 1px;
+  margin: 18px auto 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--od-color-golden),
+    transparent
+  );
+}
+
+.victoryCrown {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 10px;
+  fill: currentColor;
+}
+
+.victoryTeam {
+  display: block;
+  font-size: clamp(14px, 2vw, 18px);
+  letter-spacing: 0.12em;
+  overflow-wrap: anywhere;
+}
+
+.victoryTitle {
+  display: block;
+  margin-top: 4px;
+  font-size: clamp(28px, 5vw, 48px);
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 28px rgba(200, 164, 93, 0.3);
+}
+
+@keyframes victory-appear {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .victory {
+    animation: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .matchInfo {
+    gap: 17px;
+  }
+}

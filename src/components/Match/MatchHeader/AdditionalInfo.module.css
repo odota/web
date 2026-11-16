@@ -1,0 +1,84 @@
+.additionalInfo ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.additionalInfo {
+  width: min(760px, 100%);
+  align-self: center;
+  padding: 14px 0;
+  border-top: 1px solid var(--od-accent-border);
+  border-bottom: 1px solid var(--od-accent-border);
+}
+
+.additionalInfo ul {
+  justify-content: center;
+}
+
+.additionalInfo li {
+  flex: 0 1 auto;
+  min-width: 0;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.infoKey {
+  display: block;
+  color: var(--od-color-muted-light);
+  font-family: var(--od-font-family-futuristic);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.infoValue {
+  display: block;
+  margin-top: 4px;
+  color: var(--od-color-white);
+  font-family: var(--od-font-family-futuristic);
+  font-size: 14px;
+}
+
+.regionValue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.regionValue img {
+  width: 20px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.additionalInfo :global(.MuiButton-root) {
+  min-height: 28px;
+  margin: 2px auto 0;
+  padding: 2px 6px;
+  color: var(--od-color-golden);
+  font-size: 14px;
+  font-family: var(--od-font-family-futuristic);
+  &:hover {
+    background: var(--od-accent-soft);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--od-color-golden);
+    outline-offset: 2px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .additionalInfo ul {
+    gap: 12px 18px;
+  }
+  .additionalInfo li {
+    min-width: 0;
+    padding: 7px 8px;
+  }
+}
