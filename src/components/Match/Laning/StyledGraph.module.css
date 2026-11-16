@@ -58,7 +58,9 @@
   border: 1px solid rgba(100, 116, 139, 0.3);
   border-radius: 6px;
   background: rgba(80, 140, 190, 0.12);
-  transition: background-color 150ms ease, border-color 150ms ease;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
   cursor: pointer;
 }
 

@@ -2,7 +2,9 @@
   margin-top: 8px;
   border: 1px solid #35d9cc;
   background: linear-gradient(180deg, #06302f 0%, #061719 55%, #050e12 100%);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, .22), inset 0 1px 0 rgba(53, 217, 204, .12);
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(53, 217, 204, 0.12);
   color: #f4ffff;
 }
 
@@ -20,7 +22,7 @@
 }
 
 .series > summary:hover {
-  background: rgba(53, 217, 204, .07);
+  background: rgba(53, 217, 204, 0.07);
 }
 
 .series > summary:focus-visible {
@@ -115,14 +117,14 @@
 }
 
 .score small {
-  border: 1px solid rgba(240, 198, 108, .25);
+  border: 1px solid rgba(240, 198, 108, 0.25);
   padding: 3px 6px;
   border-radius: 3px;
-  background: rgba(240, 198, 108, .07);
+  background: rgba(240, 198, 108, 0.07);
   color: #c4b38f;
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: .3px;
+  letter-spacing: 0.3px;
   line-height: 1.2;
   white-space: nowrap;
 }

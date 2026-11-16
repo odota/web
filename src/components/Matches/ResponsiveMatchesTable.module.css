@@ -28,12 +28,17 @@
 }
 
 .mobileList > li + li {
-  border-top: 1px solid color-mix(in srgb, var(--od-color-blue-gray) 45%, var(--od-divider-color));
+  border-top: 1px solid
+    color-mix(in srgb, var(--od-color-blue-gray) 45%, var(--od-divider-color));
 }
 
 .mobileMatch:hover,
 .mobileMatch:focus-visible {
-  background: color-mix(in srgb, var(--od-primary-link-color) 9%, var(--od-primary-surface-color));
+  background: color-mix(
+    in srgb,
+    var(--od-primary-link-color) 9%,
+    var(--od-primary-surface-color)
+  );
   text-decoration: none;
 }
 
@@ -196,7 +201,8 @@
   gap: 8px;
   margin-top: 12px;
   padding-top: 10px;
-  border-top: 1px solid color-mix(in srgb, var(--od-color-blue-gray) 45%, var(--od-divider-color));
+  border-top: 1px solid
+    color-mix(in srgb, var(--od-color-blue-gray) 45%, var(--od-divider-color));
   color: var(--od-text-color-secondary);
   font-size: 10px;
 }
@@ -239,7 +245,8 @@
 .mobilePages button {
   min-height: 44px;
   padding: 8px 12px;
-  border: 1px solid color-mix(in srgb, var(--od-color-blue-gray) 45%, var(--od-divider-color));
+  border: 1px solid
+    color-mix(in srgb, var(--od-color-blue-gray) 45%, var(--od-divider-color));
   border-radius: 6px;
   background: var(--od-primary-surface-color);
   color: var(--od-primary-link-color);

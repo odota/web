@@ -1,7 +1,7 @@
 .games {
   padding: 14px;
   font-family: var(--od-font-family-futuristic);
-  border-top: 1px solid rgba(53, 217, 204, .3);
+  border-top: 1px solid rgba(53, 217, 204, 0.3);
   background: linear-gradient(135deg, #0b2428, #091519);
 }
 
@@ -33,16 +33,18 @@
   align-items: center;
   gap: 8px;
   padding: 10px 12px;
-  border: 1px solid rgba(53, 217, 204, .25);
+  border: 1px solid rgba(53, 217, 204, 0.25);
   border-radius: 3px;
-  background: rgba(53, 217, 204, .05);
+  background: rgba(53, 217, 204, 0.05);
   color: #edffff;
   text-decoration: none;
-  transition: background .15s, border-color .15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 
 .gameLinks > a:hover {
-  background: rgba(53, 217, 204, .14);
+  background: rgba(53, 217, 204, 0.14);
   border-color: #35d9cc;
 }
 
@@ -129,7 +131,7 @@
 }
 
 .gameLinks > a :global(.hero-placeholder) {
-  background: rgba(169, 194, 197, .12);
+  background: rgba(169, 194, 197, 0.12);
 }
 
 .gameLinks > a .gameInfo {
