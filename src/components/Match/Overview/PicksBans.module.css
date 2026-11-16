@@ -1,0 +1,65 @@
+.root {
+  display: inline-block;
+  color: var(--od-text-color-secondary);
+  margin-top: -20px;
+}
+
+.picksBans {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  flex-wrap: wrap;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 1px;
+}
+
+.picksBans > section {
+  position: relative;
+  margin: 5px 5px 0px 0px;
+}
+
+.picksBans > section > aside {
+  font-size: 11px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: -5px;
+  background-color: rgba(0, 0, 0, 0.8);
+  line-height: 1.6;
+}
+
+.root img {
+  position: relative;
+  height: 29px;
+  width: 100%;
+  box-shadow: 0 0 5px var(--od-default-primary-color);
+  margin-right: 0;
+  z-index: 0;
+}
+
+.root img[data-isPick="false"] {
+  filter: grayscale(100%);
+}
+
+@media only screen and (max-width: 716px) {
+  .root img {
+    object-fit: cover;
+  }
+}
+
+.ban {
+  position: absolute;
+  z-index: 1;
+  left: -3px;
+  right: -3px;
+  top: 14px;
+  border-top: 2px solid var(--od-color-danger);
+  transform: rotate(-28deg);
+}
+
+@media only screen and (max-width: 716px) {
+  .ban {
+    transform: rotate(-34deg);
+    top: 13px;
+  }
+}

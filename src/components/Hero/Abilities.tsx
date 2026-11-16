@@ -1,34 +1,16 @@
 import React from "react";
-import styled from "styled-components";
 import Ability from "./Ability";
 import Talents from "./Talents";
 import AghanimUpgrades from "./AghanimUpgrades";
 import { useAbilities } from "../../hooks/useAbilities.hook";
 import { useHeroAbilities } from "../../hooks/useHeroAbilities.hook";
-
-const Wrapper = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  margin-left: -4px;
-  margin-right: -4px;
-  margin-top: 16px;
-`;
-
-const AbilityItem = styled.div`
-  flex: 1 1 100%;
-  margin-bottom: 4px;
-  margin-top: 4px;
-  max-width: 64px;
-  padding-left: 4px;
-  padding-right: 4px;
-`;
+import styles from "./Abilities.module.css";
 
 const renderAbilities = (abilities: any[]) =>
   abilities.map((ability) => (
-    <AbilityItem key={ability.key}>
+    <div className={styles.abilityItem} key={ability.key}>
       <Ability {...ability.data} abilityID={ability.key} />
-    </AbilityItem>
+    </div>
   ));
 
 const Abilities = ({ hero }: any) => {
@@ -86,15 +68,15 @@ const Abilities = ({ hero }: any) => {
   const heroAbs = mapAbilitiesAndTalents(hero);
 
   return (
-    <Wrapper>
-      <AbilityItem>
+    <div className={styles.wrapper}>
+      <div className={styles.abilityItem}>
         <Talents talents={heroAbs.talents} />
-      </AbilityItem>
+      </div>
       {renderAbilities(heroAbs.skills)}
-      <AbilityItem>
+      <div className={styles.abilityItem}>
         <AghanimUpgrades heroName={hero.name} skills={heroAbs.skills} />
-      </AbilityItem>
-    </Wrapper>
+      </div>
+    </div>
   );
 };
 

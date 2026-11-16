@@ -1,8 +1,12 @@
 import React from "react";
-import styled from "styled-components";
+import styles from "./Radiant.module.css";
 
-const icon = (props: any) => (
-  <svg {...props} viewBox="0 0 300 300">
+const Icon = ({ className, ...props }: any) => (
+  <svg
+    {...props}
+    className={`${styles.icon} ${className || ""}`}
+    viewBox="0 0 300 300"
+  >
     <ellipse cx="148.6" cy="65.5" rx="35" ry="64.4" />
     <path
       d="M299.3,212.1c0,0-27.5-6.1-27.5-21.5c-0.5-15.4,8.9-22.4,8.9-22.4s-0.9-1.9-0.5-4.2c0.5-2.3,7.9-2.3,7.9-2.3
@@ -31,7 +35,4 @@ const icon = (props: any) => (
     />
   </svg>
 );
-export default styled(icon)`
-  filter: drop-shadow(0 0 5px green);
-  fill: #f5f5f5;
-`;
+export default Icon;

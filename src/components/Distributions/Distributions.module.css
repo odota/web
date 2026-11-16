@@ -1,0 +1,12 @@
+.countryDiv img {
+  vertical-align: sub;
+  margin-right: 7px;
+  height: 24px;
+  width: 32px;
+  box-shadow: 0 0 5px var(--od-default-primary-color);
+}
+
+.countryDiv span {
+  vertical-align: super;
+  height: 24px;
+}

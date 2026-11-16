@@ -1,0 +1,62 @@
+.styledDiv {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #008eff;
+}
+
+.styledDiv main,
+.styledDiv aside {
+  padding: 8px 20px;
+}
+
+.styledDiv main {
+  flex-grow: 1;
+}
+
+.styledDiv main > div,
+.styledDiv main a,
+.styledDiv main p {
+  font-size: var(--od-font-size-medium);
+  margin: 0;
+  opacity: 0.85;
+}
+
+.styledDiv main a {
+  color: var(--od-text-color-primary);
+}
+
+.styledDiv main a:hover {
+  text-decoration: underline;
+}
+
+.styledDiv main h4 {
+  font-weight: var(--od-font-weight-medium);
+  font-size: var(--od-font-size-common);
+  line-height: var(--od-font-size-common);
+  margin: 0 0 2px;
+}
+
+.styledDiv main h4 svg {
+  height: 16px;
+  fill: var(--od-text-color-primary);
+  vertical-align: sub;
+}
+
+.styledDiv main ul {
+  margin: 2px 0 0;
+  padding-left: 20px;
+}
+
+.styledDiv main ul li {
+  list-style-type: circle;
+}
+
+.styledDiv main ul li::first-letter {
+  text-transform: capitalize;
+}
+
+.styledDiv aside {
+  flex-shrink: 0;
+}

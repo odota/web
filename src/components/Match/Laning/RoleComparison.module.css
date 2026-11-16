@@ -1,0 +1,136 @@
+.comparisonToggles.comparisonToggles {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 16px;
+}
+
+.comparisonToggles :global(.MuiToggleButtonGroup-grouped) {
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 8px 12px;
+  gap: 6px;
+  border: 1px solid rgba(80, 140, 190, 0.5) !important;
+  border-radius: 0 !important;
+  background: rgba(80, 140, 190, 0.12);
+  color: var(--od-text-color-secondary);
+  font-family: var(--od-font-family-futuristic);
+  font-size: 12px;
+  line-height: 1.4;
+  text-transform: none;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.comparisonToggles :global(.MuiToggleButtonGroup-grouped):not(:first-of-type) {
+  border-left: 0 !important;
+}
+
+.comparisonToggles :global(.MuiToggleButtonGroup-grouped):first-of-type {
+  border-radius: 6px 0 0 6px !important;
+}
+
+.comparisonToggles :global(.MuiToggleButtonGroup-grouped):last-of-type {
+  border-radius: 0 6px 6px 0 !important;
+}
+
+.comparisonToggles :global(.MuiToggleButtonGroup-grouped):only-of-type {
+  border-radius: 6px !important;
+}
+
+.comparisonToggles :global(.MuiToggleButtonGroup-grouped):hover {
+  background: rgba(80, 140, 190, 0.22);
+  border-color: var(--od-color-blue) !important;
+}
+
+.comparisonToggles :global(.MuiToggleButtonGroup-grouped.Mui-selected),
+.comparisonToggles :global(.MuiToggleButtonGroup-grouped.Mui-selected):hover {
+  color: var(--od-color-blue);
+  background: rgba(80, 140, 190, 0.32);
+  border-color: var(--od-color-blue) !important;
+}
+
+.comparisonToggles :global(.MuiToggleButtonGroup-grouped):focus-visible {
+  outline: 2px solid var(--od-color-blue);
+  outline-offset: 2px;
+}
+
+.comparisonToggles :global(.role-icon) {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  background-image: url("/assets/images/dota2/role-icons.png");
+  background-size: 500% auto;
+  background-repeat: no-repeat;
+}
+
+.comparisonToggles :global(.matchup-label) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  text-align: left;
+}
+
+.comparisonToggles :global(.opposing-role-label) {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.comparisonToggles :global(.lane-label) {
+  align-self: stretch;
+  text-align: center;
+  font-size: 10px;
+  line-height: 1.3;
+  color: var(--od-text-color-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comparisonToggles :global(.MuiToggleButtonGroup-grouped) {
+    transition: none;
+  }
+}
+
+.replayTable th,
+.replayTable td {
+  vertical-align: middle;
+}
+
+.replayTable :global(.replay-player-role) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.purchasedItem {
+  position: relative;
+  display: inline-flex;
+  width: 48px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.purchasedItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.purchasedItem time {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.65);
+  color: var(--od-color-white);
+  text-align: center;
+  font-size: 12px;
+  line-height: 16px;
+  font-variant-numeric: tabular-nums;
+}

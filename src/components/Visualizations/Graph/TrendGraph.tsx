@@ -11,69 +11,13 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { heroes } from "dotaconstants";
-import styled from "styled-components";
 import { formatSeconds, fromNow, formatGraphValueData } from "../../../utility";
 import constants from "../../constants";
 import HeroImage from "../HeroImage";
 import useStrings from "../../../hooks/useStrings.hook";
 import Grid from "./Grid";
+import styles from "./TrendGraph.module.css";
 
-const TooltipStylesDiv = styled.div`
-  .tooltipWrapper {
-    min-width: 250px;
-    font-family: ${constants.fontFamilyFuturistic};
-    font-size: ${constants.fontSizeMedium};
-    color: ${constants.textColorPrimary} !important;
-    background-color: ${constants.defaultPrimaryColor};
-  }
-
-  .value {
-    text-align: center;
-    background-color: ${constants.colorBlueMuted};
-    height: 30px;
-    line-height: 30px;
-    font-size: ${constants.fontSizeCommon};
-  }
-
-  .match {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-  }
-
-  .win {
-    color: ${constants.colorSuccess};
-  }
-
-  .loss {
-    color: ${constants.colorDanger};
-  }
-
-  .time {
-    color: ${constants.colorMutedLight};
-    font-size: ${constants.fontSizeTiny};
-  }
-
-  .matchValue {
-    font-weight: bold;
-  }
-
-  .hero {
-    height: 50px;
-    width: 88.88px; /* ratio */
-    background-color: ${constants.almostBlack};
-  }
-
-  .heroImg {
-    height: 100%;
-  }
-
-  .noData {
-    text-align: center;
-    padding-top: 30px;
-    font-size: ${constants.fontSizeCommon};
-  }
-`;
 const TrendTooltipContent = ({
   payload,
   name,
@@ -88,19 +32,21 @@ const TrendTooltipContent = ({
     const trendStr = strings[`heading_${name}` as keyof Strings];
     const unit = data.name === "win_rate" ? "%" : "";
     return (
-      <TooltipStylesDiv>
-        <div className="tooltipWrapper">
-          <div className="value">
+      <div>
+        <div className={styles.tooltipWrapper}>
+          <div className={styles.value}>
             {data.name === "win_rate" ? "" : strings.trends_tooltip_average}
             {` ${trendStr}: ${formatGraphValueData(Number(data.value.toFixed(2)), name)}${unit}`}
           </div>
-          <div className="match">
+          <div className={styles.match}>
             <div>
               <div>
-                <span className={data.win ? "win" : "loss"}>
+                <span className={data.win ? styles.win : styles.loss}>
                   {data.win ? strings.td_win : strings.td_loss}
                 </span>
-                <span className="time">{` ${fromNow(data.start_time)}`}</span>
+                <span
+                  className={styles.time}
+                >{` ${fromNow(data.start_time)}`}</span>
               </div>
               <div>
                 {strings[`game_mode_${data.game_mode}` as keyof Strings]}
@@ -109,17 +55,17 @@ const TrendTooltipContent = ({
               {data.name === "win_rate" || name === "duration" ? (
                 ""
               ) : (
-                <div className="matchValue">
+                <div className={styles.matchValue}>
                   {`${trendStr}: ${formatGraphValueData(Number(data.independent_value.toFixed(2)), name)}${unit}`}
                 </div>
               )}
             </div>
-            <div className="hero">
-              <HeroImage id={String(hero.id)} className="heroImg" />
+            <div className={styles.hero}>
+              <HeroImage id={String(hero.id)} className={styles.heroImg} />
             </div>
           </div>
         </div>
-      </TooltipStylesDiv>
+      </div>
     );
   }
   return null;

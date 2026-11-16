@@ -28,8 +28,7 @@ OpenDota Web UI: A web interface for viewing Dota 2 data. This utilizes the [Ope
 
 ## Tech Stack
 
-- View: React/Redux
-- CSS: styled-components
+- View: React/Redux/CSS Modules
 
 ## Notes
 

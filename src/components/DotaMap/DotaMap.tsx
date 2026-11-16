@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import { patchDate } from "../../utility";
+import styles from "./DotaMap.module.css";
 
 const setMapSizeStyle = (width: number, maxWidth: number) => ({
   width,
@@ -99,28 +99,6 @@ const getPatchMap = (startTime: number | null) => {
   return patchMap || dotaMaps[0];
 };
 
-const MapContainer = styled.div`
-  position: relative;
-`;
-
-const MapImage = styled.picture`
-  position: relative;
-
-  img {
-    height: 100%;
-    max-width: 100%;
-  }
-`;
-
-const MapContent = styled.div`
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 2;
-`;
-
 const DotaMap = ({
   startTime = null,
   maxWidth = 400,
@@ -135,14 +113,14 @@ const DotaMap = ({
   const mapData = getPatchMap(startTime);
 
   return (
-    <MapContainer style={setMapSizeStyle(width, maxWidth)}>
-      <MapImage>
+    <div className={styles.mapContainer} style={setMapSizeStyle(width, maxWidth)}>
+      <picture className={styles.mapImage}>
         <source srcSet={mapData.images.webp} type="image/webp" />
         <source srcSet={mapData.images.jpg} type="image/jpeg" />
         <img src={mapData.images.jpg} alt={`Dota 2 Map - ${mapData.patch}`} />
-      </MapImage>
-      <MapContent>{children}</MapContent>
-    </MapContainer>
+      </picture>
+      <div className={styles.mapContent}>{children}</div>
+    </div>
   );
 };
 

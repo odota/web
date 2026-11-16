@@ -1,0 +1,134 @@
+.gaugeChart {
+  font-size: 60%;
+  margin: 5px 19px 15px 5px;
+  position: relative;
+  display: inline-block;
+}
+
+.gaugeChart:last-child {
+  margin-right: 5px !important;
+}
+
+.gauge {
+  display: inline-block;
+  position: relative;
+  width: 10em;
+  height: 5em;
+  overflow: hidden;
+}
+
+.gauge:before,
+.gauge:after,
+.meter {
+  position: absolute;
+  display: block;
+  content: "";
+}
+
+.gauge:before,
+.meter {
+  width: 10em;
+  height: 5em;
+}
+
+.gauge:before {
+  border-radius: 5em 5em 0 0;
+  background: #2a2a2a;
+}
+
+.gauge:after {
+  position: absolute;
+  bottom: 0;
+  left: 2.5em;
+  width: 5em;
+  height: 2.5em;
+  background: rgb(33, 34, 44);
+  border-radius: 2.5em 2.5em 0 0;
+}
+
+.meter {
+  top: 100%;
+  transform-origin: center top;
+  border-radius: 0 0 6em 6em;
+}
+
+.percentageContainer {
+  position: absolute;
+  bottom: -0.75em;
+  left: 2.5em;
+  z-index: 1;
+  width: 5em;
+  height: 2.5em;
+  overflow: hidden;
+}
+
+.percentageIndicator {
+  font-family: var(--od-font-family-futuristic);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.75;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.caption {
+  color: #9ca3af;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+  padding-bottom: 5px;
+}
+
+.winNumber {
+  width: 24px;
+  position: absolute;
+  left: 0px;
+  font-family: var(--od-font-family-futuristic);
+  font-size: 0.95em;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: #a8adb8;
+  text-align: center;
+}
+
+.winNumber::before {
+  content: "W";
+  position: absolute;
+  bottom: 1.8em;
+  left: 8px;
+  font-family: var(--od-font-family-futuristic);
+  color: var(--od-color-white);
+  text-shadow: none;
+}
+
+.lossNumber {
+  width: 24px;
+  position: absolute;
+  right: 0px;
+  font-family: var(--od-font-family-futuristic);
+  font-size: 0.95em;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: #a8adb8;
+  text-align: center;
+}
+
+.lossNumber::before {
+  content: "L";
+  position: absolute;
+  bottom: 1.8em;
+  right: 8px;
+  font-family: var(--od-font-family-futuristic);
+  color: var(--od-color-white);
+  text-shadow: none;
+}
+
+.totalMatches {
+  font-family: var(--od-font-family-futuristic);
+  font-size: 9px;
+  color: var(--od-color-grey-muted);
+  text-align: center;
+}

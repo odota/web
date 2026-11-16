@@ -2,136 +2,26 @@ import React from "react";
 import { heroes } from "dotaconstants";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import styled from "styled-components";
 import Heading from "../../Heading/Heading";
 import { IconRadiant, IconDire } from "../../Icons";
 import { getTeamName } from "../../../utility";
-import constants from "../../constants";
 import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
 import { buildDraft, DraftStep, DraftTiming, PickBan } from "./buildDraft";
-
-const Styled = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-
-  .draft-row:nth-of-type(odd) {
-    background-color: ${constants.tableRowOddSurfaceColor};
-  }
-
-  .teams {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .nodata {
-    display: flex;
-    justify-content: center;
-  }
-`;
-
-const PickBan = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  font-weight: bold;
-`;
-
-const Pick = styled(PickBan)`
-  color: ${constants.colorGreen};
-  svg {
-    color: ${constants.colorGreen};
-  }
-`;
-
-const Ban = styled(PickBan)`
-  color: ${constants.colorDanger};
-  svg {
-    color: ${constants.colorDanger};
-  }
-`;
-
-const DraftCell = styled.div`
-  display: flex;
-  width: fit-content;
-  margin-left: ${(props: { radiant: boolean }) =>
-    props.radiant ? "0" : "auto"};
-  justify-content: ${(props: { radiant: boolean }) =>
-    props.radiant ? "flex-start" : "flex-end"};
-
-  .time-tracker {
-    display: flex;
-    flex-direction: column;
-    align-items: ${(props: { radiant: boolean }) =>
-      props.radiant ? "flex-start" : "flex-end"};
-    justify-content: space-around;
-    order: ${(props: { radiant: boolean }) => (props.radiant ? "1" : "-1")};
-    padding: 8px;
-  }
-
-  .taken {
-    font-size: 16px;
-  }
-
-  .extra-used {
-    color: ${constants.colorDanger};
-  }
-
-  @media only screen and (max-width: 650px) {
-    flex-direction: column;
-
-    .time-tracker {
-      order: 1;
-    }
-  }
-`;
-
-const HeroIcon = styled.div`
-  position: relative;
-  width: fit-content;
-
-  img {
-    width: 100px;
-    &[data-ispick="false"] {
-      filter: grayscale(100%);
-    }
-  }
-
-  .ban {
-    position: absolute;
-    z-index: 1;
-    left: -8px;
-    right: -8px;
-    top: 28px;
-    border-top: 2px solid ${constants.colorDanger};
-    transform: rotate(-28deg);
-
-    @media only screen and (max-width: 716px) {
-      transform: rotate(-34deg);
-      top: 13px;
-    }
-  }
-`;
-
-const LeftArrow = styled(KeyboardArrowLeftIcon)`
-  visibility: ${(props: { visible: string }) =>
-    props.visible === "true" ? "visible" : "hidden"};
-`;
-
-const RightArrow = styled(KeyboardArrowRightIcon)`
-  visibility: ${(props: { visible: string }) =>
-    props.visible === "true" ? "visible" : "hidden"};
-`;
+import styles from "./Draft.module.css";
 
 // time over this comes from the team's reserve time
 const STEP_TIME = 30;
 
 const TimeTracker = ({ step }: { step: DraftStep }) => (
-  <div className="time-tracker">
+  <div className={styles.timeTracker}>
     {step.timeTaken !== undefined && (
-      <span className="taken">
-        <span className={step.timeTaken > STEP_TIME ? "extra-used" : ""}>
+      <span className={styles.taken}>
+        <span
+          className={
+            step.timeTaken > STEP_TIME ? `extra-used ${styles.extraUsed}` : ""
+          }
+        >
           {step.timeTaken}s
         </span>{" "}
         used
@@ -143,46 +33,53 @@ const TimeTracker = ({ step }: { step: DraftStep }) => (
 const DraftHero = ({ step }: { step: DraftStep }) => {
   const hero = heroes[String(step.heroId) as keyof Heroes];
   return (
-    <DraftCell radiant={step.isRadiant}>
+    <div
+      className={`${styles.draftCell} ${step.isRadiant ? styles.draftCellRadiant : styles.draftCellDire}`}
+    >
       <TimeTracker step={step} />
-      <HeroIcon>
+      <div className={styles.heroIcon}>
         <img
           src={hero && config.VITE_IMAGE_CDN + hero.img}
           alt={hero ? hero.localized_name : ""}
           data-ispick={step.isPick}
         />
-        {!step.isPick && <div className="ban" />}
-      </HeroIcon>
-    </DraftCell>
+        {!step.isPick && <div className={styles.ban} />}
+      </div>
+    </div>
   );
 };
 
-const DraftRow = ({ step }: { step: DraftStep }) => {
-  const Label = step.isPick ? Pick : Ban;
-  return (
-    <tr className={`${step.isRadiant ? "radiant" : "dire"} draft-row`}>
-      <td style={{ paddingLeft: 0 }}>
-        {step.isRadiant && <DraftHero step={step} />}
-      </td>
-      <td>
-        <Label>
-          <LeftArrow
-            style={{ color: "inherit" }}
-            visible={step.isRadiant ? "true" : "false"}
-          />
-          {step.isPick ? "Pick" : "Ban"} {step.order}
-          <RightArrow
-            style={{ color: "inherit" }}
-            visible={step.isRadiant ? "false" : "true"}
-          />
-        </Label>
-      </td>
-      <td style={{ paddingRight: 0 }}>
-        {!step.isRadiant && <DraftHero step={step} />}
-      </td>
-    </tr>
-  );
-};
+const DraftRow = ({ step }: { step: DraftStep }) => (
+  <tr
+    className={`${step.isRadiant ? "radiant" : "dire"} draft-row ${styles.draftRow}`}
+  >
+    <td style={{ paddingLeft: 0 }}>
+      {step.isRadiant && <DraftHero step={step} />}
+    </td>
+    <td>
+      <span
+        className={`${styles.pickBan} ${step.isPick ? styles.pick : styles.banLabel}`}
+      >
+        <KeyboardArrowLeftIcon
+          style={{
+            color: "inherit",
+            visibility: step.isRadiant ? "visible" : "hidden",
+          }}
+        />
+        {step.isPick ? "Pick" : "Ban"} {step.order}
+        <KeyboardArrowRightIcon
+          style={{
+            color: "inherit",
+            visibility: step.isRadiant ? "hidden" : "visible",
+          }}
+        />
+      </span>
+    </td>
+    <td style={{ paddingRight: 0 }}>
+      {!step.isRadiant && <DraftHero step={step} />}
+    </td>
+  </tr>
+);
 
 const Draft = ({
   radiantTeam = {},
@@ -203,8 +100,8 @@ const Draft = ({
   const steps = buildDraft(picksBans, draftTimings);
 
   return (
-    <Styled>
-      <section className="teams">
+    <div className={styles.styled}>
+      <section className={styles.teams}>
         <Heading
           title={`${getTeamName(radiantTeam, true)}`}
           buttonLabel={
@@ -226,7 +123,7 @@ const Draft = ({
           ))}
         </tbody>
       </table>
-    </Styled>
+    </div>
   );
 };
 

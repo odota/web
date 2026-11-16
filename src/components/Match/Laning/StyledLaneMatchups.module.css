@@ -1,0 +1,104 @@
+.matchup + .matchup {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--od-divider-color);
+}
+
+.matchup h3 {
+  margin: 0 0 12px;
+  font-size: 15px;
+}
+
+.sides {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 680px) {
+  .sides {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.side {
+  min-width: 0;
+}
+
+.side h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  font-size: 13px;
+}
+
+.playerCard {
+  padding: 14px;
+  margin-top: 10px;
+  border: 1px solid var(--od-divider-color);
+  border-radius: 8px;
+  background: var(--od-secondary-surface-color);
+}
+
+.playerCardSelected {
+  border-color: var(--od-primary-link-color);
+}
+
+.playerHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.playerHeader input {
+  margin: 0;
+  accent-color: var(--od-primary-link-color);
+}
+
+.playerHeader img {
+  border-radius: 4px;
+}
+
+.playerHeader div {
+  min-width: 0;
+  flex: 1;
+}
+
+.playerHeader strong {
+  display: block;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+
+.playerHeader small {
+  display: block;
+  color: var(--od-text-color-secondary);
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+  gap: 12px;
+  margin: 16px 0 0;
+}
+
+.stats dt {
+  color: var(--od-text-color-secondary);
+  font-size: 10px;
+}
+
+.stats dd {
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.trend {
+  margin-top: 12px;
+  color: var(--od-text-color-secondary);
+  font-size: 11px;
+}

@@ -1,0 +1,12 @@
+.styledDiv a {
+  color: var(--od-color-muted-light);
+  font-size: var(--od-font-size-small);
+}
+
+.styledDiv svg {
+  vertical-align: sub;
+  margin-right: 5px;
+  width: 15px !important;
+  height: 15px !important;
+  fill: var(--od-color-blue) !important;
+}

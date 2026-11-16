@@ -1,60 +1,58 @@
-import styled from "styled-components";
-import constants from "../../constants";
+import React from "react";
+import styles from "./Styled.module.css";
 
-export const StyledContainer = styled.div`
-  display: flex;
-  position: relative;
-  height: 100%;
-`;
+export const StyledContainer: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ className, ...props }) => (
+  <div
+    className={`${styles.styledContainer}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-export const KDAContainer = styled(StyledContainer)`
-  width: calc(300% + 10px);
-  left: -10px;
-  pointer-events: none;
-`;
+export const KDAContainer: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => (
+  <div
+    className={`${styles.styledContainer} ${styles.kdaContainer}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-export const TitleContainer = styled.div`
-  align-self: center;
-  white-space: nowrap;
+export const TitleContainer: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => (
+  <div
+    className={`${styles.titleContainer}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-  & small {
-    color: ${constants.colorMutedLight};
-    margin-left: 1px;
-  }
-`;
+export const PercentContainer: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ className, ...props }) => (
+  <div
+    className={`${styles.percentContainer}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-export const PercentContainer = styled.div`
-  width: 100%;
-  height: 4px;
-  position: absolute;
-  background-color: ${constants.colorMuted};
-  align-self: flex-end;
-  bottom: -6px;
-  left: 0;
-  pointer-events: auto !important;
+export const SparklineContainer: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ className, ...props }) => (
+  <div
+    className={`${styles.sparklineContainer}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-  & > div {
-    height: 100%;
-  }
-`;
-
-export const SparklineContainer = styled.div`
-  overflow: visible !important;
-  pointer-events: auto !important;
-`;
-
-export const KDAPercentContainer = styled(PercentContainer)`
-  display: flex;
-
-  &[data-hint-position="top"] {
-    &::before {
-      top: -8px;
-      margin-left: 10px;
-    }
-
-    &::after {
-      margin-bottom: 8px;
-      margin-left: 0;
-    }
-  }
-`;
+export const KDAPercentContainer: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ className, ...props }) => (
+  <div
+    className={`${styles.percentContainer} ${styles.kdaPercentContainer}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);

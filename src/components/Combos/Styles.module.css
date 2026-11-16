@@ -1,0 +1,306 @@
+.styledCombos {
+  margin-bottom: 150px;
+}
+
+.styledCombos :global(.submit-section) {
+  display: inline-block;
+  margin-bottom: 23px;
+  margin-top: 15px;
+}
+
+.styledCombos :global(.main-section) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.styledCombos :global(.hero-overview) {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(auto-fill, 50px);
+  margin-bottom: 50px;
+}
+
+@media screen and (max-width: 680px) {
+  .styledCombos :global(.hero-overview) {
+    grid-template-columns: repeat(auto-fill, 60px);
+  }
+}
+
+.styledInputFilter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.styledInputFilter :global(.container) {
+  background: #1313135c;
+  padding: 0px 7px 3px 7px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e421;
+}
+
+.styledInputFilter :global(.reset-button) {
+  display: inline-block;
+  font-size: 22px;
+  opacity: 0.5;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.styledInputFilter :global(.reset-button):hover {
+  opacity: 1;
+}
+
+.styledHeroSelector {
+  height: 60px;
+  overflow: hidden;
+  border-radius: 4px;
+  backface-visibility: hidden;
+  box-sizing: border-box;
+  transition: transform 0.1s ease-in-out;
+  border: 1px solid transparent;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ffffff1a;
+  position: relative;
+  line-height: 0px;
+  width: 100%;
+}
+
+.dimmed {
+  pointer-events: none;
+  filter: grayscale(1) brightness(0.4);
+  opacity: 0.5;
+}
+
+@media screen and (min-width: 680px) {
+  .styledHeroSelector:hover {
+    transform: scale(2);
+    box-shadow: 0px 0px 8px 5px #000000b0;
+    z-index: 100;
+    border: 1px solid #d2d2d2a6;
+  }
+
+  .styledHeroSelector:hover img {
+    opacity: 1 !important;
+  }
+}
+
+.styledHeroSelector img {
+  width: 100%;
+  height: 100%;
+}
+
+.styledHeroSelector :global(.ts-container) {
+  z-index: 1000;
+  outline: none;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  white-space: normal;
+  transition: opacity 0.2s ease-out;
+}
+
+.styledHeroSelector :global(.ts-container):hover {
+  opacity: 1;
+  background-color: #0000005e;
+}
+
+@media screen and (max-width: 680px) {
+  .styledHeroSelector :global(.ts-container) {
+    opacity: 1;
+  }
+}
+
+.styledHeroSelector :global(.name-overlay) {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.7));
+}
+
+.styledHeroSelector :global(.name-overlay) :global(.name) {
+  position: relative;
+  text-align: center;
+  font-size: 10px;
+  white-space: nowrap;
+  line-height: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  top: 75%;
+}
+
+.styledHeroSelector :global(.name-overlay) :global(.team-indicator) {
+  position: absolute;
+  top: 10px;
+  opacity: 0.8;
+  text-shadow: 1px 1px 2px black;
+  font-size: 15px;
+}
+
+.styledHeroSelector :global(.name-overlay) :global(.team-indicator.team-a) {
+  left: 10px;
+}
+
+.styledHeroSelector :global(.name-overlay) :global(.team-indicator.team-b) {
+  right: 10px;
+}
+
+.styledHeroSelector:hover :global(.name) {
+  display: none;
+}
+
+.styledHeroSelector:hover :global(.team-indicator) {
+  display: none;
+}
+
+.styledHeroSelector :global(.ts) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.1s ease-out;
+  vertical-align: top;
+  outline: none;
+  color: #ffffffeb;
+  text-shadow: 1px 1px black;
+}
+
+.styledHeroSelector :global(.ts):hover {
+  color: white;
+  text-shadow: 1px 1px 1px black;
+}
+
+.styledHeroSelector :global(.ts):hover:global(.ts-left) {
+  background: linear-gradient(
+    to left,
+    rgb(17 84 115 / 74%) 40%,
+    transparent
+  );
+}
+
+.styledHeroSelector :global(.ts):hover:global(.ts-right) {
+  background: linear-gradient(
+    to right,
+    rgb(191 74 26 / 65%) 40%,
+    transparent
+  );
+}
+
+.styledHeroSelector :global(.ts.no-event) {
+  pointer-events: none;
+}
+
+.styledSelectedHeroes {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.styledSelectedHeroes :global(.hero-placeholder) {
+  display: inline-block;
+  height: 60px;
+  width: 106px;
+  background: rgba(18, 24, 37, 0.98);
+  box-shadow: inset 0px 0px 5px rgba(21, 21, 21, 0.61);
+  border-radius: 4px;
+}
+
+.styledSelectedHeroes :global(.hero-img) {
+  margin-top: 3px;
+  margin-right: 5px;
+  position: relative;
+  border-radius: 4px;
+}
+
+.styledSelectedHeroes :global(.remove-hero) {
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  background: none;
+  line-height: 0;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+.styledSelectedHeroes :global(.remove-hero):focus-visible {
+  outline: 2px solid white;
+  outline-offset: 1px;
+}
+
+.styledSelectedHeroes :global(.remove-hero):focus-visible img {
+  opacity: 0.3;
+}
+
+.styledSelectedHeroes img {
+  height: 60px;
+  width: 106px;
+  cursor: pointer;
+  backface-visibility: hidden;
+}
+
+.styledSelectedHeroes img:hover {
+  opacity: 0.3;
+}
+
+.styledSelectedHeroes :global(.seperator) {
+  font-size: 20px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  flex-basis: 60px;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.styledSelectedHeroes :global(.team-container) {
+  margin-top: -3px;
+  margin-right: -5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.styledSelectedHeroes :global(.team-container.left) {
+  background: linear-gradient(45deg, rgb(48 241 241 / 16%), transparent);
+  border-top: 3px solid #087f9263;
+}
+
+.styledSelectedHeroes :global(.team-container.right) {
+  background: linear-gradient(225deg, rgb(189 98 3 / 16%), transparent);
+  border-top: 3px solid #a22f0c63;
+}
+
+.styledSelectedHeroes :global(.team-container) div {
+  text-align: center;
+}
+
+.styledSelectedHeroes :global(.team-container) :global(.team-title) {
+  flex-basis: 100%;
+  font-size: 20px;
+  opacity: 0.6;
+}
+
+.styledSelectedHeroes :global(.team-container) :global(.team-title.team-a) {
+  color: #5dfff8;
+}
+
+.styledSelectedHeroes :global(.team-container) :global(.team-title.team-b) {
+  color: #ff815b;
+}

@@ -16,119 +16,24 @@ import { Toolbar } from "@mui/material";
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 
 import config from "../../config";
 import AccountWidget from "../AccountWidget/AccountWidget";
 import AppLogo from "../App/AppLogo";
-import constants from "../constants";
 import LocalizationMenu from "../Localization/Localization";
 import SearchForm from "../Search/SearchForm";
 import useStrings from "../../hooks/useStrings.hook";
+import styles from "./Header.module.css";
 
 const REPORT_BUG_PATH = `//github.com/${config.GITHUB_REPO}/issues`;
 
-const VerticalAlignToolbar = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const VerticalAlignDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const TabContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-weight: ${constants.fontWeightNormal};
-  height: 100%;
-  justify-content: center;
-  margin: 0 12px;
-  text-align: center;
-  position: relative;
-  line-height: 1;
-
-  @media only screen and (max-width: 1500px) {
-    display: none;
-  }
-`;
-
-const AppLogoWrapper = styled.div`
-  line-height: 1;
-`;
-
-const DropdownMenu = styled(Menu)`
-  & .MuiMenu-paper {
-    background: ${constants.primarySurfaceColor};
-  }
-`;
-
-const DropdownMenuItem = styled(MenuItem)`
-  color: ${constants.primaryTextColor} !important;
-  padding-bottom: 12px !important;
-  padding-top: 12px !important;
-`;
-
-const ToolbarHeader = styled(Toolbar)`
-  backdrop-filter: blur(16px);
-  background-color: ${constants.colorHeaderToolbar};
-  box-shadow: 2px 2px 3px -2px rgb(0 0 0 / 23%);
-  width: 100%;
-  z-index: 200;
-
-  & a {
-    font-size: 0.875rem;
-    color: ${constants.primaryTextColor};
-
-    &:hover {
-      color: ${constants.primaryTextColor};
-      opacity: 0.6;
-    }
-  }
-`;
-
-const MenuContent = styled.div`
-  background: ${constants.primarySurfaceColor};
-  max-width: 300px;
-  height: 100%;
-  overflow: auto;
-  min-width: 220px;
-`;
-
-const MenuLogoWrapper = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  padding: 24px 0;
-`;
-
-const DrawerLink = styled(Link)`
-  color: ${constants.textColorPrimary};
-
-  & li:hover {
-    background-color: rgba(0, 0, 0, 0.08);
-    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  }
-
-  span {
-    font-family: ${constants.fontFamilyFuturistic};
-    font-size: ${constants.fontSizeSmall};
-  }
-`;
-
-const LinkGroupLink = styled(Link)`
-  font-family: ${constants.fontFamilyFuturistic};
-  font-size: ${constants.fontSizeSmall} !important;
-`;
-
 const LinkGroup = ({ navbarPages }: { navbarPages: any[] }) => (
-  <VerticalAlignToolbar>
+  <div className={styles.verticalAlignToolbar}>
     {navbarPages.map((page: any) => (
-      <TabContainer key={page.key}>
-        <LinkGroupLink to={page.to}>{page.label}</LinkGroupLink>
+      <div className={styles.tabContainer} key={page.key}>
+        <Link className={styles.linkGroupLink} to={page.to}>
+          {page.label}
+        </Link>
         {Boolean(page.feature) && (
           <div
             style={{
@@ -143,9 +48,9 @@ const LinkGroup = ({ navbarPages }: { navbarPages: any[] }) => (
             {page.feature}
           </div>
         )}
-      </TabContainer>
+      </div>
     ))}
-  </VerticalAlignToolbar>
+  </div>
 );
 
 const SettingsGroup = ({ children }: { children: React.ReactNode }) => {
@@ -168,26 +73,19 @@ const SettingsGroup = ({ children }: { children: React.ReactNode }) => {
         <Settings />
       </IconButton>
       {buttonRef.current && (
-        <DropdownMenu
+        <Menu
+          className={styles.dropdownMenu}
           anchorEl={buttonRef.current}
           open={Boolean(anchorEl)}
           onClose={handleClose}
           PaperProps={{ style: { maxHeight: 600 } }}
         >
           {children}
-        </DropdownMenu>
+        </Menu>
       )}
     </div>
   );
 };
-
-const MenuButtonWrapper = styled.div`
-  margin-right: 12px;
-
-  @media only screen and (min-width: 1500px) {
-    display: none;
-  }
-`;
 
 const LogoGroup = ({
   onMenuClick,
@@ -195,8 +93,8 @@ const LogoGroup = ({
   onMenuClick: (e: React.MouseEvent) => void;
 }) => (
   <div style={{ marginRight: 16, marginLeft: 16 }}>
-    <VerticalAlignToolbar>
-      <MenuButtonWrapper>
+    <div className={styles.verticalAlignToolbar}>
+      <div className={styles.menuButtonWrapper}>
         <IconButton
           aria-label="main menu"
           edge="start"
@@ -205,32 +103,32 @@ const LogoGroup = ({
         >
           <MenuIcon />
         </IconButton>
-      </MenuButtonWrapper>
-      <AppLogoWrapper>
+      </div>
+      <div className={styles.appLogoWrapper}>
         <AppLogo />
-      </AppLogoWrapper>
-    </VerticalAlignToolbar>
+      </div>
+    </div>
   </div>
 );
 
 const SearchGroup = () => (
-  <VerticalAlignToolbar>
+  <div className={styles.verticalAlignToolbar}>
     <SearchIcon style={{ marginRight: 6, opacity: ".6" }} />
     <SearchForm />
-  </VerticalAlignToolbar>
+  </div>
 );
 
 const AccountGroup = () => (
-  <VerticalAlignToolbar>
+  <div className={styles.verticalAlignToolbar}>
     <AccountWidget />
-  </VerticalAlignToolbar>
+  </div>
 );
 
 const ReportBug = () => {
   const strings = useStrings();
   return (
-    <DropdownMenuItem
-      //@ts-expect-error
+    <MenuItem
+      className={styles.dropdownMenuItem}
       component="a"
       href={REPORT_BUG_PATH}
       target="_blank"
@@ -238,22 +136,22 @@ const ReportBug = () => {
     >
       <BugReport style={{ marginRight: 32, width: 24, height: 24 }} />
       {strings.app_report_bug}
-    </DropdownMenuItem>
+    </MenuItem>
   );
 };
 
 const LogOut = () => {
   const strings = useStrings();
   return (
-    <DropdownMenuItem
-      //@ts-expect-error
+    <MenuItem
+      className={styles.dropdownMenuItem}
       component="a"
       href={`${config.VITE_API_HOST}/logout`}
       rel="noopener noreferrer"
     >
       <LogoutIcon style={{ marginRight: 32, width: 24, height: 24 }} />
       {strings.app_logout}
-    </DropdownMenuItem>
+    </MenuItem>
   );
 };
 
@@ -352,11 +250,11 @@ const Header = ({
 
   return (
     <>
-      <ToolbarHeader disableGutters variant="dense">
-        <VerticalAlignDiv>
+      <Toolbar className={styles.toolbarHeader} disableGutters variant="dense">
+        <div className={styles.verticalAlignDiv}>
           <LogoGroup onMenuClick={() => setMenuState(true)} />
           {small && <LinkGroup navbarPages={navbarPages} />}
-        </VerticalAlignDiv>
+        </div>
         <div
           style={{
             display: "flex",
@@ -366,29 +264,30 @@ const Header = ({
           }}
         >
           {!disableSearch && <SearchGroup />}
-          <VerticalAlignDiv>
+          <div className={styles.verticalAlignDiv}>
             {small && <AccountGroup />}
             <SettingsGroup>
               <LocalizationMenu />
               <ReportBug />
               {user ? <LogOut /> : null}
             </SettingsGroup>
-          </VerticalAlignDiv>
+          </div>
         </div>
         <SwipeableDrawer
           onOpen={() => setMenuState(true)}
           onClose={() => setMenuState(false)}
           open={menuIsOpen}
         >
-          <MenuContent>
-            <MenuLogoWrapper>
+          <div className={styles.menuContent}>
+            <div className={styles.menuLogoWrapper}>
               <div>
                 <AppLogo onClick={() => setMenuState(false)} />
               </div>
-            </MenuLogoWrapper>
+            </div>
             <List>
               {drawerPages.map((page) => (
-                <DrawerLink
+                <Link
+                  className={styles.drawerLink}
                   key={`drawer__${page.to}`}
                   to={page.to}
                   onClick={() => setMenuState(false)}
@@ -396,36 +295,43 @@ const Header = ({
                   <ListItem>
                     <ListItemText primary={page.label} />
                   </ListItem>
-                </DrawerLink>
+                </Link>
               ))}
             </List>
             <List>
               {user ? (
                 <>
-                  <DrawerLink to={`/players/${user.account_id}`}>
+                  <Link
+                    className={styles.drawerLink}
+                    to={`/players/${user.account_id}`}
+                  >
                     <ListItem onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_my_profile} />
                     </ListItem>
-                  </DrawerLink>
-                  {/*@ts-expect-error*/}
-                  <DrawerLink as="a" href={`${config.VITE_API_HOST}/logout`}>
+                  </Link>
+                  <a
+                    className={styles.drawerLink}
+                    href={`${config.VITE_API_HOST}/logout`}
+                  >
                     <ListItem onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_logout} />
                     </ListItem>
-                  </DrawerLink>
+                  </a>
                 </>
               ) : (
-                //@ts-expect-error*
-                <DrawerLink as="a" href={`${config.VITE_API_HOST}/login`}>
+                <a
+                  className={styles.drawerLink}
+                  href={`${config.VITE_API_HOST}/login`}
+                >
                   <ListItem onClick={() => setMenuState(false)}>
                     <ListItemText primary={strings.app_login} />
                   </ListItem>
-                </DrawerLink>
+                </a>
               )}
             </List>
-          </MenuContent>
+          </div>
         </SwipeableDrawer>
-      </ToolbarHeader>
+      </Toolbar>
       {location.pathname !== "/" && Announce && <Announce />}
     </>
   );

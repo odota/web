@@ -5,13 +5,13 @@ import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import BlockIcon from "@mui/icons-material/Block";
 import { formatTemplate, formatTemplateToString } from "../../../utility";
 import { MetricSummary } from "./StyledHeroComparison";
-import styled from "styled-components";
 import constants from "../../constants";
 import React, { useState } from "react";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { ToggleButton, ToggleButtonGroup, Tooltip } from "@mui/material";
-import { abilities, ability_ids as abilityIds, heroes, items, player_colors as playerColors } from "dotaconstants";
+import { ability_ids as abilityIds, heroes, items, player_colors as playerColors } from "dotaconstants";
 import config from "../../../config";
+import { useAbilities } from "../../../hooks/useAbilities.hook";
 import useStrings from "../../../hooks/useStrings.hook";
 import { IconRadiant, IconDire } from "../../Icons";
 import TooltipMetricIcon from "../../Visualizations/Graph/TooltipMetricIcon";
@@ -21,50 +21,17 @@ import { TeamTable } from "./LaningTable";
 import { getLaningRoles, getPlayerIdentity, getStatAtMinute, getLevelAtMinute, formatStat, getRoleLabels, LaneRole } from "./laning.utils";
 
 import { getReplayKDA, getReplayGain, getReplayCreeps, getReplaySkills, inReplayInterval, ReplayPlayer } from "./replay.utils";
+import styles from "./RoleComparison.module.css";
 
-export const ComparisonToggles = styled(ToggleButtonGroup)`
-  && { display: flex; width: 100%; }
-  flex-wrap: wrap;
-  gap: 0;
-  margin-top: 16px;
-  & .MuiToggleButtonGroup-grouped {
-    flex: 1 1 auto;
-    margin: 0;
-    padding: 8px 12px;
-    gap: 6px;
-    border: 1px solid rgba(80, 140, 190, 0.5) !important;
-    border-radius: 0 !important;
-    &:not(:first-of-type) { border-left: 0 !important; }
-    &:first-of-type { border-radius: 6px 0 0 6px !important; }
-    &:last-of-type { border-radius: 0 6px 6px 0 !important; }
-    &:only-of-type { border-radius: 6px !important; }
-    background: rgba(80, 140, 190, 0.12);
-    color: ${constants.textColorSecondary};
-    font-family: ${constants.fontFamilyFuturistic};
-    font-size: 12px;
-    line-height: 1.4;
-    text-transform: none;
-    transition: background-color 150ms ease, border-color 150ms ease;
-    &:hover { background: rgba(80, 140, 190, 0.22); border-color: ${constants.colorBlue} !important; }
-    &.Mui-selected, &.Mui-selected:hover {
-      color: ${constants.colorBlue};
-      background: rgba(80, 140, 190, 0.32);
-      border-color: ${constants.colorBlue} !important;
-    }
-    &:focus-visible { outline: 2px solid ${constants.colorBlue}; outline-offset: 2px; }
-  }
-  .role-icon { width: 20px; height: 20px; flex-shrink: 0; background-image: url("/assets/images/dota2/role-icons.png"); background-size: 500% auto; background-repeat: no-repeat; }
-  .matchup-label { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; }
-  .opposing-role-label { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px; font-size: 14px; }
-  .lane-label { align-self: stretch; text-align: center; font-size: 10px; line-height: 1.3; color: ${constants.textColorSecondary}; }
-  @media (prefers-reduced-motion: reduce) { & .MuiToggleButtonGroup-grouped { transition: none; } }
-`;
-
-
-const ReplayTable = styled(TeamTable)`
-  th, td { vertical-align: middle; }
-  .replay-player-role { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 6px; font-size: 14px; }
-`;
+export const ComparisonToggles: React.FC<React.ComponentProps<typeof ToggleButtonGroup>> = ({
+  className,
+  ...props
+}) => (
+  <ToggleButtonGroup
+    className={`${styles.comparisonToggles}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
 const replayTooltipSlots = {
   tooltip: {
@@ -85,27 +52,6 @@ const replayTooltipSlots = {
   arrow: { sx: { color: constants.primarySurfaceColor, "&::before": { border: "1px solid rgba(125, 200, 240, 0.3)" } } },
 };
 
-const PurchasedItem = styled.span`
-  position: relative;
-  display: inline-flex;
-  width: 48px;
-  height: 36px;
-  flex-shrink: 0;
-  img { width: 100%; height: 100%; object-fit: cover; }
-  time {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.65);
-    color: ${constants.colorWhite};
-    text-align: center;
-    font-size: 12px;
-    line-height: 16px;
-    font-variant-numeric: tabular-nums;
-  }
-`;
-
 /** Formats replay purchase times, including purchases before the horn. */
 const purchaseTime = (seconds: number) => {
   const elapsed = Math.floor(Math.abs(seconds));
@@ -123,6 +69,7 @@ const laneOpponents: Record<LaneRole, LaneRole> = {
 /** Interval snapshots for opposing roles or lane opponents, with cumulative event logs. */
 const RoleComparison = ({ match }: { match: Match }) => {
   const strings = useStrings();
+  const abilities = useAbilities();
   const [comparisonMode, setComparisonMode] = useState<"role" | "opposing" | "lane">("lane");
   const laneComparison = comparisonMode === "opposing";
   const [selectedRole, setSelectedRole] = useState<LaneRole>("carry");
@@ -173,7 +120,7 @@ const RoleComparison = ({ match }: { match: Match }) => {
       {intervals.map((minute) => <ToggleButton key={minute} value={minute} aria-label={`${minute} minutes`}><AccessTimeIcon aria-hidden="true" sx={{ fontSize: 14, color: constants.colorBlue }} />{minute}:00</ToggleButton>)}
     </ComparisonToggles>
     {!intervals.length && <TableCaption>{strings.laning_unavailable}</TableCaption>}
-    <ReplayTable className="replay-comparison-table">
+    <TeamTable className={`${styles.replayTable} replay-comparison-table`}>
       {(activeMinute === undefined ? [] : [activeMinute]).map((minute) => {
         const stats = [
           { label: "Total Last Hits", icon: "lh", values: pair.map((p) => getStatAtMinute(p, "lh_t", minute)) },
@@ -244,7 +191,7 @@ const RoleComparison = ({ match }: { match: Match }) => {
                     <div>
                     {upgrades === null ? <div>—</div> : upgrades.length === 0 ? <div>None</div> : <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>{upgrades.map((upgrade, index) => {
                     const key = abilityIds[String(upgrade.ability) as keyof typeof abilityIds];
-                    const ability = abilities[key as keyof typeof abilities];
+                    const ability = abilities?.[key];
                     const name = (ability && "dname" in ability ? ability.dname : undefined) || key || `Ability ${upgrade.ability}`;
                     return <Tooltip key={index} title={<><strong>{name}</strong><small>Hero level {upgrade.level}</small></>} arrow placement="top" slotProps={replayTooltipSlots}><span tabIndex={0} style={{ display: "inline-flex", position: "relative", width: 32, height: 32, background: constants.secondarySurfaceColor }}>
                       {ability && "img" in ability && ability.img && <img src={config.VITE_IMAGE_CDN + ability.img} alt={name} width={32} height={32} />}
@@ -264,10 +211,10 @@ const RoleComparison = ({ match }: { match: Match }) => {
                 const item = items[entry.key as keyof typeof items];
                 const name = item && "dname" in item ? item.dname : entry.key;
                 const boughtAt = Number.isFinite(entry.time) ? purchaseTime(entry.time) : "—";
-                return item ? <Tooltip key={index} title={<><strong>{name}</strong><small>Purchased at {boughtAt}</small></>} arrow placement="top" slotProps={replayTooltipSlots}><PurchasedItem tabIndex={0}>
+                return item ? <Tooltip key={index} title={<><strong>{name}</strong><small>Purchased at {boughtAt}</small></>} arrow placement="top" slotProps={replayTooltipSlots}><span className={styles.purchasedItem} tabIndex={0}>
                   <img src={config.VITE_IMAGE_CDN + item.img} alt={name} width={48} height={36} />
                   <time aria-label={`Purchased at ${boughtAt}`}>{boughtAt}</time>
-                </PurchasedItem></Tooltip> : <Tooltip key={index} title={<><strong>{name}</strong><small>Purchased at {boughtAt}</small></>} arrow placement="top" slotProps={replayTooltipSlots}><span tabIndex={0}>{entry.key} <time>{boughtAt}</time></span></Tooltip>;
+                </span></Tooltip> : <Tooltip key={index} title={<><strong>{name}</strong><small>Purchased at {boughtAt}</small></>} arrow placement="top" slotProps={replayTooltipSlots}><span tabIndex={0}>{entry.key} <time>{boughtAt}</time></span></Tooltip>;
                   })}</div>}
                 </div>;
               })}</td>)}</tr>
@@ -276,7 +223,7 @@ const RoleComparison = ({ match }: { match: Match }) => {
           </table></div>
         </section>;
       })}
-    </ReplayTable>
+    </TeamTable>
     {activeMinute !== undefined && (() => {
       const minute = activeMinute;
       const heroLabel = (player: MatchPlayer) => {

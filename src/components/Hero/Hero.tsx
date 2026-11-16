@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Button } from "@mui/material";
 import Helmet from "react-helmet";
-import styled from "styled-components";
 import { heroSelector } from "../../reducers/selectors";
 import Heading from "../Heading/Heading";
 import TabBar from "../TabBar/TabBar";
@@ -18,20 +17,7 @@ import Durations from "./Durations";
 import Players from "./Players";
 import ItemsSuggestion from "./ItemSuggestion";
 import { LoadingOverlayUpper30 } from "../LoadingOverlay";
-
-const HeroBlock = styled.div`
-  margin-bottom: 8px;
-`;
-
-const HeroFooter = styled.div`
-  margin-top: 8px;
-  padding: 8px 0;
-  text-align: center;
-`;
-
-const TabsBlock = styled.div`
-  width: 100%;
-`;
+import styles from "./Hero.module.css";
 
 type HeroProps = {
   match: {
@@ -188,21 +174,21 @@ class Hero extends React.Component<HeroProps> {
     return (
       <div>
         <Helmet title={hero.localized_name} />
-        <HeroBlock>
+        <div className={styles.heroBlock}>
           <Header hero={hero} />
-          <HeroFooter>
+          <div className={styles.heroFooter}>
             <Button variant="outlined" onClick={this.toggleDetailVisibility}>
               {this.state.detailsOpen
                 ? strings.hide_details
                 : strings.show_details}
             </Button>
-          </HeroFooter>
+          </div>
           {this.state.detailsOpen && <AttributesBlock hero={hero} />}
-        </HeroBlock>
-        <TabsBlock>
+        </div>
+        <div className={styles.tabsBlock}>
           <TabBar tabs={tabs(heroId)} />
           {currentTab ? currentTab.content(this.props) : null}
-        </TabsBlock>
+        </div>
       </div>
     );
   }

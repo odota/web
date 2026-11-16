@@ -1,0 +1,19 @@
+.styledContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.heatmap {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.heatmap:hover img {
+  box-shadow: 0px 0px 5px #fff;
+}
+
+.heatmapClicked {
+  display: none;
+}

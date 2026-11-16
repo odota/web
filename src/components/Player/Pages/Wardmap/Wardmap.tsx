@@ -2,35 +2,15 @@ import React from "react";
 
 import { connect } from "react-redux";
 import { calculateResponsiveState } from "redux-responsive";
-import styled from "styled-components";
 import { unpackPositionData } from "../../../../utility";
 import { getPlayerWardmap } from "../../../../actions";
 import Heatmap from "../../../Heatmap/Heatmap";
 import Container from "../../../Container/Container";
 import constants from "../../../constants";
+import styles from "./Wardmap.module.css";
 
 const MAX_WIDTH = constants.appWidth;
 const HALF_WIDTH = constants.appWidth * 0.483;
-
-const StyledContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-
-  .heatmap {
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-
-    &:hover img {
-      box-shadow: 0px 0px 5px #fff;
-    }
-  }
-
-  .heatmap-clicked {
-    display: none;
-  }
-`;
 
 const getData = (props: WardmapProps) => {
   props.getPlayerWardmap(props.playerId, props.location.search);
@@ -78,8 +58,8 @@ class WardmapPage extends React.Component<WardmapProps, { clicked?: string }> {
     return {
       className:
         this.state.clicked && this.state.clicked !== mapId
-          ? "heatmap-clicked"
-          : "heatmap",
+          ? styles.heatmapClicked
+          : styles.heatmap,
       onClick: this.handleClick(mapId),
     };
   }
@@ -94,7 +74,7 @@ class WardmapPage extends React.Component<WardmapProps, { clicked?: string }> {
     const { error, loading, data, browser, strings } = this.props;
     const heatmapWidth = browser.width - 50;
     return (
-      <StyledContainer>
+      <div className={styles.styledContainer}>
         <div {...this.getClickProperties("observers")}>
           <Container
             title={strings.th_ward_observer}
@@ -127,7 +107,7 @@ class WardmapPage extends React.Component<WardmapProps, { clicked?: string }> {
             />
           </Container>
         </div>
-      </StyledContainer>
+      </div>
     );
   }
 }

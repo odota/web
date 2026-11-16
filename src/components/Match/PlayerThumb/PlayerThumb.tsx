@@ -1,22 +1,9 @@
 import React from "react";
 import { player_colors as playerColors } from "dotaconstants";
 import { heroes } from "dotaconstants";
-import styled from "styled-components";
-import constants from "../../constants";
 import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
-
-const StyledAside = styled.aside`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-weight: ${constants.fontWeightMedium};
-`;
-
-const StyledImg = styled.img`
-  height: 24px;
-  margin-right: 4px;
-`;
+import styles from "./PlayerThumb.module.css";
 
 const PlayerThumb = (props: {
   player_slot?: number;
@@ -30,12 +17,14 @@ const PlayerThumb = (props: {
   const playerSlot = props.player_slot;
   const heroId = props.hero_id;
   return (
-    <StyledAside
+    <aside
+      className={styles.playerThumb}
       style={{
         color: playerColors[playerSlot as unknown as keyof typeof playerColors],
       }}
     >
-      <StyledImg
+      <img
+        className={styles.img}
         src={
           heroes[heroId as keyof Heroes]
             ? `${config.VITE_IMAGE_CDN}${heroes[heroId as keyof Heroes].icon}`
@@ -44,7 +33,7 @@ const PlayerThumb = (props: {
         alt=""
       />
       {!hideText && (name || personaname || strings.general_anonymous)}
-    </StyledAside>
+    </aside>
   );
 };
 

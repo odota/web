@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { threshold, formatSeconds } from "../../../utility";
 import Table from "../../Table/Table";
 import Heading from "../../Heading/Heading";
@@ -8,29 +7,7 @@ import constants from "../../constants";
 import LogHover from "./LogHover";
 import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
-
-const Styled = styled.div`
-  display: inline-block;
-
-  .minimap {
-  }
-
-  .minimap:hover > img {
-    border: 1px solid ${constants.colorMutedLight};
-  }
-
-  .placement {
-    position: absolute;
-    transform: scale(0);
-    transition: 0.1s ease;
-    pointer-events: none;
-    filter: brightness(110%);
-  }
-
-  .minimap:hover .placement {
-    transform: scale(1);
-  }
-`;
+import styles from "./VisionLog.module.css";
 
 const durationObserverColor = threshold(
   0,
@@ -86,16 +63,16 @@ const columns = (strings: Strings) => {
 
 function logWard(log: any, startTime: number) {
   return (
-    <Styled>
-      <div className="minimap">
+    <div className={styles.visionLog}>
+      <div className={styles.minimap}>
         <img
           src="/assets/images/dota2/map/minimap2.jpg"
           style={{ height: "30px" }}
           alt="Minimap"
         />
-        <div className="placement">{LogHover(log, startTime)}</div>
+        <div className={styles.placement}>{LogHover(log, startTime)}</div>
       </div>
-    </Styled>
+    </div>
   );
 }
 

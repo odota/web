@@ -1,0 +1,11 @@
+.playerThumb {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: var(--od-font-weight-medium);
+}
+
+.img {
+  height: 24px;
+  margin-right: 4px;
+}

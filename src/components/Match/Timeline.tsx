@@ -1,13 +1,13 @@
 import React from "react";
 import ReactTooltip from "react-tooltip";
 import { heroes } from "dotaconstants";
-import styled from "styled-components";
 import { formatSeconds, isRadiant, jsonFn, getTeamName } from "../../utility";
 import { IconRoshan, IconBattle } from "../Icons";
 import PlayerThumb from "./PlayerThumb/PlayerThumb";
 import constants from "../constants";
 import config from "../../config";
 import useStrings from "../../hooks/useStrings.hook";
+import styles from "./Timeline.module.css";
 
 /**
  * Draws the skull marker used for first blood on the match timeline.
@@ -23,318 +23,13 @@ const FirstBloodIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const Styled = styled.div`
-  .events mark div.firstBloodTooltip[data-id="tooltip"] {
-    padding: 14px 16px !important;
-    border: 1px solid #374151;
-    border-radius: 10px;
-    background: #111827;
-    color: #f1f5f9;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    font-size: 12px;
-    line-height: 1.6;
-    z-index: 1500;
-
-    .firstBloodHeading {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding-bottom: 10px;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #374151;
-      color: #f1f5f9;
-      font-family: ${constants.fontFamilyFuturistic};
-      font-size: 12px;
-    }
-    .firstBloodHeading span { margin-left: auto; color: #94a3b8; font-variant-numeric: tabular-nums; }
-    .firstBloodHeading svg { position: static; width: 16px; height: 16px; fill: ${constants.colorDanger}; }
-    .firstBloodPlayers { gap: 6px; }
-    .firstBloodPlayers > span { color: #94a3b8; font-size: 11px; }
-    .firstBloodPlayers img { border-radius: 3px; }
-  }
-
-  .events mark svg.firstBloodIcon {
-    cursor: default;
-    fill: ${constants.colorDanger};
-  }
-
-  .clickable {
-    &[data-tip="true"] {
-      cursor: pointer;
-    }
-  }
-
-  .iconBattle {
-    transition: ${constants.linearTransition};
-  }
-
-  .radiantWinner {
-    fill: ${constants.colorSuccess} !important;
-  }
-
-  .direWinner {
-    fill: ${constants.colorDanger} !important;
-  }
-
-  .timeline {
-    width: 100%;
-    margin: 30px 0 15px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    & time {
-      margin: 0 5px;
-
-      @media only screen and (max-width: 768px) {
-        font-size: ${constants.fontSizeMedium};
-      }
-    }
-
-    & > section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      & > mark {
-        background: none;
-        color: ${constants.colorMuted};
-        font-size: ${constants.fontSizeSmall};
-      }
-    }
-  }
-
-  .battle {
-    width: 100%;
-    margin: 0 5px;
-
-    @media only screen and (max-width: 768px) {
-      margin: 0;
-    }
-  }
-
-  .line {
-    width: 100%;
-    display: flex;
-    height: 4px;
-
-    & div,
-    & section {
-      height: inherit;
-    }
-
-    & section {
-      background-color: ${constants.colorMuted};
-    }
-  }
-
-  .events {
-    position: relative;
-    width: 100%;
-
-    & header {
-      margin-bottom: 3px;
-      font-weight: ${constants.fontWeightNormal};
-    }
-
-    & .subtitle {
-      margin-left: 4px;
-      font-size: ${constants.fontSizeSmall};
-      font-weight: ${constants.fontWeightLight};
-      color: ${constants.colorMutedLight};
-    }
-
-    & mark {
-      position: absolute;
-      background: none;
-      width: 0;
-      height: 0;
-
-      & time {
-        color: ${constants.colorMutedLight};
-        font-size: ${constants.fontSizeSmall};
-        text-align: center;
-        position: absolute;
-        width: 32px;
-        left: -16px;
-        margin: 0;
-      }
-
-      & svg {
-        fill: ${constants.colorMutedLight};
-        width: 18px;
-        position: absolute;
-        left: -9px;
-
-        @media only screen and (max-width: 768px) {
-          width: 16px;
-          left: -8px;
-        }
-      }
-
-      & div[data-id="tooltip"] {
-        /* Override react-tooltip */
-        margin-top: 0 !important;
-        padding: 2px 6px !important;
-        margin-left: 5px !important;
-        font-weight: ${constants.fontWeightLight} !important;
-        white-space: nowrap;
-
-        & img {
-          height: 24px;
-          margin-right: 4px;
-        }
-
-        & span {
-          margin: 0 4px;
-
-          & img {
-            height: 8px;
-          }
-        }
-
-        & section {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-        }
-
-        & span.goldDelta {
-          margin-left: auto;
-        }
-
-        & .goldChange {
-          display: inline;
-        }
-      }
-    }
-
-    & .radiant,
-    & .dire {
-      border-style: solid;
-      margin-left: -6px;
-    }
-
-    & .radiant {
-      border-width: 0 6px 5px;
-      border-color: transparent transparent ${constants.colorSuccess}
-        transparent;
-      bottom: 4px;
-
-      & time {
-        top: 11px;
-      }
-
-      & svg {
-        bottom: 5px;
-      }
-    }
-
-    & .dire {
-      top: 0;
-      border-width: 5px 6px 0 6px;
-      border-color: ${constants.colorDanger} transparent transparent transparent;
-
-      & time {
-        top: -28px;
-      }
-
-      & svg {
-        top: 5px;
-      }
-    }
-
-    & .teamfight {
-      bottom: 0;
-      height: 4px;
-
-      & svg {
-        width: 12px;
-        top: -5px;
-        left: calc(50% - 5px);
-        filter: drop-shadow(1px 0 3px ${constants.darkPrimaryColor});
-
-        @media only screen and (max-width: 768px) {
-          width: 10px;
-          top: -3px;
-          left: calc(50% - 3px);
-        }
-      }
-    }
-
-    & .battleHorn {
-      width: 2px;
-      height: 4px;
-      bottom: 0;
-      background-color: ${constants.textColorPrimary};
-    }
-  }
-
-  .goldChange {
-    &::after {
-      content: "";
-      border-style: solid;
-      display: inline-block;
-    }
-  }
-
-  .goldGot {
-    &::after {
-      border-width: 0 4px 7px 4px;
-      border-color: transparent transparent ${constants.colorSuccess}
-        transparent;
-    }
-  }
-
-  .goldLost {
-    &::after {
-      border-width: 7px 4px 0 4px;
-      border-color: ${constants.colorDanger} transparent transparent transparent;
-    }
-  }
-
-  .matchNumbers {
-    text-align: center;
-    margin: 0 5px;
-
-    & > div {
-      display: inline;
-
-      & span {
-        font-size: ${constants.fontSizeSmall};
-        color: ${constants.colorMutedLight};
-        white-space: pre-line;
-
-        &:first-child {
-          margin-left: 20px;
-        }
-      }
-
-      @media only screen and (max-width: 768px) {
-        font-size: ${constants.fontSizeMedium};
-      }
-
-      @media only screen and (max-width: 560px) {
-        display: block;
-        line-height: 2;
-
-        & span {
-          margin-left: 0;
-        }
-      }
-    }
-  }
-
-  .selectedTeamfight {
-    fill: ${constants.colorGolden} !important;
-    transform: scale(1.66, 1.66);
-  }
-`;
 
 const heroesArr = jsonFn(heroes);
 
 const getWinnerStyle = (obj: any) =>
-  obj && obj.radiant_gold_advantage_delta >= 0 ? "radiantWinner" : "direWinner";
+  obj && obj.radiant_gold_advantage_delta >= 0
+    ? styles.radiantWinner
+    : styles.direWinner;
 
 const Timeline = ({
   match,
@@ -475,20 +170,20 @@ const Timeline = ({
     ) <= preHorn ? (
       // some old (source1) matches have wrong time in objectives, ex: 271008789.
       // preHorn (90) is just small allowable mismatch. Since first_blood_time always >= 0, ex: 2792706825, fb before battle horn
-      <Styled>
-        <main className="timeline">
+      <div>
+        <main className={styles.timeline}>
           <section>
             <mark>{getTeamName(match.radiant_team, true)}</mark>
             <time>-1:30</time>
             <mark>{getTeamName(match.dire_team, false)}</mark>
           </section>
-          <div className="battle">
-            <div className="line">
+          <div className={styles.battle}>
+            <div className={styles.line}>
               <section style={{ width: "100%" }} />
             </div>
-            <div className="events">
+            <div className={styles.events}>
               <mark
-                className="battleHorn"
+                className={styles.battleHorn}
                 style={{
                   left: `${(preHorn * 100) / (match.duration + preHorn)}%`,
                 }}
@@ -508,7 +203,9 @@ const Timeline = ({
                 return (
                   <mark
                     key={`${obj.type}_${obj.time}`}
-                    className={obj.type === "teamfight" ? "teamfight" : side}
+                    className={
+                      obj.type === "teamfight" ? styles.teamfight : styles[side]
+                    }
                     style={{
                       left:
                         obj.time &&
@@ -542,10 +239,7 @@ const Timeline = ({
                         }
                         data-tip
                         data-for={`event_${i}`}
-                        className={`iconBattle
-                            ${selectedTeamfight === obj.start ? "selectedTeamfight" : getWinnerStyle(obj)}
-                            ${(selectedTeamfight || selectedTeamfight === 0) && "clickable"}
-                          `}
+                        className={`${styles.iconBattle} ${selectedTeamfight === obj.start ? styles.selectedTeamfight : getWinnerStyle(obj)} ${selectedTeamfight || selectedTeamfight === 0 ? styles.clickable : ""}`}
                       />
                     )}
                     <ReactTooltip
@@ -622,7 +316,7 @@ const Timeline = ({
                         <div>
                           <header>
                             {strings.timeline_teamfight_deaths}
-                            <span className="subtitle">
+                            <span className={styles.subtitle}>
                               & {strings.timeline_teamfight_gold_delta},{" "}
                               {formatSeconds(obj.start)} -{" "}
                               {formatSeconds(obj.end)}
@@ -639,11 +333,15 @@ const Timeline = ({
                               ) : (
                                 ""
                               )}
-                              <span className="goldDelta">
+                              <span className={styles.goldDelta}>
                                 {death.gold_delta > 0 ? (
-                                  <span className="goldChange goldGot" />
+                                  <span
+                                    className={`${styles.goldChange} ${styles.goldGot}`}
+                                  />
                                 ) : (
-                                  <span className="goldChange goldLost" />
+                                  <span
+                                    className={`${styles.goldChange} ${styles.goldLost}`}
+                                  />
                                 )}
                                 {/* nothing if === 0 */}
                                 {/*@ts-expect-error*/}
@@ -671,7 +369,7 @@ const Timeline = ({
           </div>
           <time>{formatSeconds(match.duration)}</time>
         </main>
-        <div className="matchNumbers">
+        <div className={styles.matchNumbers}>
           {fTower && (
             <div>
               <span>{strings.match_first_tower} </span>
@@ -688,7 +386,7 @@ const Timeline = ({
             </div>
           )}
         </div>
-      </Styled>
+      </div>
     ) : null;
   }
 

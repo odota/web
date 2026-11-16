@@ -1,43 +1,8 @@
 import React from "react";
-import styled from "styled-components";
-import constants from "../constants";
 import Attribute from "./Attribute";
 import { compileLevelOneStats } from "../../utility";
 import useStrings from "../../hooks/useStrings.hook";
-
-const AttributesWrapper = styled.div`
-  display: flex;
-  margin-left: -8px;
-  margin-right: -8px;
-  font-family: ${constants.fontFamilyFuturistic};
-  font-size: ${constants.fontSizeSmall};
-
-  @media screen and (max-width: ${constants.wrapMobile}) {
-    flex-wrap: wrap;
-  }
-`;
-
-const AttributeBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 0;
-  margin-top: 10px;
-  padding: 8px;
-
-  @media screen and (max-width: ${constants.wrapMobile}) {
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 50%;
-  }
-`;
-
-const Label = styled.span`
-  color: rgba(255, 255, 255, 0.5);
-  flex-grow: 1;
-  font-size: ${constants.fontSizeSmall};
-  margin-right: 5px;
-  text-transform: uppercase;
-`;
+import styles from "./AttributesBlock.module.css";
 
 // Damage multiplier https://dota2.gamepedia.com/Armor#Damage_multiplier
 const calcArmorPercent = (hero: number) =>
@@ -48,65 +13,80 @@ const HeroAttributes = ({ hero }: { hero: Hero }) => {
   const strings = useStrings();
 
   return (
-    <AttributesWrapper>
-      <AttributeBlock>
+    <div className={styles.attributesWrapper}>
+      <div className={styles.attributeBlock}>
         <Attribute>
-          <Label>{strings.heading_attack}:</Label>{" "}
+          <span className={styles.label}>{strings.heading_attack}:</span>{" "}
           {`${h.base_attack_min} - ${h.base_attack_max}`}
         </Attribute>
         <Attribute>
-          <Label>{strings.heading_attack_range}:</Label> {h.attack_range}
+          <span className={styles.label}>{strings.heading_attack_range}:</span>{" "}
+          {h.attack_range}
         </Attribute>
         <Attribute>
-          <Label>{strings.heading_attack_speed}:</Label> {h.attack_rate}
+          <span className={styles.label}>{strings.heading_attack_speed}:</span>{" "}
+          {h.attack_rate}
         </Attribute>
         {h.projectile_speed !== 0 && (
           <Attribute>
-            <Label>{strings.heading_projectile_speed}:</Label>{" "}
+            <span className={styles.label}>
+              {strings.heading_projectile_speed}:
+            </span>{" "}
             {h.projectile_speed}
           </Attribute>
         )}
-      </AttributeBlock>
-      <AttributeBlock>
+      </div>
+      <div className={styles.attributeBlock}>
         <Attribute>
-          <Label>{strings.heading_base_health}:</Label> {h.base_health}
+          <span className={styles.label}>{strings.heading_base_health}:</span>{" "}
+          {h.base_health}
         </Attribute>
         <Attribute>
-          <Label>{strings.heading_base_health_regen}:</Label>{" "}
+          <span className={styles.label}>
+            {strings.heading_base_health_regen}:
+          </span>{" "}
           {h.base_health_regen}
         </Attribute>
         <Attribute>
-          <Label>{strings.heading_base_mana}:</Label> {h.base_mana}
+          <span className={styles.label}>{strings.heading_base_mana}:</span>{" "}
+          {h.base_mana}
         </Attribute>
         <Attribute>
-          <Label>{strings.heading_base_mana_regen}:</Label> {h.base_mana_regen}
+          <span className={styles.label}>
+            {strings.heading_base_mana_regen}:
+          </span>{" "}
+          {h.base_mana_regen}
         </Attribute>
-      </AttributeBlock>
-      <AttributeBlock>
+      </div>
+      <div className={styles.attributeBlock}>
         <Attribute>
-          <Label>{strings.heading_base_armor}:</Label>{" "}
+          <span className={styles.label}>{strings.heading_base_armor}:</span>{" "}
           {`${h.base_armor} (${calcArmorPercent(h.base_armor)}%)`}
         </Attribute>
         <Attribute>
-          <Label>{strings.heading_base_mr}:</Label> {`${h.base_mr}%`}
+          <span className={styles.label}>{strings.heading_base_mr}:</span>{" "}
+          {`${h.base_mr}%`}
         </Attribute>
         <Attribute>
-          <Label>{strings.heading_move_speed}:</Label> {h.move_speed}
+          <span className={styles.label}>{strings.heading_move_speed}:</span>{" "}
+          {h.move_speed}
         </Attribute>
         <Attribute>
-          <Label>{strings.heading_turn_rate}:</Label> {h.turn_rate}
+          <span className={styles.label}>{strings.heading_turn_rate}:</span>{" "}
+          {h.turn_rate}
         </Attribute>
-      </AttributeBlock>
-      <AttributeBlock>
+      </div>
+      <div className={styles.attributeBlock}>
         <Attribute>
-          <Label>{strings.heading_legs}:</Label> {h.legs}
+          <span className={styles.label}>{strings.heading_legs}:</span>{" "}
+          {h.legs}
         </Attribute>
         <Attribute>
-          <Label>{strings.heading_cm_enabled}:</Label>{" "}
+          <span className={styles.label}>{strings.heading_cm_enabled}:</span>{" "}
           {h.cm_enabled ? strings.yes : strings.no}
         </Attribute>
-      </AttributeBlock>
-    </AttributesWrapper>
+      </div>
+    </div>
   );
 };
 

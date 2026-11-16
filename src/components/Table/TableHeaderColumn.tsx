@@ -1,27 +1,9 @@
 import React from "react";
-import styled from "styled-components";
 import { Tooltip } from "@mui/material";
 import { StyledHeaderCell } from "./Styled";
 import { getSortIcon } from "./tableHelpers";
 import { getColStyle } from "../../utility";
-
-const HeaderCellContent = styled.div`
-  position: relative;
-`;
-
-const HeaderCellImageContent = styled.img`
-  height: 24px;
-  width: 24px;
-`;
-
-const HeaderCellSortIconWrapper = styled.div`
-  height: 14px;
-  margin-left: 0px;
-  position: absolute;
-  width: 10px;
-  left: -5px;
-  bottom: -12px;
-`;
+import styles from "./TableHeaderColumn.module.css";
 
 const TableHeaderColumn = ({
   column,
@@ -66,24 +48,27 @@ const TableHeaderColumn = ({
             column.displayName
           ) : (
             <Tooltip title={column.tooltip}>
-              <HeaderCellContent>
+              <div className={styles.headerCellContent}>
                 {column.displayIcon ? (
                   <React.Fragment>
                     <span> {column.displayName} </span>
-                    <HeaderCellImageContent src={column.displayIcon} />
+                    <img
+                      className={styles.headerCellImageContent}
+                      src={column.displayIcon}
+                    />
                   </React.Fragment>
                 ) : (
                   <span>{column.displayName}</span>
                 )}
                 {column.sortFn && (
-                  <HeaderCellSortIconWrapper>
+                  <div className={styles.headerCellSortIconWrapper}>
                     {getSortIcon(sortState, sortField, column.field, {
                       height: 12,
                       width: 12,
                     })}
-                  </HeaderCellSortIconWrapper>
+                  </div>
                 )}
-              </HeaderCellContent>
+              </div>
             </Tooltip>
           )}
         </div>

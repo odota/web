@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Helmet from "react-helmet";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import { getOrdinal, getTeamLogoUrl, fromNow } from "../../utility";
 import { getTeams } from "../../actions";
 import Heading from "../Heading/Heading";
@@ -12,21 +11,7 @@ import { Logo } from "../Team/TeamStyled";
 import useStrings from "../../hooks/useStrings.hook";
 import { Link } from "react-router-dom";
 import useTransitionLoader from "../../hooks/useTransitionLoader.hook";
-
-const TeamImageContainer = styled.div`
-  display: flex;
-  align-items: center;
-
-  img {
-    margin-top: 7px;
-    margin-right: 7px;
-    margin-bottom: 7px;
-    margin-left: 0px;
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-  }
-`;
+import styles from "./Teams.module.css";
 
 interface TeamRow {
   team_id: string;
@@ -59,7 +44,7 @@ const columns = (strings: Strings) => [
     displayName: strings.th_name,
     field: "name",
     displayFn: (row: TeamRow, col: number, field: any) => (
-      <TeamImageContainer>
+      <div className={styles.teamImageContainer}>
         <Logo
           src={getTeamLogoUrl(row.logo_url)}
           alt={`Official logo for ${field}`}
@@ -70,7 +55,7 @@ const columns = (strings: Strings) => [
             {fromNow(row.last_match_time)}
           </span>
         </div>
-      </TeamImageContainer>
+      </div>
     ),
   },
   {

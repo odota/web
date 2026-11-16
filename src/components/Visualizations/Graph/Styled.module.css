@@ -1,0 +1,335 @@
+.laningXpDifference {
+  font-weight: 600;
+  color: inherit;
+}
+
+.laningXpDifferencePositive {
+  color: var(--od-color-success);
+}
+
+.laningXpDifferenceNegative {
+  color: var(--od-golden);
+}
+
+.heroLevelBadge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 3px;
+  box-sizing: border-box;
+  border: 1px solid rgba(128, 128, 128, 0.4);
+  border-radius: 50%;
+  background: rgba(128, 128, 128, 0.12);
+  color: var(--od-golden);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.heroLevelBadge :global(.milestone-dots) {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 2px;
+}
+
+.heroLevelBadge :global(.milestone-dots) > span {
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.65;
+}
+
+.phaseHero {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--od-primary-text-color);
+  font-weight: 500;
+}
+
+.phaseHero img {
+  width: 1em;
+  height: 1em;
+  object-fit: contain;
+}
+
+.laningCaptionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 16px;
+  margin-top: 24px;
+  color: var(--od-primary-text-color);
+  font-family: var(--od-font-family-futuristic);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.laningCaptionGrid > p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--od-color-grey-muted);
+  font-size: 12px;
+}
+
+.laningCaptionCard {
+  padding: 20px;
+  background: var(--od-primary-surface-color);
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-top: 3px solid var(--od-color-danger);
+  border-radius: 8px;
+  min-width: 0;
+}
+
+.laningCaptionCardRadiant {
+  border-top-color: var(--od-color-success);
+}
+
+.laningCaptionCard h4 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.laningCaptionCard h5 {
+  margin: 16px 0 6px;
+  font-size: 12px;
+  color: var(--od-primary-text-color);
+}
+
+.laningCaptionCard h3 {
+  margin: 0 0 12px;
+  font-family: var(--od-font-family-futuristic);
+  font-size: 14px;
+  color: var(--od-color-danger);
+}
+
+.laningCaptionCardRadiant h3 {
+  color: var(--od-color-success);
+}
+
+.laningCaptionCard p {
+  margin: 0 0 16px;
+}
+
+.laningCaptionCard dl {
+  margin: 0;
+}
+
+.laningCaptionCard dl > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+.laningCaptionCard dt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  color: var(--od-color-grey-muted);
+}
+
+.laningCaptionCard dd {
+  margin: 0;
+  color: var(--od-color-grey-muted);
+  font-weight: 400;
+}
+
+.perspectiveHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  grid-column: 1 / -1;
+}
+
+.perspectiveHeader h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.perspectiveHeader button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-left: auto;
+  padding: 6px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--od-primary-text-color);
+  font: inherit;
+  cursor: pointer;
+}
+
+.perspectiveHeader button:hover {
+  background: rgba(128, 128, 128, 0.15);
+}
+
+.perspectiveHeader button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.styledTooltip {
+  position: relative;
+  width: auto;
+  padding: 16px 24px;
+  box-sizing: border-box;
+  background: #111827;
+  border: 1px solid #374151;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-medium);
+  line-height: 1.6;
+  color: var(--od-color-white);
+}
+
+.styledTooltipTeam {
+  position: relative;
+  margin-right: 8px;
+  font-size: var(--od-font-size-medium);
+  font-weight: 500;
+}
+
+.styledRadiant {
+  position: absolute;
+  top: 48px;
+  left: 100px;
+  filter: drop-shadow(0 0 5px var(--od-color-success));
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-common);
+  color: var(--od-color-white);
+}
+
+.styledDire {
+  position: absolute;
+  bottom: 60px;
+  left: 100px;
+  filter: drop-shadow(0 0 5px var(--od-color-danger));
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-common);
+  color: var(--od-color-white);
+}
+
+.styledCustomizedTooltip {
+  position: relative;
+  bottom: 25px;
+  padding: 16px 24px;
+  box-sizing: border-box;
+  background: #111827;
+  border: 1px solid #374151;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  font-family: var(--od-font-family-futuristic);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--od-color-white);
+}
+
+.styledCustomizedTooltip div {
+  margin-bottom: 5px;
+}
+
+.styledCustomizedTooltip :global(.data) {
+  font-size: var(--od-font-size-small);
+  line-height: 1.6;
+  padding: 7px;
+}
+
+.styledCustomizedTooltip :global(.data.isRadiant) {
+  background: linear-gradient(to right, rgba(50, 82, 51, 0.2), transparent);
+}
+
+.styledCustomizedTooltip :global(.data.isDire) {
+  background: linear-gradient(to right, rgba(82, 51, 50, 0.2), transparent);
+}
+
+.styledHolder {
+  position: relative;
+}
+
+.goldSpan {
+  color: var(--od-golden);
+}
+
+.xpSpan {
+  color: #acc9ed;
+}
+
+.styledTooltipNetworthLineEntry {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--od-font-size-medium);
+}
+
+.styledTooltipTime {
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #505459;
+  font-size: var(--od-font-size-medium);
+  font-weight: 600;
+  text-align: center;
+}
+
+.tooltipLabel {
+  padding-bottom: 4px;
+  border-bottom: 1px solid #505459;
+  font-size: var(--od-font-size-medium);
+  text-align: center;
+}
+
+.tooltipLineEntry {
+  padding: 4px 0;
+  display: flex;
+}
+
+.tooltipLineEntryHeroName {
+  margin-right: 8px;
+  font-size: var(--od-font-size-medium);
+}
+
+.tooltipLineEntryValue {
+  margin-left: auto;
+  display: inline-block;
+  font-size: var(--od-font-size-medium);
+  color: var(--od-color-white);
+}
+
+.binName {
+  color: var(--od-color-white);
+  font-size: var(--od-font-size-common);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.numPlayers {
+  font-size: var(--od-font-size-medium);
+}
+
+.percentile {
+  font-size: var(--od-font-size-medium);
+}
+
+.histogramTooltipSmall {
+  font-size: var(--od-font-size-small);
+}
+
+.histogramTooltipMedium {
+  font-size: var(--od-font-size-medium);
+}

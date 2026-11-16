@@ -1,102 +1,100 @@
-import styled from "styled-components";
-import { CardHeader } from "@mui/material";
+import React from "react";
+import { CardHeader, type CardHeaderProps } from "@mui/material";
 import Container from "../Container/Container";
-import constants from "../constants";
+import styles from "./TeamStyled.module.css";
 
-export const TeamStatsCard = styled(CardHeader)`
-  display: inline-block;
-  padding: 0 !important;
-  margin-right: 25px;
-  margin-top: 15px;
+export const TeamStatsCard: React.FC<CardHeaderProps> = ({
+  className,
+  ...props
+}) => (
+  <CardHeader
+    className={`${styles.teamStatsCard}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-  .textSuccess {
-    color: ${constants.colorGreen};
-  }
+export const Logo: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
+  className,
+  ...props
+}) => (
+  <img
+    className={`${styles.logo}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-  .textDanger {
-    color: ${constants.colorRed};
-  }
+export const TableImage: React.FC<
+  React.ImgHTMLAttributes<HTMLImageElement>
+> = ({ className, ...props }) => (
+  <img
+    className={`${styles.tableImage}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-  & span:last-child {
-    font-size: 24px !important;
-    color: rgba(255, 255, 255, 0.87) !important;
-    line-height: 36px !important;
-  }
+export const TeamName: React.FC<React.HTMLAttributes<HTMLSpanElement>> = ({
+  className,
+  ...props
+}) => (
+  <span
+    className={`${styles.teamName}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-  & span:first-child {
-    font-size: 14px !important;
-    color: rgba(255, 255, 255, 0.54) !important;
-    line-height: 1 !important;
-    text-transform: uppercase;
-  }
-`;
+export const HeaderContainer: React.FC<
+  React.ComponentProps<typeof Container>
+> = ({ className, ...props }) => (
+  <Container
+    className={`${styles.headerContainer}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-export const Logo = styled.img`
-  margin-left: 30px;
-  margin-right: 30px;
-  width: 124px;
-  @media only screen and (max-width: 768px) {
-    margin-left: auto;
-    margin-right: auto;
-  }
-`;
+export const Column: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => (
+  <div
+    className={`${styles.column}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-export const TableImage = styled.img`
-  margin-right: 10px;
-  width: 35px;
-  max-height: 45px;
-`;
+export const Row: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => (
+  <div
+    className={`${styles.row}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-export const TeamName = styled.span`
-  color: rgba(245, 245, 245, 0.870588);
-  font-size: 28px;
-  @media only screen and (max-width: 768px) {
-    text-align: center;
-  }
-`;
+export const TableRow: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => (
+  <div
+    className={`${styles.tableRow}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-export const HeaderContainer = styled(Container)`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
+export const MatchesContainer: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ className, ...props }) => (
+  <div
+    className={`${styles.matchesContainer}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-  @media only screen and (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-
-export const TableRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const MatchesContainer = styled.div`
-  width: calc(65% - 15px);
-  margin-right: 15px;
-
-  @media only screen and (max-width: 1080px) {
-    width: 100%;
-    margin-right: 0;
-  }
-`;
-
-export const MemberAndHeroContainer = styled.div`
-  width: 35%;
-
-  @media only screen and (max-width: 1080px) {
-    width: 100%;
-  }
-`;
+export const MemberAndHeroContainer: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ className, ...props }) => (
+  <div
+    className={`${styles.memberAndHeroContainer}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);

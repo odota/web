@@ -1,25 +1,9 @@
 import React from "react";
-import styled from "styled-components";
 import ReactTooltip from "react-tooltip";
-import constants from "../constants";
 import AghanimsTooltipHeader from "./AghsTooltipHeader";
 import AghsTooltipBody from "./AghsTooltipBody";
 import config from "../../config";
-
-const Wrapper = styled.div`
-  width: 340px;
-  background: rgb(21, 27, 29);
-  overflow: hidden;
-  border: 2px solid #27292b;
-`;
-
-const CombinedWrapper = styled.div`
-  display: flex;
-  background-color: rgba(0, 0, 255, 0.01);
-  flex-direction: column;
-  gap: 10px;
-  margin: 0 -20px;
-`;
+import styles from "./AghsTooltip.module.css";
 
 const AghanimsToolTip = ({
   upgrades,
@@ -42,7 +26,7 @@ const AghanimsToolTip = ({
     const newShardSkillName = upgrades.shard_skill_name;
     const newShardSkillObject = getAghsSkillObject(newShardSkillName);
     newShardAbility = (
-      <Wrapper>
+      <div className={styles.wrapper}>
         <AghanimsTooltipHeader
           image="/assets/images/dota2/shard_0.png"
           type="shard"
@@ -57,13 +41,13 @@ const AghanimsToolTip = ({
           aghsDescription={upgrades.shard_desc}
           skillObject={newShardSkillObject}
         />
-      </Wrapper>
+      </div>
     );
 
     const newScepterSkillName = upgrades.scepter_skill_name;
     const newScepterSkillObject = getAghsSkillObject(newScepterSkillName);
     newScepterAbility = (
-      <Wrapper>
+      <div className={styles.wrapper}>
         <AghanimsTooltipHeader
           image="/assets/images/dota2/scepter_0.png"
           type="scepter"
@@ -78,44 +62,27 @@ const AghanimsToolTip = ({
           aghsDescription={upgrades.scepter_desc}
           skillObject={newScepterSkillObject}
         />
-      </Wrapper>
+      </div>
     );
   }
 
   return (
-    <CombinedWrapper>
+    <div className={styles.combinedWrapper}>
       {newScepterAbility}
       {newShardAbility}
-    </CombinedWrapper>
+    </div>
   );
 };
 
-const TtWrapper = styled.div`
-  background: linear-gradient(
-    to bottom,
-    ${constants.colorBlueMuted},
-    ${constants.primarySurfaceColor}
-  );
-  border-radius: 4px;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-  position: relative;
-`;
+export const StyledAghanimsBuffs: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ className, ...props }) => (
+  <div
+    className={`${styles.styledAghanimsBuffs} ${className || ""}`}
+    {...props}
+  />
+);
 
-export const StyledAghanimsBuffs = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  > img {
-    width: 65%;
-  }
-
-  .__react_component_tooltip {
-    opacity: 1 !important;
-    padding: 0px !important;
-  }
-`;
 const AghsTooltipWrapper = ({
   upgrades,
   skills,
@@ -124,13 +91,13 @@ const AghsTooltipWrapper = ({
   skills: any[];
   heroName: string;
 }) => (
-  <TtWrapper>
+  <div className={styles.ttWrapper}>
     <StyledAghanimsBuffs>
       <ReactTooltip id="aghanim" effect="solid" place="bottom">
         <AghanimsToolTip type="scepter" upgrades={upgrades} skills={skills} />
       </ReactTooltip>
     </StyledAghanimsBuffs>
-  </TtWrapper>
+  </div>
 );
 
 export default AghsTooltipWrapper;

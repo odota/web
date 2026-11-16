@@ -1,0 +1,32 @@
+.styledDiv :global(.filter) > label {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.styledDiv :global(.query):hover label {
+  color: var(--od-color-blue) !important;
+}
+
+.styledDiv :global(.filter):hover label {
+  color: var(--od-color-muted-light) !important;
+}
+
+.styledDiv small {
+  font-size: xx-small !important;
+}
+
+.styledDiv :global(.tab):hover {
+  color: var(--od-color-muted-light) !important;
+}
+
+.styledDiv :global(.tab):hover svg {
+  fill: var(--od-color-muted-light) !important;
+}
+
+.styledDiv :global(.tab):hover svg line {
+  transition: var(--od-normal-transition) !important;
+  stroke: var(--od-color-muted-light) !important;
+}
+
+.styledDiv :global(.filter) > div > hr:nth-child(2) {
+  border-bottom-color: var(--od-color-muted-light) !important;
+}

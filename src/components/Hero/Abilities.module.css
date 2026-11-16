@@ -1,0 +1,17 @@
+.wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-left: -4px;
+  margin-right: -4px;
+  margin-top: 16px;
+}
+
+.abilityItem {
+  flex: 1 1 100%;
+  margin-bottom: 4px;
+  margin-top: 4px;
+  max-width: 64px;
+  padding-left: 4px;
+  padding-right: 4px;
+}

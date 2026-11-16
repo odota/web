@@ -1,0 +1,174 @@
+.games {
+  padding: 14px;
+  font-family: var(--od-font-family-futuristic);
+  border-top: 1px solid rgba(53, 217, 204, .3);
+  background: linear-gradient(135deg, #0b2428, #091519);
+}
+
+.seriesMeta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin-bottom: 12px;
+  color: #c3dbdc;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.seriesMeta > span:last-child {
+  color: #8ba9ac;
+  font-variant-numeric: tabular-nums;
+}
+
+.gameLinks {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+
+.gameLinks > a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid rgba(53, 217, 204, .25);
+  border-radius: 3px;
+  background: rgba(53, 217, 204, .05);
+  color: #edffff;
+  text-decoration: none;
+  transition: background .15s, border-color .15s;
+}
+
+.gameLinks > a:hover {
+  background: rgba(53, 217, 204, .14);
+  border-color: #35d9cc;
+}
+
+.gameLinks > a:focus-visible {
+  outline: 2px solid #71fff0;
+  outline-offset: 2px;
+}
+
+.gameLinks > a > .gamePreview {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+
+.gameLinks > a .gameHeading {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+
+.gameLinks > a :global(.game-team) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 12px;
+}
+
+.gameLinks > a :global(.game-team),
+.gameLinks > a :global(.game-team) > span {
+  font-family: var(--od-font-family-futuristic);
+}
+
+.gameLinks > a :global(.game-team) > span {
+  overflow-wrap: anywhere;
+}
+
+.gameLinks > a :global(.game-team) small {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.gameLinks > a :global(.game-winner) {
+  color: #71fff0;
+}
+
+.gameLinks > a :global(.game-team) :global(.winner-label) {
+  margin-left: 0;
+  color: #75d890;
+}
+
+.gameLinks > a :global(.game-heroes) {
+  display: grid;
+  gap: 12px;
+}
+
+.gameLinks > a :global(.hero-lineup) {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+.gameLinks > a :global(.hero-lineup) > :global(.game-team) {
+  order: 1;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.gameLinks > a :global(.hero-portraits) {
+  display: flex;
+  gap: 4px;
+  min-width: 0;
+}
+
+.gameLinks > a :global(.hero-portraits) img,
+.gameLinks > a :global(.hero-placeholder) {
+  width: clamp(28px, 3vw, 44px);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.gameLinks > a :global(.hero-placeholder) {
+  background: rgba(169, 194, 197, .12);
+}
+
+.gameLinks > a .gameInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  font-size: 11px;
+  color: #a9c2c5;
+}
+
+.gameLinks > a .gameDuration {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #73bfff;
+}
+
+.gameLinks > a .gameDuration svg {
+  width: 14px;
+  height: 14px;
+}
+
+.gameLinks > a .gameInfo time {
+  margin-left: auto;
+  color: #73bfff;
+}
+
+.gameLinks > a strong {
+  font-size: 12px;
+  color: #71fff0;
+}
+
+.gameLinks > a small {
+  font-size: 11px;
+  color: #a9c2c5;
+  overflow-wrap: anywhere;
+}
+
+.gameLinks > a > svg {
+  margin-left: auto;
+  flex-shrink: 0;
+}

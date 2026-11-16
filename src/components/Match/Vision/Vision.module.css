@@ -1,0 +1,29 @@
+.sliderTicks {
+  position: relative;
+  height: 30px;
+  margin-top: 33px;
+  margin-bottom: -33px;
+  font-size: var(--od-font-size-tiny);
+  border-color: var(--od-slider-ticks-color);
+  color: var(--od-slider-ticks-color);
+}
+
+.sliderTicks .sliderTick {
+  position: absolute;
+  display: inline-block;
+  height: 100%;
+  padding: 0 0.4em;
+  border-width: 0;
+  border-color: inherit;
+  border-style: solid;
+  border-left-width: 1px;
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+.sliderTicks .sliderTick.active {
+  border-color: var(--od-slider-ticks-color-active);
+  color: var(--od-slider-ticks-color-active);
+}

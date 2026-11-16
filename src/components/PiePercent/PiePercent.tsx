@@ -1,19 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-
-const StyledSvg = styled.svg`
-  width: 32px;
-  height: 32px;
-  transform: rotate(-90deg);
-  border-radius: 50%;
-`;
-
-const StyledCircle = styled.circle`
-  fill: var(--primaryTextColor);
-  stroke: var(--colorYelor);
-  stroke-width: 32;
-  stroke-dasharray: 38 100;
-`;
+import styles from "./PiePercent.module.css";
 
 const PiePercent = ({
   percent,
@@ -24,15 +10,20 @@ const PiePercent = ({
   color: string;
   negativeColor: string;
 }) => (
-  <StyledSvg viewBox="0 0 32 32" style={{ color: negativeColor }}>
-    <StyledCircle
+  <svg
+    className={styles.svg}
+    viewBox="0 0 32 32"
+    style={{ color: negativeColor }}
+  >
+    <circle
+      className={styles.circle}
       r="16"
       cx="16"
       cy="16"
       shapeRendering="crispEdges"
       style={{ strokeDasharray: `${percent} 100`, color }}
     />
-  </StyledSvg>
+  </svg>
 );
 
 export default PiePercent;

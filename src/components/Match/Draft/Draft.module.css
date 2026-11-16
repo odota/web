@@ -1,0 +1,126 @@
+.styled {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.draftRow:nth-of-type(odd) {
+  background-color: var(--od-table-row-odd-surface-color);
+}
+
+.teams {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nodata {
+  display: flex;
+  justify-content: center;
+}
+
+.pickBan {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.pick {
+  color: var(--od-color-green);
+}
+
+.pick svg {
+  color: var(--od-color-green);
+}
+
+.banLabel {
+  color: var(--od-color-danger);
+}
+
+.banLabel svg {
+  color: var(--od-color-danger);
+}
+
+.draftCell {
+  display: flex;
+  width: fit-content;
+}
+
+.draftCellRadiant {
+  margin-left: 0;
+  justify-content: flex-start;
+}
+
+.draftCellDire {
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
+.timeTracker {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 8px;
+}
+
+.draftCellRadiant .timeTracker {
+  align-items: flex-start;
+  order: 1;
+}
+
+.draftCellDire .timeTracker {
+  align-items: flex-end;
+  order: -1;
+}
+
+.taken {
+  font-size: 16px;
+}
+
+.left {
+  font-size: 13px;
+}
+
+.extraUsed {
+  color: var(--od-color-danger);
+}
+
+@media only screen and (max-width: 650px) {
+  .draftCell {
+    flex-direction: column;
+  }
+
+  .draftCell .timeTracker {
+    order: 1;
+  }
+}
+
+.heroIcon {
+  position: relative;
+  width: fit-content;
+}
+
+.heroIcon img {
+  width: 100px;
+}
+
+.heroIcon img[data-ispick="false"] {
+  filter: grayscale(100%);
+}
+
+.ban {
+  position: absolute;
+  z-index: 1;
+  left: -8px;
+  right: -8px;
+  top: 28px;
+  border-top: 2px solid var(--od-color-danger);
+  transform: rotate(-28deg);
+}
+
+@media only screen and (max-width: 716px) {
+  .ban {
+    transform: rotate(-34deg);
+    top: 13px;
+  }
+}
