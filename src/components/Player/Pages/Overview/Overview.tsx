@@ -10,7 +10,7 @@ import {
 } from "../../../../actions";
 import Table from "../../../Table/Table";
 import Container from "../../../Container/Container";
-import RecentMatches from "./RecentMatches";
+import playerMatchesColumns from "../Matches/playerMatchesColumns";
 import { playerHeroesOverviewColumns } from "../Heroes/playerHeroesColumns";
 import { playerPeersOverviewColumns } from "../Peers/playerPeersColumns";
 import SummOfRecMatches from "./Summary";
@@ -145,12 +145,21 @@ const Overview = ({
       </Collapsible>
       <Spacer variant="1" />
       <div className={styles.matchesContainer}>
-        <RecentMatches
-          data={matchesData}
-          playerId={playerId}
+        <Container
+          title={strings.heading_matches}
+          titleTo={`/players/${playerId}/matches`}
           loading={matchesLoading}
           error={matchesError}
-        />
+          loaderWidth={300}
+          loaderHeight={160}
+        >
+          <Table
+            columns={playerMatchesColumns(strings, false)}
+            data={matchesData}
+            maxRows={!location.search ? MAX_MATCHES_ROWS : undefined}
+            paginated={matchesData.length > MAX_MATCHES_ROWS}
+          />
+        </Container>
       </div>
       <Spacer variant="1" />
       <div className={styles.heroesContainer}>
