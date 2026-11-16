@@ -1,15 +1,14 @@
 import React from "react";
 import ReactTooltip from "react-tooltip";
 import { nanoid } from "nanoid";
-import styled from "styled-components";
 import ItemTooltip from "../ItemTooltip/ItemTooltip";
-import constants from "../constants";
 import AbilityTooltip from "../AbilityTooltip/AbilityTooltip";
 import config from "../../config";
 import useStrings from "../../hooks/useStrings.hook";
 import { useAbilities } from "../../hooks/useAbilities.hook";
 import { ability_ids as abilityIds } from "dotaconstants";
 import { items } from "dotaconstants";
+import styles from "./inflictorWithValue.module.css";
 
 const getInflictorImage = (inflictor: string) => {
   if (inflictor.includes("recipe")) {
@@ -20,148 +19,11 @@ const getInflictorImage = (inflictor: string) => {
 
 const customImageIcon = ["refresher_shard"];
 
-const StyledDiv = styled.div`
-  min-height: 1px;
-  display: inline-block;
-
-  .__react_component_tooltip {
-    opacity: 1 !important;
-    padding: 0px !important;
-  }
-
-  .inflictorWithValue {
-    position: relative;
-    float: left;
-    margin: 1px;
-    height: 27px;
-    z-index: 1;
-
-    :hover {
-      z-index: 9999;
-    }
-
-    & .overlay {
-      background-color: ${constants.darkPrimaryColor};
-      color: ${constants.textColorPrimary};
-      font-size: 10px;
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      text-align: center;
-    }
-
-    &:matches([data-tip="true"]) {
-      & > img {
-        transition: ${constants.normalTransition};
-      }
-
-      &:hover {
-        & > img {
-          opacity: 0.7;
-        }
-      }
-    }
-
-    &.backpack {
-      height: 10px;
-      white-space: nowrap;
-
-      img {
-        height: 18px;
-        width: 25px;
-      }
-    }
-    &.neutral {
-      > img {
-        height: 30px;
-        width: 30px;
-        object-fit: cover;
-        border-radius: 15px;
-        position: relative;
-        bottom: 1px;
-      }
-    }
-  }
-
-  .noBr {
-    & br {
-      display: none;
-    }
-  }
-
-  .attribVal {
-    color: ${constants.colorYelor};
-    font-weight: ${constants.fontWeightMedium};
-  }
-
-  .cooldownMana {
-    & div {
-      display: inline-block;
-
-      &:first-child {
-        margin-right: 25px;
-      }
-
-      &:last-child {
-        margin-top: 5px;
-      }
-    }
-  }
-
-  .buff {
-    width: 29px;
-    height: 29px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    box-shadow: 0 0 5px ${constants.defaultPrimaryColor};
-  }
-
-  .buffOverlay {
-    position: absolute;
-    bottom: 0;
-    right: 2px;
-    color: ${constants.textColorPrimary};
-    font-weight: ${constants.fontWeightMedium};
-    text-shadow:
-      1px 1px 2px black,
-      -1px -1px 2px black;
-  }
-  .chargeOverlay {
-    position: absolute;
-    top: -2px;
-    right: 0px;
-    font-size: 11px;
-    color: ${constants.textColorPrimary};
-    font-weight: ${constants.fontWeightMedium};
-    text-shadow:
-      1px 1px 2px black,
-      -1px -1px 2px black;
-  }
-  .backpackOverlay {
-    display: inline-block;
-    font-size: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    height: 18px;
-    min-width: 20px;
-    padding-left: 3px;
-    padding-right: 3px;
-    border-bottom-right-radius: 4px;
-    border-top-right-radius: 4px;
-    overflow: hidden;
-
-    span {
-      line-height: 18px;
-    }
-  }
-`;
-
 type Props = {
   inflictor: string;
   value: keyof typeof items;
   type: string;
-  ptooltip: {};
+  ptooltip?: React.ReactNode;
   abilityId: keyof typeof abilityIds;
   strings: Strings;
   charges: number;
@@ -246,9 +108,9 @@ class InflictorWithValue extends React.Component<Props> {
       const fallbackImage = "/assets/images/Dota2Logo.svg";
 
       return (
-        <StyledDiv>
+        <div className={styles.styledDiv}>
           <div
-            className={`inflictorWithValue ${type ? `${type}` : ""}`}
+            className={`${styles.inflictorWithValue}${type && styles[type] ? ` ${styles[type]}` : ""}`}
             data-tip={tooltip && true}
             data-for={ttId}
             onMouseEnter={this.setShowTooltip}
@@ -270,19 +132,21 @@ class InflictorWithValue extends React.Component<Props> {
             )}
             {type === "buff" && (
               <div
-                className="buff"
+                className={styles.buff}
                 style={{
                   backgroundImage: `url(${image})`,
                 }}
               />
             )}
-            {!type && <div className="overlay">{value}</div>}
+            {!type && <div className={styles.overlay}>{value}</div>}
             {type === "buff" && (
-              <div className="buffOverlay">{Number(value) > 0 && value}</div>
+              <div className={styles.buffOverlay}>
+                {Number(value) > 0 && value}
+              </div>
             )}
-            {charges && <div className="chargeOverlay">{charges}</div>}
+            {charges && <div className={styles.chargeOverlay}>{charges}</div>}
             {type === "backpack" && (
-              <div className="backpackOverlay">
+              <div className={styles.backpackOverlay}>
                 <span>{value}</span>
               </div>
             )}
@@ -296,7 +160,7 @@ class InflictorWithValue extends React.Component<Props> {
               </div>
             )}
           </div>
-        </StyledDiv>
+        </div>
       );
     }
     return null;

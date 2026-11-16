@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { heroes } from "dotaconstants";
-import styled from "styled-components";
 import {
   isRadiant,
   sum,
@@ -12,37 +11,7 @@ import { MAX_MATCHES_ROWS } from "./Overview";
 import constants from "../../../constants";
 import HeroImage from "../../../Visualizations/HeroImage";
 import useStrings from "../../../../hooks/useStrings.hook";
-
-const BulletList = styled.ul`
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  gap: 0.5rem;
-`;
-const StyledBulletListItem = styled.li`
-  margin: 0 !important;
-  padding: 8px;
-  font-family: ${constants.fontFamilyFuturistic};
-`;
-const Label = styled.span`
-  font-size: 0.7rem;
-`;
-const StyledLink = styled(Link)<{ color?: string }>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  color: ${(props) => props.color};
-  &:hover {
-    filter: brightness(1.6);
-  }
-`;
-const StatList = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-`;
+import styles from "./Summary.module.css";
 
 const SummOfRecMatches = ({ matchesData }: { matchesData: any[] }) => {
   const strings = useStrings();
@@ -123,12 +92,12 @@ const SummOfRecMatches = ({ matchesData }: { matchesData: any[] }) => {
 
   return (
     <div>
-      <BulletList>
+      <ul className={styles.bulletList}>
         {winrate ? (
-          <StyledBulletListItem>
-            <Label>{strings.th_winrate}</Label>
+          <li className={styles.styledBulletListItem}>
+            <span className={styles.label}>{strings.th_winrate}</span>
             <p>{winrate}%</p>
-          </StyledBulletListItem>
+          </li>
         ) : null}
         {Object.keys(computed).map((key) => {
           const c = computed[key];
@@ -136,17 +105,22 @@ const SummOfRecMatches = ({ matchesData }: { matchesData: any[] }) => {
           if (c.avg) {
             const hero = heroes[c.max.heroId as keyof Heroes] || {};
             return (
-              <StyledBulletListItem key={key}>
-                <Label>{strings[`heading_${key}` as keyof Strings]}</Label>
-                <StyledLink
+              <li className={styles.styledBulletListItem} key={key}>
+                <span className={styles.label}>
+                  {strings[`heading_${key}` as keyof Strings]}
+                </span>
+                <Link
+                  className={styles.styledLink}
                   to={`/matches/${c.max.matchId}`}
-                  color={constants[c.color as keyof typeof constants] as string}
+                  style={{
+                    color: constants[c.color as keyof typeof constants] as string,
+                  }}
                 >
-                  <StatList>
+                  <div className={styles.statList}>
                     {key === "duration"
                       ? formatSeconds(c.avg)
                       : abbreviateNumber(c.avg)}
-                  </StatList>
+                  </div>
                   <span>
                     {key === "duration"
                       ? formatSeconds(c.max.value)
@@ -161,13 +135,13 @@ const SummOfRecMatches = ({ matchesData }: { matchesData: any[] }) => {
                       height: 24,
                     }}
                   />
-                </StyledLink>
-              </StyledBulletListItem>
+                </Link>
+              </li>
             );
           }
           return null;
         })}
-      </BulletList>
+      </ul>
     </div>
   );
 };

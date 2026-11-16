@@ -1,7 +1,6 @@
 import React from "react";
 
 import { connect } from "react-redux";
-import styled from "styled-components";
 import {
   getPlayerRecentMatches,
   getPlayerHeroes,
@@ -15,164 +14,16 @@ import RecentMatches from "./RecentMatches";
 import { playerHeroesOverviewColumns } from "../Heroes/playerHeroesColumns";
 import { playerPeersOverviewColumns } from "../Peers/playerPeersColumns";
 import SummOfRecMatches from "./Summary";
-import constants from "../../../constants";
 import CountsSummary from "./CountsSummary";
 import { formatTemplateToString } from "../../../../utility";
 import Collapsible from "../../../Collapsible/Collapsible";
 import useStrings from "../../../../hooks/useStrings.hook";
 import { Spacer } from "../../../Spacer/Spacer";
+import styles from "./Overview.module.css";
 
 export const MAX_MATCHES_ROWS = 20;
 const MAX_HEROES_ROWS = 10;
 const MAX_PEERS_ROWS = 5;
-
-const OverviewContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const SummaryContainer = styled(Container)`
-  width: 100%;
-
-  & ul {
-    border: 1px solid rgb(0, 0, 0, 0.12);
-    border-radius: 2px;
-    background-color: rgba(255, 255, 255, 0.03);
-    margin: 0;
-    padding-left: 5px;
-
-    & li {
-      list-style: none;
-      display: inline-block;
-      margin-bottom: 10px;
-      margin-right: 15px;
-
-      & p {
-        margin: 0;
-        padding: 0;
-        font-size: 24px;
-      }
-
-      & span {
-        font-size: ${constants.fontSizeSmall};
-        color: ${constants.colorMutedLight};
-
-        &:first-child {
-          text-transform: uppercase;
-        }
-      }
-
-      & img {
-        height: 20px;
-        width: auto;
-        vertical-align: text-bottom;
-        transition: ${constants.normalTransition};
-        margin-left: 6px;
-
-        &:hover {
-          opacity: 0.7;
-        }
-      }
-    }
-  }
-`;
-
-const MatchesContainer = styled.div`
-  width: calc(65% - 15px);
-  margin-right: 15px;
-
-  .recent-matches {
-    width: 100%;
-    font-family: ${constants.fontFamilyFuturistic};
-
-    & * { font-family: inherit; }
-
-    font-size: 14px;
-    .match-list { list-style: none; padding: 0; margin: 0 0 20px; display: flex; flex-direction: column; gap: 10px; }
-    .match-entry { position: relative; padding: 16px; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; background: rgba(255, 255, 255, 0.02); }
-    .match-entry-link { position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
-    .match-entry-header a, .match-entry-details a { position: relative; z-index: 2; }
-    .match-entry:hover { background: rgba(255, 255, 255, 0.04); }
-    .match-entry-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .match-entry-details { display: flex; justify-content: space-evenly; align-items: center; flex-wrap: wrap; font-weight: 400; color: ${constants.colorMutedLight}; gap: 12px 24px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
-    .match-stat { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
-    .stat-label { font-size: 14px; color: ${constants.colorMutedLight}; }
-    .lane-value { display: flex; align-items: center; gap: 6px; font-family: ${constants.fontFamilyFuturistic}; }
-    .lane-value img { width: 20px; height: 20px; object-fit: contain; flex-shrink: 0; }
-    .match-identity { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-    .match-hero .textContainer { width: 180px; }
-    .duration-details { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
-    .duration-value { display: flex; align-items: center; gap: 5px; }
-    .duration-value > svg { width: 20px; height: 20px; flex-shrink: 0; color: ${constants.colorBlue}; }
-    .team-value { display: flex; align-items: center; gap: 5px; font-size: 14px; }
-    .team-value svg { width: 20px; height: 20px; flex-shrink: 0; }
-    .team-value.radiant { color: ${constants.colorSuccess}; }
-    .team-value.dire { color: ${constants.colorDanger}; }
-    a { font-family: ${constants.fontFamilyFuturistic}; }
-    .imageContainer img.image { height: 52px; width: auto; }
-    .textContainer > span, .textContainer > span a { font-size: 14px; }
-    .parsed, .unparsed { height: 52px; }
-    table.recent-matches-table .imageContainer img.image { height: 29px; }
-    table.recent-matches-table .parsed, table.recent-matches-table .unparsed { height: 29px; }
-
-    .recent-result { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
-    .recent-time-ago { display: flex; align-items: center; gap: 5px; font-size: 14px; }
-    .recent-time-ago > svg { width: 18px !important; height: 18px !important; color: ${constants.colorBlue} !important; }
-    .duration-value { font-size: 14px; }
-    .result-badge {
-      display: inline-block;
-      font-size: 14px;
-      font-weight: 400;
-      white-space: nowrap;
-    }
-    .win { color: ${constants.colorSuccess}; }
-    .loss { color: ${constants.colorDanger}; }
-    .unknown { color: ${constants.colorMutedLight}; }
-    .recent-mode { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
-    .mode-label, .rank-label { display: flex; align-items: center; gap: 6px; }
-    .mode-label svg { width: 22px; height: 22px; flex-shrink: 0; color: ${constants.colorGolden}; }
-    .rank-label { color: ${constants.colorMutedLight}; font-size: 14px; }
-    .rank-label img { width: 30px; height: 30px; object-fit: contain; flex-shrink: 0; }
-    .rank-description { display: inline-flex; align-items: baseline; gap: 5px; white-space: nowrap; }
-    .rank-stars {
-      color: ${constants.colorMutedLight};
-      font-size: inherit;
-      line-height: 1;
-      letter-spacing: normal;
-      white-space: nowrap;
-    }
-
-    .match-link { color: ${constants.colorMutedLight}; font-size: 14px; letter-spacing: 0.08em; line-height: 1.2; text-transform: uppercase; }
-    .recent-kda { display: inline-flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; white-space: nowrap; }
-    .recent-kda .separator { color: ${constants.colorMutedLight}; }
-    .match-entry .team-value { font-weight: 400; color: ${constants.colorMutedLight}; }
-    .recent-kda .kills { color: ${constants.colorSuccess}; }
-    .recent-kda .deaths { color: ${constants.colorDanger}; }
-    .recent-kda .assists { color: ${constants.colorMutedLight}; }
-    .team-value.radiant svg { color: ${constants.colorSuccess}; }
-    .team-value.dire svg { color: ${constants.colorDanger}; }
-    a:focus-visible { outline: 2px solid ${constants.primaryLinkColor}; outline-offset: 3px; }
-  }
-
-  @media only screen and (max-width: 1080px) {
-    width: 100%;
-    margin-right: 0;
-  }
-`;
-
-const HeroesContainer = styled.div`
-  width: 35%;
-
-  @media only screen and (max-width: 1080px) {
-    width: 100%;
-  }
-`;
-
-const Styled = styled.div`
-  float: left;
-  position: relative;
-  width: 30px;
-`;
 
 const getValidRecentMatches = (matches: Match[]) =>
   matches.filter((match) => match.game_mode !== 19).slice(0, MAX_MATCHES_ROWS);
@@ -231,14 +82,15 @@ const Overview = ({
   const validRecentMatches = getValidRecentMatches(matchesData);
 
   return (
-    <OverviewContainer>
+    <div className={styles.overviewContainer}>
       <Collapsible
         name="playerSummary"
         initialMaxHeight={1200}
         buttonStyle={{ top: 8 }}
       >
         <Spacer variant="1" />
-        <SummaryContainer
+        <Container
+          className={styles.summaryContainer}
           title={strings.heading_avg_and_max}
           titleTo={`/players/${playerId}/records`}
           subtitle={formatTemplateToString(
@@ -275,9 +127,10 @@ const Overview = ({
               (match) => showTurboGames || match.game_mode !== 23,
             )}
           />
-        </SummaryContainer>
+        </Container>
         <Spacer variant="1" />
-        <SummaryContainer
+        <Container
+          className={styles.summaryContainer}
           title={strings.tab_counts}
           loading={countsLoading}
           error={countsError}
@@ -288,19 +141,19 @@ const Overview = ({
           key="counts"
         >
           <CountsSummary data={countsData} />
-        </SummaryContainer>
+        </Container>
       </Collapsible>
       <Spacer variant="1" />
-      <MatchesContainer>
+      <div className={styles.matchesContainer}>
         <RecentMatches
           data={matchesData}
           playerId={playerId}
           loading={matchesLoading}
           error={matchesError}
         />
-      </MatchesContainer>
+      </div>
       <Spacer variant="1" />
-      <HeroesContainer>
+      <div className={styles.heroesContainer}>
         <Collapsible
           name="overviewPeers"
           initialMaxHeight={400}
@@ -337,8 +190,8 @@ const Overview = ({
             />
           </Container>
         </Collapsible>
-      </HeroesContainer>
-    </OverviewContainer>
+      </div>
+    </div>
   );
 };
 

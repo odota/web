@@ -1,8 +1,12 @@
 import React from "react";
-import styled from "styled-components";
+import styles from "./Steam.module.css";
 
-const icon = (props: any) => (
-  <svg {...props} viewBox="0 0 110 110">
+const Icon = ({ className, ...props }: any) => (
+  <svg
+    {...props}
+    className={`${styles.icon} ${className || ""}`}
+    viewBox="0 0 110 110"
+  >
     <path
       d="M55,0C25.881,0,2.062,22.634,0.14,51.267l28.525,11.507C31.172,61.029,34.214,60,37.5,60
       c0.706,0,1.396,0.063,2.076,0.155l13.426-19.691C53.021,29.159,62.19,20,73.5,20C84.822,20,94,29.178,94,40.5S84.822,61,73.5,61
@@ -17,11 +21,4 @@ const icon = (props: any) => (
     />
   </svg>
 );
-export default styled(icon)`
-  fill: #f5f5f5;
-  height: 16px;
-  margin: 0 6px;
-  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-  vertical-align: middle;
-  width: auto !important;
-`;
+export default Icon;

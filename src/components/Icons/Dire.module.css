@@ -1,0 +1,4 @@
+.icon {
+  filter: drop-shadow(0 0 5px var(--od-color-danger));
+  fill: black !important;
+}

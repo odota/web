@@ -1,0 +1,14 @@
+.teamImageContainer {
+  display: flex;
+  align-items: center;
+}
+
+.teamImageContainer img {
+  margin-top: 7px;
+  margin-right: 7px;
+  margin-bottom: 7px;
+  margin-left: 0px;
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}

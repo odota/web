@@ -1,0 +1,37 @@
+.attributesWrapper {
+  display: flex;
+  margin-left: -8px;
+  margin-right: -8px;
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-small);
+}
+
+@media screen and (max-width: 680px) {
+  .attributesWrapper {
+    flex-wrap: wrap;
+  }
+}
+
+.attributeBlock {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  margin-top: 10px;
+  padding: 8px;
+}
+
+@media screen and (max-width: 680px) {
+  .attributeBlock {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 50%;
+  }
+}
+
+.label {
+  color: rgba(255, 255, 255, 0.5);
+  flex-grow: 1;
+  font-size: var(--od-font-size-small);
+  margin-right: 5px;
+  text-transform: uppercase;
+}

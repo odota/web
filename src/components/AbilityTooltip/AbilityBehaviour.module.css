@@ -1,0 +1,34 @@
+.behavior {
+  position: relative;
+  padding: 13px;
+  color: #95a5a6;
+}
+
+.behavior span:nth-child(2) {
+  color: var(--od-primary-text-color);
+  font-weight: 500;
+}
+
+.behavior span[type="Yes"] {
+  color: var(--od-color-green);
+}
+
+.behavior span[type="Strong Dispels Only"] {
+  color: darkred;
+}
+
+.behavior span[type="No"] {
+  color: var(--od-color-red);
+}
+
+.behavior span[type="Pure"] {
+  color: var(--od-color-damage-type-pure);
+}
+
+.behavior span[type="Physical"] {
+  color: var(--od-color-damage-type-physical);
+}
+
+.behavior span[type="Magical"] {
+  color: var(--od-color-damage-type-magical);
+}

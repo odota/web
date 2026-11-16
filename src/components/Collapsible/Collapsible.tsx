@@ -1,34 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 import Transition from "react-transition-group/Transition";
 import { IconPlusSquare, IconMinusSquare } from "../Icons";
-import constants from "../constants";
 import useStrings from "../../hooks/useStrings.hook";
-
-const ButtonContainer = styled.div`
-  position: absolute;
-  right: -4px;
-  top: 5px;
-  z-index: 100;
-  cursor: pointer;
-  opacity: 0.4;
-  color: ${constants.colorBlue};
-
-  &:hover {
-    opacity: 1;
-  }
-
-  svg {
-    height: 19px;
-    fill: ${constants.colorBlue};
-  }
-
-  span {
-    font-size: 11px;
-    vertical-align: text-top;
-    text-transform: uppercase;
-  }
-`;
+import styles from "./Collapsible.module.css";
 
 const CollapseButton = ({
   handleClick,
@@ -45,7 +19,8 @@ const CollapseButton = ({
 }) => {
   const strings = useStrings();
   return (
-    <ButtonContainer
+    <div
+      className={styles.buttonContainer}
       style={buttonStyle}
       onClick={handleClick}
       onMouseEnter={handleHoverOn}
@@ -54,16 +29,9 @@ const CollapseButton = ({
       {collapsed
         ? [<span>{strings.general_show}</span>, <IconPlusSquare />]
         : [<span>{strings.general_hide}</span>, <IconMinusSquare />]}
-    </ButtonContainer>
+    </div>
   );
 };
-
-const CollapsibleContainer = styled.div`
-  position: relative;
-  width: 100%;
-  border: 1px solid transparent;
-  box-sizing: border-box;
-`;
 
 class Collapsible extends React.Component<
   {
@@ -101,7 +69,8 @@ class Collapsible extends React.Component<
     const { initialMaxHeight, buttonStyle } = this.props;
 
     return (
-      <CollapsibleContainer
+      <div
+        className={styles.collapsibleContainer}
         style={{
           border:
             !collapsed && hovered
@@ -134,7 +103,7 @@ class Collapsible extends React.Component<
             </div>
           )}
         </Transition>
-      </CollapsibleContainer>
+      </div>
     );
   }
 }

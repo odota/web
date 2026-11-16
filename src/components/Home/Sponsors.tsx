@@ -1,42 +1,14 @@
 import React from "react";
 import { Button } from "@mui/material";
-import styled from "styled-components";
 import config from "../../config";
 import useStrings from "../../hooks/useStrings.hook";
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  text-align: center;
-
-  & .headline {
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    font-size: 20px;
-  }
-
-  & img {
-    height: 32px;
-    margin: 10px 15px;
-    transition: var(--normalTransition);
-  }
-
-  & a {
-    background-color: transparent !important;
-    padding: 0 !important;
-    border-width: 1px !important;
-    border-radius: 0 !important;
-  }
-`;
+import styles from "./Sponsors.module.css";
 
 const Sponsors = () => {
   const strings = useStrings();
   return (
-    <StyledDiv>
-      <div className="headline">{strings.home_sponsored_by}</div>
+    <div className={styles.styledDiv}>
+      <div className={styles.headline}>{strings.home_sponsored_by}</div>
       <div className="images">
         <a
           href="https://www.openai.com/"
@@ -75,7 +47,7 @@ const Sponsors = () => {
           {strings.home_become_sponsor}
         </Button>
       </div>
-    </StyledDiv>
+    </div>
   );
 };
 

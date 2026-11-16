@@ -1,0 +1,119 @@
+.styledLogContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  margin-top: 20px;
+  letter-spacing: 0.044em;
+}
+
+.timeDivider {
+  display: flex;
+  max-width: 800px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.timeDivider div {
+  height: 1px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.timeDivider div:nth-of-type(1) {
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.08), transparent);
+}
+
+.timeDivider div:nth-of-type(2) {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.08), transparent);
+}
+
+.timeDivider span {
+  font-size: 14px;
+  margin-left: 16px;
+  margin-right: 16px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.entry:hover .time {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.entry {
+  display: flex;
+  max-width: 800px;
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.entry .smallMutedText {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.entry .smallBoldText {
+  font-size: 12px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.entry .time {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.entry .entryMessagesContainer {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+}
+
+.entry .entryMessagesContainer.radiant {
+  background: linear-gradient(to right, #21812c26, transparent);
+}
+
+.entry .entryMessagesContainer.dire {
+  background: linear-gradient(to left, #9d361f26, transparent);
+  padding-right: 7px;
+}
+
+.entry .heroImage {
+  width: 72px;
+  height: 40px;
+  border-radius: 4px;
+}
+
+.entry .detailIcon {
+  height: 16px;
+  width: 16px;
+  margin-right: 6px;
+  margin-left: 6px;
+}
+
+.entry .entryMessage {
+  display: flex;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.entry .entryMessage .icon {
+  height: 16px;
+  width: 16px;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.entry .entryMessage .dropIcon {
+  fill: #ff5555;
+}
+
+.entry .entryMessage .roshanIcon {
+  fill: #9dddcc;
+}

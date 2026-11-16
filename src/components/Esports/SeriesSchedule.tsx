@@ -5,55 +5,13 @@
  */
 
 import React from "react";
-import styled from "styled-components";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { MatchSeries } from "../Matches/series";
 import { SeriesTeam } from "../Matches/Matches";
-import constants from "../constants";
 import SeriesAccordion from "./SeriesAccordion";
 import { groupSeriesByDate } from "./groupSeriesByDate";
-
-/**
- * Arranges chronological date groups in two columns, stacking on mobile.
- * @example
- * <Schedule>{dateCards}</Schedule>
- */
-const Schedule = styled.div<{ $singleColumn?: boolean }>`
-  display: grid;
-  grid-template-columns: ${({ $singleColumn }) => $singleColumn ? "minmax(0, 1fr)" : "repeat(2, minmax(0, 1fr))"};
-  align-items: start;
-  gap: 16px;
-  @media (max-width: 680px) {
-    grid-template-columns: minmax(0, 1fr);
-  }
-`;
-
-/**
- * Provides a collapsible date group with an accessible summary control.
- * @example
- * <Day open><summary>October 21, 2026</summary>{seriesRows}</Day>
- */
-const Day = styled.details`
-  min-width: 0;
-  > summary {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 0;
-    margin-bottom: 4px;
-    border-bottom: 0;
-    font-family: ${constants.fontFamilyFuturistic};
-    font-size: ${constants.fontSizeMedium};
-    cursor: pointer;
-    list-style: none;
-    svg:first-child { color: ${constants.colorBlue}; width: 18px; height: 18px; }
-    svg:last-child { margin-left: auto; width: 18px; height: 18px; }
-    &::-webkit-details-marker { display: none; }
-  }
-  &[open] > summary > svg:last-child { transform: rotate(180deg); }
-  summary:focus-visible { outline: 2px solid ${constants.primaryLinkColor}; outline-offset: -2px; }
-`;
+import styles from "./SeriesSchedule.module.css";
 
 /**
  * Series and team metadata rendered by the daily schedule.
@@ -85,15 +43,15 @@ export default function SeriesSchedule({ series, teams, singleColumn = false, ne
     !latest || row.first_match_time > latest.first_match_time ? row : latest,
   undefined);
   return (
-    <Schedule $singleColumn={singleColumn}>
+    <div className={`${styles.schedule}${singleColumn ? ` ${styles.scheduleSingleColumn}` : ""}`}>
       {groupSeriesByDate(series, newestFirst).map(({ date, series: rows }) => (
-        <Day key={date} open>
+        <details className={styles.day} key={date} open>
           <summary><CalendarMonthIcon aria-hidden="true" /><time dateTime={date}>{new Date(`${date}T12:00:00`).toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric" })}</time><ExpandMoreIcon aria-hidden="true" /></summary>
           {rows.map((row) => {
             return <SeriesAccordion key={row.key} series={row} teams={teams} showMetadata defaultOpen={row.key === latestSeries?.key} />;
           })}
-        </Day>
+        </details>
       ))}
-    </Schedule>
+    </div>
   );
 }

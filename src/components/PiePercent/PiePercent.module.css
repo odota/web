@@ -1,0 +1,13 @@
+.svg {
+  width: 32px;
+  height: 32px;
+  transform: rotate(-90deg);
+  border-radius: 50%;
+}
+
+.circle {
+  fill: var(--primaryTextColor);
+  stroke: var(--colorYelor);
+  stroke-width: 32;
+  stroke-dasharray: 38 100;
+}

@@ -1,0 +1,14 @@
+.styledDiv {
+  font-weight: var(--od-font-weight-light);
+  font-size: var(--od-font-size-medium);
+  letter-spacing: 0.1ex;
+  color: var(--od-color-yelor);
+}
+
+.styledDiv svg {
+  vertical-align: sub;
+  margin-right: 5px;
+  width: 16px !important;
+  height: 16px !important;
+  fill: var(--od-color-yelor) !important;
+}

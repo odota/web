@@ -156,6 +156,8 @@ export const getPlayerMatches = (accountId: string, params: any) =>
         "item_3",
         "item_4",
         "item_5", // additional fields required for items
+        "lane_role",
+        "is_roaming", // lane icon next to the hero
       ],
     },
     transformPlayerMatches({ ...querystring.parse(params.substring(1)) }),

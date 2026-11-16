@@ -1,0 +1,137 @@
+.facet {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  bottom: -4px;
+  right: 8px;
+  z-index: 10;
+  border-radius: 1px;
+}
+
+.facet img {
+  position: static;
+  height: 12px;
+  width: 12px;
+  padding: 3px;
+}
+
+.facetTooltip {
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  max-width: 400px;
+}
+
+.facetTooltip .facetHeader {
+  display: flex;
+  flex-direction: row;
+  font-size: x-large;
+  text-align: center;
+  max-height: 68px;
+}
+
+.facetTooltip .facetHeader span {
+  padding: 15px;
+}
+
+.facetTooltip .description {
+  padding: 15px;
+  background-color: #10171d;
+}
+
+.facetTooltip img {
+  width: 42px;
+  height: 42px;
+}
+
+.color_Red_0 {
+  background: linear-gradient(to right, #9f3c3c, #4a2040);
+}
+
+.color_Red_1 {
+  background: linear-gradient(to right, #954533, #452732);
+}
+
+.color_Red_2 {
+  background: linear-gradient(to right, #a3735e, #4f2a25);
+}
+
+.color_Yellow_0 {
+  background: linear-gradient(to right, #c8a45c, #6f3d21);
+}
+
+.color_Yellow_1 {
+  background: linear-gradient(to right, #c6a158, #604928);
+}
+
+.color_Yellow_2 {
+  background: linear-gradient(to right, #cac194, #433828);
+}
+
+.color_Yellow_3 {
+  background: linear-gradient(to right, #c3a99a, #4d352b);
+}
+
+.color_Purple_0 {
+  background: linear-gradient(to right, #b57789, #412755);
+}
+
+.color_Purple_1 {
+  background: linear-gradient(to right, #9c70a4, #282752);
+}
+
+.color_Purple_2 {
+  background: linear-gradient(to right, #675cae, #261c44);
+}
+
+.color_Blue_0 {
+  background: linear-gradient(to right, #727cb2, #342d5b);
+}
+
+.color_Blue_1 {
+  background: linear-gradient(to right, #547ea6, #2a385e);
+}
+
+.color_Blue_2 {
+  background: linear-gradient(to right, #6baebc, #135459);
+}
+
+.color_Blue_3 {
+  background: linear-gradient(to right, #94b5ba, #385b59);
+}
+
+.color_Green_0 {
+  background: linear-gradient(to right, #a2b23e, #2d5a18);
+}
+
+.color_Green_1 {
+  background: linear-gradient(to right, #7ec2b2, #29493a);
+}
+
+.color_Green_2 {
+  background: linear-gradient(to right, #a2b23e, #2d5a18);
+}
+
+.color_Green_3 {
+  background: linear-gradient(to right, #9a9f6a, #223824);
+}
+
+.color_Green_4 {
+  background: linear-gradient(to right, #9fad8e, #3f4129);
+}
+
+.color_Gray_0 {
+  background: linear-gradient(to right, #565c61, #1b1b21);
+}
+
+.color_Gray_1 {
+  background: linear-gradient(to right, #6a6d73, #29272c);
+}
+
+.color_Gray_2 {
+  background: linear-gradient(to right, #95a9b1, #3e464f);
+}
+
+.color_Gray_3 {
+  background: linear-gradient(to right, #adb6be, #4e5557);
+}

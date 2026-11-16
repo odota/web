@@ -1,0 +1,78 @@
+.styledDiv {
+  transition: var(--od-normal-transition);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  left: 0px;
+  margin-top: 0px;
+  background-position: center top -8px;
+}
+
+.styledDivOpen {
+  left: 256px;
+}
+
+.styledDivHome {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("/assets/images/home-background.png");
+  background-repeat: no-repeat;
+}
+
+.back2Top {
+  position: fixed;
+  left: auto;
+  right: 0px;
+  top: auto;
+  bottom: 20px;
+  outline: none;
+  color: rgb(196, 196, 196);
+  text-align: center;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 40px;
+  font-size: 14px;
+  border-radius: 2px;
+  cursor: pointer;
+  z-index: 999999;
+  opacity: 0;
+  display: block;
+  pointer-events: none;
+  -webkit-transform: translate3d(0, 0, 0);
+  padding: 3px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.back2Top:hover {
+  background-color: var(--od-accent-hover);
+}
+
+.back2Top #back2TopTxt {
+  font-size: 10px;
+  line-height: 12px;
+  text-align: center;
+  margin-bottom: 3px;
+}
+
+.styledBodyDiv {
+  padding: 0px 25px 25px 25px;
+  flex-grow: 1;
+}
+
+@media only screen and (min-width: 1200px) {
+  .styledBodyDiv {
+    width: 1200px;
+    margin: auto;
+  }
+}
+
+.adBannerDiv {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.adBannerDiv img {
+  margin-top: 10px;
+  max-width: 100%;
+}

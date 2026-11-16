@@ -1,0 +1,95 @@
+.pageContainer {
+  width: 80%;
+  margin: 0 auto;
+  font-family: var(--od-font-family-futuristic);
+}
+
+@media only screen and (max-width: 768px) {
+  .pageContainer {
+    width: 100%;
+    font-size: 0.75rem;
+  }
+}
+
+.pageContainer li {
+  list-style-type: initial;
+}
+
+.subHeader {
+  width: 100%;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("/assets/images/carry-header.jpg");
+  background-position: 50% 0px;
+  margin: 20px 0;
+  text-shadow: 1px 1px 1px #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bannerTitle {
+  margin: 48px 0 8px;
+  font-family: var(--od-font-family-futuristic);
+  font-size: 2.25rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-align: center;
+  line-height: 1.6;
+}
+
+@media only screen and (max-width: 768px) {
+  .bannerTitle {
+    font-size: 1.625rem;
+  }
+}
+
+.bannerDescription {
+  margin: 0 0 24px;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .bannerDescription {
+    font-size: 0.75rem;
+  }
+}
+
+.attribution {
+  font-size: 14px;
+  margin-right: 10px;
+  align-self: flex-end;
+}
+
+.paragraph {
+  line-height: 1.6;
+}
+
+.subContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.subscriptionTitle {
+  margin: 24px 0 8px;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+}
+
+.subRight a {
+  width: fit-content;
+}
+
+.thankYouTitle {
+  font-family: var(--od-font-family-futuristic);
+  font-weight: 400;
+}
+
+.list li {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}

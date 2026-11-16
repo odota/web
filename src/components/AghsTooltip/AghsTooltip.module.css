@@ -1,0 +1,41 @@
+.wrapper {
+  width: 340px;
+  background: rgb(21, 27, 29);
+  overflow: hidden;
+  border: 2px solid #27292b;
+}
+
+.combinedWrapper {
+  display: flex;
+  background-color: rgba(0, 0, 255, 0.01);
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 -20px;
+}
+
+.ttWrapper {
+  background: linear-gradient(
+    to bottom,
+    var(--od-color-blue-muted),
+    var(--od-primary-surface-color)
+  );
+  border-radius: 4px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.styledAghanimsBuffs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.styledAghanimsBuffs > img {
+  width: 65%;
+}
+
+.styledAghanimsBuffs :global(.__react_component_tooltip) {
+  opacity: 1 !important;
+  padding: 0px !important;
+}

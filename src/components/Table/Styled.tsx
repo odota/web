@@ -1,240 +1,32 @@
-import styled from "styled-components";
-import constants from "../constants";
+import React from "react";
+import styles from "./Styled.module.css";
 
-export const StyledBody = styled.div<{
-  customWidth?: number;
-  hoverRowColumn?: boolean;
-}>`
-  table {
-    table-layout: auto !important;
-    font-family: ${constants.fontFamilyFuturistic} !important;
-    box-sizing: border-box;
-
-    th, td, th *, td * {
-      font-family: ${constants.fontFamilyFuturistic};
-    }
-
-    a {
-      font-family: ${constants.fontFamilyFuturistic};
-      font-size: ${constants.fontSizeMedium};
-    }
-
-    td {
-      font-size: ${constants.fontSizeMedium};
-    }
-
-    ${(props) =>
-      props.customWidth
-        ? `
-      table-layout: fixed !important;
-      `
-        : ""}
-
-    thead {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-
-      & tr {
-        background: linear-gradient(90deg, var(--od-accent-soft), rgba(200, 164, 93, 0.03));
-      }
-    }
-
-    tr {
-      &:not(:last-child) {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-      }
-    }
-
-    & th {
-      position: relative;
-      font-family: ${constants.fontFamilyFuturistic};
-      font-size: ${constants.fontSizeSmall};
-
-      svg {
-        position: absolute;
-        bottom: 0px;
-        left: 0px;
-      }
-
-      & svg {
-        vertical-align: top;
-        margin-left: 2px;
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-
-      & div[data-id="tooltip"] {
-        text-transform: none !important;
-        font-weight: var(--fontWeightNormal);
-        text-align: left;
-      }
-    }
-
-    & tbody tr {
-      & td {
-        border-bottom-width: 0px !important;
-        border-top-width: 0px !important;
-
-        & img,
-        object {
-          opacity: 0.9;
-        }
-      }
-    }
-
-    & th,
-    & td {
-      overflow: visible !important;
-
-      &:first-child {
-        padding-left: 24px !important;
-      }
-
-      &:last-child {
-        padding-right: 24px !important;
-      }
-    }
+export const StyledBody: React.FC<
+  React.HTMLAttributes<HTMLDivElement> & {
+    customWidth?: number;
+    hoverRowColumn?: boolean;
   }
-  table.matches-table {
-    th { padding: 14px 20px !important; }
-    td { padding: 18px 20px !important; line-height: 1.6; }
-    @media (max-width: 680px) {
-      th { padding: 12px 14px !important; }
-      td { padding: 14px !important; }
-    }
-  }
-  /* Override material-ui style */
+> = ({ customWidth, hoverRowColumn, className, ...props }) => (
+  <div
+    className={`${styles.styledBody}${customWidth ? ` ${styles.customWidth}` : ""}${hoverRowColumn ? ` ${styles.hoverRowColumn}` : ""}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-  .innerContainer {
-    margin-bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 3px;
-  }
+export const StyledContainer: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ className, ...props }) => (
+  <div
+    className={`${styles.styledContainer}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-  .innerContainer {
-    overflow-y: hidden !important;
-    overflow-x: auto !important;
-    @media only screen and (min-width: 1200px) {
-      overflow-x: hidden !important;
-    }
-  }
-
-  .innerContainer.table-container-overflow-auto {
-    overflow-x: auto !important;
-  }
-
-  @media only screen and (max-width: 960px) {
-  }
-  ${(props) =>
-    props.hoverRowColumn
-      ? `
-  & tr {
-    :hover {
-      background: rgba(190, 190, 140, 0.07) !important;
-    }   
-  }
-
-  & td.col_highlight, th.col_highlight {
-     background: rgba(190, 190, 190, 0.07) !important;
-     color: ${constants.textColorPrimary} !important;
-  }
-  `
-      : ""};
-
-  /* -- scrolling behavior -- */
-  .scrolled.shrink .textContainer {
-    width: 40px !important;
-    margin-right: 0px !important;
-    height: 32px !important;
-  }
-
-  .scrolled .textContainer span {
-    overflow: hidden !important;
-    white-space: nowrap !important;
-    text-overflow: ellipsis !important;
-  }
-
-  .scrolled .textContainer {
-    & .registered {
-      display: none !important;
-    }
-
-    & .badge {
-      display: none !important;
-    }
-
-    & .rank {
-      display: none !important;
-    }
-
-    & .contributor {
-      display: none !important;
-    }
-  }
-
-  .scrolled .guideContainer {
-    & .moremmr-icon {
-      display: none;
-    }
-  }
-
-  .scrolled .imageContainer {
-    & img {
-      margin-right: 4px;
-      height: 18px;
-    }
-
-    & .playerSlot {
-      display: none;
-    }
-  }
-
-  .scrolled th:first-child,
-  .scrolled td:first-child {
-    position: sticky !important;
-    left: 0px !important;
-  }
-
-  .scrolled th:first-child {
-    background-color: rgba(27, 27, 31, 0.96) !important;
-    z-index: 100;
-    transition: background-color 0.5s ease-out !important;
-    width: 60px !important;
-  }
-
-  .scrolled tr {
-    &:nth-child(odd) {
-      & td:first-child {
-        background-color: rgba(27, 27, 31, 0.96) !important;
-        z-index: 100;
-        transition: background-color 0.5s ease-out !important;
-        padding-right: 0px !important;
-        width: 60px !important;
-      }
-    }
-
-    &:nth-child(even) {
-      & td:first-child {
-        background-color: rgba(27, 27, 31, 0.96) !important;
-        z-index: 100;
-        transition: background-color 0.5s ease-out !important;
-        padding-right: 0px !important;
-        width: 60px !important;
-      }
-    }
-  }
-`;
-export const StyledContainer = styled.div`
-  min-width: 100%;
-  clear: both;
-`;
-export const StyledHeaderCell = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  text-align: center;
-  text-transform: uppercase;
-  color: ${constants.primaryTextColor} !important;
-  font-weight: 500;
-`;
+export const StyledHeaderCell: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ className, ...props }) => (
+  <div
+    className={`${styles.styledHeaderCell}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);

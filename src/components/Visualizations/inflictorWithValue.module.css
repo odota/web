@@ -1,0 +1,129 @@
+.styledDiv {
+  min-height: 1px;
+  display: inline-block;
+}
+
+.styledDiv :global(.__react_component_tooltip) {
+  opacity: 1 !important;
+  padding: 0px !important;
+}
+
+.inflictorWithValue {
+  position: relative;
+  float: left;
+  margin: 1px;
+  height: 27px;
+  z-index: 1;
+}
+
+.inflictorWithValue:hover {
+  z-index: 9999;
+}
+
+.inflictorWithValue .overlay {
+  background-color: var(--od-dark-primary-color);
+  color: var(--od-text-color-primary);
+  font-size: 10px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.inflictorWithValue[data-tip="true"] > img {
+  transition: var(--od-normal-transition);
+}
+
+.inflictorWithValue[data-tip="true"]:hover > img {
+  opacity: 0.7;
+}
+
+.inflictorWithValue.backpack {
+  height: 10px;
+  white-space: nowrap;
+}
+
+.inflictorWithValue.backpack img {
+  height: 18px;
+  width: 25px;
+}
+
+.inflictorWithValue.neutral > img {
+  height: 30px;
+  width: 30px;
+  object-fit: cover;
+  border-radius: 15px;
+  position: relative;
+  bottom: 1px;
+}
+
+.styledDiv :global(.noBr) br {
+  display: none;
+}
+
+.styledDiv :global(.attribVal) {
+  color: var(--od-color-yelor);
+  font-weight: var(--od-font-weight-medium);
+}
+
+.styledDiv :global(.cooldownMana) div {
+  display: inline-block;
+}
+
+.styledDiv :global(.cooldownMana) div:first-child {
+  margin-right: 25px;
+}
+
+.styledDiv :global(.cooldownMana) div:last-child {
+  margin-top: 5px;
+}
+
+.buff {
+  width: 29px;
+  height: 29px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 0 5px var(--od-default-primary-color);
+}
+
+.buffOverlay {
+  position: absolute;
+  bottom: 0;
+  right: 2px;
+  color: var(--od-text-color-primary);
+  font-weight: var(--od-font-weight-medium);
+  text-shadow:
+    1px 1px 2px black,
+    -1px -1px 2px black;
+}
+
+.chargeOverlay {
+  position: absolute;
+  top: -2px;
+  right: 0px;
+  font-size: 11px;
+  color: var(--od-text-color-primary);
+  font-weight: var(--od-font-weight-medium);
+  text-shadow:
+    1px 1px 2px black,
+    -1px -1px 2px black;
+}
+
+.backpackOverlay {
+  display: inline-block;
+  font-size: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 18px;
+  min-width: 20px;
+  padding-left: 3px;
+  padding-right: 3px;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+  overflow: hidden;
+}
+
+.backpackOverlay span {
+  line-height: 18px;
+}

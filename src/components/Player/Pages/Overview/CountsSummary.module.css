@@ -1,0 +1,40 @@
+.styled {
+  position: relative;
+  border: 1px solid rgb(0, 0, 0, 0.12);
+  background-color: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+@media only screen and (min-width: 1200px) {
+  .styled :global(.gauge-chart):nth-child(even)::after {
+    content: "";
+    width: 2px;
+    height: 300px;
+    position: absolute;
+    background: rgb(39, 39, 58);
+    bottom: -50px;
+    right: -13px;
+  }
+}
+
+.group {
+  padding-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.groupLabel {
+  padding: 8px 0;
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-small);
+  text-align: center;
+}
+
+.chartPair {
+  display: flex;
+  flex-direction: row;
+}

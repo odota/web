@@ -67,6 +67,15 @@ const InputFilter = ({
   </div>
 );
 
+// Enter and Space, like a native button. onKeyPress fired for any key, so
+// typing a letter while a team button had focus picked that hero
+const onActivate = (action: () => void) => (e: React.KeyboardEvent) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    action();
+  }
+};
+
 const heroesArray = Object.keys(heroes)
   .map((id) => heroes[id as keyof Heroes])
   .sort((a, b) => a.localized_name.localeCompare(b.localized_name));
@@ -110,9 +119,10 @@ const HeroSelector = ({
         aria-label={`${heroName} team A`}
         className={`ts ts-left ${teamAFull ? "no-event" : ""}`}
         onClick={handleHeroSelection(Number(id), "teamA")}
-        onKeyPress={handleHeroSelection(Number(id), "teamA")}
+        onKeyDown={onActivate(handleHeroSelection(Number(id), "teamA"))}
         role="button"
-        tabIndex={0}
+        tabIndex={selected || isFiltered || teamAFull ? -1 : 0}
+        aria-disabled={selected || isFiltered || teamAFull}
       >
         A
       </div>
@@ -120,9 +130,10 @@ const HeroSelector = ({
         aria-label={`${heroName} team B`}
         className={`ts ts-right ${teamBFull ? "no-event" : ""}`}
         onClick={handleHeroSelection(Number(id), "teamB")}
-        onKeyPress={handleHeroSelection(Number(id), "teamB")}
+        onKeyDown={onActivate(handleHeroSelection(Number(id), "teamB"))}
         role="button"
-        tabIndex={0}
+        tabIndex={selected || isFiltered || teamBFull ? -1 : 0}
+        aria-disabled={selected || isFiltered || teamBFull}
       >
         B
       </div>
@@ -149,11 +160,16 @@ const SelectedHeroes = ({
         <div>
           {[4, 3, 2, 1, 0].map((i) =>
             teamA[i] ? (
-              <HeroImage
-                id={String(teamA[i])}
-                className="hero-img"
+              <button
+                type="button"
+                className="hero-img remove-hero"
+                aria-label={`Remove ${
+                  heroes[teamA[i] as unknown as keyof Heroes]?.localized_name
+                } from ${formatTemplateToString(strings.team, "A")}`}
                 onClick={handleHeroDeSelection(i, "teamA")}
-              />
+              >
+                <HeroImage id={String(teamA[i])} />
+              </button>
             ) : (
               <div className="hero-placeholder hero-img" />
             ),
@@ -168,11 +184,16 @@ const SelectedHeroes = ({
         <div>
           {[0, 1, 2, 3, 4].map((i) =>
             teamB[i] ? (
-              <HeroImage
-                id={String(teamB[i])}
-                className="hero-img"
+              <button
+                type="button"
+                className="hero-img remove-hero"
+                aria-label={`Remove ${
+                  heroes[teamB[i] as unknown as keyof Heroes]?.localized_name
+                } from ${formatTemplateToString(strings.team, "B")}`}
                 onClick={handleHeroDeSelection(i, "teamB")}
-              />
+              >
+                <HeroImage id={String(teamB[i])} />
+              </button>
             ) : (
               <div className="hero-placeholder hero-img" />
             ),

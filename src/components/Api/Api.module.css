@@ -1,0 +1,102 @@
+.apiContainer {
+  width: 80%;
+  margin: 6vh auto 0;
+  font-family: var(--od-font-family-futuristic);
+}
+
+@media only screen and (max-width: 768px) {
+  .apiContainer {
+    width: 100%;
+  }
+}
+
+.apiContainer li {
+  list-style-type: initial;
+}
+
+.apiContainer h1 {
+  font-family: var(--od-font-family-futuristic);
+  font-weight: 400;
+}
+
+@media only screen and (max-width: 768px) {
+  .apiContainer h1 {
+    font-size: 1.625rem;
+  }
+}
+
+.apiContainer h2 {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+@media only screen and (max-width: 768px) {
+  .apiContainer h2 {
+    font-size: 0.75rem;
+  }
+}
+
+.body {
+  padding-top: 8px;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.keyContainer {
+  background: grey;
+  display: inline;
+  padding: 10px;
+}
+
+.tableTitle {
+  margin: 16px 0;
+}
+
+.tableContainer table {
+  width: 80%;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.011);
+}
+
+.tableContainer table td,
+.tableContainer table th {
+  white-space: inherit !important;
+}
+
+.tableContainer th {
+  color: rgb(255, 128, 171);
+}
+
+@media only screen and (max-width: 768px) {
+  .tableContainer {
+    width: 100%;
+  }
+}
+
+.detailsContainer {
+  text-align: left;
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .detailsContainer {
+    width: 100%;
+  }
+}
+
+.detailsTitle {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.list li {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}

@@ -1,0 +1,119 @@
+.styledDiv table {
+  border-collapse: separate !important;
+  border-spacing: 0px 0px !important;
+  padding: 3px !important;
+  background-color: var(--od-secondary-surface-color);
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.styledDiv tr {
+  background-color: rgba(0, 0, 0, 0.019);
+}
+
+.styledDiv td {
+  padding: 0px !important;
+  height: 48px;
+  white-space: normal !important;
+  text-align: center;
+}
+
+.styledDiv td:not(:last-child) {
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+@media screen and (max-width: 680px) {
+  .styledDiv tr:not(:first-child) td {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+  }
+}
+
+.styledDiv tr:not(:first-child) td {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.styledDiv tr:first-child td:first-child {
+  background-color: rgba(0, 0, 0, 0.27) !important;
+}
+
+.styledDiv tr:first-child td:not(:first-child) {
+  background: linear-gradient(
+    to bottom,
+    var(--od-table-header-surface-color) 15%,
+    rgba(35, 0, 0, 0.3) 100%
+  ) !important;
+}
+
+.styledDiv td > div {
+  text-align: center;
+}
+
+.styledDiv td:first-child {
+  width: 30px !important;
+}
+
+.styledDiv tr:first-child {
+  height: 30px !important;
+}
+
+.styledDiv tr:first-child td {
+  height: 30px !important;
+}
+
+.styledDiv tr:not(:first-child) td:first-child {
+  border-right: 1px solid var(--od-color-muted-green) !important;
+  background: linear-gradient(
+    to right,
+    var(--od-table-header-surface-color) 15%,
+    rgba(0, 35, 0, 0.3) 100%
+  ) !important;
+}
+
+.styledDiv tr:not(:first-child) td:first-child > div {
+  position: relative;
+  top: 3px;
+  left: 1px;
+}
+
+.styledDiv tr:first-child td > div {
+  position: relative;
+  top: 2px;
+}
+
+.styledDiv tr:nth-child(2) td:not(:first-child) {
+  border-top: 1px solid var(--od-color-muted-red) !important;
+}
+
+.value1 {
+  display: inline-block;
+  background: rgba(0, 3, 0, 0.3);
+  width: 38px;
+  height: 21px;
+  margin: 1px 1px 1px 1px;
+  text-align: center;
+  border: 1px solid var(--od-color-muted-green);
+  color: var(--od-color-muted-light);
+}
+
+.value1:nth-child(2) {
+  border: 1px solid var(--od-color-muted-red) !important;
+  background: rgba(3, 0, 0, 0.3) !important;
+}
+
+.value1 span {
+  vertical-align: middle;
+}
+
+.hero img {
+  width: 25px;
+}
+
+.team {
+  margin: auto;
+  width: 25px;
+}
+
+.team svg {
+  margin: 0 !important;
+}

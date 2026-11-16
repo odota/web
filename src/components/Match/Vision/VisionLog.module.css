@@ -1,0 +1,19 @@
+.visionLog {
+  display: inline-block;
+}
+
+.minimap:hover > img {
+  border: 1px solid var(--od-color-muted-light);
+}
+
+.placement {
+  position: absolute;
+  transform: scale(0);
+  transition: 0.1s ease;
+  pointer-events: none;
+  filter: brightness(110%);
+}
+
+.minimap:hover .placement {
+  transform: scale(1);
+}

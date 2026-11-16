@@ -1,0 +1,121 @@
+.styled {
+  width: 100vw;
+  margin: 0px -50vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  display: grid;
+  padding-top: 35px;
+  background-color: var(--od-color-header-section);
+  grid-template-columns: 1fr minmax(min-content, 1200px) 1fr;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px 10px;
+  grid-column: 2;
+}
+
+.playerName {
+  font-family: var(--od-font-family-futuristic);
+  color: rgba(245, 245, 245, 0.870588);
+  font-size: 28px;
+  text-align: center;
+}
+
+.titleNameButtons {
+  margin-left: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 768px) {
+  .titleNameButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.overviewAvatar {
+  box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.4);
+}
+
+@media only screen and (max-width: 768px) {
+  .overviewAvatar {
+    margin-left: 0 !important;
+  }
+}
+
+.styled :global(.icon) {
+  fill: var(--od-color-muted-light) !important;
+}
+
+.topContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 768px) {
+  .topContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.topButtons {
+  margin-left: auto;
+}
+
+.playerInfo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dotaPlusMedal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
+    drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
+    drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
+}
+
+@media only screen and (max-width: 768px) {
+  .dotaPlusMedal {
+    flex-wrap: nowrap;
+  }
+}
+
+.dotaPlusMedal[data-hint-position="top"]::after {
+  margin-bottom: 3px;
+  margin-left: 52px;
+}
+
+.dotaPlusMedal[data-hint-position="top"]::before {
+  top: -3px;
+  margin-left: 57px;
+}
+
+.dotaPlusMedal img {
+  width: 52px;
+  height: 58px;
+}
+
+.styled :global(.rankMedal-board) {
+  font-family: var(--od-font-family-futuristic);
+  font-size: var(--od-font-size-common) !important;
+}

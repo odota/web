@@ -1,52 +1,11 @@
 import React from "react";
 import ReactTooltip from "react-tooltip";
-import styled from "styled-components";
 import { gameCoordToUV, formatSeconds, getWardSize } from "../../../utility";
 import PlayerThumb from "../PlayerThumb/PlayerThumb";
 import DotaMap from "../../DotaMap/DotaMap";
 import constants from "../../constants";
 import useStrings from "../../../hooks/useStrings.hook";
-
-const Styled = styled.div`
-  .tooltipContainer {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    padding: 10px;
-    margin: -8px -12px;
-
-    & > * {
-      margin: 0 5px;
-
-      &:first-child {
-        margin-left: 0;
-      }
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-
-    & > div {
-      margin: 0;
-      color: ${constants.colorMutedLight};
-    }
-  }
-
-  .radiantWardTooltip {
-    border-width: 2px !important;
-    border-color: ${constants.colorSuccess} !important;
-  }
-
-  .direWardTooltip {
-    border-width: 2px !important;
-    border-color: ${constants.colorDanger} !important;
-  }
-
-  div > img {
-    width: 18px;
-  }
-`;
+import styles from "./VisionMap.module.css";
 
 const wardStyle = (width: number, log: any): React.CSSProperties => {
   const gamePos = gameCoordToUV(log.entered.x, log.entered.y);
@@ -95,7 +54,7 @@ const WardTooltipEnter = ({
 }) => {
   const strings = useStrings();
   return (
-    <div className="tooltipContainer">
+    <div className={styles.tooltipContainer}>
       <PlayerThumb {...player} />
       <div>
         {log.type === "observer"
@@ -119,7 +78,7 @@ const WardTooltipLeft = ({ log }: { log: any }) => {
   }
 
   return (
-    <div className="tooltipContainer">
+    <div className={styles.tooltipContainer}>
       <div>{expired ? strings.vision_expired : strings.vision_destroyed}</div>
       <div>{` ${formatSeconds(age)}`}</div>
     </div>
@@ -140,20 +99,25 @@ const WardPin = ({
   const sideName = log.entered.player_slot < 5 ? "radiant" : "dire";
 
   return (
-    <Styled>
-      <div style={wardStyle(width, log)} data-tip data-for={id}>
+    <>
+      <div
+        className={styles.wardPin}
+        style={wardStyle(width, log)}
+        data-tip
+        data-for={id}
+      >
         <img src={wardIcon(log)} alt={log.type === "observer" ? "O" : "S"} />
       </div>
       <ReactTooltip
         id={id}
         effect="solid"
         border
-        class={`${sideName}WardTooltip`}
+        class={styles[`${sideName}WardTooltip`]}
       >
         <WardTooltipEnter player={match.players[log.player]} log={log} />
         {log.left && <WardTooltipLeft log={log} />}
       </ReactTooltip>
-    </Styled>
+    </>
   );
 };
 

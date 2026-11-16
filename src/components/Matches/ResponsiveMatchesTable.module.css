@@ -1,0 +1,259 @@
+.responsiveMatchesTable {
+  min-width: 0;
+  font-family: var(--od-font-family-futuristic), sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Extend cards across the App body's 25px side gutters. */
+.mobileList {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  width: calc(100% + 50px);
+  padding: 0;
+  margin: 0 -25px;
+  list-style: none;
+}
+
+.mobileMatch {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 24px 25px;
+  border: 0;
+  border-radius: 0;
+  background: var(--od-primary-surface-color);
+  color: var(--od-text-color-primary);
+}
+
+.mobileList > li + li {
+  border-top: 1px solid color-mix(in srgb, var(--od-color-blue-gray) 45%, var(--od-divider-color));
+}
+
+.mobileMatch:hover,
+.mobileMatch:focus-visible {
+  background: color-mix(in srgb, var(--od-primary-link-color) 9%, var(--od-primary-surface-color));
+  text-decoration: none;
+}
+
+.responsiveMatchesTable a:focus-visible,
+.responsiveMatchesTable button:focus-visible {
+  outline: 2px solid var(--od-primary-link-color);
+  outline-offset: 2px;
+}
+
+.mobileEyebrow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+  color: var(--od-text-color-secondary);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mobileMatchMetadata {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  color: var(--od-text-color-secondary);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mobileMatchMetadata > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mobileEyebrow > span + span::before {
+  content: "·";
+  margin-right: 6px;
+}
+
+.mobileMatchMetadata > span + span::before {
+  content: "·";
+}
+
+.mobileMode svg,
+.mobileDuration svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.mobileMeta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+  color: var(--od-text-color-secondary);
+  font-size: 11px;
+}
+
+.mobileDuration {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.mobileTeam + .mobileTeam {
+  margin-top: 12px;
+}
+
+.mobileLabel {
+  margin-bottom: 5px;
+  color: var(--od-text-color-secondary);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mobileName {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.mobileName > span {
+  overflow-wrap: anywhere;
+}
+
+.mobileWin {
+  font-weight: 700;
+  margin-left: auto;
+  color: var(--od-color-green);
+  font-size: 10px;
+}
+
+.mobileHeroes {
+  display: flex;
+  gap: 4px;
+}
+
+.mobileName + .mobileHeroes,
+.mobileName + .mobileHeroesUnavailable {
+  margin-top: 8px;
+}
+
+.mobileHeroesUnavailable {
+  color: var(--od-text-color-secondary);
+  font-size: 10px;
+}
+
+.mobileHeroes .heroPlaceholder {
+  width: clamp(28px, 10vw, 48px);
+  aspect-ratio: 256 / 144;
+  height: auto;
+}
+
+.mobileHeroes img {
+  width: clamp(28px, 10vw, 48px);
+  border-radius: 3px;
+}
+
+.mobileContext {
+  margin-top: 14px;
+  color: var(--od-text-color-secondary);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.mobileRank {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mobileRank img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.mobileFooter .mobileRank img {
+  width: 16px;
+  height: 16px;
+}
+
+.mobileFooterDetails > .mobileRank::before {
+  content: "·";
+}
+
+.mobileFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid color-mix(in srgb, var(--od-color-blue-gray) 45%, var(--od-divider-color));
+  color: var(--od-text-color-secondary);
+  font-size: 10px;
+}
+
+.mobileFooterDetails {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+
+.mobileMatchId {
+  white-space: nowrap;
+}
+
+.mobileFooterAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.mobileOpen {
+  flex-shrink: 0;
+  color: var(--od-primary-link-color);
+  font-size: 12px;
+}
+
+.mobilePages {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 16px;
+  color: var(--od-text-color-secondary);
+  font-size: 12px;
+}
+
+.mobilePages button {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid color-mix(in srgb, var(--od-color-blue-gray) 45%, var(--od-divider-color));
+  border-radius: 6px;
+  background: var(--od-primary-surface-color);
+  color: var(--od-primary-link-color);
+  font: inherit;
+  cursor: pointer;
+}
+
+.mobilePages button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.mobileStatus {
+  padding: 24px 8px;
+  color: var(--od-text-color-secondary);
+  text-align: center;
+}

@@ -10,14 +10,10 @@ import {
   Label,
   ResponsiveContainer,
 } from "recharts";
-import styled from "styled-components";
 import useStrings from "../../../hooks/useStrings.hook";
 import { rankTierToString } from "../../../utility";
 import Grid from "./Grid";
-
-const StyledGraphArea = styled.div`
-  user-select: none;
-`;
+import styles from "./MMRGraph.module.css";
 
 const formatXTick = (time: number) => {
   const date = new Date(time);
@@ -31,7 +27,7 @@ const formatYTick = (rank: number) => {
 const MMRGraph = ({ columns }: { columns: any[] }) => {
   const strings = useStrings();
   return (
-    <StyledGraphArea>
+    <div className={styles.graphArea}>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart
           data={columns}
@@ -72,7 +68,7 @@ const MMRGraph = ({ columns }: { columns: any[] }) => {
           /> */}
         </LineChart>
       </ResponsiveContainer>
-    </StyledGraphArea>
+    </div>
   );
 };
 

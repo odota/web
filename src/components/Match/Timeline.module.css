@@ -1,0 +1,328 @@
+:global(.events) mark div:global(.firstBloodTooltip)[data-id="tooltip"] {
+  padding: 14px 16px !important;
+  border: 1px solid #374151;
+  border-radius: 10px;
+  background: #111827;
+  color: #f1f5f9;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  font-size: 12px;
+  line-height: 1.6;
+  z-index: 1500;
+}
+
+:global(.events) mark div:global(.firstBloodTooltip)[data-id="tooltip"] :global(.firstBloodHeading) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #374151;
+  color: #f1f5f9;
+  font-family: var(--od-font-family-futuristic);
+  font-size: 12px;
+}
+
+:global(.events) mark div:global(.firstBloodTooltip)[data-id="tooltip"] :global(.firstBloodHeading) span {
+  margin-left: auto;
+  color: #94a3b8;
+  font-variant-numeric: tabular-nums;
+}
+
+:global(.events) mark div:global(.firstBloodTooltip)[data-id="tooltip"] :global(.firstBloodHeading) svg {
+  position: static;
+  width: 16px;
+  height: 16px;
+  fill: var(--od-color-danger);
+}
+
+:global(.events) mark div:global(.firstBloodTooltip)[data-id="tooltip"] :global(.firstBloodPlayers) {
+  gap: 6px;
+}
+
+:global(.events) mark div:global(.firstBloodTooltip)[data-id="tooltip"] :global(.firstBloodPlayers) > span {
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+:global(.events) mark div:global(.firstBloodTooltip)[data-id="tooltip"] :global(.firstBloodPlayers) img {
+  border-radius: 3px;
+}
+
+:global(.events) mark svg:global(.firstBloodIcon) {
+  cursor: default;
+  fill: var(--od-color-danger);
+}
+
+.clickable[data-tip="true"] {
+  cursor: pointer;
+}
+
+.iconBattle {
+  transition: var(--od-linear-transition);
+}
+
+.radiantWinner {
+  fill: var(--od-color-success) !important;
+}
+
+.direWinner {
+  fill: var(--od-color-danger) !important;
+}
+
+.timeline {
+  width: 100%;
+  margin: 30px 0 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.timeline time {
+  margin: 0 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  .timeline time {
+    font-size: var(--od-font-size-medium);
+  }
+}
+
+.timeline > section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline > section > mark {
+  background: none;
+  color: var(--od-color-muted);
+  font-size: var(--od-font-size-small);
+}
+
+.battle {
+  width: 100%;
+  margin: 0 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  .battle {
+    margin: 0;
+  }
+}
+
+.line {
+  width: 100%;
+  display: flex;
+  height: 4px;
+}
+
+.line div,
+.line section {
+  height: inherit;
+}
+
+.line section {
+  background-color: var(--od-color-muted);
+}
+
+.events {
+  position: relative;
+  width: 100%;
+}
+
+.events header {
+  margin-bottom: 3px;
+  font-weight: var(--od-font-weight-normal);
+}
+
+.events .subtitle {
+  margin-left: 4px;
+  font-size: var(--od-font-size-small);
+  font-weight: var(--od-font-weight-light);
+  color: var(--od-color-muted-light);
+}
+
+.events mark {
+  position: absolute;
+  background: none;
+  width: 0;
+  height: 0;
+}
+
+.events mark time {
+  color: var(--od-color-muted-light);
+  font-size: var(--od-font-size-small);
+  text-align: center;
+  position: absolute;
+  width: 32px;
+  left: -16px;
+  margin: 0;
+}
+
+.events mark svg {
+  fill: var(--od-color-muted-light);
+  width: 18px;
+  position: absolute;
+  left: -9px;
+}
+
+@media only screen and (max-width: 768px) {
+  .events mark svg {
+    width: 16px;
+    left: -8px;
+  }
+}
+
+.events mark div[data-id="tooltip"] {
+  /* Override react-tooltip */
+  margin-top: 0 !important;
+  padding: 2px 6px !important;
+  margin-left: 5px !important;
+  font-weight: var(--od-font-weight-light) !important;
+  white-space: nowrap;
+}
+
+.events mark div[data-id="tooltip"] img {
+  height: 24px;
+  margin-right: 4px;
+}
+
+.events mark div[data-id="tooltip"] span {
+  margin: 0 4px;
+}
+
+.events mark div[data-id="tooltip"] span img {
+  height: 8px;
+}
+
+.events mark div[data-id="tooltip"] section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.events mark div[data-id="tooltip"] span.goldDelta {
+  margin-left: auto;
+}
+
+.events mark div[data-id="tooltip"] .goldChange {
+  display: inline;
+}
+
+.events .radiant,
+.events .dire {
+  border-style: solid;
+  margin-left: -6px;
+}
+
+.events .radiant {
+  border-width: 0 6px 5px;
+  border-color: transparent transparent var(--od-color-success) transparent;
+  bottom: 4px;
+}
+
+.events .radiant time {
+  top: 11px;
+}
+
+.events .radiant svg {
+  bottom: 5px;
+}
+
+.events .dire {
+  top: 0;
+  border-width: 5px 6px 0 6px;
+  border-color: var(--od-color-danger) transparent transparent transparent;
+}
+
+.events .dire time {
+  top: -28px;
+}
+
+.events .dire svg {
+  top: 5px;
+}
+
+.events .teamfight {
+  bottom: 0;
+  height: 4px;
+}
+
+.events .teamfight svg {
+  width: 12px;
+  top: -5px;
+  left: calc(50% - 5px);
+  filter: drop-shadow(1px 0 3px var(--od-dark-primary-color));
+}
+
+@media only screen and (max-width: 768px) {
+  .events .teamfight svg {
+    width: 10px;
+    top: -3px;
+    left: calc(50% - 3px);
+  }
+}
+
+.events .battleHorn {
+  width: 2px;
+  height: 4px;
+  bottom: 0;
+  background-color: var(--od-text-color-primary);
+}
+
+.goldChange::after {
+  content: "";
+  border-style: solid;
+  display: inline-block;
+}
+
+.goldGot::after {
+  border-width: 0 4px 7px 4px;
+  border-color: transparent transparent var(--od-color-success) transparent;
+}
+
+.goldLost::after {
+  border-width: 7px 4px 0 4px;
+  border-color: var(--od-color-danger) transparent transparent transparent;
+}
+
+.matchNumbers {
+  text-align: center;
+  margin: 0 5px;
+}
+
+.matchNumbers > div {
+  display: inline;
+}
+
+.matchNumbers > div span {
+  font-size: var(--od-font-size-small);
+  color: var(--od-color-muted-light);
+  white-space: pre-line;
+}
+
+.matchNumbers > div span:first-child {
+  margin-left: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .matchNumbers > div {
+    font-size: var(--od-font-size-medium);
+  }
+}
+
+@media only screen and (max-width: 560px) {
+  .matchNumbers > div {
+    display: block;
+    line-height: 2;
+  }
+
+  .matchNumbers > div span {
+    margin-left: 0;
+  }
+}
+
+.selectedTeamfight {
+  fill: var(--od-color-golden) !important;
+  transform: scale(1.66, 1.66);
+}

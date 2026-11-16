@@ -1,10 +1,17 @@
 import React from "react";
-import styled from "styled-components";
+import styles from "./LaneRoles.module.css";
 
-const icon = (props: { style: React.CSSProperties }) => {
+const Icon = ({
+  className,
+  ...props
+}: { style: React.CSSProperties; className?: string } & React.SVGProps<SVGSVGElement>) => {
   const { color } = props.style;
   return (
-    <svg {...props} viewBox="0 0 24 24">
+    <svg
+      {...props}
+      className={`${styles.icon} ${className || ""}`}
+      viewBox="0 0 24 24"
+    >
       <line
         id="svg_24"
         y2="2"
@@ -70,6 +77,4 @@ const icon = (props: { style: React.CSSProperties }) => {
   );
 };
 
-export default styled(icon)<{ style: React.CSSProperties }>`
-  height: 24px;
-`;
+export default Icon;

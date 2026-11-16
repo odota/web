@@ -2,10 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import Helmet from "react-helmet";
 import { heroes } from "dotaconstants";
-import styled from "styled-components";
 import { transformations, subTextStyle, rankTierToString } from "../../utility";
 import { getProMatches, getPublicMatches, getTeams } from "../../actions";
 import Table from "../Table/Table";
+import ResponsiveMatchesTable from "./ResponsiveMatchesTable";
 import TableLink from "../Table/TableLink";
 import { IconTrophy } from "../Icons";
 import Match from "../Match/Match";
@@ -17,17 +17,27 @@ import HeroImage from "../Visualizations/HeroImage";
 import TeamLogo from "../TeamLogo/TeamLogo";
 import Heading from "../Heading/Heading";
 import { groupMatchesBySeries, MatchSeries } from "./series";
+import styles from "./Matches.module.css";
 
-export const WinnerSpan = styled.span`
-  display: inline-block;
+const MatchesTabs: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => (
+  <div
+    className={`${styles.matchesTabs}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
-  & svg {
-    width: 10px !important;
-    height: 10px !important;
-    margin-right: 5px;
-    fill: ${constants.colorGolden};
-  }
-`;
+export const WinnerSpan: React.FC<React.HTMLAttributes<HTMLSpanElement>> = ({
+  className,
+  ...props
+}) => (
+  <span
+    className={`${styles.winnerSpan}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
 /**
  * Displays a muted best-of format label.
@@ -35,21 +45,14 @@ export const WinnerSpan = styled.span`
  * @example
  * <SeriesFormatBadge $type={1}>BO3</SeriesFormatBadge>
  */
-const SeriesFormatBadge = styled.span<{ $type: number }>`
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 6px;
-  border: 1px solid ${constants.dividerColor};
-  border-radius: 4px;
-  background: transparent;
-  color: ${constants.textColorSecondary};
-  font-family: ${constants.fontFamilyFuturistic};
-  font-size: ${constants.fontSizeSmall};
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  line-height: 1.4;
-  white-space: nowrap;
-`;
+const SeriesFormatBadge: React.FC<
+  React.HTMLAttributes<HTMLSpanElement> & { $type: number }
+> = ({ $type: _type, className, ...props }) => (
+  <span
+    className={`${styles.seriesFormatBadge}${className ? ` ${className}` : ""}`}
+    {...props}
+  />
+);
 
 export const matchesColumns = (strings: Strings) => [
   {
@@ -290,7 +293,7 @@ const matchTabs = (strings: Strings) => [
     key: "pro",
     content: (propsPar: MatchesProps) => (
       <div>
-        <Table
+        <ResponsiveMatchesTable
           className="matches-table"
           data={propsPar.proData}
           columns={matchesColumns(strings)}
@@ -305,7 +308,7 @@ const matchTabs = (strings: Strings) => [
     name: strings.matches_series,
     key: "series",
     content: (propsPar: MatchesProps) => (
-      <Table
+      <ResponsiveMatchesTable
         className="matches-table"
         data={groupMatchesBySeries(propsPar.proData)}
         columns={seriesColumns(strings, propsPar.teams)}
@@ -321,7 +324,7 @@ const matchTabs = (strings: Strings) => [
     key: "highMmr",
     content: (propsPar: MatchesProps) => (
       <div>
-        <Table
+        <ResponsiveMatchesTable
           className="matches-table"
           data={propsPar.publicData}
           columns={publicMatchesColumns(strings)}
@@ -420,7 +423,9 @@ class Matches extends React.Component<MatchesProps> {
       <div>
         <Helmet title={strings.title_matches} />
         <Heading title={strings.th_matches} className="top-heading" />
-        <TabBar tabs={matchTabs(strings).filter((item) => item.key !== "series")} />
+        <MatchesTabs>
+          <TabBar tabs={matchTabs(strings).filter((item) => item.key !== "series")} />
+        </MatchesTabs>
         {tab && tab.content(this.props)}
       </div>
     );

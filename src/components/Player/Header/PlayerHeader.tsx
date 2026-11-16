@@ -1,131 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Avatar } from "@mui/material";
-import styled from "styled-components";
 import { rankTierToString } from "../../../utility";
 import ErrorBox from "../../Error/ErrorBox";
 import PlayerStats from "./PlayerStats";
 import PlayerBadges from "./PlayerBadges";
 import PlayerButtons from "./PlayerButtons";
-import constants from "../../constants";
 import useStrings from "../../../hooks/useStrings.hook";
 import { LoadingOverlayUpper30 } from "../../LoadingOverlay";
-
-const Styled = styled.div`
-  width: 100vw;
-  margin: 0px -50vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  display: grid;
-  padding-top: 35px;
-  background-color: ${constants.colorHeaderSection};
-  grid-template-columns: 1fr minmax(min-content, ${constants.appWidth}px) 1fr;
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0px 10px;
-    grid-column: 2;
-  }
-
-  .playerName {
-    font-family: ${constants.fontFamilyFuturistic};
-    color: rgba(245, 245, 245, 0.870588);
-    font-size: 28px;
-    text-align: center;
-  }
-
-  .titleNameButtons {
-    margin-left: 8px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-
-    @media only screen and (max-width: 768px) {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-
-  .imageContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .overviewAvatar {
-    box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.4);
-
-    @media only screen and (max-width: 768px) {
-      margin-left: 0 !important;
-    }
-  }
-
-  .icon {
-    fill: ${constants.colorMutedLight} !important;
-  }
-
-  .topContainer {
-    display: flex;
-    flex-direction: row;
-
-    @media only screen and (max-width: 768px) {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-
-  .topButtons {
-    margin-left: auto;
-  }
-
-  .playerInfo {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .dotaPlusMedal {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    -webkit-filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
-      drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
-    filter: drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3))
-      drop-shadow(2px -2px 2px rgba(0, 0, 0, 0.3));
-
-    @media only screen and (max-width: 768px) {
-      flex-wrap: nowrap;
-    }
-
-    &[data-hint-position="top"] {
-      &::after {
-        margin-bottom: 3px;
-        margin-left: 52px;
-      }
-
-      &::before {
-        top: -3px;
-        margin-left: 57px;
-      }
-    }
-
-    & img {
-      width: 52px;
-      height: 58px;
-    }
-  }
-
-  .rankMedal-board {
-    font-family: ${constants.fontFamilyFuturistic};
-    font-size: ${constants.fontSizeCommon} !important;
-  }
-`;
+import styles from "./PlayerHeader.module.css";
 
 const LARGE_IMAGE_SIZE = 124;
 
@@ -133,7 +16,7 @@ const DotaPlusBadge = ({ plus }: { plus: boolean }) => {
   const strings = useStrings();
   return plus ? (
     <div
-      className="dotaPlusMedal"
+      className={styles.dotaPlusMedal}
       data-hint={strings.tooltip_dotaplus}
       data-hint-position="top"
     >
@@ -286,20 +169,20 @@ const PlayerHeader = ({
   };
 
   return (
-    <Styled>
-      <div className="container">
-        <div className="topContainer">
-          <div className="imageContainer">
+    <div className={styles.styled}>
+      <div className={styles.container}>
+        <div className={styles.topContainer}>
+          <div className={styles.imageContainer}>
             <Avatar
               src={picture}
               style={avatarStyle}
               sx={{ width: LARGE_IMAGE_SIZE, height: LARGE_IMAGE_SIZE }}
-              className="overviewAvatar"
+              className={styles.overviewAvatar}
             />
           </div>
-          <div className="playerInfo">
-            <div className="titleNameButtons">
-              <span className="playerName">
+          <div className={styles.playerInfo}>
+            <div className={styles.titleNameButtons}>
+              <span className={styles.playerName}>
                 {officialPlayerName || playerName}
               </span>
               <PlayerBadges playerId={playerId} />
@@ -322,7 +205,7 @@ const PlayerHeader = ({
           </div>
         </div>
       </div>
-    </Styled>
+    </div>
   );
 };
 

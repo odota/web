@@ -1,25 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import { isRadiant, getTeamName } from "../../utility";
 import Heading from "../Heading/Heading";
 import Table from "../Table/Table";
 import PicksBans from "./Overview/PicksBans"; // Displayed only on `Overview` page
 import { Spacer } from "../Spacer/Spacer";
-
-const StyledDiv = styled.div`
-  .teamtable {
-    position: relative;
-    &:after {
-      content: "";
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      bottom: 0px;
-      right: 0px;
-      height: 8px;
-    }
-`;
+import styles from "./TeamTable.module.css";
 
 const isBestValueInMatch =
   (players: MatchPlayer[]) =>
@@ -154,7 +140,7 @@ class TeamTable extends React.Component<TeamTableProps> {
     };
 
     return (
-      <StyledDiv ref={this.setTeamTableRef}>
+      <div ref={this.setTeamTableRef}>
         <Heading
           title={`${getTeamName(radiantTeam, true)} - ${heading}`}
           buttonLabel={buttonLabel || ""}
@@ -163,7 +149,7 @@ class TeamTable extends React.Component<TeamTableProps> {
           winner={!hideWinnerTag && radiantWin}
         />
         <Spacer variant="1" />
-        <div className="teamtable teamtable-radiant">
+        <div className={`${styles.teamtable} teamtable-radiant`}>
           <Table
             data={filterMatchPlayers(players, "radiant")}
             {...tableProps}
@@ -208,7 +194,7 @@ class TeamTable extends React.Component<TeamTableProps> {
           winner={!hideWinnerTag && !radiantWin}
         />
         <Spacer variant="1" />
-        <div className="teamtable teamtable-dire">
+        <div className={`${styles.teamtable} teamtable-dire`}>
           <Table data={filterMatchPlayers(players, "dire")} {...tableProps} />
         </div>
         <Spacer variant="1" />
@@ -244,7 +230,7 @@ class TeamTable extends React.Component<TeamTableProps> {
             )
           ) /* team 1 - dire */
         }
-      </StyledDiv>
+      </div>
     );
   }
 }

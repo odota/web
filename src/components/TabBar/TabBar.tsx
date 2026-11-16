@@ -1,37 +1,9 @@
 import { Tab, Tabs, Tooltip } from "@mui/material";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import styled from "styled-components";
 
 import constants from "../constants";
 import { withRouter } from "react-router-dom";
-
-const StyledMain = styled.main`
-  position: relative;
-  margin: 0px 0px 30px 0px;
-  background-color: ${constants.colorHeaderSection};
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  width: 100vw;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  padding-top: 25px;
-`;
-
-const StyledTabs = styled(Tabs)`
-  justify-content: center;
-
-  & .MuiTabs-indicator {
-    background: ${constants.primaryLinkColor};
-  }
-  & .MuiTabs-scroller {
-    flex-grow: 0;
-  }
-`;
-
-const StyledTab = styled(Tab)`
-  min-width: 0 !important;
-`;
+import styles from "./TabBar.module.css";
 
 const TabTooltip = ({
   title,
@@ -65,17 +37,21 @@ const TabBar = ({
   }, [visibleTabs, history, location.pathname]);
 
   const handleTabClick = useCallback(
-    (e, tab, index) => {
+    (e: React.MouseEvent<HTMLAnchorElement>, tab: any, index: number) => {
       e.preventDefault();
-      history.push(e.currentTarget.getAttribute("href"));
+      const href = e.currentTarget.getAttribute("href");
+      if (href) {
+        history.push(href);
+      }
       setTabValue(index);
     },
     [history],
   );
 
   return (
-    <StyledMain>
-      <StyledTabs
+    <main className={styles.styledMain}>
+      <Tabs
+        className={styles.styledTabs}
         value={tabValue}
         onChange={(e, newValue) => setTabValue(newValue)}
         variant="scrollable"
@@ -86,8 +62,8 @@ const TabBar = ({
             title={tab.tooltip}
             key={`${tab.name}_${tab.route}_${tab.key}`}
           >
-            <StyledTab
-              //@ts-expect-error
+            <Tab
+              className={styles.styledTab}
               component="a"
               href={tab.route + window.location.search}
               onClick={(e) => handleTabClick(e, tab, i)}
@@ -102,8 +78,8 @@ const TabBar = ({
             />
           </TabTooltip>
         ))}
-      </StyledTabs>
-    </StyledMain>
+      </Tabs>
+    </main>
   );
 };
 

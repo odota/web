@@ -1,0 +1,85 @@
+.styledContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.styledContainerTop {
+  align-items: flex-end;
+  position: relative;
+}
+
+@media only screen and (max-width: 767px) {
+  .styledContainerTop {
+    align-items: center;
+  }
+}
+
+.styledPagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.styledPagination > div {
+  display: flex;
+}
+
+@media only screen and (max-width: 511px) {
+  .styledPagination {
+    flex-direction: column;
+  }
+}
+
+.styledPaginationTop {
+  position: absolute;
+  right: 0;
+  top: -32px;
+  font-size: var(--od-font-size-medium);
+}
+
+@media only screen and (max-width: 767px) {
+  .styledPaginationTop {
+    position: initial;
+  }
+}
+
+.styledPage {
+  color: var(--od-primary-link-color) !important;
+  min-width: 20px !important;
+  padding: 0 10px !important;
+  margin: 0 2px !important;
+}
+
+@media only screen and (max-width: 511px) {
+  /* Override material-ui */
+  .styledPage {
+    min-width: 14px !important;
+    padding: 0 6px !important;
+    margin: 0 1px !important;
+  }
+}
+
+.styledArrow {
+  vertical-align: text-top;
+  /* Override material-ui */
+  color: var(--od-color-yelor) !important;
+  padding: 0 !important;
+}
+
+.styledArrowButton {
+  min-width: 20px !important;
+}
+
+.styledCurrentPage {
+  /* Override material-ui */
+  color: var(--od-color-muted-light) !important;
+  pointer-events: none;
+}
+
+.styledInfo {
+  font-size: var(--od-font-size-medium);
+  color: var(--od-color-muted-light);
+}

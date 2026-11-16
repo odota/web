@@ -1,0 +1,157 @@
+.overviewContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.summaryContainer {
+  width: 100%;
+}
+
+.summaryContainer ul {
+  border: 1px solid rgb(0, 0, 0, 0.12);
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.03);
+  margin: 0;
+  padding-left: 5px;
+}
+
+.summaryContainer ul li {
+  list-style: none;
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-right: 15px;
+}
+
+.summaryContainer ul li p {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+}
+
+.summaryContainer ul li span {
+  font-size: var(--od-font-size-small);
+  color: var(--od-color-muted-light);
+}
+
+.summaryContainer ul li span:first-child {
+  text-transform: uppercase;
+}
+
+.summaryContainer ul li img {
+  height: 20px;
+  width: auto;
+  vertical-align: text-bottom;
+  transition: var(--od-normal-transition);
+  margin-left: 6px;
+}
+
+.summaryContainer ul li img:hover {
+  opacity: 0.7;
+}
+
+.matchesContainer {
+  width: calc(65% - 15px);
+  margin-right: 15px;
+}
+
+@media only screen and (max-width: 1080px) {
+  .matchesContainer {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+.heroesContainer {
+  width: 35%;
+}
+
+@media only screen and (max-width: 1080px) {
+  .heroesContainer {
+    width: 100%;
+  }
+}
+
+.matchesContainer {
+
+  width: calc(65% - 15px);
+  margin-right: 15px;
+
+  :global(.recent-matches) {
+    width: 100%;
+    font-family: var(--od-font-family-futuristic);
+
+    & * { font-family: inherit; }
+
+    font-size: 14px;
+    :global(.match-list) { list-style: none; padding: 0; margin: 0 0 20px; display: flex; flex-direction: column; gap: 10px; }
+    :global(.match-entry) { position: relative; padding: 16px; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; background: rgba(255, 255, 255, 0.02); }
+    :global(.match-entry-link) { position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+    :global(.match-entry-header) a, :global(.match-entry-details) a { position: relative; z-index: 2; }
+    :global(.match-entry):hover { background: rgba(255, 255, 255, 0.04); }
+    :global(.match-entry-header) { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    :global(.match-entry-details) { display: flex; justify-content: space-evenly; align-items: center; flex-wrap: wrap; font-weight: 400; color: var(--od-color-muted-light); gap: 12px 24px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
+    :global(.match-stat) { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+    :global(.stat-label) { font-size: 14px; color: var(--od-color-muted-light); }
+    :global(.lane-value) { display: flex; align-items: center; gap: 6px; font-family: var(--od-font-family-futuristic); }
+    :global(.lane-value) img { width: 20px; height: 20px; object-fit: contain; flex-shrink: 0; }
+    :global(.match-identity) { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+    :global(.match-hero) :global(.textContainer) { width: 180px; }
+    :global(.duration-details) { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+    :global(.duration-value) { display: flex; align-items: center; gap: 5px; }
+    :global(.duration-value) > svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--od-color-blue); }
+    :global(.team-value) { display: flex; align-items: center; gap: 5px; font-size: 14px; }
+    :global(.team-value) svg { width: 20px; height: 20px; flex-shrink: 0; }
+    :global(.team-value):global(.radiant) { color: var(--od-color-success); }
+    :global(.team-value):global(.dire) { color: var(--od-color-danger); }
+    a { font-family: var(--od-font-family-futuristic); }
+    :global(.imageContainer) img:global(.image) { height: 52px; width: auto; }
+    :global(.textContainer) > span, :global(.textContainer) > span a { font-size: 14px; }
+    :global(.parsed), :global(.unparsed) { height: 52px; }
+    table:global(.recent-matches-table) :global(.imageContainer) img:global(.image) { height: 29px; }
+    table:global(.recent-matches-table) :global(.parsed), table:global(.recent-matches-table) :global(.unparsed) { height: 29px; }
+
+    :global(.recent-result) { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+    :global(.recent-time-ago) { display: flex; align-items: center; gap: 5px; font-size: 14px; }
+    :global(.recent-time-ago) > svg { width: 18px !important; height: 18px !important; color: var(--od-color-blue) !important; }
+    :global(.duration-value) { font-size: 14px; }
+    :global(.result-badge) {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+    :global(.win) { color: var(--od-color-success); }
+    :global(.loss) { color: var(--od-color-danger); }
+    :global(.unknown) { color: var(--od-color-muted-light); }
+    :global(.recent-mode) { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+    :global(.mode-label), :global(.rank-label) { display: flex; align-items: center; gap: 6px; }
+    :global(.mode-label) svg { width: 22px; height: 22px; flex-shrink: 0; color: var(--od-color-golden); }
+    :global(.rank-label) { color: var(--od-color-muted-light); font-size: 14px; }
+    :global(.rank-label) img { width: 30px; height: 30px; object-fit: contain; flex-shrink: 0; }
+    :global(.rank-description) { display: inline-flex; align-items: baseline; gap: 5px; white-space: nowrap; }
+    :global(.rank-stars) {
+      color: var(--od-color-muted-light);
+      font-size: inherit;
+      line-height: 1;
+      letter-spacing: normal;
+      white-space: nowrap;
+    }
+
+    :global(.match-link) { color: var(--od-color-muted-light); font-size: 14px; letter-spacing: 0.08em; line-height: 1.2; text-transform: uppercase; }
+    :global(.recent-kda) { display: inline-flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    :global(.recent-kda) :global(.separator) { color: var(--od-color-muted-light); }
+    :global(.match-entry) :global(.team-value) { font-weight: 400; color: var(--od-color-muted-light); }
+    :global(.recent-kda) :global(.kills) { color: var(--od-color-success); }
+    :global(.recent-kda) :global(.deaths) { color: var(--od-color-danger); }
+    :global(.recent-kda) :global(.assists) { color: var(--od-color-muted-light); }
+    :global(.team-value):global(.radiant) svg { color: var(--od-color-success); }
+    :global(.team-value):global(.dire) svg { color: var(--od-color-danger); }
+    a:focus-visible { outline: 2px solid var(--od-primary-link-color); outline-offset: 3px; }
+  }
+
+  @media only screen and (max-width: 1080px) {
+    width: 100%;
+    margin-right: 0;
+  }
+
+}

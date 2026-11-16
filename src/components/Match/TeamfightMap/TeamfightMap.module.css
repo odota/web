@@ -1,0 +1,184 @@
+.parentContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 0 -5px;
+}
+
+.timelineContainer {
+  margin-bottom: 75px;
+}
+
+.mapAndInfoContainer {
+  margin: 0 5px 10px 5px;
+}
+
+.headerGold {
+  margin: 0 25px;
+}
+
+.header {
+  margin: 10px 0 66px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headerSubInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.headerSubInfo svg {
+  margin: 0;
+}
+
+.teamfightContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tableContainer {
+  flex-grow: 1;
+  overflow-x: hidden;
+  margin: -56px 5px 0 5px;
+}
+
+.map {
+  position: relative;
+  max-width: 400px;
+  max-height: 400px;
+  background-size: contain;
+}
+
+.mapIcon {
+  position: absolute;
+  margin: 0 !important;
+}
+
+.teamfightIcon {
+  position: absolute;
+  margin: 0 !important;
+  cursor: pointer;
+}
+
+.tombstone {
+  position: absolute;
+  margin: 0 !important;
+  fill: var(--od-color-golden);
+  opacity: 0.75;
+}
+
+.radiantTombstone {
+  fill: var(--od-color-success);
+}
+
+.direTombstone {
+  fill: var(--od-color-danger);
+}
+
+.radiantTombstoneTooltip {
+  border-width: 2px !important;
+  border-color: var(--od-color-success) !important;
+}
+
+.direTombstoneTooltip {
+  border-width: 2px !important;
+  border-color: var(--od-color-danger) !important;
+}
+
+.tooltipContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 10px;
+  margin: -8px -12px;
+}
+
+.tooltipContainer > * {
+  margin: 0 5px;
+}
+
+.tooltipContainer > *:first-child {
+  margin-left: 0;
+}
+
+.tooltipContainer > *:last-child {
+  margin-right: 0;
+}
+
+.tooltipContainer > div {
+  margin: 0;
+  color: var(--od-color-muted-light);
+}
+
+.teamfightTooltipContainer {
+  flex-direction: column;
+}
+
+.winner {
+  filter: drop-shadow(0 0 20px #000);
+  padding: 0;
+}
+
+.goldChange {
+  display: flex;
+  align-items: center;
+}
+
+.goldChange img {
+  margin-left: 5px;
+  filter: drop-shadow(0 0 5px var(--od-color-golden));
+}
+
+.radiantSelected .header {
+  color: var(--od-color-success);
+}
+
+.direSelected .header {
+  color: var(--od-color-danger);
+}
+
+.radiant {
+  padding: 0;
+  margin: 0;
+  fill: #f5f5f5;
+}
+
+.radiant .goldChange {
+  color: var(--od-color-success);
+}
+
+.radiant svg {
+  filter: drop-shadow(0 0 5px green) drop-shadow(0 0 20px #000);
+}
+
+.dire {
+  padding: 0;
+  margin: 0;
+  fill: #000000;
+}
+
+.dire .goldChange {
+  color: var(--od-color-danger);
+}
+
+.dire svg {
+  filter: drop-shadow(0 0 5px red) drop-shadow(0 0 20px #000);
+}
+
+.teamfightIconSvg svg {
+  transition: var(--od-linear-transition);
+}
+
+.hovered svg {
+  fill: var(--od-color-blue) !important;
+}
+
+.selected svg {
+  fill: var(--od-color-golden) !important;
+}

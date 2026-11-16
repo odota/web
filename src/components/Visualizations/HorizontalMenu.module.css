@@ -1,0 +1,26 @@
+.horizontalMenuFilter {
+  display: flex;
+  align-items: center;
+}
+
+.resetButton {
+  display: inline-block;
+  font-size: 22px;
+  opacity: 0.5;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.resetButton:hover {
+  opacity: 1;
+}
+
+.heroHorizontalMenu {
+  width: 100%;
+  overflow-x: scroll;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.27);
+  padding: 3px;
+  min-height: 76px;
+  margin-top: 15px;
+}

@@ -1,0 +1,18 @@
+.attributesWrapper {
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 8px;
+  display: block;
+  margin: auto;
+  max-width: 300px;
+  padding: 12px;
+}
+
+.mainAttributesBlock {
+  display: flex;
+}
+
+@media screen and (max-width: 1024px) {
+  .mainAttributesBlock {
+    display: block;
+  }
+}
