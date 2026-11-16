@@ -70,3 +70,12 @@
     width: 100%;
   }
 }
+
+.matchesContainer table.recentMatchesTable :is(th, td, a, span, div) {
+  font-size: 12px;
+}
+
+.matchesContainer table.recentMatchesTable td.kdaValue,
+.matchesContainer table.recentMatchesTable td.kdaValue :is(a, span, div) {
+  font-size: 13px;
+}
