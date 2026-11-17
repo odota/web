@@ -5,11 +5,9 @@ import styles from "./Spinner.module.css";
 const Spinner = ({
   size = 24,
   text,
-  textSize,
 }: {
   size?: number;
   text?: string;
-  textSize?: number;
   enableTrackSlot?: boolean;
 }) => {
   return (
@@ -21,7 +19,7 @@ const Spinner = ({
         thickness={2}
         enableTrackSlot
       />
-      {text && <span className={styles.spinnerText} style={{ fontSize: textSize }}>{text}</span>}
+      {text && <span className={styles.spinnerText}>{text}</span>}
     </div>
   );
 };
