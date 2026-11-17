@@ -1,6 +1,9 @@
 /* Design tokens, consumed from CSS and from constants.ts.
  * Add new tokens here, not as literals in components. */
 :root {
+  --od-accent-soft: rgba(200, 164, 93, 0.12);
+  --od-accent-hover: rgba(200, 164, 93, 0.2);
+  --od-accent-border: rgba(200, 164, 93, 0.3);
   --od-default-primary-color: rgba(0, 0, 0, 0.4);
   --od-default-primary-color-solid: rgba(0, 0, 0, 0.37);
   --od-dark-primary-color: rgba(0, 0, 0, 0.6);

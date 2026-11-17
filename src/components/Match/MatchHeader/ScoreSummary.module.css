@@ -1,0 +1,130 @@
+.scoreSummary {
+  width: min(760px, 100%);
+  box-sizing: border-box;
+  padding: 0 16px 18px;
+}
+.gameInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.gameMode {
+  order: 2;
+}
+.scoreLine {
+  order: 1;
+}
+.matchTime {
+  order: 3;
+}
+.gameMode {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: var(--od-color-muted-light);
+  font-family: var(--od-font-family-futuristic);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.gameMode svg {
+  display: block;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  color: var(--od-color-golden);
+}
+.scoreLine {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-family: var(--od-font-family-futuristic);
+  font-size: clamp(36px, 5vw, 48px);
+  font-weight: 700;
+}
+.scoreTeam {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.scoreTeamName {
+  max-width: 130px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--od-color-muted-light);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.scoreSeparator {
+  color: var(--od-color-muted);
+  font-size: 20px;
+}
+.scoreLine .scoreRadiant {
+  color: var(--od-color-success);
+}
+.scoreLine .scoreDire {
+  color: var(--od-color-danger);
+}
+.matchTime {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px 24px;
+  color: var(--od-color-muted-light);
+  font-size: 14px;
+  font-family: var(--od-font-family-futuristic);
+  white-space: nowrap;
+}
+.endedTime {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--od-color-white);
+  font-size: 14px;
+  font-weight: 400;
+}
+.endedTime > div {
+  display: inline-block;
+  color: var(--od-color-white);
+}
+.endedTime > svg {
+  width: 16px;
+  height: 16px;
+  color: var(--od-color-golden);
+}
+.matchDuration {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--od-color-white);
+  font-size: 14px;
+  font-weight: 400;
+}
+.matchDuration svg {
+  width: 16px;
+  height: 16px;
+  color: var(--od-color-golden);
+}
+@media only screen and (max-width: 600px) {
+  .scoreSummary {
+    padding: 0 8px 12px;
+  }
+  .gameInfo {
+    gap: 12px;
+  }
+  .scoreLine {
+    justify-content: center;
+  }
+  .gameMode {
+    font-size: 12px;
+  }
+  .matchTime {
+    font-size: 12px;
+  }
+}
