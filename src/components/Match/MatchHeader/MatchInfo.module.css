@@ -13,7 +13,7 @@
   text-align: center;
   font-family: var(--od-font-family-futuristic);
   font-weight: 400;
-  color: var(--od-color-golden);
+  color: var(--od-color-blue);
   background: radial-gradient(
     ellipse at center,
     var(--od-accent-soft),
@@ -31,7 +31,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    var(--od-color-golden),
+    var(--od-color-blue),
     transparent
   );
 }
@@ -57,7 +57,7 @@
   font-size: clamp(28px, 5vw, 48px);
   line-height: 1.2;
   letter-spacing: 0.08em;
-  text-shadow: 0 0 28px rgba(200, 164, 93, 0.3);
+  text-shadow: 0 0 28px var(--od-accent-border);
 }
 
 @keyframes victory-appear {

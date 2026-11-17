@@ -82,15 +82,15 @@ const MatchHeader = ({ match }: { match: Match }) => {
           onClose={() => setCopyNotification(null)}
           sx={{
             minWidth: 280,
-            border: "1px solid rgba(201, 174, 106, 0.7)",
+            border: "1px solid rgba(102, 187, 255, 0.7)",
             borderRadius: "4px",
             background:
               "linear-gradient(135deg, rgba(43, 47, 50, 0.98), rgba(23, 27, 31, 0.98))",
-            color: "#f0e6cf",
+            color: "var(--od-text-color-primary)",
             boxShadow:
-              "0 8px 24px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 239, 194, 0.12)",
-            "& .MuiAlert-icon": { color: "#d2b66d" },
-            "& .MuiAlert-action": { color: "#d2b66d" },
+              "0 8px 24px rgba(0, 0, 0, 0.42), inset 0 1px 0 var(--od-accent-soft)",
+            "& .MuiAlert-icon": { color: "var(--od-color-blue)" },
+            "& .MuiAlert-action": { color: "var(--od-color-blue)" },
           }}
         >
           {copyNotification === "error"

@@ -35,7 +35,7 @@
   flex: 0 0 auto;
   width: 20px;
   height: 20px;
-  color: var(--od-color-golden);
+  color: var(--od-color-blue);
 }
 .scoreLine {
   display: flex;
@@ -96,7 +96,7 @@
 .endedTime > svg {
   width: 16px;
   height: 16px;
-  color: var(--od-color-golden);
+  color: var(--od-color-blue);
 }
 .matchDuration {
   display: inline-flex;
@@ -109,7 +109,7 @@
 .matchDuration svg {
   width: 16px;
   height: 16px;
-  color: var(--od-color-golden);
+  color: var(--od-color-blue);
 }
 @media only screen and (max-width: 600px) {
   .scoreSummary {

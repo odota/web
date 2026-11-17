@@ -8,10 +8,10 @@
     margin: 5px !important;
     min-height: 38px;
     padding: 7px 16px;
-    border: 1px solid #806b43;
+    border: 1px solid var(--od-accent-border);
     border-radius: 2px;
     background: linear-gradient(180deg, #343a40 0%, #20252a 48%, #171b20 100%);
-    color: #e2d4b5;
+    color: var(--od-text-color-primary);
     font-family: var(--od-font-family-futuristic);
     font-size: var(--od-font-size-small);
     font-weight: 700;
@@ -24,21 +24,21 @@
       border-color 140ms ease,
       box-shadow 140ms ease;
     box-shadow:
-      inset 0 1px 0 rgba(255, 239, 194, 0.12),
+      inset 0 1px 0 var(--od-accent-soft),
       inset 0 -2px 0 rgba(0, 0, 0, 0.42),
       0 2px 5px rgba(0, 0, 0, 0.35);
 
     &:hover {
       background: linear-gradient(
         180deg,
-        #51452f 0%,
-        #30291e 50%,
-        #211e19 100%
+        rgb(29, 64, 92) 0%,
+        rgb(22, 45, 66) 50%,
+        rgb(17, 31, 47) 100%
       );
-      border-color: #c5a75c;
+      border-color: var(--od-color-blue);
       box-shadow:
-        inset 0 1px 0 rgba(255, 239, 194, 0.2),
-        0 0 9px rgba(197, 167, 92, 0.22);
+        inset 0 1px 0 var(--od-accent-hover),
+        0 0 9px rgba(102, 187, 255, 0.22);
     }
 
     &:active {
@@ -46,28 +46,28 @@
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.55);
     }
     &:focus-visible {
-      outline: 2px solid #d7b763;
+      outline: 2px solid var(--od-color-blue);
       outline-offset: 2px;
     }
   }
 
   :global(.MuiButton-root):first-child {
-    border-color: #b3934d;
-    background: linear-gradient(180deg, #705b2d 0%, #4c3b1d 50%, #332817 100%);
-    color: #fff0c4;
+    border-color: var(--od-color-blue);
+    background: linear-gradient(180deg, rgb(34, 83, 122) 0%, rgb(23, 57, 86) 50%, rgb(17, 39, 60) 100%);
+    color: var(--od-color-white);
     &:hover {
       background: linear-gradient(
         180deg,
-        #8a7139 0%,
-        #5d4925 50%,
-        #3f311b 100%
+        rgb(43, 103, 151) 0%,
+        rgb(29, 71, 106) 50%,
+        rgb(20, 48, 73) 100%
       );
-      border-color: #e0c16d;
+      border-color: var(--od-color-blue);
     }
   }
 
   :global(.MuiButton-startIcon) {
-    color: #c9ae6a;
+    color: var(--od-color-blue);
   }
 
   & a:global(.MuiButton-root) {
