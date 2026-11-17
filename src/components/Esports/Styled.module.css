@@ -281,7 +281,9 @@
   border: 0;
   border-radius: 4px;
   background-color: var(--od-almost-black);
-  background-image: linear-gradient(90deg, rgba(5, 10, 20, .9), rgba(5, 10, 20, .25)), url("/assets/images/esports-arena.jpg");
+  background-image:
+    linear-gradient(90deg, rgba(5, 10, 20, .9), rgba(5, 10, 20, .25)),
+    url("/assets/images/esports-arena.jpg");
   background-size: cover;
   background-position: center 46%;
 }

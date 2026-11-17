@@ -4,9 +4,14 @@
   gap: 24px;
   padding: 24px;
   margin-bottom: 24px;
-  border: 1px solid color-mix(in srgb, var(--od-secondary-surface-color) 60%, #6299ba);
+  border: 1px solid
+    color-mix(in srgb, var(--od-secondary-surface-color) 60%, #6299ba);
   border-radius: 6px;
-  background: linear-gradient(120deg, color-mix(in srgb, var(--od-secondary-surface-color) 65%, #17395c), color-mix(in srgb, var(--od-secondary-surface-color) 80%, #17395c));
+  background: linear-gradient(
+    120deg,
+    color-mix(in srgb, var(--od-secondary-surface-color) 65%, #17395c),
+    color-mix(in srgb, var(--od-secondary-surface-color) 80%, #17395c)
+  );
   font-family: var(--od-font-family-futuristic);
 }
 
@@ -18,7 +23,8 @@
   gap: 12px;
   min-height: 160px;
   padding: 16px;
-  border: 1px solid color-mix(in srgb, var(--od-secondary-surface-color) 60%, #6299ba);
+  border: 1px solid
+    color-mix(in srgb, var(--od-secondary-surface-color) 60%, #6299ba);
   border-radius: 4px;
   background: color-mix(in srgb, var(--od-primary-surface-color) 85%, #38596d);
   color: var(--od-text-color-secondary);
@@ -137,16 +143,27 @@
   gap: 12px;
   padding: 12px 14px;
   min-width: 0;
-  border: 1px solid color-mix(in srgb, var(--od-secondary-surface-color) 60%, #6299ba);
+  border: 1px solid
+    color-mix(in srgb, var(--od-secondary-surface-color) 60%, #6299ba);
   border-radius: 4px;
-  background: color-mix(in srgb, var(--od-secondary-surface-color) 75%, #17395c);
+  background: color-mix(
+    in srgb,
+    var(--od-secondary-surface-color) 75%,
+    #17395c
+  );
   color: var(--od-text-color-primary);
   font-size: 13px;
-  transition: background .15s, border-color .15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 
 .participants a:hover {
-  background: color-mix(in srgb, var(--od-secondary-surface-color) 65%, #244d75);
+  background: color-mix(
+    in srgb,
+    var(--od-secondary-surface-color) 65%,
+    #244d75
+  );
   border-color: var(--od-color-blue);
 }
 

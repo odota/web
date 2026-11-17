@@ -22,5 +22,5 @@
   font-family: var(--od-font-family-futuristic);
   font-size: var(--od-font-size-small);
   letter-spacing: 0.05em;
-  color: var(--od-color-blue);
+  color: var(--od-primary-link-color);
 }

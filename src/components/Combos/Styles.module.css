@@ -60,7 +60,6 @@
   backface-visibility: hidden;
   box-sizing: border-box;
   transition: transform 0.1s ease-in-out;
-  border: 1px solid transparent;
   margin-top: 10px;
   display: flex;
   justify-content: center;
@@ -184,19 +183,11 @@
 }
 
 .styledHeroSelector :global(.ts):hover:global(.ts-left) {
-  background: linear-gradient(
-    to left,
-    rgb(17 84 115 / 74%) 40%,
-    transparent
-  );
+  background: linear-gradient(to left, rgb(17 84 115 / 74%) 40%, transparent);
 }
 
 .styledHeroSelector :global(.ts):hover:global(.ts-right) {
-  background: linear-gradient(
-    to right,
-    rgb(191 74 26 / 65%) 40%,
-    transparent
-  );
+  background: linear-gradient(to right, rgb(191 74 26 / 65%) 40%, transparent);
 }
 
 .styledHeroSelector :global(.ts.no-event) {

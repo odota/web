@@ -10,7 +10,10 @@
   z-index: 1500;
 }
 
-:global(.events) mark div:global(.firstBloodTooltip)[data-id="tooltip"] :global(.firstBloodHeading) {
+:global(.events)
+  mark
+  div:global(.firstBloodTooltip)[data-id="tooltip"]
+  :global(.firstBloodHeading) {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -22,29 +25,48 @@
   font-size: 12px;
 }
 
-:global(.events) mark div:global(.firstBloodTooltip)[data-id="tooltip"] :global(.firstBloodHeading) span {
+:global(.events)
+  mark
+  div:global(.firstBloodTooltip)[data-id="tooltip"]
+  :global(.firstBloodHeading)
+  span {
   margin-left: auto;
   color: #94a3b8;
   font-variant-numeric: tabular-nums;
 }
 
-:global(.events) mark div:global(.firstBloodTooltip)[data-id="tooltip"] :global(.firstBloodHeading) svg {
+:global(.events)
+  mark
+  div:global(.firstBloodTooltip)[data-id="tooltip"]
+  :global(.firstBloodHeading)
+  svg {
   position: static;
   width: 16px;
   height: 16px;
   fill: var(--od-color-danger);
 }
 
-:global(.events) mark div:global(.firstBloodTooltip)[data-id="tooltip"] :global(.firstBloodPlayers) {
+:global(.events)
+  mark
+  div:global(.firstBloodTooltip)[data-id="tooltip"]
+  :global(.firstBloodPlayers) {
   gap: 6px;
 }
 
-:global(.events) mark div:global(.firstBloodTooltip)[data-id="tooltip"] :global(.firstBloodPlayers) > span {
+:global(.events)
+  mark
+  div:global(.firstBloodTooltip)[data-id="tooltip"]
+  :global(.firstBloodPlayers)
+  > span {
   color: #94a3b8;
   font-size: 11px;
 }
 
-:global(.events) mark div:global(.firstBloodTooltip)[data-id="tooltip"] :global(.firstBloodPlayers) img {
+:global(.events)
+  mark
+  div:global(.firstBloodTooltip)[data-id="tooltip"]
+  :global(.firstBloodPlayers)
+  img {
   border-radius: 3px;
 }
 

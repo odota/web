@@ -19,7 +19,9 @@
   font-size: 12px;
   line-height: 1.4;
   text-transform: none;
-  transition: background-color 150ms ease, border-color 150ms ease;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
 }
 
 .comparisonToggles :global(.MuiToggleButtonGroup-grouped):not(:first-of-type) {
