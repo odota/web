@@ -22,6 +22,7 @@ import useStrings from "../../../hooks/useStrings.hook";
 import HeroSelect from "./HeroSelect";
 import { getReplayKDA } from "./replay.utils";
 import Heading from "../../Heading/Heading";
+import laningStyles from "./StyledLaning.module.css";
 import {
   getStatAtMinute,
   getLevelAtMinute,
@@ -233,7 +234,7 @@ const HeroComparison = ({ match }: { match: Match }) => {
   return (
     <>
       <Heading title={strings.laning_hero_comparison} />
-      <TableCaption className="hero-comparison-hint">{strings.laning_hero_comparison_hint}</TableCaption>
+      <TableCaption className={laningStyles.heroComparisonHint}>{strings.laning_hero_comparison_hint}</TableCaption>
       <SameRoleToggle>
         <Switch
           size="small"

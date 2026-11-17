@@ -178,7 +178,7 @@
 
 .teamTable:global(.lane-summary-table) tbody th[scope="row"],
 .teamTable:global(.level-six-table) tbody th[scope="row"],
-.teamTable:global(.replay-comparison-table):global(.laning-activity-table) tbody td:first-child,
+.teamTable:global(.replay-comparison-table).laningActivityTable tbody td:first-child,
 .teamTable:global(.laning-phase-table) td:global(.lane-cell) {
   font-weight: 400;
 }
@@ -190,11 +190,11 @@
 }
 
 .teamTable:global(.lane-summary-table) img[src="/assets/images/dota2/gold.png"],
-.teamTable:global(.lane-summary-table) :global(.lane-advantage-value) > svg {
+.teamTable:global(.lane-summary-table) .laneAdvantageValue > svg {
   margin-left: 4px;
 }
 
-.teamTable:global(.lane-summary-table) :global(.lane-advantage-cell) {
+.teamTable:global(.lane-summary-table) .laneAdvantageCell {
   display: inline-flex;
   justify-content: flex-end;
   align-items: center;
@@ -202,7 +202,7 @@
   width: 12ch;
 }
 
-.teamTable:global(.lane-summary-table) :global(.lane-advantage-value) {
+.teamTable:global(.lane-summary-table) .laneAdvantageValue {
   font-variant-numeric: tabular-nums;
 }
 

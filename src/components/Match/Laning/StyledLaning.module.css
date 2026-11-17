@@ -118,7 +118,7 @@
   line-height: 1.5;
 }
 
-.tableCaption:global(.hero-comparison-hint) {
+.tableCaption.heroComparisonHint {
   font-family: var(--od-font-family-futuristic);
 }
 

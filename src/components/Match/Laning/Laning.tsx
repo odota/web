@@ -17,6 +17,7 @@ import constants from "../../constants";
 import useStrings from "../../../hooks/useStrings.hook";
 import { LaningPage, PageSection, SummaryTeam, SummaryLevels, SummaryResult, UltimateSummary, HeatmapContainer, HeatmapPlayers } from "./StyledLaning";
 import Heading from "../../Heading/Heading";
+import tableStyles from "./LaningTable.module.css";
 import Heatmap from "../../Heatmap/Heatmap";
 import LaningEvents from "./LaningEvents";
 import MatchGraph from "../../Visualizations/Graph/MatchGraph";
@@ -124,7 +125,7 @@ const Laning = ({ match }: LaningProps) => {
   return (
     <LaningPage>
       <PageSection aria-label={strings.laning_summary}>
-        <Heading className="laning-summary-heading" title={strings.laning_summary} />
+        <Heading title={strings.laning_summary} />
         <SummaryResult $winner={netWorthDifference === null || netWorthDifference === 0 ? "tie" : netWorthDifference > 0 ? "radiant" : "dire"}>
           <p className="summary-narrative">
             {netWorthDifference === null ? strings.laning_unavailable : netWorthDifference === 0
@@ -162,8 +163,8 @@ const Laning = ({ match }: LaningProps) => {
                 const radiant = total(true);
                 const dire = total(false);
                 const delta = radiant !== null && dire !== null ? radiant - dire : null;
-                const value = <span className="lane-advantage-value" style={icon === "levels" ? { color: constants.colorLavenderMuted } : undefined}>{delta === null ? strings.laning_unavailable : Math.abs(delta).toLocaleString()}<TooltipMetricIcon metric={icon} /></span>;
-                return <td key={icon}>{delta === null || delta === 0 ? <span className="lane-advantage-cell"><span aria-hidden="true" />{value}</span> : <SummaryTeam className="lane-advantage-cell" $radiant={delta > 0}>{delta > 0 ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}{value}</SummaryTeam>}</td>;
+                const value = <span className={tableStyles.laneAdvantageValue} style={icon === "levels" ? { color: constants.colorLavenderMuted } : undefined}>{delta === null ? strings.laning_unavailable : Math.abs(delta).toLocaleString()}<TooltipMetricIcon metric={icon} /></span>;
+                return <td key={icon}>{delta === null || delta === 0 ? <span className={tableStyles.laneAdvantageCell}><span aria-hidden="true" />{value}</span> : <SummaryTeam className={tableStyles.laneAdvantageCell} $radiant={delta > 0}>{delta > 0 ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}{value}</SummaryTeam>}</td>;
               })}</tr>)}</tbody>
             </table></div></TeamTable>;
           })()}
@@ -201,7 +202,7 @@ const Laning = ({ match }: LaningProps) => {
         </UltimateSummary>
         <UltimateSummary aria-label="Laning activity">
           <h3>Laning Activity · {renderSummaryTime(summaryMinute)}</h3>
-          <TeamTable className="replay-comparison-table laning-activity-table"><div className="table-scroll"><table>
+          <TeamTable className={`replay-comparison-table ${tableStyles.laningActivityTable}`}><div className="table-scroll"><table>
             <thead><tr><th /><th>{renderTeam(true)}</th><th>{renderTeam(false)}</th></tr></thead>
             <tbody>{[
               { label: "Camps stacked", icon: <LayersIcon aria-hidden="true" sx={{ fontSize: 18, color: constants.colorLavenderMuted }} />, read: (player: MatchPlayer): number | null => {
