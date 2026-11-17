@@ -21,9 +21,51 @@ import { formatSeconds, rankTierToString } from "../../utility";
 import { getPage, getTeamPicks, type DraftPlayer, type MatchSide, type MatchMetadata } from "./responsiveMatches";
 import styles from "./ResponsiveMatchesTable.module.css";
 
+const RANK_ICONS_PATH = "/assets/images/dota2/rank_icons";
+
+/**
+ * Builds the medal image source for a rank tier.
+ * @example
+ * getRankIconSrc(75);
+ * // Returns "/assets/images/dota2/rank_icons/rank_icon_7.png".
+ */
+function getRankIconSrc(rankTier: number) {
+  return `${RANK_ICONS_PATH}/rank_icon_${Math.floor(rankTier / 10)}.png`;
+}
+
 /** Shares pending and successful requests between team rows and page visits. */
 type MatchDetails = MatchMetadata & { players?: DraftPlayer[]; radiant_score?: number; dire_score?: number };
 const matchDetails = new Map<number, Promise<MatchDetails>>();
+
+/**
+ * Resolves the league title or the appropriate match category.
+ * @example
+ * getMobileHeading({ league_name: "The International" }, strings);
+ * // Returns "The International".
+ * getMobileHeading({ leagueid: 123 }, strings);
+ * // Returns strings.hero_pro_tab.
+ * getMobileHeading({}, strings);
+ * // Returns "Public match".
+ */
+function getMobileHeading(match: { league_name?: string; leagueid?: number }, strings: Strings) {
+  return match.league_name || (match.leagueid ? strings.hero_pro_tab : "Public match");
+}
+
+/**
+ * Applies result styling only when the match has a known winner.
+ * @example
+ * getTeamClassName(true, "radiant");
+ * // Returns `${styles.mobileTeam} ${styles.isWinner}`.
+ * getTeamClassName(true, "dire");
+ * // Returns `${styles.mobileTeam} ${styles.isLoser}`.
+ * getTeamClassName(undefined, "radiant");
+ * // Returns styles.mobileTeam.
+ */
+function getTeamClassName(radiantWin: boolean | null | undefined, side: MatchSide) {
+  if (typeof radiantWin !== "boolean") return styles.mobileTeam;
+  const resultClass = radiantWin === (side === "radiant") ? styles.isWinner : styles.isLoser;
+  return `${styles.mobileTeam} ${resultClass}`;
+}
 
 /**
  * Loads player picks from match details, which are absent from the pro match list.
@@ -96,7 +138,7 @@ function MatchScore({ match, side, winner }: { match: { match_id: number; radian
   </span>;
 }
 
-/** Displays game mode and duration in the footer. */
+/** Displays game mode and duration in the card metadata. */
 function MatchMetadataLabel({ match }: { match: MatchMetadata & { match_id: number; duration: number; leagueid?: number; league_name?: string } }) {
   const strings = useStrings();
   const details = useMatchDetails(match.match_id, match.game_mode == null);
@@ -105,6 +147,115 @@ function MatchMetadataLabel({ match }: { match: MatchMetadata & { match_id: numb
     {mode && <span className={styles.mobileMode}><SportsEsportsIcon aria-hidden="true" />{mode}</span>}
     <span className={styles.mobileDuration}><AccessTimeIcon aria-hidden="true" />{formatSeconds(match.duration)}</span>
   </div>;
+}
+
+type MobileMatch = MatchMetadata & {
+  match_id: number;
+  duration: number;
+  start_time: number;
+  leagueid?: number;
+  league_name?: string;
+  avg_rank_tier?: number;
+  radiant_win?: boolean | null;
+  radiant_team?: number[];
+  dire_team?: number[];
+  radiant_team_id?: number;
+  dire_team_id?: number;
+  radiant_name?: string;
+  dire_name?: string;
+  radiant_score?: number;
+  dire_score?: number;
+};
+
+function MobileMatchHeader({ match }: { match: MobileMatch }) {
+  const strings = useStrings();
+  return <div className={styles.mobileHeader}>
+    <h2 className={styles.mobileHeading}>{getMobileHeading(match, strings)}</h2>
+    <span className={styles.mobileMatchId}>#{match.match_id}</span>
+  </div>;
+}
+
+function MobileMatchMetadata({ match }: { match: MobileMatch }) {
+  return <div className={styles.mobileResult}>
+    <div className={styles.mobileMeta}>
+      {!!match.avg_rank_tier && <span className={styles.mobileRank}>
+        <img src={getRankIconSrc(match.avg_rank_tier)} alt="" />
+        {rankTierToString(match.avg_rank_tier)}
+      </span>}
+      <MatchMetadataLabel match={match} />
+    </div>
+  </div>;
+}
+
+function PublicMatchHeroes({ lineup }: { lineup: number[] }) {
+  const validHeroes = lineup.filter((id) => heroes[String(id) as keyof Heroes]);
+  if (!validHeroes.length) return <div className={styles.mobileHeroesUnavailable}>Heroes unavailable</div>;
+  return <div className={styles.mobileHeroes}>
+    {validHeroes.map((id) => <HeroImage key={id} id={String(id)} alt={heroes[String(id) as keyof Heroes].localized_name} />)}
+  </div>;
+}
+
+function MobileMatchTeam({ match, side }: { match: MobileMatch; side: MatchSide }) {
+  const strings = useStrings();
+  const sideLabel = side === "radiant" ? strings.general_radiant : strings.general_dire;
+  const lineup = match[`${side}_team`];
+  const winner = typeof match.radiant_win === "boolean" && match.radiant_win === (side === "radiant");
+  return <div className={getTeamClassName(match.radiant_win, side)}>
+    {Array.isArray(lineup) ? <>
+      <div className={styles.mobileLabel}>{sideLabel}</div>
+      <PublicMatchHeroes lineup={lineup} />
+    </> : <>
+      <div className={styles.mobileName}>
+        <TeamLogo teamId={match[`${side}_team_id`]} style={{ width: 36, height: 36, objectFit: "contain", flexShrink: 0 }} />
+        <span className={styles.mobileTeamName}>{match[`${side}_name`] || strings.general_unknown}</span>
+        <MatchScore match={match} side={side} winner={winner} />
+      </div>
+      <ProfessionalHeroes matchId={match.match_id} side={side} />
+    </>}
+  </div>;
+}
+
+function MobileMatchFooter({ match }: { match: MobileMatch }) {
+  return <div className={styles.mobileFooter}>
+    <div className={styles.mobileFooterDetails}>
+      <FromNowTooltip timestamp={match.start_time + match.duration} />
+    </div>
+  </div>;
+}
+
+function MobileMatchCard({ match }: { match: MobileMatch }) {
+  return <li>
+    <Link className={styles.mobileMatch} to={`/matches/${match.match_id}`}>
+      <MobileMatchHeader match={match} />
+      <MobileMatchMetadata match={match} />
+      <div className={styles.mobileTeams}>
+        {(["radiant", "dire"] as const).map((side) => <MobileMatchTeam key={side} match={match} side={side} />)}
+      </div>
+      <MobileMatchFooter match={match} />
+    </Link>
+  </li>;
+}
+
+/** Displays the empty state when no matches are available. */
+function EmptyDataMessage() {
+  return <p className={styles.mobileStatus} role="status">No matches available</p>;
+}
+
+/** Displays match page controls and the visible range. */
+function MobileMatchPagination({ currentPage, pages, start, end, total, onPageChange }: {
+  currentPage: number;
+  pages: number;
+  start: number;
+  end: number;
+  total: number;
+  onPageChange: (page: number) => void;
+}) {
+  if (!total) return null;
+  return <nav className={styles.mobilePages} aria-label="Match pages">
+    <button type="button" disabled={!currentPage} onClick={() => onPageChange(currentPage - 1)}>Previous</button>
+    <span>{start}–{end} of {total}</span>
+    <button type="button" disabled={currentPage + 1 >= pages} onClick={() => onPageChange(currentPage + 1)}>Next</button>
+  </nav>;
 }
 
 /**
@@ -117,48 +268,22 @@ function MatchMetadataLabel({ match }: { match: MatchMetadata & { match_id: numb
  * @returns Mobile cards with team details, rank or league, and pagination.
  */
 function MobileMatches({ data, loading, loadingText }: React.ComponentProps<typeof Table>) {
-  const strings = useStrings();
   const [page, setPage] = useState(0);
   const { items, pages, currentPage, start, end } = getPage(data, page);
   return <section className={styles.responsiveMatchesTable} aria-label="Matches" aria-busy={loading}>
     {loading ? <TableSkeleton text={loadingText} /> : <>
-      {!data.length && <p className={styles.mobileStatus} role="status">No matches available</p>}
+      {!data.length && <EmptyDataMessage />}
       <ul className={styles.mobileList}>
-        {items.map((match) => <li key={match.match_id}>
-          <Link className={styles.mobileMatch} to={`/matches/${match.match_id}`}>
-            <h2 className={styles.mobileHeading}>{match.league_name || (match.leagueid ? strings.hero_pro_tab : "Public match")}</h2>
-            <div className={styles.mobileResult}>
-              <span>Final</span>
-              <div className={styles.mobileMeta}>{!!match.avg_rank_tier && <span className={styles.mobileRank}><img src={`/assets/images/dota2/rank_icons/rank_icon_${Math.floor(match.avg_rank_tier / 10)}.png`} alt="" />{rankTierToString(match.avg_rank_tier)}</span>}<FromNowTooltip timestamp={match.start_time + match.duration} /><span className={styles.mobileMatchId}>#{match.match_id}</span></div>
-            </div>
-            <div className={styles.mobileTeams}>
-            {(["radiant", "dire"] as const).map((side) => {
-              const lineup = match[`${side}_team`];
-              const winner = typeof match.radiant_win === "boolean" && match.radiant_win === (side === "radiant");
-              return <div className={`${styles.mobileTeam}${winner ? ` ${styles.isWinner}` : typeof match.radiant_win === "boolean" ? ` ${styles.isLoser}` : ""}`} key={side}>
-                <div className={styles.mobileLabel}>{side === "radiant" ? strings.general_radiant : strings.general_dire}</div>
-                {Array.isArray(lineup) ? (lineup.some((id: number) => heroes[String(id) as keyof Heroes]) ? <div className={styles.mobileHeroes}>{lineup.map((id: number) => heroes[String(id) as keyof Heroes] && <HeroImage key={id} id={String(id)} alt={heroes[String(id) as keyof Heroes].localized_name} />)}</div> : <div className={styles.mobileHeroesUnavailable}>Heroes unavailable</div>) : <div className={styles.mobileName}>
-                  <TeamLogo teamId={match[`${side}_team_id`]} style={{ width: 48, height: 48, objectFit: "contain", flexShrink: 0 }} />
-                  <span className={styles.mobileTeamName}>{match[`${side}_name`] || strings.general_unknown}</span>
-                  <MatchScore match={match} side={side} winner={winner} />
-                </div>}
-                {!Array.isArray(lineup) && <ProfessionalHeroes matchId={match.match_id} side={side} />}
-              </div>;
-            })}
-            </div>
-            <div className={styles.mobileFooter}>
-              <div className={styles.mobileFooterDetails}>
-                <MatchMetadataLabel match={match} />
-              </div>
-            </div>
-          </Link>
-        </li>)}
+        {items.map((match) => <MobileMatchCard key={match.match_id} match={match} />)}
       </ul>
-      {!!data.length && <nav className={styles.mobilePages} aria-label="Match pages">
-        <button type="button" disabled={!currentPage} onClick={() => setPage(currentPage - 1)}>Previous</button>
-        <span>{start}–{end} of {data.length}</span>
-        <button type="button" disabled={currentPage + 1 >= pages} onClick={() => setPage(currentPage + 1)}>Next</button>
-      </nav>}
+      <MobileMatchPagination
+        currentPage={currentPage}
+        pages={pages}
+        start={start}
+        end={end}
+        total={data.length}
+        onPageChange={setPage}
+      />
     </>}
   </section>;
 }

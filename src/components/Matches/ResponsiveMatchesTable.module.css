@@ -25,6 +25,40 @@
   background: var(--od-primary-surface-color);
   color: var(--od-text-color-primary);
   box-shadow: 0 12px 30px rgba(0, 0, 0, .10);
+  transition: background-color 200ms ease-in-out;
+}
+
+.mobileHeader,
+.mobileResult {
+  transition: background-color 200ms ease-in-out;
+}
+
+@media (hover: hover) {
+  .mobileMatch:hover {
+    background-color: color-mix(in srgb, var(--od-primary-surface-color) 70%, black);
+  }
+
+  .mobileMatch:hover .mobileHeader,
+  .mobileMatch:hover .mobileResult {
+    background-color: color-mix(in srgb, var(--od-table-header-surface-color) 70%, black);
+  }
+}
+
+.mobileMatch:active {
+  background-color: color-mix(in srgb, var(--od-primary-surface-color) 60%, black);
+}
+
+.mobileMatch:active .mobileHeader,
+.mobileMatch:active .mobileResult {
+  background-color: color-mix(in srgb, var(--od-table-header-surface-color) 60%, black);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileMatch,
+  .mobileHeader,
+  .mobileResult {
+    transition: none;
+  }
 }
 
 .mobileMatch:hover,
@@ -56,7 +90,7 @@
   flex-wrap: wrap;
   gap: 6px;
   color: var(--od-text-color-secondary);
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -65,6 +99,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  line-height: 1;
 }
 
 .mobileEyebrow > span + span::before {
@@ -76,10 +111,15 @@
   content: "·";
 }
 
+.mobileRank + .mobileMatchMetadata::before {
+  content: "·";
+}
+
 .mobileMode svg,
 .mobileDuration svg {
-  width: 16px;
-  height: 16px;
+  display: block;
+  width: 12px;
+  height: 12px;
   flex-shrink: 0;
 }
 
@@ -99,25 +139,20 @@
 }
 
 .mobileTeams {
-  padding: 18px 0;
+  padding: 8px 0;
 }
 
 .mobileTeam {
   position: relative;
-  padding: 12px 18px 12px 22px;
-  border-left: 5px solid var(--od-color-red);
+  padding: 8px 16px;
 }
 
 .mobileTeam.isLoser .mobileTeamName {
   color: var(--od-text-color-secondary);
 }
 
-.mobileTeam:first-child {
-  border-left-color: var(--od-color-green);
-}
-
 .mobileTeam + .mobileTeam {
-  margin-top: 12px;
+  margin-top: 4px;
 }
 
 .mobileResult {
@@ -125,7 +160,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  padding: 12px 18px;
+  padding: 6px 16px 10px;
   background: var(--od-table-header-surface-color);
   color: var(--od-text-color-secondary);
   font-size: 13px;
@@ -145,11 +180,19 @@
   text-transform: none;
 }
 
-.mobileHeading {
-  margin: 0;
-  padding: 16px 18px 0;
+.mobileHeader {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  padding: 10px 16px 0;
   background: var(--od-table-header-surface-color);
-  font-size: 16px;
+}
+
+.mobileHeading {
+  min-width: 0;
+  margin: 0;
+  font-size: 12px;
   font-weight: 700;
   overflow-wrap: anywhere;
 }
@@ -159,7 +202,7 @@
   align-items: center;
   gap: 5px;
   margin-left: auto;
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 900;
   font-style: normal;
   font-variant-numeric: tabular-nums;
@@ -168,11 +211,7 @@
 }
 
 .mobileTeam.isWinner {
-  color: var(--od-color-red);
-}
-
-.mobileTeam.isWinner:first-child {
-  color: var(--od-color-green);
+  color: var(--od-color-white);
 }
 
 .mobileScore.isWinner {
@@ -184,8 +223,8 @@
 }
 
 .mobileMatch .mobileName {
-  gap: 10px;
-  font-size: clamp(16px, 4.5vw, 22px);
+  gap: 8px;
+  font-size: clamp(14px, 3.5vw, 18px);
   font-weight: 900;
   font-style: italic;
   line-height: 1.2;
@@ -198,7 +237,7 @@
 }
 
 .mobileMatch .mobileHeroes {
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 .mobileMatch .mobileLabel {
@@ -208,11 +247,11 @@
 .mobileMatch .mobileFooter {
   display: block;
   margin-top: 0;
-  padding: 14px 12px;
+  padding: 6px 16px 10px;
 }
 
 .mobileMatch .mobileFooterDetails {
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .mobileMatch .mobileFooterAction {
@@ -256,7 +295,7 @@
 .mobileWin {
   font-weight: 700;
   margin-left: auto;
-  color: var(--od-color-green);
+  color: var(--od-color-white);
   font-size: 10px;
 }
 
@@ -276,13 +315,14 @@
 }
 
 .mobileHeroes .heroPlaceholder {
-  width: clamp(28px, 10vw, 48px);
+  width: clamp(24px, 8vw, 36px);
   aspect-ratio: 256 / 144;
   height: auto;
+  border-radius: 3px;
 }
 
 .mobileHeroes img {
-  width: clamp(28px, 10vw, 48px);
+  width: clamp(24px, 8vw, 36px);
   border-radius: 3px;
 }
 
@@ -321,7 +361,6 @@
   gap: 8px;
   margin-top: 12px;
   padding-top: 10px;
-  border-top: 1px solid color-mix(in srgb, var(--od-color-blue) 20%, var(--od-divider-color));
   color: var(--od-text-color-secondary);
   font-size: 10px;
 }
@@ -335,7 +374,16 @@
 }
 
 .mobileMatchId {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  color: var(--od-text-color-secondary);
+  font-size: 9px;
   white-space: nowrap;
+}
+
+.mobileMatchId::before {
+  content: "·";
 }
 
 .mobileFooterAction {
