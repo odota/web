@@ -25,6 +25,40 @@
   background: var(--od-primary-surface-color);
   color: var(--od-text-color-primary);
   box-shadow: 0 12px 30px rgba(0, 0, 0, .10);
+  transition: background-color 200ms ease-in-out;
+}
+
+.mobileHeader,
+.mobileResult {
+  transition: background-color 200ms ease-in-out;
+}
+
+@media (hover: hover) {
+  .mobileMatch:hover {
+    background-color: color-mix(in srgb, var(--od-primary-surface-color) 70%, black);
+  }
+
+  .mobileMatch:hover .mobileHeader,
+  .mobileMatch:hover .mobileResult {
+    background-color: color-mix(in srgb, var(--od-table-header-surface-color) 70%, black);
+  }
+}
+
+.mobileMatch:active {
+  background-color: color-mix(in srgb, var(--od-primary-surface-color) 60%, black);
+}
+
+.mobileMatch:active .mobileHeader,
+.mobileMatch:active .mobileResult {
+  background-color: color-mix(in srgb, var(--od-table-header-surface-color) 60%, black);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileMatch,
+  .mobileHeader,
+  .mobileResult {
+    transition: none;
+  }
 }
 
 .mobileMatch:hover,
