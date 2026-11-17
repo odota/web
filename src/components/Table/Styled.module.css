@@ -218,3 +218,20 @@
   color: var(--od-primary-text-color) !important;
   font-weight: 500;
 }
+
+.styledBody :global(table) {
+  font-family: var(--od-font-family-futuristic) !important;
+}
+.styledBody :global(table th),
+.styledBody :global(table td),
+.styledBody :global(table th *),
+.styledBody :global(table td *) {
+  font-family: var(--od-font-family-futuristic);
+}
+.styledBody :global(table thead tr) {
+  background: linear-gradient(
+    90deg,
+    var(--od-accent-soft),
+    rgba(200, 164, 93, 0.03)
+  );
+}

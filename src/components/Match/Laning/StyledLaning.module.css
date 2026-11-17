@@ -223,7 +223,10 @@
   height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: height 400ms ease, opacity 0ms, content-visibility 400ms allow-discrete;
+  transition:
+    height 400ms ease,
+    opacity 0ms,
+    content-visibility 400ms allow-discrete;
 }
 
 .summaryBreakdown[open]::details-content {
@@ -317,7 +320,9 @@
   gap: 6px;
 }
 
-.ultimateSummary.ultimateSummary :global(.level-six-cell) :global(.summary-hero) {
+.ultimateSummary.ultimateSummary
+  :global(.level-six-cell)
+  :global(.summary-hero) {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -342,7 +347,9 @@
   overflow-wrap: anywhere;
 }
 
-.ultimateSummary.ultimateSummary :global(.level-six-summary) :global(.summary-hero) {
+.ultimateSummary.ultimateSummary
+  :global(.level-six-summary)
+  :global(.summary-hero) {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -350,12 +357,17 @@
   max-width: 100%;
 }
 
-.ultimateSummary :global(.level-six-summary) :global(.summary-hero) > span:last-child {
+.ultimateSummary
+  :global(.level-six-summary)
+  :global(.summary-hero)
+  > span:last-child {
   min-width: 0;
   overflow-wrap: anywhere;
 }
 
-.ultimateSummary.ultimateSummary :global(.level-six-summary) :global(.summary-time) {
+.ultimateSummary.ultimateSummary
+  :global(.level-six-summary)
+  :global(.summary-time) {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -365,7 +377,10 @@
   vertical-align: middle;
 }
 
-.ultimateSummary.ultimateSummary :global(.level-six-summary) :global(.summary-time) svg {
+.ultimateSummary.ultimateSummary
+  :global(.level-six-summary)
+  :global(.summary-time)
+  svg {
   width: 16px;
   height: 16px;
   color: var(--od-color-blue);
@@ -383,14 +398,17 @@
   color: var(--od-color-blue);
 }
 
-.ultimateSummary.ultimateSummary:global(.level-six-timings) :global(.summary-time) {
+.ultimateSummary.ultimateSummary:global(.level-six-timings)
+  :global(.summary-time) {
   display: inline-flex;
   align-items: center;
   gap: 4px;
   white-space: nowrap;
 }
 
-.ultimateSummary.ultimateSummary:global(.level-six-timings) :global(.summary-time) svg {
+.ultimateSummary.ultimateSummary:global(.level-six-timings)
+  :global(.summary-time)
+  svg {
   color: var(--od-color-blue);
   font-size: inherit;
   width: 1em;
@@ -419,16 +437,28 @@
 
 .ultimateSummary.ultimateSummary :global(.summary-hero) > svg,
 .ultimateSummary.ultimateSummary :global(.summary-hero) > img,
-.ultimateSummary.ultimateSummary :global(.summary-hero) > :global(.summary-team-icon),
-.ultimateSummary.ultimateSummary :global(.summary-hero) > :global(.summary-role-icon),
+.ultimateSummary.ultimateSummary
+  :global(.summary-hero)
+  > :global(.summary-team-icon),
+.ultimateSummary.ultimateSummary
+  :global(.summary-hero)
+  > :global(.summary-role-icon),
 .ultimateSummary.ultimateSummary :global(.summary-keyword) > svg,
 .ultimateSummary.ultimateSummary :global(.summary-keyword) > img,
-.ultimateSummary.ultimateSummary :global(.summary-keyword) > :global(.summary-team-icon),
-.ultimateSummary.ultimateSummary :global(.summary-keyword) > :global(.summary-role-icon),
+.ultimateSummary.ultimateSummary
+  :global(.summary-keyword)
+  > :global(.summary-team-icon),
+.ultimateSummary.ultimateSummary
+  :global(.summary-keyword)
+  > :global(.summary-role-icon),
 .ultimateSummary.ultimateSummary :global(.summary-time) > svg,
 .ultimateSummary.ultimateSummary :global(.summary-time) > img,
-.ultimateSummary.ultimateSummary :global(.summary-time) > :global(.summary-team-icon),
-.ultimateSummary.ultimateSummary :global(.summary-time) > :global(.summary-role-icon) {
+.ultimateSummary.ultimateSummary
+  :global(.summary-time)
+  > :global(.summary-team-icon),
+.ultimateSummary.ultimateSummary
+  :global(.summary-time)
+  > :global(.summary-role-icon) {
   align-self: center;
 }
 
@@ -528,7 +558,10 @@
   border-radius: 50%;
   background: transparent;
   cursor: pointer;
-  transition: border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease;
 }
 
 .heatmapPlayers input[type="radio"]:hover {

@@ -145,7 +145,8 @@
   width: 18%;
 }
 
-.teamTable:global(.replay-comparison-table):global(.level-six-table) th:first-child {
+.teamTable:global(.replay-comparison-table):global(.level-six-table)
+  th:first-child {
   width: 10%;
   text-align: left;
 }

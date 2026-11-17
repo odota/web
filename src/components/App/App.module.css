@@ -45,7 +45,7 @@
 }
 
 .back2Top:hover {
-  background-color: rgb(26, 108, 239);
+  background-color: var(--od-accent-hover);
 }
 
 .back2Top #back2TopTxt {

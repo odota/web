@@ -3,9 +3,11 @@ import Heading from "../Heading/Heading";
 import Error from "../Error/Error";
 import { LoadingOverlayUpper30 } from "../LoadingOverlay";
 import { Spacer } from "../Spacer/Spacer";
+import styles from "./Container.module.css";
 
 type ContainerProps = {
   title?: string;
+  titleActions?: React.ReactNode;
   subtitle?: string | React.ReactNode;
   style?: any;
   className?: string;
@@ -21,6 +23,7 @@ type ContainerProps = {
 
 const Container = ({
   title,
+  titleActions,
   subtitle,
   style,
   className,
@@ -35,7 +38,12 @@ const Container = ({
 }: ContainerProps) =>
   !hide ? (
     <div className={className} style={{ ...style }}>
-      {title && <Heading title={title} subtitle={subtitle} titleTo={titleTo} />}
+      {title && (titleActions ? (
+        <div className={styles.titleRow}>
+          <Heading title={title} subtitle={subtitle} titleTo={titleTo} />
+          {titleActions}
+        </div>
+      ) : <Heading title={title} subtitle={subtitle} titleTo={titleTo} />)}
       {error && (
         <>
           <Spacer variant="1" />

@@ -103,3 +103,27 @@
     display: none;
   }
 }
+
+.drawerLink span,
+.linkGroupLink {
+  font-size: var(--od-font-size-medium) !important;
+}
+.drawerLink.active,
+.linkGroupLink.active {
+  color: var(--od-primary-link-color);
+}
+.drawerLink.active li {
+  background: var(--od-accent-soft);
+  box-shadow: inset 3px 0 0 var(--od-primary-link-color);
+}
+.linkGroupLink {
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+}
+.linkGroupLink.active {
+  border-bottom-color: var(--od-primary-link-color);
+}
+.linkGroupLink.active:hover {
+  color: var(--od-primary-link-color);
+  opacity: 1;
+}

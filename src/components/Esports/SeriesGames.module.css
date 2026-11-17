@@ -38,7 +38,9 @@
   background: rgba(53, 217, 204, .05);
   color: #edffff;
   text-decoration: none;
-  transition: background .15s, border-color .15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 
 .gameLinks > a:hover {

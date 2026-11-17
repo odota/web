@@ -15,7 +15,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Toolbar } from "@mui/material";
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import config from "../../config";
 import AccountWidget from "../AccountWidget/AccountWidget";
@@ -31,9 +31,9 @@ const LinkGroup = ({ navbarPages }: { navbarPages: any[] }) => (
   <div className={styles.verticalAlignToolbar}>
     {navbarPages.map((page: any) => (
       <div className={styles.tabContainer} key={page.key}>
-        <Link className={styles.linkGroupLink} to={page.to}>
+        <NavLink className={styles.linkGroupLink} activeClassName={styles.active} to={page.to}>
           {page.label}
-        </Link>
+        </NavLink>
         {Boolean(page.feature) && (
           <div
             style={{
@@ -286,8 +286,8 @@ const Header = ({
             </div>
             <List>
               {drawerPages.map((page) => (
-                <Link
-                  className={styles.drawerLink}
+                <NavLink
+                  className={styles.drawerLink} activeClassName={styles.active}
                   key={`drawer__${page.to}`}
                   to={page.to}
                   onClick={() => setMenuState(false)}
@@ -295,20 +295,20 @@ const Header = ({
                   <ListItem>
                     <ListItemText primary={page.label} />
                   </ListItem>
-                </Link>
+                </NavLink>
               ))}
             </List>
             <List>
               {user ? (
                 <>
-                  <Link
-                    className={styles.drawerLink}
+                  <NavLink
+                    className={styles.drawerLink} activeClassName={styles.active}
                     to={`/players/${user.account_id}`}
                   >
                     <ListItem onClick={() => setMenuState(false)}>
                       <ListItemText primary={strings.app_my_profile} />
                     </ListItem>
-                  </Link>
+                  </NavLink>
                   <a
                     className={styles.drawerLink}
                     href={`${config.VITE_API_HOST}/logout`}
