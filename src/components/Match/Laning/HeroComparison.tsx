@@ -5,7 +5,6 @@
 
 import {
   formatTemplate,
-  formatTemplateToString,
   localStorageKeys,
 } from "../../../utility";
 import React, { useState } from "react";
@@ -234,7 +233,7 @@ const HeroComparison = ({ match }: { match: Match }) => {
   return (
     <>
       <Heading title={strings.laning_hero_comparison} />
-      <TableCaption>{strings.laning_hero_comparison_hint}</TableCaption>
+      <TableCaption className="hero-comparison-hint">{strings.laning_hero_comparison_hint}</TableCaption>
       <SameRoleToggle>
         <Switch
           size="small"
@@ -308,7 +307,6 @@ const HeroComparison = ({ match }: { match: Match }) => {
             <MetricRow key={metric.label}>
               <MetricHeading>
                 <h3 className={metric.summaryKey}>
-                  {metric.icon}
                   <span>{metric.label}</span>
                 </h3>
               </MetricHeading>
@@ -322,11 +320,12 @@ const HeroComparison = ({ match }: { match: Match }) => {
                 ) : (
                   <ComparisonLead className={metric.summaryKey} $difference={difference}>
                     {difference === 0 ? (
-                      <>{strings.laning_tied} <small>(0%)</small></>
+                      <>{strings.laning_tied}{metric.icon} <small>(0%)</small></>
                     ) : (
                       <>
                         <strong>
                           {Math.abs(difference).toLocaleString("en-US")}
+                          {metric.icon}
                         </strong>
                         <small title={strings.laning_percentage_difference_hint}>
                           ({percentageDifference === null ? "—" : `${percentageDifference.toFixed(1)}%`})
@@ -422,21 +421,17 @@ const HeroComparison = ({ match }: { match: Match }) => {
                             <span
                               className={`summary-keyword ${metric.summaryKey}`}
                             >
-                              {metric.icon} {metric.label}
+                              {metric.label} {metric.icon}
                             </span>
                           ),
                           advantage: (
                             <span
                               className={`summary-keyword ${metric.summaryKey}`}
                             >
-                              {metric.icon}{" "}
-                              {formatTemplateToString(
-                                strings.laning_comparison_level_advantage,
+                              {formatTemplate(
+                                strings.laning_comparison_level_advantage.replace("{value}-", "{value} "),
                                 {
-                                  value:
-                                    difference === null
-                                      ? ""
-                                      : formatStat(Math.abs(difference)),
+                                  value: <>{difference === null ? "" : formatStat(Math.abs(difference))}{metric.icon}</>,
                                 },
                               )}
                             </span>
@@ -445,10 +440,10 @@ const HeroComparison = ({ match }: { match: Match }) => {
                             <span
                               className={`summary-keyword ${metric.summaryKey}`}
                             >
-                              {metric.icon}{" "}
                               {difference === null
                                 ? ""
                                 : formatStat(Math.abs(difference))}
+                              {metric.icon}
                             </span>
                           ),
                         },

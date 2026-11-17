@@ -98,13 +98,8 @@ const NetWorthShare = ({ match }: { match: Match }) => {
               {total > 0 ? (
                 <>
                   <TeamTotal>
-                    <img
-                      src="/assets/images/dota2/gold.png"
-                      alt=""
-                      width={16}
-                      height={16}
-                    />
-                    {total.toLocaleString("en-US")} {strings.laning_gold}
+                    {total.toLocaleString("en-US")}{" "}
+                    {strings.laning_gold}
                   </TeamTotal>
                   <StackedBar aria-label={strings.laning_team_share_heading}>
                     {data.map((entry) => (
@@ -144,12 +139,6 @@ const NetWorthShare = ({ match }: { match: Match }) => {
                             </ShareTooltipHeader>
                             <ShareTooltipStats>
                               <GoldValue>
-                                <img
-                                  src="/assets/images/dota2/gold.png"
-                                  alt=""
-                                  width={16}
-                                  height={16}
-                                />
                                 {entry.value.toLocaleString("en-US")}{" "}
                                 {strings.laning_gold}
                               </GoldValue>
