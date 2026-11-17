@@ -197,11 +197,12 @@ function PublicMatchHeroes({ lineup }: { lineup: number[] }) {
 
 function MobileMatchTeam({ match, side }: { match: MobileMatch; side: MatchSide }) {
   const strings = useStrings();
+  const sideLabel = side === "radiant" ? strings.general_radiant : strings.general_dire;
   const lineup = match[`${side}_team`];
   const winner = typeof match.radiant_win === "boolean" && match.radiant_win === (side === "radiant");
   return <div className={getTeamClassName(match.radiant_win, side)}>
     {Array.isArray(lineup) ? <>
-      <div className={styles.mobileLabel}>{side === "radiant" ? strings.general_radiant : strings.general_dire}</div>
+      <div className={styles.mobileLabel}>{sideLabel}</div>
       <PublicMatchHeroes lineup={lineup} />
     </> : <>
       <div className={styles.mobileName}>
