@@ -1,6 +1,11 @@
 /* Design tokens, consumed from CSS and from constants.ts.
  * Add new tokens here, not as literals in components. */
 :root {
+  --od-color-blue-soft: rgba(102, 187, 255, 0.12);
+  --od-color-blue-hover: rgba(102, 187, 255, 0.2);
+  --od-accent-soft: var(--od-color-blue-soft);
+  --od-accent-hover: var(--od-color-blue-hover);
+  --od-accent-border: var(--od-color-blue-muted);
   --od-default-primary-color: rgba(0, 0, 0, 0.4);
   --od-default-primary-color-solid: rgba(0, 0, 0, 0.37);
   --od-dark-primary-color: rgba(0, 0, 0, 0.6);
