@@ -8,7 +8,7 @@
   background: var(--od-primary-surface-color);
   color: var(--od-text-color-primary);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  font-size: 16px;
+  font-size: 13px;
   line-height: 1.5;
   pointer-events: none;
 }
@@ -80,7 +80,7 @@
   flex-direction: column;
   gap: 8px;
   min-width: 0;
-  font-size: 15px;
+  font-size: 13px;
   color: var(--od-text-color-secondary);
 }
 
@@ -140,14 +140,14 @@
 }
 
 .heroOption strong {
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 600;
 }
 
 .heroOption small {
   margin-top: 4px;
   color: var(--od-text-color-secondary);
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .comparisonLead {
@@ -167,7 +167,7 @@
 }
 
 .comparisonLead strong {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -305,7 +305,7 @@
   gap: 5px;
   margin: 0;
   font-family: var(--od-font-family-futuristic);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -325,17 +325,28 @@
 }
 
 .metricValues > span:last-child {
+  align-items: flex-end;
   text-align: right;
 }
 
 .metricValues small {
   color: var(--od-text-color-secondary);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .metricValues strong {
-  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
   font-weight: 600;
+}
+
+.metricValues strong > svg,
+.metricValues strong > img {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
 }
 
 .sameRoleToggle {
@@ -345,7 +356,7 @@
   gap: 6px;
   margin-top: 12px;
   color: var(--od-text-color-secondary);
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
 }
 
@@ -353,7 +364,7 @@
   font-family: var(--od-font-family-futuristic);
   margin: 8px 0 0;
   color: var(--od-text-color-secondary);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.5;
   text-align: left;
 }
@@ -416,19 +427,19 @@
   font-variant-numeric: tabular-nums;
 }
 
-.metricSummary :global(.comparison_level) svg {
+.metricSummary :global(.summary-keyword):global(.comparison_level) {
   color: var(--od-color-blue);
 }
 
-.metricSummary :global(.comparison_gold) svg {
+.metricSummary :global(.summary-keyword):global(.comparison_gold) {
   color: var(--od-golden);
 }
 
-.metricSummary :global(.comparison_last_hits) svg {
+.metricSummary :global(.summary-keyword):global(.comparison_last_hits) {
   color: var(--od-color-green);
 }
 
-.metricSummary :global(.comparison_denies) svg {
+.metricSummary :global(.summary-keyword):global(.comparison_denies) {
   color: var(--od-color-red);
 }
 
@@ -443,4 +454,18 @@
 
 .metricSummary :global(.summary-hero) img {
   border-radius: 3px;
+}
+
+.metricSummary :global(.summary-keyword),
+.metricSummary :global(.summary-time),
+.metricSummary :global(.summary-hero) {
+  align-items: baseline;
+  vertical-align: baseline;
+}
+
+.metricSummary :global(.summary-keyword) > svg,
+.metricSummary :global(.summary-keyword) > img,
+.metricSummary :global(.summary-time) > svg,
+.metricSummary :global(.summary-hero) > img {
+  align-self: center;
 }

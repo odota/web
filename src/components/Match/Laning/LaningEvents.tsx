@@ -32,7 +32,7 @@ const LaningEvents = ({ match }: { match: Match }) => {
   };
   const pickups = match.players.flatMap((player) => (player.runes_log ?? []).map((entry: { time: number; key: string | number }) => ({ player, time: entry.time, rune: Number(entry.key) })))
     .filter((entry) => Number.isFinite(entry.time) && entry.time >= 0 && entry.time <= end).sort((a, b) => a.time - b.time);
-  const runeList = (entries: typeof pickups) => entries.length ? <ul>{entries.map((entry, index) => <li key={`${entry.player.player_slot}-${entry.time}-${index}`}><time>{time(entry.time)}</time>{playerLabel(entry.player)} · <span className={styles.eventRune} style={{ color: runeColors[entry.rune] }}>{entry.rune >= 0 && entry.rune <= 9 && <img src={`/assets/images/dota2/runes/${entry.rune}.png`} alt="" width={20} height={20} />}{strings[`rune_${entry.rune}` as keyof Strings] ?? entry.rune}</span></li>)}</ul> : <TableCaption>No pickups recorded.</TableCaption>;
+  const runeList = (entries: typeof pickups) => entries.length ? <ul>{entries.map((entry, index) => <li key={`${entry.player.player_slot}-${entry.time}-${index}`}><time>{time(entry.time)}</time>{playerLabel(entry.player)} picked up <span className={styles.eventRune} style={{ color: runeColors[entry.rune] }}>{strings[`rune_${entry.rune}` as keyof Strings] ?? entry.rune}{entry.rune >= 0 && entry.rune <= 9 && <img src={`/assets/images/dota2/runes/${entry.rune}.png`} alt="" width={20} height={20} />}</span></li>)}</ul> : <TableCaption>No pickups recorded.</TableCaption>;
   const firstBlood = match.objectives?.find((event) => event.type === "CHAT_MESSAGE_FIRSTBLOOD");
   const firstBloodPlayer = firstBlood && match.players.find((player) => player.player_slot === firstBlood.player_slot);
   const firstBloodVictim = firstBlood && match.players.find((player) => player.player_slot === firstBlood.victim_player_slot);
@@ -65,7 +65,7 @@ const LaningEvents = ({ match }: { match: Match }) => {
     ...Array.from(new Set(stackEvents.map((entry) => entry.minute))).map((minute) => ({
       key: `stacks-${minute}`, time: minute * 60,
       title: <><LayersIcon className={styles.campStackIcon} aria-hidden="true" /><span className={styles.runeTitle}>Camps Stacked</span></>,
-      content: <ul>{stackEvents.filter((entry) => entry.minute === minute).map(({ player, count }) => <li key={player.player_slot}><time>{time((minute - 1) * 60)}–{time(minute * 60)}</time>{playerLabel(player)} · <strong className={styles.campStackCount}>{count}</strong></li>)}</ul>,
+      content: <ul>{stackEvents.filter((entry) => entry.minute === minute).map(({ player, count }) => <li key={player.player_slot}><time>{time((minute - 1) * 60)}–{time(minute * 60)}</time>{playerLabel(player)} stacked <strong className={styles.campStackCount}>{count} {count === 1 ? "camp" : "camps"}<LayersIcon aria-hidden="true" /></strong></li>)}</ul>,
     })),
   ];
   return <PageSection aria-label="Laning events">
@@ -73,7 +73,7 @@ const LaningEvents = ({ match }: { match: Match }) => {
     <div className={styles.events}>
       {[...timeline, { key: "first-blood", time: firstBlood?.time ?? 0,
         title: <><img src="/assets/images/dota2/bloodsplattersmall2.png" alt="" width={20} height={20} style={{ objectFit: "contain" }} /><span className={styles.runeTitle}>First Blood</span></>,
-        content: firstBlood ? <p><time>{time(firstBlood.time)}</time>{playerLabel(firstBloodPlayer)}{firstBloodVictim && <> · {playerLabel(firstBloodVictim)}</>}</p> : <TableCaption>No first blood recorded.</TableCaption>,
+        content: firstBlood ? <p><time>{time(firstBlood.time)}</time>{playerLabel(firstBloodPlayer)}{firstBloodVictim && <> drew first blood against {playerLabel(firstBloodVictim)}</>}</p> : <TableCaption>No first blood recorded.</TableCaption>,
       }].sort((a, b) => a.time - b.time).map((event) => <section key={event.key}><h3>{event.title}</h3>{event.content}</section>)}
     </div>
   </PageSection>;

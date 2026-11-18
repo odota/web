@@ -17,6 +17,7 @@ import constants from "../../constants";
 import useStrings from "../../../hooks/useStrings.hook";
 import { LaningPage, PageSection, SummaryTeam, SummaryLevels, SummaryResult, UltimateSummary, HeatmapContainer, HeatmapPlayers } from "./StyledLaning";
 import Heading from "../../Heading/Heading";
+import tableStyles from "./LaningTable.module.css";
 import Heatmap from "../../Heatmap/Heatmap";
 import LaningEvents from "./LaningEvents";
 import MatchGraph from "../../Visualizations/Graph/MatchGraph";
@@ -72,10 +73,10 @@ const Laning = ({ match }: LaningProps) => {
   /**
    * Formats a gold total using the active language’s unit or unavailable message.
    * @param value Total gold or null.
-   * @returns Display-ready net worth text.
+   * @returns Net worth with its icon between the amount and unit.
    */
   const formatNetWorth = (value: number | null) =>
-    value === null ? strings.laning_unavailable : `${value.toLocaleString()} ${strings.laning_gold}`;
+    value === null ? strings.laning_unavailable : <>{value.toLocaleString()}<img src="/assets/images/dota2/gold.png" alt="" width={16} height={16} />{strings.laning_gold}</>;
 
   /**
    * Totals individual hero levels at the summary minute.
@@ -133,8 +134,8 @@ const Laning = ({ match }: LaningProps) => {
               : formatTemplate(Math.sign(netWorthDifference) === Math.sign(levelDifference) || levelDifference === 0
                 ? strings.laning_summary_phase_result : strings.laning_summary_phase_split, {
                 team: renderTeam(netWorthDifference > 0),
-                gold: <strong className="summary-gold-lead"><img src="/assets/images/dota2/gold.png" alt="" width={16} height={16} />{formatNetWorth(Math.abs(netWorthDifference))}</strong>,
-                levels: <SummaryLevels><TrendingUpIcon aria-hidden="true" />{Math.abs(levelDifference).toLocaleString()} {strings.laning_combined}</SummaryLevels>,
+                gold: <strong className="summary-gold-lead">{formatNetWorth(Math.abs(netWorthDifference))}</strong>,
+                levels: <SummaryLevels>{Math.abs(levelDifference).toLocaleString()}<TrendingUpIcon aria-hidden="true" />{strings.laning_combined}</SummaryLevels>,
                 minute: <span className="summary-minute"><AccessTimeIcon aria-hidden="true" />{summaryMinute}</span>,
               }).map((part, index) => <span className={typeof part === "string" && /^[.,!?;:]+$/.test(part) ? "summary-phrase summary-punctuation" : "summary-phrase"} key={index}>{part}</span>)}
           </p>
@@ -152,8 +153,8 @@ const Laning = ({ match }: LaningProps) => {
               { label: "Combined levels advantage", icon: "levels", read: (player: MatchPlayer) => getLevelAtMinute(player, summaryMinute) },
             ];
             return <TeamTable className="replay-comparison-table lane-summary-table"><div className="table-scroll"><table>
-              <thead><tr><th />{lanes.map((lane) => <th key={lane.name}>{lane.name}</th>)}</tr></thead>
-              <tbody>{metrics.map(({ label, icon, read }) => <tr key={icon}><td><TooltipMetricIcon metric={icon} />{label}</td>{lanes.map((lane) => {
+              <thead><tr><th scope="col">Lane</th>{metrics.map(({ label, icon }) => <th scope="col" key={icon}>{label}</th>)}</tr></thead>
+              <tbody>{lanes.map((lane) => <tr key={lane.name}><th scope="row">{lane.name}</th>{metrics.map(({ icon, read }) => {
                 const total = (radiant: boolean) => {
                   const roles = getLaningRoles(match.players, radiant);
                   const values = (radiant ? lane.radiant : lane.dire).map((role) => roles[role] ? read(roles[role]!) : null);
@@ -162,17 +163,15 @@ const Laning = ({ match }: LaningProps) => {
                 const radiant = total(true);
                 const dire = total(false);
                 const delta = radiant !== null && dire !== null ? radiant - dire : null;
-                const value = <span style={icon === "levels" ? { color: constants.colorLavenderMuted } : undefined}><TooltipMetricIcon metric={icon} />{delta === null ? strings.laning_unavailable : delta === 0 ? "0 · Tied" : `+${Math.abs(delta).toLocaleString()}`}</span>;
-                return <td key={lane.name}>{delta === null || delta === 0 ? value : <SummaryTeam $radiant={delta > 0}>{delta > 0 ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}{value}</SummaryTeam>}</td>;
+                const value = <span className={tableStyles.laneAdvantageValue} style={icon === "levels" ? { color: constants.colorLavenderMuted } : undefined}>{delta === null ? strings.laning_unavailable : Math.abs(delta).toLocaleString()}<TooltipMetricIcon metric={icon} /></span>;
+                return <td key={icon}>{delta === null || delta === 0 ? <span className={tableStyles.laneAdvantageCell}><span aria-hidden="true" />{value}</span> : <SummaryTeam className={tableStyles.laneAdvantageCell} $radiant={delta > 0}>{delta > 0 ? <IconRadiant width="16" height="16" /> : <IconDire width="16" height="16" />}{value}</SummaryTeam>}</td>;
               })}</tr>)}</tbody>
             </table></div></TeamTable>;
           })()}
         </UltimateSummary>
         <UltimateSummary className="level-six-timings">
           <h3>{strings.laning_ultimate_heading} · {renderSummaryTime(summaryMinute)}</h3>
-          <TeamTable className="replay-comparison-table level-six-table"><div className="table-scroll"><table>
-            <thead><tr><th scope="col">Timestamp</th>{(["midlane", "carry", "offlane", "softSupport", "hardSupport"] as const).map((role) => <th scope="col" key={role}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span className="role-icon" aria-hidden="true" style={{ backgroundPosition: `${roleIconPositions[role]}% center` }} />{roleLabels[role]}</span></th>)}</tr></thead>
-            <tbody>{(() => {
+          {(() => {
               const roles = ["midlane", "carry", "offlane", "softSupport", "hardSupport"] as const;
               const snapshots = [true, false].flatMap((radiant) => roles.map((role) => {
                 const player = getLaningRoles(match.players, radiant)[role];
@@ -182,25 +181,28 @@ const Laning = ({ match }: LaningProps) => {
                 return { role, player, radiant, minute, complete };
               }));
               const timestamps = [...new Set(snapshots.filter(({ minute }) => minute >= 0).map(({ minute }) => minute))].sort((a, b) => a - b);
-              const rows = [
+              const columns = [
                 ...timestamps.map((minute) => ({ key: String(minute), label: renderSummaryTime(minute), entries: snapshots.filter((entry) => entry.minute === minute) })),
                 { key: "not-reached", label: <span title={`Level six not reached by ${summaryMinute}:00`}>—</span>, entries: snapshots.filter(({ player, minute, complete }) => player && minute < 0 && complete) },
                 { key: "unavailable", label: <span>{strings.laning_unavailable}</span>, entries: snapshots.filter(({ player, minute, complete }) => !player || (minute < 0 && !complete)) },
               ];
-              return rows.filter(({ entries }) => entries.length).map(({ key, label, entries }) => <tr key={key}>
-                <th scope="row">{label}</th>
-                {roles.map((role) => <td key={role} className="level-six-summary" style={{ whiteSpace: "normal" }}>
-                  {entries.filter((entry) => entry.role === role).map(({ player, radiant }) => <div key={String(radiant)}>
-                    {player ? renderSummaryPlayer(player) : renderTeam(radiant)}
-                  </div>)}
-                </td>)}
-              </tr>);
-            })()}</tbody>
-          </table></div></TeamTable>
+              const visibleColumns = columns.filter(({ entries }) => entries.length);
+              return <TeamTable className="replay-comparison-table level-six-table"><div className="table-scroll"><table>
+                <thead><tr><th scope="col">Role</th>{visibleColumns.map(({ key, label }) => <th scope="col" key={key}>{label}</th>)}</tr></thead>
+                <tbody>{roles.map((role) => <tr key={role}>
+                  <th scope="row"><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span className="role-icon" aria-hidden="true" style={{ backgroundPosition: `${roleIconPositions[role]}% center` }} />{roleLabels[role]}</span></th>
+                  {visibleColumns.map(({ key, entries }) => <td key={key} className="level-six-summary" style={{ whiteSpace: "normal" }}>
+                    {entries.filter((entry) => entry.role === role).map(({ player, radiant }) => <div key={String(radiant)}>
+                      {player ? renderSummaryPlayer(player) : renderTeam(radiant)}
+                    </div>)}
+                  </td>)}
+                </tr>)}</tbody>
+              </table></div></TeamTable>;
+          })()}
         </UltimateSummary>
         <UltimateSummary aria-label="Laning activity">
           <h3>Laning Activity · {renderSummaryTime(summaryMinute)}</h3>
-          <TeamTable className="replay-comparison-table"><div className="table-scroll"><table>
+          <TeamTable className={`replay-comparison-table ${tableStyles.laningActivityTable}`}><div className="table-scroll"><table>
             <thead><tr><th /><th>{renderTeam(true)}</th><th>{renderTeam(false)}</th></tr></thead>
             <tbody>{[
               { label: "Camps stacked", icon: <LayersIcon aria-hidden="true" sx={{ fontSize: 18, color: constants.colorLavenderMuted }} />, read: (player: MatchPlayer): number | null => {
@@ -211,17 +213,17 @@ const Laning = ({ match }: LaningProps) => {
                 ? player.purchase_log.filter((entry) => Number.isFinite(entry.time) && entry.time <= summaryMinute * 60).reduce((count, entry) => count + (entry.key === "ward_dispenser" ? 2 : ["ward_observer", "ward_sentry"].includes(entry.key) ? 1 : 0), 0) : null },
               { label: "Runes taken", icon: <BoltIcon aria-hidden="true" sx={{ fontSize: 18, color: constants.colorBlue }} />, read: (player: MatchPlayer): number | null => Array.isArray(player.runes_log)
                 ? player.runes_log.filter((entry) => Number.isFinite(entry.time) && entry.time >= 0 && entry.time <= summaryMinute * 60).length : null },
-            ].map(({ label, icon, read }) => <tr key={label}><td><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>{icon}{label}</span></td>{[true, false].map((radiant) => {
+            ].map(({ label, icon, read }) => <tr key={label}><td>{label}</td>{[true, false].map((radiant) => {
               const team = match.players.filter((player) => player.isRadiant === radiant);
               const values = team.map(read);
               const total = team.length === 5 && values.every((value) => value !== null) ? values.reduce<number>((sum, value) => sum + value!, 0) : null;
-              return <td key={String(radiant)}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>{icon}<strong>{total === null ? strings.laning_unavailable : total.toLocaleString()}</strong></span></td>;
+              return <td key={String(radiant)}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><strong>{total === null ? strings.laning_unavailable : total.toLocaleString()}</strong>{icon}</span></td>;
             })}</tr>)}</tbody>
           </table></div></TeamTable>
         </UltimateSummary>
       </PageSection>
       <PageSection aria-label={strings.heading_laning}>
-        <Heading className="laning-heading" title={strings.laning_phase} subtitle={<span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: constants.colorWhite, fontWeight: 700 }}><span aria-hidden="true">·</span><AccessTimeIcon aria-hidden="true" style={{ fill: constants.colorBlue }} />10:00</span>} />
+        <Heading className="laning-heading" title={strings.laning_phase} subtitle={<span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: constants.textColorSecondary, fontWeight: 400 }}><span aria-hidden="true">·</span><AccessTimeIcon aria-hidden="true" style={{ fill: constants.colorBlue }} />10:00</span>} />
         <LaningTable match={match} />
       </PageSection>
       <PageSection aria-label={strings.th_map}>
