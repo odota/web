@@ -1,0 +1,22 @@
+window['%hammerhead%'].utils.removeInjectedScript();
+
+window['%hammerhead%'].start({
+    cookie                   : {{{cookie}}},
+    sessionId                : '{{{sessionId}}}',
+    serviceMsgUrl            : '{{{serviceMsgUrl}}}',
+    transportWorkerUrl       : '{{{transportWorkerUrl}}}',
+    isFirstPageLoad          : {{{isFirstPageLoad}}},
+    crossDomainProxyPort     : '{{{crossDomainPort}}}',
+    referer                  : {{{referer}}},
+    forceProxySrcForImage    : {{{forceProxySrcForImage}}},
+    iframeTaskScriptTemplate : {{{iframeTaskScriptTemplate}}},
+    allowMultipleWindows     : {{{allowMultipleWindows}}},
+    isRecordMode             : {{{isRecordMode}}},
+    windowId                 : '{{{windowId}}}',
+    nativeAutomation         : {{{nativeAutomation}}},
+    disableCrossDomain       : {{{disableCrossDomain}}}
+}, window);
+
+(function () {
+    {{{payloadScript}}}
+})();

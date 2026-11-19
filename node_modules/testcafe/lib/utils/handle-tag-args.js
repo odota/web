@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function handleTagArgs(firstArg, rest) {
+    if (Array.isArray(firstArg) && Array.isArray(firstArg.raw))
+        return String.raw.call(null, firstArg, ...rest);
+    return firstArg;
+}
+exports.default = handleTagArgs;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaGFuZGxlLXRhZy1hcmdzLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vc3JjL3V0aWxzL2hhbmRsZS10YWctYXJncy5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLFNBQXdCLGFBQWEsQ0FBRSxRQUFRLEVBQUUsSUFBSTtJQUNqRCxJQUFJLEtBQUssQ0FBQyxPQUFPLENBQUMsUUFBUSxDQUFDLElBQUksS0FBSyxDQUFDLE9BQU8sQ0FBQyxRQUFRLENBQUMsR0FBRyxDQUFDO1FBQ3RELE9BQU8sTUFBTSxDQUFDLEdBQUcsQ0FBQyxJQUFJLENBQUMsSUFBSSxFQUFFLFFBQVEsRUFBRSxHQUFHLElBQUksQ0FBQyxDQUFDO0lBRXBELE9BQU8sUUFBUSxDQUFDO0FBQ3BCLENBQUM7QUFMRCxnQ0FLQyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIGhhbmRsZVRhZ0FyZ3MgKGZpcnN0QXJnLCByZXN0KSB7XG4gICAgaWYgKEFycmF5LmlzQXJyYXkoZmlyc3RBcmcpICYmIEFycmF5LmlzQXJyYXkoZmlyc3RBcmcucmF3KSlcbiAgICAgICAgcmV0dXJuIFN0cmluZy5yYXcuY2FsbChudWxsLCBmaXJzdEFyZywgLi4ucmVzdCk7XG5cbiAgICByZXR1cm4gZmlyc3RBcmc7XG59XG4iXX0=

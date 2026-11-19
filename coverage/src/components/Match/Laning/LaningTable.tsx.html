@@ -1,0 +1,393 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/components/Match/Laning/LaningTable.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="../../../../theme.js"></script>
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        
+        <label class="theme-select quiet">
+            Theme
+            <select id="themeSelect" autocomplete="off">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="legacy">Legacy</option>
+            </select>
+        </label>
+
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/components/Match/Laning</a> LaningTable.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">8.88% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>4/45</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/44</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/27</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">12.5% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>4/32</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";
+import { Tooltip } from "@mui/material";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import { heroes } from "dotaconstants";
+import { Link } from "react-router-dom";
+import config from "../../../config";
+import constants from "../../constants";
+import useStrings from "../../../hooks/useStrings.hook";
+import { getPlayerIdentity, getPlayerRoles, getRoleLabels, getStatAtMinute, getLevelAtMinute, formatStat } from "./laning.utils";
+import TooltipMetricIcon from "../../Visualizations/Graph/TooltipMetricIcon";
+import { SummaryTeam, laningBorderColor } from "./StyledLaning";
+import styles from "./LaningTable.module.css";
+&nbsp;
+type LaningPlayer = MatchPlayer &amp; { lane_role?: number; line_win?: boolean };
+&nbsp;
+const roleIconPositions = { carry: 0, midlane: 25, offlane: 50, softSupport: 75, hardSupport: 100 };
+&nbsp;
+const roleTooltipSlots = {
+  tooltip: {
+    sx: {
+      backgroundColor: constants.primarySurfaceColor,
+      color: constants.textColorPrimary,
+      border: `1px solid ${laningBorderColor}`,
+      borderRadius: "8px",
+      boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+      padding: "8px 12px",
+      fontFamily: constants.fontFamilyFuturistic,
+      fontSize: "14px",
+      fontWeight: 500,
+      lineHeight: 1.5,
+    },
+  },
+  arrow: {
+    sx: {
+      color: constants.primarySurfaceColor,
+      "&amp;::before": { border: `1px solid ${laningBorderColor}` },
+    },
+  },
+};
+&nbsp;
+export const TeamTable: React.FC&lt;React.HTMLAttributes&lt;HTMLElement&gt;&gt; = <span class="fstat-no" title="function not covered" >({</span> className, ...props }) =&gt; (
+<span class="cstat-no" title="statement not covered" >  &lt;section className={`${styles.teamTable}${className ? ` ${className}` : ""}`} {...props} /&gt;</span>
+);
+&nbsp;
+/** Team-separated laning scoreboards, using recorded minute-ten statistics. */
+const LaningTable = <span class="fstat-no" title="function not covered" >({</span> match }: { match: Match }) =&gt; {
+  const <span class="cstat-no" title="statement not covered" >strings = useStrings();</span>
+  const <span class="cstat-no" title="statement not covered" >roles = getPlayerRoles(match.players);</span>
+  const <span class="cstat-no" title="statement not covered" >roleLabels = getRoleLabels(strings);</span>
+  const metrics = <span class="cstat-no" title="statement not covered" >[</span>
+    { label: strings.heading_level, color: "level", value: <span class="fstat-no" title="function not covered" >(<span class="cstat-no" title="statement not covered" >p</span>: MatchPlayer) =&gt; getLevelAtMinute(p) }</span>,
+    { label: "Experience (XP)", color: "xp", value: <span class="fstat-no" title="function not covered" >(<span class="cstat-no" title="statement not covered" >p</span>: MatchPlayer) =&gt; getStatAtMinute(p, "xp_t") }</span>,
+    { label: "Net Worth (NW)", color: "gold", value: <span class="fstat-no" title="function not covered" >(<span class="cstat-no" title="statement not covered" >p</span>: MatchPlayer) =&gt; getStatAtMinute(p, "gold_t") }</span>,
+  ];
+  const maxValues = <span class="cstat-no" title="statement not covered" >metrics.map(<span class="fstat-no" title="function not covered" >({</span> value }) =&gt; <span class="cstat-no" title="statement not covered" >Math.max(1, ...match.players.map(<span class="fstat-no" title="function not covered" >(p</span>) =&gt; <span class="cstat-no" title="statement not covered" >value(p) ?? 0)</span>))</span>;</span>
+  const total = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>layers: MatchPlayer[], value: (p: MatchPlayer) =&gt; number | null) =&gt; {</span>
+    const values = <span class="cstat-no" title="statement not covered" >players.map(value);</span>
+<span class="cstat-no" title="statement not covered" >    return values.length &amp;&amp; values.every(<span class="fstat-no" title="function not covered" >(v</span>) =&gt; <span class="cstat-no" title="statement not covered" >v !== null)</span> ? values.reduce&lt;number&gt;(<span class="fstat-no" title="function not covered" >(s</span>um, v) =&gt; <span class="cstat-no" title="statement not covered" >sum + v!, 0</span>) : null;</span>
+  };
+  const heroIcon = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(p</span>: MatchPlayer, ally: boolean) =&gt; {</span>
+    const hero = heroes[p.hero_id];
+<span class="cstat-no" title="statement not covered" >    return hero &amp;&amp; &lt;img key={p.player_slot} className={ally ? "ally" : "enemy"} src={config.VITE_IMAGE_CDN + hero.icon} title={hero.localized_name} alt={hero.localized_name} width={24} height={24} /&gt;;</span>
+  };
+<span class="cstat-no" title="statement not covered" >  return &lt;&gt;{[true, false].map(<span class="fstat-no" title="function not covered" >(r</span>adiant) =&gt; {</span>
+    const players = (<span class="cstat-no" title="statement not covered" >match.players as LaningPlayer[]).filter(<span class="fstat-no" title="function not covered" >(p</span>) =&gt; <span class="cstat-no" title="statement not covered" >p.isRadiant === radiant)</span>.sort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; <span class="cstat-no" title="statement not covered" >b.lane - a.lane)</span>;</span>
+<span class="cstat-no" title="statement not covered" >    return &lt;TeamTable className="laning-phase-table" key={String(radiant)}&gt;</span>
+      &lt;div className="team-heading"&gt;&lt;h3&gt;&lt;SummaryTeam $radiant={radiant}&gt;{radiant ? strings.general_radiant : strings.general_dire}&lt;/SummaryTeam&gt;&lt;/h3&gt;
+      &lt;/div&gt;
+      &lt;div className="table-scroll"&gt;&lt;table&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;&lt;th className="player"&gt;{strings.th_players}&lt;/th&gt;&lt;th className="role-cell"&gt;{strings.laning_role}&lt;/th&gt;&lt;th&gt;{strings.th_lane}&lt;/th&gt;&lt;th className="heroes-cell"&gt;{strings.th_heroes}&lt;/th&gt;&lt;th&gt;&lt;Tooltip title="Full-match kills / deaths / assists" arrow slotProps={roleTooltipSlots}&gt;&lt;span&gt;KDA&lt;/span&gt;&lt;/Tooltip&gt;&lt;/th&gt;&lt;th className="level"&gt;{strings.heading_level}&lt;/th&gt;{metrics.slice(1).map(<span class="fstat-no" title="function not covered" >(m</span>) =&gt; <span class="cstat-no" title="statement not covered" >&lt;th className={m.color} key={m.label}&gt;{m.label}&lt;/th&gt;)</span>}&lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;{players.map(<span class="fstat-no" title="function not covered" >(p</span>layer) =&gt; {
+          const hero = heroes[player.hero_id];
+          const <span class="cstat-no" title="statement not covered" >identity = getPlayerIdentity(player, strings);</span>
+          const role = <span class="cstat-no" title="statement not covered" >roles.get(player.player_slot);</span>
+          const lanePlayers = <span class="cstat-no" title="statement not covered" >[1, 2, 3].includes(player.lane) ? match.players.filter(<span class="fstat-no" title="function not covered" >(p</span>) =&gt; <span class="cstat-no" title="statement not covered" >p.lane === player.lane)</span> : [];</span>
+          const renderMetric = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(m</span>etric: typeof metrics[number], index: number) =&gt; {</span>
+              const value = <span class="cstat-no" title="statement not covered" >metric.value(player);</span>
+<span class="cstat-no" title="statement not covered" >              return &lt;td className={`stat ${metric.color}`} key={metric.label}&gt;{metric.color === "level" ? &lt;span className="level-value"&gt;{formatStat(value)}&lt;TooltipMetricIcon metric="xp" /&gt;{value !== null &amp;&amp; value &gt;= 6 &amp;&amp; &lt;Tooltip title="Ultimate" arrow placement="top" slotProps={roleTooltipSlots}&gt;&lt;span style={{ display: "inline-flex" }} tabIndex={0}&gt;&lt;AutoAwesomeIcon className="ultimate-icon" titleAccess="Ultimate" /&gt;&lt;/span&gt;&lt;/Tooltip&gt;}&lt;/span&gt; : &lt;&gt;{formatStat(value)}&lt;TooltipMetricIcon metric={metric.color} /&gt;&lt;/&gt;}{value !== null &amp;&amp; metric.color !== "level" &amp;&amp; &lt;span className="bar"&gt;&lt;span style={{ width: `${Math.min(100, Math.max(0, value / maxValues[index] * 100))}%` }} /&gt;&lt;/span&gt;}&lt;/td&gt;;</span>
+          };
+<span class="cstat-no" title="statement not covered" >          return &lt;tr key={player.player_slot}&gt;</span>
+            &lt;td className="player"&gt;&lt;span className="player-identity"&gt;{hero &amp;&amp; &lt;img className="portrait" src={config.VITE_IMAGE_CDN + hero.img} alt={identity.heroName} title={identity.heroName} width={48} height={27} /&gt;}{player.account_id ? &lt;Link to={`/players/${player.account_id}`}&gt;{identity.playerName}&lt;/Link&gt; : identity.playerName}&lt;/span&gt;&lt;/td&gt;
+            &lt;td className="role-cell"&gt;{role ? &lt;span className="role-label"&gt;&lt;Tooltip title={roleLabels[role]} arrow placement="top" enterDelay={150} slotProps={roleTooltipSlots}&gt;&lt;span className="role-icon" role="img" aria-label={roleLabels[role]} tabIndex={0} style={{ backgroundPosition: `${roleIconPositions[role]}% center` }} /&gt;&lt;/Tooltip&gt;&lt;span className="role-name"&gt;{roleLabels[role]}&lt;/span&gt;&lt;/span&gt; : strings.laning_unknown_role}&lt;/td&gt;
+            &lt;td className="lane-cell"&gt;{player.line_win &amp;&amp; &lt;small className="lane-won"&gt;{strings.laning_won}&lt;/small&gt;}{strings[`lane_role_${player.lane_role}` as keyof Strings] ?? strings.laning_unknown_lane}{player.is_roaming &amp;&amp; &lt;small&gt;{strings.roaming}&lt;/small&gt;}&lt;/td&gt;
+            &lt;td className="heroes-cell"&gt;&lt;div className="matchup"&gt;{lanePlayers.filter(<span class="fstat-no" title="function not covered" >(p</span>) =&gt; <span class="cstat-no" title="statement not covered" >p.isRadiant === radiant)</span>.map(<span class="fstat-no" title="function not covered" >(p</span>) =&gt; <span class="cstat-no" title="statement not covered" >heroIcon(p, true))</span>}{lanePlayers.length &gt; 0 &amp;&amp; &lt;span&gt;vs&lt;/span&gt;}{lanePlayers.filter(<span class="fstat-no" title="function not covered" >(p</span>) =&gt; <span class="cstat-no" title="statement not covered" >p.isRadiant !== radiant)</span>.map(<span class="fstat-no" title="function not covered" >(p</span>) =&gt; <span class="cstat-no" title="statement not covered" >heroIcon(p, false))</span>}&lt;/div&gt;&lt;/td&gt;
+            &lt;td className="kda"&gt;{formatStat(player.kills)} / {formatStat(player.deaths)} / {formatStat(player.assists)}&lt;/td&gt;
+            {renderMetric(metrics[0], 0)}
+            {metrics.slice(1).map(<span class="fstat-no" title="function not covered" >(m</span>etric, index) =&gt; <span class="cstat-no" title="statement not covered" >renderMetric(metric, index + 1))</span>}
+&nbsp;
+          &lt;/tr&gt;;
+        })}&lt;/tbody&gt;
+        &lt;tfoot&gt;&lt;tr&gt;&lt;td colSpan={4} /&gt;&lt;td className="kda"&gt;{formatStat(total(players, <span class="fstat-no" title="function not covered" >(p</span>) =&gt; <span class="cstat-no" title="statement not covered" >Number.isFinite(p.kills) ? p.kills : null)</span>)} / {formatStat(total(players, <span class="fstat-no" title="function not covered" >(p</span>) =&gt; <span class="cstat-no" title="statement not covered" >Number.isFinite(p.deaths) ? p.deaths : null)</span>)} / {formatStat(total(players, <span class="fstat-no" title="function not covered" >(p</span>) =&gt; <span class="cstat-no" title="statement not covered" >Number.isFinite(p.assists) ? p.assists : null)</span>)}&lt;/td&gt;&lt;td className="level"&gt;{formatStat(total(players, metrics[0].value))}&lt;TooltipMetricIcon metric="xp" /&gt;&lt;/td&gt;{metrics.slice(1).map(<span class="fstat-no" title="function not covered" >(m</span>) =&gt; <span class="cstat-no" title="statement not covered" >&lt;td className={m.color} key={m.label}&gt;{formatStat(total(players, m.value))}&lt;TooltipMetricIcon metric={m.color} /&gt;&lt;/td&gt;)</span>}&lt;/tr&gt;&lt;/tfoot&gt;
+      &lt;/table&gt;&lt;/div&gt;
+    &lt;/TeamTable&gt;;
+  })}&lt;/&gt;;
+};
+&nbsp;
+export default LaningTable;
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-11-19T05:19:23.718Z
+            </div>
+        <script src="../../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
+    </body>
+</html>
+    

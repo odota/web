@@ -1,0 +1,9 @@
+import { C as ProxifiedObject, D as CodeFormatOptions, E as ProxyType, O as detectCodeFormat, S as ProxifiedNewExpression, T as ProxyBase, _ as ProxifiedImportItem, a as Token, b as ProxifiedMemberExpression, c as Proxified, d as ProxifiedAwaitExpression, f as ProxifiedBinaryExpression, g as ProxifiedIdentifier, h as ProxifiedFunctionExpression, i as ParsedFileNode, k as Options, l as ProxifiedArray, m as ProxifiedFunctionCall, n as GenerateOptions, o as BinaryOperator, p as ProxifiedBlockStatement, r as Loc, s as ImportItemInput, t as ASTNode, u as ProxifiedArrowFunctionExpression, v as ProxifiedImportsMap, w as ProxifiedValue, x as ProxifiedModule, y as ProxifiedLogicalExpression } from "./types-DI0qfFWu.js";
+import { MagicastError, MagicastErrorOptions, builders, generateCode, parseExpression, parseModule } from "./core.js";
+//#region src/file.d.ts
+export declare function loadFile<Exports extends object = any>(filename: string, options?: Options): Promise<ProxifiedModule<Exports>>;
+export declare function writeFile(node: {
+  $ast: ASTNode;
+} | ASTNode, filename: string, options?: Options): Promise<void>;
+//#endregion
+export { type ASTNode, BinaryOperator, CodeFormatOptions, GenerateOptions, ImportItemInput, Loc, MagicastError, MagicastErrorOptions, ParsedFileNode, Proxified, ProxifiedArray, ProxifiedArrowFunctionExpression, ProxifiedAwaitExpression, ProxifiedBinaryExpression, ProxifiedBlockStatement, ProxifiedFunctionCall, ProxifiedFunctionExpression, ProxifiedIdentifier, ProxifiedImportItem, ProxifiedImportsMap, ProxifiedLogicalExpression, ProxifiedMemberExpression, ProxifiedModule, ProxifiedNewExpression, ProxifiedObject, ProxifiedValue, ProxyBase, ProxyType, Token, builders, detectCodeFormat, generateCode, parseExpression, parseModule };
