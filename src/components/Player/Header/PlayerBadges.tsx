@@ -98,48 +98,32 @@ export const PlayerBadgesIcons = ({
             />
           </div>
         )}
-        {registered && <RegisteredBadge registered={registered} />}
+        {registered && (
+          <div
+            style={{
+              marginLeft: "8px",
+              paddingTop: "8px",
+              color: constants.colorSuccess,
+            }}
+            data-hint={strings.tooltip_registered_user}
+          >
+            <HowToRegIcon />
+          </div>
+        )}
         {isProfileDataVisible && (
-          <DataVisibilityBadge isProfileDataVisible={isProfileDataVisible} />
+          <div
+            className={styles.iconDataVisibility}
+            data-hint={strings.tooltip_data_visibility}
+            data-hint-position="bottom"
+          >
+            <VisibilityOffIcon className={styles.icon} />
+          </div>
         )}
       </div>
     );
   };
 
   return getPlayerBadges();
-};
-
-const RegisteredBadge = ({ registered }: { registered: boolean }) => {
-  const strings = useStrings();
-  return registered ? (
-    <div
-      style={{
-        marginLeft: "8px",
-        paddingTop: "8px",
-        color: constants.colorSuccess,
-      }}
-      data-hint={strings.tooltip_registered_user}
-    >
-      <HowToRegIcon />
-    </div>
-  ) : null;
-};
-
-const DataVisibilityBadge = ({
-  isProfileDataVisible,
-}: {
-  isProfileDataVisible: boolean;
-}) => {
-  const strings = useStrings();
-  return isProfileDataVisible ? (
-    <div
-      className={styles.iconDataVisibility}
-      data-hint={strings.tooltip_data_visibility}
-      data-hint-position="bottom"
-    >
-      <VisibilityOffIcon className={styles.icon} />
-    </div>
-  ) : null;
 };
 
 const mapStateToProps = (state: any) => {
