@@ -107,6 +107,20 @@
   fill: var(--od-color-muted-light) !important;
 }
 
+.playerBadges .iconDataVisibility {
+  margin-left: 12px;
+  padding-top: 8px;
+  position: relative;
+}
+
+.playerBadges .iconDataVisibility[data-hint-position="bottom"]::before {
+  margin-left: 6px;
+}
+
+.playerBadges .iconDataVisibility[data-hint-position="bottom"]::after {
+  right: -2px;
+}
+
 .cheese {
   -webkit-filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.6));
   filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.6));

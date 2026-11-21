@@ -11,6 +11,7 @@ import {
 import constants from "../../constants";
 import useStrings from "../../../hooks/useStrings.hook";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import styles from "./PlayerBadges.module.css";
 
 export const PlayerBadgesIcons = ({
@@ -24,6 +25,7 @@ export const PlayerBadgesIcons = ({
   officialPlayerName,
   playerId,
   registered,
+  isProfileDataVisible,
 }: {
   loading: boolean;
   error: string;
@@ -35,6 +37,7 @@ export const PlayerBadgesIcons = ({
   officialPlayerName: string;
   playerId: string;
   registered: boolean;
+  isProfileDataVisible: boolean;
 }) => {
   const strings = useStrings();
   const getPlayerBadges = () => {
@@ -96,6 +99,9 @@ export const PlayerBadgesIcons = ({
           </div>
         )}
         {registered && <RegisteredBadge registered={registered} />}
+        {isProfileDataVisible && (
+          <DataVisibilityBadge isProfileDataVisible={isProfileDataVisible} />
+        )}
       </div>
     );
   };
@@ -119,16 +125,41 @@ const RegisteredBadge = ({ registered }: { registered: boolean }) => {
   ) : null;
 };
 
-const mapStateToProps = (state: any) => ({
-  loading: state.app.player.loading,
-  error: state.app.player.error,
-  cheese: (state.app.player.data.profile || {}).cheese,
-  isContributor: (state.app.player.data.profile || {}).is_contributor,
-  isSubscriber: (state.app.player.data.profile || {}).is_subscriber,
-  tracked: state.app.player.data.tracked_until,
-  steamLink: (state.app.player.data.profile || {}).profileurl,
-  officialPlayerName: (state.app.player.data.profile || {}).name,
-  registered: (state.app.player.data.profile || {}).last_login,
-});
+const DataVisibilityBadge = ({
+  isProfileDataVisible,
+}: {
+  isProfileDataVisible: boolean;
+}) => {
+  const strings = useStrings();
+  return isProfileDataVisible ? (
+    <div
+      className={styles.iconDataVisibility}
+      data-hint={strings.tooltip_data_visibility}
+      data-hint-position="bottom"
+    >
+      <VisibilityOffIcon className={styles.icon} />
+    </div>
+  ) : null;
+};
+
+const mapStateToProps = (state: any) => {
+  const playerProfile = state.app.player.data.profile || {};
+  const loggedInUser = state.app.metadata.data.user || {};
+
+  return {
+    loading: state.app.player.loading,
+    error: state.app.player.error,
+    cheese: playerProfile.cheese,
+    isContributor: playerProfile.is_contributor,
+    isSubscriber: playerProfile.is_subscriber,
+    tracked: state.app.player.data.tracked_until,
+    steamLink: playerProfile.profileurl,
+    officialPlayerName: playerProfile.name,
+    registered: playerProfile.last_login,
+    isProfileDataVisible:
+      playerProfile.fh_unavailable &&
+      loggedInUser.account_id === playerProfile.account_id,
+  };
+};
 
 export default connect(mapStateToProps)(PlayerBadgesIcons);
