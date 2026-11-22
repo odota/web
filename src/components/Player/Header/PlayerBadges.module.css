@@ -107,6 +107,24 @@
   fill: var(--od-color-muted-light) !important;
 }
 
+.playerBadges .iconDataVisibility {
+  margin-left: 8px;
+  padding-top: 4px;
+}
+
+.playerBadges .iconDataVisibility svg {
+  width: auto;
+  height: 16px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.playerBadges .iconDataVisibility span {
+  font-size: var(--od-font-size-tiny);
+  font-weight: var(--od-font-weight-medium);
+  vertical-align: middle;
+}
+
 .cheese {
   -webkit-filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.6));
   filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.6));
