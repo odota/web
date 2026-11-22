@@ -11,7 +11,7 @@ import {
 import constants from "../../constants";
 import useStrings from "../../../hooks/useStrings.hook";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOffOutlined";
 import styles from "./PlayerBadges.module.css";
 
 export const PlayerBadgesIcons = ({
@@ -111,12 +111,9 @@ export const PlayerBadgesIcons = ({
           </div>
         )}
         {isProfileDataVisible && (
-          <div
-            className={styles.iconDataVisibility}
-            data-hint={strings.tooltip_data_visibility}
-            data-hint-position="bottom"
-          >
-            <VisibilityOffIcon className={styles.icon} />
+          <div className={styles.iconDataVisibility}>
+            <VisibilityOffIcon />
+            <span>{strings.tooltip_data_visibility}</span>
           </div>
         )}
       </div>

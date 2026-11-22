@@ -108,17 +108,21 @@
 }
 
 .playerBadges .iconDataVisibility {
-  margin-left: 12px;
-  padding-top: 8px;
-  position: relative;
+  margin-left: 8px;
+  padding-top: 4px;
 }
 
-.playerBadges .iconDataVisibility[data-hint-position="bottom"]::before {
-  margin-left: 6px;
+.playerBadges .iconDataVisibility svg {
+  width: auto;
+  height: 16px;
+  margin-right: 4px;
+  vertical-align: middle;
 }
 
-.playerBadges .iconDataVisibility[data-hint-position="bottom"]::after {
-  right: -2px;
+.playerBadges .iconDataVisibility span {
+  font-size: var(--od-font-size-tiny);
+  font-weight: var(--od-font-weight-medium);
+  vertical-align: middle;
 }
 
 .cheese {
