@@ -1,0 +1,82 @@
+{
+  "0": {
+    "id": 0,
+    "name": "lobby_type_normal",
+    "balanced": true
+  },
+  "1": {
+    "id": 1,
+    "name": "lobby_type_practice",
+    "balanced": true
+  },
+  "2": {
+    "id": 2,
+    "name": "lobby_type_tournament",
+    "balanced": true
+  },
+  "3": {
+    "id": 3,
+    "name": "lobby_type_tutorial",
+    "balanced": false
+  },
+  "4": {
+    "id": 4,
+    "name": "lobby_type_coop_bots",
+    "balanced": false
+  },
+  "5": {
+    "id": 5,
+    "name": "lobby_type_ranked_team_mm",
+    "balanced": true
+  },
+  "6": {
+    "id": 6,
+    "name": "lobby_type_ranked_solo_mm",
+    "balanced": true
+  },
+  "7": {
+    "id": 7,
+    "name": "lobby_type_ranked",
+    "balanced": true
+  },
+  "8": {
+    "id": 8,
+    "name": "lobby_type_1v1_mid",
+    "balanced": false
+  },
+  "9": {
+    "id": 9,
+    "name": "lobby_type_battle_cup",
+    "balanced": true
+  },
+  "10": {
+    "id": 10,
+    "name": "lobby_type_local_bots",
+    "balanced": true
+  },
+  "11": {
+    "id": 11,
+    "name": "lobby_type_spectator",
+    "balanced": true
+  },
+  "12": {
+    "id": 12,
+    "name": "lobby_type_event",
+    "balanced": false
+  },
+  "13": {
+    "id": 13,
+    "name": "lobby_type_gauntlet",
+    "balanced": true
+  },
+  "14": {
+    "id": 14,
+    "name": "lobby_type_new_player",
+    "balanced": false
+  },
+  "15": {
+    "id": 15,
+    "name": "lobby_type_featured",
+    "balanced": false
+  }
+}

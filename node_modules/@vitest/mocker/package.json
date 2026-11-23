@@ -1,0 +1,105 @@
+{
+  "name": "@vitest/mocker",
+  "type": "module",
+  "version": "5.1.0",
+  "description": "Vitest module mocker implementation",
+  "license": "MIT",
+  "funding": "https://opencollective.com/vitest",
+  "homepage": "https://github.com/vitest-dev/vitest/tree/main/packages/mocker",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitest-dev/vitest.git",
+    "directory": "packages/mocker"
+  },
+  "bugs": {
+    "url": "https://github.com/vitest-dev/vitest/issues"
+  },
+  "keywords": [
+    "vitest",
+    "test",
+    "mock"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "__vitest_source__": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./node": {
+      "__vitest_source__": "./src/node/index.ts",
+      "types": "./dist/node.d.ts",
+      "default": "./dist/node.js"
+    },
+    "./browser": {
+      "__vitest_source__": "./src/browser/index.ts",
+      "types": "./dist/browser.d.ts",
+      "default": "./dist/browser.js"
+    },
+    "./redirect": {
+      "__vitest_source__": "./src/node/redirect.ts",
+      "types": "./dist/redirect.d.ts",
+      "default": "./dist/redirect.js"
+    },
+    "./automock": {
+      "__vitest_source__": "./src/node/automock.ts",
+      "types": "./dist/automock.d.ts",
+      "default": "./dist/automock.js"
+    },
+    "./register": {
+      "__vitest_source__": "./src/browser/register.ts",
+      "types": "./dist/register.d.ts",
+      "default": "./dist/register.js"
+    },
+    "./auto-register": {
+      "__vitest_source__": "./src/browser/auto-register.ts",
+      "types": "./dist/register.d.ts",
+      "default": "./dist/register.js"
+    },
+    "./transforms": {
+      "__vitest_source__": "./src/node/transforms.ts",
+      "types": "./dist/transforms.d.ts",
+      "default": "./dist/transforms.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "peerDependencies": {
+    "msw": "^2.4.9 || ^3.0.0",
+    "vite": "^6.0.0 || ^7.0.0 || ^8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "msw": {
+      "optional": true
+    },
+    "vite": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@jridgewell/trace-mapping": "0.3.31",
+    "@vitest/spy": "5.1.0",
+    "estree-walker": "^3.0.3",
+    "magic-string": "^1.4.3"
+  },
+  "devDependencies": {
+    "@types/estree": "^1.0.9",
+    "@vitest/utils": "5.1.0",
+    "acorn-walk": "^8.3.5",
+    "cjs-module-lexer": "^2.3.0",
+    "es-module-lexer": "^2.3.2",
+    "msw": "^3.0.3",
+    "pathe": "^2.0.3",
+    "vite": "^6.3.5"
+  },
+  "scripts": {
+    "build": "premove dist && rollup -c",
+    "dev": "rollup -c --watch"
+  }
+}

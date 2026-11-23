@@ -1,0 +1,42 @@
+{
+  "name": "replicator",
+  "version": "1.0.5",
+  "description": "Advanced JavaScript objects serialization.",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint index.js test && mocha",
+    "publish-please": "publish-please",
+    "prepublish": "publish-please guard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inikulin/replicator.git"
+  },
+  "keywords": [
+    "JSON",
+    "serialization",
+    "deserialization",
+    "circular",
+    "circularJSON",
+    "structured-clone",
+    "structured",
+    "clone"
+  ],
+  "author": {
+    "name": "Ivan Nikulin",
+    "url": "ifaaan@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/inikulin/replicator/issues"
+  },
+  "files": [
+    "index.js"
+  ],
+  "homepage": "https://github.com/inikulin/replicator#readme",
+  "devDependencies": {
+    "eslint": "^2.9.0",
+    "mocha": "^8.4.0",
+    "publish-please": "^5.4.3"
+  }
+}

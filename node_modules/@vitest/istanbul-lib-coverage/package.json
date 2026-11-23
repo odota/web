@@ -1,0 +1,42 @@
+{
+  "name": "@vitest/istanbul-lib-coverage",
+  "version": "2.1.0",
+  "description": "Data library for istanbul coverage objects",
+  "keywords": [
+    "coverage",
+    "data",
+    "istanbul",
+    "vitest"
+  ],
+  "homepage": "https://vitest.dev/",
+  "bugs": {
+    "url": "https://github.com/vitest-dev/vitest/issues"
+  },
+  "license": "MIT",
+  "author": "Vitest Team",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitest-dev/istanbuljs.git",
+    "directory": "packages/istanbul-lib-coverage"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "types": "./dist/index.d.mts",
+  "exports": "./dist/index.mjs",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "tsdown": "^0.23.1"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "test": "pnpm --filter @vitest/istanbuljs-monorepo run test --project @vitest/istanbul-lib-coverage"
+  }
+}

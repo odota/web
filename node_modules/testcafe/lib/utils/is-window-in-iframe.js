@@ -1,0 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function isIframeWindow(window) {
+    return window.top !== window;
+}
+exports.default = isIframeWindow;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaXMtd2luZG93LWluLWlmcmFtZS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy91dGlscy9pcy13aW5kb3ctaW4taWZyYW1lLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsU0FBd0IsY0FBYyxDQUFFLE1BQWM7SUFDbEQsT0FBTyxNQUFNLENBQUMsR0FBRyxLQUFLLE1BQU0sQ0FBQztBQUNqQyxDQUFDO0FBRkQsaUNBRUMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBpc0lmcmFtZVdpbmRvdyAod2luZG93OiBXaW5kb3cpOiBib29sZWFuIHtcbiAgICByZXR1cm4gd2luZG93LnRvcCAhPT0gd2luZG93O1xufVxuIl19

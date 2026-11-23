@@ -1,0 +1,37 @@
+{
+  "name": "which-promise",
+  "version": "1.0.0",
+  "description": "Promisified version of node-which",
+  "repository": "shinnn/which-promise",
+  "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+  "scripts": {
+    "pretest": "eslint --config @shinnn/node index.js test.js",
+    "test": "node --strong_mode --throw-deprecation --track-heap-objects test.js",
+    "coverage": "node --strong_mode node_modules/.bin/istanbul cover test.js"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "which",
+    "bin",
+    "binary",
+    "path",
+    "executable",
+    "resolve",
+    "find",
+    "check"
+  ],
+  "dependencies": {
+    "pify": "^2.2.0",
+    "pinkie-promise": "^1.0.0",
+    "which": "^1.1.2"
+  },
+  "devDependencies": {
+    "@shinnn/eslint-config-node": "^1.0.1",
+    "eslint": "^1.6.0",
+    "istanbul": "^0.3.22",
+    "tape": "^4.2.1"
+  }
+}

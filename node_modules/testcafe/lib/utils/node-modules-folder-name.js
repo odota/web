@@ -1,0 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const NODE_MODULES = 'node_modules';
+exports.default = NODE_MODULES;
+module.exports = exports.default;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibm9kZS1tb2R1bGVzLWZvbGRlci1uYW1lLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vc3JjL3V0aWxzL25vZGUtbW9kdWxlcy1mb2xkZXItbmFtZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLE1BQU0sWUFBWSxHQUFHLGNBQWMsQ0FBQztBQUVwQyxrQkFBZSxZQUFZLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCBOT0RFX01PRFVMRVMgPSAnbm9kZV9tb2R1bGVzJztcblxuZXhwb3J0IGRlZmF1bHQgTk9ERV9NT0RVTEVTO1xuIl19
