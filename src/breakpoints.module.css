@@ -1,0 +1,2 @@
+/* Shared media queries, substituted by CSS Modules at build time. */
+@value mobile: only screen and (max-width: 768px);

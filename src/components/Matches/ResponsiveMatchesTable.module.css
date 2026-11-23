@@ -5,35 +5,64 @@
   line-height: 1.5;
 }
 
-/* Extend cards across the App body's 25px side gutters. */
 .mobileList {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 0;
   width: calc(100% + 50px);
   padding: 0;
-  margin: 0 -25px;
+  margin: 0 -25px 20px;
   list-style: none;
 }
 
 .mobileMatch {
   display: block;
+  overflow: hidden;
   box-sizing: border-box;
   width: 100%;
-  padding: 24px 25px;
   border: 0;
   border-radius: 0;
   background: var(--od-primary-surface-color);
   color: var(--od-text-color-primary);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .10);
+  transition: background-color 200ms ease-in-out;
 }
 
-.mobileList > li + li {
-  border-top: 1px solid color-mix(in srgb, var(--od-color-blue-gray) 45%, var(--od-divider-color));
+.mobileHeader,
+.mobileResult {
+  transition: background-color 200ms ease-in-out;
+}
+
+@media (hover: hover) {
+  .mobileMatch:hover {
+    background-color: color-mix(in srgb, var(--od-primary-surface-color) 70%, black);
+  }
+
+  .mobileMatch:hover .mobileHeader,
+  .mobileMatch:hover .mobileResult {
+    background-color: color-mix(in srgb, var(--od-table-header-surface-color) 70%, black);
+  }
+}
+
+.mobileMatch:active {
+  background-color: color-mix(in srgb, var(--od-primary-surface-color) 60%, black);
+}
+
+.mobileMatch:active .mobileHeader,
+.mobileMatch:active .mobileResult {
+  background-color: color-mix(in srgb, var(--od-table-header-surface-color) 60%, black);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileMatch,
+  .mobileHeader,
+  .mobileResult {
+    transition: none;
+  }
 }
 
 .mobileMatch:hover,
 .mobileMatch:focus-visible {
-  background: color-mix(in srgb, var(--od-primary-link-color) 9%, var(--od-primary-surface-color));
   text-decoration: none;
 }
 
@@ -61,7 +90,7 @@
   flex-wrap: wrap;
   gap: 6px;
   color: var(--od-text-color-secondary);
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -70,6 +99,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  line-height: 1;
 }
 
 .mobileEyebrow > span + span::before {
@@ -81,10 +111,15 @@
   content: "·";
 }
 
+.mobileRank + .mobileMatchMetadata::before {
+  content: "·";
+}
+
 .mobileMode svg,
 .mobileDuration svg {
-  width: 16px;
-  height: 16px;
+  display: block;
+  width: 12px;
+  height: 12px;
   flex-shrink: 0;
 }
 
@@ -103,8 +138,137 @@
   font-variant-numeric: tabular-nums;
 }
 
+.mobileTeams {
+  padding: 8px 0;
+}
+
+.mobileTeam {
+  position: relative;
+  padding: 8px 16px;
+}
+
+.mobileTeam.isLoser .mobileTeamName {
+  color: var(--od-text-color-secondary);
+}
+
 .mobileTeam + .mobileTeam {
-  margin-top: 12px;
+  margin-top: 4px;
+}
+
+.mobileResult {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 16px 10px;
+  background: var(--od-table-header-surface-color);
+  color: var(--od-text-color-secondary);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.mobileResult .mobileRank img {
+  width: 16px;
+  height: 16px;
+}
+
+.mobileResult .mobileMeta {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.mobileHeader {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  padding: 10px 16px 0;
+  background: var(--od-table-header-surface-color);
+}
+
+.mobileHeading {
+  min-width: 0;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.mobileScore {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  font-size: 20px;
+  font-weight: 900;
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--od-text-color-secondary);
+}
+
+.mobileTeam.isWinner {
+  color: var(--od-color-white);
+}
+
+.mobileScore.isWinner {
+  color: inherit;
+}
+
+.mobileScoreMarker {
+  font-size: 12px;
+}
+
+.mobileMatch .mobileName {
+  gap: 8px;
+  font-size: clamp(14px, 3.5vw, 18px);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.mobileMatch .mobileName > .mobileTeamName {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobileMatch .mobileHeroes {
+  margin-top: 6px;
+}
+
+.mobileMatch .mobileLabel {
+  font-size: 9px;
+}
+
+.mobileMatch .mobileFooter {
+  display: block;
+  margin-top: 0;
+  padding: 6px 16px 10px;
+}
+
+.mobileMatch .mobileFooterDetails {
+  justify-content: flex-start;
+}
+
+.mobileMatch .mobileFooterAction {
+  display: flex;
+  justify-content: center;
+  min-height: 42px;
+  border: 0;
+  border-radius: 6px;
+}
+
+.mobileMatch .mobileOpen {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.mobileMatch .mobileContext {
+  padding: 0 18px 12px;
 }
 
 .mobileLabel {
@@ -131,7 +295,7 @@
 .mobileWin {
   font-weight: 700;
   margin-left: auto;
-  color: var(--od-color-green);
+  color: var(--od-color-white);
   font-size: 10px;
 }
 
@@ -151,13 +315,14 @@
 }
 
 .mobileHeroes .heroPlaceholder {
-  width: clamp(28px, 10vw, 48px);
+  width: clamp(24px, 8vw, 36px);
   aspect-ratio: 256 / 144;
   height: auto;
+  border-radius: 3px;
 }
 
 .mobileHeroes img {
-  width: clamp(28px, 10vw, 48px);
+  width: clamp(24px, 8vw, 36px);
   border-radius: 3px;
 }
 
@@ -196,7 +361,6 @@
   gap: 8px;
   margin-top: 12px;
   padding-top: 10px;
-  border-top: 1px solid color-mix(in srgb, var(--od-color-blue-gray) 45%, var(--od-divider-color));
   color: var(--od-text-color-secondary);
   font-size: 10px;
 }
@@ -210,7 +374,16 @@
 }
 
 .mobileMatchId {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  color: var(--od-text-color-secondary);
+  font-size: 9px;
   white-space: nowrap;
+}
+
+.mobileMatchId::before {
+  content: "·";
 }
 
 .mobileFooterAction {

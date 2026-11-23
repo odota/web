@@ -1,3 +1,5 @@
+@value mobile from "../../../breakpoints.module.css";
+
 .playerButtons {
   display: flex;
   flex-direction: row;
@@ -6,9 +8,13 @@
   font-size: 14px;
 }
 
-@media only screen and (max-width: 660px) {
+@media mobile {
   .playerButtons {
     justify-content: center;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    gap: 16px;
   }
 
   .playerButtons a {

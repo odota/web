@@ -1,8 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import AirDatepicker from "air-datepicker";
-import "air-datepicker/air-datepicker.css";
+import React from "react";
 import { TextField } from "@mui/material";
-import localeEn from "air-datepicker/locale/en";
 
 export function DatePicker(props: {
   id: string;
@@ -10,41 +7,35 @@ export function DatePicker(props: {
   value: string[];
   onChange: ({
     date,
-    formattedDate,
-    datepicker,
   }: {
     date: Date | Date[] | undefined;
-    formattedDate?: string | string[];
-    datepicker?: AirDatepicker<HTMLDivElement>;
   }) => void;
 }) {
-  let dp = useRef<AirDatepicker<HTMLDivElement>>();
-
-  const getProps = () => ({
-    startDate: props.value?.[0],
-    onSelect: props.onChange,
-    locale: localeEn,
-  });
-
-  // Start init
-  useEffect(() => {
-    // Save instance for the further update
-    dp.current = new AirDatepicker("#" + props.id, getProps());
-  }, []);
-
-  useEffect(() => {
-    // Update if props are changed
-    // dp.current?.update(getProps());
-  }, [props]);
+  const rawValue = props.value?.[0] || "";
+  const inputValue = /^\d{4}-\d{2}-\d{2}/.test(rawValue)
+    ? rawValue.slice(0, 10)
+    : "";
 
   return (
     <TextField
       size="small"
+      type="date"
       sx={{ width: "250px" }}
-      onChange={(e) => props.onChange({ date: undefined })}
+      InputLabelProps={{ shrink: true }}
+      onChange={(e) => {
+        const val = e.target.value;
+        if (!val) {
+          props.onChange({ date: undefined });
+          return;
+        }
+        const parsed = new Date(`${val}T00:00:00.000Z`);
+        props.onChange({
+          date: Number.isNaN(parsed.getTime()) ? undefined : parsed,
+        });
+      }}
       id={props.id}
       label={props.label}
-      value={props.value?.[0] || ""}
+      value={inputValue}
     />
   );
 }

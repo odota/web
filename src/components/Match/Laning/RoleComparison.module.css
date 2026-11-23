@@ -57,7 +57,8 @@
   outline-offset: 2px;
 }
 
-.comparisonToggles :global(.role-icon) {
+.comparisonToggles :global(.role-icon),
+.comparisonToggles .laneRoleIcon {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
@@ -66,7 +67,8 @@
   background-repeat: no-repeat;
 }
 
-.comparisonToggles :global(.matchup-label) {
+.comparisonToggles :global(.matchup-label),
+.comparisonToggles .matchupLabel {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -79,15 +81,49 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 4px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
-.comparisonToggles :global(.lane-label) {
+.comparisonToggles :global(.lane-label),
+.comparisonToggles .laneLabel {
   align-self: stretch;
   text-align: center;
   font-size: 10px;
   line-height: 1.3;
   color: var(--od-text-color-secondary);
+}
+
+.matchupRoles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.matchupSeparator {
+  color: var(--od-text-color-secondary);
+  font-size: 10px;
+}
+
+.laneRoles,
+.laneRole {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.laneRoles {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.laneRole {
+  white-space: nowrap;
+}
+
+.laneSnapshotIcon:global(.MuiSvgIcon-root) {
+  color: var(--od-color-blue);
+  font-size: 14px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -113,8 +149,8 @@
 .purchasedItem {
   position: relative;
   display: inline-flex;
-  width: 48px;
-  height: 36px;
+  width: 40px;
+  height: 30px;
   flex-shrink: 0;
 }
 
@@ -132,7 +168,7 @@
   background: rgba(0, 0, 0, 0.65);
   color: var(--od-color-white);
   text-align: center;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 10px;
+  line-height: 12px;
   font-variant-numeric: tabular-nums;
 }

@@ -5,6 +5,7 @@
   margin: 16px 0 0 6px;
   padding: 12px 16px 12px 30px;
   font-family: var(--od-font-family-futuristic);
+  font-size: 13px;
   border-left: 2px solid var(--od-color-blue);
 }
 
@@ -30,8 +31,9 @@
   align-items: center;
   gap: 6px;
   margin: 0 0 8px;
-  font: 400 16px var(--od-font-family-futuristic);
-  color: var(--od-text-color-primary);
+  font: 400 12px var(--od-font-family-futuristic);
+  color: var(--od-text-color-secondary);
+  text-transform: uppercase;
 }
 
 .events h3 > svg {
@@ -49,6 +51,18 @@
   color: var(--od-color-lavender-muted);
 }
 
+.campStackCount {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  vertical-align: middle;
+}
+
+.campStackCount svg {
+  width: 16px;
+  height: 16px;
+}
+
 .events ul {
   margin: 0;
   padding: 0;
@@ -58,7 +72,7 @@
 .events li,
 .events section > p {
   margin: 10px 0 0;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 1.6;
 }
 
@@ -76,6 +90,7 @@
 
 .runeTitle {
   color: inherit;
+  font-weight: 400;
 }
 
 .eventRune {
@@ -100,12 +115,14 @@
 }
 
 .events time {
+  font-size: 12px;
+  font-weight: 400;
   font-family: var(--od-font-family-futuristic);
   display: inline-flex;
   align-items: center;
   gap: 4px;
   vertical-align: middle;
   color: var(--od-text-color-secondary);
-  margin-right: 6px;
+  margin-right: 10px;
   font-variant-numeric: tabular-nums;
 }

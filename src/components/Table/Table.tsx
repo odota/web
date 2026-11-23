@@ -12,7 +12,7 @@ import Error from "../Error/Error";
 import TableSkeleton from "../Skeletons/TableSkeleton";
 import { StyledBody, StyledContainer } from "./Styled";
 
-const getColumnMax = (data: any[], field: string, getValue: Function) => {
+const getColumnRange = (data: any[], field: string, getValue: Function) => {
   const valuesArr = data.reduce((arr, row) => {
     const value = getValue ? getValue(row) : row[field];
     const num = Number(value);
@@ -22,20 +22,7 @@ const getColumnMax = (data: any[], field: string, getValue: Function) => {
     arr.push(value);
     return arr;
   }, []);
-  return Math.max(...valuesArr);
-};
-
-const getColumnMin = (data: any[], field: string, getValue: Function) => {
-  const valuesArr = data.reduce((arr, row) => {
-    const value = getValue ? getValue(row) : row[field];
-    const num = Number(value);
-    if (Number.isNaN(num)) {
-      return arr;
-    }
-    arr.push(value);
-    return arr;
-  }, []);
-  return Math.min(...valuesArr);
+  return { min: Math.min(...valuesArr), max: Math.max(...valuesArr) };
 };
 
 const initialState = {
@@ -200,6 +187,16 @@ class Table extends React.Component<TableProps, TableState> {
         (currentPage + 1) * pageLength,
       );
     }
+    // the bars are relative to the whole column, so compute it once per column
+    const columnRanges = columns.map((column) =>
+      column.relativeBars
+        ? getColumnRange(
+            data,
+            column.field,
+            typeof column.sortFn === "function" ? column.sortFn : null,
+          )
+        : null,
+    );
     return (
       <StyledBody hoverRowColumn={hoverRowColumn} customWidth={customWidth}>
         {paginated && (
@@ -296,9 +293,8 @@ class Table extends React.Component<TableProps, TableState> {
                           if (relativeBars) {
                             // Relative bars calculates the max for the column
                             // and gets the percentage of value/max
-                            // TODO masad-frost memoize or something
-                            const min = getColumnMin(data, field, getValue);
-                            let max = getColumnMax(data, field, getValue);
+                            const { min } = columnRanges[colIndex]!;
+                            let { max } = columnRanges[colIndex]!;
                             let valueWithOffset = value;
                             if (!Number.isNaN(Number(min)) && min < 0) {
                               // Rescale to cater for columns with negatives

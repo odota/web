@@ -192,11 +192,11 @@ const PlayerHeader = ({
               loggedInId={loggedInUser && String(loggedInUser.account_id)}
               compact={!small}
             />
-            <div style={{ marginLeft: 8 }}>
+            <div className={styles.buttonsContainer}>
               <PlayerButtons playerId={playerId} />
             </div>
           </div>
-          <div style={{ display: "flex" }}>
+          <div className={styles.medalsContainer}>
             <DotaPlusBadge plus={plus} />
             <RankTierMedal
               rankTier={rankTier}

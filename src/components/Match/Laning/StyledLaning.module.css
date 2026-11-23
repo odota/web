@@ -34,6 +34,14 @@
   background: var(--od-primary-surface-color);
 }
 
+.laningPage.laningPage :global(.title) {
+  color: var(--od-text-color-secondary);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: uppercase;
+}
+
 .pageSection :global(.laning-heading) :global(.subtitle) svg {
   width: 14px !important;
   height: 14px !important;
@@ -110,6 +118,10 @@
   line-height: 1.5;
 }
 
+.tableCaption.heroComparisonHint {
+  font-family: var(--od-font-family-futuristic);
+}
+
 .summaryResult {
   margin: 16px 0 20px;
   padding: 18px 20px;
@@ -154,7 +166,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0 4px;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 1.6;
 }
 
@@ -209,7 +221,7 @@
 
 .summaryResult strong {
   color: var(--od-golden);
-  font-size: 22px;
+  font-size: inherit;
   font-variant-numeric: tabular-nums;
 }
 
@@ -307,9 +319,21 @@
   border-top: 1px solid rgba(100, 116, 139, 0.3);
 }
 
+.ultimateSummary.ultimateSummary table th,
+.ultimateSummary.ultimateSummary table td {
+  font-size: 13px;
+}
+
+.ultimateSummary.ultimateSummary table thead tr:first-child th {
+  font-size: 12px;
+  color: var(--od-text-color-secondary);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
 .ultimateSummary :global(.summary-item) {
   font-family: var(--od-font-family-futuristic);
-  font-size: 14px;
+  font-size: 13px;
   text-align: left;
 }
 
@@ -390,6 +414,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  vertical-align: middle;
 }
 
 .ultimateSummary h3 > :global(.summary-time) svg {
@@ -401,7 +426,6 @@
 .ultimateSummary.ultimateSummary:global(.level-six-timings)
   :global(.summary-time) {
   display: inline-flex;
-  align-items: center;
   gap: 4px;
   white-space: nowrap;
 }
@@ -410,9 +434,9 @@
   :global(.summary-time)
   svg {
   color: var(--od-color-blue);
-  font-size: inherit;
-  width: 1em;
-  height: 1em;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
 }
 
@@ -465,8 +489,10 @@
 .ultimateSummary h3 {
   margin: 0 0 10px;
   font-family: var(--od-font-family-futuristic);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--od-text-color-secondary);
+  text-transform: uppercase;
 }
 
 .summaryTeam {
@@ -527,7 +553,6 @@
 .heatmapPlayers legend {
   margin-bottom: 6px;
   font-family: var(--od-font-family-futuristic);
-  font-size: 16px;
 }
 
 .heatmapPlayers label {
@@ -537,7 +562,7 @@
   padding: 5px 6px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .heatmapPlayers label:hover {
@@ -598,7 +623,7 @@
   background: rgba(80, 140, 190, 0.1);
   color: var(--od-text-color-primary);
   font-family: var(--od-font-family-futuristic);
-  font-size: 16px;
+  font-size: 13px;
   line-height: 1.6;
   font-variant-numeric: tabular-nums;
 }

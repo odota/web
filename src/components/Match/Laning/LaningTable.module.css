@@ -5,11 +5,18 @@
 
 .teamTable:global(.laning-phase-table) table {
   font-family: var(--od-font-family-futuristic);
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .teamTable:global(.laning-phase-table) th {
   font-size: 13px;
+}
+
+.teamTable:global(.laning-phase-table) td:global(.stat) > svg,
+.teamTable:global(.laning-phase-table) td:global(.stat) > img,
+.teamTable:global(.laning-phase-table) tfoot td > svg,
+.teamTable:global(.laning-phase-table) tfoot td > img {
+  margin-left: 4px;
 }
 
 .teamTable:global(.laning-phase-table) :global(.xp),
@@ -24,7 +31,7 @@
 
 .teamTable h3 {
   margin: 0 0 6px;
-  font-size: 14px;
+  font-size: 13px;
   font-family: var(--od-font-family-futuristic);
 }
 
@@ -98,7 +105,7 @@
 }
 
 .teamTable:global(.last-hits-table) thead th {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .teamTable:global(.replay-comparison-table) table {
@@ -113,15 +120,15 @@
 }
 
 .teamTable:global(.replay-comparison-table) tbody td {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .teamTable:global(.replay-comparison-table) thead tr:first-child th {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .teamTable:global(.replay-comparison-table) :global(.player-identity) {
-  font-size: 14px;
+  font-size: 13px;
   justify-content: center;
 }
 
@@ -137,17 +144,16 @@
 }
 
 .teamTable:global(.replay-comparison-table):global(.level-six-table) table {
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 .teamTable:global(.replay-comparison-table):global(.level-six-table) th,
 .teamTable:global(.replay-comparison-table):global(.level-six-table) td {
-  width: 18%;
+  width: auto;
+  min-width: 130px;
 }
 
-.teamTable:global(.replay-comparison-table):global(.level-six-table)
-  th:first-child {
-  width: 10%;
+.teamTable:global(.replay-comparison-table):global(.level-six-table) th:first-child {
   text-align: left;
 }
 
@@ -155,9 +161,49 @@
   font-weight: 400;
 }
 
+.teamTable:global(.replay-comparison-table):global(.lane-summary-table) table {
+  width: 100%;
+}
+
 .teamTable:global(.replay-comparison-table):global(.lane-summary-table) th,
 .teamTable:global(.replay-comparison-table):global(.lane-summary-table) td {
-  width: 25%;
+  width: auto;
+  padding: 6px 10px;
+  font-weight: 400;
+}
+
+.teamTable:global(.replay-comparison-table):global(.lane-summary-table) td > span {
+  font-weight: 400;
+}
+
+.teamTable:global(.lane-summary-table) tbody th[scope="row"],
+.teamTable:global(.level-six-table) tbody th[scope="row"],
+.teamTable:global(.replay-comparison-table).laningActivityTable tbody td:first-child,
+.teamTable:global(.laning-phase-table) td:global(.lane-cell) {
+  font-weight: 400;
+}
+
+.teamTable:global(.replay-comparison-table):global(.lane-summary-table) thead tr:first-child th {
+  font-size: 12px;
+  color: var(--od-text-color-secondary);
+  text-transform: uppercase;
+}
+
+.teamTable:global(.lane-summary-table) img[src="/assets/images/dota2/gold.png"],
+.teamTable:global(.lane-summary-table) .laneAdvantageValue > svg {
+  margin-left: 4px;
+}
+
+.teamTable:global(.lane-summary-table) .laneAdvantageCell {
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  width: 12ch;
+}
+
+.teamTable:global(.lane-summary-table) .laneAdvantageValue {
+  font-variant-numeric: tabular-nums;
 }
 
 .teamTable:global(.replay-comparison-table) :global(.stat-comparison) {
@@ -171,6 +217,11 @@
   grid-column: 2;
   justify-self: center;
   white-space: nowrap;
+}
+
+.teamTable:global(.replay-comparison-table) :global(.stat-original) > svg,
+.teamTable:global(.replay-comparison-table) :global(.stat-original) > img {
+  margin-left: 4px;
 }
 
 .teamTable:global(.replay-comparison-table) :global(.stat-difference) {
@@ -225,7 +276,7 @@
 
 .teamTable th:global(.player),
 .teamTable td:global(.player) {
-  width: 25%;
+  width: 33.333%;
   min-width: 160px;
 }
 

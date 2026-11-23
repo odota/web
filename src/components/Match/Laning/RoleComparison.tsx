@@ -3,7 +3,7 @@ import LaneReplayComparison from "./LaneReplayComparison";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import GpsFixedIcon from "@mui/icons-material/GpsFixed";
 import BlockIcon from "@mui/icons-material/Block";
-import { formatTemplate, formatTemplateToString } from "../../../utility";
+import { formatTemplate } from "../../../utility";
 import { MetricSummary } from "./StyledHeroComparison";
 import constants from "../../constants";
 import React, { useState } from "react";
@@ -144,7 +144,7 @@ const RoleComparison = ({ match }: { match: Match }) => {
                   ? (Math.abs(values[0]) + Math.abs(values[1])) / 2 : null;
                 const percentDifference = difference === null || averageMagnitude === null
                   ? null : averageMagnitude === 0 ? 0 : Math.abs(difference) / averageMagnitude * 100;
-                return <tr key={label}><td><TooltipMetricIcon metric={icon} />{label}</td>{values.map((value, index) => <td key={index}><div className="stat-comparison"><span className="stat-original">{icon && <TooltipMetricIcon metric={icon} />}<strong>{formatStat(value)}</strong></span>{difference !== null && (index === 0 ? difference > 0 : difference < 0) && <span className="stat-difference" title={strings.laning_percentage_difference_hint}><LeadValue>{formatStat(Math.abs(difference))} <span className="stat-percentage"><LeadValue style={{ fontSize: "inherit" }}>{percentDifference?.toFixed(0)}% more</LeadValue></span></LeadValue></span>}</div></td>)}</tr>;
+                return <tr key={label}><td>{label}</td>{values.map((value, index) => <td key={index}><div className="stat-comparison"><span className="stat-original"><strong>{formatStat(value)}</strong>{icon && <TooltipMetricIcon metric={icon} />}</span>{difference !== null && (index === 0 ? difference > 0 : difference < 0) && <span className="stat-difference" title={strings.laning_percentage_difference_hint}><LeadValue>{formatStat(Math.abs(difference))} <span className="stat-percentage"><LeadValue style={{ fontSize: "inherit" }}>{percentDifference?.toFixed(0)}% more</LeadValue></span></LeadValue></span>}</div></td>)}</tr>;
               })}
               <tr>
                 <td>K/D/A</td>
@@ -168,8 +168,8 @@ const RoleComparison = ({ match }: { match: Match }) => {
                       const name = eventPlayer ? getPlayerIdentity(eventPlayer, strings).playerName
                         : hero?.localized_name ?? String(entry.key ?? "Unknown").replace(/^npc_dota_/, "").replace(/_/g, " ");
                       return <Tooltip key={index} title={<><strong>{field === "deaths_log" ? "Killed by " : ""}{name}</strong><small>{hero?.localized_name}{hero && " · "}{purchaseTime(entry.time)}</small></>} arrow placement="top" slotProps={replayTooltipSlots}><span tabIndex={0} style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
-                        {hero ? <img src={config.VITE_IMAGE_CDN + hero.icon} alt={hero.localized_name} width={32} height={32} /> : <span aria-label={name} style={{ fontSize: 16 }}>?</span>}
-                        <time style={{ fontSize: 14, lineHeight: "22px", fontWeight: 400, color: constants.textColorSecondary }}>{purchaseTime(entry.time)}</time>
+                        {hero ? <img src={config.VITE_IMAGE_CDN + hero.icon} alt={hero.localized_name} width={24} height={24} /> : <span aria-label={name} style={{ fontSize: 16 }}>?</span>}
+                        <time style={{ fontSize: 11, lineHeight: "16px", fontWeight: 400, color: constants.textColorSecondary }}>{purchaseTime(entry.time)}</time>
                       </span></Tooltip>;
                     })}</div>}</div>
                       </div>;
@@ -187,7 +187,7 @@ const RoleComparison = ({ match }: { match: Match }) => {
                   const previous = endMinute === 2 ? { upgrades: [] } : getReplaySkills(p, endMinute - 2);
                   const upgrades = skills && previous ? skills.upgrades.slice(previous.upgrades.length) : null;
                   return <div key={endMinute} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 4, maxWidth: "100%", padding: "6px 4px", borderRadius: 4, background: endMinute === minute ? "rgba(125, 200, 240, 0.14)" : undefined, borderLeft: endMinute === minute ? `2px solid ${constants.colorBlue}` : "2px solid transparent" }}>
-                    <time style={{ whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums", fontSize: 12, fontWeight: 400, color: constants.textColorSecondary }}>{endMinute - 2}:00–{endMinute}:00</time>
+                    <time style={{ whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums", fontSize: 11, fontWeight: 400, color: constants.textColorSecondary }}>{endMinute - 2}:00–{endMinute}:00</time>
                     <div>
                     {upgrades === null ? <div>—</div> : upgrades.length === 0 ? <div>None</div> : <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>{upgrades.map((upgrade, index) => {
                     const key = abilityIds[String(upgrade.ability) as keyof typeof abilityIds];
@@ -206,13 +206,13 @@ const RoleComparison = ({ match }: { match: Match }) => {
                 // Include starting items in the first interval.
                 const purchases = p.purchase_log.filter((entry) => Number.isFinite(entry.time) && entry.time <= endMinute * 60 && (endMinute === 2 || entry.time > (endMinute - 2) * 60));
                 return <div key={endMinute} style={{ display: "grid", gridTemplateColumns: "80px minmax(0, 1fr)", alignItems: "start", gap: 8, marginBottom: 8, padding: "6px 4px", borderRadius: 4, background: endMinute === minute ? "rgba(125, 200, 240, 0.14)" : undefined, borderLeft: endMinute === minute ? `2px solid ${constants.colorBlue}` : "2px solid transparent" }}>
-                  <time style={{ whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums", fontSize: 12, fontWeight: 400, color: constants.textColorSecondary }}>{endMinute - 2}:00–{endMinute}:00</time>
+                  <time style={{ whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums", fontSize: 11, fontWeight: 400, color: constants.textColorSecondary }}>{endMinute - 2}:00–{endMinute}:00</time>
                   {purchases.length === 0 ? <div>None</div> : <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>{purchases.map((entry, index) => {
                 const item = items[entry.key as keyof typeof items];
                 const name = item && "dname" in item ? item.dname : entry.key;
                 const boughtAt = Number.isFinite(entry.time) ? purchaseTime(entry.time) : "—";
                 return item ? <Tooltip key={index} title={<><strong>{name}</strong><small>Purchased at {boughtAt}</small></>} arrow placement="top" slotProps={replayTooltipSlots}><span className={styles.purchasedItem} tabIndex={0}>
-                  <img src={config.VITE_IMAGE_CDN + item.img} alt={name} width={48} height={36} />
+                  <img src={config.VITE_IMAGE_CDN + item.img} alt={name} width={40} height={30} />
                   <time aria-label={`Purchased at ${boughtAt}`}>{boughtAt}</time>
                 </span></Tooltip> : <Tooltip key={index} title={<><strong>{name}</strong><small>Purchased at {boughtAt}</small></>} arrow placement="top" slotProps={replayTooltipSlots}><span tabIndex={0}>{entry.key} <time>{boughtAt}</time></span></Tooltip>;
                   })}</div>}
@@ -250,13 +250,13 @@ const RoleComparison = ({ match }: { match: Match }) => {
           const [radiant, dire] = values;
           const difference = radiant !== null && dire !== null ? radiant - dire : null;
           const summaryKey = summaryKeys[index];
-          const keyword = (content: React.ReactNode) => <span className={`summary-keyword ${summaryKey}`}>{icons[index]} {content}</span>;
+          const keyword = (content: React.ReactNode) => <span className={`summary-keyword ${summaryKey}`}>{content} {icons[index]}</span>;
           return <li key={summaryKey}><div className="summary-item"><span>{formatTemplate(
             difference === null ? strings.laning_comparison_missing : difference === 0 ? strings.laning_comparison_tied : strings[`laning_${summaryKey}` as keyof Strings], {
               hero: renderHero(pair[difference !== null && difference > 0 ? 0 : 1]),
               opponent: renderHero(pair[difference !== null && difference > 0 ? 1 : 0]),
               metric: keyword(label),
-              advantage: keyword(formatTemplateToString(strings.laning_comparison_level_advantage, { value: difference === null ? "" : formatStat(Math.abs(difference)) })),
+              advantage: formatTemplate(strings.laning_comparison_level_advantage.replace("{value}-", "{value} "), { value: keyword(difference === null ? "" : formatStat(Math.abs(difference))) }),
               value: keyword(difference === null ? "" : formatStat(Math.abs(difference))),
             },
           )}</span></div></li>;
