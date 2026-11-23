@@ -104,10 +104,6 @@
   }
 }
 
-.drawerLink span,
-.linkGroupLink {
-  font-size: var(--od-font-size-medium) !important;
-}
 .drawerLink.active,
 .linkGroupLink.active {
   color: var(--od-primary-link-color);
