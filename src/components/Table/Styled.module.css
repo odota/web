@@ -232,6 +232,6 @@
   background: linear-gradient(
     90deg,
     var(--od-accent-soft),
-    rgba(200, 164, 93, 0.03)
+    var(--od-accent-faint)
   );
 }

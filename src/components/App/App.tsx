@@ -1,4 +1,5 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import type { ThemeOptions } from "@mui/material/styles";
 import React, { Suspense } from "react";
 import Helmet from "react-helmet";
 import { Route, Switch, withRouter } from "react-router-dom";
@@ -25,45 +26,59 @@ import Players from "../Players/Players";
 import Heroes from "../Heroes/Heroes";
 import useStrings from "../../hooks/useStrings.hook";
 import styles from "./App.module.css";
+import { readTheme, saveTheme } from "../../themePreference";
+import type { SiteTheme } from "../../themePreference";
 
 const Esports = React.lazy(() => import("../Esports/Esports"));
 const Status = React.lazy(() => import("../Status/Status"));
 const Explorer = React.lazy(() => import("../Explorer/Explorer"));
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: { main: "#C8A45D", light: "#E0BF7D", dark: "#92733B" },
-    secondary: { main: "#B8A4D9" },
-    background: { default: "#101012", paper: "#1B1B1F" },
-    text: { primary: "#E8E2D6", secondary: "#A6A29A" },
-    divider: "#443A28",
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          display: "flex-inline",
-          alignItems: "center",
-          textTransform: "none",
-          fontFamily: constants.fontFamilyFuturistic,
-          fontSize: constants.fontSizeSmall,
-          fontWeight: 300,
-          "&:hover": {
-            backgroundColor: "transparent",
-            filter: "brightness(0.85)",
-          },
+const themeComponents: ThemeOptions["components"] = {
+  MuiButton: {
+    styleOverrides: {
+      root: {
+        display: "flex-inline",
+        alignItems: "center",
+        textTransform: "none",
+        fontFamily: constants.fontFamilyFuturistic,
+        fontSize: constants.fontSizeSmall,
+        fontWeight: 300,
+        "&:hover": {
+          backgroundColor: "transparent",
+          filter: "brightness(0.85)",
         },
-        startIcon: {
-          marginRight: 2,
-          "& .MuiSvgIcon-root": {
-            fontSize: "1rem",
-          },
+      },
+      startIcon: {
+        marginRight: 2,
+        "& .MuiSvgIcon-root": {
+          fontSize: "1rem",
         },
       },
     },
   },
-});
+};
+
+const themes = {
+  black: createTheme({
+    palette: {
+      mode: "dark",
+      primary: { main: "#C8A45D", light: "#E0BF7D", dark: "#92733B" },
+      secondary: { main: "#B8A4D9" },
+      background: { default: "#101012", paper: "#1B1B1F" },
+      text: { primary: "#E8E2D6", secondary: "#A6A29A" },
+      divider: "#443A28",
+    },
+    components: themeComponents,
+  }),
+  blue: createTheme({
+    palette: {
+      mode: "dark",
+      primary: { main: "#6BF", light: "#9DD2FF", dark: "#337AB7" },
+      background: { default: "#171F37", paper: "#16283E" },
+    },
+    components: themeComponents,
+  }),
+};
 
 type AppProps = {
   location?: any;
@@ -75,6 +90,16 @@ declare let window: Window & { adsbygoogle: any };
 const App = (props: AppProps) => {
   const strings = useStrings();
   const { location, open } = props;
+  const [theme, setTheme] = React.useState(readTheme);
+
+  React.useLayoutEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
+
+  const changeTheme = (nextTheme: SiteTheme) => {
+    setTheme(nextTheme);
+    saveTheme(nextTheme);
+  };
 
   const back2Top = React.useRef<HTMLButtonElement>(null);
 
@@ -114,7 +139,7 @@ const App = (props: AppProps) => {
   const includeAds = !["/", "/api-keys", "/status"].includes(location.pathname);
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={themes[theme]}>
       <Suspense fallback={<Spinner />}>
         <div
           className={`${styles.styledDiv} ${open ? styles.styledDivOpen : ""} ${location?.pathname === "/" ? styles.styledDivHome : ""}`}
@@ -123,7 +148,7 @@ const App = (props: AppProps) => {
             defaultTitle={strings.title_default}
             titleTemplate={strings.title_template}
           />
-          <Header location={location} />
+          <Header location={location} theme={theme} onThemeChange={changeTheme} />
           <div className={styles.styledBodyDiv}>
             <Switch>
               <Route exact path="/" component={Home} />

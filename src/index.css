@@ -17,7 +17,7 @@ a {
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
 
   &:hover {
-    color: #E0BF7D;
+    color: var(--od-link-hover-color);
   }
 }
 
@@ -25,13 +25,8 @@ li {
   list-style-type: none;
 }
 
-:root {
-  --base-background: var(--opendota-blue);
-  --opendota-blue: #101012;
-}
-
 #root {
-  background: var(--base-background);
+  background: var(--od-page-background);
   color: var(--od-text-color-primary);
   height: 100%;
   min-height: 100vh;

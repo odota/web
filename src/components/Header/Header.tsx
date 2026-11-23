@@ -1,12 +1,19 @@
 import {
+  Collapse,
   IconButton,
   List,
   ListItem,
+  ListItemButton,
+  ListItemIcon,
   ListItemText,
   Menu,
   MenuItem,
   SwipeableDrawer,
 } from "@mui/material";
+import CheckIcon from "@mui/icons-material/Check";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import PaletteIcon from "@mui/icons-material/Palette";
 import BugReport from "@mui/icons-material/BugReport";
 import MenuIcon from "@mui/icons-material/Menu";
 import Settings from "@mui/icons-material/Settings";
@@ -17,6 +24,7 @@ import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
+import type { SiteTheme } from "../../themePreference";
 import config from "../../config";
 import AccountWidget from "../AccountWidget/AccountWidget";
 import AppLogo from "../App/AppLogo";
@@ -51,6 +59,61 @@ const LinkGroup = ({ navbarPages }: { navbarPages: any[] }) => (
       </div>
     ))}
   </div>
+);
+
+type ThemeSettingsProps = {
+  theme: SiteTheme;
+  onThemeChange: (theme: SiteTheme) => void;
+};
+
+const ThemeMenu = React.forwardRef<HTMLDivElement, ThemeSettingsProps>(
+  ({ theme, onThemeChange }, ref) => {
+    const strings = useStrings();
+    const [open, setOpen] = useState(false);
+    const options = [
+      { value: "black", label: strings.app_theme_black },
+      { value: "blue", label: strings.app_theme_blue },
+    ] as const;
+
+    return (
+      <div ref={ref} style={{ minWidth: "200px" }}>
+        <ListItemButton
+          aria-expanded={open}
+          onClick={(event) => {
+            event.stopPropagation();
+            setOpen((previous) => !previous);
+          }}
+        >
+          <ListItemIcon>
+            <PaletteIcon />
+          </ListItemIcon>
+          <ListItemText primary={strings.app_theme} />
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <List component="div">
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List disablePadding>
+              {options.map(({ value, label }) => (
+                <ListItem key={value}>
+                  <ListItemButton
+                    aria-pressed={theme === value}
+                    selected={theme === value}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      onThemeChange(value);
+                    }}
+                  >
+                    <ListItemText primary={label} />
+                    {theme === value && <CheckIcon aria-hidden="true" />}
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Collapse>
+        </List>
+      </div>
+    );
+  },
 );
 
 const SettingsGroup = ({ children }: { children: React.ReactNode }) => {
@@ -158,7 +221,9 @@ const LogOut = () => {
 const Header = ({
   location,
   disableSearch,
-}: {
+  theme,
+  onThemeChange,
+}: ThemeSettingsProps & {
   location: any;
   disableSearch?: boolean;
 }) => {
@@ -268,6 +333,7 @@ const Header = ({
             {small && <AccountGroup />}
             <SettingsGroup>
               <LocalizationMenu />
+              <ThemeMenu theme={theme} onThemeChange={onThemeChange} />
               <ReportBug />
               {user ? <LogOut /> : null}
             </SettingsGroup>
