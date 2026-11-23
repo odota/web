@@ -71,8 +71,8 @@ const ThemeMenu = React.forwardRef<HTMLDivElement, ThemeSettingsProps>(
     const strings = useStrings();
     const [open, setOpen] = useState(false);
     const options = [
-      { value: "black", label: strings.app_theme_black },
       { value: "blue", label: strings.app_theme_blue },
+      { value: "black", label: strings.app_theme_black },
     ] as const;
 
     return (
