@@ -12,6 +12,31 @@ import config from "../../../config";
 import useStrings from "../../../hooks/useStrings.hook";
 import styles from "./MatchHeader.module.css";
 
+const regionCountries: Record<number, string> = {
+  1: "us",
+  2: "us",
+  3: "lu",
+  5: "sg",
+  6: "ae",
+  7: "au",
+  8: "se",
+  9: "at",
+  10: "br",
+  11: "za",
+  12: "cn",
+  13: "cn",
+  14: "cl",
+  15: "pe",
+  16: "in",
+  17: "cn",
+  18: "cn",
+  19: "jp",
+  20: "cn",
+  25: "cn",
+  37: "tw",
+  38: "ar",
+};
+
 const getWinnerStyle = (radiantWin: boolean | undefined) => {
   if (radiantWin === null || radiantWin === undefined) {
     return styles.nowinner;
@@ -112,7 +137,13 @@ const MatchHeader = ({ match }: { match: Match }) => {
             </li>
             <li>
               <span className={styles.infoKey}>{strings.match_region}</span>
-              <span className={styles.infoValue}>
+              <span className={`${styles.infoValue} ${styles.regionValue}`}>
+                {regionCountries[match.region] && (
+                  <img
+                    src={`/assets/images/flags/${regionCountries[match.region]}.svg`}
+                    alt=""
+                  />
+                )}
                 {strings[`region_${match.region}` as keyof Strings] || "-"}
               </span>
             </li>

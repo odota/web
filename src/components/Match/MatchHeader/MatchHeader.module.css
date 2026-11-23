@@ -212,6 +212,18 @@
   color: var(--od-color-white);
 }
 
+.regionValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.regionValue img {
+  width: 16px;
+  height: 11px;
+  object-fit: contain;
+}
+
 .matchButtons {
   display: table;
   margin: 10px auto 0;
